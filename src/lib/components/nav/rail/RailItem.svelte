@@ -32,7 +32,7 @@
 	const isActive = $derived(
 		selected ||
 			page.url.pathname === href ||
-			(href !== '/' && page.url.pathname.startsWith(href)) ||
+			(href !== '/' && page.url.href.startsWith(href)) ||
 			page.url.href == href
 	);
 	const {
