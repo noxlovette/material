@@ -7,8 +7,8 @@ import type { HeadlineVariants } from './theme.js';
  */
 export type HeadlineProps = HeadlineVariants &
 	HTMLAttributes<HTMLElement> & {
-		/** 
-		 * Headline text content. 
+		/**
+		 * Headline text content.
 		 */
 		children: Snippet;
 		/**

@@ -3,7 +3,7 @@ import type {
 	ToolbarRootProps,
 	ToolbarButtonProps as BitsToolbarButtonProps,
 	ToolbarGroupProps as BitsToolbarGroupProps,
-	ToolbarGroupItemProps as BitsToolbarGroupItemProps,
+	ToolbarGroupItemProps as BitsToolbarGroupItemProps
 } from 'bits-ui';
 import type { IconProps } from '$lib/utils/index.js';
 import type { ToolbarVariants, ToolbarButtonVariants, ToolbarGroupItemVariants } from './theme.js';

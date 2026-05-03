@@ -69,7 +69,9 @@ export const button = tv({
 		{
 			usage: 'selection',
 			selected: true,
-			class: { base: 'bg-md-sys-color-primary text-md-sys-color-on-primary [--btn-shape-override:0.75rem]' }
+			class: {
+				base: 'bg-md-sys-color-primary text-md-sys-color-on-primary [--btn-shape-override:0.75rem]'
+			}
 		},
 		{
 			usage: 'selection',
@@ -277,7 +279,9 @@ export const buttonIcon = tv({
 		{
 			variation: 'toggle',
 			selected: true,
-			class: { base: 'bg-md-sys-color-primary text-md-sys-color-on-primary [--btn-shape-override:0.75rem]' }
+			class: {
+				base: 'bg-md-sys-color-primary text-md-sys-color-on-primary [--btn-shape-override:0.75rem]'
+			}
 		},
 		{
 			variation: 'toggle',

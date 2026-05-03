@@ -39,7 +39,7 @@
 </script>
 
 <NavigationMenu.Item class="flex h-full flex-1 justify-center">
-	<NavigationMenu.Link active={isActive} href={href}>
+	<NavigationMenu.Link active={isActive} {href}>
 		{#snippet child({ props })}
 			<a {...props} {...rest} class={rootClass}>
 				<div class={content()}>

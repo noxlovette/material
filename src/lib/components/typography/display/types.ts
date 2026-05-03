@@ -7,8 +7,8 @@ import type { DisplayVariants } from './theme.js';
  */
 export type DisplayProps = DisplayVariants &
 	HTMLAttributes<HTMLElement> & {
-		/** 
-		 * Display text content. 
+		/**
+		 * Display text content.
 		 */
 		children: Snippet;
 		/**

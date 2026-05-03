@@ -47,15 +47,15 @@
 }
 
 @utility md-sys-typescale-body-large {
-	@apply text-[16px] leading-[24px]  tracking-[0.5px];
+	@apply text-[16px] leading-[24px] tracking-[0.5px];
 }
 
 @utility md-sys-typescale-body-medium {
-	@apply text-[14px] leading-[20px]  tracking-[0.25px];
+	@apply text-[14px] leading-[20px] tracking-[0.25px];
 }
 
 @utility md-sys-typescale-body-small {
-	@apply text-[12px] leading-[16px]  tracking-[0.4px];
+	@apply text-[12px] leading-[16px] tracking-[0.4px];
 }
 
 @utility md-sys-typescale-fab-label {

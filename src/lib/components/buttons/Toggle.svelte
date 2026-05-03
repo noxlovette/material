@@ -25,13 +25,26 @@
 	}: ToggleMDProps = $props();
 
 	const { base, icon } = $derived(
-		button({ variant: 'filled', color: 'default', usage: 'selection', shape, size, selected: pressed })
+		button({
+			variant: 'filled',
+			color: 'default',
+			usage: 'selection',
+			shape,
+			size,
+			selected: pressed
+		})
 	);
 
 	const btnCls = $derived(base({ class: clsx(className) }));
 </script>
 
-<Toggle.Root bind:pressed {onPressedChange} {disabled} class={btnCls} {...(restProps as ToggleRootProps)}>
+<Toggle.Root
+	bind:pressed
+	{onPressedChange}
+	{disabled}
+	class={btnCls}
+	{...restProps as ToggleRootProps}
+>
 	{#if iconProps}
 		{#if loading}
 			<LoadingIndicator container class={icon()} />

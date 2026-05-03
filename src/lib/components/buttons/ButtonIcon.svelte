@@ -50,7 +50,13 @@
 <Tooltip {triggerClass} variant="snack" supportingText={tooltipContent}>
 	{#snippet trigger()}
 		{#if variation === 'toggle'}
-			<Toggle.Root bind:pressed {onPressedChange} {disabled} class={btnCls} {...(restProps as ToggleRootProps)}>
+			<Toggle.Root
+				bind:pressed
+				{onPressedChange}
+				{disabled}
+				class={btnCls}
+				{...restProps as ToggleRootProps}
+			>
 				{#if loading}
 					<LoadingIndicator />
 				{:else}
@@ -59,7 +65,7 @@
 				{/if}
 			</Toggle.Root>
 		{:else}
-			<Button.Root {disabled} {formaction} class={btnCls} {...(restProps as ButtonRootProps)}>
+			<Button.Root {disabled} {formaction} class={btnCls} {...restProps as ButtonRootProps}>
 				{#if loading}
 					<LoadingIndicator />
 				{:else}

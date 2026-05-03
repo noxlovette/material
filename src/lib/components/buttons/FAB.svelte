@@ -62,7 +62,13 @@
 		/>
 	</div>
 {:else}
-	<Button.Root {disabled} {formaction} class={btnCls} onclick={handleClick} {...(restProps as ButtonRootProps)}>
+	<Button.Root
+		{disabled}
+		{formaction}
+		class={btnCls}
+		onclick={handleClick}
+		{...restProps as ButtonRootProps}
+	>
 		<Icon {...iconProps} class={icon()} />
 		<Layer />
 		{#if expanded}

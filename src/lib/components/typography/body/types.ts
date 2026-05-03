@@ -6,8 +6,8 @@ import type { BodyVariants } from './theme.js';
  * Props for the Body typography component.
  */
 export interface BodyProps extends BodyVariants, HTMLAttributes<HTMLParagraphElement> {
-	/** 
-	 * Body text content. 
+	/**
+	 * Body text content.
 	 */
 	children: Snippet;
 	/**

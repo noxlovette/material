@@ -1,15 +1,15 @@
 <script lang="ts">
 	/**
 	 * Context menus appear on right-click and provide actions related to the clicked element.
-	 * 
+	 *
 	 * @example
 	 * ```svelte
-	 * <ContextMenu 
+	 * <ContextMenu
 	 *   items={[
 	 *     { label: 'Edit', value: 'edit', iconProps: { name: 'edit' } },
 	 *     { separator: true },
 	 *     { label: 'Delete', value: 'delete', color: 'error' }
-	 *   ]} 
+	 *   ]}
 	 *   onselect={(value) => console.log(value)}
 	 * >
 	 *   <div class="p-10 bg-surface">Right click me</div>
@@ -62,10 +62,7 @@
 				</div>
 				<Icon name="chevron_right" class={theme.rightSlot()} />
 			</BitsContextMenu.SubTrigger>
-			<BitsContextMenu.SubContent
-				forceMount
-				class={theme.content()}
-			>
+			<BitsContextMenu.SubContent forceMount class={theme.content()}>
 				{#snippet child({ props, open })}
 					{#if open}
 						<div
@@ -124,10 +121,7 @@
 	</BitsContextMenu.Trigger>
 
 	<BitsContextMenu.Portal>
-		<BitsContextMenu.Content
-			forceMount
-			class={theme.content()}
-		>
+		<BitsContextMenu.Content forceMount class={theme.content()}>
 			{#snippet child({ props, open })}
 				{#if open}
 					<div

@@ -36,7 +36,6 @@
 
 	const id = $props.id();
 
-
 	let picker = $state(false);
 	let anchorEl = $state<HTMLDivElement>();
 </script>

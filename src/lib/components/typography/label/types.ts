@@ -10,8 +10,8 @@ export type LabelVariants = VariantProps<typeof label>;
  */
 export type LabelProps = LabelVariants &
 	HTMLAttributes<HTMLElement> & {
-		/** 
-		 * Label text content. 
+		/**
+		 * Label text content.
 		 */
 		children: Snippet;
 		/**

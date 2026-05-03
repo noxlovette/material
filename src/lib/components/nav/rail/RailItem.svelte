@@ -59,7 +59,9 @@
 	}
 </script>
 
-<NavigationMenu.Item class={['flex w-full items-center', collapsed && 'justify-center'].filter(Boolean).join(' ')}>
+<NavigationMenu.Item
+	class={['flex w-full items-center', collapsed && 'justify-center'].filter(Boolean).join(' ')}
+>
 	<NavigationMenu.Link active={isActive} href={hrefValue}>
 		{#snippet child({ props })}
 			<a

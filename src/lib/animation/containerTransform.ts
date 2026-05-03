@@ -157,8 +157,7 @@ export const containerTransform = ({
 				);
 				container.e.style.backgroundColor = `rgba(${interpColor.join(',')})`;
 				container.e.style.borderRadius = (t * fromRadius + u * toRadius).toFixed(1) + 'px';
-				container.e.style.borderWidth =
-					(t * fromBorderWidth + u * toBorderWidth).toFixed(1) + 'px';
+				container.e.style.borderWidth = (t * fromBorderWidth + u * toBorderWidth).toFixed(1) + 'px';
 				const interpBorder = [0, 0, 0, 0].map((_, i) =>
 					Math.trunc(t * fromBorderColor[i] + u * toBorderColor[i])
 				);

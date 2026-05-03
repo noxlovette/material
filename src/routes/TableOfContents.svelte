@@ -24,7 +24,7 @@
 </script>
 
 <nav class="flex flex-col gap-0.5 p-4 pt-12">
-	<p class="mb-3 px-3 text-xs font-medium uppercase tracking-wider text-md-sys-color-outline">
+	<p class="mb-3 px-3 text-xs font-medium tracking-wider text-md-sys-color-outline uppercase">
 		On this page
 	</p>
 	{#each sections as { id, label }}

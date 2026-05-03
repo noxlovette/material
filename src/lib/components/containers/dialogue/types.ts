@@ -18,9 +18,9 @@ export type DialogueProps = DialogueVariants &
 		headline?: string;
 		/** The label for the confirmation button. */
 		confirmText: string;
-		/** 
-		 * Optional additional content to be rendered between the supporting text 
-		 * and the action buttons. 
+		/**
+		 * Optional additional content to be rendered between the supporting text
+		 * and the action buttons.
 		 */
 		children?: Snippet;
 		/** Optional form action for the confirm button. */

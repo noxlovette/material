@@ -21,12 +21,7 @@
 	const cls = selectCls();
 </script>
 
-<Select.Item
-	{value}
-	label={label ?? value}
-	{disabled}
-	class={cls.item({ class: className })}
->
+<Select.Item {value} label={label ?? value} {disabled} class={cls.item({ class: className })}>
 	{#snippet children({ selected, highlighted })}
 		{#if children}
 			{@render children({ selected, highlighted })}

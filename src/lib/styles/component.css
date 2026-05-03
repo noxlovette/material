@@ -1,7 +1,8 @@
 @layer utilities {
 	.md-component-button-base {
-		@apply state-layer relative inline-flex  items-center justify-center md-sys-state-focus-indicator select-none disabled:cursor-not-allowed disabled:bg-md-sys-color-on-surface/10 disabled:text-md-sys-color-on-surface/38 disabled:before:bg-md-sys-color-on-surface/38;
-		transition: box-shadow var(--md-sys-motion-duration, 200ms) var(--md-sys-motion-timing-function, cubic-bezier(0.34, 0.8, 0.34, 1));
+		@apply state-layer relative inline-flex items-center justify-center md-sys-state-focus-indicator select-none disabled:cursor-not-allowed disabled:bg-md-sys-color-on-surface/10 disabled:text-md-sys-color-on-surface/38 disabled:before:bg-md-sys-color-on-surface/38;
+		transition: box-shadow var(--md-sys-motion-duration, 200ms)
+			var(--md-sys-motion-timing-function, cubic-bezier(0.34, 0.8, 0.34, 1));
 	}
 
 	.md-btn-morph {
@@ -14,7 +15,10 @@
 		}
 
 		&:active:not(:disabled) {
-			border-radius: var(--btn-pressed-shape, var(--btn-shape-override, var(--btn-shape, 9999px))) !important;
+			border-radius: var(
+				--btn-pressed-shape,
+				var(--btn-shape-override, var(--btn-shape, 9999px))
+			) !important;
 			transition-timing-function: var(--md-sys-motion-timing-function-emphasized-decel);
 		}
 	}
@@ -94,7 +98,8 @@
 
 	.text-link {
 		@apply text-md-sys-color-primary underline hover:text-md-sys-color-secondary;
-		transition: color var(--md-sys-motion-duration, 200ms) var(--md-sys-motion-timing-function, cubic-bezier(0.34, 0.8, 0.34, 1));
+		transition: color var(--md-sys-motion-duration, 200ms)
+			var(--md-sys-motion-timing-function, cubic-bezier(0.34, 0.8, 0.34, 1));
 	}
 
 	.text-link.md-sys-typescale-label-small {
@@ -118,6 +123,7 @@
 @utility state-layer {
 	@apply before:pointer-events-none before:absolute before:inset-0 before:content-[''];
 	&::before {
-		transition: background-color var(--md-sys-motion-duration-fast, 150ms) var(--md-sys-motion-timing-function, cubic-bezier(0.34, 0.8, 0.34, 1));
+		transition: background-color var(--md-sys-motion-duration-fast, 150ms)
+			var(--md-sys-motion-timing-function, cubic-bezier(0.34, 0.8, 0.34, 1));
 	}
 }

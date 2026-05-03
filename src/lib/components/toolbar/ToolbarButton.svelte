@@ -8,7 +8,12 @@
 	import { toolbarButton } from './theme.js';
 	import type { ToolbarButtonProps } from './types.js';
 
-	let { iconProps, disabled = false, class: className, ...restProps }: ToolbarButtonProps = $props();
+	let {
+		iconProps,
+		disabled = false,
+		class: className,
+		...restProps
+	}: ToolbarButtonProps = $props();
 
 	const { base, icon } = toolbarButton();
 </script>

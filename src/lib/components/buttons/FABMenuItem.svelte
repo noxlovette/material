@@ -21,7 +21,7 @@
 	const btnCls = $derived(base({ class: clsx(className) }));
 </script>
 
-<Button.Root {formaction} class={btnCls} {...(restProps as ButtonRootProps)}>
+<Button.Root {formaction} class={btnCls} {...restProps as ButtonRootProps}>
 	{#if iconProps}
 		{#if loading}
 			<LoadingIndicator />

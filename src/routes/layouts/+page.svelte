@@ -29,13 +29,15 @@
 		<SinglePane class="p-12" contentClass="gap-8">
 			<Display>Single Pane Layout</Display>
 			<Body>
-				The Single Pane layout is the simplest canonical layout. It's used for focused tasks or simple content.
+				The Single Pane layout is the simplest canonical layout. It's used for focused tasks or
+				simple content.
 			</Body>
 
 			<Card class="p-6">
 				<Title>Content Card</Title>
 				<Body>
-					In a Single Pane layout, content usually flows vertically and is centered or left-aligned within a container.
+					In a Single Pane layout, content usually flows vertically and is centered or left-aligned
+					within a container.
 				</Body>
 			</Card>
 
@@ -56,7 +58,10 @@
 					<Body>Left pane width: {leftWidth}px</Body>
 					<div class="flex flex-col">
 						{#each Array(10) as _, i}
-							<ListItem headline="List Item {i + 1}" supporting="Supporting text for item {i + 1}" />
+							<ListItem
+								headline="List Item {i + 1}"
+								supporting="Supporting text for item {i + 1}"
+							/>
 						{/each}
 					</div>
 				</div>
@@ -72,7 +77,8 @@
 					<Card class="p-6">
 						<Title>Detail View</Title>
 						<Body>
-							Select an item from the left pane to see details here. The handle between panes allows resizing.
+							Select an item from the left pane to see details here. The handle between panes allows
+							resizing.
 						</Body>
 					</Card>
 
@@ -90,14 +96,13 @@
 			{#snippet main()}
 				<div class="flex flex-col gap-8 p-12">
 					<Display>Supporting Pane Layout</Display>
-					<Body>
-						The main content area is where the primary task or information is presented.
-					</Body>
+					<Body>The main content area is where the primary task or information is presented.</Body>
 
 					<Card class="p-6">
 						<Title>Primary Content</Title>
 						<Body>
-							This layout is great for complex apps where you need additional context or tools available but not always in the way.
+							This layout is great for complex apps where you need additional context or tools
+							available but not always in the way.
 						</Body>
 					</Card>
 
@@ -107,12 +112,12 @@
 								<Title>Data Block {i + 1}</Title>
 								<Body>Detailed information about this specific block of data.</Body>
 							</Card>
-						{#each Array(4) as _, i}
-							<Card type="filled" class="p-4">
-								<Title>Data Block {i + 5}</Title>
-								<Body>Detailed information about this specific block of data.</Body>
-							</Card>
-						{/each}
+							{#each Array(4) as _, i}
+								<Card type="filled" class="p-4">
+									<Title>Data Block {i + 5}</Title>
+									<Body>Detailed information about this specific block of data.</Body>
+								</Card>
+							{/each}
 						{/each}
 					</div>
 				</div>
@@ -122,7 +127,8 @@
 				<div class="flex flex-col gap-4 p-6">
 					<Title>Supporting Info</Title>
 					<Body>
-						This side pane provides extra context, metadata, or secondary actions related to the main content.
+						This side pane provides extra context, metadata, or secondary actions related to the
+						main content.
 					</Body>
 					<Divider />
 					<Label>Metadata</Label>
@@ -151,7 +157,10 @@
 				<ScrollArea class="flex-1">
 					<div class="flex flex-col gap-1 p-2">
 						{#each Array(50) as _, i}
-							<ListItem headline="Scroll Item {i + 1}" supporting="Detailed description for index {i}" />
+							<ListItem
+								headline="Scroll Item {i + 1}"
+								supporting="Detailed description for index {i}"
+							/>
 						{/each}
 					</div>
 				</ScrollArea>
@@ -168,7 +177,11 @@
 			<ToggleGroup type="single" bind:value={variant}>
 				<ToggleGroupItem value="single" label="Single" iconProps={{ name: 'square' }} />
 				<ToggleGroupItem value="split" label="Split" iconProps={{ name: 'vertical_split' }} />
-				<ToggleGroupItem value="supporting" label="Supporting" iconProps={{ name: 'side_navigation' }} />
+				<ToggleGroupItem
+					value="supporting"
+					label="Supporting"
+					iconProps={{ name: 'side_navigation' }}
+				/>
 				<ToggleGroupItem value="scroll" label="Scroll Area" iconProps={{ name: 'unfold_more' }} />
 			</ToggleGroup>
 		</Card>

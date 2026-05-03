@@ -87,16 +87,13 @@
 		aria-orientation="horizontal"
 	>
 		<div class={lineClass}></div>
-		<span class="md-sys-typescale-label-small whitespace-nowrap text-md-sys-color-on-surface-variant">
+		<span
+			class="md-sys-typescale-label-small whitespace-nowrap text-md-sys-color-on-surface-variant"
+		>
 			{@render children?.()}
 		</span>
 		<div class={lineClass}></div>
 	</div>
 {:else}
-	<Separator.Root
-		{...restProps}
-		{orientation}
-		{decorative}
-		class={clsx(styling, className)}
-	/>
+	<Separator.Root {...restProps} {orientation} {decorative} class={clsx(styling, className)} />
 {/if}

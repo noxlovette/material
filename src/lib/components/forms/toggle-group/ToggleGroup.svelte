@@ -18,7 +18,7 @@
 		loop = true,
 		orientation = 'horizontal',
 		children,
-		class: className,
+		class: className
 	}: ToggleGroupProps = $props();
 
 	const cls = $derived(toggleGroup({ orientation }));

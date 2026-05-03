@@ -12,7 +12,8 @@
 
 <div class="flex flex-col">
 	<div class="flex items-center justify-between p-6">
-		<span class="md-sys-typescale-title-large text-md-sys-color-on-surface-variant">{headline}</span>
+		<span class="md-sys-typescale-title-large text-md-sys-color-on-surface-variant">{headline}</span
+		>
 		<ButtonIcon variant="text" iconProps={{ name: 'close' }} onclick={close} />
 	</div>
 	{@render children()}

@@ -7,8 +7,8 @@ import type { TitleVariants } from './theme.js';
  */
 export type TitleProps = TitleVariants &
 	HTMLAttributes<HTMLElement> & {
-		/** 
-		 * Title text content. 
+		/**
+		 * Title text content.
 		 */
 		children: Snippet;
 		/**

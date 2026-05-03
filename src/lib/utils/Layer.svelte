@@ -148,7 +148,13 @@
 			const isActivate = e.key === 'Enter' || (e.key === ' ' && layer.tagName === 'BUTTON');
 			if (!isActivate) return;
 			const rect = layer.getBoundingClientRect();
-			const cancel = createRippleSvg(layer, rect.width / 2, rect.height / 2, rect.width, rect.height);
+			const cancel = createRippleSvg(
+				layer,
+				rect.width / 2,
+				rect.height / 2,
+				rect.width,
+				rect.height
+			);
 			if (cancel) activeKeyboardRipples.push(cancel);
 		});
 
@@ -188,13 +194,14 @@
 
 		background-color: currentColor;
 		opacity: 0;
-		transition: opacity var(--md-sys-motion-duration-fast, 150ms) var(--md-sys-motion-timing-function, cubic-bezier(0.34, 0.8, 0.34, 1));
+		transition: opacity var(--md-sys-motion-duration-fast, 150ms)
+			var(--md-sys-motion-timing-function, cubic-bezier(0.34, 0.8, 0.34, 1));
 
 		&:not(
-				:global(input:disabled + label) > .tint,
-				:global(input:disabled + .layer-container) > .tint,
-				:global(:disabled) > .tint
-			) {
+			:global(input:disabled + label) > .tint,
+			:global(input:disabled + .layer-container) > .tint,
+			:global(:disabled) > .tint
+		) {
 			@media (hover: hover) {
 				&:is(:global(:hover) > .tint, :global(:active) > .tint) {
 					opacity: 0.08;

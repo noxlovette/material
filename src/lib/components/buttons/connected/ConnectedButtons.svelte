@@ -8,9 +8,6 @@
 	let { children, ...rest }: ConnectedButtonsProps = $props();
 </script>
 
-<div
-	class="grid grid-flow-col auto-cols-fr gap-0.5 overflow-hidden rounded-full"
-	{...rest}
->
+<div class="grid auto-cols-fr grid-flow-col gap-0.5 overflow-hidden rounded-full" {...rest}>
 	{@render children()}
 </div>

@@ -13,36 +13,36 @@ export type ActionProps =
  * Lists are continuous, vertical indexes of text or images.
  */
 export type ListitemProps = {
-	/** 
+	/**
 	 * Optional leading slot, typically used for an icon, avatar, or checkbox.
 	 */
 	leading?: Snippet;
-	/** 
+	/**
 	 * Whether the list item is in a selected state.
 	 */
 	selected?: boolean;
-	/** 
+	/**
 	 * Optional overline text displayed above the headline.
 	 */
 	overline?: string | null;
-	/** 
+	/**
 	 * The primary headline text of the list item.
 	 */
 	headline?: string;
-	/** 
+	/**
 	 * Supporting text content displayed below the headline.
 	 */
 	supporting?: string | null;
-	/** 
+	/**
 	 * Optional trailing slot, typically used for an icon, metadata, or switch.
 	 */
 	trailing?: Snippet;
-	/** 
+	/**
 	 * The number of text lines to reserve space for.
 	 * If not provided, it's calculated based on presence of overline and supporting text.
 	 */
 	lines?: 1 | 2 | 3;
-	/** 
+	/**
 	 * If true, the component will not wrap its content in an `<li>` element.
 	 * Useful for when the parent already provides the list item container.
 	 */

@@ -78,7 +78,7 @@
 	{#snippet main()}
 		<div class="flex flex-col gap-16 p-12">
 			<!-- BUTTONS -->
-			<section id="buttons" class="flex flex-col gap-6 scroll-mt-4">
+			<section id="buttons" class="flex scroll-mt-4 flex-col gap-6">
 				<Display>Buttons</Display>
 				<Headline>Regular Buttons</Headline>
 				<div class="grid grid-cols-6 items-center gap-y-12">
@@ -147,7 +147,7 @@
 			</section>
 
 			<!-- TOOLTIPS -->
-			<section id="tooltips" class="flex flex-col gap-6 scroll-mt-4">
+			<section id="tooltips" class="flex scroll-mt-4 flex-col gap-6">
 				<Display>Tooltips</Display>
 				<div class="flex flex-wrap items-center gap-6">
 					<ButtonIcon
@@ -170,7 +170,7 @@
 			</section>
 
 			<!-- CARDS -->
-			<section id="cards" class="flex flex-col gap-6 scroll-mt-4">
+			<section id="cards" class="flex scroll-mt-4 flex-col gap-6">
 				<Display>Cards</Display>
 				<div class="flex gap-4">
 					<Card class="p-4">
@@ -189,12 +189,13 @@
 			</section>
 
 			<!-- DIALOGUES -->
-			<section id="dialogues" class="flex flex-col gap-6 scroll-mt-4">
+			<section id="dialogues" class="flex scroll-mt-4 flex-col gap-6">
 				<Display>Dialogues</Display>
 				<div class="flex flex-wrap gap-4">
 					<Button onclick={() => (showModal = !showModal)}>Simple Dialogue</Button>
 					<Button variant="tonal" onclick={() => (showModal2 = !showModal2)}>With Headline</Button>
-					<Button variant="outlined" onclick={() => (showModal3 = !showModal3)}>Long Content</Button>
+					<Button variant="outlined" onclick={() => (showModal3 = !showModal3)}>Long Content</Button
+					>
 				</div>
 				{#if showModal}
 					<Dialogue
@@ -229,7 +230,7 @@
 			</section>
 
 			<!-- POPOVER -->
-			<section id="popover" class="flex flex-col gap-6 scroll-mt-4">
+			<section id="popover" class="flex scroll-mt-4 flex-col gap-6">
 				<Display>Popover</Display>
 				<div class="flex flex-wrap items-start gap-6">
 					<Popover title="Быстрые действия">
@@ -263,7 +264,7 @@
 			</section>
 
 			<!-- TOOLBAR -->
-			<section id="toolbar" class="flex flex-col gap-6 scroll-mt-4">
+			<section id="toolbar" class="flex scroll-mt-4 flex-col gap-6">
 				<Display>Toolbar</Display>
 				<div class="flex flex-col gap-6">
 					<div class="flex flex-col gap-2">
@@ -304,7 +305,7 @@
 			</section>
 
 			<!-- TOGGLE GROUP -->
-			<section id="toggle-group" class="flex flex-col gap-6 scroll-mt-4">
+			<section id="toggle-group" class="flex scroll-mt-4 flex-col gap-6">
 				<Display>Toggle Group</Display>
 				<div class="flex flex-col gap-6">
 					<div class="flex flex-col gap-2">
@@ -321,7 +322,11 @@
 						<Label>Multiple select with icons</Label>
 						<ToggleGroup type="multiple" bind:value={segmentMulti}>
 							<ToggleGroupItem value="bold" label="Bold" iconProps={{ name: 'format_bold' }} />
-							<ToggleGroupItem value="italic" label="Italic" iconProps={{ name: 'format_italic' }} />
+							<ToggleGroupItem
+								value="italic"
+								label="Italic"
+								iconProps={{ name: 'format_italic' }}
+							/>
 							<ToggleGroupItem value="link" label="Link" iconProps={{ name: 'link' }} />
 						</ToggleGroup>
 						<Body>Active: {segmentMulti.join(', ') || '—'}</Body>
@@ -339,7 +344,7 @@
 			</section>
 
 			<!-- MENU -->
-			<section id="menu" class="flex flex-col gap-6 scroll-mt-4">
+			<section id="menu" class="flex scroll-mt-4 flex-col gap-6">
 				<Display>Menu</Display>
 				<div class="flex gap-4">
 					<Menu
@@ -362,7 +367,7 @@
 			</section>
 
 			<!-- PILLS -->
-			<section id="pill" class="flex flex-col gap-6 scroll-mt-4">
+			<section id="pill" class="flex scroll-mt-4 flex-col gap-6">
 				<Display>Pills</Display>
 				<Headline>Variants</Headline>
 				<div class="flex flex-wrap items-center gap-4">
@@ -390,7 +395,7 @@
 			</section>
 
 			<!-- SNACKBAR -->
-			<section id="snackbar" class="flex flex-col gap-6 scroll-mt-4">
+			<section id="snackbar" class="flex scroll-mt-4 flex-col gap-6">
 				<Display>Snackbar</Display>
 				<div class="flex gap-4">
 					<Button onclick={() => (snackbarMsg = 'Это уведомление исчезнет через 5 секунд')}>
@@ -419,7 +424,7 @@
 			</section>
 
 			<!-- PROGRESS -->
-			<section id="progress" class="flex flex-col gap-6 scroll-mt-4">
+			<section id="progress" class="flex scroll-mt-4 flex-col gap-6">
 				<Display>Progress</Display>
 				<Headline>Linear Progress</Headline>
 				<div class="flex max-w-xl flex-col gap-6">
@@ -445,20 +450,20 @@
 			</section>
 
 			<!-- BADGES & AVATAR -->
-			<section id="badges" class="flex flex-col gap-6 scroll-mt-4">
+			<section id="badges" class="flex scroll-mt-4 flex-col gap-6">
 				<Display>Badges & Avatars</Display>
 				<div class="flex flex-wrap items-center gap-8">
 					<div class="relative inline-flex">
 						<ButtonIcon iconProps={{ name: 'notifications' }} variant="text" />
-						<Badge size="sm" number={1} class="absolute -right-1 -top-1" />
+						<Badge size="sm" number={1} class="absolute -top-1 -right-1" />
 					</div>
 					<div class="relative inline-flex">
 						<ButtonIcon iconProps={{ name: 'mail' }} variant="text" />
-						<Badge size="lg" number={5} class="absolute -right-1 -top-1" />
+						<Badge size="lg" number={5} class="absolute -top-1 -right-1" />
 					</div>
 					<div class="relative inline-flex">
 						<ButtonIcon iconProps={{ name: 'chat' }} variant="text" />
-						<Badge size="lg" number={120} class="absolute -right-1 -top-1" />
+						<Badge size="lg" number={120} class="absolute -top-1 -right-1" />
 					</div>
 					<Avatar seed="alice" size="sm" />
 					<Avatar seed="bob" size="md" />
@@ -467,7 +472,7 @@
 			</section>
 
 			<!-- LISTS -->
-			<section id="lists" class="flex flex-col gap-6 scroll-mt-4">
+			<section id="lists" class="flex scroll-mt-4 flex-col gap-6">
 				<Display>Lists</Display>
 				<div class="grid grid-cols-2 gap-4">
 					<ul class="max-w-5xl">
@@ -482,7 +487,11 @@
 					</ul>
 					<ul class="max-w-5xl">
 						{#each Array(5).fill( { headline: 'Task', supporting: 'Adipisicing ullamco veniam enim aliqua cupidatat velit deserunt ipsum.', href: '/' } ) as lesson}
-							<ListItem headline={lesson.headline} supporting={lesson.supporting} href={lesson.href}>
+							<ListItem
+								headline={lesson.headline}
+								supporting={lesson.supporting}
+								href={lesson.href}
+							>
 								{#snippet trailing()}
 									<Icon name="check" />
 								{/snippet}

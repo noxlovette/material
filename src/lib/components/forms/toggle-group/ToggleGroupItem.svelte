@@ -14,7 +14,7 @@
 		label,
 		iconProps,
 		disabled = false,
-		class: className,
+		class: className
 	}: ToggleGroupItemProps = $props();
 
 	const { base, checkIcon, icon } = toggleGroupItem();

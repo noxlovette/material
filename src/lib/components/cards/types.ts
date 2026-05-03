@@ -14,9 +14,9 @@ export type CardProps = CardVariants &
 	HTMLAnchorAttributes & {
 		/** The content to be rendered inside the card. */
 		children: Snippet;
-		/** 
-		 * An optional URL that the card should link to. 
-		 * If provided, the card will be rendered as an `<a>` element. 
+		/**
+		 * An optional URL that the card should link to.
+		 * If provided, the card will be rendered as an `<a>` element.
 		 */
 		href?: string;
 		/**
