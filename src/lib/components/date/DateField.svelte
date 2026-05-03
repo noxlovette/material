@@ -4,82 +4,55 @@
 	 *
 	 * @see https://m3.material.io/components/date-pickers/guidelines
 	 */
-	import { buttonIcon, Textfield, type DateFieldProps } from '$lib/components/index.js';
-	import DatePickerDocked from './DatePickerDocked.svelte';
-	import { clickOutside, positionFloating } from '$lib/actions/index.js';
-	import { enterExit } from '$lib/animation/enterExit.js';
-	import { easeEmphasizedDecel, easeEmphasizedAccel } from '$lib/animation/easing.js';
-	import { Calendar, DatePicker } from 'bits-ui';
+	import { DatePicker } from 'bits-ui';
 	import ButtonIcon from '../buttons/ButtonIcon.svelte';
-	import Icon from '$lib/utils/icon/Icon.svelte';
 	import Layer from '$lib/utils/Layer.svelte';
-	import Label from '../typography/label/Label.svelte';
-	import { textfield } from '$lib/components/index.js';
-	import { tv } from 'tailwind-variants';
+	import type { DateFieldProps } from './types.ts';
+	import { dateField } from './theme.ts';
 
-	let {
-		value = $bindable(),
-		required = false,
-		disabled = false,
-		error = false,
-		supportingText
-	}: DateFieldProps = $props();
-
-	const dateField = tv({
-		slots: {
-			base: `
-				group w-full h-14 bg-md-sys-color-surface-container-highest rounded-t-xs
-				after:absolute after:bottom-0 after:left-0 after:right-0
-				relative
-				state-layer before:rounded-xs hover:before:bg-md-sys-color-on-surface/8
-				flex items-center
-				after:h-px after:bg-md-sys-color-on-surface-variant
-				after:transition-[height,background-color] after:duration-200
-				hover:after:bg-md-sys-color-on-surface
-				focus-within:after:bg-md-sys-color-primary focus-within:after:h-[2px]
-				disabled:bg-md-sys-color-on-surface/4
-				disabled:after:bg-md-sys-color-on-surface/12
-				justify-between
-			`,
-			input: `
-				w-full bg-transparent outline-none
-				md-sys-typescale-body-large text-md-sys-color-on-surface
-				disabled:text-md-sys-color-on-surface/38 px-3 flex items-center
-			`
-		}
-	});
+	let { value = $bindable(), required = false, disabled = false }: DateFieldProps = $props();
 
 	const { base, input } = $derived(dateField());
 </script>
 
-<DatePicker.Root weekStartsOn={1} weekdayFormat="short" fixedWeeks>
+<DatePicker.Root
+	bind:value
+	weekStartsOn={1}
+	{required}
+	{disabled}
+	locale="ru"
+	weekdayFormat="short"
+	fixedWeeks
+>
 	<div class={base()}>
 		<DatePicker.Input class={input()}>
 			{#snippet children({ segments })}
-				{#each segments as { part, value }}
-					{#if part === 'literal'}
-						<DatePicker.Segment
-							{part}
-							class="px-1.5 text-md-sys-color-on-surface-variant select-none"
-						>
-							{value}
-						</DatePicker.Segment>
-					{:else}
-						<DatePicker.Segment
-							{part}
-							class="cursor-default rounded-xs px-1 py-0.5 text-md-sys-color-on-surface
+				<div class="justify-betwee flex w-full tabular-nums">
+					{#each segments as { part, value }}
+						{#if part === 'literal'}
+							<DatePicker.Segment
+								{part}
+								class="px-1.5 text-md-sys-color-on-surface-variant select-none"
+							>
+								{value}
+							</DatePicker.Segment>
+						{:else}
+							<DatePicker.Segment
+								{part}
+								class="cursor-default rounded-xs px-1 py-0.5 text-md-sys-color-on-surface
 								   transition-colors duration-100
 								   select-none
 								   hover:bg-md-sys-color-on-surface/8
 								   focus:bg-md-sys-color-primary-container
-								   focus:text-md-sys-color-on-primary-container focus:outline
+								   focus:text-md-sys-color-on-primary-container
 								   focus:outline-2 focus:outline-md-sys-color-primary focus-visible:ring-0!
 								   focus-visible:ring-offset-0! aria-[valuetext=Empty]:text-md-sys-color-on-surface-variant"
-						>
-							{value}
-						</DatePicker.Segment>
-					{/if}
-				{/each}
+							>
+								{value}
+							</DatePicker.Segment>
+						{/if}
+					{/each}
+				</div>
 				<DatePicker.Trigger>
 					<ButtonIcon variant="bare" iconProps={{ name: 'calendar_month' }} />
 				</DatePicker.Trigger>

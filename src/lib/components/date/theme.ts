@@ -1,72 +1,25 @@
 import { tv } from 'tailwind-variants';
 
-export const datetimepicker = tv({
+export const dateField = tv({
 	slots: {
-		base: 'flex relative overflow-hidden flex-col bg-md-sys-color-surface-container-high w-[360px] h-[460px] rounded-lg px-3 justify-between shadow-elevation-3 pb-3',
-		buttons: 'pt-2 -my-2 -mx-2 flex '
-	}
-});
-
-export const headerpicker = tv({
-	slots: {
-		base: 'flex justify-between items-center pt-5 pb-7.5 z-10',
-		buttonWrapper: 'flex group',
-		button: 'text-md-sys-color-on-surface-variant disabled:opacity-38',
-		icon: 'size-6 text-[24px] text-md-sys-color-on-surface',
-		centralButton:
-			'flex-1 inline-flex text-md-sys-color-on-surface-variant disabled:opacity-40 size-6 items-center justify-center md-sys-typescale-label-large relative px-10'
-	},
-	variants: {
-		choosing: {
-			true: '',
-			false: ''
-		}
-	}
-});
-
-export const calendarpicker = tv({
-	slots: {
-		base: 'grid grid-cols-7 gap-1 items-center justify-center',
-		item: 'disabled:text-md-sys-color-on-surface/38 inline-flex size-10 items-center justify-center rounded-full relative md-sys-typescale-body-large ',
-		weekday:
-			'md-sys-typescale-body-large text-sys-color-on-surface inline-flex items-center justify-center pb-2 size-10'
-	},
-	variants: {
-		selected: {
-			true: {
-				item: 'text-md-sys-color-on-primary bg-md-sys-color-primary'
-			},
-			false: { item: 'text-md-sys-color-on-surface' }
-		},
-		today: {
-			true: {
-				item: 'outline outline-md-sys-color-primary text-md-sys-color-primary'
-			},
-			false: ''
-		}
-	},
-	compoundVariants: [
-		{
-			selected: true,
-			today: true,
-			class: {
-				item: 'text-md-sys-color-on-primary'
-			}
-		}
-	]
-});
-
-export const focuspicker = tv({
-	slots: {
-		base: 'flex flex-col overflow-auto mb-5 flex-[1_0]',
-		item: 'text-md-sys-color-on-surface md-sys-typescale-body-large inline-flex h-12 relative gap-4 shrink-0 items-center'
-	},
-	variants: {
-		selected: {
-			true: {
-				item: 'text-md-sys-color-on-surface-variant bg-md-sys-color-surface-variant'
-			},
-			false: { item: 'text-md-sys-color-on-surface' }
-		}
+		base: `
+				group w-full h-14 bg-md-sys-color-surface-container-highest rounded-t-xs
+				after:absolute after:bottom-0 after:left-0 after:right-0
+				relative
+				state-layer before:rounded-xs hover:before:bg-md-sys-color-on-surface/8
+				flex items-center
+				after:h-px after:bg-md-sys-color-on-surface-variant
+				after:transition-[height,background-color] after:duration-200
+				hover:after:bg-md-sys-color-on-surface
+				focus-within:after:bg-md-sys-color-primary focus-within:after:h-[2px]
+				disabled:bg-md-sys-color-on-surface/4
+				disabled:after:bg-md-sys-color-on-surface/12
+				justify-between
+			`,
+		input: `
+				w-full bg-transparent outline-none
+				md-sys-typescale-body-large text-md-sys-color-on-surface
+				disabled:text-md-sys-color-on-surface/38 px-3 flex items-center
+			`
 	}
 });
