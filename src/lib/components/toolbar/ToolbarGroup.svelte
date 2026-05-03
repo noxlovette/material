@@ -1,7 +1,8 @@
+<!--
+@component
+A toggle group within a Toolbar. Manages single or multiple selection.
+-->
 <script lang="ts">
-	/**
-	 * A toggle group within a Toolbar. Manages single or multiple selection.
-	 */
 	import { Toolbar } from 'bits-ui';
 	import clsx from 'clsx';
 	import { toolbar } from './theme.js';

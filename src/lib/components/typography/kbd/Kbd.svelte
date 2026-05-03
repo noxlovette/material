@@ -1,7 +1,8 @@
+<!--
+@component
+Kbd component is used to display keyboard shortcuts or hints.
+-->
 <script lang="ts">
-	/**
-	 * Kbd component is used to display keyboard shortcuts or hints.
-	 */
 	import { kbd } from './theme.js';
 
 	import clsx from 'clsx';

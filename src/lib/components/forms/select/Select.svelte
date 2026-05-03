@@ -1,12 +1,13 @@
+<!--
+@component
+Material 3 Select.
+
+Select components allow users to choose one option from a list.
+Powered by bits-ui for accessibility and behavior.
+
+@see https://m3.material.io/components/menus/overview
+-->
 <script lang="ts" generics="T extends string | string[]">
-	/**
-	 * Material 3 Select.
-	 *
-	 * Select components allow users to choose one option from a list.
-	 * Powered by bits-ui for accessibility and behavior.
-	 *
-	 * @see https://m3.material.io/components/menus/overview
-	 */
 	import { Select } from 'bits-ui';
 	import { select as selectCls } from './theme.js';
 	import { Icon } from '$lib/utils/index.js';

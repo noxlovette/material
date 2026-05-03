@@ -1,9 +1,10 @@
+<!--
+@component
+Toolbar provides a horizontal (or vertical) container for grouped actions.
+
+@see https://m3.material.io/components/toolbars
+-->
 <script lang="ts">
-	/**
-	 * Toolbar provides a horizontal (or vertical) container for grouped actions.
-	 *
-	 * @see https://m3.material.io/components/toolbars
-	 */
 	import { Toolbar } from 'bits-ui';
 	import clsx from 'clsx';
 	import { toolbar } from './theme.js';

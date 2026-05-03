@@ -1,9 +1,10 @@
+<!--
+@component
+Menu items represent options within a menu.
+
+@see https://m3.material.io/components/menus/guidelines
+-->
 <script lang="ts">
-	/**
-	 * Menu items represent options within a menu.
-	 *
-	 * @see https://m3.material.io/components/menus/guidelines
-	 */
 	import type { MenuItemProps } from './types.js';
 	import Icon from '$lib/utils/icon/Icon.svelte';
 	import Layer from '$lib/utils/Layer.svelte';

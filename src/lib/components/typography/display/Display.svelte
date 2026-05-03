@@ -1,10 +1,11 @@
+<!--
+@component
+Display components are the largest text on the screen, reserved for short, important text or numerals.
+Follows Material 3 Display typography styles.
+
+@see https://m3.material.io/styles/typography/overview#08f23783-0941-4c74-9844-3d0da7e74287
+-->
 <script lang="ts">
-	/**
-	 * Display components are the largest text on the screen, reserved for short, important text or numerals.
-	 * Follows Material 3 Display typography styles.
-	 *
-	 * @see https://m3.material.io/styles/typography/overview#08f23783-0941-4c74-9844-3d0da7e74287
-	 */
 	import clsx from 'clsx';
 
 	import { display } from './theme.js';

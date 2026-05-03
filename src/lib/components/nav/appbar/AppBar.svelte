@@ -1,12 +1,13 @@
+<!--
+@component
+Material 3 App Bar.
+
+Top app bars provide content and actions related to the current screen.
+They’re used for branding, screen titles, navigation, and actions.
+
+@see https://m3.material.io/components/top-app-bar/overview
+-->
 <script lang="ts">
-	/**
-	 * Material 3 App Bar.
-	 *
-	 * Top app bars provide content and actions related to the current screen.
-	 * They’re used for branding, screen titles, navigation, and actions.
-	 *
-	 * @see https://m3.material.io/components/top-app-bar/overview
-	 */
 	import { appbar } from './theme.js';
 	import type { AppBarProps } from './types.js';
 	import clsx from 'clsx';

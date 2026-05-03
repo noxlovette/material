@@ -1,7 +1,8 @@
+<!--
+@component
+ScrollArea is a custom scrollbar component based on Bits UI.
+-->
 <script lang="ts">
-	/**
-	 * ScrollArea is a custom scrollbar component based on Bits UI.
-	 */
 	import { ScrollArea as BitsScrollArea } from 'bits-ui';
 	import { scrollArea } from './theme.js';
 	import type { ScrollAreaProps } from './types.js';

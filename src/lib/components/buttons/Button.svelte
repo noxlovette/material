@@ -1,15 +1,16 @@
+<!--
+@component
+Buttons help people take actions, such as sending an email, sharing a document, or liking a comment.
+
+- Filled: High emphasis
+- Tonal: Medium-high emphasis
+- Outlined: Medium emphasis
+- Text: Low emphasis
+- Elevated: High emphasis
+
+@see https://m3.material.io/components/all-buttons
+-->
 <script lang="ts">
-	/**
-	 * Buttons help people take actions, such as sending an email, sharing a document, or liking a comment.
-	 *
-	 * - Filled: High emphasis
-	 * - Tonal: Medium-high emphasis
-	 * - Outlined: Medium emphasis
-	 * - Text: Low emphasis
-	 * - Elevated: High emphasis
-	 *
-	 * @see https://m3.material.io/components/all-buttons
-	 */
 	import type { ButtonMDProps } from './types.js';
 	import { Icon, LoadingIndicator, Layer } from '$lib/utils/index.js';
 	import { button } from './theme.js';

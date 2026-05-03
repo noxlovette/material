@@ -1,9 +1,10 @@
+<!--
+@component
+Material 3 Pin Input.
+
+Pin inputs allow users to enter a multi-digit code, such as an OTP or a security PIN.
+-->
 <script lang="ts">
-	/**
-	 * Material 3 Pin Input.
-	 *
-	 * Pin inputs allow users to enter a multi-digit code, such as an OTP or a security PIN.
-	 */
 	import { PinInput } from 'bits-ui';
 	import { pinInput } from './theme.js';
 	import type { PinInputProps } from './types.js';

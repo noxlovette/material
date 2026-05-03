@@ -1,10 +1,11 @@
+<!--
+@component
+TimepickerInput component provides the internal UI for selecting hours and minutes.
+It follows the Material 3 design for time input pickers.
+
+@see https://m3.material.io/components/time-pickers/specs#66113b8d-698d-4ef3-9993-97992797666e
+-->
 <script lang="ts">
-	/**
-	 * TimepickerInput component provides the internal UI for selecting hours and minutes.
-	 * It follows the Material 3 design for time input pickers.
-	 *
-	 * @see https://m3.material.io/components/time-pickers/specs#66113b8d-698d-4ef3-9993-97992797666e
-	 */
 	import { TimeField } from 'bits-ui';
 	import { parseTime } from '@internationalized/date';
 	import type { Time } from '@internationalized/date';

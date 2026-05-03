@@ -1,8 +1,9 @@
+<!--
+@component
+A single segment within a ToggleGroup.
+Shows a leading check icon when selected, per M3 segmented button spec.
+-->
 <script lang="ts">
-	/**
-	 * A single segment within a ToggleGroup.
-	 * Shows a leading check icon when selected, per M3 segmented button spec.
-	 */
 	import { ToggleGroup } from 'bits-ui';
 	import clsx from 'clsx';
 	import { Icon, Layer } from '$lib/utils/index.js';

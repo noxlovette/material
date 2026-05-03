@@ -1,11 +1,12 @@
+<!--
+@component
+Material 3 Switch.
+
+Switches toggle the state of a single setting on or off.
+
+@see https://m3.material.io/components/switch/overview
+-->
 <script lang="ts">
-	/**
-	 * Material 3 Switch.
-	 *
-	 * Switches toggle the state of a single setting on or off.
-	 *
-	 * @see https://m3.material.io/components/switch/overview
-	 */
 	import clsx from 'clsx';
 	import { Icon } from '$lib/utils/index.js';
 	import { toggle } from './theme.js';

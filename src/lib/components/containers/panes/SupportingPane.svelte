@@ -1,9 +1,10 @@
+<!--
+@component
+SupportingPane provides a layout with a main content area and a supporting side pane.
+
+@see https://m3.material.io/foundations/layout/canonical-layouts/supporting-pane
+-->
 <script lang="ts">
-	/**
-	 * SupportingPane provides a layout with a main content area and a supporting side pane.
-	 *
-	 * @see https://m3.material.io/foundations/layout/canonical-layouts/supporting-pane
-	 */
 	import clsx from 'clsx';
 	import type { SupportingPaneProps } from './types.js';
 	import { supportingPane } from './theme.js';

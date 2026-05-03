@@ -1,9 +1,10 @@
+<!--
+@component
+Menus display a list of choices on temporary surfaces.
+
+@see https://m3.material.io/components/menus/guidelines
+-->
 <script lang="ts">
-	/**
-	 * Menus display a list of choices on temporary surfaces.
-	 *
-	 * @see https://m3.material.io/components/menus/guidelines
-	 */
 	import { DropdownMenu } from 'bits-ui';
 	import clsx from 'clsx';
 	import { textfield } from '../../forms/index.js';

@@ -1,14 +1,15 @@
+<!--
+@component
+Icon buttons help people take minor actions and are often used in app bars.
+
+- Standard: Low emphasis
+- Filled: High emphasis
+- Filled Tonal: Medium-high emphasis
+- Outlined: Medium emphasis
+
+@see https://m3.material.io/components/icon-buttons/overview
+-->
 <script lang="ts">
-	/**
-	 * Icon buttons help people take minor actions and are often used in app bars.
-	 *
-	 * - Standard: Low emphasis
-	 * - Filled: High emphasis
-	 * - Filled Tonal: Medium-high emphasis
-	 * - Outlined: Medium emphasis
-	 *
-	 * @see https://m3.material.io/components/icon-buttons/overview
-	 */
 	import type { ButtonIconProps } from './types.js';
 	import { Icon, LoadingIndicator, Layer } from '$lib/utils/index.js';
 	import { buttonIcon } from './theme.js';

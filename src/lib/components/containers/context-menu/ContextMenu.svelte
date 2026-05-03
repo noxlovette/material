@@ -1,23 +1,24 @@
+<!--
+@component
+Context menus appear on right-click and provide actions related to the clicked element.
+
+@example
+```svelte
+<ContextMenu
+  items={[
+    { label: 'Edit', value: 'edit', iconProps: { name: 'edit' } },
+    { separator: true },
+    { label: 'Delete', value: 'delete', color: 'error' }
+  ]}
+  onselect={(value) => console.log(value)}
+>
+  <div class="p-10 bg-surface">Right click me</div>
+</ContextMenu>
+```
+
+@see https://m3.material.io/components/menus/guidelines
+-->
 <script lang="ts">
-	/**
-	 * Context menus appear on right-click and provide actions related to the clicked element.
-	 *
-	 * @example
-	 * ```svelte
-	 * <ContextMenu
-	 *   items={[
-	 *     { label: 'Edit', value: 'edit', iconProps: { name: 'edit' } },
-	 *     { separator: true },
-	 *     { label: 'Delete', value: 'delete', color: 'error' }
-	 *   ]}
-	 *   onselect={(value) => console.log(value)}
-	 * >
-	 *   <div class="p-10 bg-surface">Right click me</div>
-	 * </ContextMenu>
-	 * ```
-	 *
-	 * @see https://m3.material.io/components/menus/guidelines
-	 */
 	import { ContextMenu as BitsContextMenu } from 'bits-ui';
 	import { contextMenu } from './theme.js';
 	import type { ContextMenuProps, ContextMenuDataItem } from './types.js';

@@ -1,11 +1,12 @@
+<!--
+@component
+Material 3 Text Field.
+
+Text fields allow users to enter and edit text.
+
+@see https://m3.material.io/components/text-fields/overview
+-->
 <script lang="ts">
-	/**
-	 * Material 3 Text Field.
-	 *
-	 * Text fields allow users to enter and edit text.
-	 *
-	 * @see https://m3.material.io/components/text-fields/overview
-	 */
 	import clsx from 'clsx';
 	import { Icon } from '$lib/utils/index.js';
 	import { textfield } from './theme.js';

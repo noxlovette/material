@@ -1,7 +1,8 @@
+<!--
+@component
+SinglePane provides a centered or full-width container for content.
+-->
 <script lang="ts">
-	/**
-	 * SinglePane provides a centered or full-width container for content.
-	 */
 	import clsx from 'clsx';
 	import { singlePane } from './theme.js';
 	import type { SinglePaneProps } from './types.js';

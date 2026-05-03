@@ -1,9 +1,10 @@
+<!--
+@component
+@component
+Multipart file upload component that supports chunked uploads for large files.
+Follows Material 3 design principles for file uploaders.
+-->
 <script lang="ts">
-	/**
-	 * @component
-	 * Multipart file upload component that supports chunked uploads for large files.
-	 * Follows Material 3 design principles for file uploaders.
-	 */
 	import { onDestroy } from 'svelte';
 	import { Icon, formatPercentage, Layer } from '$lib/utils/index.js';
 	import { ButtonIcon, CircularProgress, Label, Title, HStack } from '$lib/components/index.js';

@@ -1,9 +1,10 @@
+<!--
+@component
+Checkboxes let users select one or more items from a list, or turn an item on or off.
+
+@see https://m3.material.io/components/checkbox/overview
+-->
 <script lang="ts">
-	/**
-	 * Checkboxes let users select one or more items from a list, or turn an item on or off.
-	 *
-	 * @see https://m3.material.io/components/checkbox/overview
-	 */
 	import clsx from 'clsx';
 	import { checkbox } from './theme.js';
 	import type { CheckboxProps } from './types.js';

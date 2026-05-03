@@ -5,7 +5,6 @@
 		Title,
 		Headline,
 		Body,
-		Label,
 		Textfield,
 		DateField,
 		LoadingIndicator,

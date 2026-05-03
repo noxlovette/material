@@ -1,8 +1,9 @@
+<!--
+@component
+A menu container for multiple FAB actions.
+Should be used with `FABMenuItem` as children.
+-->
 <script lang="ts">
-	/**
-	 * A menu container for multiple FAB actions.
-	 * Should be used with `FABMenuItem` as children.
-	 */
 	import clsx from 'clsx';
 	import { fabMenu } from './theme.js';
 	import type { FABMenuProps } from './types.js';

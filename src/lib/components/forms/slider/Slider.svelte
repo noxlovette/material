@@ -1,11 +1,12 @@
+<!--
+@component
+Material 3 Slider.
+
+Sliders allow users to make selections from a range of values.
+
+@see https://m3.material.io/components/sliders/overview
+-->
 <script lang="ts">
-	/**
-	 * Material 3 Slider.
-	 *
-	 * Sliders allow users to make selections from a range of values.
-	 *
-	 * @see https://m3.material.io/components/sliders/overview
-	 */
 	import { Slider } from 'bits-ui';
 	import clsx from 'clsx';
 	import { Icon } from '$lib/utils/index.js';

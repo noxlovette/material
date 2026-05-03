@@ -1,9 +1,10 @@
+<!--
+@component
+Radio buttons let users select one option from a set.
+
+@see https://m3.material.io/components/radio-button/overview
+-->
 <script lang="ts">
-	/**
-	 * Radio buttons let users select one option from a set.
-	 *
-	 * @see https://m3.material.io/components/radio-button/overview
-	 */
 	import clsx from 'clsx';
 	import { RadioGroup } from 'bits-ui';
 	import { Layer } from '$lib/utils/index.js';

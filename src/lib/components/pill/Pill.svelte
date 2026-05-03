@@ -1,7 +1,8 @@
+<!--
+@component
+Pill component that can take various shapes.
+-->
 <script lang="ts">
-	/**
-	 * Pill component that can take various shapes.
-	 */
 	import * as shapes from '../../animation/shapes.js';
 	import { pill } from './theme.js';
 	import type { PillProps, ShapeName } from './types.js';

@@ -1,7 +1,8 @@
+<!--
+@component
+HStack is a horizontal flex container.
+-->
 <script lang="ts">
-	/**
-	 * HStack is a horizontal flex container.
-	 */
 	import clsx from 'clsx';
 	import { stack } from './theme.js';
 	import type { StackProps } from './types.js';

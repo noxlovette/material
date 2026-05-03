@@ -1,11 +1,12 @@
+<!--
+@component
+Material 3 Search Bar.
+
+Search bars allow users to enter a query to find specific information within an app.
+
+@see https://m3.material.io/components/search/overview
+-->
 <script lang="ts">
-	/**
-	 * Material 3 Search Bar.
-	 *
-	 * Search bars allow users to enter a query to find specific information within an app.
-	 *
-	 * @see https://m3.material.io/components/search/overview
-	 */
 	import { search } from './theme.js';
 	import clsx from 'clsx';
 	import type { SearchProps } from './types.js';

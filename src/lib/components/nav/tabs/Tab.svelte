@@ -1,9 +1,10 @@
+<!--
+@component
+A single tab trigger within a TabHolder.
+Renders as <a> when href is provided (navigation tabs),
+otherwise as <button> (content-panel tabs).
+-->
 <script lang="ts">
-	/**
-	 * A single tab trigger within a TabHolder.
-	 * Renders as <a> when href is provided (navigation tabs),
-	 * otherwise as <button> (content-panel tabs).
-	 */
 	import { Icon, Layer } from '$lib/utils/index.js';
 	import { tab } from './theme.js';
 	import type { TabProps } from './types.js';

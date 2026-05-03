@@ -1,12 +1,13 @@
+<!--
+@component
+Badges communicate a notification count or status for an element.
+
+Small badges are used for a general notification.
+Large badges are used for specific counts.
+
+@see https://m3.material.io/components/badges/overview
+-->
 <script lang="ts">
-	/**
-	 * Badges communicate a notification count or status for an element.
-	 *
-	 * Small badges are used for a general notification.
-	 * Large badges are used for specific counts.
-	 *
-	 * @see https://m3.material.io/components/badges/overview
-	 */
 	import clsx from 'clsx';
 	import { badge } from './theme.js';
 	import type { BadgeProps } from './types.js';

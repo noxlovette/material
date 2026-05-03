@@ -1,10 +1,11 @@
+<!--
+@component
+A toggle button that switches between pressed and unpressed states.
+Uses Material 3 selection button styling.
+
+@see https://m3.material.io/components/all-buttons
+-->
 <script lang="ts">
-	/**
-	 * A toggle button that switches between pressed and unpressed states.
-	 * Uses Material 3 selection button styling.
-	 *
-	 * @see https://m3.material.io/components/all-buttons
-	 */
 	import type { ToggleMDProps } from './types.js';
 	import { Icon, LoadingIndicator, Layer } from '$lib/utils/index.js';
 	import { button } from './theme.js';

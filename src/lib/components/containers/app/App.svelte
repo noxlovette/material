@@ -1,8 +1,9 @@
+<!--
+@component
+The core App wrapper that gives default backgrounds and sets up tooltips and icons.
+Also providers auto-detect for dark mode
+-->
 <script lang="ts">
-	/**
-	 * The core App wrapper that gives default backgrounds and sets up tooltips and icons.
-	 * Also providers auto-detect for dark mode
-	 */
 	import { MaterialSymbolsProvider } from '$lib/utils/index.js';
 	import { Tooltip } from 'bits-ui';
 	import { app } from './theme.ts';

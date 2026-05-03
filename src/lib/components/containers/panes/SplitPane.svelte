@@ -1,7 +1,8 @@
+<!--
+@component
+SplitPane provides a resizable two-column layout.
+-->
 <script lang="ts">
-	/**
-	 * SplitPane provides a resizable two-column layout.
-	 */
 	import type { SplitPaneProps } from './types.js';
 	import { splitPane } from './theme.js';
 	import { onDestroy, onMount } from 'svelte';

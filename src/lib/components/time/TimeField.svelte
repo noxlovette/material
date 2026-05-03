@@ -1,10 +1,11 @@
+<!--
+@component
+TimeField component provides a text input that opens a Timepicker overlay when interacted with.
+It combines a Material 3 Textfield with a TimepickerInput for intuitive time selection.
+
+@see https://m3.material.io/components/time-pickers/overview
+-->
 <script lang="ts">
-	/**
-	 * TimeField component provides a text input that opens a Timepicker overlay when interacted with.
-	 * It combines a Material 3 Textfield with a TimepickerInput for intuitive time selection.
-	 *
-	 * @see https://m3.material.io/components/time-pickers/overview
-	 */
 	import type { HTMLInputAttributes } from 'svelte/elements';
 	import { Textfield, TimepickerInput } from '$lib/components/index.js';
 	import { clickOutside, positionFloating } from '$lib/actions/index.js';

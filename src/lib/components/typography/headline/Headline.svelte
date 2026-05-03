@@ -1,10 +1,11 @@
+<!--
+@component
+Headlines are best-suited for short, high-emphasis text on smaller screens.
+Follows Material 3 Headline typography styles.
+
+@see https://m3.material.io/styles/typography/overview#073998f4-6e19-4847-987a-397f3729e16d
+-->
 <script lang="ts">
-	/**
-	 * Headlines are best-suited for short, high-emphasis text on smaller screens.
-	 * Follows Material 3 Headline typography styles.
-	 *
-	 * @see https://m3.material.io/styles/typography/overview#073998f4-6e19-4847-987a-397f3729e16d
-	 */
 	import clsx from 'clsx';
 
 	import { headline } from './theme.js';

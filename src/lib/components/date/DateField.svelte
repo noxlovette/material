@@ -1,9 +1,10 @@
+<!--
+@component
+DateField is a text field that allows users to enter a date or pick it from a calendar.
+
+@see https://m3.material.io/components/date-pickers/guidelines
+-->
 <script lang="ts">
-	/**
-	 * DateField is a text field that allows users to enter a date or pick it from a calendar.
-	 *
-	 * @see https://m3.material.io/components/date-pickers/guidelines
-	 */
 	import { DatePicker } from 'bits-ui';
 	import ButtonIcon from '../buttons/ButtonIcon.svelte';
 	import Layer from '$lib/utils/Layer.svelte';

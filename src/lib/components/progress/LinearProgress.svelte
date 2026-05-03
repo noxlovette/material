@@ -1,9 +1,10 @@
+<!--
+@component
+Material 3 Linear Progress Indicator.
+
+@see https://m3.material.io/components/progress-indicators/overview#linear-progress-indicators
+-->
 <script lang="ts">
-	/**
-	 * Material 3 Linear Progress Indicator.
-	 *
-	 * @see https://m3.material.io/components/progress-indicators/overview#linear-progress-indicators
-	 */
 	import clsx from 'clsx';
 	import { tv } from 'tailwind-variants';
 	import { Progress } from 'bits-ui';

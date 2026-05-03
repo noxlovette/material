@@ -1,14 +1,15 @@
+<!--
+@component
+Floating action buttons (FABs) help people take primary actions.
+
+- Regular: Standard size
+- Small: For secondary actions
+- Large: For prominent actions
+- Extended: Includes a text label
+
+@see https://m3.material.io/components/floating-action-button/overview
+-->
 <script lang="ts">
-	/**
-	 * Floating action buttons (FABs) help people take primary actions.
-	 *
-	 * - Regular: Standard size
-	 * - Small: For secondary actions
-	 * - Large: For prominent actions
-	 * - Extended: Includes a text label
-	 *
-	 * @see https://m3.material.io/components/floating-action-button/overview
-	 */
 	import clsx from 'clsx';
 	import { fab } from './theme.js';
 	import type { FABProps } from './types.js';

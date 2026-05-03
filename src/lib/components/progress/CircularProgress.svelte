@@ -1,9 +1,10 @@
+<!--
+@component
+Material 3 Circular Progress Indicator.
+
+@see https://m3.material.io/components/progress-indicators/overview#circular-progress-indicators
+-->
 <script lang="ts">
-	/**
-	 * Material 3 Circular Progress Indicator.
-	 *
-	 * @see https://m3.material.io/components/progress-indicators/overview#circular-progress-indicators
-	 */
 	import { Progress } from 'bits-ui';
 
 	let {

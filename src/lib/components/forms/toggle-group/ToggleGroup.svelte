@@ -1,10 +1,11 @@
+<!--
+@component
+Toggle group renders as M3 segmented buttons — a continuous pill of
+connected toggle items for filtering or mode selection.
+
+@see https://m3.material.io/components/segmented-buttons/overview
+-->
 <script lang="ts">
-	/**
-	 * Toggle group renders as M3 segmented buttons — a continuous pill of
-	 * connected toggle items for filtering or mode selection.
-	 *
-	 * @see https://m3.material.io/components/segmented-buttons/overview
-	 */
 	import { ToggleGroup } from 'bits-ui';
 	import clsx from 'clsx';
 	import { toggleGroup } from './theme.js';

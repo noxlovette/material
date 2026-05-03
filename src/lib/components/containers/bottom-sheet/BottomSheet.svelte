@@ -1,12 +1,13 @@
+<!--
+@component
+Bottom sheets are surfaces containing supplementary content that are anchored to the bottom of the screen.
+
+They provide access to supplementary content and actions, such as navigation or a menu,
+while keeping the main screen content visible.
+
+@see https://m3.material.io/components/bottom-sheets/overview
+-->
 <script lang="ts">
-	/**
-	 * Bottom sheets are surfaces containing supplementary content that are anchored to the bottom of the screen.
-	 *
-	 * They provide access to supplementary content and actions, such as navigation or a menu,
-	 * while keeping the main screen content visible.
-	 *
-	 * @see https://m3.material.io/components/bottom-sheets/overview
-	 */
 	import type { BottomSheetProps } from './types.js';
 	import type { TransitionConfig } from 'svelte/transition';
 	import { easeEmphasizedAccel, easeEmphasizedDecel } from '$lib/animation/easing.js';

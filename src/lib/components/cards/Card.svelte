@@ -1,13 +1,14 @@
+<!--
+@component
+Cards contain content and actions about a single subject.
+
+Material 3 cards come in three types: elevated, filled, and outlined.
+They can be used to display information, provide a way for users to interact with it,
+and serve as an entry point to more detailed information.
+
+@see https://m3.material.io/components/cards/overview
+-->
 <script lang="ts">
-	/**
-	 * Cards contain content and actions about a single subject.
-	 *
-	 * Material 3 cards come in three types: elevated, filled, and outlined.
-	 * They can be used to display information, provide a way for users to interact with it,
-	 * and serve as an entry point to more detailed information.
-	 *
-	 * @see https://m3.material.io/components/cards/overview
-	 */
 	import type { CardProps } from './types.js';
 	import { card } from './theme.js';
 	import clsx from 'clsx';

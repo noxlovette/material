@@ -1,9 +1,10 @@
+<!--
+@component
+Wavy linear progress indicator — a custom M3-inspired variant.
+
+@see https://m3.material.io/components/progress-indicators/overview
+-->
 <script lang="ts">
-	/**
-	 * Wavy linear progress indicator — a custom M3-inspired variant.
-	 *
-	 * @see https://m3.material.io/components/progress-indicators/overview
-	 */
 	import { Progress } from 'bits-ui';
 	import { linear, trackOpacity } from './_wavy.js';
 

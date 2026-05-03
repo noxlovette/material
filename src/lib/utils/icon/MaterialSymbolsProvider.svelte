@@ -1,8 +1,9 @@
+<!--
+@component
+A helper that handles google icons. Should not be used directly.
+Use the App.svelte component instead
+-->
 <script lang="ts">
-	/**
-	 * A helper that handles google icons. Should not be used directly.
-	 * Use the App.svelte component instead
-	 */
 	import { baseIcons } from './base-icons.js';
 	import type { MaterialSymbolsProviderProps } from './types.js';
 

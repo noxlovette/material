@@ -1,9 +1,10 @@
+<!--
+@component
+Avatars can be used to represent people or objects.
+
+@see https://m3.material.io/components/avatars/overview
+-->
 <script lang="ts">
-	/**
-	 * Avatars can be used to represent people or objects.
-	 *
-	 * @see https://m3.material.io/components/avatars/overview
-	 */
 	import { Avatar as AvatarPrimitive } from 'bits-ui';
 	import clsx from 'clsx';
 	import { Layer } from '$lib/utils/index.js';

@@ -1,7 +1,8 @@
+<!--
+@component
+An action button within a Toolbar. Non-toggleable.
+-->
 <script lang="ts">
-	/**
-	 * An action button within a Toolbar. Non-toggleable.
-	 */
 	import { Toolbar } from 'bits-ui';
 	import clsx from 'clsx';
 	import { Icon, Layer } from '$lib/utils/index.js';

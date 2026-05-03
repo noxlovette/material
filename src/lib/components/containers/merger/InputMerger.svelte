@@ -1,7 +1,8 @@
+<!--
+@component
+InputMerger is a container that groups multiple input components together visually.
+-->
 <script lang="ts">
-	/**
-	 * InputMerger is a container that groups multiple input components together visually.
-	 */
 	import clsx from 'clsx';
 
 	interface Props {

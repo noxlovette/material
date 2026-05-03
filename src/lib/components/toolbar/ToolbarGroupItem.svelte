@@ -1,8 +1,9 @@
+<!--
+@component
+A toggleable icon button within a ToolbarGroup.
+Selected state is driven by data-[state=on] from Bits UI.
+-->
 <script lang="ts">
-	/**
-	 * A toggleable icon button within a ToolbarGroup.
-	 * Selected state is driven by data-[state=on] from Bits UI.
-	 */
 	import { Toolbar } from 'bits-ui';
 	import clsx from 'clsx';
 	import { Icon, Layer } from '$lib/utils/index.js';

@@ -1,12 +1,13 @@
+<!--
+@component
+Material 3 Tabs container.
+
+Wraps bits-ui Tabs.Root + Tabs.List and renders a sliding active indicator.
+Use TabContent for content-panel tabs; omit it for navigation (href) tabs.
+
+@see https://m3.material.io/components/tabs/overview
+-->
 <script lang="ts">
-	/**
-	 * Material 3 Tabs container.
-	 *
-	 * Wraps bits-ui Tabs.Root + Tabs.List and renders a sliding active indicator.
-	 * Use TabContent for content-panel tabs; omit it for navigation (href) tabs.
-	 *
-	 * @see https://m3.material.io/components/tabs/overview
-	 */
 	import { tabHolder } from './theme.js';
 	import type { TabHolderProps } from './types.js';
 	import Tab from './Tab.svelte';

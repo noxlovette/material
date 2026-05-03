@@ -12,8 +12,7 @@
 		Divider,
 		ListItem,
 		ToggleGroup,
-		ToggleGroupItem,
-		Icon
+		ToggleGroupItem
 	} from '$lib/index.js';
 
 	let variant = $state('single');
