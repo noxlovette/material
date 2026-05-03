@@ -30,6 +30,10 @@ export const button = tv({
 			tertiary: '',
 			error: ''
 		},
+		type: {
+			selection: '',
+			default: ''
+		},
 		size: {
 			xs: {
 				base: 'h-8 gap-2 px-4 md-sys-typescale-label-large font-medium [--btn-shape:1rem] [--btn-pressed-shape:4px]',
@@ -57,11 +61,29 @@ export const button = tv({
 			square: '[--btn-shape-override:0.375rem]'
 		},
 		selected: {
-			true: 'bg-md-sys-color-primary text-md-sys-color-on-primary [--btn-shape-override:0.75rem]',
-			false: 'bg-md-sys-color-surface-container'
+			true: '',
+			false: ''
 		}
 	},
 	compoundVariants: [
+		{
+			type: 'selection',
+			selected: true,
+			class: { base: 'bg-md-sys-color-primary text-md-sys-color-on-primary [--btn-shape-override:0.75rem]' }
+		},
+		{
+			type: 'selection',
+			selected: false,
+			class: { base: 'bg-md-sys-color-surface-container' }
+		},
+		{
+			variant: 'text',
+			class: { base: 'bg-transparent' }
+		},
+		{
+			variant: 'bare',
+			class: { base: 'bg-transparent' }
+		},
 		{
 			variant: 'filled',
 			color: 'default',
@@ -201,7 +223,8 @@ export const buttonIcon = tv({
 			filled: '',
 			tonal: '',
 			outlined: '',
-			text: ''
+			text: '',
+			bare: ''
 		},
 		color: {
 			default: '',
@@ -242,8 +265,8 @@ export const buttonIcon = tv({
 			square: '[--btn-shape-override:0.75rem]'
 		},
 		selected: {
-			true: 'bg-md-sys-color-primary text-md-sys-color-on-primary [--btn-shape-override:0.75rem]',
-			false: 'bg-md-sys-color-surface-container'
+			true: '',
+			false: ''
 		},
 		variation: {
 			toggle: '',
@@ -251,6 +274,24 @@ export const buttonIcon = tv({
 		}
 	},
 	compoundVariants: [
+		{
+			variation: 'toggle',
+			selected: true,
+			class: { base: 'bg-md-sys-color-primary text-md-sys-color-on-primary [--btn-shape-override:0.75rem]' }
+		},
+		{
+			variation: 'toggle',
+			selected: false,
+			class: { base: 'bg-md-sys-color-surface-container' }
+		},
+		{
+			variant: 'text',
+			class: { base: 'bg-transparent' }
+		},
+		{
+			variant: 'bare',
+			class: { base: 'bg-transparent' }
+		},
 		{
 			variant: 'filled',
 			color: 'default',

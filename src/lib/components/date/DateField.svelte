@@ -4,8 +4,6 @@
 	 *
 	 * @see https://m3.material.io/components/date-pickers/guidelines
 	 */
-	import type { Snippet } from 'svelte';
-	import type { HTMLInputAttributes } from 'svelte/elements';
 	import { buttonIcon, Textfield, type DateFieldProps } from '$lib/components/index.js';
 	import DatePickerDocked from './DatePickerDocked.svelte';
 	import { clickOutside, positionFloating } from '$lib/actions/index.js';
@@ -16,9 +14,10 @@
 	import Icon from '$lib/utils/icon/Icon.svelte';
 	import Layer from '$lib/utils/Layer.svelte';
 	import Label from '../typography/label/Label.svelte';
+	import { textfield } from '$lib/components/index.js';
+	import { tv } from 'tailwind-variants';
 
 	let {
-		label = 'Дата',
 		value = $bindable(),
 		required = false,
 		disabled = false,
@@ -26,35 +25,67 @@
 		supportingText
 	}: DateFieldProps = $props();
 
-	const id = $props.id();
+	const dateField = tv({
+		slots: {
+			base: `
+				group w-full h-14 bg-md-sys-color-surface-container-highest rounded-t-xs
+				after:absolute after:bottom-0 after:left-0 after:right-0
+				relative
+				state-layer before:rounded-xs hover:before:bg-md-sys-color-on-surface/8
+				flex items-center
+				after:h-px after:bg-md-sys-color-on-surface-variant
+				after:transition-[height,background-color] after:duration-200
+				hover:after:bg-md-sys-color-on-surface
+				focus-within:after:bg-md-sys-color-primary focus-within:after:h-[2px]
+				disabled:bg-md-sys-color-on-surface/4
+				disabled:after:bg-md-sys-color-on-surface/12
+				justify-between
+			`,
+			input: `
+				w-full bg-transparent outline-none
+				md-sys-typescale-body-large text-md-sys-color-on-surface
+				disabled:text-md-sys-color-on-surface/38 px-3 flex items-center
+			`
+		}
+	});
 
-	let picker = $state(false);
-	let anchorEl = $state<HTMLDivElement>();
+	const { base, input } = $derived(dateField());
 </script>
 
 <DatePicker.Root weekStartsOn={1} weekdayFormat="short" fixedWeeks>
-	<DatePicker.Label>{label}</DatePicker.Label>
-	<DatePicker.Input>
-		{#snippet children({ segments })}
-			{#each segments as { part, value }}
-				{#if part === 'literal'}
-					<DatePicker.Segment {part} class="text-muted-foreground p-1">
-						{value}
-					</DatePicker.Segment>
-				{:else}
-					<DatePicker.Segment
-						{part}
-						class="rounded-5px hover:bg-muted focus:bg-muted focus:text-foreground aria-[valuetext=Empty]:text-muted-foreground px-1 py-1 focus-visible:ring-0! focus-visible:ring-offset-0!"
-					>
-						{value}
-					</DatePicker.Segment>
-				{/if}
-			{/each}
-			<DatePicker.Trigger>
-				<ButtonIcon type="button" iconProps={{ name: 'calendar_month' }} />
-			</DatePicker.Trigger>
-		{/snippet}
-	</DatePicker.Input>
+	<div class={base()}>
+		<DatePicker.Input class={input()}>
+			{#snippet children({ segments })}
+				{#each segments as { part, value }}
+					{#if part === 'literal'}
+						<DatePicker.Segment
+							{part}
+							class="px-1.5 text-md-sys-color-on-surface-variant select-none"
+						>
+							{value}
+						</DatePicker.Segment>
+					{:else}
+						<DatePicker.Segment
+							{part}
+							class="cursor-default rounded-xs px-1 py-0.5 text-md-sys-color-on-surface
+								   transition-colors duration-100
+								   select-none
+								   hover:bg-md-sys-color-on-surface/8
+								   focus:bg-md-sys-color-primary-container
+								   focus:text-md-sys-color-on-primary-container focus:outline
+								   focus:outline-2 focus:outline-md-sys-color-primary focus-visible:ring-0!
+								   focus-visible:ring-offset-0! aria-[valuetext=Empty]:text-md-sys-color-on-surface-variant"
+						>
+							{value}
+						</DatePicker.Segment>
+					{/if}
+				{/each}
+				<DatePicker.Trigger>
+					<ButtonIcon variant="bare" iconProps={{ name: 'calendar_month' }} />
+				</DatePicker.Trigger>
+			{/snippet}
+		</DatePicker.Input>
+	</div>
 	<DatePicker.Content sideOffset={6} class="z-50">
 		<DatePicker.Calendar
 			class="h-104 w-90 rounded-lg bg-md-sys-color-surface-container-high p-6 shadow-elevation-3"
