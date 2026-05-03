@@ -5,8 +5,10 @@
 	 *
 	 * @see https://m3.material.io/components/time-pickers/specs#66113b8d-698d-4ef3-9993-97992797666e
 	 */
+	import { TimeField } from 'bits-ui';
+	import { parseTime } from '@internationalized/date';
+	import type { Time } from '@internationalized/date';
 	import { timepicker } from './theme.js';
-
 	import Button from '../buttons/Button.svelte';
 	import type { TimepickerProps } from './types.js';
 	import { ButtonIcon } from '../buttons/index.js';
@@ -19,75 +21,45 @@
 		name = 'startTime'
 	}: TimepickerProps = $props();
 
-	const {
-		base,
-		headline,
-		fieldSeparator,
-		timeInput,
-		timeInputSupportingText,
-		clockDiv,
-		buttonDiv,
-		inputWrapper
-	} = timepicker();
+	const cls = timepicker();
 
-	let hours = $state(time.split(':')[0]);
-	let minutes = $state(time.split(':')[1]);
+	let timeValue = $state<Time>(parseTime(time?.includes(':') ? time : '00:00'));
 
-	const h = $derived(
-		String(Math.min(23, Math.max(0, Number.parseInt(String(hours ?? '0'), 10) || 0))).padStart(
-			2,
-			'0'
-		)
+	const output = $derived(
+		`${String(timeValue.hour).padStart(2, '0')}:${String(timeValue.minute).padStart(2, '0')}`
 	);
-	const m = $derived(
-		String(Math.min(59, Math.max(0, Number.parseInt(String(minutes ?? '0'), 10) || 0))).padStart(
-			2,
-			'0'
-		)
-	);
-
-	const output = $derived(`${h}:${m}`);
 </script>
 
-<input type="hidden" {name} value={output} />
+<div class={cls.base()}>
+	<div class={cls.headline()}>{label}</div>
 
-<div class={base()}>
-	<div class={headline()}>{label}</div>
-	<div class={clockDiv()}>
-		<div class={inputWrapper()}>
-			<input
-				class={timeInput()}
-				bind:value={hours}
-				id="hour"
-				type="text"
-				inputmode="numeric"
-				data-cy="calendar-time-hours"
-			/>
-			<p class={timeInputSupportingText()}>Часы</p>
-		</div>
-		<span class={fieldSeparator()}> : </span>
-		<div class={inputWrapper()}>
-			<input
-				class={timeInput()}
-				bind:value={minutes}
-				id="minute"
-				type="text"
-				inputmode="numeric"
-				data-cy="calendar-time-minutes"
-			/>
-			<p class={timeInputSupportingText()}>Минуты</p>
-		</div>
-	</div>
-	<div class={buttonDiv()}>
+	<TimeField.Root bind:value={timeValue} granularity="minute" hourCycle="24">
+		<TimeField.Input {name}>
+			{#snippet children({ segments })}
+				<div class={cls.clockDiv()}>
+					{#each segments as { part, value }}
+						{#if part === 'literal'}
+							<span class={cls.fieldSeparator()}>{value}</span>
+						{:else if part === 'hour' || part === 'minute'}
+							<div class={cls.inputWrapper()}>
+								<TimeField.Segment {part} class={cls.timeInput()}>
+									{value}
+								</TimeField.Segment>
+								<p class={cls.timeInputSupportingText()}>
+									{part === 'hour' ? 'Часы' : 'Минуты'}
+								</p>
+							</div>
+						{/if}
+					{/each}
+				</div>
+			{/snippet}
+		</TimeField.Input>
+	</TimeField.Root>
+
+	<div class={cls.buttonDiv()}>
 		<ButtonIcon iconProps={{ name: 'schedule' }} />
 		<div>
-			<Button
-				variant="text"
-				type="button"
-				onclick={() => {
-					close();
-				}}>Отмена</Button
-			>
+			<Button variant="text" type="button" onclick={() => close()}>Отмена</Button>
 			<Button
 				variant="text"
 				type="button"

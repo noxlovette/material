@@ -28,7 +28,23 @@
 		'check',
 		'calendar_month',
 		'person',
-		'close'
+		'close',
+		'zoom_in',
+		'zoom_out',
+		'brush',
+		'crop',
+		'tune',
+		'format_bold',
+		'format_italic',
+		'format_underlined',
+		'strikethrough_s',
+		'format_align_left',
+		'format_align_right',
+		'format_align_justify',
+		'format_align_center',
+		'undo',
+		'redo',
+		'link'
 	];
 </script>
 

@@ -1,21 +1,25 @@
 <script lang="ts">
 	/**
-	 * Toolbar component acts as a container for actions and navigation, often used as a bottom app bar.
+	 * Toolbar provides a horizontal (or vertical) container for grouped actions.
 	 *
-	 * @see https://m3.material.io/components/bottom-app-bar/overview
+	 * @see https://m3.material.io/components/toolbars
 	 */
+	import { Toolbar } from 'bits-ui';
+	import clsx from 'clsx';
 	import { toolbar } from './theme.js';
-
 	import type { ToolbarProps } from './types.js';
 
-	const { children, fab }: ToolbarProps = $props();
+	let {
+		children,
+		orientation = 'horizontal',
+		loop = true,
+		class: className,
+		...restProps
+	}: ToolbarProps = $props();
 
-	const { base, items } = toolbar();
+	const cls = $derived(toolbar({ orientation }));
 </script>
 
-<div class={base()}>
-	<div class={items()}>
-		{@render children?.()}
-	</div>
-	{@render fab?.()}
-</div>
+<Toolbar.Root {orientation} {loop} class={cls.root({ class: clsx(className) })} {...restProps}>
+	{@render children?.()}
+</Toolbar.Root>

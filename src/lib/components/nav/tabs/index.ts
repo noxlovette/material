@@ -6,5 +6,6 @@ export * from "./types.js";
 
 // default exports for components in this folder
 export { default as Tab } from "./Tab.svelte";
+export { default as TabContent } from "./TabContent.svelte";
 export { default as TabHolder } from "./TabHolder.svelte";
 

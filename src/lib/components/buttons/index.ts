@@ -10,6 +10,7 @@ export * from "./types.js";
 // default exports for components in this folder
 export { default as Button } from "./Button.svelte";
 export { default as ButtonIcon } from "./ButtonIcon.svelte";
+export { default as Toggle } from "./Toggle.svelte";
 export { default as FAB } from "./FAB.svelte";
 export { default as FABMenu } from "./FABMenu.svelte";
 export { default as FABMenuItem } from "./FABMenuItem.svelte";

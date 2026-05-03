@@ -1,32 +1,39 @@
 import type { IconProps } from '$lib/utils/index.js';
-import type { HTMLAnchorAttributes } from 'svelte/elements';
 import type { TabVariants } from './theme.js';
 
-/**
- * Props for the Tab component.
- */
-export type TabProps = TabVariants &
-	HTMLAnchorAttributes & {
-		/** Props passed to the Icon component. */
-		iconProps: IconProps;
-		/** The text label for the tab. */
-		name: string;
-		/** The unique value identifier for this tab. */
-		value: string;
-		/** The URL this tab points to. */
-		href: string;
-		/** Whether the tab is currently active. */
-		active?: boolean;
-	};
+export type TabProps = {
+	/** Props for the Icon component. Omit for secondary tabs. */
+	iconProps?: IconProps;
+	/** Text label for the tab. */
+	name: string;
+	/** Unique value identifier — must match the corresponding TabContent value. */
+	value: string;
+	/** Optional href for navigation tabs. Renders an <a> instead of <button>. */
+	href?: string;
+	/** Whether the tab is disabled. */
+	disabled?: boolean;
+	/** Tab style variant inherited from the parent TabHolder. */
+	variant?: TabVariants['variant'];
+	/** Additional CSS classes. */
+	class?: string;
+};
 
-/**
- * Props for the TabHolder component.
- */
-export type TabHolderProps = HTMLAnchorAttributes & {
-	/** The value of the currently selected tab. */
-	tab: string;
-	/** Whether to use the secondary tab style. */
-	secondary?: boolean;
-	/** The list of tab items to display. */
+export type TabHolderProps = {
+	/** The currently active tab value. Bindable. */
+	value?: string;
+	/** Callback when the active tab changes. */
+	onValueChange?: (value: string) => void;
+	/** Whether tabs activate on focus (automatic) or require Enter/Space (manual). */
+	activationMode?: 'automatic' | 'manual';
+	/** Primary tabs show icon + label; secondary tabs show label only. */
+	variant?: TabVariants['variant'];
+	/** Tab items to render. */
 	items: TabProps[];
+};
+
+export type TabContentProps = {
+	/** Must match the value of the corresponding Tab. */
+	value: string;
+	/** Additional CSS classes. */
+	class?: string;
 };

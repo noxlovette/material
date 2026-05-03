@@ -6,7 +6,7 @@ export const radioGroup = tv({
 		item: 'inline-flex min-h-10 cursor-pointer select-none items-center gap-3 text-md-sys-color-on-surface',
 		indicator: 'relative inline-flex size-[20px] shrink-0',
 		control:
-			'layer-container absolute -inset-[10px] rounded-full text-md-sys-color-on-surface-variant state-layer before:rounded-full',
+			'relative layer-container absolute -inset-[10px] rounded-full text-md-sys-color-on-surface-variant state-layer before:rounded-full',
 		outerRing:
 			'absolute inset-[10px] size-5 rounded-full border-2 border-current transition-colors',
 		innerDot:

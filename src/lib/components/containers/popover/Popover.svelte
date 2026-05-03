@@ -11,8 +11,6 @@
 	import { enterExit, easeEmphasizedDecel, easeEmphasizedAccel } from '$lib/animation/index.js';
 	import ButtonIcon from '../../buttons/ButtonIcon.svelte';
 	import Title from '../../typography/title/Title.svelte';
-	import { Layer } from '$lib/utils/index.js';
-
 	let {
 		trigger,
 		children,
@@ -44,7 +42,6 @@
 							in:enterExit={{ duration: 200, easing: easeEmphasizedDecel, mode: 'scale' }}
 							out:enterExit={{ duration: 150, easing: easeEmphasizedAccel, mode: 'scale' }}
 						>
-							<Layer />
 							{#if title || showClose}
 								<div class={header()}>
 									{#if title}

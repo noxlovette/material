@@ -41,7 +41,14 @@
 		Badge,
 		Select,
 		Popover,
-		RadioGroup
+		RadioGroup,
+		Toolbar,
+		ToolbarButton,
+		ToolbarGroup,
+		ToolbarGroupItem,
+		ToolbarDivider,
+		ToggleGroup,
+		ToggleGroupItem
 	} from '$lib/index.js';
 	import { nanoid } from 'nanoid';
 	import type { DateValue } from '@internationalized/date';
@@ -62,6 +69,10 @@
 	let selectValue = $state('');
 	let radioValue = $state('');
 	let radioValue2 = $state('en');
+	let toolbarFormat = $state<string[]>([]);
+	let toolbarAlign = $state('left');
+	let segmentSingle = $state('day');
+	let segmentMulti = $state<string[]>(['bold']);
 	let toggle = $state(true);
 	let dateValue = $state<DateValue | undefined>(undefined);
 
@@ -294,7 +305,7 @@
 	</VStack>
 
 	<Title>Tabs</Title>
-	<TabHolder items={tabItems} tab={activeTab} />
+	<TabHolder items={tabItems} bind:value={activeTab} />
 	<Body>Active tab: {activeTab}</Body>
 
 	<Title>Navbar (Bottom)</Title>
@@ -548,6 +559,82 @@
 			{/snippet}
 			<Body>Поповер без заголовка и без кнопки закрытия. Клик снаружи закрывает его.</Body>
 		</Popover>
+	</div>
+
+	<Divider />
+
+	<!-- TOOLBAR -->
+	<Display>Toolbar</Display>
+	<div class="flex flex-col gap-6">
+		<div class="flex flex-col gap-2">
+			<Label>Text formatting (multiple select)</Label>
+			<Toolbar>
+				<ToolbarGroup type="multiple" value={toolbarFormat}>
+					<ToolbarGroupItem value="bold" iconProps={{ name: 'format_bold' }} />
+					<ToolbarGroupItem value="italic" iconProps={{ name: 'format_italic' }} />
+					<ToolbarGroupItem value="underline" iconProps={{ name: 'format_underlined' }} />
+					<ToolbarGroupItem value="strikethrough" iconProps={{ name: 'strikethrough_s' }} />
+				</ToolbarGroup>
+				<ToolbarDivider />
+				<ToolbarGroup type="single" value={toolbarAlign}>
+					<ToolbarGroupItem value="left" iconProps={{ name: 'format_align_left' }} />
+					<ToolbarGroupItem value="center" iconProps={{ name: 'format_align_center' }} />
+					<ToolbarGroupItem value="right" iconProps={{ name: 'format_align_right' }} />
+					<ToolbarGroupItem value="justify" iconProps={{ name: 'format_align_justify' }} />
+				</ToolbarGroup>
+				<ToolbarDivider />
+				<ToolbarButton iconProps={{ name: 'undo' }} />
+				<ToolbarButton iconProps={{ name: 'redo' }} />
+			</Toolbar>
+			<Body>Format: {toolbarFormat.join(', ') || '—'} · Align: {toolbarAlign}</Body>
+		</div>
+
+		<div class="flex flex-col gap-2">
+			<Label>Vertical orientation</Label>
+			<Toolbar orientation="vertical">
+				<ToolbarButton iconProps={{ name: 'brush' }} />
+				<ToolbarButton iconProps={{ name: 'edit' }} />
+				<ToolbarButton iconProps={{ name: 'crop' }} />
+				<ToolbarDivider />
+				<ToolbarButton iconProps={{ name: 'zoom_in' }} />
+				<ToolbarButton iconProps={{ name: 'zoom_out' }} />
+			</Toolbar>
+		</div>
+	</div>
+
+	<Divider />
+
+	<!-- TOGGLE GROUP -->
+	<Display>Toggle Group</Display>
+	<div class="flex flex-col gap-6">
+		<div class="flex flex-col gap-2">
+			<Label>Single select (period)</Label>
+			<ToggleGroup type="single" bind:value={segmentSingle}>
+				<ToggleGroupItem value="day" label="День" />
+				<ToggleGroupItem value="week" label="Неделя" />
+				<ToggleGroupItem value="month" label="Месяц" />
+			</ToggleGroup>
+			<Body>Selected: {segmentSingle}</Body>
+		</div>
+
+		<div class="flex flex-col gap-2">
+			<Label>Multiple select with icons</Label>
+			<ToggleGroup type="multiple" bind:value={segmentMulti}>
+				<ToggleGroupItem value="bold" label="Bold" iconProps={{ name: 'format_bold' }} />
+				<ToggleGroupItem value="italic" label="Italic" iconProps={{ name: 'format_italic' }} />
+				<ToggleGroupItem value="link" label="Link" iconProps={{ name: 'link' }} />
+			</ToggleGroup>
+			<Body>Active: {segmentMulti.join(', ') || '—'}</Body>
+		</div>
+
+		<div class="flex flex-col gap-2">
+			<Label>Disabled</Label>
+			<ToggleGroup type="single" value="week" disabled>
+				<ToggleGroupItem value="day" label="День" />
+				<ToggleGroupItem value="week" label="Неделя" />
+				<ToggleGroupItem value="month" label="Месяц" />
+			</ToggleGroup>
+		</div>
 	</div>
 
 	<Divider />

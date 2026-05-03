@@ -35,7 +35,7 @@
 	value={percent ?? null}
 	max={100}
 	class={container({ class: clsx(className) })}
-	style:height="{height / 16}rem"
+	style="height: {height / 16}rem"
 >
 	{#if percent != null}
 		<div class={fill()} style:width="{percent}%"></div>

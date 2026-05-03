@@ -1,20 +1,47 @@
 <script lang="ts">
 	/**
-	 * Material 3 Tab.
-	 *
-	 * A single tab item within a TabHolder.
+	 * A single tab trigger within a TabHolder.
+	 * Renders as <a> when href is provided (navigation tabs),
+	 * otherwise as <button> (content-panel tabs).
 	 */
 	import { Icon, Layer } from '$lib/utils/index.js';
 	import { tab } from './theme.js';
 	import type { TabProps } from './types.js';
+	import { Tabs } from 'bits-ui';
+	import clsx from 'clsx';
 
-	const { iconProps, active, name, value, ...restProps }: TabProps = $props();
+	const {
+		iconProps,
+		name,
+		value,
+		href,
+		variant = 'primary',
+		disabled,
+		class: className
+	}: TabProps = $props();
 
-	const { base, icon, label: labelCls } = $derived(tab({ active }));
+	const { base, icon: iconCls, label: labelCls } = $derived(tab({ variant }));
+	const cls = $derived(base({ class: clsx(className) }));
 </script>
 
-<a {...restProps} class={base()}>
-	<Icon {...iconProps} class={icon()} />
-	<Layer />
-	<p class={labelCls()}>{name}</p>
-</a>
+<Tabs.Trigger {value} {disabled}>
+	{#snippet child({ props })}
+		{#if href}
+			<a {href} {...props} class={cls}>
+				{#if variant === 'primary' && iconProps}
+					<Icon {...iconProps} class={iconCls()} />
+				{/if}
+				<span class={labelCls()}>{name}</span>
+				<Layer />
+			</a>
+		{:else}
+			<button type="button" {...props} class={cls}>
+				{#if variant === 'primary' && iconProps}
+					<Icon {...iconProps} class={iconCls()} />
+				{/if}
+				<span class={labelCls()}>{name}</span>
+				<Layer />
+			</button>
+		{/if}
+	{/snippet}
+</Tabs.Trigger>

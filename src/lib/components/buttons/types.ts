@@ -204,3 +204,19 @@ export type FABMenuItemProps = FABMenuItemVariants &
 		/** The `formaction` attribute for the menu item when used in a form. */
 		formaction?: string;
 	};
+
+export type ToggleMDProps = Pick<ButtonMDVariants, 'size' | 'shape'> &
+	HTMLButtonAttributes & {
+		/** Whether the toggle is currently pressed/selected. Bindable. */
+		pressed?: boolean;
+		/** Callback when pressed state changes. */
+		onPressedChange?: (pressed: boolean) => void;
+		/** Label or content inside the toggle. */
+		children?: Snippet;
+		/** Optional leading icon. */
+		iconProps?: IconProps;
+		/** Whether the toggle is disabled. */
+		disabled?: boolean;
+		/** Whether the toggle is in a loading state. */
+		loading?: boolean;
+	};

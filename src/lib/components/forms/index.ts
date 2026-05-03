@@ -10,4 +10,5 @@ export * from "./slider/index.js";
 export * from "./switch/index.js";
 export * from "./textfield/index.js";
 export * from "./tooltip/index.js";
+export * from "./toggle-group/index.js";
 

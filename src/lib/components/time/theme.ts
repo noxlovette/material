@@ -11,7 +11,7 @@ export const timepicker = tv({
 		inputWrapper: 'space-y-2',
 		fieldSeparator: 'text-md-sys-color-on-surface md-sys-typescale-display-large ',
 		timeInput:
-			'bg-md-sys-color-surface-container-highest rounded-sm outline outline-md-sys-color-outline w-24 h-18 md-sys-typescale-display-medium text-md-sys-color-on-surface hover:text-sys-color-on-surface state-layer before:bg-md-sys-color-on-surface/8 md-sys-state-focus-indicator inline-flex text-center focus:text-md-sys-color-on-primary-container focus:outline-md-sys-color-primary focus:bg-md-sys-color-primary-container',
+			'bg-md-sys-color-surface-container-highest rounded-sm outline outline-md-sys-color-outline w-24 h-18 md-sys-typescale-display-medium text-md-sys-color-on-surface hover:text-sys-color-on-surface state-layer before:bg-md-sys-color-on-surface/8 md-sys-state-focus-indicator inline-flex items-center justify-center cursor-text focus:text-md-sys-color-on-primary-container focus:outline-md-sys-color-primary focus:bg-md-sys-color-primary-container',
 		timeInputSupportingText: 'text-md-color-on-surface-variant md-sys-typescale-body-small'
 	}
 });

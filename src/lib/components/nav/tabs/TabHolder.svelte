@@ -1,63 +1,43 @@
 <script lang="ts">
 	/**
-	 * Material 3 Tabs.
+	 * Material 3 Tabs container.
 	 *
-	 * Tabs organize content into high-level categories and allow users to switch between them.
+	 * Wraps bits-ui Tabs.Root + Tabs.List and renders a sliding active indicator.
+	 * Use TabContent for content-panel tabs; omit it for navigation (href) tabs.
 	 *
 	 * @see https://m3.material.io/components/tabs/overview
 	 */
-	import { tabHolder, type TabHolderProps } from '$lib/components/index.js';
+	import { tabHolder } from './theme.js';
+	import type { TabHolderProps } from './types.js';
 	import Tab from './Tab.svelte';
+	import { Tabs } from 'bits-ui';
+	import type { Snippet } from 'svelte';
 
-	let { secondary = false, items, tab, ...restProps }: TabHolderProps = $props();
+	let {
+		value = $bindable(),
+		onValueChange,
+		activationMode = 'automatic',
+		variant = 'primary',
+		items,
+		children
+	}: TabHolderProps & { children?: Snippet } = $props();
 
-	const idx = $derived(items.findIndex((i) => i.value === tab));
+	const idx = $derived(items.findIndex((i) => i.value === value));
 	const count = $derived(items.length);
-	const { base, bar } = $derived(tabHolder());
-
-	/*
-  const items: TabProps[] = [
-    {
-      iconProps: { name: "book" },
-      name: "Занятия",
-      value: "lessons",
-      href: "?tab=lessons",
-    },
-    {
-      iconProps: { name: "assignment" },
-      name: "Задания",
-      value: "tasks",
-      href: "?tab=tasks",
-    },
-    {
-      iconProps: { name: "note_stack" },
-      name: "Карточки",
-      value: "flashcards",
-      href: "?tab=flashcards",
-    },
-    {
-      iconProps: { name: "calendar_month" },
-      name: "Календарь",
-      value: "calendar",
-      href: "?tab=calendar",
-    },
-  ];
-  */
+	const { base, bar } = tabHolder();
 </script>
 
-<div class={base()}>
-	<!-- tab items -->
-	{#each items as item, i}
-		{@const active = tab === item.value}
-		<Tab {...item} {active} />
-	{/each}
+<Tabs.Root bind:value {onValueChange} {activationMode}>
+	<Tabs.List class={base()}>
+		{#each items as item}
+			<Tab {...item} {variant} />
+		{/each}
 
-	<!-- sliding highlight bar -->
-	<div
-		class={bar()}
-		style="
-      width: calc(100% / {count});
-      transform: translateX(calc({idx} * 100%));
-    "
-	></div>
-</div>
+		<div
+			class={bar()}
+			style="width: calc(100% / {count}); transform: translateX(calc({idx} * 100%));"
+		></div>
+	</Tabs.List>
+
+	{@render children?.()}
+</Tabs.Root>
