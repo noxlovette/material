@@ -29,7 +29,8 @@
 		LinearProgress,
 		CircularProgress,
 		WavyLinearProgress,
-		SupportingPane
+		SupportingPane,
+		Pill
 	} from '$lib/index.js';
 	import TableOfContents from '../TableOfContents.svelte';
 
@@ -61,6 +62,7 @@
 		{ id: 'toolbar', label: 'Toolbar' },
 		{ id: 'toggle-group', label: 'Toggle Group' },
 		{ id: 'menu', label: 'Menu' },
+		{ id: 'pill', label: 'Pills' },
 		{ id: 'snackbar', label: 'Snackbar' },
 		{ id: 'progress', label: 'Progress' },
 		{ id: 'badges', label: 'Badges & Avatars' },
@@ -357,6 +359,34 @@
 				{#if selectedMenu}
 					<Body>Selected: {selectedMenu}</Body>
 				{/if}
+			</section>
+
+			<!-- PILLS -->
+			<section id="pill" class="flex flex-col gap-6 scroll-mt-4">
+				<Display>Pills</Display>
+				<Headline>Variants</Headline>
+				<div class="flex flex-wrap items-center gap-4">
+					<Pill variant="primary">Primary</Pill>
+					<Pill variant="secondary">Secondary</Pill>
+					<Pill variant="tertiary">Tertiary</Pill>
+					<Pill variant="error">Error</Pill>
+					<Pill variant="container">Container</Pill>
+				</div>
+				<Headline>Shapes</Headline>
+				<div class="flex flex-wrap items-center gap-4">
+					<Pill shape="pathSquare">Square</Pill>
+					<Pill shape="pathCircle">Circle</Pill>
+					<Pill shape="pathTriangle">Triangle</Pill>
+					<Pill shape="pathDiamond">Diamond</Pill>
+					<Pill shape="pathPentagon">Pentagon</Pill>
+					<Pill shape="pathPill">Pill (Default)</Pill>
+				</div>
+				<Headline>Random Shapes</Headline>
+				<div class="flex flex-wrap items-center gap-4">
+					{#each Array(8) as _}
+						<Pill random variant="secondary">Random</Pill>
+					{/each}
+				</div>
 			</section>
 
 			<!-- SNACKBAR -->

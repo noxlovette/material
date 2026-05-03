@@ -9,6 +9,7 @@ export * from "./date/index.js";
 export * from "./forms/index.js";
 export * from "./misc/index.js";
 export * from "./nav/index.js";
+export * from "./pill/index.js";
 export * from "./progress/index.js";
 export * from "./snackbar/index.js";
 export * from "./time/index.js";

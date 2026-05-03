@@ -12,6 +12,7 @@ export * from "./menu-item/index.js";
 export * from "./merger/index.js";
 export * from "./panes/index.js";
 export * from "./popover/index.js";
+export * from "./scroll-area/index.js";
 export * from "./side-sheet/index.js";
 export * from "./stack/index.js";
 

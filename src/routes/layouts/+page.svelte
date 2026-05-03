@@ -3,6 +3,7 @@
 		SinglePane,
 		SplitPane,
 		SupportingPane,
+		ScrollArea,
 		Display,
 		Body,
 		Card,
@@ -141,6 +142,24 @@
 				</div>
 			{/snippet}
 		</SupportingPane>
+	{:else if variant === 'scroll'}
+		<div class="flex h-screen w-full items-center justify-center p-12">
+			<Card class="flex h-[400px] w-full max-w-lg flex-col overflow-hidden">
+				<div class="border-b border-md-sys-color-outline-variant p-4">
+					<Title>Scrollable List</Title>
+				</div>
+				<ScrollArea class="flex-1">
+					<div class="flex flex-col gap-1 p-2">
+						{#each Array(50) as _, i}
+							<ListItem headline="Scroll Item {i + 1}" supporting="Detailed description for index {i}" />
+						{/each}
+					</div>
+				</ScrollArea>
+				<div class="border-t border-md-sys-color-outline-variant p-4">
+					<Body>Footer content stays fixed</Body>
+				</div>
+			</Card>
+		</div>
 	{/if}
 
 	<!-- FLOATING TOOLBAR -->
@@ -150,6 +169,7 @@
 				<ToggleGroupItem value="single" label="Single" iconProps={{ name: 'square' }} />
 				<ToggleGroupItem value="split" label="Split" iconProps={{ name: 'vertical_split' }} />
 				<ToggleGroupItem value="supporting" label="Supporting" iconProps={{ name: 'side_navigation' }} />
+				<ToggleGroupItem value="scroll" label="Scroll Area" iconProps={{ name: 'unfold_more' }} />
 			</ToggleGroup>
 		</Card>
 	</div>
