@@ -1,6 +1,6 @@
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
-import * as shapes from '../../animation/shapes.js';
+import * as shapes from '../../animation/shapesAnimatableSmall.js';
 
 export type ShapeName = keyof typeof shapes;
 

@@ -6,7 +6,7 @@ export type TabHolderVariants = VariantProps<typeof tabHolder>;
 export const tabHolder = tv({
 	slots: {
 		base: 'relative flex w-full bg-md-sys-color-surface',
-		bar: 'absolute bottom-0 h-[3px] bg-md-sys-color-primary transition-transform duration-200 ease-out'
+		bar: 'absolute bottom-0 h-[3px] rounded-t-full bg-md-sys-color-primary transition-transform duration-200 ease-out'
 	}
 });
 

@@ -25,10 +25,17 @@ otherwise as <button> (content-panel tabs).
 	const cls = $derived(base({ class: clsx(className) }));
 </script>
 
-<Tabs.Trigger {value} {disabled}>
+<Tabs.Trigger value={value ?? ''} {disabled}>
 	{#snippet child({ props })}
+		{@const { type: _type, disabled: _disabled, ...anchorProps } = props}
 		{#if href}
-			<a {href} {...props} class={cls}>
+			<a
+				{href}
+				{...anchorProps}
+				class={cls}
+				aria-disabled={disabled || undefined}
+				class:pointer-events-none={disabled}
+			>
 				{#if variant === 'primary' && iconProps}
 					<Icon {...iconProps} class={iconCls()} />
 				{/if}

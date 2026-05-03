@@ -15,11 +15,11 @@ Use TabContent for content-panel tabs; omit it for navigation (href) tabs.
 	import type { Snippet } from 'svelte';
 
 	let {
-		value = $bindable(),
+		items,
+		value = $bindable(items[0]?.value ?? ''),
 		onValueChange,
 		activationMode = 'automatic',
 		variant = 'primary',
-		items,
 		children
 	}: TabHolderProps & { children?: Snippet } = $props();
 

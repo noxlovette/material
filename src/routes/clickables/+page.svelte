@@ -379,12 +379,12 @@
 				</div>
 				<Headline>Shapes</Headline>
 				<div class="flex flex-wrap items-center gap-4">
-					<Pill shape="pathSquare">Square</Pill>
-					<Pill shape="pathCircle">Circle</Pill>
-					<Pill shape="pathTriangle">Triangle</Pill>
-					<Pill shape="pathDiamond">Diamond</Pill>
-					<Pill shape="pathPentagon">Pentagon</Pill>
-					<Pill shape="pathPill">Pill (Default)</Pill>
+					<Pill shape="pathAnimatableSmallSquare">Square</Pill>
+					<Pill shape="pathAnimatableSmallCircle">Circle</Pill>
+					<Pill shape="pathAnimatableSmallTriangle">Triangle</Pill>
+					<Pill shape="pathAnimatableSmallDiamond">Diamond</Pill>
+					<Pill shape="pathAnimatableSmallPentagon">Pentagon</Pill>
+					<Pill shape="pathAnimatableSmallPill">Pill (Default)</Pill>
 				</div>
 				<Headline>Random Shapes</Headline>
 				<div class="flex flex-wrap items-center gap-4">

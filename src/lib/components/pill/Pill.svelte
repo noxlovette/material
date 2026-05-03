@@ -3,7 +3,7 @@
 Pill component that can take various shapes.
 -->
 <script lang="ts">
-	import * as shapes from '../../animation/shapes.js';
+	import * as shapes from '../../animation/shapesAnimatableSmall.js';
 	import { pill } from './theme.js';
 	import type { PillProps, ShapeName } from './types.js';
 	import clsx from 'clsx';
@@ -11,7 +11,7 @@ Pill component that can take various shapes.
 	const {
 		variant = 'primary',
 		random = false,
-		shape = 'pathPill',
+		shape = 'pathAnimatableSmallPill',
 		children,
 		class: className,
 		...restProps
@@ -31,28 +31,25 @@ Pill component that can take various shapes.
 
 	// Extract background color to apply to SVG path instead of the div
 	// since we are using a custom shape.
-	// We'll use a mapping for variants to M3 color classes.
-	const variantColors: Record<string, string> = {
-		primary: 'text-md-sys-color-primary',
-		secondary: 'text-md-sys-color-secondary',
-		tertiary: 'text-md-sys-color-tertiary',
-		error: 'text-md-sys-color-error',
-		container: 'text-md-sys-color-surface-container'
-	};
+	// We'll use CSS variables directly as requested.
+	const colorVar = $derived(
+		variant === 'container'
+			? 'var(--color-md-sys-color-surface-container)'
+			: `var(--color-md-sys-color-${variant})`
+	);
 
-	const onColors: Record<string, string> = {
-		primary: 'text-md-sys-color-on-primary',
-		secondary: 'text-md-sys-color-on-secondary',
-		tertiary: 'text-md-sys-color-on-tertiary',
-		error: 'text-md-sys-color-on-error',
-		container: 'text-md-sys-color-on-surface'
-	};
+	const onColorVar = $derived(
+		variant === 'container'
+			? 'var(--color-md-sys-color-on-surface)'
+			: `var(--color-md-sys-color-on-${variant})`
+	);
 </script>
 
-<div class={clsx(styling, onColors[variant], className)} {...restProps}>
+<div class={clsx(styling, className)} style:color={onColorVar} {...restProps}>
 	<svg
-		viewBox="0 0 380 380"
-		class={clsx('absolute inset-0 -z-10 h-full w-full', variantColors[variant])}
+		viewBox="0 0 48 48"
+		class="absolute inset-0 -z-10 h-full w-full"
+		style:color={colorVar}
 		preserveAspectRatio="none"
 		aria-hidden="true"
 	>
@@ -62,10 +59,3 @@ Pill component that can take various shapes.
 		{@render children?.()}
 	</div>
 </div>
-
-<style>
-	div {
-		/* Ensure the container doesn't have its own background if we want the shape to be the background */
-		background: none !important;
-	}
-</style>

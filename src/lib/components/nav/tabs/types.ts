@@ -6,8 +6,11 @@ export type TabProps = {
 	iconProps?: IconProps;
 	/** Text label for the tab. */
 	name: string;
-	/** Unique value identifier — must match the corresponding TabContent value. */
-	value: string;
+	/**
+	 * Unique value identifier — required for content-panel tabs (no href).
+	 * Omit for navigation tabs that use href for routing.
+	 */
+	value?: string;
 	/** Optional href for navigation tabs. Renders an <a> instead of <button>. */
 	href?: string;
 	/** Whether the tab is disabled. */
