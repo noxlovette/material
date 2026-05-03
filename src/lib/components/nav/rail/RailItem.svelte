@@ -30,11 +30,17 @@
 	const hrefValue = $derived(isDisabled ? undefined : href);
 	const ariaDisabled = $derived(isDisabled ? true : undefined);
 	const tabIndex = $derived(isDisabled ? -1 : undefined);
+	const hrefPathname = $derived.by(() => {
+		try {
+			return new URL(href).pathname;
+		} catch {
+			return href;
+		}
+	});
 	const isActive = $derived(
 		selected ||
-			page.url.pathname === href ||
-			(href !== '/' && page.url.href.startsWith(href)) ||
-			page.url.href == href
+			page.url.pathname === hrefPathname ||
+			(hrefPathname !== '/' && page.url.pathname.startsWith(hrefPathname + '/'))
 	);
 	const {
 		base,
