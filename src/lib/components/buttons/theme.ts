@@ -30,7 +30,7 @@ export const button = tv({
 			tertiary: '',
 			error: ''
 		},
-		type: {
+		usage: {
 			selection: '',
 			default: ''
 		},
@@ -67,12 +67,12 @@ export const button = tv({
 	},
 	compoundVariants: [
 		{
-			type: 'selection',
+			usage: 'selection',
 			selected: true,
 			class: { base: 'bg-md-sys-color-primary text-md-sys-color-on-primary [--btn-shape-override:0.75rem]' }
 		},
 		{
-			type: 'selection',
+			usage: 'selection',
 			selected: false,
 			class: { base: 'bg-md-sys-color-surface-container' }
 		},

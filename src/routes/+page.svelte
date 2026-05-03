@@ -39,9 +39,12 @@
 		Menu,
 		Avatar,
 		Badge,
-		Select
+		Select,
+		Popover,
+		RadioGroup
 	} from '$lib/index.js';
 	import { nanoid } from 'nanoid';
+	import type { DateValue } from '@internationalized/date';
 	import SinglePane from '$lib/components/containers/panes/SinglePane.svelte';
 	let showModal = $state(false);
 	let showModal2 = $state(false);
@@ -57,7 +60,10 @@
 	let snackbarMsg = $state('');
 	let selectedMenu = $state('');
 	let selectValue = $state('');
+	let radioValue = $state('');
+	let radioValue2 = $state('en');
 	let toggle = $state(true);
+	let dateValue = $state<DateValue | undefined>(undefined);
 
 	type DemoMultipart = { label: string; props: Record<string, unknown> };
 	let multipartDemos: DemoMultipart[] = $state([]);
@@ -453,10 +459,95 @@
 		</label>
 	</div>
 
+	<Headline>Radio Group</Headline>
+	<div class="flex flex-wrap gap-12">
+		<div class="flex flex-col gap-2">
+			<Body>Vertical (default)</Body>
+			<RadioGroup
+				bind:value={radioValue}
+				items={[
+					{ value: 'a', label: 'Вариант А' },
+					{ value: 'b', label: 'Вариант Б', supportingText: 'С пояснением' },
+					{ value: 'c', label: 'Вариант В', disabled: true }
+				]}
+			/>
+			<Body>Selected: {radioValue || '—'}</Body>
+		</div>
+		<div class="flex flex-col gap-2">
+			<Body>Horizontal</Body>
+			<RadioGroup
+				bind:value={radioValue2}
+				orientation="horizontal"
+				items={[
+					{ value: 'ru', label: 'Русский' },
+					{ value: 'en', label: 'English' },
+					{ value: 'de', label: 'Deutsch' }
+				]}
+			/>
+			<Body>Selected: {radioValue2 || '—'}</Body>
+		</div>
+		<div class="flex flex-col gap-2">
+			<Body>Disabled group</Body>
+			<RadioGroup
+				disabled
+				value="b"
+				items={[
+					{ value: 'a', label: 'Вариант А' },
+					{ value: 'b', label: 'Вариант Б' }
+				]}
+			/>
+		</div>
+		<div class="flex flex-col gap-2">
+			<Body>Error state</Body>
+			<RadioGroup
+				error
+				bind:value={radioValue}
+				items={[
+					{ value: 'a', label: 'Вариант А' },
+					{ value: 'b', label: 'Вариант Б' }
+				]}
+			/>
+		</div>
+	</div>
+
 	<Headline>Select</Headline>
 	<div class="flex max-w-md flex-wrap gap-4">
 		<Select bind:value={selectValue} items={selectItems} placeholder="Выберите язык" />
 		<Body>Selected: {selectValue || '—'}</Body>
+	</div>
+
+	<Divider />
+
+	<!-- POPOVER -->
+	<Display>Popover</Display>
+	<div class="flex flex-wrap items-start gap-6">
+		<Popover title="Быстрые действия">
+			{#snippet trigger()}
+				<Button iconProps={{ name: 'tune' }}>Настройки</Button>
+			{/snippet}
+			<div class="flex flex-col gap-2">
+				<Button variant="text" iconProps={{ name: 'edit' }}>Редактировать</Button>
+				<Button variant="text" iconProps={{ name: 'share' }}>Поделиться</Button>
+				<Button variant="text" color="error" iconProps={{ name: 'delete' }}>Удалить</Button>
+			</div>
+		</Popover>
+
+		<Popover title="Уведомления" side="bottom" align="end">
+			{#snippet trigger()}
+				<ButtonIcon iconProps={{ name: 'notifications' }} variant="tonal" />
+			{/snippet}
+			<div class="flex flex-col gap-1">
+				<Body>Новое задание добавлено</Body>
+				<Body>Урок начнётся через 10 мин</Body>
+			</div>
+		</Popover>
+
+		<Popover showClose={false} side="right">
+			{#snippet trigger()}
+				<ButtonIcon iconProps={{ name: 'info' }} variant="outlined" />
+			{/snippet}
+			<Body>Поповер без заголовка и без кнопки закрытия. Клик снаружи закрывает его.</Body>
+		</Popover>
 	</div>
 
 	<Divider />
@@ -620,7 +711,8 @@
 		<LoadingIndicator container />
 	</div>
 
-	<DateField label="Дата" />
+	<DateField label="Дата" bind:value={dateValue} />
+	<Body>Selected: {dateValue?.toString() ?? '—'}</Body>
 	<Divider />
 
 	<!-- MULTIPART -->

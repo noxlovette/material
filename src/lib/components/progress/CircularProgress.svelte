@@ -2,56 +2,56 @@
 	/**
 	 * Material 3 Circular Progress Indicator.
 	 *
-	 * Circular progress indicators display progress by animating along an invisible circular track.
-	 *
 	 * @see https://m3.material.io/components/progress-indicators/overview#circular-progress-indicators
 	 */
-	import type { HTMLAttributes } from 'svelte/elements';
+	import { Progress } from 'bits-ui';
 
 	let {
 		percent,
 		size = 48,
-		thickness = 4,
-		...extra
+		thickness = 4
 	}: {
-		/** The current progress percentage (0-100). */
-		percent: number;
-		/** The size of the indicator in pixels. Defaults to 48. */
+		/** The current progress percentage (0–100). Omit or pass null for indeterminate. */
+		percent?: number | null;
+		/** Diameter of the indicator in pixels. Defaults to 48. */
 		size?: number;
-		/** The thickness of the progress track in pixels. Defaults to 4. */
+		/** Stroke thickness in pixels. Defaults to 4. */
 		thickness?: number;
-	} & HTMLAttributes<SVGElement> = $props();
+	} = $props();
 
 	let r = $derived(size / 2 - thickness / 2);
 	let circumference = $derived(Math.PI * r * 2);
 </script>
 
-<svg
-	width={size}
-	height={size}
-	viewBox="0 0 {size} {size}"
-	xmlns="http://www.w3.org/2000/svg"
-	class="rotate-[-90deg]"
-	role="progressbar"
-	{...extra}
->
-	<circle
-		cx={size / 2}
-		cy={size / 2}
-		{r}
-		stroke="var(--color-md-sys-color-secondary-container)"
-		stroke-width={thickness}
-		fill="none"
-	/>
-	<circle
-		cx={size / 2}
-		cy={size / 2}
-		{r}
-		stroke="var(--color-md-sys-color-primary)"
-		stroke-width={thickness}
-		stroke-dasharray="{circumference} {circumference}"
-		stroke-dashoffset={(percent / -100) * circumference + circumference}
-		stroke-linecap="round"
-		fill="none"
-	/>
-</svg>
+<Progress.Root value={percent ?? null} max={100}>
+	{#snippet child({ props })}
+		<svg
+			{...props}
+			width={size}
+			height={size}
+			viewBox="0 0 {size} {size}"
+			xmlns="http://www.w3.org/2000/svg"
+			class="rotate-[-90deg]"
+		>
+			<circle
+				cx={size / 2}
+				cy={size / 2}
+				{r}
+				stroke="var(--color-md-sys-color-secondary-container)"
+				stroke-width={thickness}
+				fill="none"
+			/>
+			<circle
+				cx={size / 2}
+				cy={size / 2}
+				{r}
+				stroke="var(--color-md-sys-color-primary)"
+				stroke-width={thickness}
+				stroke-dasharray="{circumference} {circumference}"
+				stroke-dashoffset={(percent != null ? (percent / -100) * circumference : 0) + circumference}
+				stroke-linecap="round"
+				fill="none"
+			/>
+		</svg>
+	{/snippet}
+</Progress.Root>

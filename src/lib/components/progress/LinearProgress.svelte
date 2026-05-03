@@ -2,45 +2,43 @@
 	/**
 	 * Material 3 Linear Progress Indicator.
 	 *
-	 * Linear progress indicators display progress along a fixed track.
-	 *
 	 * @see https://m3.material.io/components/progress-indicators/overview#linear-progress-indicators
 	 */
 	import clsx from 'clsx';
 	import { tv } from 'tailwind-variants';
+	import { Progress } from 'bits-ui';
 
 	let {
 		percent,
 		height = 4,
 		class: className
 	}: {
-		/** The current progress percentage (0-100). */
-		percent: number;
-		/** The height of the progress bar in pixels. Defaults to 4. */
+		/** The current progress percentage (0–100). Omit or pass null for indeterminate. */
+		percent?: number | null;
+		/** Height of the bar in pixels. Defaults to 4. */
 		height?: number;
-		/** Additional CSS classes for the container. */
 		class?: string;
 	} = $props();
 
 	const linearProgress = tv({
 		slots: {
 			container: 'flex gap-1',
-			percent: 'bg-md-sys-color-primary rounded-full shrink',
+			fill: 'bg-md-sys-color-primary rounded-full shrink',
 			track: 'bg-md-sys-color-secondary-container rounded-full grow'
 		}
 	});
 
-	const { container, percent: percentClass, track } = $derived(linearProgress());
+	const { container, fill, track } = linearProgress();
 </script>
 
-<div
+<Progress.Root
+	value={percent ?? null}
+	max={100}
 	class={container({ class: clsx(className) })}
-	role="progressbar"
 	style:height="{height / 16}rem"
 >
-	<div
-		class={percentClass()}
-		style:width="{percent}%"
-	></div>
+	{#if percent != null}
+		<div class={fill()} style:width="{percent}%"></div>
+	{/if}
 	<div class={track()}></div>
-</div>
+</Progress.Root>

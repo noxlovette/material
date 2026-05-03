@@ -59,6 +59,8 @@ export type ButtonMDProps = ButtonMDVariants &
 		disabled?: boolean;
 		/** Whether the button is currently in a selected state (e.g. for toggle buttons). */
 		selected?: boolean;
+		/** Whether the button behaves as a selection control (scopes selected styling). */
+		usage?: ButtonMDVariants['usage'];
 		/**
 		 * Configuration for the leading icon.
 		 */
