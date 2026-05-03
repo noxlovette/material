@@ -110,8 +110,7 @@ export const supportingPane = tv({
 			// supporting scrolls independently; main scrolls the page
 			viewport: {
 				supporting:
-					'md:fixed md:top-[var(--supporting-pane-top,0px)] md:bottom-0 md:w-[var(--supporting-pane-width,320px)] md:overflow-y-auto scrollbar-none',
-				main: 'md:ml-[var(--supporting-pane-width,320px)]'
+					'md:fixed md:top-[var(--supporting-pane-top,0px)] md:bottom-0 md:w-[var(--supporting-pane-width,320px)] md:overflow-y-auto scrollbar-none'
 			},
 			// supporting sticks as user scrolls the page (classic sticky)
 			parent: {
@@ -149,6 +148,24 @@ export const supportingPane = tv({
 			}
 		}
 	},
+	compoundVariants: [
+		{
+			anchor: 'viewport',
+			position: 'right',
+			class: {
+				supporting: 'md:right-0',
+				main: 'md:mr-[var(--supporting-pane-width,320px)]'
+			}
+		},
+		{
+			anchor: 'viewport',
+			position: 'left',
+			class: {
+				supporting: 'md:left-0',
+				main: 'md:ml-[var(--supporting-pane-width,320px)]'
+			}
+		}
+	],
 	defaultVariants: {
 		anchor: 'parent',
 		position: 'right',

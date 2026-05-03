@@ -11,6 +11,7 @@
 	import type { RailProps } from './types.ts';
 	import ButtonIcon from '$lib/components/buttons/ButtonIcon.svelte';
 	import { rail } from './theme.ts';
+	import { NavigationMenu } from 'bits-ui';
 
 	let {
 		children,
@@ -53,9 +54,11 @@
 
 	{@render fab?.()}
 
-	<div class={`${items()} rail-items`}>
-		{@render children?.()}
-	</div>
+	<NavigationMenu.Root orientation="vertical" class="w-full">
+		<NavigationMenu.List class={`${items()} rail-items`}>
+			{@render children?.()}
+		</NavigationMenu.List>
+	</NavigationMenu.Root>
 </div>
 
 <style>

@@ -9,7 +9,6 @@
 
 	// These icons will be pre-loaded by the MaterialSymbolsProvider inside App
 	const icons = [
-		'menu',
 		'house',
 		'circle',
 		'note_stack',
@@ -18,8 +17,6 @@
 		'notifications',
 		'mail',
 		'chat',
-		'settings',
-		'search',
 		'favorite',
 		'share',
 		'delete',
@@ -29,7 +26,6 @@
 		'help',
 		'warning',
 		'check',
-		'calendar_month',
 		'person',
 		'close',
 		'zoom_in',

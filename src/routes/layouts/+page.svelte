@@ -25,7 +25,7 @@
 
 <div class="relative min-h-screen">
 	{#if variant === 'single'}
-		<SinglePane class="p-12" contentClass="gap-8" anchor="parent">
+		<SinglePane class="p-12" contentClass="gap-8">
 			<Display>Single Pane Layout</Display>
 			<Body>
 				The Single Pane layout is the simplest canonical layout. It's used for focused tasks or simple content.
@@ -131,10 +131,10 @@
 					<Divider />
 					<Label>Actions</Label>
 					<div class="flex flex-col gap-2">
-						<Card variant="tonal" class="p-3">
+						<Card type="filled" class="p-3">
 							<Label>Quick Note</Label>
 						</Card>
-						<Card variant="tonal" class="p-3">
+						<Card type="filled" class="p-3">
 							<Label>View History</Label>
 						</Card>
 					</div>

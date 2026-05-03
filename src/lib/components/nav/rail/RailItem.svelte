@@ -9,6 +9,7 @@
 	import { railElement } from './theme.js';
 	import { Icon, Layer } from '$lib/utils/index.js';
 	import Badge from '../../badge/Badge.svelte';
+	import { NavigationMenu } from 'bits-ui';
 
 	let {
 		href = '/',
@@ -45,32 +46,44 @@
 	const rootClass = $derived([base(), className].filter(Boolean).join(' '));
 
 	function handleClick(event: MouseEvent) {
-		if (!isDisabled) return;
-		event.preventDefault();
-		event.stopPropagation();
+		if (isDisabled) {
+			event.preventDefault();
+			event.stopPropagation();
+		}
 	}
 </script>
 
-<a
-	href={hrefValue}
-	{target}
-	{rel}
-	aria-disabled={ariaDisabled}
-	tabindex={tabIndex}
-	onclick={handleClick}
-	{...rest}
-	class={rootClass}
->
-	<div class={content()}>
-		<div class={iconContainer()}>
-			<Layer />
-			<Icon {...iconProps} class={icon()} wght={isActive ? 600 : 400} fill={isActive ? 1 : 0} />
-			{#if badge}
-				<Badge size={badge === -1 ? 'sm' : 'lg'} number={badge}></Badge>
-			{/if}
-		</div>
-		<p class={labelClass()}>
-			{name}
-		</p>
-	</div>
-</a>
+<NavigationMenu.Item class={['flex w-full items-center', collapsed && 'justify-center'].filter(Boolean).join(' ')}>
+	<NavigationMenu.Link active={isActive} href={hrefValue}>
+		{#snippet child({ props })}
+			<a
+				{...props}
+				{...rest}
+				{target}
+				{rel}
+				aria-disabled={ariaDisabled}
+				tabindex={tabIndex}
+				onclick={handleClick}
+				class={rootClass}
+			>
+				<div class={content()}>
+					<div class={iconContainer()}>
+						<Layer />
+						<Icon
+							{...iconProps}
+							class={icon()}
+							wght={isActive ? 600 : 400}
+							fill={isActive ? 1 : 0}
+						/>
+						{#if badge}
+							<Badge size={badge === -1 ? 'sm' : 'lg'} number={badge}></Badge>
+						{/if}
+					</div>
+					<p class={labelClass()}>
+						{name}
+					</p>
+				</div>
+			</a>
+		{/snippet}
+	</NavigationMenu.Link>
+</NavigationMenu.Item>

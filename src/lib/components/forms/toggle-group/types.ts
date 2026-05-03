@@ -6,10 +6,13 @@ export type ToggleGroupProps = ToggleGroupVariants & {
 	/** Whether only one item can be active at a time, or multiple. */
 	type: 'single' | 'multiple';
 	/** Currently selected value(s). @bindable */
-	value?: string | string[];
-	onValueChange?: (value: string & string[]) => void;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	value?: any;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	onValueChange?: (value: any) => void;
 	disabled?: boolean;
 	loop?: boolean;
+	orientation?: 'horizontal' | 'vertical';
 	children?: Snippet;
 	class?: string;
 };

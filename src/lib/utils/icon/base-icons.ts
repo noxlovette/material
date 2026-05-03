@@ -1,4 +1,4 @@
-export const baseIconNames = [
+export const baseIcons = [
 	'arrow_drop_down',
 	'check',
 	'chevron_left',
@@ -8,6 +8,7 @@ export const baseIconNames = [
 	'home',
 	'info',
 	'search',
+	'settings',
 	'warning',
 	'calendar_month',
 	'schedule',
@@ -21,5 +22,7 @@ export const baseIconNames = [
 	'favorite',
 	'share',
 	'settings',
-	'help'
+	'help',
+	'menu',
+	'menu_open'
 ] as const;

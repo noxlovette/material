@@ -11,7 +11,7 @@ export type NavBarVariants = VariantProps<typeof navbar>;
 /**
  * Props for the NavbarItem component.
  */
-export type NavItemProps = NavBarVariants &
+export type NavItemProps = NavItemVariants &
 	HTMLAttributes<HTMLAnchorElement> & {
 		/** The text label for the item. */
 		label: string;

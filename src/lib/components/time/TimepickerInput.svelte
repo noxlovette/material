@@ -33,7 +33,7 @@
 <div class={cls.base()}>
 	<div class={cls.headline()}>{label}</div>
 
-	<TimeField.Root bind:value={timeValue} granularity="minute" hourCycle="24">
+	<TimeField.Root bind:value={timeValue} granularity="minute" hourCycle={24}>
 		<TimeField.Input {name}>
 			{#snippet children({ segments })}
 				<div class={cls.clockDiv()}>

@@ -2,13 +2,14 @@
 
 // folder re-exports (export everything from these folders)
 export * from "./checkbox/index.js";
-export * from "./radio-group/index.js";
 export * from "./multipart/index.js";
+export * from "./pin/index.js";
+export * from "./radio-group/index.js";
 export * from "./search/index.js";
 export * from "./select/index.js";
 export * from "./slider/index.js";
 export * from "./switch/index.js";
 export * from "./textfield/index.js";
-export * from "./tooltip/index.js";
 export * from "./toggle-group/index.js";
+export * from "./tooltip/index.js";
 

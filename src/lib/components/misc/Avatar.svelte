@@ -4,29 +4,21 @@
 	 *
 	 * @see https://m3.material.io/components/avatars/overview
 	 */
+	import { Avatar as AvatarPrimitive } from 'bits-ui';
 	import clsx from 'clsx';
-	import { tv, type VariantProps } from 'tailwind-variants';
 	import { Layer } from '$lib/utils/index.js';
+	import { avatar } from './theme.js';
+	import type { AvatarProps } from './types.js';
 
-	const {
-		seed = 'ogonek',
-		avatarUrl,
+	let {
+		src,
 		alt = 'User avatar',
-		class: className,
+		seed = 'ogonek',
 		size = 'lg',
-		onclick
-	}: {
-		/** The seed for the generated avatar if no avatarUrl is provided. */
-		seed?: string;
-		/** The URL of the avatar image. If null or undefined, a generated avatar will be used. */
-		avatarUrl?: string | null;
-		/** The alt text for the avatar image. */
-		alt?: string;
-		/** Callback for when the avatar is clicked. If provided, the avatar is wrapped in a button. */
-		onclick?: () => void;
-		/** Additional CSS classes for the avatar element. */
-		class?: string;
-	} & AvatarVariants = $props();
+		class: className,
+		onclick,
+		...rest
+	}: AvatarProps = $props();
 
 	const materialPalette = ['e8f0fe', 'e8f5e9', 'fff7e6', 'fde7ec', 'e3f2fd'];
 	const dicebearBaseUrl = 'https://api.dicebear.com/9.x/shapes/svg';
@@ -48,30 +40,30 @@
 		return `${dicebearBaseUrl}?${params.toString()}`;
 	});
 
-	const src = $derived(avatarUrl ?? generatedAvatar);
+	const { root, image, fallback, button } = $derived(avatar({ size }));
 
-	type AvatarVariants = VariantProps<typeof avatar>;
-	const avatar = tv({
-		slots: {
-			base: 'aspect-square min-w-max shrink-0 rounded-full object-cover'
-		},
-		variants: {
-			size: {
-				sm: 'size-12',
-				md: 'size-18',
-				lg: 'size-24'
-			}
-		}
-	});
-
-	const { base } = $derived(avatar({ size }));
+	const rootClasses = $derived(root({ class: className }));
 </script>
 
-{#if !onclick}
-	<img {src} {alt} class={base({ class: clsx(className) })} />
-{:else}
-	<button class="relative rounded-full" {onclick} type="button">
+{#if onclick}
+	<button class={button({ class: rootClasses })} {onclick} type="button">
 		<Layer />
-		<img {src} {alt} class={base({ class: clsx(className) })} />
+		<AvatarPrimitive.Root {...rest} class="h-full w-full">
+			{#if src}
+				<AvatarPrimitive.Image {src} {alt} class={image()} />
+			{/if}
+			<AvatarPrimitive.Fallback class={fallback()}>
+				<img src={generatedAvatar} {alt} class={image()} />
+			</AvatarPrimitive.Fallback>
+		</AvatarPrimitive.Root>
 	</button>
+{:else}
+	<AvatarPrimitive.Root {...rest} class={rootClasses}>
+		{#if src}
+			<AvatarPrimitive.Image {src} {alt} class={image()} />
+		{/if}
+		<AvatarPrimitive.Fallback class={fallback()}>
+			<img src={generatedAvatar} {alt} class={image()} />
+		</AvatarPrimitive.Fallback>
+	</AvatarPrimitive.Root>
 {/if}

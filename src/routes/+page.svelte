@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Display, Headline, Body, Card, Title, Icon, Divider } from '$lib/index.js';
 	import SinglePane from '$lib/components/containers/panes/SinglePane.svelte';
+	import CodeBlock from './CodeBlock.svelte';
 
 	const sections = [
 		{
@@ -54,5 +55,53 @@
 				</Card>
 			</a>
 		{/each}
+	</div>
+
+	<Divider />
+
+	<div class="flex flex-col gap-8">
+		<Headline>Get Started</Headline>
+
+		<div class="flex flex-col gap-3">
+			<Title>1. Install</Title>
+			<CodeBlock code="npm i @ogonek-education/ogonek-m3" />
+		</div>
+
+		<div class="flex flex-col gap-3">
+			<Title>2. Import styles</Title>
+			<Body>Add to your root CSS file or layout stylesheet:</Body>
+			<CodeBlock code={`@import '@ogonek-education/ogonek-m3/styles';`} />
+		</div>
+
+		<div class="flex flex-col gap-3">
+			<Title>3. Wrap your app</Title>
+			<Body
+				>The App component sets up theming, dark-mode detection, and icon loading. Pass any extra
+				icons your app uses via iconProviderProps.</Body
+			>
+			<CodeBlock
+				code={`<script lang="ts">
+  import { App } from '@ogonek-education/ogonek-m3';
+<\/script>
+
+<App iconProviderProps={{ extraIcons: ['search', 'add'] }}>
+  <!-- your content -->
+</App>`}
+			/>
+		</div>
+
+		<div class="flex flex-col gap-3">
+			<Title>4. Use components</Title>
+			<CodeBlock
+				code={`<script lang="ts">
+  import { Button, Card, Title } from '@ogonek-education/ogonek-m3';
+<\/script>
+
+<Card class="p-4">
+  <Title>Hello world</Title>
+  <Button>Click me</Button>
+</Card>`}
+			/>
+		</div>
 	</div>
 </SinglePane>

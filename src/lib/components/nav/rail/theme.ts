@@ -29,6 +29,7 @@ export const rail = tv({
 			},
 			false: {
 				base: 'w-24 items-center',
+				items: 'items-center',
 				ghost: 'w-24'
 			}
 		},
@@ -46,7 +47,7 @@ export const rail = tv({
 
 export const railElement = tv({
 	slots: {
-		base: 'group relative z-30 flex',
+		base: 'group relative z-30 flex w-full',
 		content: 'flex items-center min-w-0 rounded-full gap-0.5 py-1.5',
 		iconContainer: 'relative rounded-full items-center justify-center inline-flex',
 		icon: 'text-[24px]',

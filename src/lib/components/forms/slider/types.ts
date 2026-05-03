@@ -1,12 +1,12 @@
 import type { IconProps } from '$lib/utils/index.js';
-import type { HTMLInputAttributes } from 'svelte/elements';
+import type { HTMLAttributes } from 'svelte/elements';
 import type { SliderVariants } from './theme.js';
 
 /**
  * Props for the Slider component.
  */
 export type SliderProps = SliderVariants &
-	Omit<HTMLInputAttributes, 'size' | 'value'> & {
+	Omit<HTMLAttributes<HTMLSpanElement>, 'size' | 'value'> & {
 		/**
 		 * The current value of the slider.
 		 */
@@ -61,4 +61,9 @@ export type SliderProps = SliderVariants &
 		 * Function to format the value displayed in the indicator.
 		 */
 		format?: (value: number) => string;
+
+		/**
+		 * Orientation of the slider.
+		 */
+		vertical?: boolean;
 	};

@@ -3,17 +3,13 @@
 	 * A helper that handles google icons. Should not be used directly.
 	 * Use the App.svelte component instead
 	 */
-	import { baseIconNames } from './base-icons.js';
+	import { baseIcons } from './base-icons.js';
 	import type { MaterialSymbolsProviderProps } from './types.js';
 
-	const {
-		icons = [...baseIconNames],
-		extraIcons = [],
-		display = 'swap'
-	}: MaterialSymbolsProviderProps = $props();
+	const { extraIcons = [], display = 'swap' }: MaterialSymbolsProviderProps = $props();
 
 	const iconList = $derived.by(() => {
-		const combined = [...icons, ...extraIcons].filter(Boolean);
+		const combined = [...baseIcons, ...extraIcons].filter(Boolean);
 		return Array.from(new Set(combined)).sort();
 	});
 

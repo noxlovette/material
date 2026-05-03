@@ -29,6 +29,8 @@
 			return n.toFixed(0);
 		},
 		class: className,
+		dir,
+		id,
 		...extra
 	}: SliderProps = $props();
 
@@ -46,6 +48,9 @@
 		handle: handleCls,
 		value: valueCls
 	} = $derived(slider({ size, vertical }));
+
+	const sliderDir = $derived(dir === null || dir === 'auto' ? undefined : dir);
+	const sliderId = $derived(id === null ? undefined : id);
 
 	let offsetWidth = $state(600);
 	let offsetHeight = $state(600);
@@ -82,6 +87,8 @@
 	step={stepValue}
 	{disabled}
 	orientation={vertical ? 'vertical' : 'horizontal'}
+	dir={sliderDir}
+	id={sliderId}
 	{...extra}
 >
 	{#snippet child({ props })}
