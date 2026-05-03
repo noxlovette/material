@@ -1,67 +1,41 @@
 import type { Snippet } from 'svelte';
-import type { IconProps } from '$lib/utils/index.js';
-
-/**
- * Represents an item in the menu.
- */
-export type MenuDataItem = {
-	/** The display label of the item. */
-	label: string;
-	/** The unique value of the item. */
-	value: string;
-	/** Optional supporting text shown below the label. */
-	helper?: string;
-	/** Whether the item is disabled. */
-	disabled?: boolean;
-	/** Callback function when the item is selected. */
-	onselect?: (value: string) => void;
-};
 
 /**
  * Props for the Menu component.
+ *
+ * Menu is the **shell** — it wires up open/close state and positions the
+ * floating panel. It has no opinion about what goes inside; compose it with
+ * `MenuItem` (and `Divider`, headings, etc.) as children.
+ *
+ * Contrast with `MenuItem`, which is an individual interactive row, and
+ * `ContextMenu`, which is a right-click variant that stays data-driven
+ * because its items are always contextual and uniform.
  */
 export type MenuProps = {
-	/** Array of menu items to display. */
-	items: MenuDataItem[];
-	/** Accessible label for the menu trigger. */
-	label?: string;
-	/** The value of the currently selected item. */
-	selected?: string;
 	/**
-	 * Alignment of the menu relative to the trigger.
+	 * Content rendered inside the floating panel.
+	 * Typically a list of `MenuItem` components, but any element is valid.
+	 */
+	children: Snippet;
+	/**
+	 * Custom trigger element. When omitted, a default filled `Button` labelled
+	 * by `label` is used.
+	 */
+	trigger?: Snippet;
+	/**
+	 * Label for the default button trigger. Ignored when `trigger` is provided.
+	 * @default 'Open menu'
+	 */
+	label?: string;
+	/**
+	 * Alignment of the floating panel relative to the trigger.
 	 * @default 'start'
 	 */
-	align?: 'start' | 'end';
+	align?: 'start' | 'center' | 'end';
 	/**
-	 * Prefix for data-cy attributes on menu items.
-	 * @default 'menu-item'
+	 * Controlled open state. Bind to this to drive the menu externally.
 	 */
-	itemDataCyPrefix?: string;
-	/** Data-cy attribute for testing. */
-	dataCy?: string;
-	/** Data-cy attribute for testing. */
-	'data-cy'?: string;
-	/**
-	 * The visual style of the trigger element.
-	 * @default 'button'
-	 */
-	triggerVariant?: 'button' | 'textfield';
-	/** Label for the textfield trigger. */
-	triggerLabel?: string;
-	/** Value for the textfield trigger. */
-	triggerValue?: any;
-	/** Props for the leading icon of the trigger. */
-	triggerLeadingIconProps?: IconProps;
-	/** Props for the trailing icon of the trigger. */
-	triggerTrailingIconProps?: IconProps;
-	/** Whether the menu trigger is disabled. */
-	disabled?: boolean;
-	/** Whether the menu trigger is in an error state. */
-	error?: boolean;
-	/** Additional CSS classes for the trigger element. */
-	triggerClass?: string;
-	/** Supporting text shown below the textfield trigger. */
-	supportingText?: string;
-	/** Callback function when an item is selected. */
-	onselect?: (value: string) => void;
+	open?: boolean;
+	/** Additional CSS classes applied to the floating content panel. */
+	class?: string;
 };

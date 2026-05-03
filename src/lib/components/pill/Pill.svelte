@@ -29,9 +29,10 @@ Pill component that can take various shapes.
 
 	const styling = $derived(pill({ variant }));
 
-	// Extract background color to apply to SVG path instead of the div
-	// since we are using a custom shape.
-	// We'll use CSS variables directly as requested.
+	// To prevent "smashing", we only stretch the "Pill" shape.
+	const isPill = $derived(selectedShape.toLowerCase().includes('pill'));
+
+	// Theme color logic based on CSS variables from theme.css (light.css/dark.css)
 	const colorVar = $derived(
 		variant === 'container'
 			? 'var(--color-md-sys-color-surface-container)'
@@ -45,17 +46,29 @@ Pill component that can take various shapes.
 	);
 </script>
 
-<div class={clsx(styling, className)} style:color={onColorVar} {...restProps}>
+<div
+	class={clsx(styling, className)}
+	style:color={onColorVar}
+	{...restProps}
+>
 	<svg
 		viewBox="0 0 48 48"
 		class="absolute inset-0 -z-10 h-full w-full"
-		style:color={colorVar}
-		preserveAspectRatio="none"
+		preserveAspectRatio={isPill ? 'none' : 'xMidYMid meet'}
 		aria-hidden="true"
 	>
-		<path d={pathData} fill="currentColor" />
+		<path d={pathData} fill={colorVar} />
 	</svg>
-	<div class="relative">
+	<div class="relative flex items-center justify-center">
 		{@render children?.()}
 	</div>
 </div>
+
+<style>
+	div {
+		/* Disable default background/rounding from theme classes to use our SVG shape */
+		background: none !important;
+		border: none !important;
+		border-radius: 0 !important;
+	}
+</style>

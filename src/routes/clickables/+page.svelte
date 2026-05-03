@@ -16,6 +16,7 @@
 		Tooltip,
 		Button,
 		Menu,
+		MenuItem,
 		Avatar,
 		Badge,
 		Popover,
@@ -39,19 +40,13 @@
 	let showModal3 = $state(false);
 
 	let snackbarMsg = $state('');
-	let selectedMenu = $state('');
+	let lastAction = $state('');
 	let toolbarFormat = $state<string[]>([]);
 	let toolbarAlign = $state('left');
 	let segmentSingle = $state('day');
 	let segmentMulti = $state<string[]>(['bold']);
 	let toggle = $state(true);
 
-	const menuItems = [
-		{ label: 'Редактировать', value: 'edit' },
-		{ label: 'Дублировать', value: 'duplicate' },
-		{ label: 'Архивировать', value: 'archive' },
-		{ label: 'Удалить', value: 'delete', helper: 'Безвозвратно' }
-	];
 
 	const toc = [
 		{ id: 'buttons', label: 'Buttons' },
@@ -347,22 +342,21 @@
 			<section id="menu" class="flex scroll-mt-4 flex-col gap-6">
 				<Display>Menu</Display>
 				<div class="flex gap-4">
-					<Menu
-						items={menuItems}
-						label="Действия"
-						selected={selectedMenu}
-						onselect={(v) => (selectedMenu = v)}
-					/>
-					<Menu
-						items={menuItems}
-						label="Align end"
-						align="end"
-						selected={selectedMenu}
-						onselect={(v) => (selectedMenu = v)}
-					/>
+					<Menu label="Действия">
+						<MenuItem onclick={() => (lastAction = 'edit')}>Редактировать</MenuItem>
+						<MenuItem onclick={() => (lastAction = 'duplicate')}>Дублировать</MenuItem>
+						<MenuItem onclick={() => (lastAction = 'archive')}>Архивировать</MenuItem>
+						<MenuItem helper="Безвозвратно" onclick={() => (lastAction = 'delete')}>Удалить</MenuItem>
+					</Menu>
+					<Menu label="Align end" align="end">
+						<MenuItem onclick={() => (lastAction = 'edit')}>Редактировать</MenuItem>
+						<MenuItem onclick={() => (lastAction = 'duplicate')}>Дублировать</MenuItem>
+						<MenuItem onclick={() => (lastAction = 'archive')}>Архивировать</MenuItem>
+						<MenuItem helper="Безвозвратно" onclick={() => (lastAction = 'delete')}>Удалить</MenuItem>
+					</Menu>
 				</div>
-				{#if selectedMenu}
-					<Body>Selected: {selectedMenu}</Body>
+				{#if lastAction}
+					<Body>Last action: {lastAction}</Body>
 				{/if}
 			</section>
 

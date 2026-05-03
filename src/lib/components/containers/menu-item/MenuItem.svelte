@@ -1,6 +1,16 @@
 <!--
 @component
-Menu items represent options within a menu.
+A single interactive row inside a `Menu`.
+
+`MenuItem` is the leaf node of the menu system. It wraps bits-ui's
+`DropdownMenu.Item` so each row automatically gets keyboard navigation,
+focus management, and the ARIA `menuitem` role.
+
+Pass `onclick` (or `onSelect`) for the action; use `iconProps` for a
+leading icon and `helper` for a supporting line below the label.
+
+Contrast with `Menu`, which is just the shell (open state + floating panel),
+and `ContextMenu`, which owns its own item list and is right-click triggered.
 
 @see https://m3.material.io/components/menus/guidelines
 -->
