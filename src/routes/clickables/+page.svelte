@@ -47,7 +47,6 @@
 	let segmentMulti = $state<string[]>(['bold']);
 	let toggle = $state(true);
 
-
 	const toc = [
 		{ id: 'buttons', label: 'Buttons' },
 		{ id: 'tooltips', label: 'Tooltips' },
@@ -346,13 +345,17 @@
 						<MenuItem onclick={() => (lastAction = 'edit')}>Редактировать</MenuItem>
 						<MenuItem onclick={() => (lastAction = 'duplicate')}>Дублировать</MenuItem>
 						<MenuItem onclick={() => (lastAction = 'archive')}>Архивировать</MenuItem>
-						<MenuItem helper="Безвозвратно" onclick={() => (lastAction = 'delete')}>Удалить</MenuItem>
+						<MenuItem helper="Безвозвратно" onclick={() => (lastAction = 'delete')}
+							>Удалить</MenuItem
+						>
 					</Menu>
 					<Menu label="Align end" align="end">
 						<MenuItem onclick={() => (lastAction = 'edit')}>Редактировать</MenuItem>
 						<MenuItem onclick={() => (lastAction = 'duplicate')}>Дублировать</MenuItem>
 						<MenuItem onclick={() => (lastAction = 'archive')}>Архивировать</MenuItem>
-						<MenuItem helper="Безвозвратно" onclick={() => (lastAction = 'delete')}>Удалить</MenuItem>
+						<MenuItem helper="Безвозвратно" onclick={() => (lastAction = 'delete')}
+							>Удалить</MenuItem
+						>
 					</Menu>
 				</div>
 				{#if lastAction}

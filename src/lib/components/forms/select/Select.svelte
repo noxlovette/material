@@ -32,6 +32,16 @@ Powered by bits-ui for accessibility and behavior.
 	}: SelectProps = $props();
 
 	const cls = $derived(selectCls({ disabled, error }));
+
+	const selectedLabel = $derived.by(() => {
+		if (!value) return '';
+		if (Array.isArray(value)) {
+			return (value as string[])
+				.map((v) => items.find((i) => i.value === v)?.label ?? v)
+				.join(', ');
+		}
+		return items.find((i) => i.value === (value as string))?.label ?? (value as string) ?? '';
+	});
 </script>
 
 <Select.Root bind:value={value as never} bind:open {disabled} {...rootProps}>
@@ -41,7 +51,7 @@ Powered by bits-ui for accessibility and behavior.
 		{/if}
 
 		<div class={cls.inputWrapper()}>
-			<Select.Value {placeholder} class={cls.value()} />
+			<span class={cls.value()}>{selectedLabel}</span>
 			<span class={clsx(cls.label(), cls.labelFloating())}>
 				{label}
 			</span>
