@@ -51,7 +51,7 @@ Powered by bits-ui for accessibility and behavior.
 		{/if}
 
 		<div class={cls.inputWrapper()}>
-			<span class={cls.value()}>{selectedLabel}</span>
+			<span class={cls.value()}>{selectedLabel || placeholder || ''}</span>
 			<span class={clsx(cls.label(), cls.labelFloating())}>
 				{label}
 			</span>
@@ -67,7 +67,7 @@ Powered by bits-ui for accessibility and behavior.
 					<div {...wrapperProps}>
 						<div
 							{...props}
-							class="max-w-sm min-w-64 rounded-xl bg-md-sys-color-surface-container-high ring-1 shadow-elevation-3 ring-md-sys-color-outline/40"
+							class="relative z-50 max-w-sm min-w-64 rounded-xl bg-md-sys-color-surface-container-high ring-1 shadow-elevation-3 ring-md-sys-color-outline/40"
 							transition:enterExit={{
 								duration: 200,
 								easing: easeEmphasizedDecel,

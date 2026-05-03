@@ -16,7 +16,9 @@
 		Switch,
 		Select,
 		RadioGroup,
-		SupportingPane
+		SupportingPane,
+		Dialogue,
+		Button
 	} from '$lib/index.js';
 	import { nanoid } from 'nanoid';
 	import type { DateValue } from '@internationalized/date';
@@ -27,6 +29,9 @@
 	let switchOn = $state(false);
 	let switchIcons = $state(true);
 	let selectValue = $state('');
+	let selectInDialogue = $state('');
+	let selectInDialogue2 = $state('');
+	let dialogueOpen = $state(false);
 	let radioValue = $state('');
 	let radioValue2 = $state('en');
 	let dateValue = $state<DateValue | undefined>(undefined);
@@ -243,6 +248,35 @@
 					<Select bind:value={selectValue} items={selectItems} placeholder="Выберите язык" />
 					<Body>Selected: {selectValue || '—'}</Body>
 				</div>
+
+				<Headline>Select inside Dialogue</Headline>
+				<Button variant="outlined" onclick={() => (dialogueOpen = true)}>Open dialogue</Button>
+
+				{#if dialogueOpen}
+					<Dialogue
+						headline="Select inside dialogue"
+						supportingText="Dropdown should appear above the overlay."
+						confirmText="Confirm"
+						toggle={() => (dialogueOpen = false)}
+					>
+						{#snippet children()}
+							<div class="flex flex-col gap-4">
+								<Select
+									bind:value={selectInDialogue}
+									items={selectItems}
+									label="Language"
+									placeholder="Choose…"
+								/>
+								<Select
+									bind:value={selectInDialogue2}
+									items={selectItems}
+									label="Fallback"
+									placeholder="Choose…"
+								/>
+							</div>
+						{/snippet}
+					</Dialogue>
+				{/if}
 			</section>
 
 			<!-- SEARCH -->
