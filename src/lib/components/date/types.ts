@@ -30,4 +30,9 @@ export interface DateFieldProps extends BaseDateProps {
 	 * The current value of the date field.
 	 */
 	value?: DateValue;
+	/**
+	 * The name for the hidden input submitted with the form.
+	 * If not provided, no hidden input is rendered.
+	 */
+	name?: string;
 }

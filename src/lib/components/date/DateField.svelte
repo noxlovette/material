@@ -11,7 +11,7 @@ DateField is a text field that allows users to enter a date or pick it from a ca
 	import type { DateFieldProps } from './types.ts';
 	import { dateField } from './theme.ts';
 
-	let { value = $bindable(), required = false, disabled = false }: DateFieldProps = $props();
+	let { value = $bindable(), required = false, disabled = false, name }: DateFieldProps = $props();
 
 	const { base, input } = $derived(dateField());
 </script>
@@ -26,7 +26,7 @@ DateField is a text field that allows users to enter a date or pick it from a ca
 	fixedWeeks
 >
 	<div class={base()}>
-		<DatePicker.Input class={input()}>
+		<DatePicker.Input class={input()} {name}>
 			{#snippet children({ segments })}
 				<div class="justify-betwee flex w-full tabular-nums">
 					{#each segments as { part, value }}

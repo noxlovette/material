@@ -19,12 +19,15 @@ It combines a Material 3 Textfield with a TimepickerInput for intuitive time sel
 		disabled = false,
 		error = false,
 		datePickerTitle = 'Pick date',
+		name,
 		...restProps
 	}: {
 		/** The label for the text field. */
 		label?: string;
 		/** The current time value (bindable). */
 		value?: string;
+		/** The name for the hidden input submitted with the form. */
+		name?: string;
 		/** Whether the field is required for form submission. */
 		required?: boolean;
 		/** Whether the field is disabled. */
@@ -52,6 +55,7 @@ It combines a Material 3 Textfield with a TimepickerInput for intuitive time sel
 		{id}
 		{label}
 		{value}
+		{name}
 		class="pointer-events-none"
 		trailingIconProps={{ name: 'timer' }}
 		trailingOnClick={() => (picker = !picker)}
