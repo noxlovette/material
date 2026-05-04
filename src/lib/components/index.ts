@@ -12,6 +12,7 @@ export * from './nav/index.js';
 export * from './pill/index.js';
 export * from './progress/index.js';
 export * from './snackbar/index.js';
+export * from './table/index.js';
 export * from './time/index.js';
 export * from './toolbar/index.js';
 export * from './typography/index.js';

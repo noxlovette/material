@@ -55,19 +55,19 @@
 				<div class="flex flex-col gap-4 p-6">
 					<Title>Navigation / List</Title>
 					<Body>Left pane width: {leftWidth}px</Body>
-					<div class="flex flex-col">
+					<ul class="flex flex-col gap-3">
 						{#each Array(10) as _, i}
 							<ListItem
 								headline="List Item {i + 1}"
 								supporting="Supporting text for item {i + 1}"
 							/>
 						{/each}
-					</div>
+					</ul>
 				</div>
 			{/snippet}
 
 			{#snippet right()}
-				<div class="flex flex-col gap-8 p-12">
+				<SinglePane class="p-12" contentClass="gap-8">
 					<Display>Split Pane Layout</Display>
 					<Body>
 						Split Pane provides a resizable two-column layout. It's ideal for master-detail views.
@@ -83,17 +83,16 @@
 
 					<Card type="outlined" class="p-6">
 						<Title>Resizable</Title>
-						<Body>
-							The left pane can be resized between its minimum and maximum defined widths.
-						</Body>
+						<Body>The left pane can be resized between its minimum and maximum defined widths.</Body
+						>
 					</Card>
-				</div>
+				</SinglePane>
 			{/snippet}
 		</SplitPane>
 	{:else if variant === 'supporting'}
 		<SupportingPane collapsible anchor="parent">
 			{#snippet main()}
-				<div class="flex flex-col gap-8 p-12">
+				<SinglePane class="p-12" contentClass="gap-8">
 					<Display>Supporting Pane Layout</Display>
 					<Body>The main content area is where the primary task or information is presented.</Body>
 
@@ -119,7 +118,7 @@
 							{/each}
 						{/each}
 					</div>
-				</div>
+				</SinglePane>
 			{/snippet}
 
 			{#snippet supporting()}
@@ -171,18 +170,18 @@
 	{/if}
 
 	<!-- FLOATING TOOLBAR -->
-	<div class="fixed bottom-8 left-1/2 z-50 -translate-x-1/2 transform">
-		<Card class="flex items-center gap-2 p-2 shadow-lg ring-1 ring-md-sys-color-outline-variant">
-			<ToggleGroup type="single" bind:value={variant}>
-				<ToggleGroupItem value="single" label="Single" iconProps={{ name: 'square' }} />
-				<ToggleGroupItem value="split" label="Split" iconProps={{ name: 'vertical_split' }} />
-				<ToggleGroupItem
-					value="supporting"
-					label="Supporting"
-					iconProps={{ name: 'side_navigation' }}
-				/>
-				<ToggleGroupItem value="scroll" label="Scroll Area" iconProps={{ name: 'unfold_more' }} />
-			</ToggleGroup>
-		</Card>
+	<div
+		class="fixed bottom-8 left-1/2 z-50 -translate-x-1/2 transform rounded-lg bg-md-sys-color-surface-container-highest shadow-elevation-3"
+	>
+		<ToggleGroup type="single" bind:value={variant}>
+			<ToggleGroupItem value="single" label="Single" iconProps={{ name: 'square' }} />
+			<ToggleGroupItem value="split" label="Split" iconProps={{ name: 'vertical_split' }} />
+			<ToggleGroupItem
+				value="supporting"
+				label="Supporting"
+				iconProps={{ name: 'side_navigation' }}
+			/>
+			<ToggleGroupItem value="scroll" label="Scroll Area" iconProps={{ name: 'unfold_more' }} />
+		</ToggleGroup>
 	</div>
 </div>

@@ -50,7 +50,7 @@ Contrast with `MenuItem` (a single interactive row inside the panel) and
 						<div
 							{...props}
 							class={clsx(
-								'min-w-48 max-w-sm overflow-hidden rounded-xl bg-md-sys-color-surface-container-high py-2 shadow-elevation-3 ring-1 ring-md-sys-color-outline/10',
+								'max-w-sm min-w-48 overflow-hidden rounded-xl bg-md-sys-color-surface-container-high py-2 ring-1 shadow-elevation-3 ring-md-sys-color-outline/10',
 								contentClass
 							)}
 							transition:enterExit={{

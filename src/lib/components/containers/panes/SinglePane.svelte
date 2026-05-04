@@ -10,7 +10,6 @@ SinglePane provides a centered or full-width container for content.
 
 	const {
 		children,
-		headline,
 		centered = 'none',
 		background = true,
 		full = true,
@@ -20,18 +19,11 @@ SinglePane provides a centered or full-width container for content.
 		...rest
 	}: SinglePaneProps = $props();
 
-	const {
-		base,
-		content,
-		headline: headlineCls
-	} = $derived(singlePane({ centered, full, background, rounded }));
+	const { base, content } = $derived(singlePane({ centered, full, background, rounded }));
 </script>
 
 <div class={base({ class: clsx(className) })} {...rest}>
 	<div class={content({ class: clsx(contentClass) })}>
-		{#if headline}
-			<div class={headlineCls()}>{headline}</div>
-		{/if}
 		{@render children()}
 	</div>
 </div>

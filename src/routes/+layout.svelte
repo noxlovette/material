@@ -11,6 +11,7 @@
 	const icons = [
 		'house',
 		'circle',
+		'unfold_more',
 		'note_stack',
 		'assignment',
 		'book',
@@ -50,7 +51,8 @@
 		'vertical_split',
 		'view_quilt',
 		'architecture',
-		'side_navigation'
+		'side_navigation',
+		'table'
 	];
 </script>
 
@@ -66,6 +68,7 @@
 			/>
 			<RailItem {collapsed} name="Inputs" href="/inputs" iconProps={{ name: 'edit' }} />
 			<RailItem {collapsed} name="Layouts" href="/layouts" iconProps={{ name: 'view_quilt' }} />
+			<RailItem {collapsed} name="Table" href="/table" iconProps={{ name: 'table' }} />
 		</Rail>
 		<main class="flex-1">
 			{@render children()}

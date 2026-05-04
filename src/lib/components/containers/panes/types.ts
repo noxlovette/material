@@ -80,8 +80,6 @@ export type SinglePaneProps = SinglePaneVariants &
 	DivAttrs & {
 		/** Pane content. */
 		children: Snippet;
-		/** Optional headline shown above content. */
-		headline?: string;
 		/** Optional root class. */
 		class?: string;
 		/** Optional content container class. */
