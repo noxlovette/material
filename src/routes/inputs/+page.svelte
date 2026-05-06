@@ -18,7 +18,14 @@
 		RadioGroup,
 		SupportingPane,
 		Dialogue,
-		Button
+		Button,
+		Command,
+		CommandInput,
+		CommandList,
+		CommandEmpty,
+		CommandGroup,
+		CommandItem,
+		CommandSeparator
 	} from '$lib/index.js';
 	import { nanoid } from 'nanoid';
 	import type { DateValue } from '@internationalized/date';
@@ -100,6 +107,7 @@
 	const toc = [
 		{ id: 'text-fields', label: 'Text Fields' },
 		{ id: 'forms', label: 'Forms' },
+		{ id: 'command', label: 'Command' },
 		{ id: 'search', label: 'Search' },
 		{ id: 'slider', label: 'Slider' },
 		{ id: 'time-date', label: 'Time & Date' },
@@ -277,6 +285,31 @@
 						{/snippet}
 					</Dialogue>
 				{/if}
+			</section>
+
+			<!-- COMMAND -->
+			<section id="command" class="flex scroll-mt-4 flex-col gap-6">
+				<Display>Command</Display>
+				<Body>A powerful command menu for searching and filtering.</Body>
+				<div class="max-w-xl">
+					<Command class="h-auto">
+						<CommandInput placeholder="Type a command or search..." />
+						<CommandList>
+							<CommandEmpty>No results found.</CommandEmpty>
+							<CommandGroup heading="Suggestions">
+								<CommandItem value="calendar">Calendar</CommandItem>
+								<CommandItem value="search-emoji">Search Emoji</CommandItem>
+								<CommandItem value="calculator">Calculator</CommandItem>
+							</CommandGroup>
+							<CommandSeparator />
+							<CommandGroup heading="Settings">
+								<CommandItem value="profile">Profile</CommandItem>
+								<CommandItem value="billing">Billing</CommandItem>
+								<CommandItem value="settings">Settings</CommandItem>
+							</CommandGroup>
+						</CommandList>
+					</Command>
+				</div>
 			</section>
 
 			<!-- SEARCH -->
