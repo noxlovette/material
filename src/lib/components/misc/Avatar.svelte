@@ -6,7 +6,6 @@ Avatars can be used to represent people or objects.
 -->
 <script lang="ts">
 	import { Avatar as AvatarPrimitive } from 'bits-ui';
-	import clsx from 'clsx';
 	import { Layer } from '$lib/utils/index.js';
 	import { avatar } from './theme.js';
 	import type { AvatarProps } from './types.js';
@@ -16,6 +15,7 @@ Avatars can be used to represent people or objects.
 		alt = 'User avatar',
 		seed = 'ogonek',
 		size = 'lg',
+		loadingStatus = $bindable('loading'),
 		class: className,
 		onclick,
 		...rest
@@ -49,7 +49,7 @@ Avatars can be used to represent people or objects.
 {#if onclick}
 	<button class={button({ class: rootClasses })} {onclick} type="button">
 		<Layer />
-		<AvatarPrimitive.Root {...rest} class="h-full w-full">
+		<AvatarPrimitive.Root {...rest} bind:loadingStatus class="h-full w-full">
 			{#if src}
 				<AvatarPrimitive.Image {src} {alt} class={image()} />
 			{/if}
@@ -59,7 +59,7 @@ Avatars can be used to represent people or objects.
 		</AvatarPrimitive.Root>
 	</button>
 {:else}
-	<AvatarPrimitive.Root {...rest} class={rootClasses}>
+	<AvatarPrimitive.Root {...rest} bind:loadingStatus class={rootClasses}>
 		{#if src}
 			<AvatarPrimitive.Image {src} {alt} class={image()} />
 		{/if}

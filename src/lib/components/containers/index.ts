@@ -6,6 +6,7 @@ export * from './bottom-sheet/index.js';
 export * from './context-menu/index.js';
 export * from './dialogue/index.js';
 export * from './divider/index.js';
+export * from './link-preview/index.js';
 export * from './list/index.js';
 export * from './menu/index.js';
 export * from './menu-item/index.js';

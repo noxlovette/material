@@ -21,6 +21,18 @@
 			description: 'Canonical Material 3 layouts: Single Pane, Split Pane, and Supporting Pane.',
 			href: '/layouts',
 			icon: 'view_quilt'
+		},
+		{
+			title: 'Table',
+			description: 'Data tables for displaying sets of data.',
+			href: '/table',
+			icon: 'table'
+		},
+		{
+			title: 'Misc',
+			description: 'Miscellaneous components like Avatars and more.',
+			href: '/misc',
+			icon: 'circle'
 		}
 	];
 </script>

@@ -11,6 +11,8 @@ export type AvatarProps = AvatarPrimitive.RootProps & {
 	alt?: string;
 	/** The seed for the generated avatar if no src is provided. */
 	seed?: string;
+	/** The loading status of the avatar image. */
+	loadingStatus?: 'loading' | 'loaded' | 'error';
 	/** Callback for when the avatar is clicked. If provided, the avatar is wrapped in a button. */
 	onclick?: (e: MouseEvent) => void;
 	/** Additional CSS classes for the avatar element. */
