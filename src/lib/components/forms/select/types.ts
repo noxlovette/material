@@ -50,7 +50,7 @@ export type SelectProps = SelectVariants & {
 	/**
 	 * Array of options to display in the select.
 	 */
-	items?: SelectItemProps[];
+	items?: SelectOptionType[];
 
 	/**
 	 * The floating label text.
@@ -85,7 +85,7 @@ export type SelectProps = SelectVariants & {
 	/**
 	 * Whether the select is in an error state.
 	 */
-	error?: boolean;
+	error?: boolean; onchange?: (value: string | string[]) => void;
 
 	/**
 	 * Name for the hidden input (for form submission).

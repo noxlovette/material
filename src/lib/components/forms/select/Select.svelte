@@ -28,6 +28,7 @@ Powered by bits-ui for accessibility and behavior.
 		supportingText,
 		triggerClass,
 		contentClass,
+		onchange,
 		rootProps = { type: 'single' }
 	}: SelectProps = $props();
 
@@ -37,10 +38,22 @@ Powered by bits-ui for accessibility and behavior.
 		if (!value) return '';
 		if (Array.isArray(value)) {
 			return (value as string[])
-				.map((v) => items.find((i) => i.value === v)?.label ?? v)
+				.map((v) => {
+					const item = items.find((i) => i.value === v);
+					return item?.label ?? item?.name ?? v;
+				})
 				.join(', ');
 		}
-		return items.find((i) => i.value === (value as string))?.label ?? (value as string) ?? '';
+		const item = items.find((i) => i.value === (value as string));
+		return item?.label ?? item?.name ?? (value as string) ?? '';
+	});
+
+	let isMounted = false;
+	$effect(() => {
+		if (isMounted) {
+			onchange?.(value as string & string[]);
+		}
+		isMounted = true;
 	});
 </script>
 
@@ -83,12 +96,12 @@ Powered by bits-ui for accessibility and behavior.
 									{#each items as item, i (i + item.value)}
 										<Select.Item
 											value={item.value}
-											label={item.label}
+											label={item.label ?? item.name}
 											disabled={item.disabled}
 											class={cls.item()}
 										>
 											{#snippet children({ selected })}
-												<span class="flex-1">{item.label ?? item.value}</span>
+												<span class="flex-1">{item.label ?? item.name ?? item.value}</span>
 												{#if selected}
 													<Icon aria-hidden="true" name="check" />
 												{/if}
