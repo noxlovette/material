@@ -11,9 +11,17 @@ DateField is a text field that allows users to enter a date or pick it from a ca
 	import type { DateFieldProps } from './types.ts';
 	import { dateField } from './theme.ts';
 
-	let { value = $bindable(), required = false, disabled = false, name }: DateFieldProps = $props();
+	let {
+		value = $bindable(),
+		required = false,
+		disabled = false,
+		error = false,
+		label,
+		supportingText,
+		name
+	}: DateFieldProps = $props();
 
-	const { base, input } = $derived(dateField());
+	const cls = $derived(dateField({ disabled, error }));
 </script>
 
 <DatePicker.Root
@@ -25,40 +33,55 @@ DateField is a text field that allows users to enter a date or pick it from a ca
 	weekdayFormat="short"
 	fixedWeeks
 >
-	<div class={base()}>
-		<DatePicker.Input class={input()} {name}>
-			{#snippet children({ segments })}
-				<div class="justify-betwee flex w-full tabular-nums">
-					{#each segments as { part, value }}
-						{#if part === 'literal'}
-							<DatePicker.Segment
-								{part}
-								class="px-1.5 text-md-sys-color-on-surface-variant select-none"
-							>
-								{value}
-							</DatePicker.Segment>
-						{:else}
-							<DatePicker.Segment
-								{part}
-								class="cursor-default rounded-xs px-1 py-0.5 text-md-sys-color-on-surface
-								   transition-colors duration-100
-								   select-none
-								   hover:bg-md-sys-color-on-surface/8
-								   focus:bg-md-sys-color-primary-container
-								   focus:text-md-sys-color-on-primary-container
-								   focus:outline-2 focus:outline-md-sys-color-primary focus-visible:ring-0!
-								   focus-visible:ring-offset-0! aria-[valuetext=Empty]:text-md-sys-color-on-surface-variant"
-							>
-								{value}
-							</DatePicker.Segment>
+	<div class="relative w-full">
+		<div class={cls.base()} data-invalid={error || undefined}>
+			<DatePicker.Input class={cls.input()} {name}>
+				{#snippet children({ segments })}
+					<div class="relative flex w-full flex-col pt-4 tabular-nums">
+						<div class="flex items-center justify-between">
+							<div class="flex">
+								{#each segments as { part, value }}
+									{#if part === 'literal'}
+										<DatePicker.Segment
+											{part}
+											class="px-0.5 text-md-sys-color-on-surface-variant select-none first:pl-0"
+										>
+											{value}
+										</DatePicker.Segment>
+									{:else}
+										<DatePicker.Segment
+											{part}
+											class="cursor-default rounded-xs px-1 py-0.5 text-md-sys-color-on-surface
+											   transition-colors duration-100
+											   select-none
+											   hover:bg-md-sys-color-on-surface/8
+											   focus:bg-md-sys-color-primary-container
+											   focus:text-md-sys-color-on-primary-container
+											   focus:outline-2 focus:outline-md-sys-color-primary focus-visible:ring-0!
+											   focus-visible:ring-offset-0! aria-[valuetext=Empty]:text-md-sys-color-on-surface-variant"
+										>
+											{value}
+										</DatePicker.Segment>
+									{/if}
+								{/each}
+							</div>
+						</div>
+						{#if label}
+							<label class={cls.label()}>{label}</label>
 						{/if}
-					{/each}
-				</div>
-				<DatePicker.Trigger>
-					<ButtonIcon variant="bare" iconProps={{ name: 'calendar_month' }} />
-				</DatePicker.Trigger>
-			{/snippet}
-		</DatePicker.Input>
+					</div>
+					<DatePicker.Trigger>
+						<ButtonIcon variant="bare" iconProps={{ name: 'calendar_month' }} />
+					</DatePicker.Trigger>
+				{/snippet}
+			</DatePicker.Input>
+		</div>
+
+		{#if supportingText}
+			<div class={cls.supportingText()}>
+				<p>{@render supportingText()}</p>
+			</div>
+		{/if}
 	</div>
 	<DatePicker.Content sideOffset={6} class="z-50">
 		<DatePicker.Calendar

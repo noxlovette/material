@@ -1,5 +1,5 @@
 import type { DateValue } from '@internationalized/date';
-import type { HTMLAttributes } from 'svelte/elements';
+import type { HTMLAttributes, Snippet } from 'svelte/elements';
 
 /**
  * Common props for Date components.
@@ -23,6 +23,15 @@ export interface BaseDateProps extends HTMLAttributes<HTMLDivElement> {
 	 * @default false
 	 */
 	disabled?: boolean;
+	/**
+	 * Whether the field is in an error state.
+	 * @default false
+	 */
+	error?: boolean;
+	/**
+	 * Supporting text shown below the field.
+	 */
+	supportingText?: Snippet;
 }
 
 export interface DateFieldProps extends BaseDateProps {

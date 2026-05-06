@@ -45,7 +45,11 @@ Powered by bits-ui for accessibility and behavior.
 </script>
 
 <Select.Root bind:value={value as never} bind:open {disabled} {...rootProps}>
-	<Select.Trigger class={cls.trigger({ class: triggerClass })}>
+	<Select.Trigger
+		class={cls.trigger({ class: triggerClass })}
+		aria-invalid={error}
+		data-invalid={error || undefined}
+	>
 		{#if leadingIconProps}
 			<Icon class={cls.leadingIcon()} {...leadingIconProps} />
 		{/if}

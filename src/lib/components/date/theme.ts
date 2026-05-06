@@ -1,4 +1,6 @@
-import { tv } from 'tailwind-variants';
+import { tv, type VariantProps } from 'tailwind-variants';
+
+export type DateFieldVariants = VariantProps<typeof dateField>;
 
 export const dateField = tv({
 	slots: {
@@ -19,7 +21,35 @@ export const dateField = tv({
 		input: `
 				w-full bg-transparent outline-none
 				md-sys-typescale-body-large text-md-sys-color-on-surface
-				disabled:text-md-sys-color-on-surface/38 px-3 flex items-center
-			`
+				disabled:text-md-sys-color-on-surface/38 px-4 flex items-center
+			`,
+		label: `
+      absolute left-4 top-1.5
+      md-sys-typescale-body-small
+      text-md-sys-color-on-surface-variant
+      pointer-events-none
+      transition-[top,font-size,line-height,color,transform] duration-200 ease-in-out
+
+      group-focus-within:text-md-sys-color-primary
+    `,
+		supportingText: `
+      px-4 pt-1 flex justify-between
+      md-sys-typescale-body-small
+      text-md-sys-color-on-surface-variant
+    `
+	},
+	variants: {
+		error: {
+			true: {
+				base: 'after:bg-md-sys-color-error focus-within:after:bg-md-sys-color-error',
+				label: 'text-md-sys-color-error',
+				supportingText: 'text-md-sys-color-error'
+			}
+		},
+		disabled: {
+			true: {
+				base: 'pointer-events-none opacity-60'
+			}
+		}
 	}
 });
