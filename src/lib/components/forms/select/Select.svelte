@@ -62,37 +62,37 @@ Powered by bits-ui for accessibility and behavior.
 					>
 						<Select.Viewport>
 							{#each options as item, i (i)}
-							{#if item.type === 'group'}
-								<Select.Group>
-									{#if item.heading}
-										<Select.GroupHeading class={cls.groupLabel()}>
-											{item.heading}
-										</Select.GroupHeading>
-									{/if}
-									{#each item.items as inner, i (i)}
-										{#if inner.type !== 'group'}
-											<Select.Item {...inner} class={cls.item()}>
-												{#snippet children({ selected })}
-													<span class="flex-1">{inner.label}</span>
-													{#if selected}
-														<Icon aria-hidden="true" name="check" />
-													{/if}
-												{/snippet}
-											</Select.Item>
+								{#if item.type === 'group'}
+									<Select.Group>
+										{#if item.heading}
+											<Select.GroupHeading class={cls.groupLabel()}>
+												{item.heading}
+											</Select.GroupHeading>
 										{/if}
-									{/each}
-								</Select.Group>
-							{:else}
-								<Select.Item {...item} class={cls.item()}>
-									{#snippet children({ selected })}
-										<span class="flex-1">{item.label}</span>
-										{#if selected}
-											<Icon aria-hidden="true" name="check" />
-										{/if}
-									{/snippet}
-								</Select.Item>
-							{/if}
-						{/each}
+										{#each item.items as inner, i (i)}
+											{#if inner.type !== 'group'}
+												<Select.Item {...inner} class={cls.item()}>
+													{#snippet children({ selected })}
+														<span class="flex-1">{inner.label}</span>
+														{#if selected}
+															<Icon aria-hidden="true" name="check" />
+														{/if}
+													{/snippet}
+												</Select.Item>
+											{/if}
+										{/each}
+									</Select.Group>
+								{:else}
+									<Select.Item {...item} class={cls.item()}>
+										{#snippet children({ selected })}
+											<span class="flex-1">{item.label}</span>
+											{#if selected}
+												<Icon aria-hidden="true" name="check" />
+											{/if}
+										{/snippet}
+									</Select.Item>
+								{/if}
+							{/each}
 						</Select.Viewport>
 					</div>
 				</div>
