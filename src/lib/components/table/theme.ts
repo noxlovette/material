@@ -45,7 +45,7 @@ export const table = tv({
 		},
 		sticky: {
 			true: {
-				head: 'sticky top-0 z-10 bg-md-sys-color-surface shadow-[0_1px_0_0_var(--md-sys-color-outline-variant)]'
+				head: 'sticky top-0 z-10 shadow-[0_1px_0_0_var(--md-sys-color-outline-variant)]'
 			}
 		}
 	}

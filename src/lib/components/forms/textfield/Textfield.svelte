@@ -24,6 +24,7 @@ Text fields allow users to enter and edit text.
 		characterLimit,
 		disabled = false,
 		error = false,
+		required = false,
 		trailingOnClick,
 		inputChild,
 		trailingIcon,
@@ -35,6 +36,8 @@ Text fields allow users to enter and edit text.
 		id,
 		class: cls.input(),
 		'aria-invalid': error,
+		'aria-required': required,
+		required,
 		disabled,
 		placeholder,
 		...restProps
@@ -54,7 +57,9 @@ Text fields allow users to enter and edit text.
 				<input bind:value {...inputProps} />
 			{/if}
 
-			<label class={cls.label()} for={id}>{label}</label>
+			<label class={cls.label()} for={id}>
+				{label}{#if required}<span class={cls.requiredAsterisk()} aria-hidden="true">*</span>{/if}
+			</label>
 		</div>
 
 		{#if trailingIcon}

@@ -34,30 +34,35 @@ export const textfield = tv({
       transition-[top,font-size,line-height,color,transform] duration-200 ease-in-out
 
       peer-focus:text-md-sys-color-primary
-      peer-invalid:text-md-sys-color-error
 
       peer-focus:top-1.5 peer-focus:md-sys-typescale-body-small peer-focus:-translate-y-1
 
       peer-not-placeholder-shown:top-1.5 peer-not-placeholder-shown:md-sys-typescale-body-small peer-not-placeholder-shown:-translate-y-1
     `,
 
+		requiredAsterisk: `
+      ml-0.5
+      text-md-sys-color-error
+      group-focus-within:text-md-sys-color-primary
+      transition-colors duration-200
+    `,
+
 		leadingIcon: `
       text-md-sys-color-on-surface-variant size-6
       group-focus-within:text-md-sys-color-primary
-      peer-invalid:text-md-sys-color-error ml-3 text-[24px]
+      ml-3 text-[24px]
     `,
 
 		trailingIcon: `
-    mr-3 text-md-sys-color-on-surface-variant size-6
+      mr-3 text-md-sys-color-on-surface-variant size-6
       group-focus-within:text-md-sys-color-primary
-      peer-invalid:text-md-sys-color-error z-20 text-[24px]
+      z-20 text-[24px]
     `,
 
 		supportingText: `
       px-4 pt-1 flex justify-between
       md-sys-typescale-body-small
       text-md-sys-color-on-surface-variant
-      peer-invalid:text-md-sys-color-error
     `
 	},
 
