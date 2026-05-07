@@ -31,6 +31,23 @@
 	import { nanoid } from 'nanoid';
 	import type { DateValue } from '@internationalized/date';
 	import TableOfContents from '../TableOfContents.svelte';
+	import { superForm, defaults } from 'sveltekit-superforms';
+	import { zod4 as zod } from 'sveltekit-superforms/adapters';
+	import { z } from 'zod/v4';
+	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
+
+	const demoSchema = z.object({
+		name: z.string().min(1),
+		email: z.string().email(),
+		language: z.string(),
+		notifications: z.boolean(),
+		theme: z.string()
+	});
+
+	const { form, errors, enhance } = superForm(defaults(zod(demoSchema)), {
+		SPA: true,
+		validators: zod(demoSchema)
+	});
 
 	let checkbox1 = $state(false);
 	let checkbox2 = $state(true);
@@ -110,6 +127,7 @@
 	const toc = [
 		{ id: 'text-fields', label: 'Text Fields' },
 		{ id: 'forms', label: 'Forms' },
+		{ id: 'superforms', label: 'SuperForms' },
 		{ id: 'command', label: 'Command' },
 		{ id: 'search', label: 'Search' },
 		{ id: 'slider', label: 'Slider' },
@@ -291,6 +309,58 @@
 						</div>
 					</Dialogue>
 				{/if}
+			</section>
+
+			<!-- SUPERFORMS -->
+			<section id="superforms" class="flex scroll-mt-4 flex-col gap-6">
+				<Display>SuperForms</Display>
+				<Body>
+					Live form state via <code>SuperDebug</code>. All fields below are bound to a single
+					superform store — edit any input and watch the panel update.
+				</Body>
+				<form method="POST" use:enhance class="flex max-w-md flex-col gap-4">
+					<Textfield
+						label="Name"
+						id="sf-name"
+						bind:value={$form.name}
+						error={!!$errors.name}
+					>
+						{#snippet supportingText()}
+							{$errors.name?.[0] ?? ''}
+						{/snippet}
+					</Textfield>
+					<Textfield
+						label="Email"
+						id="sf-email"
+						bind:value={$form.email}
+						error={!!$errors.email}
+					>
+						{#snippet supportingText()}
+							{$errors.email?.[0] ?? ''}
+						{/snippet}
+					</Textfield>
+					<Select
+						type="single"
+						bind:value={$form.language}
+						options={selectItems}
+						placeholder="Language"
+					/>
+					<label class="flex cursor-pointer items-center gap-3">
+						<Switch bind:checked={$form.notifications} />
+						<Body>Notifications {$form.notifications ? 'on' : 'off'}</Body>
+					</label>
+					<RadioGroup
+						bind:value={$form.theme}
+						items={[
+							{ value: 'light', label: 'Light' },
+							{ value: 'dark', label: 'Dark' },
+							{ value: 'system', label: 'System' }
+						]}
+						orientation="horizontal"
+					/>
+					<Button type="submit" variant="filled">Submit</Button>
+				</form>
+				<SuperDebug data={$form} />
 			</section>
 
 			<!-- SEARCH -->

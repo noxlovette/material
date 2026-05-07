@@ -12,8 +12,6 @@ Powered by bits-ui for accessibility and behavior.
 	import { select as selectCls } from './theme.js';
 	import { Icon } from '$lib/utils/index.js';
 	import type { SelectProps } from './types.js';
-	import { enterExit } from '$lib/animation/enterExit.js';
-	import { easeEmphasizedDecel } from '$lib/animation/easing.js';
 	import clsx from 'clsx';
 	import Divider from '$lib/components/containers/divider/Divider.svelte';
 
@@ -52,54 +50,52 @@ Powered by bits-ui for accessibility and behavior.
 			{...contentProps}
 		>
 			{#snippet child({ wrapperProps, props, open })}
-				{#if open}
-					<div {...wrapperProps}>
-						<div
-							{...props}
-							class="relative z-50 max-w-sm min-w-64 rounded-xl bg-md-sys-color-surface-container-high shadow-elevation-3"
-							transition:enterExit={{
-								duration: 200,
-								easing: easeEmphasizedDecel,
-								mode: 'scale'
-							}}
-						>
-							<Select.Viewport>
-								{#each options as item, i (i)}
-									{#if item.type === 'group'}
-										<Select.Group>
-											{#if item.heading}
-												<Select.GroupHeading class={cls.groupLabel()}>
-													{item.heading}
-												</Select.GroupHeading>
-											{/if}
-											{#each item.items as inner, i (i)}
-												{#if inner.type !== 'group'}
-													<Select.Item {...inner} class={cls.item()}>
-														{#snippet children({ selected })}
-															<span class="flex-1">{inner.label}</span>
-															{#if selected}
-																<Icon aria-hidden="true" name="check" />
-															{/if}
-														{/snippet}
-													</Select.Item>
-												{/if}
-											{/each}
-										</Select.Group>
-									{:else}
-										<Select.Item {...item} class={cls.item()}>
-											{#snippet children({ selected })}
-												<span class="flex-1">{item.label}</span>
-												{#if selected}
-													<Icon aria-hidden="true" name="check" />
-												{/if}
-											{/snippet}
-										</Select.Item>
+				<div {...wrapperProps}>
+					<div
+						{...props}
+						class="relative z-50 max-w-sm min-w-64 rounded-xl bg-md-sys-color-surface-container-high shadow-elevation-3"
+						style:opacity={open ? '1' : '0'}
+						style:transform={open ? 'scale(1)' : 'scale(0.85)'}
+						style:visibility={open ? 'visible' : 'hidden'}
+						style:transition="opacity 200ms, transform 200ms, visibility 200ms"
+						style:transition-timing-function="cubic-bezier(0.05, 0.7, 0.1, 1)"
+					>
+						<Select.Viewport>
+							{#each options as item, i (i)}
+							{#if item.type === 'group'}
+								<Select.Group>
+									{#if item.heading}
+										<Select.GroupHeading class={cls.groupLabel()}>
+											{item.heading}
+										</Select.GroupHeading>
 									{/if}
-								{/each}
-							</Select.Viewport>
-						</div>
+									{#each item.items as inner, i (i)}
+										{#if inner.type !== 'group'}
+											<Select.Item {...inner} class={cls.item()}>
+												{#snippet children({ selected })}
+													<span class="flex-1">{inner.label}</span>
+													{#if selected}
+														<Icon aria-hidden="true" name="check" />
+													{/if}
+												{/snippet}
+											</Select.Item>
+										{/if}
+									{/each}
+								</Select.Group>
+							{:else}
+								<Select.Item {...item} class={cls.item()}>
+									{#snippet children({ selected })}
+										<span class="flex-1">{item.label}</span>
+										{#if selected}
+											<Icon aria-hidden="true" name="check" />
+										{/if}
+									{/snippet}
+								</Select.Item>
+							{/if}
+						{/each}
+						</Select.Viewport>
 					</div>
-				{/if}
+				</div>
 			{/snippet}
 		</Select.Content>
 	</Select.Portal>
