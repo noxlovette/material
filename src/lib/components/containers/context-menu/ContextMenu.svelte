@@ -63,24 +63,28 @@ Context menus appear on right-click and provide actions related to the clicked e
 				</div>
 				<Icon name="chevron_right" class={theme.rightSlot()} />
 			</BitsContextMenu.SubTrigger>
-			<BitsContextMenu.SubContent forceMount class={theme.content()}>
-				{#snippet child({ props, open })}
-					{#if open}
-						<div
-							{...props}
-							transition:enterExit={{
-								duration: 200,
-								easing: easeEmphasizedDecel,
-								mode: 'scale'
-							}}
-						>
-							{#each item.items as subItem}
-								{@render MenuItem(subItem)}
-							{/each}
-						</div>
-					{/if}
-				{/snippet}
-			</BitsContextMenu.SubContent>
+			<BitsContextMenu.Portal>
+				<BitsContextMenu.SubContent forceMount class={theme.content()}>
+					{#snippet child({ wrapperProps, props, open })}
+						{#if open}
+							<div {...wrapperProps}>
+								<div
+									{...props}
+									transition:enterExit={{
+										duration: 200,
+										easing: easeEmphasizedDecel,
+										mode: 'scale'
+									}}
+								>
+									{#each item.items as subItem}
+										{@render MenuItem(subItem)}
+									{/each}
+								</div>
+							</div>
+						{/if}
+					{/snippet}
+				</BitsContextMenu.SubContent>
+			</BitsContextMenu.Portal>
 		</BitsContextMenu.Sub>
 	{:else}
 		{@const isSelected = item.selected || (selected !== undefined && item.value === selected)}
@@ -123,19 +127,21 @@ Context menus appear on right-click and provide actions related to the clicked e
 
 	<BitsContextMenu.Portal>
 		<BitsContextMenu.Content forceMount class={theme.content()}>
-			{#snippet child({ props, open })}
+			{#snippet child({ wrapperProps, props, open })}
 				{#if open}
-					<div
-						{...props}
-						transition:enterExit={{
-							duration: 200,
-							easing: easeEmphasizedDecel,
-							mode: 'scale'
-						}}
-					>
-						{#each items as item}
-							{@render MenuItem(item)}
-						{/each}
+					<div {...wrapperProps}>
+						<div
+							{...props}
+							transition:enterExit={{
+								duration: 200,
+								easing: easeEmphasizedDecel,
+								mode: 'scale'
+							}}
+						>
+							{#each items as item}
+								{@render MenuItem(item)}
+							{/each}
+						</div>
 					</div>
 				{/if}
 			{/snippet}

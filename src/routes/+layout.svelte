@@ -15,6 +15,7 @@
 		'note_stack',
 		'assignment',
 		'book',
+		'visibility',
 		'notifications',
 		'mail',
 		'chat',

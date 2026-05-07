@@ -17,6 +17,7 @@
 		Button,
 		Menu,
 		MenuItem,
+		ContextMenu,
 		Avatar,
 		Badge,
 		Popover,
@@ -56,6 +57,7 @@
 		{ id: 'toolbar', label: 'Toolbar' },
 		{ id: 'toggle-group', label: 'Toggle Group' },
 		{ id: 'menu', label: 'Menu' },
+		{ id: 'context-menu', label: 'Context Menu' },
 		{ id: 'pill', label: 'Pills' },
 		{ id: 'snackbar', label: 'Snackbar' },
 		{ id: 'progress', label: 'Progress' },
@@ -361,6 +363,36 @@
 				{#if lastAction}
 					<Body>Last action: {lastAction}</Body>
 				{/if}
+			</section>
+
+			<!-- CONTEXT MENU -->
+			<section id="context-menu" class="flex scroll-mt-4 flex-col gap-6">
+				<Display>Context Menu</Display>
+				<Body>Right-click the card below to see the context menu.</Body>
+				<div class="flex gap-4">
+					<ContextMenu
+						onselect={(v) => (lastAction = `context:${v}`)}
+						items={[
+							{ label: 'View', value: 'view', iconProps: { name: 'visibility' } },
+							{ label: 'Edit', value: 'edit', iconProps: { name: 'edit' } },
+							{
+								label: 'Share',
+								value: 'share',
+								iconProps: { name: 'share' },
+								items: [
+									{ label: 'Copy Link', value: 'copy' },
+									{ label: 'Email', value: 'email' }
+								]
+							},
+							{ separator: true },
+							{ label: 'Delete', value: 'delete', iconProps: { name: 'delete' } }
+						]}
+					>
+						<Card class="flex h-32 w-64 items-center justify-center">
+							<Label>Right click me</Label>
+						</Card>
+					</ContextMenu>
+				</div>
 			</section>
 
 			<!-- PILLS -->
