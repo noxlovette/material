@@ -6,3 +6,4 @@ export * from './types.js';
 
 // default exports for components in this folder
 export { default as DateField } from './DateField.svelte';
+export { default as DateRangeField } from './DateRangeField.svelte';

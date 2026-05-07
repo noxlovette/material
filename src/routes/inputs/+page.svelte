@@ -7,6 +7,7 @@
 		Body,
 		Textfield,
 		DateField,
+		DateRangeField,
 		LoadingIndicator,
 		TimepickerInput,
 		Multipart,
@@ -30,6 +31,7 @@
 	} from '$lib/index.js';
 	import { nanoid } from 'nanoid';
 	import type { DateValue } from '@internationalized/date';
+	import type { DateRange } from '$lib/index.js';
 	import TableOfContents from '../TableOfContents.svelte';
 	import { superForm, defaults } from 'sveltekit-superforms';
 	import { zod4 as zod } from 'sveltekit-superforms/adapters';
@@ -60,6 +62,7 @@
 	let radioValue = $state('');
 	let radioValue2 = $state('en');
 	let dateValue = $state<DateValue | undefined>(undefined);
+	let dateRange = $state<DateRange | undefined>(undefined);
 
 	type DemoMultipart = { label: string; props: Record<string, unknown> };
 	let multipartDemos: DemoMultipart[] = $state([]);
@@ -384,6 +387,15 @@
 				</div>
 				<DateField label="Дата" bind:value={dateValue} />
 				<Body>Selected: {dateValue?.toString() ?? '—'}</Body>
+
+				<DateRangeField
+					startLabel="Check-in"
+					endLabel="Check-out"
+					bind:value={dateRange}
+				/>
+				<Body>
+					Range: {dateRange?.start?.toString() ?? '—'} → {dateRange?.end?.toString() ?? '—'}
+				</Body>
 			</section>
 
 			<!-- MULTIPART -->

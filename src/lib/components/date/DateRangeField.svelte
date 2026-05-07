@@ -1,0 +1,188 @@
+<!--
+@component
+DateRangeField lets users enter or pick a date range (start + end) via two
+segment inputs and a shared calendar popover.
+
+@see https://m3.material.io/components/date-pickers/guidelines
+-->
+<script lang="ts">
+	import { DateRangePicker } from 'bits-ui';
+	import ButtonIcon from '../buttons/ButtonIcon.svelte';
+	import Layer from '$lib/utils/Layer.svelte';
+	import type { DateRangeFieldProps } from './types.ts';
+	import { dateRangeField } from './theme.ts';
+
+	let {
+		value = $bindable(),
+		required = false,
+		disabled = false,
+		error = false,
+		label,
+		startLabel = 'Start',
+		endLabel = 'End',
+		supportingText,
+		name
+	}: DateRangeFieldProps = $props();
+
+	const cls = $derived(dateRangeField({ disabled, error }));
+</script>
+
+<DateRangePicker.Root
+	bind:value
+	weekStartsOn={1}
+	{required}
+	{disabled}
+	locale="ru"
+	weekdayFormat="short"
+	fixedWeeks
+	closeOnRangeSelect
+>
+	<div class="relative w-full">
+		<div class={cls.base()} data-invalid={error || undefined}>
+			<!-- Start date input -->
+			<DateRangePicker.Input type="start" class={cls.input()} {name}>
+				{#snippet children({ segments })}
+					<div class="relative flex w-full flex-col pt-4 tabular-nums">
+						<div class="flex">
+							{#each segments as { part, value: segVal }}
+								{#if part === 'literal'}
+									<DateRangePicker.Segment
+										{part}
+										class="px-0.5 text-md-sys-color-on-surface-variant select-none first:pl-0"
+									>
+										{segVal}
+									</DateRangePicker.Segment>
+								{:else}
+									<DateRangePicker.Segment
+										{part}
+										class="cursor-default rounded-xs px-1 py-0.5 text-md-sys-color-on-surface
+										   transition-colors duration-100 select-none
+										   hover:bg-md-sys-color-on-surface/8
+										   focus:bg-md-sys-color-primary-container
+										   focus:text-md-sys-color-on-primary-container
+										   focus:outline-2 focus:outline-md-sys-color-primary focus-visible:ring-0!
+										   focus-visible:ring-offset-0! aria-[valuetext=Empty]:text-md-sys-color-on-surface-variant"
+									>
+										{segVal}
+									</DateRangePicker.Segment>
+								{/if}
+							{/each}
+						</div>
+						<label class="{cls.label()} left-4">{startLabel}</label>
+					</div>
+				{/snippet}
+			</DateRangePicker.Input>
+
+			<span class={cls.separator()}>–</span>
+
+			<!-- End date input -->
+			<DateRangePicker.Input type="end" class={cls.input()}>
+				{#snippet children({ segments })}
+					<div class="relative flex w-full flex-col pt-4 tabular-nums">
+						<div class="flex">
+							{#each segments as { part, value: segVal }}
+								{#if part === 'literal'}
+									<DateRangePicker.Segment
+										{part}
+										class="px-0.5 text-md-sys-color-on-surface-variant select-none first:pl-0"
+									>
+										{segVal}
+									</DateRangePicker.Segment>
+								{:else}
+									<DateRangePicker.Segment
+										{part}
+										class="cursor-default rounded-xs px-1 py-0.5 text-md-sys-color-on-surface
+										   transition-colors duration-100 select-none
+										   hover:bg-md-sys-color-on-surface/8
+										   focus:bg-md-sys-color-primary-container
+										   focus:text-md-sys-color-on-primary-container
+										   focus:outline-2 focus:outline-md-sys-color-primary focus-visible:ring-0!
+										   focus-visible:ring-offset-0! aria-[valuetext=Empty]:text-md-sys-color-on-surface-variant"
+									>
+										{segVal}
+									</DateRangePicker.Segment>
+								{/if}
+							{/each}
+						</div>
+						<label class="{cls.label()} left-4">{endLabel}</label>
+					</div>
+				{/snippet}
+			</DateRangePicker.Input>
+
+			<DateRangePicker.Trigger class="pr-2 shrink-0">
+				<ButtonIcon variant="bare" iconProps={{ name: 'calendar_month' }} />
+			</DateRangePicker.Trigger>
+		</div>
+
+		{#if supportingText}
+			<div class={cls.supportingText()}>
+				<p>{@render supportingText()}</p>
+			</div>
+		{/if}
+	</div>
+
+	<DateRangePicker.Content sideOffset={6} class="z-50">
+		<DateRangePicker.Calendar
+			class="h-104 w-90 rounded-lg bg-md-sys-color-surface-container-high p-6 shadow-elevation-3"
+		>
+			{#snippet children({ months, weekdays })}
+				<DateRangePicker.Header
+					class="z-10 flex w-full items-center justify-between pb-7.5 text-md-sys-color-on-surface-variant"
+				>
+					<DateRangePicker.PrevButton>
+						<ButtonIcon iconProps={{ name: 'chevron_left' }} />
+					</DateRangePicker.PrevButton>
+					<DateRangePicker.Heading class="md-sys-typescale-label-large" />
+					<DateRangePicker.NextButton>
+						<ButtonIcon iconProps={{ name: 'chevron_right' }} />
+					</DateRangePicker.NextButton>
+				</DateRangePicker.Header>
+
+				{#each months as month}
+					<DateRangePicker.Grid class="w-full border-collapse select-none">
+						<DateRangePicker.GridHead>
+							<DateRangePicker.GridRow class="flex w-full justify-between">
+								{#each weekdays as day}
+									<DateRangePicker.HeadCell
+										class="size-10 md-sys-typescale-label-large text-md-sys-color-on-surface-variant"
+									>
+										{day}
+									</DateRangePicker.HeadCell>
+								{/each}
+							</DateRangePicker.GridRow>
+						</DateRangePicker.GridHead>
+						<DateRangePicker.GridBody>
+							{#each month.weeks as weekDates}
+								<DateRangePicker.GridRow class="flex w-full justify-between">
+									{#each weekDates as date}
+										<DateRangePicker.Cell
+											{date}
+											month={month.value}
+											class="text-center md-sys-typescale-body-large"
+										>
+											<DateRangePicker.Day
+												class="group relative flex size-10 items-center justify-center rounded-full
+												   bg-transparent p-0 transition-colors duration-100
+												   data-disabled:pointer-events-none data-disabled:text-md-sys-color-on-surface/38
+												   data-outside-month:pointer-events-none data-outside-month:opacity-0
+												   data-unavailable:text-md-sys-color-on-surface/38 data-unavailable:line-through
+												   data-range-middle:rounded-none data-range-middle:bg-md-sys-color-primary-container/40
+												   data-highlighted:bg-md-sys-color-primary-container/20
+												   data-range-start:bg-md-sys-color-primary data-range-start:text-md-sys-color-on-primary
+												   data-range-end:bg-md-sys-color-primary data-range-end:text-md-sys-color-on-primary
+												   data-selected:bg-md-sys-color-primary data-selected:text-md-sys-color-on-primary"
+											>
+												<Layer />
+												{date.day}
+											</DateRangePicker.Day>
+										</DateRangePicker.Cell>
+									{/each}
+								</DateRangePicker.GridRow>
+							{/each}
+						</DateRangePicker.GridBody>
+					</DateRangePicker.Grid>
+				{/each}
+			{/snippet}
+		</DateRangePicker.Calendar>
+	</DateRangePicker.Content>
+</DateRangePicker.Root>

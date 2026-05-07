@@ -45,3 +45,19 @@ export interface DateFieldProps extends BaseDateProps {
 	 */
 	name?: string;
 }
+
+export interface DateRange {
+	start?: DateValue;
+	end?: DateValue;
+}
+
+export interface DateRangeFieldProps extends BaseDateProps {
+	/** The selected date range with optional start and end values. */
+	value?: DateRange;
+	/** Name prefix for hidden inputs submitted with the form. */
+	name?: string;
+	/** Label for the start date input. Defaults to "Start". */
+	startLabel?: string;
+	/** Label for the end date input. Defaults to "End". */
+	endLabel?: string;
+}
