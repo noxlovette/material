@@ -6,11 +6,16 @@ Compose with TableHead, TableBody, TableFoot, TableRow, TableCell, and TableHead
 <script lang="ts">
 	import type { TableProps } from './types.js';
 	import { table } from './theme.js';
+	import { setTableContext } from './context.js';
 	import clsx from 'clsx';
 
-	let { children, class: className, ...restProps }: TableProps = $props();
+	let { children, rounded = false, class: className, ...restProps }: TableProps = $props();
 
-	const { root } = table();
+	$effect(() => {
+		setTableContext({ rounded });
+	});
+
+	const { root } = $derived(table({ rounded }));
 </script>
 
 <table class={root({ class: clsx(className) })} {...restProps}>

@@ -74,6 +74,7 @@
 
 	const toc = [
 		{ id: 'basic', label: 'Basic Table' },
+		{ id: 'rounded', label: 'Rounded' },
 		{ id: 'sortable', label: 'Sortable' },
 		{ id: 'selectable', label: 'Selectable Rows' },
 		{ id: 'footer', label: 'With Footer' },
@@ -122,6 +123,35 @@
 						</TableBody>
 					</Table>
 				</div>
+			</section>
+
+			<!-- ROUNDED -->
+			<section id="rounded" class="flex scroll-mt-4 flex-col gap-6">
+				<Headline>Rounded</Headline>
+				<Body
+					>Pass <code>rounded</code> to give the table its own ring border and rounded corners. No wrapper
+					div needed.</Body
+				>
+				<Table rounded>
+					<TableHead>
+						<TableRow>
+							<TableHeader>Fruit</TableHeader>
+							<TableHeader numeric>Calories</TableHeader>
+							<TableHeader numeric>Fat (g)</TableHeader>
+							<TableHeader numeric>Sugar (g)</TableHeader>
+						</TableRow>
+					</TableHead>
+					<TableBody>
+						{#each fruits as row}
+							<TableRow>
+								<TableCell>{row.name}</TableCell>
+								<TableCell numeric>{row.calories}</TableCell>
+								<TableCell numeric>{row.fat}</TableCell>
+								<TableCell numeric>{row.sugar}</TableCell>
+							</TableRow>
+						{/each}
+					</TableBody>
+				</Table>
 			</section>
 
 			<!-- SORTABLE -->

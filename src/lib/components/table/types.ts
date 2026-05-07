@@ -9,6 +9,8 @@ import type { TableVariants } from './theme.js';
 
 export type TableProps = HTMLTableAttributes & {
 	children: Snippet;
+	/** Render with rounded corners and a ring border. */
+	rounded?: boolean;
 };
 
 export type TableHeadProps = HTMLAttributes<HTMLTableSectionElement> & {

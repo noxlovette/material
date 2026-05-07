@@ -6,6 +6,7 @@ and `sortDirection` props. Defaults to `scope="col"`.
 <script lang="ts">
 	import type { TableHeaderProps } from './types.js';
 	import { table } from './theme.js';
+	import { getTableContext } from './context.js';
 	import { Icon } from '$lib/utils/index.js';
 	import clsx from 'clsx';
 
@@ -21,7 +22,8 @@ and `sortDirection` props. Defaults to `scope="col"`.
 		...restProps
 	}: TableHeaderProps = $props();
 
-	const { header } = $derived(table({ numeric, align, sortable, sorted }));
+	const { rounded } = $derived(getTableContext());
+	const { header } = $derived(table({ numeric, align, sortable, sorted, rounded }));
 </script>
 
 <th {scope} class={header({ class: clsx(className) })} {...restProps}>

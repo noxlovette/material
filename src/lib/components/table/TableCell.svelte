@@ -6,6 +6,7 @@ or `align` for explicit alignment control.
 <script lang="ts">
 	import type { TableCellProps } from './types.js';
 	import { table } from './theme.js';
+	import { getTableContext } from './context.js';
 	import clsx from 'clsx';
 
 	let {
@@ -16,7 +17,8 @@ or `align` for explicit alignment control.
 		...restProps
 	}: TableCellProps = $props();
 
-	const { cell } = $derived(table({ numeric, align }));
+	const { rounded } = $derived(getTableContext());
+	const { cell } = $derived(table({ numeric, align, rounded }));
 </script>
 
 <td class={cell({ class: clsx(className) })} {...restProps}>
