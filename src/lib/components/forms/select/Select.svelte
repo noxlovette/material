@@ -29,6 +29,7 @@ Powered by bits-ui for accessibility and behavior.
 		triggerClass,
 		contentClass,
 		onchange,
+		name,
 		rootProps = { type: 'single' }
 	}: SelectProps = $props();
 
@@ -57,7 +58,7 @@ Powered by bits-ui for accessibility and behavior.
 	});
 </script>
 
-<Select.Root bind:value={value as never} bind:open {disabled} {...rootProps}>
+<Select.Root bind:value={value as never} bind:open {disabled} {name} {...rootProps}>
 	<Select.Trigger
 		class={cls.trigger({ class: triggerClass })}
 		aria-invalid={error}
@@ -116,6 +117,8 @@ Powered by bits-ui for accessibility and behavior.
 			{/snippet}
 		</Select.Content>
 	</Select.Portal>
+
+	<Select.Input />
 
 	{#if supportingText}
 		<div class={cls.supportingText()}>
