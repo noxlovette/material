@@ -33,7 +33,7 @@ Text fields allow users to enter and edit text.
 	const cls = $derived(textfield({ disabled, error }));
 	const inputProps = $derived({
 		id,
-		class: cls.input({ class: clsx(className) }),
+		class: cls.input(),
 		'aria-invalid': error,
 		disabled,
 		placeholder,
@@ -42,7 +42,7 @@ Text fields allow users to enter and edit text.
 </script>
 
 <div class="relative w-full">
-	<div class={cls.base()}>
+	<div class={cls.base({ class: clsx(className) })}>
 		{#if leadingIconProps}
 			<Icon class={cls.leadingIcon()} {...leadingIconProps} />
 		{/if}

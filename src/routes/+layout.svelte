@@ -17,6 +17,7 @@
 		'book',
 		'visibility',
 		'notifications',
+		'arrow_upward',
 		'mail',
 		'chat',
 		'favorite',

@@ -319,22 +319,12 @@
 					superform store — edit any input and watch the panel update.
 				</Body>
 				<form method="POST" use:enhance class="flex max-w-md flex-col gap-4">
-					<Textfield
-						label="Name"
-						id="sf-name"
-						bind:value={$form.name}
-						error={!!$errors.name}
-					>
+					<Textfield label="Name" id="sf-name" bind:value={$form.name} error={!!$errors.name}>
 						{#snippet supportingText()}
 							{$errors.name?.[0] ?? ''}
 						{/snippet}
 					</Textfield>
-					<Textfield
-						label="Email"
-						id="sf-email"
-						bind:value={$form.email}
-						error={!!$errors.email}
-					>
+					<Textfield label="Email" id="sf-email" bind:value={$form.email} error={!!$errors.email}>
 						{#snippet supportingText()}
 							{$errors.email?.[0] ?? ''}
 						{/snippet}
