@@ -6,18 +6,21 @@ Compose with TableHead, TableBody, TableFoot, TableRow, TableCell, and TableHead
 <script lang="ts">
 	import type { TableProps } from './types.js';
 	import { table } from './theme.js';
-	import { setTableContext } from './context.js';
 	import clsx from 'clsx';
 
 	let { children, rounded = false, class: className, ...restProps }: TableProps = $props();
 
-	$effect(() => {
-		setTableContext({ rounded });
-	});
-
-	const { root } = $derived(table({ rounded }));
+	const { root } = table();
 </script>
 
-<table class={root({ class: clsx(className) })} {...restProps}>
-	{@render children()}
-</table>
+{#if rounded}
+	<div class="overflow-hidden rounded-xl ring-1 ring-md-sys-color-outline-variant">
+		<table class={root({ class: clsx(className) })} {...restProps}>
+			{@render children()}
+		</table>
+	</div>
+{:else}
+	<table class={root({ class: clsx(className) })} {...restProps}>
+		{@render children()}
+	</table>
+{/if}

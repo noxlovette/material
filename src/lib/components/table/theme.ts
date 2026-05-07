@@ -47,16 +47,6 @@ export const table = tv({
 			true: {
 				head: 'sticky top-0 z-10 bg-md-sys-color-surface shadow-[0_1px_0_0_var(--md-sys-color-outline-variant)]'
 			}
-		},
-		rounded: {
-			true: {
-				root: 'rounded-xl ring-1 ring-md-sys-color-outline-variant',
-				// top-left / top-right of the header row
-				header:
-					'[thead_tr:first-child_>&:first-child]:rounded-tl-xl [thead_tr:first-child_>&:last-child]:rounded-tr-xl',
-				// bottom-left / bottom-right: prefer tfoot, fall back to the last tbody
-				cell: '[tfoot_tr:last-child_>&:first-child]:rounded-bl-xl [tfoot_tr:last-child_>&:last-child]:rounded-br-xl [tbody:last-child_tr:last-child_>&:first-child]:rounded-bl-xl [tbody:last-child_tr:last-child_>&:last-child]:rounded-br-xl'
-			}
 		}
 	}
 });
