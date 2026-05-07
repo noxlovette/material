@@ -25,7 +25,8 @@
 		CommandEmpty,
 		CommandGroup,
 		CommandItem,
-		CommandSeparator
+		CommandSeparator,
+		type SelectOption
 	} from '$lib/index.js';
 	import { nanoid } from 'nanoid';
 	import type { DateValue } from '@internationalized/date';
@@ -96,12 +97,14 @@
 			}
 		];
 	});
-
-	const selectItems = [
+	const languageItems: SelectOption[] = [
 		{ value: 'ru', label: 'Русский' },
 		{ value: 'en', label: 'English' },
 		{ value: 'de', label: 'Deutsch' },
 		{ value: 'fr', label: 'Français' }
+	];
+	const selectItems: SelectOption[] = [
+		{ type: 'group', heading: 'Languages', items: languageItems }
 	];
 
 	const toc = [
@@ -253,7 +256,12 @@
 
 				<Headline>Select</Headline>
 				<div class="flex max-w-md flex-wrap gap-4">
-					<Select bind:value={selectValue} items={selectItems} placeholder="Выберите язык" />
+					<Select
+						type="single"
+						bind:value={selectValue}
+						options={selectItems}
+						placeholder="Выберите язык"
+					/>
 					<Body>Selected: {selectValue || '—'}</Body>
 				</div>
 
@@ -267,49 +275,22 @@
 						confirmText="Confirm"
 						toggle={() => (dialogueOpen = false)}
 					>
-						{#snippet children()}
-							<div class="flex flex-col gap-4">
-								<Select
-									bind:value={selectInDialogue}
-									items={selectItems}
-									label="Language"
-									placeholder="Choose…"
-								/>
-								<Select
-									bind:value={selectInDialogue2}
-									items={selectItems}
-									label="Fallback"
-									placeholder="Choose…"
-								/>
-							</div>
-						{/snippet}
+						<div class="flex flex-col gap-4">
+							<Select
+								bind:value={selectInDialogue}
+								type="single"
+								options={selectItems}
+								placeholder="Choose…"
+							/>
+							<Select
+								bind:value={selectInDialogue2}
+								options={selectItems}
+								type="single"
+								placeholder="Choose…"
+							/>
+						</div>
 					</Dialogue>
 				{/if}
-			</section>
-
-			<!-- COMMAND -->
-			<section id="command" class="flex scroll-mt-4 flex-col gap-6">
-				<Display>Command</Display>
-				<Body>A powerful command menu for searching and filtering.</Body>
-				<div class="max-w-xl">
-					<Command class="h-auto">
-						<CommandInput placeholder="Type a command or search..." />
-						<CommandList>
-							<CommandEmpty>No results found.</CommandEmpty>
-							<CommandGroup heading="Suggestions">
-								<CommandItem value="calendar">Calendar</CommandItem>
-								<CommandItem value="search-emoji">Search Emoji</CommandItem>
-								<CommandItem value="calculator">Calculator</CommandItem>
-							</CommandGroup>
-							<CommandSeparator />
-							<CommandGroup heading="Settings">
-								<CommandItem value="profile">Profile</CommandItem>
-								<CommandItem value="billing">Billing</CommandItem>
-								<CommandItem value="settings">Settings</CommandItem>
-							</CommandGroup>
-						</CommandList>
-					</Command>
-				</div>
 			</section>
 
 			<!-- SEARCH -->

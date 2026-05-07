@@ -6,7 +6,7 @@ export const select = tv({
 	slots: {
 		root: 'relative w-full',
 		trigger: `
-      group w-full h-14 px-0 bg-md-sys-color-surface-container-highest
+      group w-full h-14 px-4 bg-md-sys-color-surface-container-highest
       rounded-t-xs state-layer before:rounded-xs hover:before:bg-md-sys-color-on-surface/8 relative flex items-center
       after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-md-sys-color-on-surface-variant
       after:transition-[height,background-color] after:duration-200
@@ -15,10 +15,7 @@ export const select = tv({
       data-[state=open]:after:h-[2px]
       disabled:bg-md-sys-color-on-surface/4
       disabled:after:bg-md-sys-color-on-surface/12
-      cursor-pointer
-    `,
-		inputWrapper: `
-      relative flex-1 px-4 flex flex-col justify-center items-start overflow-hidden
+      cursor-pointer justify-between
     `,
 		value: `
       peer w-full bg-transparent outline-none
@@ -26,27 +23,12 @@ export const select = tv({
       disabled:text-md-sys-color-on-surface/38
       truncate text-left
     `,
-		label: `
-      absolute left-4 top-1/2 -translate-y-1/2
-      md-sys-typescale-body-large
-      text-md-sys-color-on-surface-variant
-      pointer-events-none
-      transition-[top,font-size,line-height,color,transform] duration-200 ease-in-out
-
-      group-data-[state=open]:text-md-sys-color-primary
-      group-data-[invalid]:text-md-sys-color-error
-
-      group-data-[state=open]:top-1.5 group-data-[state=open]:md-sys-typescale-body-small group-data-[state=open]:-translate-y-1
-    `,
-		labelFloating: `
-      top-1.5 md-sys-typescale-body-small -translate-y-1
-    `,
 		leadingIcon: `
       text-md-sys-color-on-surface-variant size-6
       group-data-[state=open]:text-md-sys-color-primary
       group-data-[invalid]:text-md-sys-color-error ml-3 text-[24px]
     `,
-		trailingIcon: `
+		dropdownIcon: `
       mr-3 text-md-sys-color-on-surface-variant size-6
       group-data-[state=open]:text-md-sys-color-primary
       group-data-[invalid]:text-md-sys-color-error z-20 text-[24px]
@@ -68,9 +50,6 @@ export const select = tv({
       data-[selected]:text-md-sys-color-on-secondary-container
       data-[disabled]:pointer-events-none data-[disabled]:opacity-50
       transition-colors duration-150 first:rounded-t-xl last:rounded-b-xl
-    `,
-		group: `
-      p-1
     `,
 		groupLabel: `
       px-4 py-2 md-sys-typescale-label-medium

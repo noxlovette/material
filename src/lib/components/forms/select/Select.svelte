@@ -7,85 +7,56 @@ Powered by bits-ui for accessibility and behavior.
 
 @see https://m3.material.io/components/menus/overview
 -->
-<script lang="ts" generics="T extends string | string[]">
+<script lang="ts">
 	import { Select } from 'bits-ui';
 	import { select as selectCls } from './theme.js';
 	import { Icon } from '$lib/utils/index.js';
 	import type { SelectProps } from './types.js';
-	import clsx from 'clsx';
 	import { enterExit } from '$lib/animation/enterExit.js';
 	import { easeEmphasizedDecel } from '$lib/animation/easing.js';
+	import clsx from 'clsx';
+	import Divider from '$lib/components/containers/divider/Divider.svelte';
 
 	let {
 		value = $bindable(),
 		open = $bindable(false),
 		disabled = false,
-		items = [],
-		label,
+		options = [],
 		placeholder,
 		error = false,
-		leadingIconProps,
 		supportingText,
-		triggerClass,
-		contentClass,
-		onchange,
-		name,
-		rootProps = { type: 'single' }
+		leadingIconProps,
+		triggerProps,
+		contentProps,
+		...rootProps
 	}: SelectProps = $props();
 
 	const cls = $derived(selectCls({ disabled, error }));
-
-	const selectedLabel = $derived.by(() => {
-		if (!value) return '';
-		if (Array.isArray(value)) {
-			return (value as string[])
-				.map((v) => {
-					const item = items.find((i) => i.value === v);
-					return item?.label ?? item?.name ?? v;
-				})
-				.join(', ');
-		}
-		const item = items.find((i) => i.value === (value as string));
-		return item?.label ?? item?.name ?? (value as string) ?? '';
-	});
-
-	let isMounted = false;
-	$effect(() => {
-		if (isMounted) {
-			onchange?.(value as string & string[]);
-		}
-		isMounted = true;
-	});
 </script>
 
-<Select.Root bind:value={value as never} bind:open {disabled} {name} {...rootProps}>
-	<Select.Trigger
-		class={cls.trigger({ class: triggerClass })}
-		aria-invalid={error}
-		data-invalid={error || undefined}
-	>
+<Select.Root bind:value={value as never} bind:open {disabled} {...rootProps}>
+	<Select.Trigger class={cls.trigger({ class: clsx(triggerProps?.class) })} {...triggerProps}>
 		{#if leadingIconProps}
 			<Icon class={cls.leadingIcon()} {...leadingIconProps} />
 		{/if}
+		<Select.Value {placeholder} />
 
-		<div class={cls.inputWrapper()}>
-			<span class={cls.value()}>{selectedLabel || placeholder || ''}</span>
-			<span class={clsx(cls.label(), cls.labelFloating())}>
-				{label}
-			</span>
-		</div>
-
-		<Icon name="arrow_drop_down" class={cls.trailingIcon()} />
+		<Icon name="arrow_drop_down" class={cls.dropdownIcon()} />
 	</Select.Trigger>
 
 	<Select.Portal>
-		<Select.Content forceMount class={cls.content({ class: contentClass })} sideOffset={4}>
+		<Select.Content
+			forceMount
+			class={cls.content({ class: clsx(contentProps?.class) })}
+			sideOffset={4}
+			{...contentProps}
+		>
 			{#snippet child({ wrapperProps, props, open })}
 				{#if open}
 					<div {...wrapperProps}>
 						<div
 							{...props}
-							class="relative z-50 max-w-sm min-w-64 rounded-xl bg-md-sys-color-surface-container-high ring-1 shadow-elevation-3 ring-md-sys-color-outline/40"
+							class="relative z-50 max-w-sm min-w-64 rounded-xl bg-md-sys-color-surface-container-high shadow-elevation-3"
 							transition:enterExit={{
 								duration: 200,
 								easing: easeEmphasizedDecel,
@@ -93,23 +64,38 @@ Powered by bits-ui for accessibility and behavior.
 							}}
 						>
 							<Select.Viewport>
-								{#if items && items.length > 0}
-									{#each items as item, i (i + item.value)}
-										<Select.Item
-											value={item.value}
-											label={item.label ?? item.name}
-											disabled={item.disabled}
-											class={cls.item()}
-										>
+								{#each options as item, i (i)}
+									{#if item.type === 'group'}
+										<Select.Group>
+											{#if item.heading}
+												<Select.GroupHeading class={cls.groupLabel()}>
+													{item.heading}
+												</Select.GroupHeading>
+											{/if}
+											{#each item.items as inner, i (i)}
+												{#if inner.type !== 'group'}
+													<Select.Item {...inner} class={cls.item()}>
+														{#snippet children({ selected })}
+															<span class="flex-1">{inner.label}</span>
+															{#if selected}
+																<Icon aria-hidden="true" name="check" />
+															{/if}
+														{/snippet}
+													</Select.Item>
+												{/if}
+											{/each}
+										</Select.Group>
+									{:else}
+										<Select.Item {...item} class={cls.item()}>
 											{#snippet children({ selected })}
-												<span class="flex-1">{item.label ?? item.name ?? item.value}</span>
+												<span class="flex-1">{item.label}</span>
 												{#if selected}
 													<Icon aria-hidden="true" name="check" />
 												{/if}
 											{/snippet}
 										</Select.Item>
-									{/each}
-								{/if}
+									{/if}
+								{/each}
 							</Select.Viewport>
 						</div>
 					</div>
@@ -117,8 +103,6 @@ Powered by bits-ui for accessibility and behavior.
 			{/snippet}
 		</Select.Content>
 	</Select.Portal>
-
-	<Select.Input />
 
 	{#if supportingText}
 		<div class={cls.supportingText()}>

@@ -1,94 +1,67 @@
 import type { Snippet } from 'svelte';
-import type { SelectItemProps, SelectRootProps } from 'bits-ui';
+import type { Select, WithoutChildren } from 'bits-ui';
 import type { SelectVariants } from './theme.js';
 import type { IconProps } from '$lib/utils/index.js';
 
 /**
- * Represents an option in the Select component.
+ * Represents an option or group in the Select component.
+ *
  */
-export type SelectOptionType = {
-	/**
-	 * The display name of the option.
-	 */
-	label?: string;
-
-	/**
-	 * The display name of the option (alias for label).
-	 */
-	name?: string;
-
-	/**
-	 * The internal value of the option.
-	 */
-	value: string;
-
-	/**
-	 * Whether the option is disabled.
-	 */
-	disabled?: boolean;
-	[key: string]: unknown;
-};
+export type SelectOption =
+	| ({
+			type?: 'item';
+	  } & Select.ItemProps)
+	| {
+			type: 'group';
+			/**
+			 * If present, the group item will be heading
+			 */
+			heading?: string;
+			items: SelectOption[];
+	  };
 
 /**
  * Props for the Select component.
  */
-export type SelectProps = SelectVariants & {
-	/**
-	 * The root props
-	 */
-	rootProps?: SelectRootProps;
+export type SelectProps = SelectVariants &
+	WithoutChildren<Select.RootProps> & {
+		/**
+		 * Whether the select is open
+		 */
+		open?: boolean;
 
-	/**
-	 * Whether the select is open
-	 */
-	open?: boolean;
-	/**
-	 * The value of the selected item(s).
-	 */
-	value?: string | string[];
+		/**
+		 * Array of options to display in the select.
+		 */
+		options?: SelectOption[];
 
-	/**
-	 * Array of options to display in the select.
-	 */
-	items?: SelectOptionType[];
+		/**
+		 * The placeholder text displayed when no option is selected.
+		 */
+		placeholder?: string;
 
-	/**
-	 * The floating label text.
-	 */
-	label?: string;
+		/**
+		 * Supporting text shown below the select.
+		 */
+		supportingText?: Snippet;
 
-	/**
-	 * The placeholder text displayed when no option is selected.
-	 */
-	placeholder?: string;
+		/**
+		 * Additional props for the trigger element.
+		 */
+		triggerProps?: Select.TriggerProps;
 
-	/**
-	 * Supporting text shown below the select.
-	 */
-	supportingText?: Snippet;
+		/**
+		 * Additional props for the content element.
+		 */
+		contentProps?: Select.ContentProps;
 
-	/**
-	 * Props for the leading icon.
-	 */
-	leadingIconProps?: IconProps;
+		/**
+		 * Whether the select is in an error state.
+		 */
+		error?: boolean;
 
-	/**
-	 * Additional CSS classes for the trigger element.
-	 */
-	triggerClass?: string;
-
-	/**
-	 * Additional CSS classes for the content element.
-	 */
-	contentClass?: string;
-
-	/**
-	 * Whether the select is in an error state.
-	 */
-	error?: boolean; onchange?: (value: string | string[]) => void;
-
-	/**
-	 * Name for the hidden input (for form submission).
-	 */
-	name?: string;
-};
+		/**
+		 * Props for the leading icon.
+		 */
+		leadingIconProps?: IconProps;
+	};
