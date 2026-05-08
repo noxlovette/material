@@ -1,6 +1,6 @@
 {
 	"name": "@ogonek-education/ogonek-m3",
-	"version": "0.4.0",
+	"version": "0.4.1",
 	"license": "MIT",
 	"scripts": {
 		"dev": "vite dev",
@@ -45,7 +45,6 @@
 	"devDependencies": {
 		"@eslint/compat": "^2.1.0",
 		"@eslint/js": "^10.0.1",
-		"@sveltejs/adapter-auto": "^7.0.1",
 		"@sveltejs/adapter-static": "^3.0.10",
 		"@sveltejs/kit": "^2.59.1",
 		"@sveltejs/package": "^2.5.7",

@@ -1,4 +1,4 @@
-<script module>
+<script module lang="ts">
 	let initialized = false;
 
 	const activePointerRipples: (() => void)[] = [];

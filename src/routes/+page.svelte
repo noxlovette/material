@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { Display, Headline, Body, Card, Title, Icon, Divider } from '$lib/index.js';
-	import SinglePane from '$lib/components/containers/panes/SinglePane.svelte';
+	import { Display, SinglePane, Headline, Body, Card, Title, Icon, Divider } from '$lib/index.js';
 	import CodeBlock from './CodeBlock.svelte';
 
 	const sections = [

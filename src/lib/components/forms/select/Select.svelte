@@ -13,7 +13,6 @@ Powered by bits-ui for accessibility and behavior.
 	import { Icon } from '$lib/utils/index.js';
 	import type { SelectProps } from './types.js';
 	import clsx from 'clsx';
-	import Divider from '$lib/components/containers/divider/Divider.svelte';
 
 	let {
 		value = $bindable(),
@@ -50,10 +49,10 @@ Powered by bits-ui for accessibility and behavior.
 			{...contentProps}
 		>
 			{#snippet child({ wrapperProps, props, open })}
-				<div {...wrapperProps}>
+				<div {...wrapperProps} class="z-50">
 					<div
 						{...props}
-						class="relative z-50 max-w-sm min-w-64 rounded-xl bg-md-sys-color-surface-container-high shadow-elevation-3"
+						class="relative max-w-sm min-w-64 rounded-xl bg-md-sys-color-surface-container-high shadow-elevation-3"
 						style:opacity={open ? '1' : '0'}
 						style:transform={open ? 'scale(1)' : 'scale(0.85)'}
 						style:visibility={open ? 'visible' : 'hidden'}

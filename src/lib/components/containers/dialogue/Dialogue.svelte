@@ -16,11 +16,7 @@ on screen until confirmed, dismissed, or a required action has been taken.
 	import Button from '../../buttons/Button.svelte';
 	import clsx from 'clsx';
 	import { enterExit } from '$lib/animation/enterExit.js';
-	import {
-		easeEmphasized,
-		easeEmphasizedDecel,
-		easeEmphasizedAccel
-	} from '$lib/animation/easing.js';
+	import { easeEmphasized, easeEmphasizedDecel } from '$lib/animation/easing.js';
 
 	let {
 		withState = false,
@@ -103,23 +99,25 @@ on screen until confirmed, dismissed, or a required action has been taken.
 								{/snippet}
 							</Dialog.Description>
 
-							{@render children?.()}
+							<form method="POST">
+								{@render children?.()}
 
-							<div class={`${buttonContainer()} dialogue-buttons`}>
-								<Button
-									type="button"
-									variant="text"
-									data-cy="dialogue-cancel"
-									onclick={() => (isOpen = false)}>Отмена</Button
-								>
-								<Button
-									type="submit"
-									{loading}
-									variant="filled"
-									formaction={confirmAction}
-									data-cy="dialogue-confirm">{confirmText}</Button
-								>
-							</div>
+								<div class={`${buttonContainer()} dialogue-buttons`}>
+									<Button
+										type="button"
+										variant="text"
+										data-cy="dialogue-cancel"
+										onclick={() => (isOpen = false)}>Отмена</Button
+									>
+									<Button
+										type="submit"
+										{loading}
+										variant="filled"
+										formaction={confirmAction}
+										data-cy="dialogue-confirm">{confirmText}</Button
+									>
+								</div>
+							</form>
 						</div>
 					{/if}
 				{/snippet}
