@@ -5,10 +5,12 @@ export type RailItemVariants = VariantProps<typeof railElement>;
 
 export const rail = tv({
 	slots: {
-		base: 'py-12 hidden bg-md-sys-color-surface-container z-20 flex-col md:flex gap-6',
-		items: 'flex flex-col gap-3 pt-6 scrollbar-none',
-		ghost: 'hidden md:block shrink-0',
-		scrim: 'xl:hidden inset-0 -z-10'
+		base: 'py-12 hidden bg-md-sys-color-surface-container z-20 flex-col md:flex gap-6 transition-[width,padding,background-color] duration-[var(--md-sys-motion-duration-spatial)] ease-[var(--md-sys-motion-timing-function-emphasized)] overflow-x-hidden',
+		items: 'flex flex-col gap-3 pt-6 scrollbar-none w-full',
+		ghost:
+			'hidden md:block shrink-0 transition-[width] duration-[var(--md-sys-motion-duration-spatial)] ease-[var(--md-sys-motion-timing-function-emphasized)]',
+		scrim:
+			'xl:hidden inset-0 -z-10 transition-opacity duration-[var(--md-sys-motion-duration-spatial)] ease-[var(--md-sys-motion-timing-function-emphasized)]'
 	},
 	variants: {
 		anchor: {
@@ -24,7 +26,7 @@ export const rail = tv({
 		expanded: {
 			true: {
 				base: 'pl-9 w-60 items-start bg-md-sys-color-surface-container-highest xl:bg-md-sys-color-surface-container rounded-r-lg',
-				ghost: 'w-60',
+				ghost: 'w-24 xl:w-60',
 				scrim: 'z-20 bg-black/40'
 			},
 			false: {
@@ -47,11 +49,14 @@ export const rail = tv({
 
 export const railElement = tv({
 	slots: {
-		base: 'group relative z-30 flex w-full',
-		content: 'flex items-center min-w-0 rounded-full gap-0.5 py-1.5',
-		iconContainer: 'relative rounded-full items-center justify-center inline-flex',
-		icon: 'text-[24px]',
-		label: ''
+		base: 'group relative z-30 flex w-full transition-all duration-[var(--md-sys-motion-duration-spatial)] ease-[var(--md-sys-motion-timing-function-emphasized)]',
+		content:
+			'flex items-center min-w-0 rounded-full gap-0.5 py-1.5 transition-all duration-[var(--md-sys-motion-duration-spatial)] ease-[var(--md-sys-motion-timing-function-emphasized)]',
+		iconContainer:
+			'relative rounded-full items-center justify-center inline-flex transition-all duration-[var(--md-sys-motion-duration-spatial)] ease-[var(--md-sys-motion-timing-function-emphasized)]',
+		icon: 'text-[24px] transition-all duration-[var(--md-sys-motion-duration-spatial)] ease-[var(--md-sys-motion-timing-function-emphasized)]',
+		label:
+			'transition-all duration-[var(--md-sys-motion-duration-spatial)] ease-[var(--md-sys-motion-timing-function-emphasized)] whitespace-nowrap'
 	},
 	variants: {
 		active: {

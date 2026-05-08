@@ -4,6 +4,7 @@ export const baseIcons = [
 	'chevron_left',
 	'chevron_right',
 	'close',
+	'palette',
 	'file_upload',
 	'home',
 	'info',

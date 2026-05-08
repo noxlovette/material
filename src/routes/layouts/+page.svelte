@@ -171,7 +171,7 @@
 
 	<!-- FLOATING TOOLBAR -->
 	<div
-		class="fixed bottom-8 left-1/2 z-50 -translate-x-1/2 transform rounded-lg bg-md-sys-color-surface-container-highest shadow-elevation-3"
+		class="fixed bottom-8 left-1/2 z-50 -translate-x-1/2 transform rounded-xl bg-md-sys-color-surface-container-highest shadow-elevation-3"
 	>
 		<ToggleGroup type="single" bind:value={variant}>
 			<ToggleGroupItem value="single" label="Single" iconProps={{ name: 'square' }} />
