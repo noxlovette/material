@@ -16,12 +16,8 @@
 		"format": "prettier --write .",
 		"index": "bun run scripts/generate-components-index.ts"
 	},
-	"bin": {
-		"ogonek-m3-theme": "scripts/convert-theme-css.mjs"
-	},
 	"files": [
 		"dist",
-		"scripts/convert-theme-css.mjs",
 		"!dist/**/*.test.*",
 		"!dist/**/*.spec.*"
 	],

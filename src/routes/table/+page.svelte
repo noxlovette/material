@@ -1,4 +1,5 @@
 <script lang="ts">
+	import SinglePane from '$lib/components/containers/panes/SinglePane.svelte';
 	import {
 		Table,
 		TableHead,
@@ -88,7 +89,7 @@
 
 <SupportingPane anchor="parent" centered={false}>
 	{#snippet main()}
-		<div class="flex flex-col gap-16 p-12">
+		<SinglePane contentClass="gap-12 p-12">
 			<!-- BASIC -->
 			<section id="basic" class="flex scroll-mt-4 flex-col gap-6">
 				<Display>Table</Display>
@@ -99,9 +100,7 @@
 				</Body>
 
 				<Headline>Basic</Headline>
-				<div
-					class="overflow-hidden rounded-lg outline outline-1 outline-md-sys-color-outline-variant"
-				>
+				<div class="overflow-hidden rounded-lg outline outline-md-sys-color-outline-variant">
 					<Table>
 						<TableHead>
 							<TableRow>
@@ -296,7 +295,6 @@
 						<TableBody>
 							{#each [...fruits, ...fruits, ...fruits] as row, i}
 								<TableRow>
-									<TableCell>{row.name}</TableCell>
 									<TableCell numeric>{row.calories}</TableCell>
 									<TableCell numeric>{row.fat}</TableCell>
 									<TableCell numeric>{row.sugar}</TableCell>
@@ -306,7 +304,7 @@
 					</Table>
 				</div>
 			</section>
-		</div>
+		</SinglePane>
 	{/snippet}
 
 	{#snippet supporting()}

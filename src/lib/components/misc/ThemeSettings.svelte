@@ -45,7 +45,7 @@
 			<input
 				type="color"
 				bind:value={themeState.sourceColor}
-				class="h-10 w-10 cursor-pointer rounded-full border-0 bg-transparent p-0"
+				class="size-10 cursor-pointer bg-transparent"
 			/>
 			<Body size="medium">{themeState.sourceColor}</Body>
 		</div>

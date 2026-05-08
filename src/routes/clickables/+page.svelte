@@ -1,4 +1,5 @@
 <script lang="ts">
+	import SinglePane from '$lib/components/containers/panes/SinglePane.svelte';
 	import {
 		ButtonIcon,
 		FAB,
@@ -72,7 +73,7 @@
 
 <SupportingPane anchor="parent" centered={false}>
 	{#snippet main()}
-		<div class="flex flex-col gap-16 p-12">
+		<SinglePane contentClass="p-12 gap-12">
 			<!-- BUTTONS -->
 			<section id="buttons" class="flex scroll-mt-4 flex-col gap-6">
 				<Display>Buttons</Display>
@@ -514,7 +515,7 @@
 					</ul>
 				</div>
 			</section>
-		</div>
+		</SinglePane>
 	{/snippet}
 
 	{#snippet supporting()}

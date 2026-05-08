@@ -9,6 +9,7 @@ Also providers auto-detect for dark mode
 	import { app } from './theme.ts';
 	import type { AppProps } from './types.ts';
 	import { ModeWatcher } from 'mode-watcher';
+	import { onMount } from 'svelte';
 
 	const {
 		children,
@@ -28,7 +29,7 @@ Also providers auto-detect for dark mode
 	const dynamicCSS = $derived(ssrThemeCSS || (themeConfig ? generateThemeCSS(themeConfig) : ''));
 
 	// Initialize the Material 3 Dynamic Theme on the client
-	$effect(() => {
+	onMount(() => {
 		initTheme({ cookieDomain, cookieName });
 	});
 </script>
