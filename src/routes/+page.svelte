@@ -122,85 +122,44 @@
 				You can generate Material Design 3 themes dynamically in the browser using a source color or
 				an image, and easily toggle light/dark modes and contrast levels.
 			</Body>
-			<CodeBlock
-				code={`<script lang="ts">
-  import { App, ThemeSwitcher } from '@ogonek-education/ogonek-m3';
-<\/script>
 
-<!-- Pass cookieDomain to persist theme across subdomains (e.g., ".example.com") -->
-<App cookieDomain=".example.com">
-  <!-- Your content -->
-
-  <!-- Add the ThemeSwitcher to let users dynamically configure the theme -->
-  <ThemeSwitcher />
-</App>`}
-			/>
+			<Title size="small">Recommended: Server-Side Rendering (SSR)</Title>
 			<Body>
-				The <code class="rounded bg-md-sys-color-surface-container-high px-1.5 py-0.5 text-sm"
-					>ThemeSwitcher</code
+				To prevent the "Flash of Unstyled Content" (FOUC), it is recommended to read the theme
+				configuration on the server and pass it to the
+				<code class="rounded bg-md-sys-color-surface-container-high px-1.5 py-0.5 text-sm">App</code
 				>
-				component displays a floating action button (FAB) that opens a theme picker.
-			</Body>
-
-			<Title size="small">Custom Settings Interface</Title>
-			<Body>
-				If you want to build your own settings page (e.g., in a dedicated settings app), use the
-				<code class="rounded bg-md-sys-color-surface-container-high px-1.5 py-0.5 text-sm"
-					>ThemeSettings</code
-				>
-				component directly without the FAB wrapper:
-			</Body>
-			<CodeBlock
-				code={`<script lang="ts">
-  import { ThemeSettings } from '@ogonek-education/ogonek-m3';
-<\/script>
-
-<div class="max-w-md p-6">
-  <ThemeSettings />
-</div>`}
-			/>
-
-			<Title size="small">Server-Side Rendering (SSR) & FOUC Prevention</Title>
-			<Body>
-				To prevent the "Flash of Unstyled Content" (FOUC), you can generate the theme CSS on the
-				server by reading the theme cookie and passing it to the <code
-					class="rounded bg-md-sys-color-surface-container-high px-1.5 py-0.5 text-sm">App</code
-				> component.
+				component.
 			</Body>
 			<CodeBlock
 				code={`// src/routes/+layout.server.ts
-import { generateThemeCSS, DEFAULT_CONFIG } from '@ogonek-education/ogonek-m3';
+		import { DEFAULT_CONFIG } from '@ogonek-education/ogonek-m3';
 
-export const load = ({ cookies }) => {
-  const themeCookie = cookies.get('ogonek-m3-theme-config');
-  let config = DEFAULT_CONFIG;
+		export const load = ({ cookies }) => {
+		const themeCookie = cookies.get('ogonek-m3-theme-config');
+		let themeConfig = DEFAULT_CONFIG;
 
-  if (themeCookie) {
-    try {
-      config = JSON.parse(decodeURIComponent(themeCookie));
-    } catch (e) {}
-  }
+		if (themeCookie) {
+		try {
+		themeConfig = JSON.parse(decodeURIComponent(themeCookie));
+		} catch (e) {}
+		}
 
-  return {
-    // Generate CSS on the server
-    ssrThemeCSS: generateThemeCSS(config),
-    // Also pass if it's dark mode to set the <html> class
-    isDark: config.scheme === 'dark' // Simplification
-  };
-};`}
+		return { themeConfig };
+		};`}
 			/>
-			<Body>Then in your root layout:</Body>
 			<CodeBlock
 				code={`<script lang="ts">
-  const { data, children } = $props();
-<\/script>
+			import { App, ThemeSwitcher, isDarkScheme } from '@ogonek-education/ogonek-m3';
+			const { data, children } = $props();
 
-<!-- Set the dark class on the server to prevent flashing -->
-<svelte:body class={data.isDark ? 'dark' : ''} />
+			const isDark = $derived(isDarkScheme(data.themeConfig.scheme));
+			<\/script>
 
-<App ssrThemeCSS={data.ssrThemeCSS}>
-  {@render children()}
-</App>`}
+			<App themeConfig={data.themeConfig} {isDark}>
+			{@render children()}
+			<ThemeSwitcher />
+			</App>`}
 			/>
 		</div>
 	</div>

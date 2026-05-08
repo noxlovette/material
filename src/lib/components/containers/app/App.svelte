@@ -4,12 +4,11 @@ The core App wrapper that gives default backgrounds and sets up tooltips and ico
 Also providers auto-detect for dark mode
 -->
 <script lang="ts">
-	import { MaterialSymbolsProvider, initTheme } from '$lib/utils/index.js';
+	import { MaterialSymbolsProvider, initTheme, generateThemeCSS } from '$lib/utils/index.js';
 	import { Tooltip } from 'bits-ui';
 	import { app } from './theme.ts';
 	import type { AppProps } from './types.ts';
 	import { ModeWatcher } from 'mode-watcher';
-	import { onMount } from 'svelte';
 
 	const {
 		children,
@@ -18,21 +17,26 @@ Also providers auto-detect for dark mode
 		cookieDomain,
 		cookieName,
 		ssrThemeCSS,
+		themeConfig,
+		isDark,
 		...restProps
 	}: AppProps = $props();
 
-	const baseCls = $derived(app({ class: className }));
+	const baseCls = $derived(app({ class: [className, isDark ? 'dark' : ''] }));
 
-	// Initialize the Material 3 Dynamic Theme
+	// Generate CSS if themeConfig is provided (useful for server-side)
+	const dynamicCSS = $derived(ssrThemeCSS || (themeConfig ? generateThemeCSS(themeConfig) : ''));
+
+	// Initialize the Material 3 Dynamic Theme on the client
 	$effect(() => {
 		initTheme({ cookieDomain, cookieName });
 	});
 </script>
 
 <svelte:head>
-	{#if ssrThemeCSS}
+	{#if dynamicCSS}
 		<style id="ogonek-m3-dynamic-theme">
-			{@html ssrThemeCSS}
+			{@html dynamicCSS}
 		</style>
 	{/if}
 </svelte:head>

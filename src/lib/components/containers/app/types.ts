@@ -1,6 +1,7 @@
 import type { MaterialSymbolsProviderProps } from '$lib/utils/index.js';
 import type { DivAttrs } from '$lib/utils/types.js';
 import type { Snippet } from 'svelte';
+import type { ThemeConfig } from '$lib/utils/theme.svelte.js';
 
 export type AppProps = DivAttrs & {
 	/** Content for the core app */
@@ -21,7 +22,15 @@ export type AppProps = DivAttrs & {
 	cookieName?: string;
 	/**
 	 * Optional CSS generated on the server to prevent FOUC.
-	 * Use generateThemeCSS() on the server to create this.
 	 */
 	ssrThemeCSS?: string;
+	/**
+	 * Optional theme configuration passed from the server.
+	 * If provided, the App component will generate the theme CSS automatically.
+	 */
+	themeConfig?: ThemeConfig;
+	/**
+	 * Optional dark mode state passed from the server to prevent flashing.
+	 */
+	isDark?: boolean;
 };

@@ -1,10 +1,11 @@
 <script lang="ts">
-	import { App, Rail, RailItem, ThemeSwitcher } from '$lib/index.js';
+	import { App, Rail, RailItem, ThemeSwitcher, isDarkScheme } from '$lib/index.js';
 	import { page } from '$app/state';
 	import './layout.css';
 
-	const { children } = $props();
+	const { children, data } = $props();
 
+	const isDark = $derived(isDarkScheme(data.themeConfig.scheme));
 	let collapsed = $state(true);
 
 	// These icons will be pre-loaded by the MaterialSymbolsProvider inside App
@@ -58,7 +59,7 @@
 	];
 </script>
 
-<App iconProviderProps={{ extraIcons: icons }}>
+<App iconProviderProps={{ extraIcons: icons }} themeConfig={data.themeConfig} {isDark}>
 	<div class="flex min-h-screen">
 		<Rail bind:collapsed>
 			<RailItem {collapsed} name="Overview" href="/" iconProps={{ name: 'architecture' }} />
