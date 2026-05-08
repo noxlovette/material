@@ -4,6 +4,7 @@
 
 	const {
 		name,
+		variant = 'rounded',
 		fill = 0,
 		wght = 400,
 		grad = 0,
@@ -16,7 +17,7 @@
 
 <div class={clsx(className, wrapperClass)}>
 	<span
-		class="material-symbols-rounded"
+		class="material-symbols-{variant}"
 		style="font-size: 1em; font-variation-settings: 'FILL' {fill}, 'wght' {wght}, 'GRAD' {grad}, 'opsz' {opsz};"
 		>{name}</span
 	>
