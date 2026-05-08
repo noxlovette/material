@@ -78,7 +78,7 @@ export const textfield = tv({
 		},
 		disabled: {
 			true: {
-				base: 'pointer-events-none opacity-60'
+				base: 'cursor-not-allowed opacity-60'
 			}
 		}
 	}

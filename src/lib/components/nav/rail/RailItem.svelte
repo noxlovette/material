@@ -49,7 +49,7 @@ A single destination within a navigation rail.
 		icon,
 		iconContainer,
 		label: labelClass
-	} = $derived(railElement({ active: isActive, expanded: !collapsed }));
+	} = $derived(railElement({ active: isActive, expanded: !collapsed, disabled: isDisabled }));
 	const rootClass = $derived([base(), className].filter(Boolean).join(' '));
 
 	function handleClick(event: MouseEvent) {

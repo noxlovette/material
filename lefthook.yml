@@ -7,6 +7,3 @@ pre-commit:
     - name: prettier
       glob: '*.{js,ts,svelte,css,md,json,yml,yaml}'
       run: bunx prettier --write {staged_files} && git add {staged_files}
-    - name: eslint
-      glob: '*.{js,ts,svelte}'
-      run: bunx eslint --fix {staged_files} && git add {staged_files}

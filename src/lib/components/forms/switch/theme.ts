@@ -13,7 +13,7 @@ export const toggle = tv({
 			'absolute inset-0 m-0 h-full w-full appearance-none rounded-full',
 			'border-2 border-md-sys-color-outline bg-md-sys-color-surface-container-highest',
 			'group-data-[state=checked]:border-md-sys-color-primary group-data-[state=checked]:bg-md-sys-color-primary',
-			'group-data-[disabled]:cursor-default',
+			'group-data-[disabled]:cursor-not-allowed',
 			'group-data-[disabled]:border-md-sys-color-on-surface/12 group-data-[disabled]:bg-md-sys-color-surface-container-highest',
 			'group-data-[state=checked]:group-data-[disabled]:border-transparent group-data-[state=checked]:group-data-[disabled]:bg-md-sys-color-on-surface/12',
 			'transition-colors duration-200'

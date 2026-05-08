@@ -15,7 +15,7 @@ export const command = tv({
 		group:
 			'overflow-hidden p-1 text-md-sys-color-on-surface-variant [&_[data-command-group-heading]]:px-3 [&_[data-command-group-heading]]:py-2 [&_[data-command-group-heading]]:text-md-sys-typescale-label-medium [&_[data-command-group-heading]]:text-md-sys-color-on-surface-variant',
 		separator: '-mx-1 h-px bg-md-sys-color-outline-variant',
-		item: 'relative flex cursor-default select-none items-center rounded-lg px-3 py-3 text-md-sys-typescale-body-medium outline-none data-[selected=true]:bg-md-sys-color-secondary-container data-[selected=true]:text-md-sys-color-on-secondary-container data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 transition-colors',
+		item: 'relative flex cursor-default select-none items-center rounded-lg px-3 py-3 text-md-sys-typescale-body-medium outline-none data-[selected=true]:bg-md-sys-color-secondary-container data-[selected=true]:text-md-sys-color-on-secondary-container data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-50 transition-colors',
 		itemIcon: 'mr-3 h-5 w-5 shrink-0'
 	}
 });

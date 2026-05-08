@@ -32,7 +32,7 @@ export interface ThemeConfig {
 }
 
 // Default Configuration
-const DEFAULT_CONFIG: ThemeConfig = {
+export const DEFAULT_CONFIG: ThemeConfig = {
 	sourceColor: '#6750A4', // Default M3 purple
 	scheme: 'system',
 	contrast: 'standard',
@@ -51,14 +51,58 @@ const SCHEME_VARIANTS: Record<ThemeVariant, any> = {
 // Svelte 5 State
 export const themeState = $state<ThemeConfig>({ ...DEFAULT_CONFIG });
 
-// State Initialization & Hydration
-export function initTheme() {
-	if (typeof window === 'undefined') return;
+let isInitialized = false;
 
-	const stored = localStorage.getItem('ogonek-m3-theme-config');
+export interface ThemeInitOptions {
+	/**
+	 * If provided, the theme config will also be saved to a cookie with this domain.
+	 * This allows the theme to persist across different subdomains.
+	 * Example: ".yourdomain.com"
+	 */
+	cookieDomain?: string;
+	/**
+	 * Cookie name to use for persistence.
+	 * Defaults to 'ogonek-m3-theme-config'
+	 */
+	cookieName?: string;
+}
+
+// State Initialization & Hydration
+export function initTheme(options: ThemeInitOptions = {}) {
+	if (typeof window === 'undefined' || isInitialized) return;
+	isInitialized = true;
+
+	const { cookieDomain, cookieName = 'ogonek-m3-theme-config' } = options;
+
+	// Helper to get cookie
+	const getCookie = (name: string) => {
+		const value = `; ${document.cookie}`;
+		const parts = value.split(`; ${name}=`);
+		if (parts.length === 2) return parts.pop()?.split(';').shift();
+		return undefined;
+	};
+
+	// Helper to set cookie
+	const setCookie = (name: string, value: string, domain?: string) => {
+		let cookieStr = `${name}=${value}; Max-Age=${60 * 60 * 24 * 365}; Path=/; SameSite=Lax`;
+		if (domain) {
+			cookieStr += `; Domain=${domain}`;
+		}
+		document.cookie = cookieStr;
+	};
+
+	// Hydrate: Prefer Cookie (if domain provided) > LocalStorage > Default
+	let stored: string | undefined = undefined;
+	if (cookieDomain) {
+		stored = getCookie(cookieName);
+	}
+	if (!stored) {
+		stored = localStorage.getItem('ogonek-m3-theme-config') ?? undefined;
+	}
+
 	if (stored) {
 		try {
-			const parsed = JSON.parse(stored);
+			const parsed = JSON.parse(decodeURIComponent(stored));
 			themeState.sourceColor = parsed.sourceColor ?? DEFAULT_CONFIG.sourceColor;
 			themeState.scheme = parsed.scheme ?? DEFAULT_CONFIG.scheme;
 			themeState.contrast = parsed.contrast ?? DEFAULT_CONFIG.contrast;
@@ -70,16 +114,20 @@ export function initTheme() {
 
 	$effect.root(() => {
 		$effect(() => {
-			// Save to localStorage when state changes
-			localStorage.setItem(
-				'ogonek-m3-theme-config',
-				JSON.stringify({
-					sourceColor: themeState.sourceColor,
-					scheme: themeState.scheme,
-					contrast: themeState.contrast,
-					variant: themeState.variant
-				})
-			);
+			const configStr = JSON.stringify({
+				sourceColor: themeState.sourceColor,
+				scheme: themeState.scheme,
+				contrast: themeState.contrast,
+				variant: themeState.variant
+			});
+
+			// Save to localStorage
+			localStorage.setItem('ogonek-m3-theme-config', configStr);
+
+			// Save to Cookie if domain provided
+			if (cookieDomain) {
+				setCookie(cookieName, encodeURIComponent(configStr), cookieDomain);
+			}
 
 			applyTheme(themeState);
 		});
@@ -106,34 +154,26 @@ function getContrastLevel(contrast: ContrastMode): number {
 	}
 }
 
-function isDarkScheme(scheme: ColorScheme): boolean {
+export function isDarkScheme(scheme: ColorScheme): boolean {
+	if (typeof window === 'undefined') return scheme === 'dark'; // Server default
 	if (scheme === 'system') {
 		return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 	}
 	return scheme === 'dark';
 }
 
-function applyTheme(config: ThemeConfig) {
-	if (typeof document === 'undefined') return;
-
+/**
+ * Generates the CSS variables for a given theme configuration.
+ * This function is pure and works on both server and client.
+ */
+export function generateThemeCSS(config: ThemeConfig, isDark?: boolean): string {
 	const hct = Hct.fromInt(argbFromHex(config.sourceColor));
-	const isDark = isDarkScheme(config.scheme);
+	const dark = isDark ?? isDarkScheme(config.scheme);
 	const contrastLevel = getContrastLevel(config.contrast);
 	const SchemeClass = SCHEME_VARIANTS[config.variant] || SchemeTonalSpot;
 
-	const dynamicScheme = new SchemeClass(hct, isDark, contrastLevel);
+	const dynamicScheme = new SchemeClass(hct, dark, contrastLevel);
 
-	// Inject CSS variables
-	const styleId = 'ogonek-m3-dynamic-theme';
-	let styleEl = document.getElementById(styleId) as HTMLStyleElement;
-	if (!styleEl) {
-		styleEl = document.createElement('style');
-		styleEl.id = styleId;
-		document.head.appendChild(styleEl);
-	}
-
-	// MaterialDynamicColors has static methods for each color.
-	// We will extract a predefined list of required colors based on the current CSS
 	const colors = {
 		primary: MaterialDynamicColors.primary,
 		'surface-tint': MaterialDynamicColors.surfaceTint,
@@ -192,13 +232,28 @@ function applyTheme(config: ThemeConfig) {
 		const r = (argb >> 16) & 255;
 		const g = (argb >> 8) & 255;
 		const b = argb & 255;
-		// Output format required by Tailwind CSS vars or native usages `rgb(r g b)`
 		css += `  --color-md-sys-color-${key}: rgb(${r} ${g} ${b});\n`;
 	}
 	css += `}\n`;
 
-	// Apply contrast data-theme to support existing static fallbacks if needed
-	// or just let CSS override taking precedence.
+	return css;
+}
+
+function applyTheme(config: ThemeConfig) {
+	if (typeof document === 'undefined') return;
+
+	const css = generateThemeCSS(config);
+	const isDark = isDarkScheme(config.scheme);
+
+	// Inject CSS variables
+	const styleId = 'ogonek-m3-dynamic-theme';
+	let styleEl = document.getElementById(styleId) as HTMLStyleElement;
+	if (!styleEl) {
+		styleEl = document.createElement('style');
+		styleEl.id = styleId;
+		document.head.appendChild(styleEl);
+	}
+
 	if (isDark) {
 		document.documentElement.classList.add('dark');
 	} else {

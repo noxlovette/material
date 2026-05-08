@@ -29,7 +29,7 @@ export const pinInput = tv({
 		},
 		disabled: {
 			true: {
-				cell: 'bg-md-sys-color-on-surface/4 after:bg-md-sys-color-on-surface/12 opacity-60 pointer-events-none'
+				cell: 'bg-md-sys-color-on-surface/4 after:bg-md-sys-color-on-surface/12 opacity-60 cursor-not-allowed'
 			}
 		}
 	}

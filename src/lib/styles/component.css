@@ -1,4 +1,11 @@
 @layer utilities {
+	:disabled,
+	[disabled],
+	[aria-disabled='true'],
+	[data-disabled] {
+		cursor: not-allowed !important;
+	}
+
 	.md-component-button-base {
 		@apply state-layer relative inline-flex items-center justify-center md-sys-state-focus-indicator select-none disabled:cursor-not-allowed disabled:bg-md-sys-color-on-surface/10 disabled:text-md-sys-color-on-surface/38 disabled:before:bg-md-sys-color-on-surface/38;
 		transition: box-shadow var(--md-sys-motion-duration, 200ms)

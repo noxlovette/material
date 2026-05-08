@@ -42,8 +42,8 @@ export const checkbox = tv({
 		},
 		disabled: {
 			true: {
-				root: 'cursor-default',
-				control: 'pointer-events-none text-md-sys-color-on-surface/38 before:hidden',
+				root: 'cursor-not-allowed',
+				control: 'text-md-sys-color-on-surface/38 before:hidden',
 				box: 'border-md-sys-color-on-surface/38',
 				checkIcon: 'text-md-sys-color-on-surface/38',
 				indeterminateIcon: 'bg-md-sys-color-on-surface/38',

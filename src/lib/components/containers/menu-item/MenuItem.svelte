@@ -39,7 +39,7 @@ and `ContextMenu`, which owns its own item list and is right-click triggered.
 
 	const itemClass = $derived(
 		tv({
-			base: 'relative flex w-full cursor-pointer items-start gap-3 border-none bg-transparent px-4 py-3 text-left md-sys-typescale-body-large whitespace-nowrap text-md-sys-color-on-surface hover:bg-md-sys-color-on-surface/8 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-md-sys-color-primary disabled:cursor-default disabled:opacity-38',
+			base: 'relative flex w-full cursor-pointer items-start gap-3 border-none bg-transparent px-4 py-3 text-left md-sys-typescale-body-large whitespace-nowrap text-md-sys-color-on-surface hover:bg-md-sys-color-on-surface/8 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-md-sys-color-primary disabled:cursor-not-allowed disabled:opacity-38',
 			variants: {
 				selected: {
 					true: 'bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container'

@@ -1,9 +1,7 @@
 <script lang="ts">
-	import { App, Rail, RailItem, ThemeSwitcher, initTheme } from '$lib/index.js';
+	import { App, Rail, RailItem, ThemeSwitcher } from '$lib/index.js';
 	import { page } from '$app/state';
 	import './layout.css';
-
-	initTheme();
 
 	const { children } = $props();
 

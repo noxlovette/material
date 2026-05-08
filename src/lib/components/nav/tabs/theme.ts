@@ -29,6 +29,11 @@ export const tab = tv({
 				base: 'h-12 py-3',
 				icon: 'hidden'
 			}
+		},
+		disabled: {
+			true: {
+				base: 'cursor-not-allowed opacity-38'
+			}
 		}
 	},
 	defaultVariants: {

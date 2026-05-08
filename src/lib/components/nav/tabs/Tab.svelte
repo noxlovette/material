@@ -21,7 +21,7 @@ otherwise as <button> (content-panel tabs).
 		class: className
 	}: TabProps = $props();
 
-	const { base, icon: iconCls, label: labelCls } = $derived(tab({ variant }));
+	const { base, icon: iconCls, label: labelCls } = $derived(tab({ variant, disabled }));
 	const cls = $derived(base({ class: clsx(className) }));
 </script>
 
@@ -29,13 +29,7 @@ otherwise as <button> (content-panel tabs).
 	{#snippet child({ props })}
 		{@const { type: _type, disabled: _disabled, ...anchorProps } = props}
 		{#if href}
-			<a
-				{href}
-				{...anchorProps}
-				class={cls}
-				aria-disabled={disabled || undefined}
-				class:pointer-events-none={disabled}
-			>
+			<a {href} {...anchorProps} class={cls} aria-disabled={disabled || undefined}>
 				{#if variant === 'primary' && iconProps}
 					<Icon {...iconProps} class={iconCls()} />
 				{/if}

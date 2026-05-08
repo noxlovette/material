@@ -6,4 +6,5 @@ export * from './types.js';
 
 // default exports for components in this folder
 export { default as Avatar } from './Avatar.svelte';
+export { default as ThemeSettings } from './ThemeSettings.svelte';
 export { default as ThemeSwitcher } from './ThemeSwitcher.svelte';

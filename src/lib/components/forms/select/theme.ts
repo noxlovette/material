@@ -15,12 +15,14 @@ export const select = tv({
       data-[state=open]:after:h-[2px]
       disabled:bg-md-sys-color-on-surface/4
       disabled:after:bg-md-sys-color-on-surface/12
+      disabled:cursor-not-allowed
       cursor-pointer justify-between
     `,
 		value: `
       peer w-full bg-transparent outline-none
       md-sys-typescale-body-large text-md-sys-color-on-surface
       disabled:text-md-sys-color-on-surface/38
+      disabled:cursor-not-allowed
       truncate text-left
     `,
 		leadingIcon: `
@@ -48,7 +50,7 @@ export const select = tv({
       focus:bg-md-sys-color-on-surface/8
       data-[selected]:bg-md-sys-color-secondary-container
       data-[selected]:text-md-sys-color-on-secondary-container
-      data-[disabled]:pointer-events-none data-[disabled]:opacity-50
+      data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50
       transition-colors duration-150 first:rounded-t-xl last:rounded-b-xl
     `,
 		groupLabel: `
@@ -77,7 +79,7 @@ export const select = tv({
 		},
 		disabled: {
 			true: {
-				root: 'pointer-events-none opacity-60'
+				root: 'cursor-not-allowed opacity-60'
 			}
 		}
 	}

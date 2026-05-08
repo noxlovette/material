@@ -418,7 +418,7 @@ Follows Material 3 design principles for file uploaders.
 		ondrop={handleDrop}
 		aria-label="Область загрузки файлов"
 		aria-disabled={readonly}
-		class={`group state-layer relative block ${readonly ? 'cursor-default opacity-80' : 'cursor-pointer'} rounded-lg p-4 focus-within:outline-2 focus-within:outline-md-sys-color-primary ${
+		class={`group state-layer relative block ${readonly ? 'cursor-not-allowed opacity-80' : 'cursor-pointer'} rounded-lg p-4 focus-within:outline-2 focus-within:outline-md-sys-color-primary ${
 			isDragging
 				? ' bg-md-sys-color-primary/6 shadow-elevation-1'
 				: ' bg-md-sys-color-surface-container-high '

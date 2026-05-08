@@ -37,6 +37,7 @@
 	import { zod4 as zod } from 'sveltekit-superforms/adapters';
 	import { z } from 'zod/v4';
 	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
+	import SinglePane from '$lib/components/containers/panes/SinglePane.svelte';
 
 	const demoSchema = z.object({
 		name: z.string().min(1),
@@ -145,8 +146,8 @@
 
 <SupportingPane anchor="viewport" centered={false}>
 	{#snippet main()}
-		<div class="flex flex-col gap-16 p-12">
-			<!-- TEXT FIELDS -->
+		<!-- TEXT FIELDS -->
+		<SinglePane contentClass="gap-12 p-12">
 			<section id="text-fields" class="flex scroll-mt-4 flex-col gap-6">
 				<Display>Text Fields</Display>
 				<div class="grid max-w-3xl grid-cols-2 gap-4">
@@ -372,7 +373,11 @@
 					<Slider value={5} />
 				</div>
 			</section>
-
+			<section id="loading" class="flex flex-col gap-12">
+				<Display>Loading</Display>
+				<LoadingIndicator />
+				<LoadingIndicator container />
+			</section>
 			<!-- TIME & DATE -->
 			<section id="time-date" class="flex scroll-mt-4 flex-col gap-6">
 				<Display>Time & Date</Display>
@@ -382,8 +387,6 @@
 						close={() => console.debug('closed')}
 						time="09:41"
 					/>
-					<LoadingIndicator />
-					<LoadingIndicator container />
 				</div>
 				<DateField label="Дата" bind:value={dateValue} />
 				<Body>Selected: {dateValue?.toString() ?? '—'}</Body>
@@ -406,7 +409,7 @@
 					{/each}
 				</div>
 			</section>
-		</div>
+		</SinglePane>
 	{/snippet}
 
 	{#snippet supporting()}

@@ -56,9 +56,10 @@ It combines a Material 3 Textfield with a TimepickerInput for intuitive time sel
 		{label}
 		{value}
 		{name}
+		{disabled}
 		class="pointer-events-none"
 		trailingIconProps={{ name: 'timer' }}
-		trailingOnClick={() => (picker = !picker)}
+		trailingOnClick={() => !disabled && (picker = !picker)}
 	>
 		{#snippet supportingText()}
 			ЧЧ-ММ
@@ -66,10 +67,11 @@ It combines a Material 3 Textfield with a TimepickerInput for intuitive time sel
 	</Textfield>
 
 	<button
+		{disabled}
 		title="time-overlay"
-		class="absolute inset-0 cursor-pointer"
+		class="absolute inset-0 cursor-pointer disabled:cursor-not-allowed"
 		type="button"
-		onclick={() => (picker = !picker)}
+		onclick={() => !disabled && (picker = !picker)}
 		data-cy="calendar-time-toggle"
 	></button>
 

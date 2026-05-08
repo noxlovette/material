@@ -84,6 +84,11 @@ export const railElement = tv({
 				iconContainer: 'py-1.5 px-4',
 				label: 'md-sys-typescale-label-medium'
 			}
+		},
+		disabled: {
+			true: {
+				base: 'cursor-not-allowed opacity-38'
+			}
 		}
 	},
 	compoundVariants: [

@@ -29,8 +29,8 @@ export const radioGroup = tv({
 		},
 		disabled: {
 			true: {
-				item: 'cursor-default',
-				control: 'pointer-events-none text-md-sys-color-on-surface/38 before:hidden',
+				item: 'cursor-not-allowed',
+				control: 'text-md-sys-color-on-surface/38 before:hidden',
 				outerRing: 'border-md-sys-color-on-surface/38',
 				innerDot: 'bg-md-sys-color-on-surface/38',
 				label: 'text-md-sys-color-on-surface/38',

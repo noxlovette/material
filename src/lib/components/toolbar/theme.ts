@@ -21,14 +21,14 @@ export const toolbar = tv({
 
 export const toolbarButton = tv({
 	slots: {
-		base: 'layer-container state-layer before:rounded-full relative inline-flex size-10 items-center justify-center rounded-full text-md-sys-color-on-surface-variant outline-none transition-colors disabled:pointer-events-none disabled:opacity-38',
+		base: 'layer-container state-layer before:rounded-full relative inline-flex size-10 items-center justify-center rounded-full text-md-sys-color-on-surface-variant outline-none transition-colors disabled:cursor-not-allowed disabled:opacity-38',
 		icon: 'size-5 text-[20px]'
 	}
 });
 
 export const toolbarGroupItem = tv({
 	slots: {
-		base: 'layer-container state-layer before:rounded-full relative inline-flex size-10 items-center justify-center rounded-full text-md-sys-color-on-surface-variant outline-none transition-colors disabled:pointer-events-none disabled:opacity-38 data-[state=on]:bg-md-sys-color-secondary-container data-[state=on]:text-md-sys-color-on-secondary-container',
+		base: 'layer-container state-layer before:rounded-full relative inline-flex size-10 items-center justify-center rounded-full text-md-sys-color-on-surface-variant outline-none transition-colors disabled:cursor-not-allowed disabled:opacity-38 data-[state=on]:bg-md-sys-color-secondary-container data-[state=on]:text-md-sys-color-on-secondary-container',
 		icon: 'size-5 text-[20px]'
 	}
 });

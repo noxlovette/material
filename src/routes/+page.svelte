@@ -82,7 +82,7 @@
 		<div class="flex flex-col gap-3">
 			<Title>2. Import styles</Title>
 			<Body>Add to your root CSS file or layout stylesheet:</Body>
-			<CodeBlock code={`@import '@ogonek-education/ogonek-m3/styles';`} />
+			<CodeBlock code="@import '@ogonek-education/ogonek-m3/styles';" />
 		</div>
 
 		<div class="flex flex-col gap-3">
@@ -124,15 +124,13 @@
 			</Body>
 			<CodeBlock
 				code={`<script lang="ts">
-  import { App, initTheme, ThemeSwitcher } from '@ogonek-education/ogonek-m3';
-
-  // Initialize theme state on client load (hydrates from localStorage)
-  initTheme();
+  import { App, ThemeSwitcher } from '@ogonek-education/ogonek-m3';
 <\/script>
 
-<App>
+<!-- Pass cookieDomain to persist theme across subdomains (e.g., ".example.com") -->
+<App cookieDomain=".example.com">
   <!-- Your content -->
-  
+
   <!-- Add the ThemeSwitcher to let users dynamically configure the theme -->
   <ThemeSwitcher />
 </App>`}
@@ -141,11 +139,69 @@
 				The <code class="rounded bg-md-sys-color-surface-container-high px-1.5 py-0.5 text-sm"
 					>ThemeSwitcher</code
 				>
-				component will display a floating action button (FAB) in the bottom corner of the screen.
-				Users can pick a color, extract a color from an uploaded image, switch color schemes, and
-				adjust contrast. The theme variables are updated live and persisted in
-				<code>localStorage</code>.
+				component displays a floating action button (FAB) that opens a theme picker.
 			</Body>
+
+			<Title size="small">Custom Settings Interface</Title>
+			<Body>
+				If you want to build your own settings page (e.g., in a dedicated settings app), use the
+				<code class="rounded bg-md-sys-color-surface-container-high px-1.5 py-0.5 text-sm"
+					>ThemeSettings</code
+				>
+				component directly without the FAB wrapper:
+			</Body>
+			<CodeBlock
+				code={`<script lang="ts">
+  import { ThemeSettings } from '@ogonek-education/ogonek-m3';
+<\/script>
+
+<div class="max-w-md p-6">
+  <ThemeSettings />
+</div>`}
+			/>
+
+			<Title size="small">Server-Side Rendering (SSR) & FOUC Prevention</Title>
+			<Body>
+				To prevent the "Flash of Unstyled Content" (FOUC), you can generate the theme CSS on the
+				server by reading the theme cookie and passing it to the <code
+					class="rounded bg-md-sys-color-surface-container-high px-1.5 py-0.5 text-sm">App</code
+				> component.
+			</Body>
+			<CodeBlock
+				code={`// src/routes/+layout.server.ts
+import { generateThemeCSS, DEFAULT_CONFIG } from '@ogonek-education/ogonek-m3';
+
+export const load = ({ cookies }) => {
+  const themeCookie = cookies.get('ogonek-m3-theme-config');
+  let config = DEFAULT_CONFIG;
+
+  if (themeCookie) {
+    try {
+      config = JSON.parse(decodeURIComponent(themeCookie));
+    } catch (e) {}
+  }
+
+  return {
+    // Generate CSS on the server
+    ssrThemeCSS: generateThemeCSS(config),
+    // Also pass if it's dark mode to set the <html> class
+    isDark: config.scheme === 'dark' // Simplification
+  };
+};`}
+			/>
+			<Body>Then in your root layout:</Body>
+			<CodeBlock
+				code={`<script lang="ts">
+  const { data, children } = $props();
+<\/script>
+
+<!-- Set the dark class on the server to prevent flashing -->
+<svelte:body class={data.isDark ? 'dark' : ''} />
+
+<App ssrThemeCSS={data.ssrThemeCSS}>
+  {@render children()}
+</App>`}
+			/>
 		</div>
 	</div>
 </SinglePane>

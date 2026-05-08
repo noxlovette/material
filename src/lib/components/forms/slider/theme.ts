@@ -2,7 +2,7 @@ import { tv, type VariantProps } from 'tailwind-variants';
 
 export const slider = tv({
 	slots: {
-		root: 'slider-root group relative block min-w-40 [block-size:var(--handle-height)] [print-color-adjust:exact] [--m3-slider-track-out-shape:0.5rem] [--m3-slider-track-in-shape:0.125rem] [--m3-slider-handle-shape:var(--m3-shape-full)] [--functional-width:calc(100%-2*(0.25rem+0.125rem))] [--handle-left:calc(50%+var(--functional-width)*var(--handle)-0.125rem-0.375rem)] [--handle-center:calc(50%+var(--functional-width)*var(--handle))] [--handle-right:calc(50%+var(--functional-width)*var(--handle)+0.125rem+0.375rem)] cursor-pointer data-[disabled]:cursor-default',
+		root: 'slider-root group relative block min-w-40 [block-size:var(--handle-height)] [print-color-adjust:exact] [--m3-slider-track-out-shape:0.5rem] [--m3-slider-track-in-shape:0.125rem] [--m3-slider-handle-shape:var(--m3-shape-full)] [--functional-width:calc(100%-2*(0.25rem+0.125rem))] [--handle-left:calc(50%+var(--functional-width)*var(--handle)-0.125rem-0.375rem)] [--handle-center:calc(50%+var(--functional-width)*var(--handle))] [--handle-right:calc(50%+var(--functional-width)*var(--handle)+0.125rem+0.375rem)] cursor-pointer data-[disabled]:cursor-not-allowed',
 		input:
 			'peer absolute left-1/2 [inline-size:calc(var(--functional-width)+1rem)] [block-size:100%] -translate-x-1/2 appearance-none opacity-0 m-0 enabled:cursor-pointer',
 		leadingIcon:
