@@ -19,7 +19,7 @@ on screen until confirmed, dismissed, or a required action has been taken.
 	import { easeEmphasized, easeEmphasizedDecel } from '$lib/animation/easing.js';
 
 	let {
-		withState = false,
+		open = $bindable(false),
 		headline,
 		supportingText,
 		confirmText,
@@ -28,39 +28,22 @@ on screen until confirmed, dismissed, or a required action has been taken.
 		children,
 		class: className,
 		toggle = () => {},
-		...rest
+		contentProps,
+		...rootRest
 	}: DialogueProps = $props();
 
 	const { base, inner, headlineContainer, buttonContainer, supportingTextContainer } =
 		$derived(dialogue());
-
-	let isOpen = $state(false);
-
-	$effect(() => {
-		isOpen = true;
-	});
-
-	const handleOpenChange = (open: boolean) => {
-		if (!open) {
-			if (withState) {
-				window.history.back();
-			} else {
-				toggle();
-			}
-		}
-	};
-
-	const id = $derived(rest.id ?? undefined);
 </script>
 
-<Dialog.Root bind:open={isOpen} onOpenChange={handleOpenChange}>
+<Dialog.Root bind:open {...rootRest}>
 	<Dialog.Portal>
 		<Dialog.Overlay forceMount>
 			{#snippet child({ props, open })}
 				{#if open}
 					<div
 						{...props}
-						class={`${base()} dialogue-base`}
+						class={base()}
 						transition:enterExit={{
 							duration: 500,
 							easing: easeEmphasizedDecel
@@ -69,69 +52,51 @@ on screen until confirmed, dismissed, or a required action has been taken.
 				{/if}
 			{/snippet}
 		</Dialog.Overlay>
-		<div class="pointer-events-none fixed inset-0 z-40 flex items-center justify-center">
-			<Dialog.Content forceMount {...rest} {id}>
-				{#snippet child({ props, open })}
-					{#if open}
-						<div
-							{...props}
-							class={`${inner({ class: clsx(className) })} dialogue-inner pointer-events-auto`}
-							transition:enterExit={{
-								duration: 500,
-								easing: easeEmphasized,
-								mode: 'dialog-m3'
-							}}
-						>
-							{#if headline}
-								<Dialog.Title>
-									{#snippet child({ props })}
-										<h1 {...props} class={headlineContainer()}>
-											{headline}
-										</h1>
-									{/snippet}
-								</Dialog.Title>
-							{/if}
-							<Dialog.Description>
-								{#snippet child({ props })}
-									<p {...props} class={supportingTextContainer()}>
-										{supportingText}
-									</p>
-								{/snippet}
-							</Dialog.Description>
+		<Dialog.Content
+			class="fixed inset-0 z-40 flex items-center justify-center"
+			forceMount
+			{...contentProps}
+		>
+			{#snippet child({ props, open })}
+				{#if open}
+					<form
+						method="POST"
+						{...props}
+						class={inner({ class: clsx(className) })}
+						transition:enterExit={{
+							duration: 500,
+							easing: easeEmphasized,
+							mode: 'dialog-m3'
+						}}
+					>
+						{#if headline}
+							<Dialog.Title class={headlineContainer()}>
+								{headline}
+							</Dialog.Title>
+						{/if}
+						<Dialog.Description class={supportingTextContainer()}>
+							{supportingText}
+						</Dialog.Description>
 
-							<form method="POST">
-								{@render children?.()}
+						{@render children?.()}
 
-								<div class={`${buttonContainer()} dialogue-buttons`}>
-									<Button
-										type="button"
-										variant="text"
-										data-cy="dialogue-cancel"
-										onclick={() => (isOpen = false)}>Отмена</Button
-									>
-									<Button
-										type="submit"
-										{loading}
-										variant="filled"
-										formaction={confirmAction}
-										data-cy="dialogue-confirm">{confirmText}</Button
-									>
-								</div>
-							</form>
+						<div class={buttonContainer()}>
+							<Dialog.Close>
+								<Button type="button" variant="text" data-cy="dialogue-cancel">Отмена</Button>
+							</Dialog.Close>
+							<Dialog.Close>
+								<Button
+									type="submit"
+									{loading}
+									variant="filled"
+									formaction={confirmAction}
+									data-cy="dialogue-confirm">{confirmText}</Button
+								>
+							</Dialog.Close>
 						</div>
-					{/if}
-				{/snippet}
-			</Dialog.Content>
-		</div>
+					</form>
+				{/if}
+			{/snippet}
+		</Dialog.Content>
 	</Dialog.Portal>
 </Dialog.Root>
-
-<style>
-	.dialogue-base {
-		opacity: 1;
-	}
-
-	.dialogue-inner {
-		--dialogue-shape: 1rem;
-	}
-</style>

@@ -36,7 +36,7 @@
 	import { superForm, defaults } from 'sveltekit-superforms';
 	import { zod4 as zod } from 'sveltekit-superforms/adapters';
 	import { z } from 'zod/v4';
-	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
+	import SuperDebug from 'sveltekit-superforms';
 	import SinglePane from '$lib/components/containers/panes/SinglePane.svelte';
 
 	const demoSchema = z.object({
