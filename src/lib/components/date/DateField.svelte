@@ -13,6 +13,8 @@ DateField is a text field that allows users to enter a date or pick it from a ca
 
 	let {
 		value = $bindable(),
+		label,
+		id,
 		required = false,
 		disabled = false,
 		error = false,
@@ -34,23 +36,24 @@ DateField is a text field that allows users to enter a date or pick it from a ca
 >
 	<div class="relative w-full">
 		<div class={cls.base()} data-invalid={error || undefined}>
-			<DatePicker.Input class={cls.input()} {name}>
-				{#snippet children({ segments })}
-					<div class="relative flex w-full flex-col pt-4 tabular-nums">
-						<div class="flex items-center justify-between">
-							<div class="flex">
-								{#each segments as { part, value }}
-									{#if part === 'literal'}
-										<DatePicker.Segment
-											{part}
-											class="px-0.5 text-md-sys-color-on-surface-variant select-none first:pl-0"
-										>
-											{value}
-										</DatePicker.Segment>
-									{:else}
-										<DatePicker.Segment
-											{part}
-											class="cursor-default rounded-xs px-1 py-0.5 text-md-sys-color-on-surface
+			<div class={cls.inputWrapper()}>
+				<DatePicker.Input class={cls.input()} {name} id={id ?? undefined}>
+					{#snippet children({ segments })}
+						<div class="flex w-full flex-col pt-4 tabular-nums">
+							<div class="flex items-center justify-between">
+								<div class="flex">
+									{#each segments as { part, value }}
+										{#if part === 'literal'}
+											<DatePicker.Segment
+												{part}
+												class="px-0.5 text-md-sys-color-on-surface-variant select-none first:pl-0"
+											>
+												{value}
+											</DatePicker.Segment>
+										{:else}
+											<DatePicker.Segment
+												{part}
+												class="cursor-default rounded-xs px-1 py-0.5 text-md-sys-color-on-surface
 											   transition-colors duration-100
 											   select-none
 											   hover:bg-md-sys-color-on-surface/8
@@ -58,19 +61,25 @@ DateField is a text field that allows users to enter a date or pick it from a ca
 											   focus:text-md-sys-color-on-primary-container
 											   focus:outline-2 focus:outline-md-sys-color-primary focus-visible:ring-0!
 											   focus-visible:ring-offset-0! aria-[valuetext=Empty]:text-md-sys-color-on-surface-variant"
-										>
-											{value}
-										</DatePicker.Segment>
-									{/if}
-								{/each}
+											>
+												{value}
+											</DatePicker.Segment>
+										{/if}
+									{/each}
+								</div>
 							</div>
 						</div>
-					</div>
-					<DatePicker.Trigger>
-						<ButtonIcon variant="bare" iconProps={{ name: 'calendar_month' }} />
-					</DatePicker.Trigger>
-				{/snippet}
-			</DatePicker.Input>
+					{/snippet}
+				</DatePicker.Input>
+
+				<label class={cls.label()} for={id}>
+					{label}{#if required}<span class={cls.requiredAsterisk()} aria-hidden="true">*</span>{/if}
+				</label>
+			</div>
+
+			<DatePicker.Trigger class="px-2">
+				<ButtonIcon variant="bare" iconProps={{ name: 'calendar_month' }} />
+			</DatePicker.Trigger>
 		</div>
 
 		{#if supportingText}
@@ -119,7 +128,7 @@ DateField is a text field that allows users to enter a date or pick it from a ca
 											class="text-center md-sys-typescale-body-large"
 										>
 											<DatePicker.Day
-												class="group relative flex size-10 items-center justify-center rounded-full bg-transparent p-0 data-disabled:pointer-events-none data-disabled:text-md-sys-color-on-surface/38 data-outside-month:pointer-events-none data-selected:bg-md-sys-color-primary data-selected:text-md-sys-color-on-primary data-unavailable:text-md-sys-color-on-surface/38 data-unavailable:line-through"
+												class="group relative flex size-10 items-center justify-center rounded-full bg-transparent p-0 data-disabled:cursor-not-allowed data-disabled:text-md-sys-color-on-surface/38 data-outside-month:pointer-events-none data-selected:bg-md-sys-color-primary data-selected:text-md-sys-color-on-primary data-unavailable:text-md-sys-color-on-surface/38 data-unavailable:line-through"
 											>
 												<Layer />
 

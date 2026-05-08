@@ -14,6 +14,10 @@ segment inputs and a shared calendar popover.
 
 	let {
 		value = $bindable(),
+		label,
+		startLabel = 'Start',
+		endLabel = 'End',
+		id,
 		required = false,
 		disabled = false,
 		error = false,
@@ -36,73 +40,89 @@ segment inputs and a shared calendar popover.
 >
 	<div class="relative w-full">
 		<div class={cls.base()} data-invalid={error || undefined}>
-			<!-- Start date input -->
-			<DateRangePicker.Input type="start" class={cls.input()} {name}>
-				{#snippet children({ segments })}
-					<div class="relative flex w-full flex-col pt-4 tabular-nums">
-						<div class="flex">
-							{#each segments as { part, value: segVal }}
-								{#if part === 'literal'}
-									<DateRangePicker.Segment
-										{part}
-										class="px-0.5 text-md-sys-color-on-surface-variant select-none first:pl-0"
-									>
-										{segVal}
-									</DateRangePicker.Segment>
-								{:else}
-									<DateRangePicker.Segment
-										{part}
-										class="cursor-default rounded-xs px-1 py-0.5 text-md-sys-color-on-surface
+			<div class={cls.inputWrapper()}>
+				<!-- Start date input -->
+				<DateRangePicker.Input type="start" class={cls.input()} {name} id={id ?? undefined}>
+					{#snippet children({ segments })}
+						<div class="flex w-full flex-col pt-4 tabular-nums">
+							<div class="flex">
+								{#each segments as { part, value: segVal }}
+									{#if part === 'literal'}
+										<DateRangePicker.Segment
+											{part}
+											class="px-0.5 text-md-sys-color-on-surface-variant select-none first:pl-0"
+										>
+											{segVal}
+										</DateRangePicker.Segment>
+									{:else}
+										<DateRangePicker.Segment
+											{part}
+											class="cursor-default rounded-xs px-1 py-0.5 text-md-sys-color-on-surface
 										   transition-colors duration-100 select-none
 										   hover:bg-md-sys-color-on-surface/8
 										   focus:bg-md-sys-color-primary-container
 										   focus:text-md-sys-color-on-primary-container
 										   focus:outline-2 focus:outline-md-sys-color-primary focus-visible:ring-0!
 										   focus-visible:ring-offset-0! aria-[valuetext=Empty]:text-md-sys-color-on-surface-variant"
-									>
-										{segVal}
-									</DateRangePicker.Segment>
-								{/if}
-							{/each}
+										>
+											{segVal}
+										</DateRangePicker.Segment>
+									{/if}
+								{/each}
+							</div>
 						</div>
-					</div>
-				{/snippet}
-			</DateRangePicker.Input>
+					{/snippet}
+				</DateRangePicker.Input>
+
+				<label class={cls.label()} for={id}>
+					{startLabel ?? label}{#if required}<span class={cls.requiredAsterisk()} aria-hidden="true"
+							>*</span
+						>{/if}
+				</label>
+			</div>
 
 			<span class={cls.separator()}>–</span>
 
-			<!-- End date input -->
-			<DateRangePicker.Input type="end" class={cls.input()}>
-				{#snippet children({ segments })}
-					<div class="relative flex w-full flex-col pt-4 tabular-nums">
-						<div class="flex">
-							{#each segments as { part, value: segVal }}
-								{#if part === 'literal'}
-									<DateRangePicker.Segment
-										{part}
-										class="px-0.5 text-md-sys-color-on-surface-variant select-none first:pl-0"
-									>
-										{segVal}
-									</DateRangePicker.Segment>
-								{:else}
-									<DateRangePicker.Segment
-										{part}
-										class="cursor-default rounded-xs px-1 py-0.5 text-md-sys-color-on-surface
+			<div class={cls.inputWrapper()}>
+				<!-- End date input -->
+				<DateRangePicker.Input type="end" class={cls.input()} id={id ? `${id}-end` : undefined}>
+					{#snippet children({ segments })}
+						<div class="flex w-full flex-col pt-4 tabular-nums">
+							<div class="flex">
+								{#each segments as { part, value: segVal }}
+									{#if part === 'literal'}
+										<DateRangePicker.Segment
+											{part}
+											class="px-0.5 text-md-sys-color-on-surface-variant select-none first:pl-0"
+										>
+											{segVal}
+										</DateRangePicker.Segment>
+									{:else}
+										<DateRangePicker.Segment
+											{part}
+											class="cursor-default rounded-xs px-1 py-0.5 text-md-sys-color-on-surface
 										   transition-colors duration-100 select-none
 										   hover:bg-md-sys-color-on-surface/8
 										   focus:bg-md-sys-color-primary-container
 										   focus:text-md-sys-color-on-primary-container
 										   focus:outline-2 focus:outline-md-sys-color-primary focus-visible:ring-0!
 										   focus-visible:ring-offset-0! aria-[valuetext=Empty]:text-md-sys-color-on-surface-variant"
-									>
-										{segVal}
-									</DateRangePicker.Segment>
-								{/if}
-							{/each}
+										>
+											{segVal}
+										</DateRangePicker.Segment>
+									{/if}
+								{/each}
+							</div>
 						</div>
-					</div>
-				{/snippet}
-			</DateRangePicker.Input>
+					{/snippet}
+				</DateRangePicker.Input>
+
+				<label class={cls.label()} for={id ? `${id}-end` : undefined}>
+					{endLabel ?? label}{#if required}<span class={cls.requiredAsterisk()} aria-hidden="true"
+							>*</span
+						>{/if}
+				</label>
+			</div>
 
 			<DateRangePicker.Trigger class="shrink-0 pr-2">
 				<ButtonIcon variant="bare" iconProps={{ name: 'calendar_month' }} />
@@ -158,7 +178,7 @@ segment inputs and a shared calendar popover.
 											<DateRangePicker.Day
 												class="group relative flex size-10 items-center justify-center rounded-full
 												   bg-transparent p-0 transition-colors duration-100
-												   data-disabled:pointer-events-none data-disabled:text-md-sys-color-on-surface/38
+												   data-disabled:cursor-not-allowed data-disabled:text-md-sys-color-on-surface/38
 												   data-highlighted:bg-md-sys-color-primary-container/20 data-outside-month:pointer-events-none
 												   data-outside-month:opacity-0 data-range-end:bg-md-sys-color-primary
 												   data-range-end:text-md-sys-color-on-primary data-range-middle:rounded-none

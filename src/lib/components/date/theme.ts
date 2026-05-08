@@ -18,21 +18,31 @@ export const dateRangeField = tv({
 			disabled:bg-md-sys-color-on-surface/4
 			disabled:after:bg-md-sys-color-on-surface/12
 		`,
+		inputWrapper: `
+			relative flex-1 px-4 h-full
+		`,
 		input: `
 			bg-transparent outline-none flex items-center
 			md-sys-typescale-body-large text-md-sys-color-on-surface
-			disabled:text-md-sys-color-on-surface/38 px-4 w-full
+			disabled:text-md-sys-color-on-surface/38 w-full
 		`,
 		separator: `
 			text-md-sys-color-on-surface-variant select-none shrink-0
 		`,
 		label: `
-			absolute top-0.5
+			absolute left-4 top-1.5
 			md-sys-typescale-body-small
 			text-md-sys-color-on-surface-variant
 			pointer-events-none
-			transition-[color] duration-200 ease-in-out
+			transition-[top,font-size,line-height,color,transform] duration-200 ease-in-out
 			group-focus-within:text-md-sys-color-primary
+			z-20
+		`,
+		requiredAsterisk: `
+			ml-0.5
+			text-md-sys-color-error
+			group-focus-within:text-md-sys-color-primary
+			transition-colors duration-200
 		`,
 		supportingText: `
 			px-4 pt-1 flex justify-between
@@ -45,6 +55,7 @@ export const dateRangeField = tv({
 			true: {
 				base: 'after:bg-md-sys-color-error focus-within:after:bg-md-sys-color-error',
 				label: 'text-md-sys-color-error',
+				requiredAsterisk: 'text-md-sys-color-error',
 				supportingText: 'text-md-sys-color-error'
 			}
 		},
@@ -72,31 +83,41 @@ export const dateField = tv({
 				disabled:after:bg-md-sys-color-on-surface/12
 				justify-between
 			`,
+		inputWrapper: `
+			relative flex-1 px-4 h-full
+		`,
 		input: `
 				w-full bg-transparent outline-none
 				md-sys-typescale-body-large text-md-sys-color-on-surface
-				disabled:text-md-sys-color-on-surface/38 px-4 flex items-center
+				disabled:text-md-sys-color-on-surface/38 flex items-center
 			`,
 		label: `
-      absolute top-0.5
-      md-sys-typescale-body-small
-      text-md-sys-color-on-surface-variant
-      pointer-events-none
-      transition-[top,font-size,line-height,color,transform] duration-200 ease-in-out
-
-      group-focus-within:text-md-sys-color-primary
-    `,
+			absolute left-4 top-1.5
+			md-sys-typescale-body-small
+			text-md-sys-color-on-surface-variant
+			pointer-events-none
+			transition-[top,font-size,line-height,color,transform] duration-200 ease-in-out
+			group-focus-within:text-md-sys-color-primary
+			z-20
+		`,
+		requiredAsterisk: `
+			ml-0.5
+			text-md-sys-color-error
+			group-focus-within:text-md-sys-color-primary
+			transition-colors duration-200
+		`,
 		supportingText: `
-      px-4 pt-1 flex justify-between
-      md-sys-typescale-body-small
-      text-md-sys-color-on-surface-variant
-    `
+			px-4 pt-1 flex justify-between
+			md-sys-typescale-body-small
+			text-md-sys-color-on-surface-variant
+		`
 	},
 	variants: {
 		error: {
 			true: {
 				base: 'after:bg-md-sys-color-error focus-within:after:bg-md-sys-color-error',
 				label: 'text-md-sys-color-error',
+				requiredAsterisk: 'text-md-sys-color-error',
 				supportingText: 'text-md-sys-color-error'
 			}
 		},
