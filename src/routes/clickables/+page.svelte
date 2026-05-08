@@ -406,21 +406,6 @@
 					<Pill variant="error">Error</Pill>
 					<Pill variant="container">Container</Pill>
 				</div>
-				<Headline>Shapes</Headline>
-				<div class="flex flex-wrap items-center gap-4">
-					<Pill shape="pathAnimatableSmallSquare">Square</Pill>
-					<Pill shape="pathAnimatableSmallCircle">Circle</Pill>
-					<Pill shape="pathAnimatableSmallTriangle">Triangle</Pill>
-					<Pill shape="pathAnimatableSmallDiamond">Diamond</Pill>
-					<Pill shape="pathAnimatableSmallPentagon">Pentagon</Pill>
-					<Pill shape="pathAnimatableSmallPill">Pill (Default)</Pill>
-				</div>
-				<Headline>Random Shapes</Headline>
-				<div class="flex flex-wrap items-center gap-4">
-					{#each Array(8) as _}
-						<Pill random variant="secondary">Random</Pill>
-					{/each}
-				</div>
 			</section>
 
 			<!-- SNACKBAR -->

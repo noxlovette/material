@@ -1,5 +1,6 @@
 import type { DateValue } from '@internationalized/date';
-import type { HTMLAttributes, Snippet } from 'svelte/elements';
+import type { Snippet } from 'svelte';
+import type { HTMLAttributes } from 'svelte/elements';
 
 /**
  * Common props for Date components.
@@ -47,8 +48,8 @@ export interface DateFieldProps extends BaseDateProps {
 }
 
 export interface DateRange {
-	start?: DateValue;
-	end?: DateValue;
+	start: DateValue | undefined;
+	end: DateValue | undefined;
 }
 
 export interface DateRangeFieldProps extends BaseDateProps {
@@ -56,8 +57,4 @@ export interface DateRangeFieldProps extends BaseDateProps {
 	value?: DateRange;
 	/** Name prefix for hidden inputs submitted with the form. */
 	name?: string;
-	/** Label for the start date input. Defaults to "Start". */
-	startLabel?: string;
-	/** Label for the end date input. Defaults to "End". */
-	endLabel?: string;
 }

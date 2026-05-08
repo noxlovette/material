@@ -115,5 +115,37 @@
 </Card>`}
 			/>
 		</div>
+
+		<div class="flex flex-col gap-3">
+			<Title>5. Setup Dynamic Theming (Optional)</Title>
+			<Body>
+				You can generate Material Design 3 themes dynamically in the browser using a source color or
+				an image, and easily toggle light/dark modes and contrast levels.
+			</Body>
+			<CodeBlock
+				code={`<script lang="ts">
+  import { App, initTheme, ThemeSwitcher } from '@ogonek-education/ogonek-m3';
+
+  // Initialize theme state on client load (hydrates from localStorage)
+  initTheme();
+<\/script>
+
+<App>
+  <!-- Your content -->
+  
+  <!-- Add the ThemeSwitcher to let users dynamically configure the theme -->
+  <ThemeSwitcher />
+</App>`}
+			/>
+			<Body>
+				The <code class="rounded bg-md-sys-color-surface-container-high px-1.5 py-0.5 text-sm"
+					>ThemeSwitcher</code
+				>
+				component will display a floating action button (FAB) in the bottom corner of the screen.
+				Users can pick a color, extract a color from an uploaded image, switch color schemes, and
+				adjust contrast. The theme variables are updated live and persisted in
+				<code>localStorage</code>.
+			</Body>
+		</div>
 	</div>
 </SinglePane>

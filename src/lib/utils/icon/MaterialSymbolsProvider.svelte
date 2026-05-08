@@ -27,10 +27,7 @@ Use the App.svelte component instead
 	const href = $derived.by(() => {
 		const families = ['Rounded', 'Outlined', 'Sharp'];
 		const familyParams = families
-			.map(
-				(f) =>
-					`family=Material+Symbols+${f}:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200`
-			)
+			.map((f) => `family=Material+Symbols+${f}:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200`)
 			.join('&');
 		return `https://fonts.googleapis.com/css2?${familyParams}${iconNamesParam}${displayParam}`;
 	});

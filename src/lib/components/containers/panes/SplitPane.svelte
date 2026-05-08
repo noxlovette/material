@@ -13,7 +13,6 @@ SplitPane provides a resizable two-column layout.
 	let {
 		left,
 		right,
-		centered,
 		leftWidth = $bindable(396),
 		full = true,
 		rounded = true,
@@ -34,7 +33,7 @@ SplitPane provides a resizable two-column layout.
 		right: rCls,
 		handle: hCls,
 		handleGrip
-	} = $derived(splitPane({ centered, full, anchor, rounded }));
+	} = $derived(splitPane({ full, anchor, rounded }));
 
 	const leftOffset = $derived(anchor === 'viewport' ? 'var(--splitpane-offset, 0px)' : '0px');
 	const handleOffset = $derived(

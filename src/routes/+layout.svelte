@@ -1,7 +1,9 @@
 <script lang="ts">
-	import { App, Rail, RailItem } from '$lib/index.js';
+	import { App, Rail, RailItem, ThemeSwitcher, initTheme } from '$lib/index.js';
 	import { page } from '$app/state';
 	import './layout.css';
+
+	initTheme();
 
 	const { children } = $props();
 
@@ -76,5 +78,6 @@
 		<main class="flex-1">
 			{@render children()}
 		</main>
+		<ThemeSwitcher />
 	</div>
 </App>

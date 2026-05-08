@@ -16,7 +16,6 @@ DateField is a text field that allows users to enter a date or pick it from a ca
 		required = false,
 		disabled = false,
 		error = false,
-		label,
 		supportingText,
 		name
 	}: DateFieldProps = $props();
@@ -66,9 +65,6 @@ DateField is a text field that allows users to enter a date or pick it from a ca
 								{/each}
 							</div>
 						</div>
-						{#if label}
-							<label class={cls.label()}>{label}</label>
-						{/if}
 					</div>
 					<DatePicker.Trigger>
 						<ButtonIcon variant="bare" iconProps={{ name: 'calendar_month' }} />

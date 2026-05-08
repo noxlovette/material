@@ -14,6 +14,6 @@
 	const cls = selectCls();
 </script>
 
-<Select.Group class={cls.group({ class: className })}>
+<Select.Group class={className}>
 	{@render children()}
 </Select.Group>

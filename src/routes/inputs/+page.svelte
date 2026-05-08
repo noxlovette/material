@@ -388,11 +388,7 @@
 				<DateField label="Дата" bind:value={dateValue} />
 				<Body>Selected: {dateValue?.toString() ?? '—'}</Body>
 
-				<DateRangeField
-					startLabel="Check-in"
-					endLabel="Check-out"
-					bind:value={dateRange}
-				/>
+				<DateRangeField bind:value={dateRange} />
 				<Body>
 					Range: {dateRange?.start?.toString() ?? '—'} → {dateRange?.end?.toString() ?? '—'}
 				</Body>

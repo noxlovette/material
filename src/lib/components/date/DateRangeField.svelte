@@ -17,9 +17,6 @@ segment inputs and a shared calendar popover.
 		required = false,
 		disabled = false,
 		error = false,
-		label,
-		startLabel = 'Start',
-		endLabel = 'End',
 		supportingText,
 		name
 	}: DateRangeFieldProps = $props();
@@ -68,7 +65,6 @@ segment inputs and a shared calendar popover.
 								{/if}
 							{/each}
 						</div>
-						<label class="{cls.label()} left-4">{startLabel}</label>
 					</div>
 				{/snippet}
 			</DateRangePicker.Input>
@@ -104,12 +100,11 @@ segment inputs and a shared calendar popover.
 								{/if}
 							{/each}
 						</div>
-						<label class="{cls.label()} left-4">{endLabel}</label>
 					</div>
 				{/snippet}
 			</DateRangePicker.Input>
 
-			<DateRangePicker.Trigger class="pr-2 shrink-0">
+			<DateRangePicker.Trigger class="shrink-0 pr-2">
 				<ButtonIcon variant="bare" iconProps={{ name: 'calendar_month' }} />
 			</DateRangePicker.Trigger>
 		</div>
@@ -164,13 +159,13 @@ segment inputs and a shared calendar popover.
 												class="group relative flex size-10 items-center justify-center rounded-full
 												   bg-transparent p-0 transition-colors duration-100
 												   data-disabled:pointer-events-none data-disabled:text-md-sys-color-on-surface/38
-												   data-outside-month:pointer-events-none data-outside-month:opacity-0
-												   data-unavailable:text-md-sys-color-on-surface/38 data-unavailable:line-through
-												   data-range-middle:rounded-none data-range-middle:bg-md-sys-color-primary-container/40
-												   data-highlighted:bg-md-sys-color-primary-container/20
+												   data-highlighted:bg-md-sys-color-primary-container/20 data-outside-month:pointer-events-none
+												   data-outside-month:opacity-0 data-range-end:bg-md-sys-color-primary
+												   data-range-end:text-md-sys-color-on-primary data-range-middle:rounded-none
+												   data-range-middle:bg-md-sys-color-primary-container/40
 												   data-range-start:bg-md-sys-color-primary data-range-start:text-md-sys-color-on-primary
-												   data-range-end:bg-md-sys-color-primary data-range-end:text-md-sys-color-on-primary
-												   data-selected:bg-md-sys-color-primary data-selected:text-md-sys-color-on-primary"
+												   data-selected:bg-md-sys-color-primary data-selected:text-md-sys-color-on-primary
+												   data-unavailable:text-md-sys-color-on-surface/38 data-unavailable:line-through"
 											>
 												<Layer />
 												{date.day}
