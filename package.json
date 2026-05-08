@@ -5,6 +5,7 @@
 	"scripts": {
 		"dev": "vite dev",
 		"build": "bun run prepack",
+		"build:site": "vite build",
 		"build:css": "tailwindcss -i ./src/lib/index.css -o ./dist/styles.css",
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync && lefthook install || echo ''",
