@@ -196,7 +196,7 @@
 				</div>
 				{#if showModal}
 					<Dialogue
-						withState={false}
+						enhance={() => {}}
 						supportingText="Не то чтобы совсем, а все ж-таки давно, жил на Руси кто-то там великий"
 						class="w-2xl"
 						confirmAction="?/update"
@@ -206,7 +206,7 @@
 				{/if}
 				{#if showModal2}
 					<Dialogue
-						withState={false}
+						enhance={() => {}}
 						headline="Сбросить настройки?"
 						supportingText="Все изменения будут потеряны."
 						confirmAction="?/update"
@@ -216,7 +216,7 @@
 				{/if}
 				{#if showModal3}
 					<Dialogue
-						withState={false}
+						enhance={() => {}}
 						supportingText="Anim sunt eiusmod deserunt Lorem. Tempor dolor voluptate fugiat elit sint ipsum ea. Enim proident velit sit Lorem esse. Nostrud cupidatat ut duis aute consectetur veniam pariatur voluptate exercitation."
 						confirmAction="?/update"
 						headline="Длинный текст"

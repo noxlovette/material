@@ -26,9 +26,9 @@
 		{#if children}
 			{@render children({ selected, highlighted })}
 		{:else}
-			<span class="flex-1">{label ?? value}</span>
+			<span class="flex-1 truncate">{label ?? value}</span>
 			{#if selected}
-				<Icon name="check" class="size-5" />
+				<Icon name="check" class="size-5 shrink-0" />
 			{/if}
 		{/if}
 	{/snippet}

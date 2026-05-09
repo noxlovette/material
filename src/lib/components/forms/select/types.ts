@@ -38,7 +38,7 @@ export type SelectProps = SelectVariants &
 		/**
 		 * The placeholder text displayed when no option is selected.
 		 */
-		placeholder?: string;
+		placeholder: string;
 
 		/**
 		 * Supporting text shown below the select.

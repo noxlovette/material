@@ -292,6 +292,8 @@
 
 				{#if dialogueOpen}
 					<Dialogue
+						bind:open={dialogueOpen}
+						enhance={() => {}}
 						headline="Select inside dialogue"
 						supportingText="Dropdown should appear above the overlay."
 						confirmText="Confirm"

@@ -20,11 +20,16 @@ on screen until confirmed, dismissed, or a required action has been taken.
 
 	let {
 		open = $bindable(false),
+		enhance,
 		headline,
 		supportingText,
 		confirmText,
+		cancelText = 'Отмена',
 		confirmAction,
 		loading = false,
+		portalDisabled = false,
+		minWidth = '280px',
+		maxWidth = '560px',
 		children,
 		class: className,
 		toggle = () => {},
@@ -36,8 +41,15 @@ on screen until confirmed, dismissed, or a required action has been taken.
 		$derived(dialogue());
 </script>
 
-<Dialog.Root bind:open {...rootRest}>
-	<Dialog.Portal>
+<Dialog.Root
+	bind:open
+	{...rootRest}
+	onOpenChange={(v) => {
+		if (!v) toggle?.();
+		rootRest.onOpenChange?.(v);
+	}}
+>
+	<Dialog.Portal disabled={portalDisabled}>
 		<Dialog.Overlay forceMount>
 			{#snippet child({ props, open })}
 				{#if open}
@@ -53,16 +65,20 @@ on screen until confirmed, dismissed, or a required action has been taken.
 			{/snippet}
 		</Dialog.Overlay>
 		<Dialog.Content
-			class="fixed inset-0 z-40 flex items-center justify-center"
 			forceMount
 			{...contentProps}
+			class={clsx('fixed inset-0 z-50 m-auto h-fit w-fit outline-none', contentProps?.class)}
 		>
-			{#snippet child({ props, open })}
-				{#if open}
+			{#snippet child({ props, open: isOpen })}
+				{#if isOpen}
 					<form
 						method="POST"
+						action={confirmAction}
+						use:enhance
 						{...props}
-						class={inner({ class: clsx(className) })}
+						class={inner({ class: className })}
+						style:min-width={minWidth}
+						style:max-width={maxWidth}
 						transition:enterExit={{
 							duration: 500,
 							easing: easeEmphasized,
@@ -74,25 +90,26 @@ on screen until confirmed, dismissed, or a required action has been taken.
 								{headline}
 							</Dialog.Title>
 						{/if}
-						<Dialog.Description class={supportingTextContainer()}>
-							{supportingText}
-						</Dialog.Description>
+						{#if supportingText}
+							<Dialog.Description class={supportingTextContainer()}>
+								{supportingText}
+							</Dialog.Description>
+						{/if}
 
-						{@render children?.()}
+						<div class="flex flex-col gap-4">
+							{@render children?.()}
+						</div>
 
 						<div class={buttonContainer()}>
-							<Dialog.Close>
-								<Button type="button" variant="text" data-cy="dialogue-cancel">Отмена</Button>
-							</Dialog.Close>
-							<Dialog.Close>
-								<Button
-									type="submit"
-									{loading}
-									variant="filled"
-									formaction={confirmAction}
-									data-cy="dialogue-confirm">{confirmText}</Button
-								>
-							</Dialog.Close>
+							<Button
+								type="button"
+								variant="text"
+								data-cy="dialogue-cancel"
+								onclick={() => (open = false)}>{cancelText}</Button
+							>
+							<Button type="submit" {loading} variant="filled" data-cy="dialogue-confirm"
+								>{confirmText}</Button
+							>
 						</div>
 					</form>
 				{/if}
