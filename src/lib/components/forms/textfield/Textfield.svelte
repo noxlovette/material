@@ -11,6 +11,7 @@ Text fields allow users to enter and edit text.
   import { Icon } from '$lib/utils/index.js';
   import { textfield } from './theme.js';
   import type { TextfieldProps } from './types.js';
+  import { useId } from 'bits-ui';
 
   let {
     value = $bindable(),
@@ -19,7 +20,7 @@ Text fields allow users to enter and edit text.
     trailingIconProps,
     placeholder = '',
     label,
-    id,
+    id = useId(),
     class: className,
     characterLimit,
     disabled = false,
@@ -32,6 +33,7 @@ Text fields allow users to enter and edit text.
   }: TextfieldProps = $props();
 
   const cls = $derived(textfield({ disabled, error }));
+
   const inputProps = $derived({
     id,
     class: cls.input(),

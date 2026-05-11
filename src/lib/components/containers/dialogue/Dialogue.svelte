@@ -13,7 +13,6 @@ on screen until confirmed, dismissed, or a required action has been taken.
   import { dialogue } from './theme.js';
   import type { DialogueProps } from './types.js';
   import { Dialog } from 'bits-ui';
-  import clsx from 'clsx';
   import { enterExit } from '$lib/animation/enterExit.js';
   import { easeEmphasized, easeEmphasizedDecel } from '$lib/animation/easing.js';
   import { Button } from '$lib/components/buttons/index.js';
@@ -33,7 +32,6 @@ on screen until confirmed, dismissed, or a required action has been taken.
     children,
     disabled = false,
     class: className,
-    toggle = () => {},
     contentProps,
     onconfirm,
     ...rootRest
@@ -43,14 +41,7 @@ on screen until confirmed, dismissed, or a required action has been taken.
     $derived(dialogue());
 </script>
 
-<Dialog.Root
-  bind:open
-  {...rootRest}
-  onOpenChange={(v) => {
-    if (!v) toggle?.();
-    rootRest.onOpenChange?.(v);
-  }}
->
+<Dialog.Root bind:open {...rootRest}>
   <Dialog.Portal disabled={portalDisabled}>
     <Dialog.Overlay forceMount>
       {#snippet child({ props, open })}
@@ -73,7 +64,7 @@ on screen until confirmed, dismissed, or a required action has been taken.
             method="POST"
             action={confirmAction}
             use:enhance
-            onsubmit={(e) => {
+            onsubmit={(e: any) => {
               if (onconfirm) {
                 e.preventDefault();
                 onconfirm();

@@ -20,14 +20,14 @@ export type TextfieldProps = TextFieldVariants &
     label: string;
 
     /**
-     * The ID for the input element.
+     * The ID for the input element. Auto-generated but can be replaced
      */
-    id: string;
+    id?: string;
 
     /**
-     * The placeholder text for the input element.
+     * The placeholder text for the input element. Not used in M3
      */
-    placeholder?: ''; // hardcode the shit
+    placeholder?: '';
 
     /**
      * Reference to the HTML input element.

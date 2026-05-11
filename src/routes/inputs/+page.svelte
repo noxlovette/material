@@ -20,13 +20,6 @@
     SupportingPane,
     Dialogue,
     Button,
-    Command,
-    CommandInput,
-    CommandList,
-    CommandEmpty,
-    CommandGroup,
-    CommandItem,
-    CommandSeparator,
     type SelectOption
   } from '$lib/index.js';
   import { nanoid } from 'nanoid';
