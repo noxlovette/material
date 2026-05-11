@@ -1,13 +1,13 @@
 <script lang="ts">
-	import { select as selectCls } from './theme.js';
+  import { select as selectCls } from "./theme.js";
 
-	let {
-		class: className
-	}: {
-		class?: string;
-	} = $props();
+  let {
+    class: className,
+  }: {
+    class?: string;
+  } = $props();
 
-	const cls = selectCls();
+  const cls = selectCls();
 </script>
 
 <div class={cls.separator({ class: className })} role="separator"></div>

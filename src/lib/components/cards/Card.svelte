@@ -9,31 +9,31 @@ and serve as an entry point to more detailed information.
 @see https://m3.material.io/components/cards/overview
 -->
 <script lang="ts">
-	import type { CardProps } from './types.js';
-	import { card } from './theme.js';
-	import clsx from 'clsx';
-	import { Layer } from '$lib/utils/index.js';
+  import type { CardProps } from "./types.js";
+  import { card } from "./theme.js";
+  import clsx from "clsx";
+  import { Layer } from "$lib/utils/index.js";
 
-	let {
-		children,
-		type = 'filled',
-		class: className,
-		href,
-		hoverable = !!href,
-		...restProps
-	}: CardProps = $props();
+  let {
+    children,
+    type = "filled",
+    class: className,
+    href,
+    hoverable = !!href,
+    ...restProps
+  }: CardProps = $props();
 
-	const { base } = $derived(card({ type, hoverable }));
+  const { base } = $derived(card({ type, hoverable }));
 </script>
 
 {#if href}
-	<a {href} class={base({ class: clsx(className) })} {...restProps}>
-		{#if hoverable}<Layer />{/if}
-		{@render children?.()}
-	</a>
+  <a {href} class={base({ class: clsx(className) })} {...restProps}>
+    {#if hoverable}<Layer />{/if}
+    {@render children?.()}
+  </a>
 {:else}
-	<div class={base({ class: clsx(className) })} {...restProps}>
-		{#if hoverable}<Layer />{/if}
-		{@render children?.()}
-	</div>
+  <div class={base({ class: clsx(className) })} {...restProps}>
+    {#if hoverable}<Layer />{/if}
+    {@render children?.()}
+  </div>
 {/if}

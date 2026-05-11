@@ -1,9 +1,0 @@
-# Lefthook configuration
-# https://github.com/evilmartians/lefthook
-
-pre-commit:
-  parallel: false
-  jobs:
-    - name: prettier
-      glob: '*.{js,ts,svelte,css,md,json,yml,yaml}'
-      run: bunx prettier --write {staged_files} && git add {staged_files}

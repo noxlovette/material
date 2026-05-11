@@ -1,31 +1,47 @@
-node_modules
+node_modules/
+.svelte-kit/
+build/
+dist/
+.output/
+.vercel/
+.next/
+.nuxt
+.cache
 
-# Output
-.output
-.vercel
-.netlify
-.wrangler
-/.svelte-kit
-/build
-/dist
-*.tgz
-.claude
-# OS
-.DS_Store
-Thumbs.db
+*.timestamp-*
+cypress/screenshots/
+*.txt
+node_modules/
+build/
+authorized_key.json
+dist/
+out/
+public/
+.svelte-kit/
+.output/
+.vercel/
+.next/
+b2b.pdf
+static/images/raw/
+b2b-backend-requirements.md
+static/uploads/
+report.md
+.cache
+.cache-loader
+.nuxt
+yarn-error.log
+yarn.lock
+package-lock.json
+bun.lockb
 
-# as these are auto-generated before publish
-styles.css
+openapi.json
+openapi.yaml
 
-# Env
-.env
-.env.*
-!.env.example
-!.env.test
-
-# Vite
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
-# Editors
-.vscode/
+.auth/
+shots/
+
+# Sentry Config File
+.env.sentry-build-plugin

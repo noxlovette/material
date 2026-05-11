@@ -1,91 +1,78 @@
 {
-	"name": "@ogonek-education/ogonek-m3",
-	"version": "0.4.2",
-	"license": "MIT",
-	"scripts": {
-		"dev": "vite dev",
-		"build": "bun run prepack",
-		"build:site": "vite build",
-		"build:css": "tailwindcss -i ./src/lib/index.css -o ./dist/styles.css",
-		"preview": "vite preview",
-		"prepare": "svelte-kit sync && lefthook install || echo ''",
-		"prepack:lib": "svelte-kit sync && svelte-package",
-		"prepack": "bun run prepack:lib && publint",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-		"lint": "prettier --check . && eslint .",
-		"format": "prettier --write .",
-		"index": "bun run scripts/generate-components-index.ts"
-	},
-	"files": [
-		"dist",
-		"!dist/**/*.test.*",
-		"!dist/**/*.spec.*"
-	],
-	"sideEffects": false,
-	"svelte": "./dist/index.js",
-	"types": "./dist/index.d.ts",
-	"type": "module",
-	"exports": {
-		".": {
-			"types": "./dist/index.d.ts",
-			"svelte": "./dist/index.js"
-		},
-		"./styles": "./dist/index.css",
-		"./theme/*": "./dist/styles/theme/*.css"
-	},
-	"peerDependencies": {
-		"@sveltejs/kit": "^2.49.1",
-		"@tailwindcss/typography": "^0.5.0",
-		"svelte": "^5.0.0",
-		"tailwind-scrollbar": "^4.0.0",
-		"tailwindcss": "^4.0.0",
-		"@internationalized/date": "^3.12.1"
-	},
-	"devDependencies": {
-		"@eslint/compat": "^2.1.0",
-		"@eslint/js": "^10.0.1",
-		"@sveltejs/adapter-static": "^3.0.10",
-		"@sveltejs/kit": "^2.59.1",
-		"@sveltejs/package": "^2.5.7",
-		"@sveltejs/vite-plugin-svelte": "^7.1.2",
-		"@tailwindcss/cli": "^4.2.4",
-		"@tailwindcss/typography": "^0.5.19",
-		"@tailwindcss/vite": "^4.2.4",
-		"@types/node": "^25.6.2",
-		"eslint": "^10.3.0",
-		"eslint-config-prettier": "^10.1.8",
-		"eslint-plugin-svelte": "^3.17.1",
-		"globals": "^17.6.0",
-		"lefthook": "^2.1.6",
-		"prettier": "^3.8.3",
-		"prettier-plugin-svelte": "^3.5.1",
-		"prettier-plugin-tailwindcss": "^0.8.0",
-		"publint": "^0.3.20",
-		"svelte": "^5.55.5",
-		"svelte-check": "^4.4.8",
-		"sveltekit-superforms": "^2.30.1",
-		"tailwind-scrollbar": "^4.0.2",
-		"tailwindcss": "^4.2.4",
-		"typescript": "^6.0.3",
-		"typescript-eslint": "^8.59.2",
-		"vite": "^8.0.11",
-		"vite-plugin-devtools-json": "^1.0.0",
-		"vitest": "^4.1.5",
-		"zod": "^4.4.3"
-	},
-	"keywords": [
-		"svelte"
-	],
-	"dependencies": {
-		"@floating-ui/dom": "^1.7.6",
-		"@internationalized/date": "^3.12.1",
-		"@ktibow/material-color-utilities-nightly": "^0.4.1772748028000",
-		"bits-ui": "^2.18.1",
-		"clsx": "^2.1.1",
-		"mode-watcher": "^1.1.0",
-		"nanoid": "^5.1.11",
-		"tailwind-merge": "^3.5.0",
-		"tailwind-variants": "^3.2.2"
-	}
+  "name": "@noxlovette/material",
+  "version": "0.4.3",
+  "type": "module",
+  "scripts": {
+    "build": "svelte-package",
+    "prepublishOnly": "bun run build",
+    "check": "svelte-kit sync && svelte-check",
+    "dev": "vite dev"
+  },
+  "files": [
+    "dist",
+    "!dist/**/*.test.*",
+    "!dist/**/*.spec.*"
+  ],
+  "sideEffects": false,
+  "svelte": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/index.js"
+    },
+    "./styles": "./dist/index.css",
+    "./theme/*": "./dist/styles/theme/*.css"
+  },
+  "peerDependencies": {
+    "@sveltejs/kit": "^2.58.0",
+    "@tailwindcss/typography": "^0.5.19",
+    "svelte": "^5.45.6",
+    "tailwind-scrollbar": "^4.0.2",
+    "tailwindcss": "^4.2.2",
+    "@internationalized/date": "^3.12.1"
+  },
+  "devDependencies": {
+    "@eslint/compat": "^2.1.0",
+    "@eslint/js": "^10.0.1",
+    "@sveltejs/adapter-static": "^3.0.10",
+    "@sveltejs/kit": "^2.59.1",
+    "@sveltejs/package": "^2.5.7",
+    "@sveltejs/vite-plugin-svelte": "^7.1.2",
+    "@tailwindcss/cli": "^4.3.0",
+    "@tailwindcss/typography": "^0.5.19",
+    "@tailwindcss/vite": "^4.3.0",
+    "@types/node": "^25.6.2",
+    "eslint": "^10.3.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-svelte": "^3.17.1",
+    "globals": "^17.6.0",
+    "lefthook": "^2.1.6",
+    "prettier": "^3.8.3",
+    "prettier-plugin-svelte": "^3.5.1",
+    "prettier-plugin-tailwindcss": "^0.8.0",
+    "publint": "^0.3.20",
+    "svelte": "^5.55.5",
+    "svelte-check": "^4.4.8",
+    "sveltekit-superforms": "^2.30.1",
+    "tailwind-scrollbar": "^4.0.2",
+    "tailwindcss": "^4.3.0",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.59.2",
+    "vite": "^8.0.12",
+    "vite-plugin-devtools-json": "^1.0.0",
+    "vitest": "^4.1.5",
+    "zod": "^4.4.3"
+  },
+  "dependencies": {
+    "@floating-ui/dom": "^1.7.6",
+    "@internationalized/date": "^3.12.1",
+    "@ktibow/material-color-utilities-nightly": "^0.4.1772748028000",
+    "bits-ui": "^2.18.1",
+    "clsx": "^2.1.1",
+    "mode-watcher": "^1.1.0",
+    "nanoid": "^5.1.11",
+    "tailwind-merge": "^3.6.0",
+    "tailwind-variants": "^3.2.2"
+  }
 }

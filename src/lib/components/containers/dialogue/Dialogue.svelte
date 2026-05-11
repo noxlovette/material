@@ -10,110 +10,133 @@ on screen until confirmed, dismissed, or a required action has been taken.
 @see https://m3.material.io/components/dialogs/overview
 -->
 <script lang="ts">
-	import { dialogue } from './theme.js';
-	import type { DialogueProps } from './types.js';
-	import { Dialog } from 'bits-ui';
-	import Button from '../../buttons/Button.svelte';
-	import clsx from 'clsx';
-	import { enterExit } from '$lib/animation/enterExit.js';
-	import { easeEmphasized, easeEmphasizedDecel } from '$lib/animation/easing.js';
+  import { dialogue } from "./theme.js";
+  import type { DialogueProps } from "./types.js";
+  import { Dialog } from "bits-ui";
+  import clsx from "clsx";
+  import { enterExit } from "$lib/animation/enterExit.js";
+  import {
+    easeEmphasized,
+    easeEmphasizedDecel,
+  } from "$lib/animation/easing.js";
+  import { Button } from "$lib/components/buttons/index.js";
 
-	let {
-		open = $bindable(false),
-		enhance,
-		headline,
-		supportingText,
-		confirmText,
-		cancelText = 'Отмена',
-		confirmAction,
-		loading = false,
-		portalDisabled = false,
-		minWidth = '280px',
-		maxWidth = '560px',
-		children,
-		class: className,
-		toggle = () => {},
-		contentProps,
-		...rootRest
-	}: DialogueProps = $props();
+  let {
+    open = $bindable(false),
+    enhance,
+    headline,
+    supportingText,
+    confirmText,
+    cancelText = "Отмена",
+    confirmAction,
+    loading = false,
+    portalDisabled = false,
+    minWidth = "280px",
+    maxWidth = "560px",
+    children,
+    disabled = false,
+    class: className,
+    toggle = () => {},
+    contentProps,
+    onconfirm,
+    ...rootRest
+  }: DialogueProps = $props();
 
-	const { base, inner, headlineContainer, buttonContainer, supportingTextContainer } =
-		$derived(dialogue());
+  const {
+    base,
+    inner,
+    headlineContainer,
+    buttonContainer,
+    supportingTextContainer,
+  } = $derived(dialogue());
 </script>
 
 <Dialog.Root
-	bind:open
-	{...rootRest}
-	onOpenChange={(v) => {
-		if (!v) toggle?.();
-		rootRest.onOpenChange?.(v);
-	}}
+  bind:open
+  {...rootRest}
+  onOpenChange={(v) => {
+    if (!v) toggle?.();
+    rootRest.onOpenChange?.(v);
+  }}
 >
-	<Dialog.Portal disabled={portalDisabled}>
-		<Dialog.Overlay forceMount>
-			{#snippet child({ props, open })}
-				{#if open}
-					<div
-						{...props}
-						class={base()}
-						transition:enterExit={{
-							duration: 500,
-							easing: easeEmphasizedDecel
-						}}
-					></div>
-				{/if}
-			{/snippet}
-		</Dialog.Overlay>
-		<Dialog.Content
-			forceMount
-			{...contentProps}
-			class={clsx('fixed inset-0 z-50 m-auto h-fit w-fit outline-none', contentProps?.class)}
-		>
-			{#snippet child({ props, open: isOpen })}
-				{#if isOpen}
-					<form
-						method="POST"
-						action={confirmAction}
-						use:enhance
-						{...props}
-						class={inner({ class: className })}
-						style:min-width={minWidth}
-						style:max-width={maxWidth}
-						transition:enterExit={{
-							duration: 500,
-							easing: easeEmphasized,
-							mode: 'dialog-m3'
-						}}
-					>
-						{#if headline}
-							<Dialog.Title class={headlineContainer()}>
-								{headline}
-							</Dialog.Title>
-						{/if}
-						{#if supportingText}
-							<Dialog.Description class={supportingTextContainer()}>
-								{supportingText}
-							</Dialog.Description>
-						{/if}
+  <Dialog.Portal disabled={portalDisabled}>
+    <Dialog.Overlay forceMount>
+      {#snippet child({ props, open })}
+        {#if open}
+          <div
+            {...props}
+            class={base()}
+            transition:enterExit={{
+              duration: 500,
+              easing: easeEmphasizedDecel,
+            }}
+          ></div>
+        {/if}
+      {/snippet}
+    </Dialog.Overlay>
+    <Dialog.Content forceMount>
+      {#snippet child({ props, open: isOpen })}
+        {#if isOpen}
+          <form
+            method="POST"
+            action={confirmAction}
+            use:enhance
+            onsubmit={(e) => {
+              if (onconfirm) {
+                e.preventDefault();
+                onconfirm();
+                open = false;
+              }
+            }}
+            {...props}
+            class={inner({ class: className })}
+            style:min-width={minWidth}
+            style:max-width={maxWidth}
+            transition:enterExit={{
+              duration: 500,
+              easing: easeEmphasized,
+              mode: "dialog-m3",
+            }}
+          >
+            {#if headline}
+              <Dialog.Title class={headlineContainer()}>
+                {headline}
+              </Dialog.Title>
+            {/if}
+            {#if supportingText}
+              <Dialog.Description class={supportingTextContainer()}>
+                {supportingText}
+              </Dialog.Description>
+            {/if}
 
-						<div class="flex flex-col gap-4">
-							{@render children?.()}
-						</div>
+            {#if children}
+              <div class="flex w-full flex-col gap-4">
+                {@render children()}
+              </div>
+            {/if}
 
-						<div class={buttonContainer()}>
-							<Button
-								type="button"
-								variant="text"
-								data-cy="dialogue-cancel"
-								onclick={() => (open = false)}>{cancelText}</Button
-							>
-							<Button type="submit" {loading} variant="filled" data-cy="dialogue-confirm"
-								>{confirmText}</Button
-							>
-						</div>
-					</form>
-				{/if}
-			{/snippet}
-		</Dialog.Content>
-	</Dialog.Portal>
+            <div class={buttonContainer()}>
+              <Button
+                type="button"
+                variant="text"
+                data-cy="dialogue-cancel"
+                onclick={() => (open = false)}
+              >
+                {cancelText}
+              </Button>
+              <Button
+                type="submit"
+                {disabled}
+                {loading}
+                variant="filled"
+                data-cy="dialogue-confirm"
+              >
+                {confirmText}
+              </Button>
+            </div>
+          </form>
+        {/if}
+      {/snippet}
+    </Dialog.Content>
+  </Dialog.Portal>
 </Dialog.Root>

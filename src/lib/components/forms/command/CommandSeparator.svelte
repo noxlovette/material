@@ -1,12 +1,15 @@
 <script lang="ts">
-	import { Command } from 'bits-ui';
-	import clsx from 'clsx';
-	import { command } from './theme.js';
-	import type { CommandSeparatorProps } from './types.js';
+  import { Command } from "bits-ui";
+  import clsx from "clsx";
+  import { command } from "./theme.js";
+  import type { CommandSeparatorProps } from "./types.js";
 
-	let { class: className, ...restProps }: CommandSeparatorProps = $props();
+  let { class: className, ...restProps }: CommandSeparatorProps = $props();
 
-	const { separator } = command();
+  const { separator } = command();
 </script>
 
-<Command.Separator {...restProps} class={separator({ class: clsx(className) })} />
+<Command.Separator
+  {...restProps}
+  class={separator({ class: clsx(className) })}
+/>

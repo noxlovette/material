@@ -3,37 +3,37 @@ const frequencyX = (Math.PI * 2) / 40;
 const round2 = (x: number) => Math.round(x * 100) / 100;
 const round1 = (x: number) => Math.round(x * 10) / 10;
 export const linear = (
-	amp: number,
-	center: number,
-	from: number,
-	to: number,
-	time: number,
-	cutoffTo?: number
+  amp: number,
+  center: number,
+  from: number,
+  to: number,
+  time: number,
+  cutoffTo?: number,
 ) => {
-	time = time * frequencyT;
-	time %= Math.PI * 2;
+  time = time * frequencyT;
+  time %= Math.PI * 2;
 
-	if (from >= to) return '';
+  if (from >= to) return "";
 
-	let path = '';
-	for (let xIterator = from; xIterator <= to; xIterator += 0.5) {
-		const x = cutoffTo ? Math.min(cutoffTo, xIterator) : xIterator;
-		const sinV = Math.sin(x * frequencyX + time);
-		const y = sinV * amp + center;
+  let path = "";
+  for (let xIterator = from; xIterator <= to; xIterator += 0.5) {
+    const x = cutoffTo ? Math.min(cutoffTo, xIterator) : xIterator;
+    const sinV = Math.sin(x * frequencyX + time);
+    const y = sinV * amp + center;
 
-		if (x == from) {
-			path = `M ${round1(x)} ${round2(y)}`;
-		} else {
-			path += ` ${round1(x)} ${round2(y)}`;
-		}
-	}
+    if (x == from) {
+      path = `M ${round1(x)} ${round2(y)}`;
+    } else {
+      path += ` ${round1(x)} ${round2(y)}`;
+    }
+  }
 
-	return path;
+  return path;
 };
 export const trackOpacity = (right: number, x: number) => {
-	let opacity = right - x;
-	if (opacity < 0) opacity = 0;
-	if (opacity > 1) opacity = 1;
-	opacity = round2(opacity);
-	return opacity;
+  let opacity = right - x;
+  if (opacity < 0) opacity = 0;
+  if (opacity > 1) opacity = 1;
+  opacity = round2(opacity);
+  return opacity;
 };

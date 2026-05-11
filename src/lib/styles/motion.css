@@ -1,51 +1,76 @@
 @theme {
-	/* Expressive easing */
-	--md-sys-motion-timing-function-fast-spatial: cubic-bezier(0.42, 1.67, 0.21, 0.9);
-	--md-sys-motion-duration-fast-spatial: 350ms;
-	--md-sys-motion-easing-fast-spatial: var(--md-sys-motion-timing-function-fast-spatial)
-		var(--md-sys-motion-duration-fast-spatial);
+  /* Expressive easing */
+  --md-sys-motion-timing-function-fast-spatial: cubic-bezier(
+    0.42,
+    1.67,
+    0.21,
+    0.9
+  );
+  --md-sys-motion-duration-fast-spatial: 350ms;
+  --md-sys-motion-easing-fast-spatial: var(
+      --md-sys-motion-timing-function-fast-spatial
+    )
+    var(--md-sys-motion-duration-fast-spatial);
 
-	--md-sys-motion-timing-function-spatial: cubic-bezier(0.38, 1.21, 0.22, 1);
-	--md-sys-motion-duration-spatial: 500ms;
-	--md-sys-motion-easing-spatial: var(--md-sys-motion-timing-function-spatial)
-		var(--md-sys-motion-duration-spatial);
+  --md-sys-motion-timing-function-spatial: cubic-bezier(0.38, 1.21, 0.22, 1);
+  --md-sys-motion-duration-spatial: 500ms;
+  --md-sys-motion-easing-spatial: var(--md-sys-motion-timing-function-spatial)
+    var(--md-sys-motion-duration-spatial);
 
-	--md-sys-motion-timing-function-slow-spatial: cubic-bezier(0.39, 1.29, 0.35, 0.98);
-	--md-sys-motion-duration-slow-spatial: 650ms;
-	--md-sys-motion-easing-slow-spatial: var(--md-sys-motion-timing-function-slow-spatial)
-		var(--md-sys-motion-duration-slow-spatial);
+  --md-sys-motion-timing-function-slow-spatial: cubic-bezier(
+    0.39,
+    1.29,
+    0.35,
+    0.98
+  );
+  --md-sys-motion-duration-slow-spatial: 650ms;
+  --md-sys-motion-easing-slow-spatial: var(
+      --md-sys-motion-timing-function-slow-spatial
+    )
+    var(--md-sys-motion-duration-slow-spatial);
 
-	--md-sys-motion-timing-function-fast: cubic-bezier(0.31, 0.94, 0.34, 1);
-	--md-sys-motion-duration-fast: 150ms;
-	--md-sys-motion-easing-fast: var(--md-sys-motion-timing-function-fast)
-		var(--md-sys-motion-duration-fast);
+  --md-sys-motion-timing-function-fast: cubic-bezier(0.31, 0.94, 0.34, 1);
+  --md-sys-motion-duration-fast: 150ms;
+  --md-sys-motion-easing-fast: var(--md-sys-motion-timing-function-fast)
+    var(--md-sys-motion-duration-fast);
 
-	--md-sys-motion-timing-function: cubic-bezier(0.34, 0.8, 0.34, 1);
-	--md-sys-motion-duration: 200ms;
-	--md-sys-motion-easing: var(--md-sys-motion-timing-function) var(--md-sys-motion-duration);
+  --md-sys-motion-timing-function: cubic-bezier(0.34, 0.8, 0.34, 1);
+  --md-sys-motion-duration: 200ms;
+  --md-sys-motion-easing: var(--md-sys-motion-timing-function)
+    var(--md-sys-motion-duration);
 
-	--md-sys-motion-timing-function-slow: cubic-bezier(0.34, 0.88, 0.34, 1);
-	--md-sys-motion-duration-slow: 300ms;
-	--md-sys-motion-easing-slow: var(--md-sys-motion-timing-function-slow)
-		var(--md-sys-motion-duration-slow);
+  --md-sys-motion-timing-function-slow: cubic-bezier(0.34, 0.88, 0.34, 1);
+  --md-sys-motion-duration-slow: 300ms;
+  --md-sys-motion-easing-slow: var(--md-sys-motion-timing-function-slow)
+    var(--md-sys-motion-duration-slow);
 
-	--md-sys-motion-timing-function-emphasized: linear(
-		0,
-		0.034 6%,
-		0.073 9%,
-		0.126 11%,
-		0.194 13%,
-		0.273 15%,
-		0.351 16%,
-		0.541 18%,
-		0.652 20%,
-		0.755 24%,
-		0.839 30%,
-		0.91 39%,
-		0.959 53%,
-		0.989 72%,
-		1
-	);
-	--md-sys-motion-timing-function-emphasized-accel: cubic-bezier(0.3, 0, 0.8, 0.15);
-	--md-sys-motion-timing-function-emphasized-decel: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --md-sys-motion-timing-function-emphasized: linear(
+    0,
+    0.034 6%,
+    0.073 9%,
+    0.126 11%,
+    0.194 13%,
+    0.273 15%,
+    0.351 16%,
+    0.541 18%,
+    0.652 20%,
+    0.755 24%,
+    0.839 30%,
+    0.91 39%,
+    0.959 53%,
+    0.989 72%,
+    1
+  );
+  --md-sys-motion-timing-function-emphasized-accel: cubic-bezier(
+    0.3,
+    0,
+    0.8,
+    0.15
+  );
+  --md-sys-motion-timing-function-emphasized-decel: cubic-bezier(
+    0.05,
+    0.7,
+    0.1,
+    1
+  );
 }

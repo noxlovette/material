@@ -1,19 +1,19 @@
 <script lang="ts">
-	import { Select } from 'bits-ui';
-	import { select as selectCls } from './theme.js';
-	import type { Snippet } from 'svelte';
+  import { Select } from "bits-ui";
+  import { select as selectCls } from "./theme.js";
+  import type { Snippet } from "svelte";
 
-	let {
-		children,
-		class: className
-	}: {
-		children: Snippet;
-		class?: string;
-	} = $props();
+  let {
+    children,
+    class: className,
+  }: {
+    children: Snippet;
+    class?: string;
+  } = $props();
 
-	const cls = selectCls();
+  const cls = selectCls();
 </script>
 
 <Select.GroupHeading class={cls.groupLabel({ class: className })}>
-	{@render children()}
+  {@render children()}
 </Select.GroupHeading>

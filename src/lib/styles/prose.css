@@ -1,48 +1,48 @@
 @layer utilities {
-	.text-link {
-		@apply text-md-sys-color-primary underline hover:text-md-sys-color-secondary;
-	}
+  .text-link {
+    @apply text-md-sys-color-primary hover:text-md-sys-color-secondary underline;
+  }
 
-	.text-link.md-sys-typescale-label-small {
-		@apply md-sys-typescale-label-medium;
-		display: inline-flex;
-		align-items: center;
-		min-height: 44px;
-		padding: 6px 8px;
-	}
+  .text-link.md-sys-typescale-label-small {
+    @apply md-sys-typescale-label-medium;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 6px 8px;
+  }
 }
 
 @utility prose-theme {
-	--tw-prose-body: var(--color-md-sys-color-on-surface);
-	--tw-prose-headings: var(--color-md-sys-color-on-surface);
-	--tw-prose-lead: var(--color-md-sys-color-on-surface-variant);
-	--tw-prose-links: var(--color-md-sys-color-primary);
-	--tw-prose-bold: var(--color-md-sys-color-on-surface);
-	--tw-prose-counters: var(--color-md-sys-color-on-surface-variant);
-	--tw-prose-bullets: var(--color-md-sys-color-outline);
-	--tw-prose-hr: var(--color-md-sys-color-outline-variant);
-	--tw-prose-quotes: var(--color-md-sys-color-on-surface);
-	--tw-prose-quote-borders: var(--color-md-sys-color-outline);
-	--tw-prose-captions: var(--color-md-sys-color-on-surface-variant);
-	--tw-prose-code: var(--color-md-sys-color-primary);
-	--tw-prose-pre-code: var(--color-md-sys-color-on-surface);
-	--tw-prose-pre-bg: var(--color-md-sys-color-surface-container-high);
-	--tw-prose-th-borders: var(--color-md-sys-color-outline-variant);
-	--tw-prose-td-borders: var(--color-md-sys-color-outline-variant);
-	--tw-prose-invert-body: var(--color-md-sys-color-on-surface);
-	--tw-prose-invert-headings: var(--color-md-sys-color-on-surface);
-	--tw-prose-invert-lead: var(--color-md-sys-color-on-surface-variant);
-	--tw-prose-invert-links: var(--color-md-sys-color-primary);
-	--tw-prose-invert-bold: var(--color-md-sys-color-on-surface);
-	--tw-prose-invert-counters: var(--color-md-sys-color-on-surface-variant);
-	--tw-prose-invert-bullets: var(--color-md-sys-color-outline);
-	--tw-prose-invert-hr: var(--color-md-sys-color-outline-variant);
-	--tw-prose-invert-quotes: var(--color-md-sys-color-on-surface);
-	--tw-prose-invert-quote-borders: var(--color-md-sys-color-outline);
-	--tw-prose-invert-captions: var(--color-md-sys-color-on-surface-variant);
-	--tw-prose-invert-code: var(--color-md-sys-color-primary);
-	--tw-prose-invert-pre-code: var(--color-md-sys-color-on-surface);
-	--tw-prose-invert-pre-bg: var(--color-md-sys-color-surface-container-highest);
-	--tw-prose-invert-th-borders: var(--color-md-sys-color-outline-variant);
-	--tw-prose-invert-td-borders: var(--color-md-sys-color-outline-variant);
+  --tw-prose-body: var(--color-md-sys-color-on-surface);
+  --tw-prose-headings: var(--color-md-sys-color-on-surface);
+  --tw-prose-lead: var(--color-md-sys-color-on-surface-variant);
+  --tw-prose-links: var(--color-md-sys-color-primary);
+  --tw-prose-bold: var(--color-md-sys-color-on-surface);
+  --tw-prose-counters: var(--color-md-sys-color-on-surface-variant);
+  --tw-prose-bullets: var(--color-md-sys-color-outline);
+  --tw-prose-hr: var(--color-md-sys-color-outline-variant);
+  --tw-prose-quotes: var(--color-md-sys-color-on-surface);
+  --tw-prose-quote-borders: var(--color-md-sys-color-outline);
+  --tw-prose-captions: var(--color-md-sys-color-on-surface-variant);
+  --tw-prose-code: var(--color-md-sys-color-primary);
+  --tw-prose-pre-code: var(--color-md-sys-color-on-surface);
+  --tw-prose-pre-bg: var(--color-md-sys-color-surface-container-high);
+  --tw-prose-th-borders: var(--color-md-sys-color-outline-variant);
+  --tw-prose-td-borders: var(--color-md-sys-color-outline-variant);
+  --tw-prose-invert-body: var(--color-md-sys-color-on-surface);
+  --tw-prose-invert-headings: var(--color-md-sys-color-on-surface);
+  --tw-prose-invert-lead: var(--color-md-sys-color-on-surface-variant);
+  --tw-prose-invert-links: var(--color-md-sys-color-primary);
+  --tw-prose-invert-bold: var(--color-md-sys-color-on-surface);
+  --tw-prose-invert-counters: var(--color-md-sys-color-on-surface-variant);
+  --tw-prose-invert-bullets: var(--color-md-sys-color-outline);
+  --tw-prose-invert-hr: var(--color-md-sys-color-outline-variant);
+  --tw-prose-invert-quotes: var(--color-md-sys-color-on-surface);
+  --tw-prose-invert-quote-borders: var(--color-md-sys-color-outline);
+  --tw-prose-invert-captions: var(--color-md-sys-color-on-surface-variant);
+  --tw-prose-invert-code: var(--color-md-sys-color-primary);
+  --tw-prose-invert-pre-code: var(--color-md-sys-color-on-surface);
+  --tw-prose-invert-pre-bg: var(--color-md-sys-color-surface-container-highest);
+  --tw-prose-invert-th-borders: var(--color-md-sys-color-outline-variant);
+  --tw-prose-invert-td-borders: var(--color-md-sys-color-outline-variant);
 }

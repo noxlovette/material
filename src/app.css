@@ -1,14 +1,14 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
 
-@import '../lib/index.css';
-@import '../lib/styles/theme/light.css';
-@import '../lib/styles/theme/dark.css';
+@import './lib/index.css';
+@import './lib/styles/theme/light.css';
+@import './lib/styles/theme/dark.css';
 
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-	--font-sans: 'Inter', 'Roboto Flex', system-ui, sans-serif;
+	--font-sans: 'Google Sans Flex', 'Roboto Flex', system-ui, sans-serif;
 	--default-transition-duration: 0ms;
 	--default-transition-timing-function: var(--md-sys-motion-timing-function-emphasized-decel);
 }

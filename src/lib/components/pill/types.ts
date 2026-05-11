@@ -1,7 +1,8 @@
-import type { Snippet } from 'svelte';
-import type { PillVariants } from './theme.js';
-import type { HTMLAttributes } from 'svelte/elements';
+import type { Snippet } from "svelte";
+import type { HTMLAttributes } from "svelte/elements";
+import type { PillVariants } from "./theme.js";
 
-export interface PillProps extends PillVariants, HTMLAttributes<HTMLDivElement> {
-	children?: Snippet;
+export interface PillProps
+  extends PillVariants, HTMLAttributes<HTMLDivElement> {
+  children?: Snippet;
 }
