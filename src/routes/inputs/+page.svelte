@@ -38,13 +38,15 @@
   import { z } from 'zod/v4';
   import SuperDebug from 'sveltekit-superforms';
   import SinglePane from '$lib/components/containers/panes/SinglePane.svelte';
+  import Divider from '$lib/components/containers/divider/Divider.svelte';
 
   const demoSchema = z.object({
     name: z.string().min(1),
     email: z.string().email(),
     language: z.string(),
     notifications: z.boolean(),
-    theme: z.string()
+    theme: z.string(),
+    check: z.boolean()
   });
 
   const { form, errors, enhance } = superForm(defaults(zod(demoSchema)), {
@@ -173,34 +175,6 @@
       <!-- FORMS -->
       <section id="forms" class="flex scroll-mt-4 flex-col gap-6">
         <Display>Forms</Display>
-        <Headline>Checkbox</Headline>
-        <div class="flex flex-wrap gap-8">
-          <label class="flex cursor-pointer items-center gap-3">
-            <Checkbox bind:checked={checkbox1} />
-            <Body>Unchecked</Body>
-          </label>
-          <label class="flex cursor-pointer items-center gap-3">
-            <Checkbox bind:checked={checkbox2} />
-            <Body>Checked</Body>
-          </label>
-          <label class="flex cursor-pointer items-center gap-3">
-            <Checkbox indeterminate />
-            <Body>Indeterminate</Body>
-          </label>
-          <label class="flex cursor-pointer items-center gap-3">
-            <Checkbox error />
-            <Body>Error</Body>
-          </label>
-          <label class="flex cursor-pointer items-center gap-3 opacity-60">
-            <Checkbox disabled />
-            <Body>Disabled</Body>
-          </label>
-          <label class="flex cursor-pointer items-center gap-3 opacity-60">
-            <Checkbox disabled checked />
-            <Body>Disabled Checked</Body>
-          </label>
-        </div>
-
         <Headline>Switch</Headline>
         <div class="flex flex-wrap gap-8">
           <label class="flex cursor-pointer items-center gap-3">
@@ -316,7 +290,7 @@
           </Dialogue>
         {/if}
       </section>
-
+      <Divider variant="wavy" />
       <!-- SUPERFORMS -->
       <section id="superforms" class="flex scroll-mt-4 flex-col gap-6">
         <Display>SuperForms</Display>
@@ -354,6 +328,7 @@
             ]}
             orientation="horizontal"
           />
+          <Checkbox labelText="Check" bind:checked={$form.check} />
           <Button type="submit" variant="filled">Submit</Button>
         </form>
         <SuperDebug data={$form} />
