@@ -1,7 +1,12 @@
 {
   "name": "@noxlovette/material",
-  "version": "0.4.3",
+  "version": "0.1.0",
   "type": "module",
+  "license": "MIT",
+  "repository": {"url": "git+https://github.com/noxlovette/material.git"},
+  "publishConfig": {
+    "@noxlovette:registry": "https://npm.pkg.github.com"
+  },
   "scripts": {
     "build": "svelte-package",
     "prepublishOnly": "bun run build",
