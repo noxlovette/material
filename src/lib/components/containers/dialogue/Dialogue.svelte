@@ -33,7 +33,6 @@ on screen until confirmed, dismissed, or a required action has been taken.
     disabled = false,
     class: className,
     contentProps,
-    onconfirm,
     ...rootRest
   }: DialogueProps = $props();
 
@@ -64,13 +63,6 @@ on screen until confirmed, dismissed, or a required action has been taken.
             method="POST"
             action={confirmAction}
             use:enhance
-            onsubmit={(e: any) => {
-              if (onconfirm) {
-                e.preventDefault();
-                onconfirm();
-                open = false;
-              }
-            }}
             {...props}
             class={inner({ class: className })}
             style:min-width={minWidth}
@@ -107,15 +99,12 @@ on screen until confirmed, dismissed, or a required action has been taken.
               >
                 {cancelText}
               </Button>
-              <Button
-                type="submit"
-                {disabled}
-                {loading}
-                variant="filled"
-                data-cy="dialogue-confirm"
-              >
-                {confirmText}
-              </Button>
+
+              <Dialog.Close>
+                <Button type="submit" {disabled} {loading} data-cy="dialogue-confirm">
+                  {confirmText}
+                </Button>
+              </Dialog.Close>
             </div>
           </form>
         {/if}

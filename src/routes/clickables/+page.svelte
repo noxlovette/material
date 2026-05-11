@@ -427,15 +427,13 @@
           <Snackbar message="With close button" label="Action" showClose static fixed={false} />
           <Snackbar static message="No action, no close" fixed={false} />
         </div>
-        {#if snackbarMsg}
-          <Snackbar
-            message={snackbarMsg}
-            label="OK"
-            callback={() => (snackbarMsg = '')}
-            showClose={false}
-            fixed
-          />
-        {/if}
+        <Snackbar
+          bind:message={snackbarMsg}
+          label="OK"
+          callback={() => (snackbarMsg = '')}
+          showClose={false}
+          fixed
+        />
       </section>
 
       <!-- PROGRESS -->

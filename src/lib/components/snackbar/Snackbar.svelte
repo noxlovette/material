@@ -13,7 +13,7 @@ Snackbars provide brief messages about app processes at the bottom of the screen
   import { easeEmphasizedDecel, easeEmphasizedAccel } from '$lib/animation/easing.js';
 
   let {
-    message,
+    message = $bindable(''),
     fixed = true,
     static: isStatic = false,
     label,
@@ -23,23 +23,30 @@ Snackbars provide brief messages about app processes at the bottom of the screen
   }: SnackBarProps = $props();
 
   let dismissed = $state(false);
+  let timeoutId: ReturnType<typeof setTimeout> | undefined;
 
   $effect(() => {
-    if (!message) return;
-    if (isStatic) return;
-    const t = setTimeout(() => {
-      dismissed = true;
-      message = '';
-    }, 5000);
-    return () => clearTimeout(t);
-  });
-
-  $effect(() => {
-    if (!message) {
+    if (message) {
       dismissed = false;
-      return;
+      if (timeoutId) clearTimeout(timeoutId);
+
+      if (!isStatic) {
+        timeoutId = setTimeout(() => {
+          dismissed = true;
+          // Clear message if it's a string to allow re-triggering.
+          // If it's a snippet, we just let it be dismissed.
+          if (typeof message === 'string') {
+            message = '';
+          }
+        }, 4000);
+      }
+    } else {
+      dismissed = true;
     }
-    dismissed = false;
+
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+    };
   });
 
   const {
@@ -88,7 +95,9 @@ Snackbars provide brief messages about app processes at the bottom of the screen
           class="relative rounded-full p-1"
           onclick={() => {
             dismissed = true;
-            message = '';
+            if (typeof message === 'string') {
+              message = '';
+            }
           }}
           aria-label="Dismiss snackbar"
           data-cy="notification-dismiss"
