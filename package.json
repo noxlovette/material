@@ -6,9 +6,6 @@
   "repository": {
     "url": "git+https://github.com/noxlovette/material.git"
   },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
   "scripts": {
     "build": "svelte-package",
     "prepublishOnly": "bun run build",
