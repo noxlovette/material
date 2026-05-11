@@ -1,21 +1,16 @@
-import type { AnchorButtonAttributes, IconProps } from "$lib/utils/index.js";
-import type { Snippet } from "svelte";
-import type {
-  HTMLAnchorAttributes,
-  HTMLAttributes,
-  HTMLButtonAttributes,
-} from "svelte/elements";
+import type { AnchorButtonAttributes, IconProps } from '$lib/utils/index.js';
+import type { Snippet } from 'svelte';
+import type { HTMLAnchorAttributes, HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
 import type {
   ButtonGroupVariants,
   ButtonIconVariants,
   ButtonMDVariants,
   FABMenuItemVariants,
   FABMenuVariants,
-  FABVariants,
-} from "./theme.js";
+  FABVariants
+} from './theme.js';
 
-export interface ButtonGroupProps
-  extends ButtonGroupVariants, HTMLAttributes<HTMLDivElement> {
+export interface ButtonGroupProps extends ButtonGroupVariants, HTMLAttributes<HTMLDivElement> {
   /**
    * The content of the button group.
    * @example
@@ -29,8 +24,7 @@ export interface ButtonGroupProps
   disabled?: boolean;
 }
 
-export type HTMLButtonOrAnchorAttributes = HTMLButtonAttributes &
-  HTMLAnchorAttributes;
+export type HTMLButtonOrAnchorAttributes = HTMLButtonAttributes & HTMLAnchorAttributes;
 
 export type ButtonMDProps = ButtonMDVariants &
   AnchorButtonAttributes & {
@@ -42,21 +36,21 @@ export type ButtonMDProps = ButtonMDVariants &
      * - 'text': Low emphasis.
      * - 'elevated': High emphasis with elevation.
      */
-    variant?: ButtonMDVariants["variant"];
+    variant?: ButtonMDVariants['variant'];
     /**
      * The color scheme of the button.
      */
-    color?: ButtonMDVariants["color"];
+    color?: ButtonMDVariants['color'];
     /**
      * The size of the button.
      */
-    size?: ButtonMDVariants["size"];
+    size?: ButtonMDVariants['size'];
     /**
      * The shape of the button corners.
      * - 'round': Fully rounded corners.
      * - 'square': Slightly rounded corners.
      */
-    shape?: ButtonMDVariants["shape"];
+    shape?: ButtonMDVariants['shape'];
     /**
      * The label or content to display inside the button.
      */
@@ -66,7 +60,7 @@ export type ButtonMDProps = ButtonMDVariants &
     /** Whether the button is currently in a selected state (e.g. for toggle buttons). */
     selected?: boolean;
     /** Whether the button behaves as a selection control (scopes selected styling). */
-    usage?: ButtonMDVariants["usage"];
+    usage?: ButtonMDVariants['usage'];
     /**
      * Configuration for the leading icon.
      */
@@ -86,32 +80,32 @@ export type ButtonIconProps = ButtonIconVariants &
     /**
      * The visual style of the icon button.
      */
-    variant?: ButtonIconVariants["variant"];
+    variant?: ButtonIconVariants['variant'];
     /**
      * The color scheme of the icon button.
      */
-    color?: ButtonIconVariants["color"];
+    color?: ButtonIconVariants['color'];
     /**
      * The size of the icon button.
      */
-    size?: ButtonIconVariants["size"];
+    size?: ButtonIconVariants['size'];
     /**
      * The width style of the icon button.
      * - 'default': Aspect square.
      * - 'narrow': Narrower width.
      * - 'wide': Wider width.
      */
-    width?: ButtonIconVariants["width"];
+    width?: ButtonIconVariants['width'];
     /**
      * The shape of the icon button corners.
      */
-    shape?: ButtonIconVariants["shape"];
+    shape?: ButtonIconVariants['shape'];
     /**
      * The variation of the icon button.
      * - 'default': Standard icon button.
      * - 'toggle': Toggleable icon button.
      */
-    variation?: ButtonIconVariants["variation"];
+    variation?: ButtonIconVariants['variation'];
     /**
      * Optional content to render inside the button (usually not used for icon buttons, but available).
      */
@@ -138,9 +132,9 @@ export type ButtonIconProps = ButtonIconVariants &
     /** Whether the button is in a loading state. Displays a loading indicator instead of the icon. */
     loading?: boolean;
     /** The side of the tooltip relative to the button. */
-    triggerSide?: "top" | "right" | "bottom" | "left";
+    triggerSide?: 'top' | 'right' | 'bottom' | 'left';
     /** The alignment of the tooltip relative to the button. */
-    triggerAlign?: "start" | "center" | "end";
+    triggerAlign?: 'start' | 'center' | 'end';
   };
 
 export type FABProps = FABVariants &
@@ -148,11 +142,11 @@ export type FABProps = FABVariants &
     /**
      * The color configuration of the FAB.
      */
-    config?: FABVariants["config"];
+    config?: FABVariants['config'];
     /**
      * The size of the FAB.
      */
-    size?: FABVariants["size"];
+    size?: FABVariants['size'];
     /** Whether the FAB is disabled. */
     disabled?: boolean;
     /**
@@ -184,7 +178,7 @@ export type FABMenuProps = FABMenuVariants &
     /**
      * The vertical position of the menu relative to the anchor.
      */
-    position?: FABMenuVariants["position"];
+    position?: FABMenuVariants['position'];
     /**
      * The menu items. Use `FABMenuItem` components.
      */
@@ -196,7 +190,7 @@ export type FABMenuItemProps = FABMenuItemVariants &
     /**
      * The visual variant of the menu item.
      */
-    variant?: FABMenuItemVariants["variant"];
+    variant?: FABMenuItemVariants['variant'];
     /** Whether the menu item is in a loading state. */
     loading?: boolean;
     /**
@@ -211,7 +205,7 @@ export type FABMenuItemProps = FABMenuItemVariants &
     formaction?: string;
   };
 
-export type ToggleMDProps = Pick<ButtonMDVariants, "size" | "shape"> &
+export type ToggleMDProps = Pick<ButtonMDVariants, 'size' | 'shape'> &
   HTMLButtonAttributes & {
     /** Whether the toggle is currently pressed/selected. Bindable. */
     pressed?: boolean;

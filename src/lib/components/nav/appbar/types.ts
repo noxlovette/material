@@ -1,12 +1,12 @@
-import type { Snippet } from "svelte";
-import type { HTMLAttributes } from "svelte/elements";
-import type { AppbarVariants } from "./theme.js";
+import type { Snippet } from 'svelte';
+import type { HTMLAttributes } from 'svelte/elements';
+import type { AppbarVariants } from './theme.js';
 
 /**
  * Props for the AppBar component.
  */
 export type AppBarProps = AppbarVariants &
-  HTMLAttributes<HTMLElementTagNameMap["nav"]> & {
+  HTMLAttributes<HTMLElementTagNameMap['nav']> & {
     /** The content to be rendered inside the app bar. */
     children?: Snippet;
     /** The main title of the app bar. */

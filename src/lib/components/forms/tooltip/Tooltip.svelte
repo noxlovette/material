@@ -6,18 +6,14 @@ Plain tooltips are used for simple labels, while rich tooltips can contain forma
 @see https://m3.material.io/components/tooltips/overview
 -->
 <script lang="ts">
-  import clsx from "clsx";
-  import Body from "../../typography/body/Body.svelte";
-  import Title from "../../typography/title/Title.svelte";
-  import { Layer } from "$lib/utils/index.js";
-  import { tooltip } from "./theme.js";
-  import type { TooltipProps } from "./types.js";
-  import { Tooltip } from "bits-ui";
-  import {
-    enterExit,
-    easeEmphasizedDecel,
-    easeEmphasizedAccel,
-  } from "$lib/animation/index.js";
+  import clsx from 'clsx';
+  import Body from '../../typography/body/Body.svelte';
+  import Title from '../../typography/title/Title.svelte';
+  import { Layer } from '$lib/utils/index.js';
+  import { tooltip } from './theme.js';
+  import type { TooltipProps } from './types.js';
+  import { Tooltip } from 'bits-ui';
+  import { enterExit, easeEmphasizedDecel, easeEmphasizedAccel } from '$lib/animation/index.js';
 
   let {
     subhead,
@@ -27,8 +23,8 @@ Plain tooltips are used for simple labels, while rich tooltips can contain forma
     triggerClass,
     delayDuration = 100,
     class: className,
-    variant = "snack",
-    style = "container",
+    variant = 'snack',
+    style = 'container',
     isOpen = $bindable(false),
     showArrow = false,
     triggerProps = {},
@@ -40,7 +36,7 @@ Plain tooltips are used for simple labels, while rich tooltips can contain forma
     subhead: subheadCls,
     base,
     trigger: triggerCls,
-    supportingText: supportingTextCls,
+    supportingText: supportingTextCls
   } = $derived(tooltip({ variant, style }));
 
   const baseCls = $derived(base({ class: clsx(className) }));
@@ -50,15 +46,12 @@ Plain tooltips are used for simple labels, while rich tooltips can contain forma
    * This ensures we don't get ugly rectangles then
    */
   const hasTooltipContent = $derived(
-    Boolean(supportingText || subhead || (variant === "rich" && children)),
+    Boolean(supportingText || subhead || (variant === 'rich' && children))
   );
 </script>
 
 <Tooltip.Root {...restProps} {delayDuration} bind:open={isOpen}>
-  <Tooltip.Trigger
-    {...triggerProps}
-    class={triggerCls({ class: clsx(triggerClass) })}
-  >
+  <Tooltip.Trigger {...triggerProps} class={triggerCls({ class: clsx(triggerClass) })}>
     {@render trigger?.()}
   </Tooltip.Trigger>
   <Tooltip.Portal>
@@ -75,17 +68,17 @@ Plain tooltips are used for simple labels, while rich tooltips can contain forma
                 {...props}
                 class={clsx(baseCls, props.class as any)}
                 in:enterExit={{
-                  duration: variant === "rich" ? 200 : 150,
+                  duration: variant === 'rich' ? 200 : 150,
                   easing: easeEmphasizedDecel,
-                  mode: "scale",
+                  mode: 'scale'
                 }}
                 out:enterExit={{
-                  duration: variant === "rich" ? 150 : 75,
+                  duration: variant === 'rich' ? 150 : 75,
                   easing: easeEmphasizedAccel,
-                  mode: "scale",
+                  mode: 'scale'
                 }}
               >
-                {#if variant === "rich"}
+                {#if variant === 'rich'}
                   <Layer />
                   {#if subhead}
                     <Title class={subheadCls()}>

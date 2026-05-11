@@ -19,28 +19,27 @@ Context menus appear on right-click and provide actions related to the clicked e
 @see https://m3.material.io/components/menus/guidelines
 -->
 <script lang="ts">
-  import { ContextMenu as BitsContextMenu } from "bits-ui";
-  import { contextMenu } from "./theme.js";
-  import type { ContextMenuProps, ContextMenuDataItem } from "./types.js";
-  import Icon from "$lib/utils/icon/Icon.svelte";
-  import Divider from "../divider/Divider.svelte";
-  import { enterExit } from "$lib/animation/enterExit.js";
-  import { easeEmphasizedDecel } from "$lib/animation/easing.js";
-  import clsx from "clsx";
+  import { ContextMenu as BitsContextMenu } from 'bits-ui';
+  import { contextMenu } from './theme.js';
+  import type { ContextMenuProps, ContextMenuDataItem } from './types.js';
+  import Icon from '$lib/utils/icon/Icon.svelte';
+  import Divider from '../divider/Divider.svelte';
+  import { enterExit } from '$lib/animation/enterExit.js';
+  import { easeEmphasizedDecel } from '$lib/animation/easing.js';
+  import clsx from 'clsx';
 
   let {
     items = [],
     selected,
     children,
     onselect,
-    itemDataCyPrefix = "context-menu-item",
-    disabled = false,
+    itemDataCyPrefix = 'context-menu-item',
+    disabled = false
   }: ContextMenuProps = $props();
 
   const theme = $derived(contextMenu());
 
-  const toDataCy = (value?: string) =>
-    value ? value.replace(/[^a-zA-Z0-9-_]+/g, "-") : "item";
+  const toDataCy = (value?: string) => (value ? value.replace(/[^a-zA-Z0-9-_]+/g, '-') : 'item');
 </script>
 
 {#snippet MenuItem(item: ContextMenuDataItem)}
@@ -75,7 +74,7 @@ Context menus appear on right-click and provide actions related to the clicked e
                   transition:enterExit={{
                     duration: 200,
                     easing: easeEmphasizedDecel,
-                    mode: "scale",
+                    mode: 'scale'
                   }}
                 >
                   {#each item.items as subItem}
@@ -89,8 +88,7 @@ Context menus appear on right-click and provide actions related to the clicked e
       </BitsContextMenu.Portal>
     </BitsContextMenu.Sub>
   {:else}
-    {@const isSelected =
-      item.selected || (selected !== undefined && item.value === selected)}
+    {@const isSelected = item.selected || (selected !== undefined && item.value === selected)}
     <BitsContextMenu.Item
       class={theme.item({ selected: isSelected })}
       disabled={item.disabled}
@@ -139,7 +137,7 @@ Context menus appear on right-click and provide actions related to the clicked e
               transition:enterExit={{
                 duration: 200,
                 easing: easeEmphasizedDecel,
-                mode: "scale",
+                mode: 'scale'
               }}
             >
               {#each items as item}

@@ -1,12 +1,11 @@
-import type { Snippet } from "svelte";
-import type { HTMLAttributes } from "svelte/elements";
-import type { BodyVariants } from "./theme.js";
+import type { Snippet } from 'svelte';
+import type { HTMLAttributes } from 'svelte/elements';
+import type { BodyVariants } from './theme.js';
 
 /**
  * Props for the Body typography component.
  */
-export interface BodyProps
-  extends BodyVariants, HTMLAttributes<HTMLParagraphElement> {
+export interface BodyProps extends BodyVariants, HTMLAttributes<HTMLParagraphElement> {
   /**
    * Body text content.
    */
@@ -19,5 +18,5 @@ export interface BodyProps
    * The size of the body text.
    * @default 'medium'
    */
-  size?: "small" | "medium" | "large";
+  size?: 'small' | 'medium' | 'large';
 }

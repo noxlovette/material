@@ -6,17 +6,17 @@ Uses Material 3 selection button styling.
 @see https://m3.material.io/components/all-buttons
 -->
 <script lang="ts">
-  import type { ToggleMDProps } from "./types.js";
-  import { Icon, LoadingIndicator, Layer } from "$lib/utils/index.js";
-  import { button } from "./theme.js";
-  import clsx from "clsx";
-  import { Toggle, type ToggleRootProps } from "bits-ui";
+  import type { ToggleMDProps } from './types.js';
+  import { Icon, LoadingIndicator, Layer } from '$lib/utils/index.js';
+  import { button } from './theme.js';
+  import clsx from 'clsx';
+  import { Toggle, type ToggleRootProps } from 'bits-ui';
 
   let {
     children,
     iconProps,
-    size = "md",
-    shape = "round",
+    size = 'md',
+    shape = 'round',
     disabled,
     loading,
     pressed = $bindable(false),
@@ -27,13 +27,13 @@ Uses Material 3 selection button styling.
 
   const { base, icon } = $derived(
     button({
-      variant: "filled",
-      color: "default",
-      usage: "selection",
+      variant: 'filled',
+      color: 'default',
+      usage: 'selection',
       shape,
       size,
-      selected: pressed,
-    }),
+      selected: pressed
+    })
   );
 
   const btnCls = $derived(base({ class: clsx(className) }));

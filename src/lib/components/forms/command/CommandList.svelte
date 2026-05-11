@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { Command } from "bits-ui";
-  import clsx from "clsx";
-  import { command } from "./theme.js";
-  import type { CommandListProps } from "./types.js";
+  import { Command } from 'bits-ui';
+  import clsx from 'clsx';
+  import { command } from './theme.js';
+  import type { CommandListProps } from './types.js';
 
   let { children, class: className, ...restProps }: CommandListProps = $props();
 

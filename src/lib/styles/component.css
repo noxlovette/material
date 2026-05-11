@@ -1,7 +1,7 @@
 @layer utilities {
   :disabled,
   [disabled],
-  [aria-disabled="true"],
+  [aria-disabled='true'],
   [data-disabled] {
     cursor: not-allowed !important;
   }
@@ -14,13 +14,11 @@
 
   .md-btn-morph {
     border-radius: var(--btn-shape-override, var(--btn-shape, 9999px));
-    transition: border-radius 200ms
-      var(--md-sys-motion-timing-function-emphasized-accel);
+    transition: border-radius 200ms var(--md-sys-motion-timing-function-emphasized-accel);
 
     &::before {
       border-radius: inherit;
-      transition: border-radius 200ms
-        var(--md-sys-motion-timing-function-emphasized-accel);
+      transition: border-radius 200ms var(--md-sys-motion-timing-function-emphasized-accel);
     }
 
     &:active:not(:disabled) {
@@ -28,9 +26,7 @@
         --btn-pressed-shape,
         var(--btn-shape-override, var(--btn-shape, 9999px))
       ) !important;
-      transition-timing-function: var(
-        --md-sys-motion-timing-function-emphasized-decel
-      );
+      transition-timing-function: var(--md-sys-motion-timing-function-emphasized-decel);
     }
   }
 
@@ -107,8 +103,8 @@
     @apply bg-md-sys-color-surface-container-low text-md-sys-color-error shadow-elevation-1;
   }
 
-  [class^="material-symbols-"],
-  [class*=" material-symbols-"] {
+  [class^='material-symbols-'],
+  [class*=' material-symbols-'] {
     font-weight: normal;
     font-style: normal;
     font-size: 24px;
@@ -122,7 +118,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    font-feature-settings: "liga";
+    font-feature-settings: 'liga';
   }
 
   .text-link {

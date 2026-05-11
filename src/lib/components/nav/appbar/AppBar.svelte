@@ -8,9 +8,9 @@ They’re used for branding, screen titles, navigation, and actions.
 @see https://m3.material.io/components/top-app-bar/overview
 -->
 <script lang="ts">
-  import { appbar } from "./theme.js";
-  import type { AppBarProps } from "./types.js";
-  import clsx from "clsx";
+  import { appbar } from './theme.js';
+  import type { AppBarProps } from './types.js';
+  import clsx from 'clsx';
 
   let {
     children,
@@ -35,7 +35,7 @@ They’re used for branding, screen titles, navigation, and actions.
     textContainer,
     subtitle: subtitleCls,
     leading: leadingCls,
-    trailing: trailingCls,
+    trailing: trailingCls
   } = $derived(appbar({ scrolled, noLeading, noTrailing }));
   const navClass = $derived(base({ class: clsx(className) }));
 </script>

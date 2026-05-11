@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { toolbar } from "./theme.js";
+  import { toolbar } from './theme.js';
   const cls = toolbar();
 </script>
 

@@ -10,9 +10,9 @@ This component takes NavbarItems as its children
 @see https://m3.material.io/components/navigation-bar/overview
 -->
 <script lang="ts">
-  import type { Snippet } from "svelte";
-  import { navbar } from "./theme.js";
-  import { NavigationMenu } from "bits-ui";
+  import type { Snippet } from 'svelte';
+  import { navbar } from './theme.js';
+  import { NavigationMenu } from 'bits-ui';
 
   const { children, fab }: { children: Snippet; fab?: Snippet } = $props();
 

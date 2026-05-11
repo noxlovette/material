@@ -5,27 +5,23 @@ Link Previews display a preview of a link's content when hovered.
 @see https://bits-ui.com/docs/components/link-preview
 -->
 <script lang="ts">
-  import { LinkPreview } from "bits-ui";
-  import clsx from "clsx";
-  import { linkPreview } from "./theme.js";
-  import type { LinkPreviewProps } from "./types.js";
-  import {
-    enterExit,
-    easeEmphasizedDecel,
-    easeEmphasizedAccel,
-  } from "$lib/animation/index.js";
-  import { Layer } from "$lib/utils/index.js";
+  import { LinkPreview } from 'bits-ui';
+  import clsx from 'clsx';
+  import { linkPreview } from './theme.js';
+  import type { LinkPreviewProps } from './types.js';
+  import { enterExit, easeEmphasizedDecel, easeEmphasizedAccel } from '$lib/animation/index.js';
+  import { Layer } from '$lib/utils/index.js';
 
   let {
     trigger,
     children,
     open = $bindable(false),
-    side = "bottom",
-    align = "center",
+    side = 'bottom',
+    align = 'center',
     sideOffset = 8,
     openDelay = 700,
     closeDelay = 300,
-    class: className,
+    class: className
   }: LinkPreviewProps = $props();
 
   const { base, content } = linkPreview();
@@ -47,12 +43,12 @@ Link Previews display a preview of a link's content when hovered.
               in:enterExit={{
                 duration: 200,
                 easing: easeEmphasizedDecel,
-                mode: "scale",
+                mode: 'scale'
               }}
               out:enterExit={{
                 duration: 150,
                 easing: easeEmphasizedAccel,
-                mode: "scale",
+                mode: 'scale'
               }}
             >
               <Layer />

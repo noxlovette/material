@@ -1,13 +1,12 @@
-import type { IconProps } from "$lib/utils/index.js";
-import type { Snippet } from "svelte";
-import type { HTMLInputAttributes } from "svelte/elements";
-import type { SearchVariants } from "./theme.js";
+import type { IconProps } from '$lib/utils/index.js';
+import type { Snippet } from 'svelte';
+import type { HTMLInputAttributes } from 'svelte/elements';
+import type { SearchVariants } from './theme.js';
 
 /**
  * Props for the Search component.
  */
-export interface SearchProps
-  extends SearchVariants, Omit<HTMLInputAttributes, "size"> {
+export interface SearchProps extends SearchVariants, Omit<HTMLInputAttributes, 'size'> {
   /**
    * The content of the search bar, typically used for custom layouts.
    */

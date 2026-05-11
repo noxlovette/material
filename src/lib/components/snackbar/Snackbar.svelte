@@ -5,15 +5,12 @@ Snackbars provide brief messages about app processes at the bottom of the screen
 @see https://m3.material.io/components/snackbars/overview
 -->
 <script lang="ts">
-  import { snackbar } from "./theme.js";
-  import type { SnackBarProps } from "./types.js";
-  import Icon from "../../utils/icon/Icon.svelte";
-  import { Layer } from "$lib/utils/index.js";
-  import { enterExit } from "$lib/animation/enterExit.js";
-  import {
-    easeEmphasizedDecel,
-    easeEmphasizedAccel,
-  } from "$lib/animation/easing.js";
+  import { snackbar } from './theme.js';
+  import type { SnackBarProps } from './types.js';
+  import Icon from '../../utils/icon/Icon.svelte';
+  import { Layer } from '$lib/utils/index.js';
+  import { enterExit } from '$lib/animation/enterExit.js';
+  import { easeEmphasizedDecel, easeEmphasizedAccel } from '$lib/animation/easing.js';
 
   let {
     message,
@@ -32,7 +29,7 @@ Snackbars provide brief messages about app processes at the bottom of the screen
     if (isStatic) return;
     const t = setTimeout(() => {
       dismissed = true;
-      message = "";
+      message = '';
     }, 5000);
     return () => clearTimeout(t);
   });
@@ -50,7 +47,7 @@ Snackbars provide brief messages about app processes at the bottom of the screen
     icon,
     label: labelCls,
     supportingText,
-    actionWrapper,
+    actionWrapper
   } = $derived(snackbar({ fixed }));
 </script>
 
@@ -62,15 +59,15 @@ Snackbars provide brief messages about app processes at the bottom of the screen
     in:enterExit={{
       duration: 400,
       easing: easeEmphasizedDecel,
-      mode: "slide-up",
+      mode: 'slide-up'
     }}
     out:enterExit={{
       duration: 200,
       easing: easeEmphasizedAccel,
-      mode: "slide-up",
+      mode: 'slide-up'
     }}
   >
-    {#if typeof message === "string"}
+    {#if typeof message === 'string'}
       <p class={supportingText()}>{message}</p>
     {:else}
       <p class={supportingText()}>
@@ -91,7 +88,7 @@ Snackbars provide brief messages about app processes at the bottom of the screen
           class="relative rounded-full p-1"
           onclick={() => {
             dismissed = true;
-            message = "";
+            message = '';
           }}
           aria-label="Dismiss snackbar"
           data-cy="notification-dismiss"

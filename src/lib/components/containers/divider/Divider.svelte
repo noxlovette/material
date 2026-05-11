@@ -9,17 +9,17 @@ Powered by bits-ui for accessibility.
 @see https://m3.material.io/components/divider/overview
 -->
 <script lang="ts">
-  import { Separator } from "bits-ui";
-  import clsx from "clsx";
-  import { hr } from "./theme.js";
-  import type { HrProps } from "./types.js";
-  import { linear } from "../../progress/_wavy.js";
+  import { Separator } from 'bits-ui';
+  import clsx from 'clsx';
+  import { hr } from './theme.js';
+  import type { HrProps } from './types.js';
+  import { linear } from '../../progress/_wavy.js';
 
   let {
     class: className,
     children,
-    variant = "full",
-    orientation = "horizontal",
+    variant = 'full',
+    orientation = 'horizontal',
     decorative = true,
     ...restProps
   }: HrProps = $props();
@@ -27,11 +27,11 @@ Powered by bits-ui for accessibility.
   let styling = $derived(hr({ variant, orientation }));
   let lineClass = $derived(
     clsx(
-      "bg-md-sys-color-outline-variant",
-      orientation === "horizontal" ? "h-[1px] w-full" : "w-[1px] h-full",
-    ),
+      'bg-md-sys-color-outline-variant',
+      orientation === 'horizontal' ? 'h-[1px] w-full' : 'w-[1px] h-full'
+    )
   );
-  let insetClass = $derived(variant === "inset" ? "mr-2 ml-4" : "");
+  let insetClass = $derived(variant === 'inset' ? 'mr-2 ml-4' : '');
 
   let host = $state<HTMLDivElement | null>(null);
   let width = $state(0);
@@ -41,12 +41,10 @@ Powered by bits-ui for accessibility.
   let waveCenter = $derived(waveHeight / 2);
   let left = $derived(waveThickness * 0.5);
   let right = $derived(Math.max(left, width - waveThickness * 0.5));
-  let wavePath = $derived(
-    width > 0 ? linear(waveAmp, waveCenter, left, right, 0) : "",
-  );
+  let wavePath = $derived(width > 0 ? linear(waveAmp, waveCenter, left, right, 0) : '');
 
   $effect(() => {
-    if (variant !== "wavy" || !host || typeof window === "undefined") return;
+    if (variant !== 'wavy' || !host || typeof window === 'undefined') return;
     const observer = new ResizeObserver((entries) => {
       const entry = entries[0];
       width = Math.max(0, entry?.contentRect.width ?? 0);
@@ -58,12 +56,12 @@ Powered by bits-ui for accessibility.
   });
 </script>
 
-{#if variant === "wavy"}
+{#if variant === 'wavy'}
   <div
     {...restProps}
     bind:this={host}
-    class={clsx("w-full", insetClass, className)}
-    role={decorative ? "none" : "separator"}
+    class={clsx('w-full', insetClass, className)}
+    role={decorative ? 'none' : 'separator'}
     aria-orientation={orientation}
   >
     <svg
@@ -82,11 +80,11 @@ Powered by bits-ui for accessibility.
       />
     </svg>
   </div>
-{:else if children && orientation === "horizontal"}
+{:else if children && orientation === 'horizontal'}
   <div
     {...restProps}
-    class={clsx("flex h-full w-full items-center gap-3", insetClass, className)}
-    role={decorative ? "none" : "separator"}
+    class={clsx('flex h-full w-full items-center gap-3', insetClass, className)}
+    role={decorative ? 'none' : 'separator'}
     aria-orientation="horizontal"
   >
     <div class={lineClass}></div>
@@ -98,10 +96,5 @@ Powered by bits-ui for accessibility.
     <div class={lineClass}></div>
   </div>
 {:else}
-  <Separator.Root
-    {...restProps}
-    {orientation}
-    {decorative}
-    class={clsx(styling, className)}
-  />
+  <Separator.Root {...restProps} {orientation} {decorative} class={clsx(styling, className)} />
 {/if}

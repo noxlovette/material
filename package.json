@@ -3,14 +3,18 @@
   "version": "0.1.0",
   "type": "module",
   "license": "MIT",
-  "repository": {"url": "git+https://github.com/noxlovette/material.git"},
+  "repository": {
+    "url": "git+https://github.com/noxlovette/material.git"
+  },
   "publishConfig": {
-    "@noxlovette:registry": "https://npm.pkg.github.com"
+    "registry": "https://npm.pkg.github.com"
   },
   "scripts": {
     "build": "svelte-package",
     "prepublishOnly": "bun run build",
     "check": "svelte-kit sync && svelte-check",
+    "test": "vitest run",
+    "format": "prettier --write .",
     "dev": "vite dev"
   },
   "files": [
@@ -54,6 +58,7 @@
     "globals": "^17.6.0",
     "lefthook": "^2.1.6",
     "prettier": "^3.8.3",
+    "prettier-plugin-organize-imports": "^4.3.0",
     "prettier-plugin-svelte": "^3.5.1",
     "prettier-plugin-tailwindcss": "^0.8.0",
     "publint": "^0.3.20",

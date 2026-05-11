@@ -1,13 +1,12 @@
-import type { IconProps } from "$lib/utils/index.js";
-import type { Snippet } from "svelte";
-import type { HTMLAttributes } from "svelte/elements";
-import type { RailItemVariants, RailVariants } from "./theme.js";
+import type { IconProps } from '$lib/utils/index.js';
+import type { Snippet } from 'svelte';
+import type { HTMLAttributes } from 'svelte/elements';
+import type { RailItemVariants, RailVariants } from './theme.js';
 
 /**
  * Props for the RailItem component.
  */
-export interface RailItemProps
-  extends RailItemVariants, HTMLAttributes<HTMLAnchorElement> {
+export interface RailItemProps extends RailItemVariants, HTMLAttributes<HTMLAnchorElement> {
   /** Props passed to the Icon component. */
   iconProps: IconProps;
   /** An optional numeric badge to display on the icon. Use -1 for a small dot. */
@@ -42,7 +41,7 @@ export type RailProps = RailVariants &
     /** Whether the rail is currently collapsed. */
     collapsed?: boolean;
     /** Where the rail should be anchored. */
-    anchor?: RailVariants["anchor"];
+    anchor?: RailVariants['anchor'];
     /** Top offset in px for viewport/parent anchor (e.g. height of a top bar). Default 0. */
     railTop?: number;
   };

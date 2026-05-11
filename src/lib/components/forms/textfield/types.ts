@@ -1,14 +1,14 @@
-import type { IconProps } from "$lib/utils/index.js";
-import type { DateValue } from "@internationalized/date";
-import type { Snippet } from "svelte";
-import type { HTMLInputAttributes } from "svelte/elements";
-import type { TextFieldVariants } from "./theme.js";
+import type { IconProps } from '$lib/utils/index.js';
+import type { DateValue } from '@internationalized/date';
+import type { Snippet } from 'svelte';
+import type { HTMLInputAttributes } from 'svelte/elements';
+import type { TextFieldVariants } from './theme.js';
 
 /**
  * Props for the Textfield component.
  */
 export type TextfieldProps = TextFieldVariants &
-  Omit<HTMLInputAttributes, "children" | "value"> & {
+  Omit<HTMLInputAttributes, 'children' | 'value'> & {
     /**
      * The current value of the text field.
      */
@@ -27,7 +27,7 @@ export type TextfieldProps = TextFieldVariants &
     /**
      * The placeholder text for the input element.
      */
-    placeholder?: ""; // hardcode the shit
+    placeholder?: ''; // hardcode the shit
 
     /**
      * Reference to the HTML input element.

@@ -8,14 +8,14 @@ export const linear = (
   from: number,
   to: number,
   time: number,
-  cutoffTo?: number,
+  cutoffTo?: number
 ) => {
   time = time * frequencyT;
   time %= Math.PI * 2;
 
-  if (from >= to) return "";
+  if (from >= to) return '';
 
-  let path = "";
+  let path = '';
   for (let xIterator = from; xIterator <= to; xIterator += 0.5) {
     const x = cutoffTo ? Math.min(cutoffTo, xIterator) : xIterator;
     const sinV = Math.sin(x * frequencyX + time);

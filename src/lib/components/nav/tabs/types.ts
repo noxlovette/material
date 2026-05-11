@@ -1,5 +1,5 @@
-import type { IconProps } from "$lib/utils/index.js";
-import type { TabVariants } from "./theme.js";
+import type { IconProps } from '$lib/utils/index.js';
+import type { TabVariants } from './theme.js';
 
 export type TabProps = {
   /** Props for the Icon component. Omit for secondary tabs. */
@@ -16,7 +16,7 @@ export type TabProps = {
   /** Whether the tab is disabled. */
   disabled?: boolean;
   /** Tab style variant inherited from the parent TabHolder. */
-  variant?: TabVariants["variant"];
+  variant?: TabVariants['variant'];
   /** Additional CSS classes. */
   class?: string;
 };
@@ -27,9 +27,9 @@ export type TabHolderProps = {
   /** Callback when the active tab changes. */
   onValueChange?: (value: string) => void;
   /** Whether tabs activate on focus (automatic) or require Enter/Space (manual). */
-  activationMode?: "automatic" | "manual";
+  activationMode?: 'automatic' | 'manual';
   /** Primary tabs show icon + label; secondary tabs show label only. */
-  variant?: TabVariants["variant"];
+  variant?: TabVariants['variant'];
   /** Tab items to render. */
   items: TabProps[];
 };

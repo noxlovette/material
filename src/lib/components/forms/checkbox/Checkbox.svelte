@@ -5,11 +5,11 @@ Checkboxes let users select one or more items from a list, or turn an item on or
 @see https://m3.material.io/components/checkbox/overview
 -->
 <script lang="ts">
-  import clsx from "clsx";
-  import { checkbox } from "./theme.js";
-  import type { CheckboxProps } from "./types.js";
-  import { Layer } from "$lib/utils/index.js";
-  import { Checkbox } from "bits-ui";
+  import clsx from 'clsx';
+  import { checkbox } from './theme.js';
+  import type { CheckboxProps } from './types.js';
+  import { Layer } from '$lib/utils/index.js';
+  import { Checkbox } from 'bits-ui';
 
   let {
     label,
@@ -18,14 +18,12 @@ Checkboxes let users select one or more items from a list, or turn an item on or
     checked = $bindable(false),
     disabled = false,
     error = false,
-    align = "start",
+    align = 'start',
     class: className,
     ...restProps
   }: CheckboxProps = $props();
 
-  const state = $derived(
-    indeterminate ? "indeterminate" : checked ? "checked" : "unchecked",
-  );
+  const state = $derived(indeterminate ? 'indeterminate' : checked ? 'checked' : 'unchecked');
   const cls = $derived(checkbox({ state, error, align, disabled }));
 </script>
 
@@ -43,11 +41,7 @@ Checkboxes let users select one or more items from a list, or turn an item on or
         <div class={cls.box()}></div>
       </div>
       <span class={cls.indeterminateIcon()}></span>
-      <svg
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-        class={cls.checkIcon()}
-      >
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class={cls.checkIcon()}>
         <path
           d="M 4.83 13.41 L 9 17.585 L 19.59 7"
           fill="none"

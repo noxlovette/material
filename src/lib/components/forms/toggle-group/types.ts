@@ -1,10 +1,10 @@
-import type { IconProps } from "$lib/utils/index.js";
-import type { Snippet } from "svelte";
-import type { ToggleGroupItemVariants, ToggleGroupVariants } from "./theme.js";
+import type { IconProps } from '$lib/utils/index.js';
+import type { Snippet } from 'svelte';
+import type { ToggleGroupItemVariants, ToggleGroupVariants } from './theme.js';
 
 export type ToggleGroupProps = ToggleGroupVariants & {
   /** Whether only one item can be active at a time, or multiple. */
-  type: "single" | "multiple";
+  type: 'single' | 'multiple';
   /** Currently selected value(s). @bindable */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   value?: any;
@@ -12,7 +12,7 @@ export type ToggleGroupProps = ToggleGroupVariants & {
   onValueChange?: (value: any) => void;
   disabled?: boolean;
   loop?: boolean;
-  orientation?: "horizontal" | "vertical";
+  orientation?: 'horizontal' | 'vertical';
   children?: Snippet;
   class?: string;
 };

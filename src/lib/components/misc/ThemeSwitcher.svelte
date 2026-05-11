@@ -1,21 +1,15 @@
 <script lang="ts">
-  import { Popover } from "../containers/popover/index.js";
-  import { FAB } from "../buttons/index.js";
-  import ThemeSettings from "./ThemeSettings.svelte";
+  import { Popover } from '../containers/popover/index.js';
+  import { FAB } from '../buttons/index.js';
+  import ThemeSettings from './ThemeSettings.svelte';
 
   let open = $state(false);
 </script>
 
 <div class="fixed right-4 bottom-4 z-50">
-  <Popover
-    bind:open
-    title="Theme Settings"
-    side="top"
-    align="end"
-    sideOffset={16}
-  >
+  <Popover bind:open title="Theme Settings" side="top" align="end" sideOffset={16}>
     {#snippet trigger()}
-      <FAB iconProps={{ name: "palette" }} config="primary" />
+      <FAB iconProps={{ name: 'palette' }} config="primary" />
     {/snippet}
 
     <div

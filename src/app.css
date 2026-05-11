@@ -9,10 +9,9 @@
 
 @custom-variant dark (&:is(.dark *));
 
-
 @theme {
-	--font-sans: 'Google Sans Flex', 'Roboto Flex', ui-sans-serif, system-ui, sans-serif;
-	--font-mono: "Google Sans Code", ui-monospace, SFMono-Regular;
-	--default-transition-duration: 0ms;
-	--default-transition-timing-function: var(--md-sys-motion-timing-function-emphasized-decel);
+  --font-sans: 'Google Sans Flex', 'Roboto Flex', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Google Sans Code', ui-monospace, SFMono-Regular;
+  --default-transition-duration: 0ms;
+  --default-transition-timing-function: var(--md-sys-motion-timing-function-emphasized-decel);
 }

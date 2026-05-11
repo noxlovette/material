@@ -1,8 +1,8 @@
-import type { CheckboxRootProps } from "bits-ui";
-import type { CheckboxM3Variants } from "./theme.js";
+import type { CheckboxRootProps } from 'bits-ui';
+import type { CheckboxM3Variants } from './theme.js';
 
 export type CheckboxProps = CheckboxM3Variants &
-  Omit<CheckboxRootProps, "children" | "checked" | "indeterminate"> & {
+  Omit<CheckboxRootProps, 'children' | 'checked' | 'indeterminate'> & {
     /**
      * The text label for the checkbox.
      */
@@ -37,5 +37,5 @@ export type CheckboxProps = CheckboxM3Variants &
      * Vertical alignment of the checkbox relative to its label.
      * @default 'start'
      */
-    align?: "start" | "center";
+    align?: 'start' | 'center';
   };

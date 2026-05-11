@@ -5,16 +5,16 @@ Radio buttons let users select one option from a set.
 @see https://m3.material.io/components/radio-button/overview
 -->
 <script lang="ts">
-  import clsx from "clsx";
-  import { RadioGroup } from "bits-ui";
-  import { Layer } from "$lib/utils/index.js";
-  import { radioGroup } from "./theme.js";
-  import type { RadioGroupProps } from "./types.js";
+  import clsx from 'clsx';
+  import { RadioGroup } from 'bits-ui';
+  import { Layer } from '$lib/utils/index.js';
+  import { radioGroup } from './theme.js';
+  import type { RadioGroupProps } from './types.js';
 
   let {
     items,
-    value = $bindable(""),
-    orientation = "vertical",
+    value = $bindable(''),
+    orientation = 'vertical',
     disabled = false,
     error = false,
     class: className,
@@ -37,14 +37,10 @@ Radio buttons let users select one option from a set.
     {@const itemCls = radioGroup({
       checked: isChecked,
       disabled: isDisabled,
-      error,
+      error
     })}
 
-    <RadioGroup.Item
-      value={item.value}
-      disabled={isDisabled}
-      class={itemCls.item()}
-    >
+    <RadioGroup.Item value={item.value} disabled={isDisabled} class={itemCls.item()}>
       {#snippet children({ checked })}
         <div class={itemCls.indicator()}>
           <div class={itemCls.control()}>

@@ -4,21 +4,13 @@ A menu container for multiple FAB actions.
 Should be used with `FABMenuItem` as children.
 -->
 <script lang="ts">
-  import clsx from "clsx";
-  import { fabMenu } from "./theme.js";
-  import type { FABMenuProps } from "./types.js";
-  import { enterExit } from "$lib/animation/enterExit.js";
-  import {
-    easeEmphasizedDecel,
-    easeEmphasizedAccel,
-  } from "$lib/animation/easing.js";
+  import clsx from 'clsx';
+  import { fabMenu } from './theme.js';
+  import type { FABMenuProps } from './types.js';
+  import { enterExit } from '$lib/animation/enterExit.js';
+  import { easeEmphasizedDecel, easeEmphasizedAccel } from '$lib/animation/easing.js';
 
-  let {
-    children,
-    class: className,
-    position = "top",
-    ...restProps
-  }: FABMenuProps = $props();
+  let { children, class: className, position = 'top', ...restProps }: FABMenuProps = $props();
 
   const { base } = $derived(fabMenu({ position }));
 
@@ -27,9 +19,9 @@ Should be used with `FABMenuItem` as children.
   let coords = $state({
     x: 0,
     y: 0,
-    originX: "left",
-    originY: "top",
-    maxHeight: 0,
+    originX: 'left',
+    originY: 'top',
+    maxHeight: 0
   });
 
   // TODO: out:enterExit={{ duration: 200, easing: easeEmphasizedAccel, mode: 'scale' }} – if you can solve how to eliminate another button from appearing here, use this too
@@ -38,9 +30,9 @@ Should be used with `FABMenuItem` as children.
 <ul
   {...restProps}
   class={base({
-    class: clsx(className, "fab-menu overflow-y-auto"),
+    class: clsx(className, 'fab-menu overflow-y-auto')
   })}
-  in:enterExit={{ duration: 300, easing: easeEmphasizedDecel, mode: "scale" }}
+  in:enterExit={{ duration: 300, easing: easeEmphasizedDecel, mode: 'scale' }}
   style:translate={`${coords.x}px ${coords.y}px`}
   style:max-height={coords.maxHeight ? `${coords.maxHeight}px` : undefined}
   style:--enter-exit-origin={`${coords.originY} ${coords.originX}`}
@@ -51,15 +43,12 @@ Should be used with `FABMenuItem` as children.
 
     const spaceAbove = anchorRect.top - gap - margin;
     const spaceBelow = window.innerHeight - margin - (anchorRect.bottom + gap);
-    const placeAbove =
-      spaceAbove >= rect.height || spaceAbove >= Math.max(0, spaceBelow);
+    const placeAbove = spaceAbove >= rect.height || spaceAbove >= Math.max(0, spaceBelow);
 
     let maxHeight = placeAbove ? spaceAbove : spaceBelow;
     maxHeight = Math.max(0, Math.min(rect.height, maxHeight));
 
-    const targetTop = placeAbove
-      ? anchorRect.top - gap - maxHeight
-      : anchorRect.bottom + gap;
+    const targetTop = placeAbove ? anchorRect.top - gap - maxHeight : anchorRect.bottom + gap;
 
     let targetLeft = anchorRect.right - rect.width;
 
@@ -80,11 +69,9 @@ Should be used with `FABMenuItem` as children.
 
     const x = targetLeft - rect.left;
     const y = clampedTop - rect.top;
-    const originY = placeAbove ? "bottom" : "top";
+    const originY = placeAbove ? 'bottom' : 'top';
     const originX =
-      anchorRect.left + anchorRect.width / 2 < targetLeft + rect.width / 2
-        ? "left"
-        : "right";
+      anchorRect.left + anchorRect.width / 2 < targetLeft + rect.width / 2 ? 'left' : 'right';
 
     coords = { x, y, originX, originY, maxHeight };
   }}

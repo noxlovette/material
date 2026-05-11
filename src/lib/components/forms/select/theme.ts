@@ -1,10 +1,10 @@
-import { tv, type VariantProps } from "tailwind-variants";
+import { tv, type VariantProps } from 'tailwind-variants';
 
 export type SelectVariants = VariantProps<typeof select>;
 
 export const select = tv({
   slots: {
-    root: "relative w-full",
+    root: 'relative w-full',
     base: `
       group w-full h-14 px-0 bg-md-sys-color-surface-container-highest
       rounded-t-xs state-layer before:rounded-xs hover:before:bg-md-sys-color-on-surface/8 relative flex items-center
@@ -70,21 +70,21 @@ export const select = tv({
       md-sys-typescale-body-small
       text-md-sys-color-on-surface-variant
       group-data-[invalid]:text-md-sys-color-error
-    `,
+    `
   },
   variants: {
     error: {
       true: {
-        base: "after:bg-md-sys-color-error data-[state=open]:after:bg-md-sys-color-error",
-        supportingText: "text-md-sys-color-error",
-        leadingIcon: "text-md-sys-color-error",
-        trailingIcon: "text-md-sys-color-error",
-      },
+        base: 'after:bg-md-sys-color-error data-[state=open]:after:bg-md-sys-color-error',
+        supportingText: 'text-md-sys-color-error',
+        leadingIcon: 'text-md-sys-color-error',
+        trailingIcon: 'text-md-sys-color-error'
+      }
     },
     disabled: {
       true: {
-        root: "cursor-not-allowed opacity-60",
-      },
-    },
-  },
+        root: 'cursor-not-allowed opacity-60'
+      }
+    }
+  }
 });

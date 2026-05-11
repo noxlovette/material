@@ -10,20 +10,20 @@ import {
   SchemeRainbow,
   SchemeTonalSpot,
   SchemeVibrant,
-  Score,
-} from "@ktibow/material-color-utilities-nightly";
+  Score
+} from '@ktibow/material-color-utilities-nightly';
 
 // --- Types & Config ---
 
-export type ColorScheme = "light" | "dark" | "system";
-export type ContrastMode = "standard" | "medium" | "high";
+export type ColorScheme = 'light' | 'dark' | 'system';
+export type ContrastMode = 'standard' | 'medium' | 'high';
 export type ThemeVariant =
-  | "tonal-spot"
-  | "fidelity"
-  | "content"
-  | "vibrant"
-  | "fruit-salad"
-  | "rainbow";
+  | 'tonal-spot'
+  | 'fidelity'
+  | 'content'
+  | 'vibrant'
+  | 'fruit-salad'
+  | 'rainbow';
 
 export interface ThemeConfig {
   sourceColor: string;
@@ -33,19 +33,19 @@ export interface ThemeConfig {
 }
 
 export const DEFAULT_CONFIG: ThemeConfig = {
-  sourceColor: "#6750A4",
-  scheme: "system",
-  contrast: "standard",
-  variant: "tonal-spot",
+  sourceColor: '#6750A4',
+  scheme: 'system',
+  contrast: 'standard',
+  variant: 'tonal-spot'
 };
 
 const SCHEME_VARIANTS: Record<ThemeVariant, any> = {
-  "tonal-spot": SchemeTonalSpot,
+  'tonal-spot': SchemeTonalSpot,
   fidelity: SchemeFidelity,
   content: SchemeContent,
   vibrant: SchemeVibrant,
-  "fruit-salad": SchemeFruitSalad,
-  rainbow: SchemeRainbow,
+  'fruit-salad': SchemeFruitSalad,
+  rainbow: SchemeRainbow
 };
 
 // --- State ---
@@ -59,18 +59,18 @@ export const themeState = $state<ThemeConfig>({ ...DEFAULT_CONFIG });
 // --- Utilities ---
 
 export function isDarkScheme(scheme: ColorScheme): boolean {
-  if (typeof window === "undefined") return scheme === "dark";
-  if (scheme === "system") {
-    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  if (typeof window === 'undefined') return scheme === 'dark';
+  if (scheme === 'system') {
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
   }
-  return scheme === "dark";
+  return scheme === 'dark';
 }
 
 function getContrastLevel(contrast: ContrastMode): number {
   switch (contrast) {
-    case "medium":
+    case 'medium':
       return 0.5;
-    case "high":
+    case 'high':
       return 1.0;
     default:
       return 0.0;
@@ -80,10 +80,7 @@ function getContrastLevel(contrast: ContrastMode): number {
 /**
  * Generates the CSS variables for a given theme configuration.
  */
-export function generateThemeCSS(
-  config: ThemeConfig,
-  isDark?: boolean,
-): string {
+export function generateThemeCSS(config: ThemeConfig, isDark?: boolean): string {
   const hct = Hct.fromInt(argbFromHex(config.sourceColor));
   const dark = isDark ?? isDarkScheme(config.scheme);
   const contrastLevel = getContrastLevel(config.contrast);
@@ -93,54 +90,54 @@ export function generateThemeCSS(
 
   const colors = {
     primary: MaterialDynamicColors.primary,
-    "surface-tint": MaterialDynamicColors.surfaceTint,
-    "on-primary": MaterialDynamicColors.onPrimary,
-    "primary-container": MaterialDynamicColors.primaryContainer,
-    "on-primary-container": MaterialDynamicColors.onPrimaryContainer,
+    'surface-tint': MaterialDynamicColors.surfaceTint,
+    'on-primary': MaterialDynamicColors.onPrimary,
+    'primary-container': MaterialDynamicColors.primaryContainer,
+    'on-primary-container': MaterialDynamicColors.onPrimaryContainer,
     secondary: MaterialDynamicColors.secondary,
-    "on-secondary": MaterialDynamicColors.onSecondary,
-    "secondary-container": MaterialDynamicColors.secondaryContainer,
-    "on-secondary-container": MaterialDynamicColors.onSecondaryContainer,
+    'on-secondary': MaterialDynamicColors.onSecondary,
+    'secondary-container': MaterialDynamicColors.secondaryContainer,
+    'on-secondary-container': MaterialDynamicColors.onSecondaryContainer,
     tertiary: MaterialDynamicColors.tertiary,
-    "on-tertiary": MaterialDynamicColors.onTertiary,
-    "tertiary-container": MaterialDynamicColors.tertiaryContainer,
-    "on-tertiary-container": MaterialDynamicColors.onTertiaryContainer,
+    'on-tertiary': MaterialDynamicColors.onTertiary,
+    'tertiary-container': MaterialDynamicColors.tertiaryContainer,
+    'on-tertiary-container': MaterialDynamicColors.onTertiaryContainer,
     error: MaterialDynamicColors.error,
-    "on-error": MaterialDynamicColors.onError,
-    "error-container": MaterialDynamicColors.errorContainer,
-    "on-error-container": MaterialDynamicColors.onErrorContainer,
+    'on-error': MaterialDynamicColors.onError,
+    'error-container': MaterialDynamicColors.errorContainer,
+    'on-error-container': MaterialDynamicColors.onErrorContainer,
     background: MaterialDynamicColors.background,
-    "on-background": MaterialDynamicColors.onBackground,
+    'on-background': MaterialDynamicColors.onBackground,
     surface: MaterialDynamicColors.surface,
-    "on-surface": MaterialDynamicColors.onSurface,
-    "surface-variant": MaterialDynamicColors.surfaceVariant,
-    "on-surface-variant": MaterialDynamicColors.onSurfaceVariant,
+    'on-surface': MaterialDynamicColors.onSurface,
+    'surface-variant': MaterialDynamicColors.surfaceVariant,
+    'on-surface-variant': MaterialDynamicColors.onSurfaceVariant,
     outline: MaterialDynamicColors.outline,
-    "outline-variant": MaterialDynamicColors.outlineVariant,
+    'outline-variant': MaterialDynamicColors.outlineVariant,
     shadow: MaterialDynamicColors.shadow,
     scrim: MaterialDynamicColors.scrim,
-    "inverse-surface": MaterialDynamicColors.inverseSurface,
-    "inverse-on-surface": MaterialDynamicColors.inverseOnSurface,
-    "inverse-primary": MaterialDynamicColors.inversePrimary,
-    "primary-fixed": MaterialDynamicColors.primaryFixed,
-    "primary-fixed-dim": MaterialDynamicColors.primaryFixedDim,
-    "on-primary-fixed": MaterialDynamicColors.onPrimaryFixed,
-    "on-primary-fixed-variant": MaterialDynamicColors.onPrimaryFixedVariant,
-    "secondary-fixed": MaterialDynamicColors.secondaryFixed,
-    "secondary-fixed-dim": MaterialDynamicColors.secondaryFixedDim,
-    "on-secondary-fixed": MaterialDynamicColors.onSecondaryFixed,
-    "on-secondary-fixed-variant": MaterialDynamicColors.onSecondaryFixedVariant,
-    "tertiary-fixed": MaterialDynamicColors.tertiaryFixed,
-    "tertiary-fixed-dim": MaterialDynamicColors.tertiaryFixedDim,
-    "on-tertiary-fixed": MaterialDynamicColors.onTertiaryFixed,
-    "on-tertiary-fixed-variant": MaterialDynamicColors.onTertiaryFixedVariant,
-    "surface-dim": MaterialDynamicColors.surfaceDim,
-    "surface-bright": MaterialDynamicColors.surfaceBright,
-    "surface-container-lowest": MaterialDynamicColors.surfaceContainerLowest,
-    "surface-container-low": MaterialDynamicColors.surfaceContainerLow,
-    "surface-container": MaterialDynamicColors.surfaceContainer,
-    "surface-container-high": MaterialDynamicColors.surfaceContainerHigh,
-    "surface-container-highest": MaterialDynamicColors.surfaceContainerHighest,
+    'inverse-surface': MaterialDynamicColors.inverseSurface,
+    'inverse-on-surface': MaterialDynamicColors.inverseOnSurface,
+    'inverse-primary': MaterialDynamicColors.inversePrimary,
+    'primary-fixed': MaterialDynamicColors.primaryFixed,
+    'primary-fixed-dim': MaterialDynamicColors.primaryFixedDim,
+    'on-primary-fixed': MaterialDynamicColors.onPrimaryFixed,
+    'on-primary-fixed-variant': MaterialDynamicColors.onPrimaryFixedVariant,
+    'secondary-fixed': MaterialDynamicColors.secondaryFixed,
+    'secondary-fixed-dim': MaterialDynamicColors.secondaryFixedDim,
+    'on-secondary-fixed': MaterialDynamicColors.onSecondaryFixed,
+    'on-secondary-fixed-variant': MaterialDynamicColors.onSecondaryFixedVariant,
+    'tertiary-fixed': MaterialDynamicColors.tertiaryFixed,
+    'tertiary-fixed-dim': MaterialDynamicColors.tertiaryFixedDim,
+    'on-tertiary-fixed': MaterialDynamicColors.onTertiaryFixed,
+    'on-tertiary-fixed-variant': MaterialDynamicColors.onTertiaryFixedVariant,
+    'surface-dim': MaterialDynamicColors.surfaceDim,
+    'surface-bright': MaterialDynamicColors.surfaceBright,
+    'surface-container-lowest': MaterialDynamicColors.surfaceContainerLowest,
+    'surface-container-low': MaterialDynamicColors.surfaceContainerLow,
+    'surface-container': MaterialDynamicColors.surfaceContainer,
+    'surface-container-high': MaterialDynamicColors.surfaceContainerHigh,
+    'surface-container-highest': MaterialDynamicColors.surfaceContainerHighest
   };
 
   let css = `:root { /* Dynamic M3 Theme */\n`;
@@ -159,16 +156,14 @@ export function generateThemeCSS(
 /**
  * Extracts the dominant color from an image file.
  */
-export async function extractColorFromImage(
-  imageFile: File,
-): Promise<string | null> {
+export async function extractColorFromImage(imageFile: File): Promise<string | null> {
   return new Promise((resolve) => {
     const img = new Image();
     const url = URL.createObjectURL(imageFile);
 
     img.onload = () => {
-      const canvas = document.createElement("canvas");
-      const ctx = canvas.getContext("2d");
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
       if (!ctx) {
         resolve(null);
         return;
@@ -194,12 +189,7 @@ export async function extractColorFromImage(
       const pixelsArray = [];
       for (let i = 0; i < data.length; i += 4) {
         if (data[i + 3] < 255) continue;
-        pixelsArray.push(
-          (data[i + 3] << 24) |
-            (data[i] << 16) |
-            (data[i + 1] << 8) |
-            data[i + 2],
-        );
+        pixelsArray.push((data[i + 3] << 24) | (data[i] << 16) | (data[i + 1] << 8) | data[i + 2]);
       }
 
       const result = QuantizerCelebi.quantize(pixelsArray, 128);

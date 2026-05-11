@@ -7,18 +7,18 @@ Switches toggle the state of a single setting on or off.
 @see https://m3.material.io/components/switch/overview
 -->
 <script lang="ts">
-  import clsx from "clsx";
-  import { Icon } from "$lib/utils/index.js";
-  import { toggle } from "./theme.js";
-  import type { SwitchProps } from "./types.js";
-  import { Switch } from "bits-ui";
+  import clsx from 'clsx';
+  import { Icon } from '$lib/utils/index.js';
+  import { toggle } from './theme.js';
+  import type { SwitchProps } from './types.js';
+  import { Switch } from 'bits-ui';
 
   let {
     checked = $bindable(false),
     disabled = false,
-    checkedIconProps = { name: "check" },
-    uncheckedIconProps = { name: "close" },
-    icons = "checked",
+    checkedIconProps = { name: 'check' },
+    uncheckedIconProps = { name: 'close' },
+    icons = 'checked',
     class: className,
     ...restProps
   }: SwitchProps = $props();
@@ -32,8 +32,9 @@ Switches toggle the state of a single setting on or off.
     startX = undefined;
   };
 
-  const { root, handle, hover, icon, input, iconChecked, iconUnchecked } =
-    $derived(toggle({ icons }));
+  const { root, handle, hover, icon, input, iconChecked, iconUnchecked } = $derived(
+    toggle({ icons })
+  );
   const rootClass = $derived(String(root({ class: className as any })));
 </script>
 
@@ -43,28 +44,25 @@ Switches toggle the state of a single setting on or off.
   bind:checked
   {disabled}
   {...restProps}
-  class={clsx(rootClass, "group") as any}
+  class={clsx(rootClass, 'group') as any}
   onpointerdown={(e) => {
     if (!disabled) startX = e.clientX;
   }}
   ondragstart={(e) => e.preventDefault()}
 >
   {#snippet child({ props })}
-    <button {...props} type="button" class={clsx(rootClass, "group")}>
+    <button {...props} type="button" class={clsx(rootClass, 'group')}>
       <!-- Track (formerly the input) -->
       <div class={String(input())}></div>
 
       <!-- Thumb -->
       <div class={String(handle())}>
-        {#if icons !== "none"}
+        {#if icons !== 'none'}
           <!-- checked icon -->
           <Icon class={clsx(icon(), iconChecked())} {...checkedIconProps} />
-          {#if icons === "both"}
+          {#if icons === 'both'}
             <!-- unchecked icon -->
-            <Icon
-              class={clsx(icon(), iconUnchecked())}
-              {...uncheckedIconProps}
-            />
+            <Icon class={clsx(icon(), iconUnchecked())} {...uncheckedIconProps} />
           {/if}
         {/if}
       </div>

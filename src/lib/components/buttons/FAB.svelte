@@ -10,21 +10,21 @@ Floating action buttons (FABs) help people take primary actions.
 @see https://m3.material.io/components/floating-action-button/overview
 -->
 <script lang="ts">
-  import clsx from "clsx";
-  import { fab } from "./theme.js";
-  import type { FABProps } from "./types.js";
-  import FABMenu from "./FABMenu.svelte";
-  import ButtonIcon from "./ButtonIcon.svelte";
-  import { Layer, Icon } from "$lib/utils/index.js";
-  import { clickOutside } from "$lib/actions/index.js";
-  import { Button, type ButtonRootProps } from "bits-ui";
+  import clsx from 'clsx';
+  import { fab } from './theme.js';
+  import type { FABProps } from './types.js';
+  import FABMenu from './FABMenu.svelte';
+  import ButtonIcon from './ButtonIcon.svelte';
+  import { Layer, Icon } from '$lib/utils/index.js';
+  import { clickOutside } from '$lib/actions/index.js';
+  import { Button, type ButtonRootProps } from 'bits-ui';
 
   let {
     children,
     disabled,
     formaction,
-    size = "regular",
-    config = "primary",
+    size = 'regular',
+    config = 'primary',
     iconProps,
     label,
     expanded = false,
@@ -33,11 +33,7 @@ Floating action buttons (FABs) help people take primary actions.
     ...restProps
   }: FABProps = $props();
 
-  const {
-    base,
-    icon,
-    label: labelClass,
-  } = $derived(fab({ size, config, expanded }));
+  const { base, icon, label: labelClass } = $derived(fab({ size, config, expanded }));
   const btnCls = $derived(base({ class: clsx(className) }));
 
   let showMenu = $state(false);
@@ -62,7 +58,7 @@ Floating action buttons (FABs) help people take primary actions.
     <ButtonIcon
       variant="filled"
       class="shadow-elevation-3"
-      iconProps={{ name: "close" }}
+      iconProps={{ name: 'close' }}
       onclick={() => (showMenu = !showMenu)}
     />
   </div>

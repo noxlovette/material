@@ -1,6 +1,6 @@
-import type { Snippet } from "svelte";
-import type { HTMLAttributes } from "svelte/elements";
-import type { KbdVariants } from "./theme.js";
+import type { Snippet } from 'svelte';
+import type { HTMLAttributes } from 'svelte/elements';
+import type { KbdVariants } from './theme.js';
 
 /**
  * Props for the Kbd typography component.
@@ -15,5 +15,5 @@ export type KbdProps = HTMLAttributes<HTMLElement> &
      * The position of the kbd element.
      * @default 'absolute'
      */
-    position?: "absolute" | "relative" | "static";
+    position?: 'absolute' | 'relative' | 'static';
   };

@@ -5,14 +5,14 @@ Material 3 Linear Progress Indicator.
 @see https://m3.material.io/components/progress-indicators/overview#linear-progress-indicators
 -->
 <script lang="ts">
-  import clsx from "clsx";
-  import { tv } from "tailwind-variants";
-  import { Progress } from "bits-ui";
+  import clsx from 'clsx';
+  import { tv } from 'tailwind-variants';
+  import { Progress } from 'bits-ui';
 
   let {
     percent,
     height = 4,
-    class: className,
+    class: className
   }: {
     /** The current progress percentage (0–100). Omit or pass null for indeterminate. */
     percent?: number | null;
@@ -23,10 +23,10 @@ Material 3 Linear Progress Indicator.
 
   const linearProgress = tv({
     slots: {
-      container: "flex gap-1",
-      fill: "bg-md-sys-color-primary rounded-full shrink",
-      track: "bg-md-sys-color-secondary-container rounded-full grow",
-    },
+      container: 'flex gap-1',
+      fill: 'bg-md-sys-color-primary rounded-full shrink',
+      track: 'bg-md-sys-color-secondary-container rounded-full grow'
+    }
   });
 
   const { container, fill, track } = linearProgress();

@@ -3,10 +3,10 @@
 SplitPane provides a resizable two-column layout.
 -->
 <script lang="ts">
-  import type { SplitPaneProps } from "./types.js";
-  import { splitPane } from "./theme.js";
-  import { onDestroy, onMount } from "svelte";
-  import clsx from "clsx";
+  import type { SplitPaneProps } from './types.js';
+  import { splitPane } from './theme.js';
+  import { onDestroy, onMount } from 'svelte';
+  import clsx from 'clsx';
 
   let dragging = $state(false);
 
@@ -18,13 +18,13 @@ SplitPane provides a resizable two-column layout.
     rounded = true,
     minLeft = 280,
     maxLeft = 720,
-    storageKey = "splitpane:leftWidth",
+    storageKey = 'splitpane:leftWidth',
     persist = true,
     onPaddingChange,
-    anchor = "viewport",
+    anchor = 'viewport',
     class: className,
     leftClass,
-    rightClass,
+    rightClass
   }: SplitPaneProps = $props();
 
   const {
@@ -32,20 +32,17 @@ SplitPane provides a resizable two-column layout.
     left: lCls,
     right: rCls,
     handle: hCls,
-    handleGrip,
+    handleGrip
   } = $derived(splitPane({ full, anchor, rounded }));
 
-  const leftOffset = $derived(
-    anchor === "viewport" ? "var(--splitpane-offset, 0px)" : "0px",
-  );
+  const leftOffset = $derived(anchor === 'viewport' ? 'var(--splitpane-offset, 0px)' : '0px');
   const handleOffset = $derived(
-    anchor === "viewport"
-      ? "calc(var(--splitpane-left-width) + var(--splitpane-offset, 0px))"
-      : "var(--splitpane-left-width)",
+    anchor === 'viewport'
+      ? 'calc(var(--splitpane-left-width) + var(--splitpane-offset, 0px))'
+      : 'var(--splitpane-left-width)'
   );
 
-  const clampWidth = (next: number) =>
-    Math.min(maxLeft, Math.max(minLeft, next));
+  const clampWidth = (next: number) => Math.min(maxLeft, Math.max(minLeft, next));
 
   const footerPaddingOffset = 80;
 
@@ -73,7 +70,7 @@ SplitPane provides a resizable two-column layout.
   onMount(() => {
     mounted = true;
 
-    if (persist && typeof localStorage !== "undefined") {
+    if (persist && typeof localStorage !== 'undefined') {
       const stored = Number(localStorage.getItem(storageKey));
       if (!Number.isNaN(stored)) {
         leftWidth = clampWidth(stored);
@@ -93,15 +90,12 @@ SplitPane provides a resizable two-column layout.
   });
 
   $effect(() => {
-    if (!persist || typeof localStorage === "undefined") return;
+    if (!persist || typeof localStorage === 'undefined') return;
     localStorage.setItem(storageKey, String(leftWidth));
   });
 </script>
 
-<div
-  class={base({ class: clsx(className) })}
-  style={`--splitpane-left-width: ${leftWidth}px;`}
->
+<div class={base({ class: clsx(className) })} style={`--splitpane-left-width: ${leftWidth}px;`}>
   <!-- LEFT PANE -->
   <div
     class={lCls({ class: leftClass })}
@@ -126,7 +120,7 @@ SplitPane provides a resizable two-column layout.
   >
     <div
       class={handleGrip({
-        class: clsx(dragging && "w-0.5"),
+        class: clsx(dragging && 'w-0.5')
       })}
     ></div>
   </div>

@@ -1,10 +1,6 @@
-import type { DivAttrs } from "$lib/utils/index.js";
-import type { Snippet } from "svelte";
-import type {
-  SinglePaneVariants,
-  SplitPaneVariants,
-  SupportingPaneVariants,
-} from "./theme.js";
+import type { DivAttrs } from '$lib/utils/index.js';
+import type { Snippet } from 'svelte';
+import type { SinglePaneVariants, SplitPaneVariants, SupportingPaneVariants } from './theme.js';
 
 /**
  * Props for the SplitPane component.
@@ -43,7 +39,7 @@ export type SplitPaneProps = SplitPaneVariants &
     /** Called when the component wants to update external footer padding. */
     onPaddingChange?: (padding: number) => void;
     /** The anchor mode for the panes. */
-    anchor?: SplitPaneVariants["anchor"];
+    anchor?: SplitPaneVariants['anchor'];
     /** Optional class for the left pane. */
     leftClass?: string;
     /** Optional class for the right pane. */

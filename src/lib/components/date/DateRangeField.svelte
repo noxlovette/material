@@ -6,25 +6,25 @@ segment inputs and a shared calendar popover.
 @see https://m3.material.io/components/date-pickers/guidelines
 -->
 <script lang="ts">
-  import { DateRangePicker } from "bits-ui";
-  import ButtonIcon from "../buttons/ButtonIcon.svelte";
-  import Icon from "$lib/utils/icon/Icon.svelte";
-  import Layer from "$lib/utils/Layer.svelte";
-  import type { DateRangeFieldProps } from "./types";
-  import { dateRangeField } from "./theme";
+  import { DateRangePicker } from 'bits-ui';
+  import ButtonIcon from '../buttons/ButtonIcon.svelte';
+  import Icon from '$lib/utils/icon/Icon.svelte';
+  import Layer from '$lib/utils/Layer.svelte';
+  import type { DateRangeFieldProps } from './types';
+  import { dateRangeField } from './theme';
 
   let {
     value = $bindable(),
     label,
-    startLabel = "Start",
-    endLabel = "End",
+    startLabel = 'Start',
+    endLabel = 'End',
     id,
     required = false,
     disabled = false,
     error = false,
     supportingText,
     name,
-    leadingIconProps,
+    leadingIconProps
   }: DateRangeFieldProps & { leadingIconProps?: any } = $props();
 
   const cls = $derived(dateRangeField({ disabled, error }));
@@ -48,17 +48,12 @@ segment inputs and a shared calendar popover.
 
       <div class={cls.inputWrapper()}>
         <!-- Start date input -->
-        <DateRangePicker.Input
-          type="start"
-          class={cls.input()}
-          {name}
-          id={id ?? undefined}
-        >
+        <DateRangePicker.Input type="start" class={cls.input()} {name} id={id ?? undefined}>
           {#snippet children({ segments })}
             <div class="flex w-full flex-col pt-4 tabular-nums">
               <div class="flex">
                 {#each segments as { part, value: segVal }}
-                  {#if part === "literal"}
+                  {#if part === 'literal'}
                     <DateRangePicker.Segment
                       {part}
                       class="text-md-sys-color-on-surface-variant px-0.5 select-none first:pl-0"
@@ -86,9 +81,8 @@ segment inputs and a shared calendar popover.
         </DateRangePicker.Input>
 
         <label class={cls.label()} for={id}>
-          {startLabel ?? label}{#if required}<span
-              class={cls.requiredAsterisk()}
-              aria-hidden="true">*</span
+          {startLabel ?? label}{#if required}<span class={cls.requiredAsterisk()} aria-hidden="true"
+              >*</span
             >{/if}
         </label>
       </div>
@@ -97,16 +91,12 @@ segment inputs and a shared calendar popover.
 
       <div class={cls.inputWrapper()}>
         <!-- End date input -->
-        <DateRangePicker.Input
-          type="end"
-          class={cls.input()}
-          id={id ? `${id}-end` : undefined}
-        >
+        <DateRangePicker.Input type="end" class={cls.input()} id={id ? `${id}-end` : undefined}>
           {#snippet children({ segments })}
             <div class="flex w-full flex-col pt-4 tabular-nums">
               <div class="flex">
                 {#each segments as { part, value: segVal }}
-                  {#if part === "literal"}
+                  {#if part === 'literal'}
                     <DateRangePicker.Segment
                       {part}
                       class="text-md-sys-color-on-surface-variant px-0.5 select-none first:pl-0"
@@ -134,15 +124,14 @@ segment inputs and a shared calendar popover.
         </DateRangePicker.Input>
 
         <label class={cls.label()} for={id ? `${id}-end` : undefined}>
-          {endLabel ?? label}{#if required}<span
-              class={cls.requiredAsterisk()}
-              aria-hidden="true">*</span
+          {endLabel ?? label}{#if required}<span class={cls.requiredAsterisk()} aria-hidden="true"
+              >*</span
             >{/if}
         </label>
       </div>
 
       <DateRangePicker.Trigger
-        class={cls.trailingIcon({ class: "flex items-center justify-center" })}
+        class={cls.trailingIcon({ class: 'flex items-center justify-center' })}
       >
         <Icon name="calendar_month" />
       </DateRangePicker.Trigger>
@@ -164,11 +153,11 @@ segment inputs and a shared calendar popover.
           class="text-md-sys-color-on-surface-variant z-10 flex w-full items-center justify-between pb-7.5"
         >
           <DateRangePicker.PrevButton>
-            <ButtonIcon iconProps={{ name: "chevron_left" }} />
+            <ButtonIcon iconProps={{ name: 'chevron_left' }} />
           </DateRangePicker.PrevButton>
           <DateRangePicker.Heading class="md-sys-typescale-label-large" />
           <DateRangePicker.NextButton>
-            <ButtonIcon iconProps={{ name: "chevron_right" }} />
+            <ButtonIcon iconProps={{ name: 'chevron_right' }} />
           </DateRangePicker.NextButton>
         </DateRangePicker.Header>
 

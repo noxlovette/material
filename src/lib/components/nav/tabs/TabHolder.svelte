@@ -8,19 +8,19 @@ Use TabContent for content-panel tabs; omit it for navigation (href) tabs.
 @see https://m3.material.io/components/tabs/overview
 -->
 <script lang="ts">
-  import { tabHolder } from "./theme.js";
-  import type { TabHolderProps } from "./types.js";
-  import Tab from "./Tab.svelte";
-  import { Tabs } from "bits-ui";
-  import type { Snippet } from "svelte";
+  import { tabHolder } from './theme.js';
+  import type { TabHolderProps } from './types.js';
+  import Tab from './Tab.svelte';
+  import { Tabs } from 'bits-ui';
+  import type { Snippet } from 'svelte';
 
   let {
     items,
-    value = $bindable(items[0]?.value ?? ""),
+    value = $bindable(items[0]?.value ?? ''),
     onValueChange,
-    activationMode = "automatic",
-    variant = "primary",
-    children,
+    activationMode = 'automatic',
+    variant = 'primary',
+    children
   }: TabHolderProps & { children?: Snippet } = $props();
 
   const idx = $derived(items.findIndex((i) => i.value === value));

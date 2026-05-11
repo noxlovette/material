@@ -1,6 +1,6 @@
-import type { Command } from "bits-ui";
-import type { Snippet } from "svelte";
-import type { CommandVariants } from "./theme.js";
+import type { Command } from 'bits-ui';
+import type { Snippet } from 'svelte';
+import type { CommandVariants } from './theme.js';
 
 export interface CommandProps extends Command.RootProps, CommandVariants {
   class?: string;

@@ -1,81 +1,81 @@
 <script lang="ts">
-	import { App, Rail, RailItem, ThemeSwitcher, isDarkScheme } from '$lib/index.js';
-	import '../app.css';
+  import { App, Rail, RailItem, ThemeSwitcher, isDarkScheme } from '$lib/index.js';
+  import '../app.css';
 
-	const { children, data } = $props();
+  const { children, data } = $props();
 
-	const isDark = $derived(isDarkScheme(data.themeConfig.scheme));
-	let collapsed = $state(true);
+  const isDark = $derived(isDarkScheme(data.themeConfig.scheme));
+  let collapsed = $state(true);
 
-	// These icons will be pre-loaded by the MaterialSymbolsProvider inside App
-	const icons = [
-		'house',
-		'circle',
-		'unfold_more',
-		'note_stack',
-		'assignment',
-		'book',
-		'visibility',
-		'notifications',
-		'arrow_upward',
-		'mail',
-		'chat',
-		'favorite',
-		'share',
-		'delete',
-		'edit',
-		'add',
-		'info',
-		'help',
-		'warning',
-		'check',
-		'person',
-		'close',
-		'zoom_in',
-		'zoom_out',
-		'brush',
-		'crop',
-		'tune',
-		'format_bold',
-		'format_italic',
-		'format_underlined',
-		'strikethrough_s',
-		'format_align_left',
-		'format_align_right',
-		'format_align_justify',
-		'format_align_center',
-		'undo',
-		'redo',
-		'link',
-		'smart_button',
-		'input',
-		'square',
-		'vertical_split',
-		'view_quilt',
-		'architecture',
-		'side_navigation',
-		'table'
-	];
+  // These icons will be pre-loaded by the MaterialSymbolsProvider inside App
+  const icons = [
+    'house',
+    'circle',
+    'unfold_more',
+    'note_stack',
+    'assignment',
+    'book',
+    'visibility',
+    'notifications',
+    'arrow_upward',
+    'mail',
+    'chat',
+    'favorite',
+    'share',
+    'delete',
+    'edit',
+    'add',
+    'info',
+    'help',
+    'warning',
+    'check',
+    'person',
+    'close',
+    'zoom_in',
+    'zoom_out',
+    'brush',
+    'crop',
+    'tune',
+    'format_bold',
+    'format_italic',
+    'format_underlined',
+    'strikethrough_s',
+    'format_align_left',
+    'format_align_right',
+    'format_align_justify',
+    'format_align_center',
+    'undo',
+    'redo',
+    'link',
+    'smart_button',
+    'input',
+    'square',
+    'vertical_split',
+    'view_quilt',
+    'architecture',
+    'side_navigation',
+    'table'
+  ];
 </script>
 
 <App iconProviderProps={{ extraIcons: icons }} themeConfig={data.themeConfig} {isDark}>
-	<div class="flex min-h-screen">
-		<Rail bind:collapsed>
-			<RailItem {collapsed} name="Overview" href="/" iconProps={{ name: 'architecture' }} />
-			<RailItem
-				{collapsed}
-				name="Clickables"
-				href="/clickables"
-				iconProps={{ name: 'smart_button' }}
-			/>
-			<RailItem {collapsed} name="Inputs" href="/inputs" iconProps={{ name: 'edit' }} />
-			<RailItem {collapsed} name="Layouts" href="/layouts" iconProps={{ name: 'view_quilt' }} />
-			<RailItem {collapsed} name="Table" href="/table" iconProps={{ name: 'table' }} />
-			<RailItem {collapsed} name="Misc" href="/misc" iconProps={{ name: 'circle' }} />
-		</Rail>
-		<main class="flex-1">
-			{@render children()}
-		</main>
-		<ThemeSwitcher />
-	</div>
+  <div class="flex min-h-screen">
+    <Rail bind:collapsed>
+      <RailItem {collapsed} name="Overview" href="/" iconProps={{ name: 'architecture' }} />
+      <RailItem
+        {collapsed}
+        name="Clickables"
+        href="/clickables"
+        iconProps={{ name: 'smart_button' }}
+      />
+      <RailItem {collapsed} name="Inputs" href="/inputs" iconProps={{ name: 'edit' }} />
+      <RailItem {collapsed} name="Layouts" href="/layouts" iconProps={{ name: 'view_quilt' }} />
+      <RailItem {collapsed} name="Table" href="/table" iconProps={{ name: 'table' }} />
+      <RailItem {collapsed} name="Misc" href="/misc" iconProps={{ name: 'circle' }} />
+    </Rail>
+    <main class="flex-1">
+      {@render children()}
+    </main>
+    <ThemeSwitcher />
+  </div>
 </App>

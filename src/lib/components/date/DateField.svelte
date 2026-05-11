@@ -5,12 +5,12 @@ DateField is a text field that allows users to enter a date or pick it from a ca
 @see https://m3.material.io/components/date-pickers/guidelines
 -->
 <script lang="ts">
-  import { DatePicker } from "bits-ui";
-  import ButtonIcon from "../buttons/ButtonIcon.svelte";
-  import Icon from "$lib/utils/icon/Icon.svelte";
-  import Layer from "$lib/utils/Layer.svelte";
-  import type { DateFieldProps } from "./types";
-  import { dateField } from "./theme";
+  import { DatePicker } from 'bits-ui';
+  import ButtonIcon from '../buttons/ButtonIcon.svelte';
+  import Icon from '$lib/utils/icon/Icon.svelte';
+  import Layer from '$lib/utils/Layer.svelte';
+  import type { DateFieldProps } from './types';
+  import { dateField } from './theme';
 
   let {
     value = $bindable(),
@@ -21,7 +21,7 @@ DateField is a text field that allows users to enter a date or pick it from a ca
     error = false,
     supportingText,
     name,
-    leadingIconProps,
+    leadingIconProps
   }: DateFieldProps & { leadingIconProps?: any } = $props();
 
   const cls = $derived(dateField({ disabled, error }));
@@ -49,7 +49,7 @@ DateField is a text field that allows users to enter a date or pick it from a ca
               <div class="flex items-center justify-between">
                 <div class="flex">
                   {#each segments as { part, value }}
-                    {#if part === "literal"}
+                    {#if part === 'literal'}
                       <DatePicker.Segment
                         {part}
                         class="text-md-sys-color-on-surface-variant px-0.5 select-none first:pl-0"
@@ -79,16 +79,11 @@ DateField is a text field that allows users to enter a date or pick it from a ca
         </DatePicker.Input>
 
         <label class={cls.label()} for={id}>
-          {label}{#if required}<span
-              class={cls.requiredAsterisk()}
-              aria-hidden="true">*</span
-            >{/if}
+          {label}{#if required}<span class={cls.requiredAsterisk()} aria-hidden="true">*</span>{/if}
         </label>
       </div>
 
-      <DatePicker.Trigger
-        class={cls.trailingIcon({ class: "flex items-center justify-center" })}
-      >
+      <DatePicker.Trigger class={cls.trailingIcon({ class: 'flex items-center justify-center' })}>
         <Icon name="calendar_month" />
       </DatePicker.Trigger>
     </div>
@@ -109,11 +104,11 @@ DateField is a text field that allows users to enter a date or pick it from a ca
             class="text-md-sys-color-on-surface-variant z-10 flex w-full items-center justify-between pb-7.5"
           >
             <DatePicker.PrevButton>
-              <ButtonIcon iconProps={{ name: "chevron_left" }} />
+              <ButtonIcon iconProps={{ name: 'chevron_left' }} />
             </DatePicker.PrevButton>
             <DatePicker.Heading class="md-sys-typescale-label-large" />
             <DatePicker.NextButton>
-              <ButtonIcon iconProps={{ name: "chevron_right" }} />
+              <ButtonIcon iconProps={{ name: 'chevron_right' }} />
             </DatePicker.NextButton>
           </DatePicker.Header>
 

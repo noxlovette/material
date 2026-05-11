@@ -1,7 +1,7 @@
-import type { IconProps } from "$lib/utils/index.js";
-import type { Select, WithoutChildren } from "bits-ui";
-import type { Snippet } from "svelte";
-import type { SelectVariants } from "./theme.js";
+import type { IconProps } from '$lib/utils/index.js';
+import type { Select, WithoutChildren } from 'bits-ui';
+import type { Snippet } from 'svelte';
+import type { SelectVariants } from './theme.js';
 
 /**
  * Represents an option or group in the Select component.
@@ -9,10 +9,10 @@ import type { SelectVariants } from "./theme.js";
  */
 export type SelectOption =
   | ({
-      type?: "item";
+      type?: 'item';
     } & Select.ItemProps)
   | {
-      type: "group";
+      type: 'group';
       /**
        * If present, the group item will be heading
        */

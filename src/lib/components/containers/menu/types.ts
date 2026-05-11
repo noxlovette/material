@@ -1,4 +1,4 @@
-import type { Snippet } from "svelte";
+import type { Snippet } from 'svelte';
 
 /**
  * Props for the Menu component.
@@ -31,7 +31,7 @@ export type MenuProps = {
    * Alignment of the floating panel relative to the trigger.
    * @default 'start'
    */
-  align?: "start" | "center" | "end";
+  align?: 'start' | 'center' | 'end';
   /**
    * Controlled open state. Bind to this to drive the menu externally.
    */

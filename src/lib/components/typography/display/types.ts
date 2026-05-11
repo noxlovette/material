@@ -1,6 +1,6 @@
-import type { Snippet } from "svelte";
-import type { HTMLAttributes } from "svelte/elements";
-import type { DisplayVariants } from "./theme.js";
+import type { Snippet } from 'svelte';
+import type { HTMLAttributes } from 'svelte/elements';
+import type { DisplayVariants } from './theme.js';
 
 /**
  * Props for the Display typography component.
@@ -19,5 +19,5 @@ export type DisplayProps = DisplayVariants &
      * The size of the display text.
      * @default 'medium'
      */
-    size?: "small" | "medium" | "large";
+    size?: 'small' | 'medium' | 'large';
   };

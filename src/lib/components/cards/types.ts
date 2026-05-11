@@ -1,7 +1,7 @@
-import type { Snippet } from "svelte";
-import type { HTMLAnchorAttributes, HTMLAttributes } from "svelte/elements";
-import type { VariantProps } from "tailwind-variants";
-import type { card } from "./theme.js";
+import type { Snippet } from 'svelte';
+import type { HTMLAnchorAttributes, HTMLAttributes } from 'svelte/elements';
+import type { VariantProps } from 'tailwind-variants';
+import type { card } from './theme.js';
 
 export type CardVariants = VariantProps<typeof card>;
 
@@ -26,7 +26,7 @@ export type CardProps = CardVariants &
      * - 'outlined': Cards with a visual boundary, providing the least amount of separation.
      * @default 'filled'
      */
-    type?: CardVariants["type"];
+    type?: CardVariants['type'];
     /**
      * Whether the card should show a state layer on hover.
      * Defaults to true if `href` is provided.

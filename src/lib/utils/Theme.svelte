@@ -1,10 +1,5 @@
 <script lang="ts">
-  import {
-    generateThemeCSS,
-    isDarkScheme,
-    themeState,
-    type ThemeConfig,
-  } from "./theme.svelte.js";
+  import { generateThemeCSS, isDarkScheme, themeState, type ThemeConfig } from './theme.svelte.js';
 
   interface Props {
     /**
@@ -46,24 +41,22 @@
   });
 
   // Calculate final dark mode state
-  let finalIsDark = $state(
-    isDarkProp !== undefined ? isDarkProp : isDarkScheme(themeState.scheme),
-  );
+  let finalIsDark = $state(isDarkProp !== undefined ? isDarkProp : isDarkScheme(themeState.scheme));
 
   $effect(() => {
-    if (themeState.scheme !== "system") {
-      finalIsDark = themeState.scheme === "dark";
+    if (themeState.scheme !== 'system') {
+      finalIsDark = themeState.scheme === 'dark';
       return;
     }
 
-    const media = window.matchMedia("(prefers-color-scheme: dark)");
+    const media = window.matchMedia('(prefers-color-scheme: dark)');
     const handler = (e: MediaQueryListEvent) => {
       finalIsDark = e.matches;
     };
 
     finalIsDark = media.matches;
-    media.addEventListener("change", handler);
-    return () => media.removeEventListener("change", handler);
+    media.addEventListener('change', handler);
+    return () => media.removeEventListener('change', handler);
   });
 
   const themeStyles = $derived(generateThemeCSS(themeState, finalIsDark));
@@ -76,26 +69,22 @@
       sourceColor: themeState.sourceColor,
       scheme: themeState.scheme,
       contrast: themeState.contrast,
-      variant: themeState.variant,
+      variant: themeState.variant
     });
 
-    localStorage.setItem("ogonek-m3-theme-config", configStr);
+    localStorage.setItem('ogonek-m3-theme-config', configStr);
   });
 
   // Dark mode class effect
   $effect(() => {
     if (finalIsDark) {
-      document.documentElement.classList.add("dark");
+      document.documentElement.classList.add('dark');
     } else {
-      document.documentElement.classList.remove("dark");
+      document.documentElement.classList.remove('dark');
     }
   });
 </script>
 
 <svelte:head>
-  {@html `<` +
-    `style id="ogonek-m3-dynamic-theme">` +
-    themeStyles +
-    `</` +
-    `style>`}
+  {@html `<` + `style id="ogonek-m3-dynamic-theme">` + themeStyles + `</` + `style>`}
 </svelte:head>

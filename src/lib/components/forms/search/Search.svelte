@@ -7,21 +7,21 @@ Search bars allow users to enter a query to find specific information within an 
 @see https://m3.material.io/components/search/overview
 -->
 <script lang="ts">
-  import { search } from "./theme.js";
-  import clsx from "clsx";
-  import type { SearchProps } from "./types.js";
-  import { Icon } from "$lib/utils/index.js";
+  import { search } from './theme.js';
+  import clsx from 'clsx';
+  import type { SearchProps } from './types.js';
+  import { Icon } from '$lib/utils/index.js';
 
   let {
     children,
-    placeholder = "Поиск",
+    placeholder = 'Поиск',
     value = $bindable(),
     elementRef = $bindable(),
-    trailingIconProps = { name: "close" },
-    leadingIconProps = { name: "search" },
+    trailingIconProps = { name: 'close' },
+    leadingIconProps = { name: 'search' },
     class: className,
     trailingClick = () => {
-      value = "";
+      value = '';
     },
     ...restProps
   }: SearchProps = $props();

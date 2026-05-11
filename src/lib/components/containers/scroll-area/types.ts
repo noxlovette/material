@@ -1,5 +1,5 @@
-import type { ScrollAreaRootProps } from "bits-ui";
-import type { Snippet } from "svelte";
+import type { ScrollAreaRootProps } from 'bits-ui';
+import type { Snippet } from 'svelte';
 
 export interface ScrollAreaProps extends ScrollAreaRootProps {
   /**
@@ -16,7 +16,7 @@ export interface ScrollAreaProps extends ScrollAreaRootProps {
    * Orientation of the scroll area.
    * @default "vertical"
    */
-  orientation?: "vertical" | "horizontal" | "both";
+  orientation?: 'vertical' | 'horizontal' | 'both';
 
   /**
    * Scrollbar visibility behavior.
@@ -26,5 +26,5 @@ export interface ScrollAreaProps extends ScrollAreaRootProps {
    * - "hover": visible when hovering.
    * @default "hover"
    */
-  scrollbarVisibility?: "auto" | "always" | "scroll" | "hover";
+  scrollbarVisibility?: 'auto' | 'always' | 'scroll' | 'hover';
 }

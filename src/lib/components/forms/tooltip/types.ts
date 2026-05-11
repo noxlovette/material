@@ -1,10 +1,6 @@
-import type {
-  TooltipContentProps,
-  TooltipRootProps,
-  TooltipTriggerProps,
-} from "bits-ui";
-import type { Snippet } from "svelte";
-import type { TooltipVariants } from "./theme.js";
+import type { TooltipContentProps, TooltipRootProps, TooltipTriggerProps } from 'bits-ui';
+import type { Snippet } from 'svelte';
+import type { TooltipVariants } from './theme.js';
 
 export type TooltipProps = TooltipVariants &
   TooltipRootProps & {
@@ -21,13 +17,13 @@ export type TooltipProps = TooltipVariants &
     /** Additional props passed to the underlying Tooltip.Trigger component */
     triggerProps?: TooltipTriggerProps;
     /** Additional props passed to the underlying Tooltip.Content component */
-    contentProps?: Omit<TooltipContentProps, "forceMount">;
+    contentProps?: Omit<TooltipContentProps, 'forceMount'>;
     /** Time in milliseconds to wait before showing the tooltip */
     delayDuration?: number;
     /** Whether the tooltip is currently visible */
     isOpen?: boolean;
     /** Tooltip style variant: 'snack' for simple tooltips, 'rich' for more complex content */
-    variant?: "rich" | "snack";
+    variant?: 'rich' | 'snack';
     /** Whether to show an arrow pointing to the trigger */
     showArrow?: boolean;
     /** Custom CSS class for the tooltip content */

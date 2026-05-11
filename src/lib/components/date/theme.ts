@@ -1,4 +1,4 @@
-import { tv, type VariantProps } from "tailwind-variants";
+import { tv, type VariantProps } from 'tailwind-variants';
 
 export type DateFieldVariants = VariantProps<typeof dateField>;
 export type DateRangeFieldVariants = VariantProps<typeof dateRangeField>;
@@ -58,25 +58,25 @@ export const dateRangeField = tv({
 			px-4 pt-1 flex justify-between
 			md-sys-typescale-body-small
 			text-md-sys-color-on-surface-variant
-		`,
+		`
   },
   variants: {
     error: {
       true: {
-        base: "after:bg-md-sys-color-error focus-within:after:bg-md-sys-color-error",
-        label: "text-md-sys-color-error",
-        requiredAsterisk: "text-md-sys-color-error",
-        supportingText: "text-md-sys-color-error",
-        leadingIcon: "text-md-sys-color-error",
-        trailingIcon: "text-md-sys-color-error",
-      },
+        base: 'after:bg-md-sys-color-error focus-within:after:bg-md-sys-color-error',
+        label: 'text-md-sys-color-error',
+        requiredAsterisk: 'text-md-sys-color-error',
+        supportingText: 'text-md-sys-color-error',
+        leadingIcon: 'text-md-sys-color-error',
+        trailingIcon: 'text-md-sys-color-error'
+      }
     },
     disabled: {
       true: {
-        base: "pointer-events-none opacity-60",
-      },
-    },
-  },
+        base: 'pointer-events-none opacity-60'
+      }
+    }
+  }
 });
 
 export const dateField = tv({
@@ -132,23 +132,23 @@ export const dateField = tv({
 			px-4 pt-1 flex justify-between
 			md-sys-typescale-body-small
 			text-md-sys-color-on-surface-variant
-		`,
+		`
   },
   variants: {
     error: {
       true: {
-        base: "after:bg-md-sys-color-error focus-within:after:bg-md-sys-color-error",
-        label: "text-md-sys-color-error",
-        requiredAsterisk: "text-md-sys-color-error",
-        supportingText: "text-md-sys-color-error",
-        leadingIcon: "text-md-sys-color-error",
-        trailingIcon: "text-md-sys-color-error",
-      },
+        base: 'after:bg-md-sys-color-error focus-within:after:bg-md-sys-color-error',
+        label: 'text-md-sys-color-error',
+        requiredAsterisk: 'text-md-sys-color-error',
+        supportingText: 'text-md-sys-color-error',
+        leadingIcon: 'text-md-sys-color-error',
+        trailingIcon: 'text-md-sys-color-error'
+      }
     },
     disabled: {
       true: {
-        base: "pointer-events-none opacity-60",
-      },
-    },
-  },
+        base: 'pointer-events-none opacity-60'
+      }
+    }
+  }
 });

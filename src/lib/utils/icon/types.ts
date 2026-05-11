@@ -1,9 +1,9 @@
-import type { HTMLAttributes } from "svelte/elements";
-import Icon from "./Icon.svelte";
-import type { LoadingIndicatorVariants } from "./theme.js";
+import type { HTMLAttributes } from 'svelte/elements';
+import Icon from './Icon.svelte';
+import type { LoadingIndicatorVariants } from './theme.js';
 export type IconMD = typeof Icon;
 
-export type IconVariant = "outlined" | "rounded" | "sharp";
+export type IconVariant = 'outlined' | 'rounded' | 'sharp';
 
 export type IconProps = HTMLAttributes<HTMLSpanElement> & {
   name: string;
@@ -24,5 +24,5 @@ export type LoadingIndicatorProps = HTMLAttributes<SVGAElement> &
 export type MaterialSymbolsProviderProps = {
   icons?: string[];
   extraIcons?: string[];
-  display?: "auto" | "block" | "swap" | "fallback" | "optional";
+  display?: 'auto' | 'block' | 'swap' | 'fallback' | 'optional';
 };

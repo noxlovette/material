@@ -4,11 +4,11 @@ The core App wrapper that gives default backgrounds and sets up tooltips and ico
 It manages the Material 3 Dynamic Theme, dark mode, and icon providers.
 -->
 <script lang="ts">
-  import { MaterialSymbolsProvider, Theme } from "$lib/utils/index.js";
-  import { Tooltip } from "bits-ui";
-  import { app } from "./theme";
-  import type { AppProps } from "./types";
-    import { ModeWatcher } from "mode-watcher";
+  import { MaterialSymbolsProvider, Theme } from '$lib/utils/index.js';
+  import { Tooltip } from 'bits-ui';
+  import { app } from './theme';
+  import type { AppProps } from './types';
+  import { ModeWatcher } from 'mode-watcher';
 
   let {
     children,
@@ -19,7 +19,7 @@ It manages the Material 3 Dynamic Theme, dark mode, and icon providers.
     ...restProps
   }: AppProps = $props();
 
-  const baseCls = $derived(app({ class: [className, isDark ? "dark" : ""] }));
+  const baseCls = $derived(app({ class: [className, isDark ? 'dark' : ''] }));
 </script>
 
 <Theme config={themeConfig} {isDark} />

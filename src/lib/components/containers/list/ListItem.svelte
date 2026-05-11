@@ -1,13 +1,13 @@
 <script lang="ts">
-  import { Layer } from "$lib/utils/index.js";
-  import { listiem } from "./theme.js";
-  import type { ListitemProps } from "./types.js";
+  import { Layer } from '$lib/utils/index.js';
+  import { listiem } from './theme.js';
+  import type { ListitemProps } from './types.js';
 
   let {
     leading,
-    overline = "",
-    headline = "",
-    supporting = "",
+    overline = '',
+    headline = '',
+    supporting = '',
     trailing,
     selected,
     class: className,
@@ -42,18 +42,18 @@
 {/snippet}
 
 {#snippet action()}
-  {#if "label" in restProps}
+  {#if 'label' in restProps}
     {@const { label: _, ...extra } = restProps}
     <label class={cls.base()} {...extra}>
       <Layer />
       {@render content()}
     </label>
-  {:else if "onclick" in restProps}
+  {:else if 'onclick' in restProps}
     <button type="button" class={cls.base()} {...restProps}>
       <Layer />
       {@render content()}
     </button>
-  {:else if "href" in restProps && restProps.href != null && restProps.href !== ""}
+  {:else if 'href' in restProps && restProps.href != null && restProps.href !== ''}
     {@const { href, ...extra } = restProps as typeof restProps & {
       href?: string | null;
     }}

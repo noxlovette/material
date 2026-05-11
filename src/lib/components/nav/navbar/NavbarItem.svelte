@@ -5,16 +5,16 @@ Material 3 Navigation Bar Item.
 A single destination within a navigation bar.
 -->
 <script lang="ts">
-  import { page } from "$app/state";
-  import type { NavItemProps } from "./types.js";
-  import { navitem } from "./theme.js";
-  import { Icon, Layer } from "$lib/utils/index.js";
-  import Badge from "../../badge/Badge.svelte";
-  import { NavigationMenu } from "bits-ui";
-  import clsx from "clsx";
+  import { page } from '$app/state';
+  import type { NavItemProps } from './types.js';
+  import { navitem } from './theme.js';
+  import { Icon, Layer } from '$lib/utils/index.js';
+  import Badge from '../../badge/Badge.svelte';
+  import { NavigationMenu } from 'bits-ui';
+  import clsx from 'clsx';
 
   let {
-    href = "/",
+    href = '/',
     label,
     badge = 0,
     class: className,
@@ -24,8 +24,8 @@ A single destination within a navigation bar.
 
   const isActive = $derived(
     page.url.pathname === href ||
-      (href !== "/" && page.url.href.startsWith(href)) ||
-      page.url.href == href,
+      (href !== '/' && page.url.href.startsWith(href)) ||
+      page.url.href == href
   );
 
   const {
@@ -33,7 +33,7 @@ A single destination within a navigation bar.
     content,
     icon,
     iconContainer,
-    label: labelClass,
+    label: labelClass
   } = $derived(navitem({ active: isActive }));
 
   const rootClass = $derived(base({ class: clsx(className) }));
@@ -53,7 +53,7 @@ A single destination within a navigation bar.
               fill={isActive ? 1 : 0}
             />
             {#if badge}
-              <Badge size={badge === -1 ? "sm" : "lg"} number={badge}></Badge>
+              <Badge size={badge === -1 ? 'sm' : 'lg'} number={badge}></Badge>
             {/if}
           </div>
           <span class={labelClass()}>

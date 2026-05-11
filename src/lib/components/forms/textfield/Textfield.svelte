@@ -7,17 +7,17 @@ Text fields allow users to enter and edit text.
 @see https://m3.material.io/components/text-fields/overview
 -->
 <script lang="ts">
-  import clsx from "clsx";
-  import { Icon } from "$lib/utils/index.js";
-  import { textfield } from "./theme.js";
-  import type { TextfieldProps } from "./types.js";
+  import clsx from 'clsx';
+  import { Icon } from '$lib/utils/index.js';
+  import { textfield } from './theme.js';
+  import type { TextfieldProps } from './types.js';
 
   let {
     value = $bindable(),
     supportingText,
     leadingIconProps,
     trailingIconProps,
-    placeholder = "",
+    placeholder = '',
     label,
     id,
     class: className,
@@ -35,16 +35,16 @@ Text fields allow users to enter and edit text.
   const inputProps = $derived({
     id,
     class: cls.input(),
-    "aria-invalid": error,
-    "aria-required": required,
+    'aria-invalid': error,
+    'aria-required': required,
     required,
     disabled,
     placeholder,
-    ...restProps,
+    ...restProps
   });
 </script>
 
-<div class={clsx("relative w-full", className)}>
+<div class={clsx('relative w-full', className)}>
   <div class={cls.base()}>
     {#if leadingIconProps}
       <Icon class={cls.leadingIcon()} {...leadingIconProps} />
@@ -58,10 +58,7 @@ Text fields allow users to enter and edit text.
       {/if}
 
       <label class={cls.label()} for={id}>
-        {label}{#if required}<span
-            class={cls.requiredAsterisk()}
-            aria-hidden="true">*</span
-          >{/if}
+        {label}{#if required}<span class={cls.requiredAsterisk()} aria-hidden="true">*</span>{/if}
       </label>
     </div>
 
@@ -77,7 +74,7 @@ Text fields allow users to enter and edit text.
   {#if supportingText}
     <div class={cls.supportingText()}>
       <p>{@render supportingText()}</p>
-      {#if characterLimit && typeof value === "string"}
+      {#if characterLimit && typeof value === 'string'}
         <p>{value?.length} / {characterLimit}</p>
       {/if}
     </div>

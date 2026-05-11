@@ -6,23 +6,20 @@ It combines a Material 3 Textfield with a TimepickerInput for intuitive time sel
 @see https://m3.material.io/components/time-pickers/overview
 -->
 <script lang="ts">
-  import type { HTMLInputAttributes } from "svelte/elements";
-  import Textfield from "$lib/components/forms/textfield/Textfield.svelte";
-  import TimepickerInput from "./TimepickerInput.svelte";
-  import { clickOutside, positionFloating } from "$lib/actions/index.js";
-  import { enterExit } from "$lib/animation/enterExit.js";
-  import {
-    easeEmphasizedDecel,
-    easeEmphasizedAccel,
-  } from "$lib/animation/easing.js";
+  import type { HTMLInputAttributes } from 'svelte/elements';
+  import Textfield from '$lib/components/forms/textfield/Textfield.svelte';
+  import TimepickerInput from './TimepickerInput.svelte';
+  import { clickOutside, positionFloating } from '$lib/actions/index.js';
+  import { enterExit } from '$lib/animation/enterExit.js';
+  import { easeEmphasizedDecel, easeEmphasizedAccel } from '$lib/animation/easing.js';
 
   let {
-    label = "Время",
+    label = 'Время',
     value = $bindable(),
     required = false,
     disabled = false,
     error = false,
-    datePickerTitle = "Pick date",
+    datePickerTitle = 'Pick date',
     name,
     leadingIconProps,
     ...restProps
@@ -67,7 +64,7 @@ It combines a Material 3 Textfield with a TimepickerInput for intuitive time sel
     {error}
     {leadingIconProps}
     class="pointer-events-none"
-    trailingIconProps={{ name: "timer" }}
+    trailingIconProps={{ name: 'timer' }}
     trailingOnClick={() => !disabled && (picker = !picker)}
     {...restProps as any}
   >
@@ -92,20 +89,16 @@ It combines a Material 3 Textfield with a TimepickerInput for intuitive time sel
       in:enterExit={{
         duration: 200,
         easing: easeEmphasizedDecel,
-        mode: "scale",
+        mode: 'scale'
       }}
       out:enterExit={{
         duration: 150,
         easing: easeEmphasizedAccel,
-        mode: "scale",
+        mode: 'scale'
       }}
       style="transform-origin: top center;"
     >
-      <TimepickerInput
-        time={value}
-        close={() => (picker = false)}
-        setTime={(t) => (value = t)}
-      />
+      <TimepickerInput time={value} close={() => (picker = false)} setTime={(t) => (value = t)} />
     </div>
   {/if}
 </div>

@@ -1,15 +1,10 @@
 <script lang="ts">
-  import { Command } from "bits-ui";
-  import clsx from "clsx";
-  import { command } from "./theme.js";
-  import type { CommandItemProps } from "./types.js";
+  import { Command } from 'bits-ui';
+  import clsx from 'clsx';
+  import { command } from './theme.js';
+  import type { CommandItemProps } from './types.js';
 
-  let {
-    children,
-    class: className,
-    value,
-    ...restProps
-  }: CommandItemProps = $props();
+  let { children, class: className, value, ...restProps }: CommandItemProps = $props();
 
   const { item } = command();
 </script>

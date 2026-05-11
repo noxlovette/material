@@ -5,15 +5,15 @@ Material 3 Navigation Rail Item.
 A single destination within a navigation rail.
 -->
 <script lang="ts">
-  import { page } from "$app/state";
-  import type { RailItemProps } from "./types.js";
-  import { railElement } from "./theme.js";
-  import { Icon, Layer } from "$lib/utils/index.js";
-  import Badge from "../../badge/Badge.svelte";
-  import { NavigationMenu } from "bits-ui";
+  import { page } from '$app/state';
+  import type { RailItemProps } from './types.js';
+  import { railElement } from './theme.js';
+  import { Icon, Layer } from '$lib/utils/index.js';
+  import Badge from '../../badge/Badge.svelte';
+  import { NavigationMenu } from 'bits-ui';
 
   let {
-    href = "/",
+    href = '/',
     name,
     external = false,
     badge = 0,
@@ -26,10 +26,8 @@ A single destination within a navigation rail.
   }: RailItemProps = $props();
 
   const isDisabled = $derived(!!disabled);
-  const target = $derived(!isDisabled && external ? "_blank" : undefined);
-  const rel = $derived(
-    !isDisabled && external ? "noopener noreferrer" : undefined,
-  );
+  const target = $derived(!isDisabled && external ? '_blank' : undefined);
+  const rel = $derived(!isDisabled && external ? 'noopener noreferrer' : undefined);
   const hrefValue = $derived(isDisabled ? undefined : href);
   const ariaDisabled = $derived(isDisabled ? true : undefined);
   const tabIndex = $derived(isDisabled ? -1 : undefined);
@@ -43,23 +41,22 @@ A single destination within a navigation rail.
   const isActive = $derived(
     selected ||
       page.url.pathname === hrefPathname ||
-      (hrefPathname !== "/" &&
-        page.url.pathname.startsWith(hrefPathname + "/")),
+      (hrefPathname !== '/' && page.url.pathname.startsWith(hrefPathname + '/'))
   );
   const {
     base,
     content,
     icon,
     iconContainer,
-    label: labelClass,
+    label: labelClass
   } = $derived(
     railElement({
       active: isActive,
       expanded: !collapsed,
-      disabled: isDisabled,
-    }),
+      disabled: isDisabled
+    })
   );
-  const rootClass = $derived([base(), className].filter(Boolean).join(" "));
+  const rootClass = $derived([base(), className].filter(Boolean).join(' '));
 
   function handleClick(event: MouseEvent) {
     if (isDisabled) {
@@ -70,9 +67,7 @@ A single destination within a navigation rail.
 </script>
 
 <NavigationMenu.Item
-  class={["flex w-full items-center", collapsed && "justify-center"]
-    .filter(Boolean)
-    .join(" ")}
+  class={['flex w-full items-center', collapsed && 'justify-center'].filter(Boolean).join(' ')}
 >
   <NavigationMenu.Link active={isActive} href={hrefValue}>
     {#snippet child({ props })}
@@ -96,7 +91,7 @@ A single destination within a navigation rail.
               fill={isActive ? 1 : 0}
             />
             {#if badge}
-              <Badge size={badge === -1 ? "sm" : "lg"} number={badge}></Badge>
+              <Badge size={badge === -1 ? 'sm' : 'lg'} number={badge}></Badge>
             {/if}
           </div>
           <p class={labelClass()}>

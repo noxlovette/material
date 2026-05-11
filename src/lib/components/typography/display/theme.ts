@@ -1,17 +1,17 @@
-import { tv, type VariantProps } from "tailwind-variants";
+import { tv, type VariantProps } from 'tailwind-variants';
 
 export type DisplayVariants = VariantProps<typeof display>;
 
 export const display = tv({
-  base: "",
+  base: '',
   variants: {
     emphasized: {
-      true: "font-medium",
+      true: 'font-medium'
     },
     size: {
-      small: "md-sys-typescale-display-small",
-      medium: "md-sys-typescale-display-medium",
-      large: "md-sys-typescale-display-large",
-    },
-  },
+      small: 'md-sys-typescale-display-small',
+      medium: 'md-sys-typescale-display-medium',
+      large: 'md-sys-typescale-display-large'
+    }
+  }
 });

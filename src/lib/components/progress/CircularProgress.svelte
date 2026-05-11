@@ -5,12 +5,12 @@ Material 3 Circular Progress Indicator.
 @see https://m3.material.io/components/progress-indicators/overview#circular-progress-indicators
 -->
 <script lang="ts">
-  import { Progress } from "bits-ui";
+  import { Progress } from 'bits-ui';
 
   let {
     percent,
     size = 48,
-    thickness = 4,
+    thickness = 4
   }: {
     /** The current progress percentage (0–100). Omit or pass null for indeterminate. */
     percent?: number | null;
@@ -49,9 +49,7 @@ Material 3 Circular Progress Indicator.
         stroke="var(--color-md-sys-color-primary)"
         stroke-width={thickness}
         stroke-dasharray="{circumference} {circumference}"
-        stroke-dashoffset={(percent != null
-          ? (percent / -100) * circumference
-          : 0) + circumference}
+        stroke-dashoffset={(percent != null ? (percent / -100) * circumference : 0) + circumference}
         stroke-linecap="round"
         fill="none"
       />

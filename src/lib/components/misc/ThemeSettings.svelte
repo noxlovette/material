@@ -1,31 +1,28 @@
 <script lang="ts">
-  import { RadioGroup } from "../forms/radio-group/index.js";
-  import {
-    themeState,
-    extractColorFromImage,
-  } from "$lib/utils/theme.svelte.js";
-  import { Title } from "../typography/title/index.js";
-  import { Body } from "../typography/body/index.js";
+  import { RadioGroup } from '../forms/radio-group/index.js';
+  import { themeState, extractColorFromImage } from '$lib/utils/theme.svelte.js';
+  import { Title } from '../typography/title/index.js';
+  import { Body } from '../typography/body/index.js';
 
   const schemeItems = [
-    { label: "System", value: "system" },
-    { label: "Light", value: "light" },
-    { label: "Dark", value: "dark" },
+    { label: 'System', value: 'system' },
+    { label: 'Light', value: 'light' },
+    { label: 'Dark', value: 'dark' }
   ];
 
   const contrastItems = [
-    { label: "Standard", value: "standard" },
-    { label: "Medium", value: "medium" },
-    { label: "High", value: "high" },
+    { label: 'Standard', value: 'standard' },
+    { label: 'Medium', value: 'medium' },
+    { label: 'High', value: 'high' }
   ];
 
   const variantItems = [
-    { label: "Tonal Spot", value: "tonal-spot" },
-    { label: "Vibrant", value: "vibrant" },
-    { label: "Fidelity", value: "fidelity" },
-    { label: "Content", value: "content" },
-    { label: "Fruit Salad", value: "fruit-salad" },
-    { label: "Rainbow", value: "rainbow" },
+    { label: 'Tonal Spot', value: 'tonal-spot' },
+    { label: 'Vibrant', value: 'vibrant' },
+    { label: 'Fidelity', value: 'fidelity' },
+    { label: 'Content', value: 'content' },
+    { label: 'Fruit Salad', value: 'fruit-salad' },
+    { label: 'Rainbow', value: 'rainbow' }
   ];
 
   async function handleImageUpload(e: Event) {
@@ -66,11 +63,7 @@
   <!-- Scheme -->
   <div class="flex flex-col gap-2">
     <Title size="medium">Scheme</Title>
-    <RadioGroup
-      items={schemeItems}
-      bind:value={themeState.scheme as any}
-      orientation="vertical"
-    />
+    <RadioGroup items={schemeItems} bind:value={themeState.scheme as any} orientation="vertical" />
   </div>
 
   <!-- Contrast -->

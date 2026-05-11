@@ -3,9 +3,9 @@
 Wraps the data rows of a Table.
 -->
 <script lang="ts">
-  import type { TableBodyProps } from "./types.js";
-  import { table } from "./theme.js";
-  import clsx from "clsx";
+  import type { TableBodyProps } from './types.js';
+  import { table } from './theme.js';
+  import clsx from 'clsx';
 
   let { children, class: className, ...restProps }: TableBodyProps = $props();
 

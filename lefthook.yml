@@ -1,0 +1,5 @@
+pre-commit:
+  commands:
+    format:
+      glob: '*.{js,ts,svelte,css,json,md}'
+      run: bun prettier --write {staged_files} && git add {staged_files}

@@ -1,5 +1,5 @@
-import type { RadioGroupRootProps } from "bits-ui";
-import type { RadioGroupVariants } from "./theme.js";
+import type { RadioGroupRootProps } from 'bits-ui';
+import type { RadioGroupVariants } from './theme.js';
 
 export interface RadioGroupItem {
   /** The value submitted to the form and used for `bind:value` matching. */
@@ -13,13 +13,13 @@ export interface RadioGroupItem {
 }
 
 export type RadioGroupProps = RadioGroupVariants &
-  Omit<RadioGroupRootProps, "children" | "orientation"> & {
+  Omit<RadioGroupRootProps, 'children' | 'orientation'> & {
     /** The list of options to render. */
     items: RadioGroupItem[];
     /** Currently selected value. @bindable */
     value?: string;
     /** Layout direction. Defaults to 'vertical'. */
-    orientation?: "vertical" | "horizontal";
+    orientation?: 'vertical' | 'horizontal';
     /** Marks all items as error state. */
     error?: boolean;
     /** Additional CSS classes for the root element. */

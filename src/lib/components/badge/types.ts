@@ -1,6 +1,6 @@
-import type { HTMLAttributes } from "svelte/elements";
-import type { VariantProps } from "tailwind-variants";
-import type { badge } from "./theme.js";
+import type { HTMLAttributes } from 'svelte/elements';
+import type { VariantProps } from 'tailwind-variants';
+import type { badge } from './theme.js';
 
 export type BadgeVariants = VariantProps<typeof badge>;
 export type BadgeProps = BadgeVariants &
@@ -10,7 +10,7 @@ export type BadgeProps = BadgeVariants &
      * - 'sm': Small badge, no number displayed.
      * - 'lg': Large badge, displays number.
      */
-    size?: BadgeVariants["size"];
+    size?: BadgeVariants['size'];
     /**
      * The number to display in the badge.
      * Values greater than 99 will be displayed as "99+".

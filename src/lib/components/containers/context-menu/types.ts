@@ -1,5 +1,5 @@
-import type { IconProps } from "$lib/utils/index.js";
-import type { Snippet } from "svelte";
+import type { IconProps } from '$lib/utils/index.js';
+import type { Snippet } from 'svelte';
 
 /**
  * Represents an item in the context menu.

@@ -1,6 +1,6 @@
-import type { Popover } from "bits-ui";
-import type { Snippet } from "svelte";
-import type { PopoverVariants } from "./theme.js";
+import type { Popover } from 'bits-ui';
+import type { Snippet } from 'svelte';
+import type { PopoverVariants } from './theme.js';
 
 export interface PopoverProps extends PopoverVariants {
   /** Snippet rendered as the trigger element (typically a Button or ButtonIcon). */
@@ -14,9 +14,9 @@ export interface PopoverProps extends PopoverVariants {
   /** Controlled open state. */
   open?: boolean;
   /** Positioning side relative to the trigger. */
-  side?: Popover.ContentProps["side"];
+  side?: Popover.ContentProps['side'];
   /** Alignment along the side axis. */
-  align?: Popover.ContentProps["align"];
+  align?: Popover.ContentProps['align'];
   /** Gap between trigger and panel in px. */
   sideOffset?: number;
   class?: string;

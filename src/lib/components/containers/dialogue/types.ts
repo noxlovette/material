@@ -1,6 +1,6 @@
-import type { Dialog } from "bits-ui";
-import type { Snippet } from "svelte";
-import type { DialogueVariants } from "./theme.js";
+import type { Dialog } from 'bits-ui';
+import type { Snippet } from 'svelte';
+import type { DialogueVariants } from './theme.js';
 
 /**
  * Props for the Dialogue component.

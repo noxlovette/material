@@ -1,16 +1,16 @@
 export function keyEscape(node: HTMLElement, callback: () => void) {
   const handleKeydown = (event: KeyboardEvent) => {
-    if (event.key === "Escape") {
+    if (event.key === 'Escape') {
       event.preventDefault();
       callback();
     }
   };
 
-  window.addEventListener("keydown", handleKeydown);
+  window.addEventListener('keydown', handleKeydown);
 
   return {
     destroy() {
-      window.removeEventListener("keydown", handleKeydown);
-    },
+      window.removeEventListener('keydown', handleKeydown);
+    }
   };
 }

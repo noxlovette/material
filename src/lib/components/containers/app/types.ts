@@ -1,7 +1,7 @@
-import type { MaterialSymbolsProviderProps } from "$lib/utils/index.js";
-import type { ThemeConfig } from "$lib/utils/theme.svelte.js";
-import type { DivAttrs } from "$lib/utils/types.js";
-import type { Snippet } from "svelte";
+import type { MaterialSymbolsProviderProps } from '$lib/utils/index.js';
+import type { ThemeConfig } from '$lib/utils/theme.svelte.js';
+import type { DivAttrs } from '$lib/utils/types.js';
+import type { Snippet } from 'svelte';
 
 export type AppProps = DivAttrs & {
   /** Content for the core app */

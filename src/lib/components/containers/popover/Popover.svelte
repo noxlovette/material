@@ -5,27 +5,23 @@ Popovers display rich content in a non-modal overlay anchored to a trigger eleme
 @see https://m3.material.io/components/dialogs/overview (non-modal surface variant)
 -->
 <script lang="ts">
-  import { Popover } from "bits-ui";
-  import clsx from "clsx";
-  import { popover } from "./theme.js";
-  import type { PopoverProps } from "./types.js";
-  import {
-    enterExit,
-    easeEmphasizedDecel,
-    easeEmphasizedAccel,
-  } from "$lib/animation/index.js";
-  import ButtonIcon from "../../buttons/ButtonIcon.svelte";
-  import Title from "../../typography/title/Title.svelte";
+  import { Popover } from 'bits-ui';
+  import clsx from 'clsx';
+  import { popover } from './theme.js';
+  import type { PopoverProps } from './types.js';
+  import { enterExit, easeEmphasizedDecel, easeEmphasizedAccel } from '$lib/animation/index.js';
+  import ButtonIcon from '../../buttons/ButtonIcon.svelte';
+  import Title from '../../typography/title/Title.svelte';
   let {
     trigger,
     children,
     title,
     showClose = true,
     open = $bindable(false),
-    side = "bottom",
-    align = "start",
+    side = 'bottom',
+    align = 'start',
     sideOffset = 8,
-    class: className,
+    class: className
   }: PopoverProps = $props();
 
   const { base, header, title: titleCls, close } = popover();
@@ -47,12 +43,12 @@ Popovers display rich content in a non-modal overlay anchored to a trigger eleme
               in:enterExit={{
                 duration: 200,
                 easing: easeEmphasizedDecel,
-                mode: "scale",
+                mode: 'scale'
               }}
               out:enterExit={{
                 duration: 150,
                 easing: easeEmphasizedAccel,
-                mode: "scale",
+                mode: 'scale'
               }}
             >
               {#if title || showClose}
@@ -66,7 +62,7 @@ Popovers display rich content in a non-modal overlay anchored to a trigger eleme
                         <div class={close()}>
                           <ButtonIcon
                             {...closeProps}
-                            iconProps={{ name: "close" }}
+                            iconProps={{ name: 'close' }}
                             variant="text"
                             size="sm"
                           />

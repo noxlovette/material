@@ -7,20 +7,20 @@ Sliders allow users to make selections from a range of values.
 @see https://m3.material.io/components/sliders/overview
 -->
 <script lang="ts">
-  import { Slider } from "bits-ui";
-  import clsx from "clsx";
-  import { Icon } from "$lib/utils/index.js";
-  import { slider } from "./theme.js";
-  import type { SliderProps } from "./types.js";
+  import { Slider } from 'bits-ui';
+  import clsx from 'clsx';
+  import { Icon } from '$lib/utils/index.js';
+  import { slider } from './theme.js';
+  import type { SliderProps } from './types.js';
 
   let {
     value = $bindable(0),
     min = 0,
     max = 100,
-    step = "any",
+    step = 'any',
     disabled = false,
     showValue = true,
-    size = "xs",
+    size = 'xs',
     leadingIconProps,
     trailingIconProps,
     stops = false,
@@ -47,10 +47,10 @@ Sliders allow users to make selections from a range of values.
     stopFill,
     stopRest,
     handle: handleCls,
-    value: valueCls,
+    value: valueCls
   } = $derived(slider({ size, vertical }));
 
-  const sliderDir = $derived(dir === null || dir === "auto" ? undefined : dir);
+  const sliderDir = $derived(dir === null || dir === 'auto' ? undefined : dir);
   const sliderId = $derived(id === null ? undefined : id);
 
   let offsetWidth = $state(600);
@@ -67,7 +67,7 @@ Sliders allow users to make selections from a range of values.
       output.push(stopValue);
     };
 
-    if (stops && typeof step == "number" && range > 0) {
+    if (stops && typeof step == 'number' && range > 0) {
       for (let i = 0; i <= range; i += step) add(i / range);
     }
     if (endStops && !output.includes(1)) {
@@ -77,7 +77,7 @@ Sliders allow users to make selections from a range of values.
     return output;
   });
 
-  const stepValue = $derived(typeof step === "number" ? step : undefined);
+  const stepValue = $derived(typeof step === 'number' ? step : undefined);
 </script>
 
 <Slider.Root
@@ -87,7 +87,7 @@ Sliders allow users to make selections from a range of values.
   {max}
   step={stepValue}
   {disabled}
-  orientation={vertical ? "vertical" : "horizontal"}
+  orientation={vertical ? 'vertical' : 'horizontal'}
   dir={sliderDir}
   id={sliderId}
   {...extra}
@@ -109,8 +109,8 @@ Sliders allow users to make selections from a range of values.
         class={trackFill({
           class: clsx(
             vertical &&
-              "[clip-path:inset(calc(100%-var(--handle-left))_0_0_0_round_var(--m3-slider-track-in-shape)_var(--m3-slider-track-in-shape)_var(--track-radius)_var(--track-radius))]",
-          ),
+              '[clip-path:inset(calc(100%-var(--handle-left))_0_0_0_round_var(--m3-slider-track-in-shape)_var(--m3-slider-track-in-shape)_var(--track-radius)_var(--track-radius))]'
+          )
         })}
       >
         {#each stopList as stop}
@@ -118,9 +118,7 @@ Sliders allow users to make selections from a range of values.
             class={clsx(
               stopBase(),
               stopFill(),
-              vertical
-                ? "-translate-x-1/2 translate-y-1/2"
-                : "-translate-x-1/2 -translate-y-1/2",
+              vertical ? '-translate-x-1/2 translate-y-1/2' : '-translate-x-1/2 -translate-y-1/2'
             )}
             style:--x={stop - 0.5}
           ></div>
@@ -131,8 +129,8 @@ Sliders allow users to make selections from a range of values.
         class={trackRest({
           class: clsx(
             vertical &&
-              "[clip-path:inset(0_0_var(--handle-right)_0_round_var(--track-radius)_var(--track-radius)_var(--m3-slider-track-in-shape)_var(--m3-slider-track-in-shape))]",
-          ),
+              '[clip-path:inset(0_0_var(--handle-right)_0_round_var(--track-radius)_var(--track-radius)_var(--m3-slider-track-in-shape)_var(--m3-slider-track-in-shape))]'
+          )
         })}
       >
         {#each stopList as stop}
@@ -140,9 +138,7 @@ Sliders allow users to make selections from a range of values.
             class={clsx(
               stopBase(),
               stopRest(),
-              vertical
-                ? "-translate-x-1/2 translate-y-1/2"
-                : "-translate-x-1/2 -translate-y-1/2",
+              vertical ? '-translate-x-1/2 translate-y-1/2' : '-translate-x-1/2 -translate-y-1/2'
             )}
             style:--x={stop - 0.5}
           ></div>
@@ -154,10 +150,9 @@ Sliders allow users to make selections from a range of values.
           class={leadingIcon({
             class: clsx(
               leadingIconProps.class,
-              inlineSize * handlePosition < (size == "xl" ? 48 : 40) &&
-                leadingIconPop(),
-              vertical && "translate-x-[-50%] translate-y-0",
-            ),
+              inlineSize * handlePosition < (size == 'xl' ? 48 : 40) && leadingIconPop(),
+              vertical && 'translate-x-[-50%] translate-y-0'
+            )
           })}
           {...leadingIconProps}
         />
@@ -167,10 +162,9 @@ Sliders allow users to make selections from a range of values.
           class={trailingIcon({
             class: clsx(
               trailingIconProps.class,
-              inlineSize * (1 - handlePosition) < (size == "xl" ? 48 : 40) &&
-                trailingIconPop(),
-              vertical && "translate-x-[-50%] translate-y-0",
-            ),
+              inlineSize * (1 - handlePosition) < (size == 'xl' ? 48 : 40) && trailingIconPop(),
+              vertical && 'translate-x-[-50%] translate-y-0'
+            )
           })}
           {...trailingIconProps}
         />
@@ -179,18 +173,14 @@ Sliders allow users to make selections from a range of values.
       <Slider.Thumb
         index={0}
         class={handleCls({
-          class: clsx(vertical ? "translate-y-1/2" : "-translate-x-1/2"),
+          class: clsx(vertical ? 'translate-y-1/2' : '-translate-x-1/2')
         })}
       />
 
       {#if showValue}
         <div
           class={valueCls({
-            class: clsx(
-              vertical
-                ? "translate-x-0 translate-y-1/2 rotate-90"
-                : "-translate-x-1/2",
-            ),
+            class: clsx(vertical ? 'translate-x-0 translate-y-1/2 rotate-90' : '-translate-x-1/2')
           })}
         >
           {format(value)}

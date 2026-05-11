@@ -1,6 +1,6 @@
-import type { LinkPreview } from "bits-ui";
-import type { Snippet } from "svelte";
-import type { LinkPreviewVariants } from "./theme.js";
+import type { LinkPreview } from 'bits-ui';
+import type { Snippet } from 'svelte';
+import type { LinkPreviewVariants } from './theme.js';
 
 export interface LinkPreviewProps extends LinkPreviewVariants {
   /** Snippet rendered as the trigger element (typically an anchor tag or a link). */
@@ -10,9 +10,9 @@ export interface LinkPreviewProps extends LinkPreviewVariants {
   /** Controlled open state. */
   open?: boolean;
   /** Positioning side relative to the trigger. */
-  side?: LinkPreview.ContentProps["side"];
+  side?: LinkPreview.ContentProps['side'];
   /** Alignment along the side axis. */
-  align?: LinkPreview.ContentProps["align"];
+  align?: LinkPreview.ContentProps['align'];
   /** Gap between trigger and panel in px. */
   sideOffset?: number;
   /** Delay in ms before the preview opens. */

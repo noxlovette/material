@@ -5,16 +5,16 @@ SupportingPane provides a layout with a main content area and a supporting side 
 @see https://m3.material.io/foundations/layout/canonical-layouts/supporting-pane
 -->
 <script lang="ts">
-  import clsx from "clsx";
-  import type { SupportingPaneProps } from "./types.js";
-  import { supportingPane } from "./theme.js";
-  import ButtonIcon from "$lib/components/buttons/ButtonIcon.svelte";
+  import clsx from 'clsx';
+  import type { SupportingPaneProps } from './types.js';
+  import { supportingPane } from './theme.js';
+  import ButtonIcon from '$lib/components/buttons/ButtonIcon.svelte';
 
   const {
     main,
     supporting,
-    anchor = "parent",
-    position = "right",
+    anchor = 'parent',
+    position = 'right',
     centered = false,
     rounded = true,
     class: className,
@@ -23,45 +23,41 @@ SupportingPane provides a layout with a main content area and a supporting side 
     supportingClass,
     collapsible,
     supportingWidth = 320,
-    supportingTop = 0,
+    supportingTop = 0
   }: SupportingPaneProps = $props();
 
   let entered = $state(false);
   let supportingVisible = $state(true);
-  const supportingId = "supporting-pane";
+  const supportingId = 'supporting-pane';
 
   const {
     base,
     main: mainCls,
-    supporting: supportingCls,
+    supporting: supportingCls
   } = $derived(supportingPane({ anchor, position, centered, full, rounded }));
 
   const cssVars = $derived(
-    anchor === "viewport"
+    anchor === 'viewport'
       ? `--supporting-pane-width: ${supportingWidth}px; --supporting-pane-top: ${supportingTop}px;`
-      : "",
+      : ''
   );
 </script>
 
 <div class={base({ class: clsx(className) })} style={cssVars}>
-  <div class={mainCls({ class: clsx("relative", mainClass) })}>
+  <div class={mainCls({ class: clsx('relative', mainClass) })}>
     {#if collapsible}
       <div class="top-3 right-3 z-10 hidden h-12 w-12 md:absolute md:block">
         <ButtonIcon
           triggerClass=""
           variant="text"
-          tooltipContent={supportingVisible
-            ? "Скрыть панель"
-            : "Показать панель"}
+          tooltipContent={supportingVisible ? 'Скрыть панель' : 'Показать панель'}
           size="sm"
           iconProps={{
-            name: supportingVisible ? "right_panel_close" : "right_panel_open",
+            name: supportingVisible ? 'right_panel_close' : 'right_panel_open'
           }}
           aria-controls={supportingId}
           aria-expanded={supportingVisible}
-          aria-label={supportingVisible
-            ? "Hide supporting pane"
-            : "Show supporting pane"}
+          aria-label={supportingVisible ? 'Hide supporting pane' : 'Show supporting pane'}
           onclick={() => {
             supportingVisible = !supportingVisible;
           }}
@@ -74,7 +70,7 @@ SupportingPane provides a layout with a main content area and a supporting side 
     <aside
       id={supportingId}
       class={supportingCls({
-        class: clsx(supportingClass),
+        class: clsx(supportingClass)
       })}
       data-entered={entered}
       data-position={position}

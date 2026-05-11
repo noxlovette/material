@@ -1,14 +1,10 @@
 <script lang="ts">
-  import { Command } from "bits-ui";
-  import clsx from "clsx";
-  import { command } from "./theme.js";
-  import type { CommandEmptyProps } from "./types.js";
+  import { Command } from 'bits-ui';
+  import clsx from 'clsx';
+  import { command } from './theme.js';
+  import type { CommandEmptyProps } from './types.js';
 
-  let {
-    children,
-    class: className,
-    ...restProps
-  }: CommandEmptyProps = $props();
+  let { children, class: className, ...restProps }: CommandEmptyProps = $props();
 
   const { empty } = command();
 </script>

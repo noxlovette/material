@@ -10,16 +10,13 @@ on screen until confirmed, dismissed, or a required action has been taken.
 @see https://m3.material.io/components/dialogs/overview
 -->
 <script lang="ts">
-  import { dialogue } from "./theme.js";
-  import type { DialogueProps } from "./types.js";
-  import { Dialog } from "bits-ui";
-  import clsx from "clsx";
-  import { enterExit } from "$lib/animation/enterExit.js";
-  import {
-    easeEmphasized,
-    easeEmphasizedDecel,
-  } from "$lib/animation/easing.js";
-  import { Button } from "$lib/components/buttons/index.js";
+  import { dialogue } from './theme.js';
+  import type { DialogueProps } from './types.js';
+  import { Dialog } from 'bits-ui';
+  import clsx from 'clsx';
+  import { enterExit } from '$lib/animation/enterExit.js';
+  import { easeEmphasized, easeEmphasizedDecel } from '$lib/animation/easing.js';
+  import { Button } from '$lib/components/buttons/index.js';
 
   let {
     open = $bindable(false),
@@ -27,12 +24,12 @@ on screen until confirmed, dismissed, or a required action has been taken.
     headline,
     supportingText,
     confirmText,
-    cancelText = "Отмена",
+    cancelText = 'Отмена',
     confirmAction,
     loading = false,
     portalDisabled = false,
-    minWidth = "280px",
-    maxWidth = "560px",
+    minWidth = '280px',
+    maxWidth = '560px',
     children,
     disabled = false,
     class: className,
@@ -42,13 +39,8 @@ on screen until confirmed, dismissed, or a required action has been taken.
     ...rootRest
   }: DialogueProps = $props();
 
-  const {
-    base,
-    inner,
-    headlineContainer,
-    buttonContainer,
-    supportingTextContainer,
-  } = $derived(dialogue());
+  const { base, inner, headlineContainer, buttonContainer, supportingTextContainer } =
+    $derived(dialogue());
 </script>
 
 <Dialog.Root
@@ -68,7 +60,7 @@ on screen until confirmed, dismissed, or a required action has been taken.
             class={base()}
             transition:enterExit={{
               duration: 500,
-              easing: easeEmphasizedDecel,
+              easing: easeEmphasizedDecel
             }}
           ></div>
         {/if}
@@ -95,7 +87,7 @@ on screen until confirmed, dismissed, or a required action has been taken.
             transition:enterExit={{
               duration: 500,
               easing: easeEmphasized,
-              mode: "dialog-m3",
+              mode: 'dialog-m3'
             }}
           >
             {#if headline}

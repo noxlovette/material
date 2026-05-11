@@ -4,18 +4,18 @@ A single segment within a ToggleGroup.
 Shows a leading check icon when selected, per M3 segmented button spec.
 -->
 <script lang="ts">
-  import { ToggleGroup } from "bits-ui";
-  import clsx from "clsx";
-  import { Icon, Layer } from "$lib/utils/index.js";
-  import { toggleGroupItem } from "./theme.js";
-  import type { ToggleGroupItemProps } from "./types.js";
+  import { ToggleGroup } from 'bits-ui';
+  import clsx from 'clsx';
+  import { Icon, Layer } from '$lib/utils/index.js';
+  import { toggleGroupItem } from './theme.js';
+  import type { ToggleGroupItemProps } from './types.js';
 
   let {
     value,
     label,
     iconProps,
     disabled = false,
-    class: className,
+    class: className
   }: ToggleGroupItemProps = $props();
 
   const { base, checkIcon, icon } = toggleGroupItem();

@@ -8,13 +8,10 @@ while keeping the main screen content visible.
 @see https://m3.material.io/components/bottom-sheets/overview
 -->
 <script lang="ts">
-  import type { BottomSheetProps } from "./types.js";
-  import type { TransitionConfig } from "svelte/transition";
-  import {
-    easeEmphasizedAccel,
-    easeEmphasizedDecel,
-  } from "$lib/animation/easing.js";
-  import { outroClass } from "$lib/animation/outroClass.js";
+  import type { BottomSheetProps } from './types.js';
+  import type { TransitionConfig } from 'svelte/transition';
+  import { easeEmphasizedAccel, easeEmphasizedDecel } from '$lib/animation/easing.js';
+  import { outroClass } from '$lib/animation/outroClass.js';
 
   let { children, close }: BottomSheetProps = $props();
 
@@ -27,21 +24,20 @@ while keeping the main screen content visible.
 
   const heightAnim = (
     node: HTMLDialogElement,
-    options: { duration: number; easing: typeof easeEmphasizedDecel },
+    options: { duration: number; easing: typeof easeEmphasizedDecel }
   ): TransitionConfig => {
     if (node.clientHeight < height) height = node.clientHeight;
     return {
       duration: options.duration,
       easing: options.easing,
-      css: (t) => `max-height: ${t * height}px`,
+      css: (t) => `max-height: ${t * height}px`
     };
   };
 
   const moveWheel = (e: WheelEvent) => {
     e.preventDefault();
     height += e.deltaY;
-    if (container && container.clientHeight < height)
-      height = container.clientHeight;
+    if (container && container.clientHeight < height) height = container.clientHeight;
   };
 
   const moveMouse = (e: { clientY: number }) => {
@@ -53,7 +49,7 @@ while keeping the main screen content visible.
   };
 
   $effect(() => {
-    if (height < 48) close("low");
+    if (height < 48) close('low');
   });
 </script>
 
@@ -71,11 +67,11 @@ while keeping the main screen content visible.
   use:outroClass
   oncancel={(e) => {
     e.preventDefault();
-    close("esc");
+    close('esc');
   }}
   onmousedown={(e) => {
     if (e.target != e.currentTarget) return;
-    close("click");
+    close('click');
   }}
   onwheel={moveWheel}
   in:heightAnim={{ easing: easeEmphasizedDecel, duration: 400 }}
@@ -95,9 +91,7 @@ while keeping the main screen content visible.
         startY = e.touches[0].clientY;
       }}
     >
-      <div
-        class="bg-md-sys-color-on-surface-variant/40 h-1 w-8 rounded-full"
-      ></div>
+      <div class="bg-md-sys-color-on-surface-variant/40 h-1 w-8 rounded-full"></div>
     </div>
     {@render children()}
   </div>

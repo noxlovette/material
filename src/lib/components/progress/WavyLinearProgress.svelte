@@ -5,15 +5,15 @@ Wavy linear progress indicator — a custom M3-inspired variant.
 @see https://m3.material.io/components/progress-indicators/overview
 -->
 <script lang="ts">
-  import { Progress } from "bits-ui";
-  import { linear, trackOpacity } from "./_wavy.js";
+  import { Progress } from 'bits-ui';
+  import { linear, trackOpacity } from './_wavy.js';
 
   let {
     width = 600,
     height = 10,
     thickness = 4,
     percent,
-    class: className,
+    class: className
   }: {
     /** Width of the SVG viewBox. */
     width?: number;
@@ -28,12 +28,8 @@ Wavy linear progress indicator — a custom M3-inspired variant.
 
   let left = $derived(thickness * 0.5);
   let right = $derived(width - thickness * 0.5);
-  let percentX = $derived(
-    percent != null ? (percent / 100) * (right - left) + left : left,
-  );
-  let wavePath = $derived(
-    linear(height / 2 - thickness / 2, height / 2, left, percentX, 0),
-  );
+  let percentX = $derived(percent != null ? (percent / 100) * (right - left) + left : left);
+  let wavePath = $derived(linear(height / 2 - thickness / 2, height / 2, left, percentX, 0));
 </script>
 
 <Progress.Root value={percent ?? null} max={100}>

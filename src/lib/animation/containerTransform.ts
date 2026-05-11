@@ -1,12 +1,12 @@
-import type { TransitionConfig } from "svelte/transition";
-import { easeEmphasized } from "./easing.js";
-import type { TransitionOptions } from "./transitionTypes.js";
+import type { TransitionConfig } from 'svelte/transition';
+import { easeEmphasized } from './easing.js';
+import type { TransitionOptions } from './transitionTypes.js';
 
 interface ContainerOptions {
   fallback?: (
     node: Element,
     params: TransitionOptions & ContainerOptions & ContainerParamOptions,
-    intro: boolean,
+    intro: boolean
   ) => TransitionConfig;
   bgContainerZ?: number;
   fgContainerZ?: number;
@@ -20,35 +20,28 @@ type ClientRectMap = Map<string, { rect: DOMRect; node: Element }>;
 
 const getBackgroundColor = (node: Element, defaultColor?: string): string => {
   if (!defaultColor) {
-    const tmp = document.createElement("div");
+    const tmp = document.createElement('div');
     document.body.appendChild(tmp);
     defaultColor = getComputedStyle(tmp).backgroundColor;
     tmp.remove();
   }
   const color = getComputedStyle(node).backgroundColor;
   if (color != defaultColor) return color;
-  if (node.parentElement)
-    return getBackgroundColor(node.parentElement, defaultColor);
+  if (node.parentElement) return getBackgroundColor(node.parentElement, defaultColor);
   return defaultColor;
 };
 
 const parseColor = (color: string) => {
-  const match = color.match(
-    /rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/,
-  );
+  const match = color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);
   if (match) {
-    const [r, g, b, opacity = 1.0] = match
-      .slice(1, 5)
-      .map((val) => val && parseFloat(val));
+    const [r, g, b, opacity = 1.0] = match.slice(1, 5).map((val) => val && parseFloat(val));
     if (
-      typeof r != "number" ||
-      typeof g != "number" ||
-      typeof b != "number" ||
-      typeof opacity != "number"
+      typeof r != 'number' ||
+      typeof g != 'number' ||
+      typeof b != 'number' ||
+      typeof opacity != 'number'
     ) {
-      throw new Error(
-        "something went down in the color parser, see previous info",
-      );
+      throw new Error('something went down in the color parser, see previous info');
     }
     return [r, g, b, opacity];
   }
@@ -69,7 +62,7 @@ export const containerTransform = ({
     from: DOMRect,
     fromNode: Element,
     node: Element,
-    params: TransitionOptions & ContainerOptions,
+    params: TransitionOptions & ContainerOptions
   ): TransitionConfig {
     const to = node.getBoundingClientRect();
     const isEntering = from.width * from.height < to.width * to.height;
@@ -77,7 +70,7 @@ export const containerTransform = ({
     const dy = from.top - to.top;
 
     const style = getComputedStyle(node);
-    const transform = style.transform == "none" ? "" : style.transform;
+    const transform = style.transform == 'none' ? '' : style.transform;
     const opacity = +style.opacity;
     const bgContainerZ = params.bgContainerZ ?? defaults.bgContainerZ ?? 4;
     const fgContainerZ = params.fgContainerZ ?? defaults.fgContainerZ ?? 5;
@@ -101,7 +94,7 @@ export const containerTransform = ({
       toColor: parseColor(getBackgroundColor(fromNode)),
       toRadius: parseSize(getComputedStyle(fromNode).borderRadius),
       toBorderWidth: parseSize(getComputedStyle(fromNode).borderLeftWidth),
-      toBorderColor: parseColor(getComputedStyle(fromNode).borderLeftColor),
+      toBorderColor: parseColor(getComputedStyle(fromNode).borderLeftColor)
     };
 
     return {
@@ -111,8 +104,7 @@ export const containerTransform = ({
       css: (t, u) => {
         const dw = t + u * (from.width / to.width);
         const dh = t + u * (from.height / to.height);
-        const tOpacity =
-          (isEntering ? (10 * t - 3) / 7 : (-10 / 3) * u + 1) * opacity;
+        const tOpacity = (isEntering ? (10 * t - 3) / 7 : (-10 / 3) * u + 1) * opacity;
         const tScale = isEntering ? Math.max(dw, dh) : Math.min(dw, dh);
         const horizontalTrim = ((tScale - dw) * to.width) / tScale / 2;
         const verticalTrim = ((tScale - dh) * to.height) / tScale;
@@ -122,7 +114,7 @@ export const containerTransform = ({
 					transform: ${transform} translate(${u * dx}px, ${u * dy}px) scale(${tScale});
 					clip-path: inset(0 ${horizontalTrim}px ${verticalTrim}px ${horizontalTrim}px);
 					z-index: ${fgContainerZ};
-					${t < 0.98 ? "background-color: transparent;" : ""}
+					${t < 0.98 ? 'background-color: transparent;' : ''}
 					border-color: transparent;
 					pointer-events: none;
 				`;
@@ -131,11 +123,11 @@ export const containerTransform = ({
         if (!isEntering || !container) return;
         if (container.backwards == null) container.backwards = Boolean(t);
         if (!container.e) {
-          container.e = document.createElement("div");
-          container.e.style.position = "fixed";
+          container.e = document.createElement('div');
+          container.e.style.position = 'fixed';
           container.e.style.zIndex = bgContainerZ.toString();
-          container.e.style.boxSizing = "border-box";
-          container.e.style.borderStyle = "solid";
+          container.e.style.boxSizing = 'border-box';
+          container.e.style.borderStyle = 'solid';
           document.body.appendChild(container.e);
         } else if (t == (container.backwards ? 0 : 1)) {
           document.body.removeChild(container.e);
@@ -144,13 +136,10 @@ export const containerTransform = ({
         }
         if (!container?.e) return;
 
-        container.e.style.top = (u * from.top + t * to.top).toFixed(1) + "px";
-        container.e.style.left =
-          (u * from.left + t * to.left).toFixed(1) + "px";
-        container.e.style.width =
-          (u * from.width + t * to.width).toFixed(1) + "px";
-        container.e.style.height =
-          (u * from.height + t * to.height).toFixed(1) + "px";
+        container.e.style.top = (u * from.top + t * to.top).toFixed(1) + 'px';
+        container.e.style.left = (u * from.left + t * to.left).toFixed(1) + 'px';
+        container.e.style.width = (u * from.width + t * to.width).toFixed(1) + 'px';
+        container.e.style.height = (u * from.height + t * to.height).toFixed(1) + 'px';
 
         const {
           fromColor,
@@ -160,48 +149,37 @@ export const containerTransform = ({
           toColor,
           toRadius,
           toBorderWidth,
-          toBorderColor,
+          toBorderColor
         } = container;
 
         const interpColor = [0, 0, 0, 0].map((_, i) =>
-          Math.trunc(t * fromColor[i] + u * toColor[i]),
+          Math.trunc(t * fromColor[i] + u * toColor[i])
         );
-        container.e.style.backgroundColor = `rgba(${interpColor.join(",")})`;
-        container.e.style.borderRadius =
-          (t * fromRadius + u * toRadius).toFixed(1) + "px";
-        container.e.style.borderWidth =
-          (t * fromBorderWidth + u * toBorderWidth).toFixed(1) + "px";
+        container.e.style.backgroundColor = `rgba(${interpColor.join(',')})`;
+        container.e.style.borderRadius = (t * fromRadius + u * toRadius).toFixed(1) + 'px';
+        container.e.style.borderWidth = (t * fromBorderWidth + u * toBorderWidth).toFixed(1) + 'px';
         const interpBorder = [0, 0, 0, 0].map((_, i) =>
-          Math.trunc(t * fromBorderColor[i] + u * toBorderColor[i]),
+          Math.trunc(t * fromBorderColor[i] + u * toBorderColor[i])
         );
-        container.e.style.borderColor = `rgba(${interpBorder.join(",")})`;
-      },
+        container.e.style.borderColor = `rgba(${interpBorder.join(',')})`;
+      }
     };
   }
 
-  function makeTransition(
-    items: ClientRectMap,
-    counterparts: ClientRectMap,
-    intro: boolean,
-  ) {
+  function makeTransition(items: ClientRectMap, counterparts: ClientRectMap, intro: boolean) {
     return (
       node: Element,
-      params: TransitionOptions & ContainerOptions & ContainerParamOptions,
+      params: TransitionOptions & ContainerOptions & ContainerParamOptions
     ) => {
       items.set(params.key, {
         rect: node.getBoundingClientRect(),
-        node,
+        node
       });
       return () => {
         const counterpart = counterparts.get(params.key);
         if (counterpart) {
           counterparts.delete(params.key);
-          return calcTransition(
-            counterpart.rect,
-            counterpart.node,
-            node,
-            params,
-          );
+          return calcTransition(counterpart.rect, counterpart.node, node, params);
         }
 
         // if the node is disappearing altogether
@@ -213,15 +191,12 @@ export const containerTransform = ({
     };
   }
 
-  return [
-    makeTransition(to_send, to_receive, false),
-    makeTransition(to_receive, to_send, true),
-  ];
+  return [makeTransition(to_send, to_receive, false), makeTransition(to_receive, to_send, true)];
 };
 
 export const parseSize = (size: string) =>
-  (size.endsWith("px")
+  (size.endsWith('px')
     ? +size.slice(0, -2)
-    : size.endsWith("rem")
+    : size.endsWith('rem')
       ? +size.slice(0, -3) * 16
       : null) || 0;

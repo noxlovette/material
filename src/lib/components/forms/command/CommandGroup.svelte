@@ -1,15 +1,10 @@
 <script lang="ts">
-  import { Command } from "bits-ui";
-  import clsx from "clsx";
-  import { command } from "./theme.js";
-  import type { CommandGroupProps } from "./types.js";
+  import { Command } from 'bits-ui';
+  import clsx from 'clsx';
+  import { command } from './theme.js';
+  import type { CommandGroupProps } from './types.js';
 
-  let {
-    children,
-    class: className,
-    heading,
-    ...restProps
-  }: CommandGroupProps = $props();
+  let { children, class: className, heading, ...restProps }: CommandGroupProps = $props();
 
   const { group } = command();
 </script>

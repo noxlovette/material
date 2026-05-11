@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { select as selectCls } from "./theme.js";
+  import { select as selectCls } from './theme.js';
 
   let {
-    class: className,
+    class: className
   }: {
     class?: string;
   } = $props();

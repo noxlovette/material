@@ -1,6 +1,6 @@
-import type { Snippet } from "svelte";
-import type { HTMLAttributes } from "svelte/elements";
-import type { SnackBarVariants } from "./theme.js";
+import type { Snippet } from 'svelte';
+import type { HTMLAttributes } from 'svelte/elements';
+import type { SnackBarVariants } from './theme.js';
 
 /**
  * Configuration for a simple snackbar toast.

@@ -1,15 +1,11 @@
 <script lang="ts">
-  import { Command } from "bits-ui";
-  import clsx from "clsx";
-  import { command } from "./theme.js";
-  import type { CommandInputProps } from "./types.js";
-  import { Icon } from "$lib/utils/index.js";
+  import { Command } from 'bits-ui';
+  import clsx from 'clsx';
+  import { command } from './theme.js';
+  import type { CommandInputProps } from './types.js';
+  import { Icon } from '$lib/utils/index.js';
 
-  let {
-    class: className,
-    showIcon = true,
-    ...restProps
-  }: CommandInputProps = $props();
+  let { class: className, showIcon = true, ...restProps }: CommandInputProps = $props();
 
   const { inputWrapper, inputIcon, input } = command();
 </script>

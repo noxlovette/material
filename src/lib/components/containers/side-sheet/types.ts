@@ -1,4 +1,4 @@
-import type { Snippet } from "svelte";
+import type { Snippet } from 'svelte';
 
 /**
  * Props for the SideSheet component.

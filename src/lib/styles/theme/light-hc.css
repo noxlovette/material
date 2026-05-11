@@ -1,5 +1,5 @@
 @layer base {
-  [data-theme="light-hc"] {
+  [data-theme='light-hc'] {
     --color-md-sys-color-primary: rgb(49 34 89);
     --color-md-sys-color-surface-tint: rgb(101 85 143);
     --color-md-sys-color-on-primary: rgb(255 255 255);

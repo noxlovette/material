@@ -1,5 +1,5 @@
-import type { HTMLAttributes } from "svelte/elements";
-import type { TimepickerVariants } from "./theme.js";
+import type { HTMLAttributes } from 'svelte/elements';
+import type { TimepickerVariants } from './theme.js';
 
 /**
  * Props for the TimepickerInput component.

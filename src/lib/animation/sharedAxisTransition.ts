@@ -1,9 +1,9 @@
-import { easeEmphasized } from "./easing.js";
-import type { TransitionOptions } from "./transitionTypes.js";
+import { easeEmphasized } from './easing.js';
+import type { TransitionOptions } from './transitionTypes.js';
 
 type SharedAxisOptions =
   | {
-      direction: "X" | "Y";
+      direction: 'X' | 'Y';
       /**
        * true if this element is on the top/left of things
        * if it's first, then use transition: and set it to true
@@ -30,14 +30,14 @@ type SharedAxisOptions =
       rightSeam: boolean;
     }
   | {
-      direction: "Z";
+      direction: 'Z';
       leaving: boolean /* set to true in out:, set to false in in: */;
     };
 
 /* protip: set a background color on the items, and utilize position relative + absolute to let them overlap */
 export const sharedAxisTransition = (
   node: Element,
-  options: TransitionOptions & SharedAxisOptions,
+  options: TransitionOptions & SharedAxisOptions
 ) => {
   void node;
   return {
@@ -46,7 +46,7 @@ export const sharedAxisTransition = (
     easing: options.easing ?? easeEmphasized,
     css: (t: number, u: number) => {
       const opacity = (t - 0.35) * (1 / 0.35);
-      if (options.direction == "Z") {
+      if (options.direction == 'Z') {
         const factor = options.leaving ? u * 0.1 + 1 : t * 0.2 + 0.8;
         let css = `transform: scale(${factor.toFixed(3)});`;
         if (!options.leaving) css += `opacity: ${opacity.toFixed(3)};`;
@@ -57,6 +57,6 @@ export const sharedAxisTransition = (
         `transform: translate${options.direction}(${factor.toFixed(3)}px);` +
         `opacity: ${opacity.toFixed(3)}`
       );
-    },
+    }
   };
 };

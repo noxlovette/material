@@ -1,11 +1,6 @@
-import type { cubicOut } from "svelte/easing";
+import type { cubicOut } from 'svelte/easing';
 
-export type TransitionMode =
-  | "fade"
-  | "scale"
-  | "slide-up"
-  | "dialog"
-  | "dialog-m3";
+export type TransitionMode = 'fade' | 'scale' | 'slide-up' | 'dialog' | 'dialog-m3';
 
 export interface TransitionOptions {
   delay?: number;

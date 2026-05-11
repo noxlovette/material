@@ -1,12 +1,12 @@
-import type { IconProps } from "$lib/utils/index.js";
-import type { HTMLAttributes } from "svelte/elements";
-import type { SliderVariants } from "./theme.js";
+import type { IconProps } from '$lib/utils/index.js';
+import type { HTMLAttributes } from 'svelte/elements';
+import type { SliderVariants } from './theme.js';
 
 /**
  * Props for the Slider component.
  */
 export type SliderProps = SliderVariants &
-  Omit<HTMLAttributes<HTMLSpanElement>, "size" | "value"> & {
+  Omit<HTMLAttributes<HTMLSpanElement>, 'size' | 'value'> & {
     /**
      * The current value of the slider.
      */
@@ -25,7 +25,7 @@ export type SliderProps = SliderVariants &
     /**
      * The step increment for the slider.
      */
-    step?: number | "any";
+    step?: number | 'any';
 
     /**
      * Whether the slider is disabled.

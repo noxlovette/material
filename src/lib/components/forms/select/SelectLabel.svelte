@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { Select } from "bits-ui";
-  import { select as selectCls } from "./theme.js";
-  import type { Snippet } from "svelte";
+  import { Select } from 'bits-ui';
+  import { select as selectCls } from './theme.js';
+  import type { Snippet } from 'svelte';
 
   let {
     children,
-    class: className,
+    class: className
   }: {
     children: Snippet;
     class?: string;

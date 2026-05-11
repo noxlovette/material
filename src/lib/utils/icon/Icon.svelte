@@ -1,18 +1,18 @@
 <script lang="ts">
-  import clsx from "clsx";
-  import type { IconProps } from "./types.js";
+  import clsx from 'clsx';
+  import type { IconProps } from './types.js';
 
   const {
     name,
-    variant = "rounded",
+    variant = 'rounded',
     fill = 0,
     wght = 400,
     grad = 0,
     opsz = 24,
-    class: className = "size-6 text-[24px]",
+    class: className = 'size-6 text-[24px]'
   }: IconProps = $props();
 
-  const wrapperClass = "inline-flex items-center justify-center leading-none";
+  const wrapperClass = 'inline-flex items-center justify-center leading-none';
 </script>
 
 <div class={clsx(className, wrapperClass)}>
