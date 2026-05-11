@@ -12,8 +12,6 @@ export type DialogueProps = DialogueVariants &
     enhance: any;
     /** Whether to deactivate the submit button */
     disabled?: boolean;
-    /** Toggle handler for closing the dialogue when not using history state. */
-    toggle?: () => void;
     /** Whether the dialogue is open. */
     open?: boolean;
     /** The main descriptive text content of the dialogue. */
