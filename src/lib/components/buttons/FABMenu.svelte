@@ -8,7 +8,7 @@ Should be used with `FABMenuItem` as children.
   import { fabMenu } from './theme.js';
   import type { FABMenuProps } from './types.js';
   import { enterExit } from '$lib/animation/enterExit.js';
-  import { easeEmphasizedDecel, easeEmphasizedAccel } from '$lib/animation/easing.js';
+  import { easeEmphasizedDecel } from '$lib/animation/easing.js';
 
   let { children, class: className, position = 'top', ...restProps }: FABMenuProps = $props();
 

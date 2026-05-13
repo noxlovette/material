@@ -11,7 +11,7 @@ export type FABMenuItemVariants = VariantProps<typeof fabMenuItem>;
 
 export const button = tv({
   slots: {
-    base: 'md-component-button-base md-btn-morph group max-w-max',
+    base: 'md-component-button-base md-btn-morph group w-full',
     icon: 'inline-flex items-center justify-center leading-none'
   },
   variants: {
@@ -497,7 +497,7 @@ export const fabMenu = tv({
 
 export const fabMenuItem = tv({
   slots: {
-    base: 'md-component-button-base group relative max-w-max h-14 rounded-full before:rounded-full gap-2 px-6 md-sys-typescale-fab-label z-[100] shadow-elevation-2 hover:shadow-elevation-3',
+    base: 'md-component-button-base group relative w-full h-14 rounded-full before:rounded-full gap-2 px-6 md-sys-typescale-fab-label z-[100] shadow-elevation-2 hover:shadow-elevation-3',
     icon: 'size-6 text-[24px]'
   },
   variants: {
