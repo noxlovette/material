@@ -12,6 +12,7 @@ Text fields allow users to enter and edit text.
   import { textfield } from './theme.js';
   import type { TextfieldProps } from './types.js';
   import { useId } from 'bits-ui';
+  import { ButtonIcon } from '$lib/components/buttons/index.js';
 
   let {
     value = $bindable(),
@@ -67,9 +68,8 @@ Text fields allow users to enter and edit text.
     {#if trailingIcon}
       {@render trailingIcon()}
     {:else if trailingIconProps}
-      <button type="button" onclick={trailingOnClick}>
-        <Icon class={cls.trailingIcon()} {...trailingIconProps} />
-      </button>
+      <ButtonIcon onclick={trailingOnClick} class={cls.trailingIcon()} iconProps={trailingIconProps}
+      ></ButtonIcon>
     {/if}
   </div>
 
