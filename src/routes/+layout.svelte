@@ -54,7 +54,18 @@
     'view_quilt',
     'architecture',
     'side_navigation',
-    'table'
+    'table',
+    'terminal',
+    'keyboard',
+    'calendar_month',
+    'sentiment_satisfied',
+    'rocket_launch',
+    'credit_card',
+    'settings',
+    'light_mode',
+    'dark_mode',
+    'desktop_windows',
+    'search'
   ];
 </script>
 
@@ -69,6 +80,7 @@
         iconProps={{ name: 'smart_button' }}
       />
       <RailItem {collapsed} name="Inputs" href="/inputs" iconProps={{ name: 'edit' }} />
+      <RailItem {collapsed} name="Commands" href="/commands" iconProps={{ name: 'terminal' }} />
       <RailItem {collapsed} name="Layouts" href="/layouts" iconProps={{ name: 'view_quilt' }} />
       <RailItem {collapsed} name="Table" href="/table" iconProps={{ name: 'table' }} />
       <RailItem {collapsed} name="Misc" href="/misc" iconProps={{ name: 'circle' }} />

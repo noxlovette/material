@@ -4,7 +4,7 @@
   import { command } from './theme.js';
   import type { CommandProps } from './types.js';
 
-  let { children, class: className, value = $bindable(), ...restProps }: CommandProps = $props();
+  let { children, class: className, value = $bindable(''), ...restProps }: CommandProps = $props();
 
   const { base } = command();
 </script>
