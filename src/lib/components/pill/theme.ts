@@ -10,7 +10,9 @@ export const pill = tv({
       secondary: 'md-component-button-filled-secondary',
       tertiary: 'md-component-button-filled-tertiary',
       error: 'md-component-button-filled-error',
-      container: 'bg-md-sys-color-surface-container text-md-sys-color-on-surface'
+      container: 'bg-md-sys-color-surface-container text-md-sys-color-on-surface',
+      yellow: 'bg-yellow-400 text-yellow-950 dark:bg-yellow-300 dark:text-yellow-950',
+      green: 'bg-green-600 text-white dark:bg-green-500 dark:text-green-950'
     }
   },
   defaultVariants: {

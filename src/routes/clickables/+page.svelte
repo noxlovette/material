@@ -406,6 +406,8 @@
           <Pill variant="tertiary">Tertiary</Pill>
           <Pill variant="error">Error</Pill>
           <Pill variant="container">Container</Pill>
+          <Pill variant="yellow">Yellow</Pill>
+          <Pill variant="green">Green</Pill>
         </div>
       </section>
 
