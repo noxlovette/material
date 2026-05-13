@@ -139,7 +139,7 @@
   <title>Inputs | Ogonëk M3</title>
 </svelte:head>
 
-<SupportingPane anchor="viewport" centered={false}>
+<SupportingPane centered={false}>
   {#snippet main()}
     <!-- TEXT FIELDS -->
     <SinglePane contentClass="gap-12 p-12">

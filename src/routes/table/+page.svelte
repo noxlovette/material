@@ -87,7 +87,7 @@
   <title>Table | Ogonëk M3</title>
 </svelte:head>
 
-<SupportingPane anchor="parent" centered={false}>
+<SupportingPane>
   {#snippet main()}
     <SinglePane contentClass="gap-12 p-12">
       <!-- BASIC -->

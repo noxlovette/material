@@ -13,7 +13,7 @@ SupportingPane provides a layout with a main content area and a supporting side 
   const {
     main,
     supporting,
-    anchor = 'parent',
+    anchor = 'viewport',
     position = 'right',
     centered = false,
     rounded = true,

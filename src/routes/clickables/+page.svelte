@@ -71,7 +71,7 @@
   <title>Clickables | Ogonëk M3</title>
 </svelte:head>
 
-<SupportingPane anchor="parent" centered={false}>
+<SupportingPane>
   {#snippet main()}
     <SinglePane contentClass="p-12 gap-12">
       <!-- BUTTONS -->
