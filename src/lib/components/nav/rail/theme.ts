@@ -5,8 +5,8 @@ export type RailItemVariants = VariantProps<typeof railElement>;
 
 export const rail = tv({
   slots: {
-    base: 'py-12 hidden bg-md-sys-color-surface-container z-20 flex-col md:flex gap-6 transition-[width,padding,background-color] duration-[var(--md-sys-motion-duration-spatial)] ease-[var(--md-sys-motion-timing-function-emphasized)] overflow-x-hidden',
-    items: 'flex flex-col gap-3 pt-6 scrollbar-none w-full',
+    base: 'py-12 hidden bg-md-sys-color-surface-container z-40 flex-col md:flex gap-6 transition-[width,padding,background-color] duration-[var(--md-sys-motion-duration-spatial)] ease-[var(--md-sys-motion-timing-function-emphasized)]',
+    items: 'flex flex-col gap-3 pt-6 scrollbar-none w-full overflow-x-hidden',
     ghost:
       'hidden md:block shrink-0 transition-[width] duration-[var(--md-sys-motion-duration-spatial)] ease-[var(--md-sys-motion-timing-function-emphasized)]',
     scrim:

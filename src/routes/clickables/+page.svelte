@@ -33,7 +33,8 @@
     CircularProgress,
     WavyLinearProgress,
     SupportingPane,
-    Pill
+    Pill,
+    Toggle
   } from '$lib/index.js';
   import TableOfContents from '../TableOfContents.svelte';
 
@@ -78,21 +79,25 @@
       <section id="buttons" class="flex scroll-mt-4 flex-col gap-6">
         <Display>Buttons</Display>
         <Headline>Regular Buttons</Headline>
-        <div class="grid grid-cols-6 items-center gap-y-12">
+        <div class="grid grid-cols-6 items-center gap-4">
           <Button>Filled</Button>
           <Button iconProps={{ name: 'home' }}>With Icon</Button>
           <Button variant="tonal">Tonal</Button>
           <Button variant="outlined">Outlined</Button>
           <Button variant="text">Text</Button>
           <Button variant="elevated">Elevated</Button>
-          <Button
-            variant="bare"
+          <Toggle
+            pressed={toggle}
             onclick={() => {
               toggle = !toggle;
-            }}
-            selected={toggle}>Selected</Button
+            }}>Selected</Toggle
           >
-          <Button variant="bare" selected={!toggle}>Unselected</Button>
+          <Toggle
+            pressed={!toggle}
+            onclick={() => {
+              toggle = !toggle;
+            }}>Unselected</Toggle
+          >
           <Button size="xs">XSmall</Button>
           <Button size="sm">Small</Button>
           <Button size="lg">Large</Button>

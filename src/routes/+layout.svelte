@@ -1,4 +1,7 @@
 <script lang="ts">
+  import FAB from '$lib/components/buttons/FAB.svelte';
+  import FABMenu from '$lib/components/buttons/FABMenu.svelte';
+  import FABMenuItem from '$lib/components/buttons/FABMenuItem.svelte';
   import { App, Rail, RailItem, ThemeSwitcher, isDarkScheme } from '$lib/index.js';
   import '../app.css';
 
@@ -69,9 +72,26 @@
   ];
 </script>
 
+{#snippet fab()}
+  <FAB withMenu label="Добавить" data-cy="fab-add" iconProps={{ name: 'add' }}>
+    <FABMenuItem
+      href="#"
+      data-sveltekit-preload-data="tap"
+      data-cy="fab-add-task"
+      iconProps={{ name: 'assignment' }}>Задание</FABMenuItem
+    >
+    <FABMenuItem href="#" data-cy="fab-add-event" iconProps={{ name: 'home' }}>Событие</FABMenuItem>
+    <FABMenuItem
+      href="#"
+      data-sveltekit-preload-data="tap"
+      data-cy="fab-add-deck"
+      iconProps={{ name: 'note_stack' }}>Дека</FABMenuItem
+    >
+  </FAB>
+{/snippet}
 <App iconProviderProps={{ extraIcons: icons }} themeConfig={data.themeConfig} {isDark}>
   <div class="flex min-h-screen">
-    <Rail bind:collapsed>
+    <Rail {fab} bind:collapsed>
       <RailItem {collapsed} name="Overview" href="/" iconProps={{ name: 'architecture' }} />
       <RailItem
         {collapsed}

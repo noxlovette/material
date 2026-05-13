@@ -6,10 +6,10 @@ export type SupportingPaneVariants = VariantProps<typeof supportingPane>;
 
 export const splitPane = tv({
   slots: {
-    left: 'top-0 bottom-0 overflow-y-scroll overflow-x-visible bg-md-sys-color-surface-container scrollbar-none hidden md:block',
+    left: 'top-0 bottom-0 z-20 overflow-y-scroll overflow-x-visible bg-md-sys-color-surface-container scrollbar-none hidden md:block',
     right: 'flex flex-col box-border ml-0 md:ml-[var(--splitpane-left-width)]',
     handle:
-      'handle group hidden md:block top-0 bottom-0 z-40 w-3 -ml-1 cursor-col-resize touch-none bg-transparent hover:bg-md-sys-color-outline/20 translate-x-1.5',
+      'handle group hidden md:block top-0 bottom-0 z-30 w-3 -ml-1 cursor-col-resize touch-none bg-transparent hover:bg-md-sys-color-outline/20 translate-x-1.5',
     handleGrip:
       'absolute left-1/2 top-1/2 flex h-12 w-1 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-1 rounded-full bg-md-sys-color-secondary group-hover:w-0.5',
     handlePip: 'h-0.5 w-0.5 rounded-full bg-md-sys-color-on-primary/80',
