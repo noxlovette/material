@@ -41,3 +41,7 @@ Instead of their Separator, use our Divider.svelte, which already implements Sep
 
 Use Material Design transitions and animations
 Implementations live in `src/lib/animation/` — use existing transition functions before writing new ones
+
+---
+
+Cypress skills have been installed with GitHub CLI
