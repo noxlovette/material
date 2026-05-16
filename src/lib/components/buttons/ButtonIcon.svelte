@@ -49,13 +49,13 @@ Icon buttons help people take minor actions and are often used in app bars.
 </script>
 
 <Tooltip {triggerClass} variant="snack" supportingText={tooltipContent}>
-  {#snippet trigger(triggerAttrs)}
+  {#snippet trigger({ class: triggerClass_, ...triggerAttrs })}
     {#if variation === 'toggle'}
       <Toggle.Root
         bind:pressed
         {onPressedChange}
         {disabled}
-        class={btnCls}
+        class={clsx(btnCls, triggerClass_ as string)}
         data-cy="m3-button-icon"
         {...restProps as ToggleRootProps}
         {...triggerAttrs}
@@ -71,7 +71,7 @@ Icon buttons help people take minor actions and are often used in app bars.
       <Button.Root
         {disabled}
         {formaction}
-        class={btnCls}
+        class={clsx(btnCls, triggerClass_ as string)}
         data-cy="m3-button-icon"
         {...restProps as ButtonRootProps}
         {...triggerAttrs}
