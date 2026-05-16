@@ -51,8 +51,13 @@ Plain tooltips are used for simple labels, while rich tooltips can contain forma
 </script>
 
 <Tooltip.Root {...restProps} {delayDuration} bind:open={isOpen}>
-  <Tooltip.Trigger {...triggerProps} class={triggerCls({ class: clsx(triggerClass) })}>
-    {@render trigger?.()}
+  <Tooltip.Trigger {...triggerProps}>
+    {#snippet child({ props })}
+      {@render trigger?.({
+        ...props,
+        class: triggerCls({ class: clsx(triggerClass, props.class as string) })
+      })}
+    {/snippet}
   </Tooltip.Trigger>
   <Tooltip.Portal>
     {#if showArrow}

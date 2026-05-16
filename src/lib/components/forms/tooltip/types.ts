@@ -11,7 +11,7 @@ export type TooltipProps = TooltipVariants &
     /** Secondary text providing additional context */
     supportingText?: string | null;
     /** The element that triggers the tooltip on hover or focus */
-    trigger?: Snippet;
+    trigger?: Snippet<[Record<string, unknown>]>;
     /** CSS class applied to the trigger element */
     triggerClass?: string;
     /** Additional props passed to the underlying Tooltip.Trigger component */
