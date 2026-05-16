@@ -23,7 +23,12 @@ An individual action within a FAB menu.
   const btnCls = $derived(base({ class: clsx(className) }));
 </script>
 
-<Button.Root {formaction} class={btnCls} {...restProps as ButtonRootProps}>
+<Button.Root
+  {formaction}
+  class={btnCls}
+  data-cy="m3-fab-menu-item"
+  {...restProps as ButtonRootProps}
+>
   {#if iconProps}
     {#if loading}
       <LoadingIndicator />

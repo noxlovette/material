@@ -68,6 +68,7 @@ Floating action buttons (FABs) help people take primary actions.
     {formaction}
     class={btnCls}
     onclick={handleClick}
+    data-cy="m3-fab"
     {...restProps as ButtonRootProps}
   >
     <Icon {...iconProps} class={icon()} />

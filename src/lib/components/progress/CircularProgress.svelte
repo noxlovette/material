@@ -24,7 +24,7 @@ Material 3 Circular Progress Indicator.
   let circumference = $derived(Math.PI * r * 2);
 </script>
 
-<Progress.Root value={percent ?? null} max={100}>
+<Progress.Root value={percent ?? null} max={100} data-cy="m3-circular-progress">
   {#snippet child({ props })}
     <svg
       {...props}

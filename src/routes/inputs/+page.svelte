@@ -257,31 +257,28 @@
         <Headline>Select inside Dialogue</Headline>
         <Button variant="outlined" onclick={() => (dialogueOpen = true)}>Open dialogue</Button>
 
-        {#if dialogueOpen}
-          <Dialogue
-            bind:open={dialogueOpen}
-            enhance={() => {}}
-            headline="Select inside dialogue"
-            supportingText="Dropdown should appear above the overlay."
-            confirmText="Confirm"
-            toggle={() => (dialogueOpen = false)}
-          >
-            <div class="flex flex-col gap-4">
-              <Select
-                bind:value={selectInDialogue}
-                type="single"
-                options={selectItems}
-                placeholder="Choose…"
-              />
-              <Select
-                bind:value={selectInDialogue2}
-                options={selectItems}
-                type="single"
-                placeholder="Choose…"
-              />
-            </div>
-          </Dialogue>
-        {/if}
+        <Dialogue
+          bind:open={dialogueOpen}
+          enhance={() => {}}
+          headline="Select inside dialogue"
+          supportingText="Dropdown should appear above the overlay."
+          confirmText="Confirm"
+        >
+          <div class="flex flex-col gap-4">
+            <Select
+              bind:value={selectInDialogue}
+              type="single"
+              options={selectItems}
+              placeholder="Choose…"
+            />
+            <Select
+              bind:value={selectInDialogue2}
+              options={selectItems}
+              type="single"
+              placeholder="Choose…"
+            />
+          </div>
+        </Dialogue>
       </section>
       <Divider variant="wavy" />
       <!-- SUPERFORMS -->

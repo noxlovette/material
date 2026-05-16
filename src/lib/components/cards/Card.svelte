@@ -27,12 +27,12 @@ and serve as an entry point to more detailed information.
 </script>
 
 {#if href}
-  <a {href} class={base({ class: clsx(className) })} {...restProps}>
+  <a {href} class={base({ class: clsx(className) })} data-cy="m3-card" {...restProps}>
     {#if hoverable}<Layer />{/if}
     {@render children?.()}
   </a>
 {:else}
-  <div class={base({ class: clsx(className) })} {...restProps}>
+  <div class={base({ class: clsx(className) })} data-cy="m3-card" {...restProps}>
     {#if hoverable}<Layer />{/if}
     {@render children?.()}
   </div>

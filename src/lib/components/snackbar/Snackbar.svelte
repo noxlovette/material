@@ -61,7 +61,7 @@ Snackbars provide brief messages about app processes at the bottom of the screen
 {#if message && !dismissed}
   <div
     class={base()}
-    data-cy="notification-snackbar"
+    data-cy="m3-snackbar"
     {...restProps}
     in:enterExit={{
       duration: 400,
@@ -100,7 +100,7 @@ Snackbars provide brief messages about app processes at the bottom of the screen
             }
           }}
           aria-label="Dismiss snackbar"
-          data-cy="notification-dismiss"
+          data-cy="m3-snackbar-dismiss"
         >
           <Icon class={icon()} name="close" />
           <Layer />

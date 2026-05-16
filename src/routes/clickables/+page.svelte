@@ -199,36 +199,30 @@
           <Button variant="outlined" onclick={() => (showModal3 = !showModal3)}>Long Content</Button
           >
         </div>
-        {#if showModal}
-          <Dialogue
-            enhance={() => {}}
-            supportingText="Не то чтобы совсем, а все ж-таки давно, жил на Руси кто-то там великий"
-            class="w-2xl"
-            confirmAction="?/update"
-            confirmText="Подтвердить"
-            toggle={() => (showModal = !showModal)}
-          />
-        {/if}
-        {#if showModal2}
-          <Dialogue
-            enhance={() => {}}
-            headline="Сбросить настройки?"
-            supportingText="Все изменения будут потеряны."
-            confirmAction="?/update"
-            confirmText="Сбросить"
-            toggle={() => (showModal2 = !showModal2)}
-          />
-        {/if}
-        {#if showModal3}
-          <Dialogue
-            enhance={() => {}}
-            supportingText="Anim sunt eiusmod deserunt Lorem. Tempor dolor voluptate fugiat elit sint ipsum ea. Enim proident velit sit Lorem esse. Nostrud cupidatat ut duis aute consectetur veniam pariatur voluptate exercitation."
-            confirmAction="?/update"
-            headline="Длинный текст"
-            confirmText="Lorem"
-            toggle={() => (showModal3 = !showModal3)}
-          />
-        {/if}
+        <Dialogue
+          enhance={() => {}}
+          bind:open={showModal}
+          supportingText="Не то чтобы совсем, а все ж-таки давно, жил на Руси кто-то там великий"
+          class="w-2xl"
+          confirmAction="?/update"
+          confirmText="Подтвердить"
+        />
+        <Dialogue
+          enhance={() => {}}
+          bind:open={showModal2}
+          headline="Сбросить настройки?"
+          supportingText="Все изменения будут потеряны."
+          confirmAction="?/update"
+          confirmText="Сбросить"
+        />
+        <Dialogue
+          bind:open={showModal3}
+          enhance={() => {}}
+          supportingText="Anim sunt eiusmod deserunt Lorem. Tempor dolor voluptate fugiat elit sint ipsum ea. Enim proident velit sit Lorem esse. Nostrud cupidatat ut duis aute consectetur veniam pariatur voluptate exercitation."
+          confirmAction="?/update"
+          headline="Длинный текст"
+          confirmText="Lorem"
+        />
       </section>
 
       <!-- POPOVER -->

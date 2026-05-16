@@ -37,6 +37,7 @@ Material 3 Linear Progress Indicator.
   max={100}
   class={container({ class: clsx(className) })}
   style="height: {height / 16}rem"
+  data-cy="m3-linear-progress"
 >
   {#if percent != null}
     <div class={fill()} style:width="{percent}%"></div>

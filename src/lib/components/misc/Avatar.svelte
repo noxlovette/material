@@ -47,7 +47,7 @@ Avatars can be used to represent people or objects.
 </script>
 
 {#if onclick}
-  <button class={button({ class: rootClasses })} {onclick} type="button">
+  <button class={button({ class: rootClasses })} {onclick} type="button" data-cy="m3-avatar">
     <Layer />
     <AvatarPrimitive.Root {...rest} bind:loadingStatus class="h-full w-full">
       {#if src}
@@ -59,7 +59,7 @@ Avatars can be used to represent people or objects.
     </AvatarPrimitive.Root>
   </button>
 {:else}
-  <AvatarPrimitive.Root {...rest} bind:loadingStatus class={rootClasses}>
+  <AvatarPrimitive.Root {...rest} bind:loadingStatus class={rootClasses} data-cy="m3-avatar">
     {#if src}
       <AvatarPrimitive.Image {src} {alt} class={image()} />
     {/if}

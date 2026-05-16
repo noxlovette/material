@@ -36,7 +36,13 @@ Buttons help people take actions, such as sending an email, sharing a document, 
   const btnCls = $derived(base({ class: clsx(className) }));
 </script>
 
-<Button.Root {disabled} {formaction} class={btnCls} {...restProps as ButtonRootProps}>
+<Button.Root
+  {disabled}
+  {formaction}
+  class={btnCls}
+  data-cy="m3-button"
+  {...restProps as ButtonRootProps}
+>
   {#if iconProps}
     {#if loading}
       <LoadingIndicator container={variant === 'filled'} class={icon()} />

@@ -44,6 +44,7 @@ Uses Material 3 selection button styling.
   {onPressedChange}
   {disabled}
   class={btnCls}
+  data-cy="m3-toggle"
   {...restProps as ToggleRootProps}
 >
   {#if iconProps}

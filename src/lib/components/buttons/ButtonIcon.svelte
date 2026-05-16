@@ -56,6 +56,7 @@ Icon buttons help people take minor actions and are often used in app bars.
         {onPressedChange}
         {disabled}
         class={btnCls}
+        data-cy="m3-button-icon"
         {...restProps as ToggleRootProps}
       >
         {#if loading}
@@ -66,7 +67,13 @@ Icon buttons help people take minor actions and are often used in app bars.
         {/if}
       </Toggle.Root>
     {:else}
-      <Button.Root {disabled} {formaction} class={btnCls} {...restProps as ButtonRootProps}>
+      <Button.Root
+        {disabled}
+        {formaction}
+        class={btnCls}
+        data-cy="m3-button-icon"
+        {...restProps as ButtonRootProps}
+      >
         {#if loading}
           <LoadingIndicator />
         {:else}

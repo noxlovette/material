@@ -516,7 +516,6 @@ Follows Material 3 design principles for file uploaders.
 
 <Dialogue
   open={!!fileToRemove}
-  toggle={() => (fileToRemove = null)}
   onconfirm={() => {
     if (fileToRemove) {
       removeFile(fileToRemove);

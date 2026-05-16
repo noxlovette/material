@@ -28,6 +28,7 @@ Should be used with `FABMenuItem` as children.
 </script>
 
 <ul
+  data-cy="m3-fab-menu"
   {...restProps}
   class={base({
     class: clsx(className, 'fab-menu overflow-y-auto')
