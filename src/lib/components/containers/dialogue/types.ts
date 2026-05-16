@@ -43,4 +43,11 @@ export type DialogueProps = DialogueVariants &
     class?: string;
     /** Optional callback when the confirm button is clicked. */
     onconfirm?: () => void;
+    /**
+     * When true, Dialog.Close is NOT rendered around the confirm button.
+     * The consumer is responsible for closing the dialog (e.g. via onResult in superforms).
+     * Useful when you need to keep the dialog open on validation failure.
+     * @default false
+     */
+    delegateClose?: boolean;
   };

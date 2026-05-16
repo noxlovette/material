@@ -31,6 +31,7 @@ on screen until confirmed, dismissed, or a required action has been taken.
     maxWidth = '560px',
     children,
     disabled = false,
+    delegateClose = false,
     class: className,
     contentProps,
     ...rootRest
@@ -100,11 +101,17 @@ on screen until confirmed, dismissed, or a required action has been taken.
                 {cancelText}
               </Button>
 
-              <Dialog.Close>
+              {#if delegateClose}
                 <Button type="submit" {disabled} {loading} data-cy="dialogue-confirm">
                   {confirmText}
                 </Button>
-              </Dialog.Close>
+              {:else}
+                <Dialog.Close>
+                  <Button type="submit" {disabled} {loading} data-cy="dialogue-confirm">
+                    {confirmText}
+                  </Button>
+                </Dialog.Close>
+              {/if}
             </div>
           </form>
         {/if}
