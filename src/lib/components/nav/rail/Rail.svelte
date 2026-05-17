@@ -19,6 +19,7 @@ Navigation rails provide access to primary destinations in apps when using table
     rounded = false,
     expandable = true,
     fab,
+    railFooter,
     collapsed = $bindable(true),
     anchor = 'viewport',
     railTop = 0,
@@ -60,6 +61,12 @@ Navigation rails provide access to primary destinations in apps when using table
       {@render children?.()}
     </NavigationMenu.List>
   </NavigationMenu.Root>
+
+  {#if railFooter}
+    <div class="mt-auto flex flex-col items-center pb-2">
+      {@render railFooter()}
+    </div>
+  {/if}
 </div>
 
 <style>

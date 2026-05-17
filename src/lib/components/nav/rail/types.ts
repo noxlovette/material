@@ -38,6 +38,8 @@ export type RailProps = RailVariants &
     expandable?: boolean;
     /** An optional Floating Action Button snippet. */
     fab?: Snippet;
+    /** An optional snippet rendered at the bottom of the rail (e.g. avatar/settings). */
+    railFooter?: Snippet;
     /** Whether the rail is currently collapsed. */
     collapsed?: boolean;
     /** Where the rail should be anchored. */
