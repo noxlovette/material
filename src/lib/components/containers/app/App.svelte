@@ -8,7 +8,6 @@ It manages the Material 3 Dynamic Theme, dark mode, and icon providers.
   import { Tooltip } from 'bits-ui';
   import { app } from './theme';
   import type { AppProps } from './types';
-  import { ModeWatcher } from 'mode-watcher';
   import ThemeScript from '$lib/utils/ThemeScript.svelte';
 
   let { children, class: className, iconProviderProps = {}, ...restProps }: AppProps = $props();
@@ -19,7 +18,6 @@ It manages the Material 3 Dynamic Theme, dark mode, and icon providers.
 <ThemeScript />
 <Theme />
 <MaterialSymbolsProvider {...iconProviderProps} />
-<ModeWatcher />
 <Tooltip.Provider>
   <div class={baseCls} {...restProps}>
     {@render children()}
