@@ -1,47 +1,25 @@
 <script lang="ts">
-  import { generateThemeCSS, isDarkScheme, themeState, type ThemeConfig } from './theme.svelte.js';
+  import { generateThemeCSS, isDarkScheme, themeState, DEFAULT_CONFIG } from './theme.svelte.js';
 
-  interface Props {
-    /**
-     * Initial configuration for the theme.
-     * Useful for SSR when reading from cookies.
-     */
-    config?: Partial<ThemeConfig>;
-    /**
-     * Optional dark mode state passed from the server to prevent flashing.
-     * If provided, it overrides the auto-detection.
-     */
-    isDark?: boolean;
-    /**
-     * Whether to persist changes to localStorage and cookies.
-     * Defaults to true.
-     */
-    persist?: boolean;
-  }
+  const STORAGE_KEY = 'ogonek-m3-theme-config';
 
-  let { config, isDark: isDarkProp, persist = true }: Props = $props();
-
-  // Sync config to global state
-  // We use an effect to keep it in sync if the prop changes,
-  // but also run it during initialization for SSR.
-  function syncConfig(c?: Partial<ThemeConfig>) {
-    if (!c) return;
-    if (c.sourceColor) themeState.sourceColor = c.sourceColor;
-    if (c.scheme) themeState.scheme = c.scheme;
-    if (c.contrast) themeState.contrast = c.contrast;
-    if (c.variant) themeState.variant = c.variant;
-  }
-
-  // Run immediately for SSR
-  syncConfig(config);
-
-  // Keep in sync if prop updates on client
+  // Restore from localStorage on mount
   $effect(() => {
-    syncConfig(config);
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (!saved) return;
+    try {
+      const parsed = JSON.parse(saved);
+      if (parsed.sourceColor) themeState.sourceColor = parsed.sourceColor;
+      if (parsed.scheme) themeState.scheme = parsed.scheme;
+      if (parsed.contrast) themeState.contrast = parsed.contrast;
+      if (parsed.variant) themeState.variant = parsed.variant;
+    } catch {
+      localStorage.removeItem(STORAGE_KEY);
+    }
   });
 
-  // Calculate final dark mode state
-  let finalIsDark = $state(isDarkProp !== undefined ? isDarkProp : isDarkScheme(themeState.scheme));
+  // Track dark mode, including system preference changes
+  let finalIsDark = $state(isDarkScheme(themeState.scheme));
 
   $effect(() => {
     if (themeState.scheme !== 'system') {
@@ -61,21 +39,20 @@
 
   const themeStyles = $derived(generateThemeCSS(themeState, finalIsDark));
 
-  // Persistence effect
+  // Persist to localStorage on any change
   $effect(() => {
-    if (!persist) return;
-
-    const configStr = JSON.stringify({
-      sourceColor: themeState.sourceColor,
-      scheme: themeState.scheme,
-      contrast: themeState.contrast,
-      variant: themeState.variant
-    });
-
-    localStorage.setItem('ogonek-m3-theme-config', configStr);
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({
+        sourceColor: themeState.sourceColor,
+        scheme: themeState.scheme,
+        contrast: themeState.contrast,
+        variant: themeState.variant
+      })
+    );
   });
 
-  // Dark mode class effect
+  // Sync dark class on <html>
   $effect(() => {
     if (finalIsDark) {
       document.documentElement.classList.add('dark');

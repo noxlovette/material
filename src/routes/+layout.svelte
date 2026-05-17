@@ -2,12 +2,11 @@
   import FAB from '$lib/components/buttons/FAB.svelte';
   import FABMenu from '$lib/components/buttons/FABMenu.svelte';
   import FABMenuItem from '$lib/components/buttons/FABMenuItem.svelte';
-  import { App, Rail, RailItem, ThemeSwitcher, isDarkScheme } from '$lib/index.js';
+  import { App, Rail, RailItem, ThemeSwitcher } from '$lib/index.js';
   import '../app.css';
 
-  const { children, data } = $props();
+  const { children } = $props();
 
-  const isDark = $derived(isDarkScheme(data.themeConfig.scheme));
   let collapsed = $state(true);
 
   // These icons will be pre-loaded by the MaterialSymbolsProvider inside App
@@ -89,7 +88,7 @@
     >
   </FAB>
 {/snippet}
-<App iconProviderProps={{ extraIcons: icons }} themeConfig={data.themeConfig} {isDark}>
+<App iconProviderProps={{ extraIcons: icons }}>
   <div class="flex min-h-screen">
     <Rail {fab} bind:collapsed>
       <RailItem {collapsed} name="Overview" href="/" iconProps={{ name: 'architecture' }} />

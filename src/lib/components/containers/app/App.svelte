@@ -10,19 +10,12 @@ It manages the Material 3 Dynamic Theme, dark mode, and icon providers.
   import type { AppProps } from './types';
   import { ModeWatcher } from 'mode-watcher';
 
-  let {
-    children,
-    class: className,
-    iconProviderProps = {},
-    themeConfig,
-    isDark,
-    ...restProps
-  }: AppProps = $props();
+  let { children, class: className, iconProviderProps = {}, ...restProps }: AppProps = $props();
 
-  const baseCls = $derived(app({ class: [className, isDark ? 'dark' : ''] }));
+  const baseCls = $derived(app({ class: className }));
 </script>
 
-<Theme config={themeConfig} {isDark} />
+<Theme />
 <MaterialSymbolsProvider {...iconProviderProps} />
 <ModeWatcher />
 <Tooltip.Provider>
