@@ -9,12 +9,14 @@ It manages the Material 3 Dynamic Theme, dark mode, and icon providers.
   import { app } from './theme';
   import type { AppProps } from './types';
   import { ModeWatcher } from 'mode-watcher';
+  import ThemeScript from '$lib/utils/ThemeScript.svelte';
 
   let { children, class: className, iconProviderProps = {}, ...restProps }: AppProps = $props();
 
   const baseCls = $derived(app({ class: className }));
 </script>
 
+<ThemeScript />
 <Theme />
 <MaterialSymbolsProvider {...iconProviderProps} />
 <ModeWatcher />

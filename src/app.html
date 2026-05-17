@@ -4,17 +4,6 @@
     <meta charset="utf-8" />
     <link rel="icon" href="%sveltekit.assets%/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script>
-      // Restore dark class before first paint to prevent flash
-      try {
-        var saved = JSON.parse(localStorage.getItem('ogonek-m3-theme-config') || '{}');
-        var scheme = saved.scheme || 'system';
-        var dark =
-          scheme === 'dark' ||
-          (scheme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-        if (dark) document.documentElement.classList.add('dark');
-      } catch (e) {}
-    </script>
     %sveltekit.head%
   </head>
   <body data-sveltekit-preload-data="hover">

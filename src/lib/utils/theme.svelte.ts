@@ -48,6 +48,24 @@ const SCHEME_VARIANTS: Record<ThemeVariant, any> = {
   rainbow: SchemeRainbow
 };
 
+export const STORAGE_KEY = 'ogonek-m3-theme-config';
+
+/**
+ * Inline script that reads the saved theme from localStorage and applies the
+ * `dark` class to <html> before first paint, preventing a flash of unstyled content.
+ *
+ * Inject this into your app.html <head> (or use the <ThemeScript /> component):
+ * @example
+ * // app.html
+ * <script>{THEME_INIT_SCRIPT}</script>
+ */
+export const THEME_INIT_SCRIPT = `try {
+  const saved = JSON.parse(localStorage.getItem('${STORAGE_KEY}') || '{}');
+  const scheme = saved.scheme || 'system';
+  const dark = scheme === 'dark' || (scheme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (dark) document.documentElement.classList.add('dark');
+} catch (e) {}`;
+
 // --- State ---
 
 /**

@@ -1,6 +1,5 @@
 <script lang="ts">
   import FAB from '$lib/components/buttons/FAB.svelte';
-  import FABMenu from '$lib/components/buttons/FABMenu.svelte';
   import FABMenuItem from '$lib/components/buttons/FABMenuItem.svelte';
   import { App, Rail, RailItem, ThemeSwitcher } from '$lib/index.js';
   import '../app.css';

@@ -53,7 +53,7 @@
         <Display>Commands</Display>
         <Headline>Basic Usage</Headline>
         <div class="max-w-[400px]">
-          <Command class="rounded-lg border shadow-md">
+          <Command class="rounded-lg  shadow-md">
             <CommandInput placeholder="Type a command or search..." />
             <CommandList>
               <CommandEmpty>No results found.</CommandEmpty>
@@ -79,7 +79,7 @@
       <section id="groups" class="flex scroll-mt-4 flex-col gap-6">
         <Headline>Groups & Separators</Headline>
         <div class="max-w-[400px]">
-          <Command class="rounded-lg border shadow-md">
+          <Command class="rounded-lg  shadow-md">
             <CommandInput placeholder="Search..." />
             <CommandList>
               <CommandEmpty>No results found.</CommandEmpty>
@@ -134,7 +134,7 @@
           <Dialog.Portal>
             <Dialog.Overlay class={base()} />
             <Dialog.Content class={inner({ class: 'max-w-[450px] overflow-hidden p-0' })}>
-              <Command class="border-none shadow-none ring-0">
+              <Command class="-none shadow-none ring-0">
                 <CommandInput placeholder="Type a command or search..." />
                 <CommandList>
                   <CommandEmpty>No results found.</CommandEmpty>

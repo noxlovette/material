@@ -1,7 +1,5 @@
 <script lang="ts">
-  import { generateThemeCSS, isDarkScheme, themeState, DEFAULT_CONFIG } from './theme.svelte.js';
-
-  const STORAGE_KEY = 'ogonek-m3-theme-config';
+  import { generateThemeCSS, isDarkScheme, themeState, STORAGE_KEY } from './theme.svelte.js';
 
   // Restore from localStorage on mount
   $effect(() => {

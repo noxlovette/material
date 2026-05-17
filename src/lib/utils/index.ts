@@ -7,3 +7,4 @@ export type { ColorScheme, ContrastMode, ThemeConfig, ThemeVariant } from './the
 
 export { default as Layer } from './Layer.svelte';
 export { default as Theme } from './Theme.svelte';
+export { default as ThemeScript } from './ThemeScript.svelte';
