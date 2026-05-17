@@ -158,7 +158,8 @@ export function generateThemeCSS(config: ThemeConfig, isDark?: boolean): string 
     'surface-container-highest': MaterialDynamicColors.surfaceContainerHighest
   };
 
-  let css = `:root { /* Dynamic M3 Theme */\n`;
+  const selector = dark ? ':root.dark' : ':root';
+  let css = `${selector} { /* Dynamic M3 Theme */\n`;
   for (const [key, dynamicColor] of Object.entries(colors)) {
     const argb = dynamicColor.getArgb(dynamicScheme);
     const r = (argb >> 16) & 255;
