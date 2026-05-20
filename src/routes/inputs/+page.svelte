@@ -2,7 +2,6 @@
   import { onMount } from 'svelte';
   import {
     Display,
-    Title,
     Headline,
     Body,
     Textfield,
@@ -10,7 +9,6 @@
     DateRangeField,
     LoadingIndicator,
     TimepickerInput,
-    Multipart,
     Slider,
     Search,
     Checkbox,
@@ -47,8 +45,6 @@
     validators: zod(demoSchema)
   });
 
-  let checkbox1 = $state(false);
-  let checkbox2 = $state(true);
   let switchOn = $state(false);
   let switchIcons = $state(true);
   let selectValue = $state('');
@@ -59,9 +55,6 @@
   let radioValue2 = $state('en');
   let dateValue = $state<DateValue | undefined>(undefined);
   let dateRange = $state<DateRange | undefined>(undefined);
-
-  type DemoMultipart = { label: string; props: Record<string, unknown> };
-  let multipartDemos: DemoMultipart[] = $state([]);
 
   const createDemoFile = (
     name: string,
@@ -88,31 +81,6 @@
     };
   };
 
-  onMount(() => {
-    multipartDemos = [
-      {
-        label: 'Пустое состояние',
-        props: { readonly: true }
-      },
-      {
-        label: 'Загрузка в процессе',
-        props: {
-          readonly: true,
-          initialUploads: [createDemoFile('Lesson video.mp4', 2_100_000, 'uploading', 42)]
-        }
-      },
-      {
-        label: 'Успех и ошибка',
-        props: {
-          readonly: true,
-          initialUploads: [
-            createDemoFile('Homework.docx', 870_000, 'complete', 100),
-            createDemoFile('Screenshot.png', 430_000, 'error', 75, 'Сбой сети')
-          ]
-        }
-      }
-    ];
-  });
   const languageItems: SelectOption[] = [
     { value: 'ru', label: 'Русский' },
     { value: 'en', label: 'English' },
@@ -362,19 +330,6 @@
         <Body>
           Range: {dateRange?.start?.toString() ?? '—'} → {dateRange?.end?.toString() ?? '—'}
         </Body>
-      </section>
-
-      <!-- MULTIPART -->
-      <section id="multipart" class="flex scroll-mt-4 flex-col gap-6">
-        <Display>Multipart Upload</Display>
-        <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
-          {#each multipartDemos as demo (demo.label)}
-            <div class="bg-md-sys-color-surface-container space-y-3 rounded-xl p-6">
-              <Title>{demo.label}</Title>
-              <Multipart {...demo.props} />
-            </div>
-          {/each}
-        </div>
       </section>
     </SinglePane>
   {/snippet}

@@ -34,6 +34,7 @@ on screen until confirmed, dismissed, or a required action has been taken.
     delegateClose = false,
     class: className,
     contentProps,
+    formProps,
     ...rootRest
   }: DialogueProps = $props();
 
@@ -65,6 +66,7 @@ on screen until confirmed, dismissed, or a required action has been taken.
             action={confirmAction}
             use:enhance
             {...props}
+            {...formProps}
             class={inner({ class: className })}
             style:min-width={minWidth}
             style:max-width={maxWidth}

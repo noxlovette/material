@@ -3,7 +3,6 @@
 // folder re-exports (export everything from these folders)
 export * from './checkbox/index.js';
 export * from './command/index.js';
-export * from './multipart/index.js';
 export * from './pin/index.js';
 export * from './radio-group/index.js';
 export * from './search/index.js';

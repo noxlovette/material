@@ -39,6 +39,8 @@ export type DialogueProps = DialogueVariants &
     maxWidth?: string;
     /** Additional props */
     contentProps?: Dialog.ContentProps;
+    /** Additional props */
+    formProps?: Record<string, unknown>;
     /** Class for the inner content */
     class?: string;
     /** Optional callback when the confirm button is clicked. */
