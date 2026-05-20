@@ -6,7 +6,6 @@ import type {
   ButtonIconVariants,
   ButtonMDVariants,
   FABMenuItemVariants,
-  FABMenuVariants,
   FABVariants
 } from './theme.js';
 
@@ -173,17 +172,12 @@ export type FABProps = FABVariants &
     children?: Snippet;
   };
 
-export type FABMenuProps = FABMenuVariants &
-  HTMLAttributes<HTMLUListElement> & {
-    /**
-     * The vertical position of the menu relative to the anchor.
-     */
-    position?: FABMenuVariants['position'];
-    /**
-     * The menu items. Use `FABMenuItem` components.
-     */
-    children: Snippet;
-  };
+export type FABMenuProps = HTMLAttributes<HTMLUListElement> & {
+  /**
+   * The menu items. Use `FABMenuItem` components.
+   */
+  children: Snippet;
+};
 
 export type FABMenuItemProps = FABMenuItemVariants &
   AnchorButtonAttributes & {

@@ -488,10 +488,7 @@ export const fab = tv({
 
 export const fabMenu = tv({
   slots: {
-    base: 'gap-2 pb-2 flex flex-col absolute z-[100] overflow-visible p-1'
-  },
-  variants: {
-    position: { top: 'top-16' }
+    base: 'gap-2 pb-2 flex flex-col fixed left-0 top-0 z-[9999] overflow-visible p-1'
   }
 });
 

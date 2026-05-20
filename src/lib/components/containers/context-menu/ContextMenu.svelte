@@ -26,7 +26,6 @@ Context menus appear on right-click and provide actions related to the clicked e
   import Divider from '../divider/Divider.svelte';
   import { enterExit } from '$lib/animation/enterExit.js';
   import { easeEmphasizedDecel } from '$lib/animation/easing.js';
-  import clsx from 'clsx';
 
   let {
     items = [],
