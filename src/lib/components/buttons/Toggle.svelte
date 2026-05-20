@@ -27,8 +27,6 @@ Uses Material 3 selection button styling.
 
   const { base, icon } = $derived(
     button({
-      variant: 'filled',
-      color: 'default',
       usage: 'selection',
       shape,
       size,

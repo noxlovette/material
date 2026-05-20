@@ -5,69 +5,31 @@ Should be used with `FABMenuItem` as children.
 -->
 <script lang="ts">
   import clsx from 'clsx';
+  import { flip } from '@floating-ui/dom';
   import { fabMenu } from './theme.js';
   import type { FABMenuProps } from './types.js';
   import { enterExit } from '$lib/animation/enterExit.js';
-  import { easeEmphasizedDecel } from '$lib/animation/easing.js';
+  import { easeEmphasizedAccel, easeEmphasizedDecel } from '$lib/animation/easing.js';
+  import { floating, portal } from '$lib/actions/index.js';
 
-  let { children, class: className, ...restProps }: FABMenuProps = $props();
+  let { children, class: className, anchorEl, ...restProps }: FABMenuProps = $props();
 
   const { base } = fabMenu();
-
-  const margin = 8;
-  const gap = 8;
-  let coords = $state({
-    x: 0,
-    y: 0,
-    originX: 'right',
-    originY: 'bottom',
-    maxHeight: 0
-  });
 </script>
 
 <ul
   data-cy="m3-fab-menu"
   {...restProps}
-  class={base({
-    class: clsx(className, 'fab-menu overflow-y-auto')
-  })}
+  class={base({ class: clsx(className, 'fab-menu overflow-y-auto') })}
   in:enterExit={{ duration: 300, easing: easeEmphasizedDecel, mode: 'scale' }}
-  style:translate={`${coords.x}px ${coords.y}px`}
-  style:max-height={coords.maxHeight ? `${coords.maxHeight}px` : undefined}
-  style:--enter-exit-origin={`${coords.originY} ${coords.originX}`}
-  {@attach (menu) => {
-    const anchorEl = menu.previousElementSibling as HTMLElement;
-    if (!anchorEl) return;
-
-    const anchorRect = anchorEl.getBoundingClientRect();
-    const rect = menu.getBoundingClientRect();
-
-    const spaceAbove = anchorRect.top - gap - margin;
-    const spaceBelow = window.innerHeight - margin - (anchorRect.bottom + gap);
-    const placeAbove = spaceAbove >= rect.height || spaceAbove >= Math.max(0, spaceBelow);
-
-    let maxHeight = placeAbove ? spaceAbove : spaceBelow;
-    maxHeight = Math.max(0, Math.min(rect.height, maxHeight));
-
-    const targetTop = placeAbove ? anchorRect.top - gap - maxHeight : anchorRect.bottom + gap;
-
-    let targetLeft = anchorRect.right - rect.width;
-    if (targetLeft + rect.width > window.innerWidth - margin) {
-      targetLeft = window.innerWidth - margin - rect.width;
-    }
-    if (targetLeft < margin) targetLeft = margin;
-
-    let clampedTop = targetTop;
-    if (clampedTop < margin) clampedTop = margin;
-    if (clampedTop + maxHeight > window.innerHeight - margin) {
-      clampedTop = window.innerHeight - margin - maxHeight;
-    }
-
-    const originY = placeAbove ? 'bottom' : 'top';
-    const originX =
-      anchorRect.left + anchorRect.width / 2 < targetLeft + rect.width / 2 ? 'left' : 'right';
-
-    coords = { x: targetLeft, y: clampedTop, originX, originY, maxHeight };
+  out:enterExit={{ duration: 200, easing: easeEmphasizedAccel, mode: 'scale' }}
+  use:portal
+  use:floating={{
+    reference: anchorEl,
+    strategy: 'fixed',
+    placement: 'top-end',
+    offsetPx: 8,
+    middleware: [flip()]
   }}
 >
   {@render children()}
@@ -75,6 +37,6 @@ Should be used with `FABMenuItem` as children.
 
 <style>
   .fab-menu {
-    transform-origin: var(--enter-exit-origin, bottom right);
+    transform-origin: bottom right;
   }
 </style>

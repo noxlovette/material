@@ -173,6 +173,8 @@ export type FABProps = FABVariants &
   };
 
 export type FABMenuProps = HTMLAttributes<HTMLUListElement> & {
+  /** The FAB button element to position the menu relative to. */
+  anchorEl: HTMLElement;
   /**
    * The menu items. Use `FABMenuItem` components.
    */

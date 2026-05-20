@@ -48,7 +48,8 @@
   let toolbarAlign = $state('left');
   let segmentSingle = $state('day');
   let segmentMulti = $state<string[]>(['bold']);
-  let toggle = $state(true);
+  let toggleA = $state(true);
+  let toggleB = $state(false);
 
   const toc = [
     { id: 'buttons', label: 'Buttons' },
@@ -86,18 +87,8 @@
           <Button variant="outlined">Outlined</Button>
           <Button variant="text">Text</Button>
           <Button variant="elevated">Elevated</Button>
-          <Toggle
-            pressed={toggle}
-            onclick={() => {
-              toggle = !toggle;
-            }}>Selected</Toggle
-          >
-          <Toggle
-            pressed={!toggle}
-            onclick={() => {
-              toggle = !toggle;
-            }}>Unselected</Toggle
-          >
+          <Toggle bind:pressed={toggleA}>Selected</Toggle>
+          <Toggle bind:pressed={toggleB}>Unselected</Toggle>
           <Button size="xs">XSmall</Button>
           <Button size="sm">Small</Button>
           <Button size="lg">Large</Button>

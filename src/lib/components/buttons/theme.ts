@@ -76,7 +76,7 @@ export const button = tv({
     {
       usage: 'selection',
       selected: false,
-      class: { base: 'bg-md-sys-color-surface-container' }
+      class: { base: 'bg-md-sys-color-surface-container-high text-md-sys-color-on-surface-variant' }
     },
     {
       variant: 'text',
@@ -286,7 +286,7 @@ export const buttonIcon = tv({
     {
       variation: 'toggle',
       selected: false,
-      class: { base: 'bg-md-sys-color-surface-container' }
+      class: { base: 'bg-md-sys-color-surface-container-high text-md-sys-color-on-surface-variant' }
     },
     {
       variant: 'text',
@@ -488,7 +488,7 @@ export const fab = tv({
 
 export const fabMenu = tv({
   slots: {
-    base: 'gap-2 pb-2 flex flex-col fixed left-0 top-0 z-[9999] overflow-visible p-1'
+    base: 'gap-2 pb-2 flex flex-col z-[9999] overflow-visible p-1'
   }
 });
 

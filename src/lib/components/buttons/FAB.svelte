@@ -35,6 +35,7 @@ Floating action buttons (FABs) help people take primary actions.
   const { base, icon, label: labelClass } = $derived(fab({ size, config, expanded }));
 
   let showMenu = $state(false);
+  let wrapperEl = $state<HTMLElement | null>(null);
 
   const btnCls = $derived(
     base({
@@ -58,7 +59,7 @@ Floating action buttons (FABs) help people take primary actions.
   }
 </script>
 
-<div class="contents" use:clickOutside={() => (showMenu = false)}>
+<div class="contents" bind:this={wrapperEl} use:clickOutside={() => (showMenu = false)}>
   <Button.Root
     {disabled}
     {formaction}
@@ -76,8 +77,8 @@ Floating action buttons (FABs) help people take primary actions.
     {/if}
   </Button.Root>
 
-  {#if withMenu && showMenu}
-    <FABMenu>
+  {#if withMenu && showMenu && wrapperEl?.firstElementChild}
+    <FABMenu anchorEl={wrapperEl.firstElementChild as HTMLElement}>
       {@render children?.()}
     </FABMenu>
   {/if}
