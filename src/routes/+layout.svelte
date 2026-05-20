@@ -66,7 +66,8 @@
     'light_mode',
     'dark_mode',
     'desktop_windows',
-    'search'
+    'search',
+    'title'
   ];
 </script>
 
@@ -101,6 +102,7 @@
       <RailItem {collapsed} name="Commands" href="/commands" iconProps={{ name: 'terminal' }} />
       <RailItem {collapsed} name="Layouts" href="/layouts" iconProps={{ name: 'view_quilt' }} />
       <RailItem {collapsed} name="Table" href="/table" iconProps={{ name: 'table' }} />
+      <RailItem {collapsed} name="Typography" href="/typography" iconProps={{ name: 'title' }} />
       <RailItem {collapsed} name="Misc" href="/misc" iconProps={{ name: 'circle' }} />
     </Rail>
     <main class="flex-1">

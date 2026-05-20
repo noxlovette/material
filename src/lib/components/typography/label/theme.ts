@@ -7,9 +7,9 @@ export const label = tv({
       true: 'font-semibold'
     },
     size: {
-      small: 'md-sys-label-display-small',
-      medium: 'md-sys-label-display-medium',
-      large: 'md-sys-label-display-large'
+      small: 'md-sys-typescale-label-small',
+      medium: 'md-sys-typescale-label-medium',
+      large: 'md-sys-typescale-label-large'
     }
   }
 });

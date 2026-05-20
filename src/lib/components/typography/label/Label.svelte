@@ -18,8 +18,10 @@ Follows Material 3 Label typography styles.
     class: className,
     ...restProps
   }: LabelProps = $props();
+
+  let labelCls = $derived(label({ class: clsx(className), emphasized, size }));
 </script>
 
-<p {...restProps} class={label({ class: clsx(className), emphasized, size })}>
+<p {...restProps} class={labelCls}>
   {@render children()}
 </p>
