@@ -15,7 +15,7 @@ Side sheets are supplementary surfaces which are anchored to the edge of the scr
   <div class="flex items-center justify-between p-6">
     <span class="md-sys-typescale-title-large text-md-sys-color-on-surface-variant">{headline}</span
     >
-    <ButtonIcon variant="text" iconProps={{ name: 'close' }} onclick={close} />
+    <ButtonIcon type="button" variant="text" iconProps={{ name: 'close' }} onclick={close} />
   </div>
   {@render children()}
 </div>

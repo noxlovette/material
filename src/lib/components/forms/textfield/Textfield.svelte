@@ -68,7 +68,11 @@ Text fields allow users to enter and edit text.
     {#if trailingIcon}
       {@render trailingIcon()}
     {:else if trailingIconProps}
-      <ButtonIcon onclick={trailingOnClick} class={cls.trailingIcon()} iconProps={trailingIconProps}
+      <ButtonIcon
+        type="button"
+        onclick={trailingOnClick}
+        class={cls.trailingIcon()}
+        iconProps={trailingIconProps}
       ></ButtonIcon>
     {/if}
   </div>

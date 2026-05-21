@@ -104,11 +104,11 @@ DateField is a text field that allows users to enter a date or pick it from a ca
             class="text-md-sys-color-on-surface-variant z-10 flex w-full items-center justify-between pb-7.5"
           >
             <DatePicker.PrevButton>
-              <ButtonIcon iconProps={{ name: 'chevron_left' }} />
+              <ButtonIcon type="button" iconProps={{ name: 'chevron_left' }} />
             </DatePicker.PrevButton>
             <DatePicker.Heading class="md-sys-typescale-label-large" />
             <DatePicker.NextButton>
-              <ButtonIcon iconProps={{ name: 'chevron_right' }} />
+              <ButtonIcon type="button" iconProps={{ name: 'chevron_right' }} />
             </DatePicker.NextButton>
           </DatePicker.Header>
 

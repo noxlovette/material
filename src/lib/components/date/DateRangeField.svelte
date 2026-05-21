@@ -153,11 +153,11 @@ segment inputs and a shared calendar popover.
           class="text-md-sys-color-on-surface-variant z-10 flex w-full items-center justify-between pb-7.5"
         >
           <DateRangePicker.PrevButton>
-            <ButtonIcon iconProps={{ name: 'chevron_left' }} />
+            <ButtonIcon type="button" iconProps={{ name: 'chevron_left' }} />
           </DateRangePicker.PrevButton>
           <DateRangePicker.Heading class="md-sys-typescale-label-large" />
           <DateRangePicker.NextButton>
-            <ButtonIcon iconProps={{ name: 'chevron_right' }} />
+            <ButtonIcon type="button" iconProps={{ name: 'chevron_right' }} />
           </DateRangePicker.NextButton>
         </DateRangePicker.Header>
 

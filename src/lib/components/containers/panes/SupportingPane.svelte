@@ -49,6 +49,7 @@ SupportingPane provides a layout with a main content area and a supporting side 
       <div class="top-3 right-3 z-10 hidden h-12 w-12 md:absolute md:block">
         <ButtonIcon
           triggerClass=""
+          type="button"
           variant="text"
           tooltipContent={supportingVisible ? 'Скрыть панель' : 'Показать панель'}
           size="sm"
