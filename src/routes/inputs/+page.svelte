@@ -124,7 +124,13 @@
           <Textfield leadingIconProps={{ name: 'search' }} label="Search" id="tf4" />
           <Textfield trailingIconProps={{ name: 'close' }} label="Clearable" id="tf5" />
           <Textfield disabled label="Disabled" value="Can't edit" id="tf6" />
-          <Textfield error trailingIconProps={{ name: 'warning' }} label="Error state" id="tf7">
+          <Textfield
+            error
+            trailingOnClick={() => console.log('meow')}
+            trailingIconProps={{ name: 'warning' }}
+            label="Error state"
+            id="tf7"
+          >
             {#snippet supportingText()}
               This field has an error
             {/snippet}

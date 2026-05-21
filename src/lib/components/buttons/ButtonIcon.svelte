@@ -49,7 +49,12 @@ Icon buttons help people take minor actions and are often used in app bars.
 </script>
 
 <Tooltip {triggerClass} variant="snack" supportingText={tooltipContent}>
-  {#snippet trigger({ class: triggerClass_, type: _tooltipType, ...triggerAttrs })}
+  {#snippet trigger({
+    class: triggerClass_,
+    type: _tooltipType,
+    onclick: _tooltipOnclick,
+    ...triggerAttrs
+  })}
     {#if variation === 'toggle'}
       <Toggle.Root
         bind:pressed
