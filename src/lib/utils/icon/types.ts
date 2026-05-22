@@ -5,8 +5,11 @@ export type IconMD = typeof Icon;
 
 export type IconVariant = 'outlined' | 'rounded' | 'sharp';
 
+export type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
 export type IconProps = HTMLAttributes<HTMLSpanElement> & {
   name: string;
+  size?: IconSize;
   variant?: IconVariant;
   fill?: 0 | 1;
   wght?: number; // 100..700
