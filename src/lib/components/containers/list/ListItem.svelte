@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Layer } from '$lib/utils/index.js';
+  import clsx from 'clsx';
   import { listiem } from './theme.js';
   import type { ListitemProps } from './types.js';
 
@@ -17,6 +18,7 @@
   }: ListitemProps = $props();
 
   const cls = $derived(listiem({ lines, selected }));
+  const baseCls = $derived(cls.base({ class: clsx(className) }));
 </script>
 
 {#snippet content()}
@@ -44,12 +46,12 @@
 {#snippet action()}
   {#if 'label' in restProps}
     {@const { label: _, ...extra } = restProps}
-    <label class={cls.base()} {...extra}>
+    <label class={baseCls} {...extra}>
       <Layer />
       {@render content()}
     </label>
   {:else if 'onclick' in restProps}
-    <button type="button" class={cls.base()} {...restProps}>
+    <button type="button" class={baseCls} {...restProps}>
       <Layer />
       {@render content()}
     </button>
@@ -57,13 +59,13 @@
     {@const { href, ...extra } = restProps as typeof restProps & {
       href?: string | null;
     }}
-    <a class={cls.base()} {href} {...extra}>
+    <a class={baseCls} {href} {...extra}>
       <Layer />
       {@render content()}
     </a>
   {:else}
     {@const { href: _, ...extra } = restProps as Record<string, unknown>}
-    <div class={cls.base()} {...extra}>
+    <div class={baseCls} {...extra}>
       <Layer />
       {@render content()}
     </div>
