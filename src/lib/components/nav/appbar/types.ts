@@ -19,4 +19,6 @@ export type AppBarProps = AppbarVariants &
     trailing?: Snippet;
     /** Whether to show a back button in the leading section. */
     showBack?: boolean;
+    /** Renders an invisible same-height spacer after the fixed bar so page content isn't obscured. */
+    ghost?: boolean;
   };

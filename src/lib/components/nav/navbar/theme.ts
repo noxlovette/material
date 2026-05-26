@@ -4,7 +4,8 @@ export const navbar = tv({
   slots: {
     base: 'shadow-elevation-2 bg-md-sys-color-surface-container relative z-20 flex h-20 fixed bottom-0 w-full left-0 justify-around py-3 md:hidden',
     items: 'flex justify-around w-full',
-    fab: 'bottom-24 right-4 absolute'
+    fab: 'bottom-24 right-4 absolute',
+    ghost: 'h-20 w-full shrink-0 md:hidden pointer-events-none'
   }
 });
 

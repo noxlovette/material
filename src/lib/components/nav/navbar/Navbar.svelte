@@ -10,13 +10,13 @@ This component takes NavbarItems as its children
 @see https://m3.material.io/components/navigation-bar/overview
 -->
 <script lang="ts">
-  import type { Snippet } from 'svelte';
-  import { navbar } from './theme.js';
   import { NavigationMenu } from 'bits-ui';
+  import { navbar } from './theme.js';
+  import type { NavBarProps } from './types.js';
 
-  const { children, fab }: { children: Snippet; fab?: Snippet } = $props();
+  const { children, fab, ghost = false }: NavBarProps = $props();
 
-  const { base, items, fab: fabCls } = $derived(navbar());
+  const { base, items, fab: fabCls, ghost: ghostCls } = $derived(navbar());
 </script>
 
 <div class={base()}>
@@ -31,3 +31,6 @@ This component takes NavbarItems as its children
     </NavigationMenu.List>
   </NavigationMenu.Root>
 </div>
+{#if ghost}
+  <div class={ghostCls()} aria-hidden="true"></div>
+{/if}

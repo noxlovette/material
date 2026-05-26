@@ -20,6 +20,7 @@ They’re used for branding, screen titles, navigation, and actions.
     leading,
     class: className,
     showBack,
+    ghost = false,
     ...rest
   }: AppBarProps = $props();
 
@@ -31,6 +32,7 @@ They’re used for branding, screen titles, navigation, and actions.
 
   const {
     base,
+    ghost: ghostCls,
     title: titleCLs,
     textContainer,
     subtitle: subtitleCls,
@@ -58,3 +60,6 @@ They’re used for branding, screen titles, navigation, and actions.
     {@render trailing?.()}
   </div>
 </nav>
+{#if ghost}
+  <div class={ghostCls()} aria-hidden="true"></div>
+{/if}

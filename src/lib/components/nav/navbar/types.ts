@@ -32,4 +32,6 @@ export type NavBarProps = NavBarVariants &
     children: Snippet;
     /** An optional Floating Action Button snippet. */
     fab?: Snippet;
+    /** Renders an invisible same-height spacer after the fixed bar so page content isn't obscured. */
+    ghost?: boolean;
   };
