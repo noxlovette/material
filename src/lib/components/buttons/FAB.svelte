@@ -14,7 +14,7 @@ Floating action buttons (FABs) help people take primary actions.
   import { fab } from './theme.js';
   import type { FABProps } from './types.js';
   import FABMenu from './FABMenu.svelte';
-  import { Layer, Icon } from '$lib/utils/index.js';
+  import { Layer, Icon, LoadingIndicator } from '$lib/utils/index.js';
   import { clickOutside } from '$lib/actions/index.js';
   import { Button, type ButtonRootProps } from 'bits-ui';
 
@@ -26,6 +26,7 @@ Floating action buttons (FABs) help people take primary actions.
     config = 'primary',
     iconProps,
     label,
+    loading,
     expanded = false,
     class: className,
     withMenu,
@@ -48,7 +49,7 @@ Floating action buttons (FABs) help people take primary actions.
   );
 
   function handleClick(e: MouseEvent) {
-    if (disabled) {
+    if (disabled || loading) {
       e.preventDefault();
       return;
     }
@@ -68,8 +69,12 @@ Floating action buttons (FABs) help people take primary actions.
     data-cy="m3-fab"
     {...restProps as ButtonRootProps}
   >
-    <Icon {...withMenu && showMenu ? { name: 'close' } : iconProps} class={icon()} />
-    <Layer />
+    {#if loading}
+      <LoadingIndicator />
+    {:else}
+      <Icon {...withMenu && showMenu ? { name: 'close' } : iconProps} class={icon()} />
+      <Layer />
+    {/if}
     {#if expanded && !(withMenu && showMenu)}
       <p class={labelClass()}>
         {label}

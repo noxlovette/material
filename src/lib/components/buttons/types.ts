@@ -161,6 +161,8 @@ export type FABProps = FABVariants &
     withMenu?: boolean;
     /** Configuration for the FAB's icon. */
     iconProps: IconProps;
+    /** Whether the FAB is in a loading state. Displays a loading indicator instead of the icon. */
+    loading?: boolean;
     /** The URL to link to. If provided, the FAB will render as an `<a>` tag. */
     href?: string;
     /** The `formaction` attribute for the FAB when used in a form. */

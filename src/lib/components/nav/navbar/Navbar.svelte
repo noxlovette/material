@@ -10,16 +10,17 @@ This component takes NavbarItems as its children
 @see https://m3.material.io/components/navigation-bar/overview
 -->
 <script lang="ts">
+  import clsx from 'clsx';
   import { NavigationMenu } from 'bits-ui';
   import { navbar } from './theme.js';
   import type { NavBarProps } from './types.js';
 
-  const { children, fab, ghost = false }: NavBarProps = $props();
+  const { children, fab, ghost = false, class: className, ...restProps }: NavBarProps = $props();
 
   const { base, items, fab: fabCls, ghost: ghostCls } = $derived(navbar());
 </script>
 
-<div class={base()}>
+<div class={base({ class: clsx(className) })} {...restProps}>
   {#if fab}
     <div class={fabCls()}>
       {@render fab?.()}
