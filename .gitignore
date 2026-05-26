@@ -8,6 +8,7 @@ dist/
 .nuxt
 .cache
 .zed
+.DS_Store
 
 *.timestamp-*
 cypress/screenshots/

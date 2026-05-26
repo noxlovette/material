@@ -288,6 +288,44 @@
               <ToolbarButton iconProps={{ name: 'zoom_out' }} />
             </Toolbar>
           </div>
+
+          <div class="flex flex-col gap-2">
+            <Label>Vibrant color</Label>
+            <Toolbar color="vibrant">
+              <ToolbarGroup type="multiple" value={toolbarFormat}>
+                <ToolbarGroupItem value="bold" iconProps={{ name: 'format_bold' }} />
+                <ToolbarGroupItem value="italic" iconProps={{ name: 'format_italic' }} />
+                <ToolbarGroupItem value="underline" iconProps={{ name: 'format_underlined' }} />
+              </ToolbarGroup>
+              <ToolbarDivider />
+              <ToolbarButton iconProps={{ name: 'undo' }} />
+              <ToolbarButton iconProps={{ name: 'redo' }} />
+            </Toolbar>
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <Label>Docked (bottom app bar with FAB)</Label>
+            <Toolbar variant="docked" color="standard">
+              <ToolbarButton iconProps={{ name: 'menu' }} />
+              <ToolbarButton iconProps={{ name: 'search' }} />
+              <ToolbarButton iconProps={{ name: 'more_vert' }} />
+              {#snippet fab()}
+                <FAB iconProps={{ name: 'add' }} size="regular" config="primary" />
+              {/snippet}
+            </Toolbar>
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <Label>Docked vibrant with FAB</Label>
+            <Toolbar variant="docked" color="vibrant">
+              <ToolbarButton iconProps={{ name: 'menu' }} />
+              <ToolbarButton iconProps={{ name: 'search' }} />
+              <ToolbarButton iconProps={{ name: 'more_vert' }} />
+              {#snippet fab()}
+                <FAB iconProps={{ name: 'edit' }} size="regular" config="tertiary" />
+              {/snippet}
+            </Toolbar>
+          </div>
         </div>
       </section>
 

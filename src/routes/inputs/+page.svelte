@@ -33,7 +33,7 @@
 
   const demoSchema = z.object({
     name: z.string().min(1),
-    email: z.string().email(),
+    email: z.email(),
     language: z.string(),
     notifications: z.boolean(),
     theme: z.string(),
