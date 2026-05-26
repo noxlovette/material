@@ -17,6 +17,7 @@ SupportingPane provides a layout with a main content area and a supporting side 
     position = 'right',
     centered = false,
     rounded = true,
+    gap = 'md',
     class: className,
     mainClass,
     full = true,
@@ -34,7 +35,7 @@ SupportingPane provides a layout with a main content area and a supporting side 
     base,
     main: mainCls,
     supporting: supportingCls
-  } = $derived(supportingPane({ anchor, position, centered, full, rounded }));
+  } = $derived(supportingPane({ anchor, position, centered, full, rounded, gap }));
 
   const cssVars = $derived(
     anchor === 'viewport'

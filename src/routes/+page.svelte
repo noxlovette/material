@@ -40,7 +40,7 @@
   <title>Overview | Ogonëk M3</title>
 </svelte:head>
 
-<SinglePane class="p-12" contentClass="gap-12">
+<SinglePane>
   <div class="flex flex-col gap-4">
     <Display>Ogonëk M3</Display>
     <Headline>Component Library Overview</Headline>

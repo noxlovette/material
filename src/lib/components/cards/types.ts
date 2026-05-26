@@ -28,6 +28,11 @@ export type CardProps = CardVariants &
      */
     type?: CardVariants['type'];
     /**
+     * Internal padding of the card.
+     * @default 'md'
+     */
+    padding?: CardVariants['padding'];
+    /**
      * Whether the card should show a state layer on hover.
      * Defaults to true if `href` is provided.
      */

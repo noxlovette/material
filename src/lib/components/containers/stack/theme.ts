@@ -18,10 +18,12 @@ export const stack = tv({
       h: 'h-full'
     },
     gap: {
+      none: 'gap-0',
+      xs: 'gap-1',
+      sm: 'gap-2',
       md: 'gap-3',
-      sm: 'gap-px',
-      lg: 'gap-6',
-      none: 'gap-0'
+      lg: 'gap-4',
+      xl: 'gap-6'
     }
   }
 });

@@ -15,7 +15,7 @@ export const navitem = tv({
     content: 'flex flex-col items-center justify-center gap-1 w-full',
     iconContainer:
       'relative flex items-center justify-center h-8 w-16 rounded-full transition-colors duration-200 ease-in-out',
-    icon: 'text-[24px]',
+    icon: 'text-[24px] size-6',
     label: 'md-sys-typescale-label-medium truncate w-full text-center'
   },
   variants: {

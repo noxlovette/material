@@ -1,6 +1,8 @@
 <script lang="ts">
   import FAB from '$lib/components/buttons/FAB.svelte';
   import FABMenuItem from '$lib/components/buttons/FABMenuItem.svelte';
+  import Navbar from '$lib/components/nav/navbar/Navbar.svelte';
+  import NavbarItem from '$lib/components/nav/navbar/NavbarItem.svelte';
   import { App, Rail, RailItem, ThemeSwitcher } from '$lib/index.js';
   import '../app.css';
 
@@ -89,25 +91,27 @@
   </FAB>
 {/snippet}
 <App iconProviderProps={{ extraIcons: icons }}>
-  <div class="flex min-h-screen">
-    <Rail {fab} bind:collapsed>
-      <RailItem {collapsed} name="Overview" href="/" iconProps={{ name: 'architecture' }} />
-      <RailItem
-        {collapsed}
-        name="Clickables"
-        href="/clickables"
-        iconProps={{ name: 'smart_button' }}
-      />
-      <RailItem {collapsed} name="Inputs" href="/inputs" iconProps={{ name: 'edit' }} />
-      <RailItem {collapsed} name="Commands" href="/commands" iconProps={{ name: 'terminal' }} />
-      <RailItem {collapsed} name="Layouts" href="/layouts" iconProps={{ name: 'view_quilt' }} />
-      <RailItem {collapsed} name="Table" href="/table" iconProps={{ name: 'table' }} />
-      <RailItem {collapsed} name="Typography" href="/typography" iconProps={{ name: 'title' }} />
-      <RailItem {collapsed} name="Misc" href="/misc" iconProps={{ name: 'circle' }} />
-    </Rail>
-    <main class="flex-1">
-      {@render children()}
-    </main>
-    <ThemeSwitcher />
-  </div>
+  <Rail {fab} bind:collapsed>
+    <RailItem {collapsed} name="Overview" href="/" iconProps={{ name: 'architecture' }} />
+    <RailItem
+      {collapsed}
+      name="Clickables"
+      href="/clickables"
+      iconProps={{ name: 'smart_button' }}
+    />
+    <RailItem {collapsed} name="Inputs" href="/inputs" iconProps={{ name: 'edit' }} />
+    <RailItem {collapsed} name="Commands" href="/commands" iconProps={{ name: 'terminal' }} />
+    <RailItem {collapsed} name="Layouts" href="/layouts" iconProps={{ name: 'view_quilt' }} />
+    <RailItem {collapsed} name="Table" href="/table" iconProps={{ name: 'table' }} />
+    <RailItem {collapsed} name="Typography" href="/typography" iconProps={{ name: 'title' }} />
+    <RailItem {collapsed} name="Misc" href="/misc" iconProps={{ name: 'circle' }} />
+  </Rail>
+  {@render children()}
+  <ThemeSwitcher />
+  <Navbar ghost>
+    <NavbarItem label="Overview" href="/" iconProps={{ name: 'architecture' }} />
+    <NavbarItem label="Clickables" href="/clickables" iconProps={{ name: 'smart_button' }} />
+    <NavbarItem label="Inputs" href="/inputs" iconProps={{ name: 'edit' }} />
+    <NavbarItem label="Typography" href="/typography" iconProps={{ name: 'title' }} />
+  </Navbar>
 </App>

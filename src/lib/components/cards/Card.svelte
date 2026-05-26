@@ -17,13 +17,14 @@ and serve as an entry point to more detailed information.
   let {
     children,
     type = 'filled',
+    padding = 'md',
     class: className,
     href,
     hoverable = !!href,
     ...restProps
   }: CardProps = $props();
 
-  const { base } = $derived(card({ type, hoverable }));
+  const { base } = $derived(card({ type, hoverable, padding }));
 </script>
 
 {#if href}

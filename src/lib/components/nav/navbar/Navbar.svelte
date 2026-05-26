@@ -16,7 +16,6 @@ This component takes NavbarItems as its children
   import type { NavBarProps } from './types.js';
 
   const { children, fab, ghost = false, class: className, ...restProps }: NavBarProps = $props();
-
   const { base, items, fab: fabCls, ghost: ghostCls } = $derived(navbar());
 </script>
 
@@ -27,8 +26,14 @@ This component takes NavbarItems as its children
     </div>
   {/if}
   <NavigationMenu.Root orientation="horizontal" class="flex w-full">
-    <NavigationMenu.List class={items()}>
-      {@render children()}
+    <NavigationMenu.List>
+      {#snippet child({ props, wrapperProps })}
+        <div {...wrapperProps} class="w-full">
+          <ul {...props} class={items()}>
+            {@render children()}
+          </ul>
+        </div>
+      {/snippet}
     </NavigationMenu.List>
   </NavigationMenu.Root>
 </div>

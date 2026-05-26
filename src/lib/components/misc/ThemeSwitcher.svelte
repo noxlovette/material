@@ -6,7 +6,7 @@
   let open = $state(false);
 </script>
 
-<div class="fixed right-4 bottom-4 z-50">
+<div class="fixed right-4 bottom-4 z-50 hidden md:block">
   <Popover bind:open title="Theme Settings" side="top" align="end" sideOffset={16}>
     {#snippet trigger()}
       <FAB iconProps={{ name: 'palette' }} config="primary" />

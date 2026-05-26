@@ -51,8 +51,7 @@ export const splitPane = tv({
 export const singlePane = tv({
   slots: {
     base: 'flex flex-col box-border overflow-clip items-center',
-    content: 'flex flex-1 flex-col gap-3 w-full md:pb-12 max-w-7xl mx-auto',
-    headline: 'md-sys-typescale-title-medium mb-4'
+    content: 'flex flex-1 flex-col w-full max-w-7xl mx-auto'
   },
   variants: {
     background: {
@@ -79,6 +78,19 @@ export const singlePane = tv({
       false: {
         base: ''
       }
+    },
+    padding: {
+      none: { content: 'p-0' },
+      sm: { content: 'p-3 md:p-4' },
+      md: { content: 'p-4 md:p-6 lg:p-8' },
+      lg: { content: 'p-6 md:p-8 lg:p-12' }
+    },
+    gap: {
+      none: { content: 'gap-0' },
+      sm: { content: 'gap-2' },
+      md: { content: 'gap-3' },
+      lg: { content: 'gap-4' },
+      xl: { content: 'gap-6' }
     }
   },
   defaultVariants: {
@@ -88,7 +100,7 @@ export const singlePane = tv({
 
 export const supportingPane = tv({
   slots: {
-    base: 'flex w-full flex-col gap-6 md:flex-row',
+    base: 'flex w-full flex-col md:flex-row',
     main: 'bg-md-sys-color-surface box-border grow order-2 md:order-1',
     supporting:
       'text-md-sys-color-on-surface-container box-border order-1 md:order-2 min-w-min md:w-80 overflow-x-visible'
@@ -122,6 +134,12 @@ export const supportingPane = tv({
       false: {
         base: 'justify-between'
       }
+    },
+    gap: {
+      none: { base: 'gap-0' },
+      sm: { base: 'gap-4' },
+      md: { base: 'gap-6' },
+      lg: { base: 'gap-8' }
     },
     full: {
       true: { base: 'min-h-dvh' },
@@ -158,6 +176,7 @@ export const supportingPane = tv({
     anchor: 'parent',
     position: 'right',
     centered: true,
-    rounded: true
+    rounded: true,
+    gap: 'md'
   }
 });
