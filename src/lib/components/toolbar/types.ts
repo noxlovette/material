@@ -14,6 +14,7 @@ export type ToolbarProps = ToolbarVariants &
   Omit<ToolbarRootProps, 'children' | 'child'> & {
     children?: Snippet;
     fab?: Snippet;
+    ghost?: boolean;
     class?: string;
   };
 

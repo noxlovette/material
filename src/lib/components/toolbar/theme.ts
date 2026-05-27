@@ -9,7 +9,8 @@ export const toolbar = tv({
     root: 'items-center gap-0.5 px-2',
     group: 'inline-flex items-center gap-0.5',
     divider: 'shrink-0 bg-md-sys-color-outline-variant',
-    fabSlot: 'ml-auto flex items-center ps-2'
+    fabSlot: 'ml-auto flex items-center ps-2',
+    ghost: 'h-16 w-full shrink-0 pointer-events-none'
   },
   variants: {
     orientation: {
@@ -18,7 +19,10 @@ export const toolbar = tv({
     },
     variant: {
       floating: { root: 'inline-flex rounded-2xl shadow-elevation-1 py-1' },
-      docked: { root: 'flex w-full rounded-none py-3' }
+      docked: { root: 'flex w-full rounded-none py-3' },
+      mobile: {
+        root: 'flex w-full rounded-none py-3 fixed bottom-20 left-0 z-10 shadow-elevation-2'
+      }
     },
     color: {
       standard: { root: 'bg-md-sys-color-surface-container' },
