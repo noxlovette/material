@@ -21,8 +21,11 @@ Color is inherited from the parent Toolbar via context.
     ...restProps
   }: ToolbarGroupItemProps = $props();
 
-  const color = getContext<ToolbarColor>('toolbar-color') ?? 'standard';
-  const { base, icon } = toolbarGroupItem({ color });
+  const toolbarCtx = getContext<{ color: ToolbarColor; orientation: string } | undefined>(
+    'toolbar'
+  );
+  const color = $derived(toolbarCtx?.color ?? 'standard');
+  const { base, icon } = $derived(toolbarGroupItem({ color }));
 </script>
 
 <Toolbar.GroupItem {value} {disabled} class={base({ class: clsx(className) })} {...restProps}>

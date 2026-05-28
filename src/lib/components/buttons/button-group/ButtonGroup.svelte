@@ -1,18 +1,17 @@
 <!--
 @component
-@deprecated Use `ButtonGroup` instead. Google has removed segmented buttons
-from the Material Design 3 spec in favour of Button groups.
+A group of connected buttons for filtering or mode selection.
 
-Toggle group renders as M3 segmented buttons — a continuous pill of
-connected toggle items for filtering or mode selection.
+Replaces the deprecated ToggleGroup / segmented-buttons pattern.
 
 @see https://m3.material.io/components/button-groups/overview
 -->
 <script lang="ts">
   import { ToggleGroup } from 'bits-ui';
   import clsx from 'clsx';
-  import { toggleGroup } from './theme.js';
-  import type { ToggleGroupProps } from './types.js';
+  import { setContext } from 'svelte';
+  import { buttonGroup } from './theme.js';
+  import type { ButtonGroupProps } from './types.js';
 
   let {
     type,
@@ -21,11 +20,20 @@ connected toggle items for filtering or mode selection.
     disabled = false,
     loop = true,
     orientation = 'horizontal',
+    shape = 'round',
+    size = 'sm',
     children,
     class: className
-  }: ToggleGroupProps = $props();
+  }: ButtonGroupProps = $props();
 
-  const cls = $derived(toggleGroup({ orientation }));
+  const cls = $derived(buttonGroup({ orientation, shape, size }));
+
+  const buttonGroupCtx = {
+    get orientation() {
+      return orientation;
+    }
+  };
+  setContext('buttonGroup', buttonGroupCtx);
 </script>
 
 <ToggleGroup.Root

@@ -19,8 +19,11 @@ Color is inherited from the parent Toolbar via context.
     ...restProps
   }: ToolbarButtonProps = $props();
 
-  const color = getContext<ToolbarColor>('toolbar-color') ?? 'standard';
-  const { base, icon } = toolbarButton({ color });
+  const toolbarCtx = getContext<{ color: ToolbarColor; orientation: string } | undefined>(
+    'toolbar'
+  );
+  const color = $derived(toolbarCtx?.color ?? 'standard');
+  const { base, icon } = $derived(toolbarButton({ color }));
 </script>
 
 <Toolbar.Button {disabled} class={base({ class: clsx(className) })} {...restProps}>

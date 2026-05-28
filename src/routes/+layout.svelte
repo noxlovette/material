@@ -92,19 +92,19 @@
 {/snippet}
 <App iconProviderProps={{ extraIcons: icons }}>
   <Rail {fab} bind:collapsed>
-    <RailItem {collapsed} name="Overview" href="/" iconProps={{ name: 'architecture' }} />
+    <RailItem label="Overview" href="/" iconProps={{ name: 'architecture' }} />
     <RailItem
       {collapsed}
-      name="Clickables"
+      label="Clickables"
       href="/clickables"
       iconProps={{ name: 'smart_button' }}
     />
-    <RailItem {collapsed} name="Inputs" href="/inputs" iconProps={{ name: 'edit' }} />
-    <RailItem {collapsed} name="Commands" href="/commands" iconProps={{ name: 'terminal' }} />
-    <RailItem {collapsed} name="Layouts" href="/layouts" iconProps={{ name: 'view_quilt' }} />
-    <RailItem {collapsed} name="Table" href="/table" iconProps={{ name: 'table' }} />
-    <RailItem {collapsed} name="Typography" href="/typography" iconProps={{ name: 'title' }} />
-    <RailItem {collapsed} name="Misc" href="/misc" iconProps={{ name: 'circle' }} />
+    <RailItem label="Inputs" href="/inputs" iconProps={{ name: 'edit' }} />
+    <RailItem label="Commands" href="/commands" iconProps={{ name: 'terminal' }} />
+    <RailItem label="Layouts" href="/layouts" iconProps={{ name: 'view_quilt' }} />
+    <RailItem label="Table" href="/table" iconProps={{ name: 'table' }} />
+    <RailItem label="Typography" href="/typography" iconProps={{ name: 'title' }} />
+    <RailItem label="Misc" href="/misc" iconProps={{ name: 'circle' }} />
   </Rail>
   {@render children()}
   <ThemeSwitcher />

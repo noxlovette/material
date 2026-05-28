@@ -27,8 +27,8 @@
     ToolbarGroup,
     ToolbarGroupItem,
     ToolbarDivider,
-    ToggleGroup,
-    ToggleGroupItem,
+    ButtonGroup,
+    ButtonGroupItem,
     LinearProgress,
     CircularProgress,
     WavyLinearProgress,
@@ -58,7 +58,7 @@
     { id: 'dialogues', label: 'Dialogues' },
     { id: 'popover', label: 'Popover' },
     { id: 'toolbar', label: 'Toolbar' },
-    { id: 'toggle-group', label: 'Toggle Group' },
+    { id: 'button-group', label: 'Button Group' },
     { id: 'menu', label: 'Menu' },
     { id: 'context-menu', label: 'Context Menu' },
     { id: 'pill', label: 'Pills' },
@@ -329,41 +329,80 @@
         </div>
       </section>
 
-      <!-- TOGGLE GROUP -->
-      <section id="toggle-group" class="flex scroll-mt-4 flex-col gap-6">
-        <Display>Toggle Group</Display>
+      <!-- BUTTON GROUP -->
+      <section id="button-group" class="flex scroll-mt-4 flex-col gap-6">
+        <Display>Button Group</Display>
         <div class="flex flex-col gap-6">
           <div class="flex flex-col gap-2">
             <Label>Single select (period)</Label>
-            <ToggleGroup type="single" bind:value={segmentSingle}>
-              <ToggleGroupItem value="day" label="День" />
-              <ToggleGroupItem value="week" label="Неделя" />
-              <ToggleGroupItem value="month" label="Месяц" />
-            </ToggleGroup>
+            <ButtonGroup type="single" bind:value={segmentSingle}>
+              <ButtonGroupItem value="day" label="День" />
+              <ButtonGroupItem value="week" label="Неделя" />
+              <ButtonGroupItem value="month" label="Месяц" />
+            </ButtonGroup>
             <Body>Selected: {segmentSingle}</Body>
           </div>
 
           <div class="flex flex-col gap-2">
             <Label>Multiple select with icons</Label>
-            <ToggleGroup type="multiple" bind:value={segmentMulti}>
-              <ToggleGroupItem value="bold" label="Bold" iconProps={{ name: 'format_bold' }} />
-              <ToggleGroupItem
+            <ButtonGroup type="multiple" bind:value={segmentMulti}>
+              <ButtonGroupItem value="bold" label="Bold" iconProps={{ name: 'format_bold' }} />
+              <ButtonGroupItem
                 value="italic"
                 label="Italic"
                 iconProps={{ name: 'format_italic' }}
               />
-              <ToggleGroupItem value="link" label="Link" iconProps={{ name: 'link' }} />
-            </ToggleGroup>
+              <ButtonGroupItem value="link" label="Link" iconProps={{ name: 'link' }} />
+            </ButtonGroup>
             <Body>Active: {segmentMulti.join(', ') || '—'}</Body>
           </div>
 
           <div class="flex flex-col gap-2">
+            <Label>Square shape</Label>
+            <ButtonGroup type="single" bind:value={segmentSingle} shape="square">
+              <ButtonGroupItem value="day" label="День" />
+              <ButtonGroupItem value="week" label="Неделя" />
+              <ButtonGroupItem value="month" label="Месяц" />
+            </ButtonGroup>
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <Label>Sizes</Label>
+            <div class="flex flex-col gap-3">
+              <ButtonGroup type="single" bind:value={segmentSingle} size="xs">
+                <ButtonGroupItem value="day" label="XS" />
+                <ButtonGroupItem value="week" label="XS" />
+                <ButtonGroupItem value="month" label="XS" />
+              </ButtonGroup>
+              <ButtonGroup type="single" bind:value={segmentSingle} size="sm">
+                <ButtonGroupItem value="day" label="SM" />
+                <ButtonGroupItem value="week" label="SM" />
+                <ButtonGroupItem value="month" label="SM" />
+              </ButtonGroup>
+              <ButtonGroup type="single" bind:value={segmentSingle} size="md">
+                <ButtonGroupItem value="day" label="MD" />
+                <ButtonGroupItem value="week" label="MD" />
+                <ButtonGroupItem value="month" label="MD" />
+              </ButtonGroup>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-2">
             <Label>Disabled</Label>
-            <ToggleGroup type="single" value="week" disabled>
-              <ToggleGroupItem value="day" label="День" />
-              <ToggleGroupItem value="week" label="Неделя" />
-              <ToggleGroupItem value="month" label="Месяц" />
-            </ToggleGroup>
+            <ButtonGroup type="single" value="week" disabled>
+              <ButtonGroupItem value="day" label="День" />
+              <ButtonGroupItem value="week" label="Неделя" />
+              <ButtonGroupItem value="month" label="Месяц" />
+            </ButtonGroup>
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <Label>Vertical</Label>
+            <ButtonGroup type="single" bind:value={segmentSingle} orientation="vertical">
+              <ButtonGroupItem value="day" label="День" />
+              <ButtonGroupItem value="week" label="Неделя" />
+              <ButtonGroupItem value="month" label="Месяц" />
+            </ButtonGroup>
           </div>
         </div>
       </section>

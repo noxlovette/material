@@ -2,26 +2,11 @@ import type { AnchorButtonAttributes, IconProps } from '$lib/utils/index.js';
 import type { Snippet } from 'svelte';
 import type { HTMLAnchorAttributes, HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
 import type {
-  ButtonGroupVariants,
   ButtonIconVariants,
   ButtonMDVariants,
   FABMenuItemVariants,
   FABVariants
 } from './theme.js';
-
-export interface ButtonGroupProps extends ButtonGroupVariants, HTMLAttributes<HTMLDivElement> {
-  /**
-   * The content of the button group.
-   * @example
-   * <ButtonGroup>
-   *   <Button>Action 1</Button>
-   *   <Button>Action 2</Button>
-   * </ButtonGroup>
-   */
-  children: Snippet;
-  /** Whether all buttons in the group are disabled. */
-  disabled?: boolean;
-}
 
 export type HTMLButtonOrAnchorAttributes = HTMLButtonAttributes & HTMLAnchorAttributes;
 

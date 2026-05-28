@@ -9,6 +9,7 @@ Navigation rails provide access to primary destinations in apps when using table
 <script lang="ts">
   import { clickOutside } from '$lib/actions/index.js';
   import clsx from 'clsx';
+  import { setContext } from 'svelte';
   import type { RailProps } from './types';
   import ButtonIcon from '$lib/components/buttons/ButtonIcon.svelte';
   import { rail } from './theme';
@@ -27,6 +28,12 @@ Navigation rails provide access to primary destinations in apps when using table
   }: RailProps = $props();
 
   const expanded = $derived(!collapsed);
+  const railCtx = {
+    get collapsed() {
+      return collapsed;
+    }
+  };
+  setContext('rail', railCtx);
   const { base, items, ghost, scrim } = $derived(rail({ expanded, anchor, rounded }));
   const railBaseClass = $derived(`${base({ class: clsx(className) })} rail-base`);
   const toggleClass = $derived(collapsed ? 'cursor-e-resize' : 'cursor-w-resize');

@@ -6,6 +6,7 @@ A single destination within a navigation rail.
 -->
 <script lang="ts">
   import { page } from '$app/state';
+  import { getContext } from 'svelte';
   import type { RailItemProps } from './types.js';
   import { railElement } from './theme.js';
   import { Icon, Layer } from '$lib/utils/index.js';
@@ -14,16 +15,19 @@ A single destination within a navigation rail.
 
   let {
     href = '/',
-    name,
+    label,
     external = false,
     badge = 0,
     class: className,
     selected,
     disabled,
-    collapsed = true,
+    collapsed: collapsedProp,
     iconProps,
     ...rest
   }: RailItemProps = $props();
+
+  const railCtx = getContext<{ collapsed: boolean } | undefined>('rail');
+  const collapsed = $derived(collapsedProp ?? railCtx?.collapsed ?? true);
 
   const isDisabled = $derived(!!disabled);
   const target = $derived(!isDisabled && external ? '_blank' : undefined);
@@ -95,7 +99,7 @@ A single destination within a navigation rail.
             {/if}
           </div>
           <p class={labelClass()}>
-            {name}
+            {label}
           </p>
         </div>
       </a>

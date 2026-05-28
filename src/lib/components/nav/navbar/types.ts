@@ -21,6 +21,8 @@ export type NavItemProps = NavItemVariants &
     href: string;
     /** Props passed to the Icon component. */
     iconProps: IconProps;
+    /** Whether the item is manually forced into a selected state. */
+    selected?: boolean;
   };
 
 /**

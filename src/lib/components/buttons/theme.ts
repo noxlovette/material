@@ -2,7 +2,6 @@ import { tv, type VariantProps } from 'tailwind-variants';
 
 // Variants
 export type ButtonVariants = VariantProps<typeof button>;
-export type ButtonGroupVariants = VariantProps<typeof buttonGroup>;
 export type FABVariants = VariantProps<typeof fab>;
 export type FABMenuVariants = VariantProps<typeof fabMenu>;
 export type ButtonMDVariants = VariantProps<typeof button>;
@@ -422,20 +421,6 @@ export const buttonIcon = tv({
       class: { base: 'md-component-button-elevated-error' }
     }
   ]
-});
-
-export const buttonGroup = tv({
-  base: 'inline-flex rounded-lg shadow-xs',
-  variants: {
-    size: {
-      sm: '',
-      md: '',
-      lg: ''
-    }
-  },
-  defaultVariants: {
-    size: 'md'
-  }
 });
 
 export const fab = tv({

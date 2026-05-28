@@ -18,12 +18,14 @@ A single destination within a navigation bar.
     label,
     badge = 0,
     class: className,
+    selected,
     iconProps,
     ...rest
   }: NavItemProps = $props();
 
   const isActive = $derived(
-    page.url.pathname === href ||
+    selected ||
+      page.url.pathname === href ||
       (href !== '/' && page.url.href.startsWith(href)) ||
       page.url.href == href
   );

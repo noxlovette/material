@@ -31,8 +31,15 @@ Toolbar provides a horizontal (or vertical) container for grouped actions.
     ...restProps
   }: ToolbarProps = $props();
 
-  setContext('toolbar-color', color);
-  setContext('toolbar-orientation', orientation);
+  const toolbarCtx = {
+    get color() {
+      return color;
+    },
+    get orientation() {
+      return orientation;
+    }
+  };
+  setContext('toolbar', toolbarCtx);
 
   const cls = $derived(toolbar({ orientation, variant, color }));
 </script>

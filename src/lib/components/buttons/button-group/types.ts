@@ -1,9 +1,8 @@
 import type { IconProps } from '$lib/utils/index.js';
 import type { Snippet } from 'svelte';
-import type { ToggleGroupItemVariants, ToggleGroupVariants } from './theme.js';
+import type { ButtonGroupItemVariants, ButtonGroupVariants } from './theme.js';
 
-/** @deprecated Use `ButtonGroupProps` from `ButtonGroup` instead. */
-export type ToggleGroupProps = ToggleGroupVariants & {
+export type ButtonGroupProps = ButtonGroupVariants & {
   /** Whether only one item can be active at a time, or multiple. */
   type: 'single' | 'multiple';
   /** Currently selected value(s). @bindable */
@@ -18,13 +17,12 @@ export type ToggleGroupProps = ToggleGroupVariants & {
   class?: string;
 };
 
-/** @deprecated Use `ButtonGroupItemProps` from `ButtonGroupItem` instead. */
-export type ToggleGroupItemProps = ToggleGroupItemVariants & {
+export type ButtonGroupItemProps = ButtonGroupItemVariants & {
   /** The value this item represents. */
   value: string;
-  /** Text label displayed in the item. */
+  /** Text label displayed inside the button. */
   label?: string;
-  /** Optional leading icon. When selected, a check replaces it. */
+  /** Optional leading icon. Replaced by a check mark when selected. */
   iconProps?: IconProps;
   disabled?: boolean;
   class?: string;

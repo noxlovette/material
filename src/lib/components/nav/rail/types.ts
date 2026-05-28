@@ -18,7 +18,7 @@ export interface RailItemProps extends RailItemVariants, HTMLAttributes<HTMLAnch
   /** Whether the item is manually forced into a selected state. */
   selected?: boolean;
   /** The text label for the item. */
-  name: string;
+  label: string;
   /** Whether the rail is collapsed, affecting label visibility. */
   collapsed?: boolean;
   /** Whether the item is disabled. */
