@@ -22,6 +22,7 @@ SplitPane provides a resizable two-column layout.
     persist = true,
     onPaddingChange,
     anchor = 'viewport',
+    mobilePane = 'right',
     class: className,
     leftClass,
     rightClass
@@ -34,6 +35,11 @@ SplitPane provides a resizable two-column layout.
     handle: hCls,
     handleGrip
   } = $derived(splitPane({ full, anchor, rounded }));
+
+  const leftMobileClass = $derived(
+    mobilePane === 'left' ? 'block w-full md:w-[var(--splitpane-left-width)]' : ''
+  );
+  const rightMobileClass = $derived(mobilePane === 'left' ? 'hidden md:flex' : '');
 
   const leftOffset = $derived(anchor === 'viewport' ? 'var(--splitpane-offset, 0px)' : '0px');
   const handleOffset = $derived(
@@ -98,8 +104,10 @@ SplitPane provides a resizable two-column layout.
 <div class={base({ class: clsx(className) })} style={`--splitpane-left-width: ${leftWidth}px;`}>
   <!-- LEFT PANE -->
   <div
-    class={lCls({ class: leftClass })}
-    style={`width: var(--splitpane-left-width); left: ${leftOffset};`}
+    class={lCls({ class: clsx(leftClass, leftMobileClass) })}
+    style={mobilePane === 'left'
+      ? `left: ${leftOffset};`
+      : `width: var(--splitpane-left-width); left: ${leftOffset};`}
   >
     {@render left()}
   </div>
@@ -126,7 +134,7 @@ SplitPane provides a resizable two-column layout.
   </div>
 
   <!-- RIGHT PANE -->
-  <div class={rCls({ class: rightClass })}>
+  <div class={rCls({ class: clsx(rightClass, rightMobileClass) })}>
     {@render right()}
   </div>
 </div>

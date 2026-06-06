@@ -90,7 +90,7 @@
       {/snippet}
     </SplitPane>
   {:else if variant === 'supporting'}
-    <SupportingPane collapsible anchor="parent">
+    <SupportingPane mobileSheet collapsible>
       {#snippet main()}
         <SinglePane class="p-12" contentClass="gap-8">
           <Display>Supporting Pane Layout</Display>

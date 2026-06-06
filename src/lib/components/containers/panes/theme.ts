@@ -100,30 +100,30 @@ export const singlePane = tv({
 
 export const supportingPane = tv({
   slots: {
-    base: 'flex w-full flex-col md:flex-row',
-    main: 'bg-md-sys-color-surface box-border grow order-2 md:order-1',
+    base: 'flex w-full flex-col lg:flex-row',
+    main: 'bg-md-sys-color-surface box-border grow order-2 lg:order-1',
     supporting:
-      'text-md-sys-color-on-surface-container box-border order-1 md:order-2 min-w-0 md:w-80'
+      'text-md-sys-color-on-surface-container box-border order-1 lg:order-2 min-w-0 lg:w-80'
   },
   variants: {
     anchor: {
       // supporting scrolls independently; main scrolls the page
       viewport: {
         supporting:
-          'md:fixed md:top-[var(--supporting-pane-top,0px)] md:bottom-0 md:w-[var(--supporting-pane-width,320px)] md:overflow-y-auto scrollbar-none'
+          'lg:fixed lg:top-[var(--supporting-pane-top,0px)] lg:bottom-0 lg:w-[var(--supporting-pane-width,320px)] lg:overflow-y-auto scrollbar-none'
       },
       // supporting sticks as user scrolls the page (classic sticky)
       parent: {
-        supporting: 'md:sticky md:top-4 overflow-y-scroll'
+        supporting: 'lg:sticky lg:top-4 overflow-y-scroll'
       }
     },
     position: {
       right: {
-        base: 'md:flex-row',
+        base: 'lg:flex-row',
         supporting: ''
       },
       left: {
-        base: 'md:flex-row-reverse',
+        base: 'lg:flex-row-reverse',
         supporting: ''
       }
     },
@@ -159,16 +159,16 @@ export const supportingPane = tv({
       anchor: 'viewport',
       position: 'right',
       class: {
-        supporting: 'md:right-0',
-        main: 'md:mr-[var(--supporting-pane-width,320px)]'
+        supporting: 'lg:right-0',
+        main: 'lg:mr-[var(--supporting-pane-width,320px)]'
       }
     },
     {
       anchor: 'viewport',
       position: 'left',
       class: {
-        supporting: 'md:left-0',
-        main: 'md:ml-[var(--supporting-pane-width,320px)]'
+        supporting: 'lg:left-0',
+        main: 'lg:ml-[var(--supporting-pane-width,320px)]'
       }
     }
   ],

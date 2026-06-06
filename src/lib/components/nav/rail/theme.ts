@@ -9,8 +9,7 @@ export const rail = tv({
     items: 'flex flex-col gap-3 pt-6 scrollbar-none w-full overflow-x-hidden',
     ghost:
       'hidden md:block shrink-0 transition-[width] duration-[var(--md-sys-motion-duration-spatial)] ease-[var(--md-sys-motion-timing-function-emphasized)]',
-    scrim:
-      'hidden md:block xl:hidden inset-0 transition-opacity duration-[var(--md-sys-motion-duration-spatial)] ease-[var(--md-sys-motion-timing-function-emphasized)]'
+    scrim: 'hidden md:block lg:hidden inset-0'
   },
   variants: {
     anchor: {
@@ -25,8 +24,8 @@ export const rail = tv({
     },
     expanded: {
       true: {
-        base: 'pl-9 w-60 items-start bg-md-sys-color-surface-container-highest xl:bg-md-sys-color-surface-container rounded-r-lg',
-        ghost: 'w-24 xl:w-60'
+        base: 'pl-9 w-60 items-start bg-md-sys-color-surface-container-highest lg:bg-md-sys-color-surface-container rounded-r-lg',
+        ghost: 'w-24 lg:w-60'
       },
       false: {
         base: 'w-24 items-center',

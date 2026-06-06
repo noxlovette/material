@@ -40,6 +40,11 @@ export type SplitPaneProps = SplitPaneVariants &
     onPaddingChange?: (padding: number) => void;
     /** The anchor mode for the panes. */
     anchor?: SplitPaneVariants['anchor'];
+    /**
+     * Which pane to show on mobile. On desktop both panes are always visible.
+     * @default 'right'
+     */
+    mobilePane?: 'left' | 'right';
     /** Optional class for the left pane. */
     leftClass?: string;
     /** Optional class for the right pane. */
@@ -59,8 +64,14 @@ export type SupportingPaneProps = SupportingPaneVariants &
     mainClass?: string;
     /** Optional class for the supporting pane. */
     supportingClass?: string;
-    /** Whether the supporting pane can be collapsed. */
+    /** Whether the supporting pane can be collapsed (desktop). */
     collapsible?: boolean;
+    /** Show a bottom sheet on mobile instead of inline stacking. @default false */
+    mobileSheet?: boolean;
+    /** Material symbol name for the mobile sheet trigger button. @default 'info' */
+    mobileSheetIcon?: string;
+    /** Extra class for the mobile trigger button (use to position above navbars). */
+    mobileTriggerClass?: string;
     /**
      * Width of the supporting pane in px (viewport anchor mode).
      * @default 320

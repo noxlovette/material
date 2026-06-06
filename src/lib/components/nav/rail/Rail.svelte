@@ -48,6 +48,7 @@ Navigation rails provide access to primary destinations in apps when using table
   onclick={() => (collapsed = true)}
   role="presentation"
 ></div>
+
 <div
   class={railBaseClass}
   style={cssVars}
@@ -87,6 +88,7 @@ Navigation rails provide access to primary destinations in apps when using table
     pointer-events: none;
     background-color: transparent;
     z-index: -1;
+    transition: opacity 200ms ease;
   }
 
   .rail-scrim[data-expanded='true'] {
