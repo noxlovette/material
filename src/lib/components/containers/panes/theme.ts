@@ -103,7 +103,7 @@ export const supportingPane = tv({
     base: 'flex w-full flex-col md:flex-row',
     main: 'bg-md-sys-color-surface box-border grow order-2 md:order-1',
     supporting:
-      'text-md-sys-color-on-surface-container box-border order-1 md:order-2 min-w-min md:w-80 overflow-x-visible'
+      'text-md-sys-color-on-surface-container box-border order-1 md:order-2 min-w-0 md:w-80'
   },
   variants: {
     anchor: {

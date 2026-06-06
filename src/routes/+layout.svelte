@@ -18,6 +18,8 @@
     'note_stack',
     'assignment',
     'book',
+    'gavel',
+    'bug_report',
     'visibility',
     'notifications',
     'arrow_upward',

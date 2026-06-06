@@ -59,10 +59,10 @@ Switches toggle the state of a single setting on or off.
       <div class={String(handle())}>
         {#if icons !== 'none'}
           <!-- checked icon -->
-          <Icon class={clsx(icon(), iconChecked())} {...checkedIconProps} />
+          <Icon size="xs" class={clsx(icon(), iconChecked())} {...checkedIconProps} />
           {#if icons === 'both'}
             <!-- unchecked icon -->
-            <Icon class={clsx(icon(), iconUnchecked())} {...uncheckedIconProps} />
+            <Icon size="xs" class={clsx(icon(), iconUnchecked())} {...uncheckedIconProps} />
           {/if}
         {/if}
       </div>

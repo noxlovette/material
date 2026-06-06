@@ -49,15 +49,21 @@ export const toggle = tv({
       'group-data-[state=checked]:group-hover:bg-md-sys-color-primary/8'
     ].join(' '),
 
-    // Icon inside thumb - shared base
+    // Icon inside thumb - shared base (sized via size="xs" prop on Icon, not here)
     icon: [
-      'absolute inset-0 m-auto pointer-events-none flex h-4 w-4 items-center justify-center text-[16px]',
+      'absolute inset-0 m-auto pointer-events-none flex items-center justify-center',
       'opacity-0 transition-opacity duration-150 shrink-0'
     ].join(' '),
 
-    // Specific icon states - using group state
-    iconChecked: 'group-data-[state=checked]:opacity-100',
-    iconUnchecked: 'group-data-[state=unchecked]:opacity-100'
+    // Specific icon states - colour matches M3 spec for each thumb background
+    iconChecked: [
+      'group-data-[state=checked]:opacity-100',
+      'text-md-sys-color-on-primary-container'
+    ].join(' '),
+    iconUnchecked: [
+      'group-data-[state=unchecked]:opacity-100',
+      'text-md-sys-color-on-surface-variant'
+    ].join(' ')
   },
   variants: {
     icons: {

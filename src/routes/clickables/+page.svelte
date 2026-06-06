@@ -581,6 +581,58 @@
             {/each}
           </ul>
         </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <ul class="max-w-5xl">
+            <ListItem
+              overline="Advanced Distributed Systems — Spring 2026"
+              headline="Consensus Algorithms in Fault-Tolerant Replicated State Machines: From Paxos to Raft and Beyond"
+              supporting="An exhaustive deep-dive into the theoretical underpinnings and practical trade-offs of leader-based consensus protocols, including split-brain scenarios, log compaction strategies, and membership reconfiguration under partial network partitions."
+              href="/"
+            />
+            <ListItem
+              overline="Critical Security Advisory · CVE-2026-00421"
+              headline="Remote Code Execution via Deserialization of Untrusted Data in Legacy XML Processing Pipeline"
+              supporting="Attackers who can supply crafted XML payloads to the public ingestion endpoint may trigger arbitrary object instantiation in the JVM heap, bypassing the existing class-allowlist filter and achieving full process-level code execution without authentication."
+              href="/"
+            />
+            <ListItem
+              overline="Q3 Roadmap · Product Strategy"
+              headline="Unified Cross-Platform Identity and Access Management Rollout Across All Regional Data Centers"
+              supporting="This initiative consolidates seven disparate IAM systems into a single federated provider, enforcing RBAC policies uniformly, eliminating shadow IT credential stores, and enabling real-time audit streaming to the SIEM platform."
+              href="/"
+            />
+          </ul>
+          <ul class="max-w-5xl">
+            <ListItem
+              headline="Investigate intermittent 503 errors on the checkout service during peak traffic — correlate with upstream Redis cluster failover events and determine whether connection-pool exhaustion or misconfigured health-check intervals are the root cause"
+              supporting="Priority: P0 · Assigned to Platform Reliability · Due 2026-06-09"
+              href="/"
+            >
+              {#snippet trailing()}
+                <Icon name="bug_report" />
+              {/snippet}
+            </ListItem>
+            <ListItem
+              headline="Migrate all remaining Python 3.9 Lambda functions to 3.13 runtime, update dependency lock-files, run full regression suite, and coordinate zero-downtime deployment with the on-call rotation"
+              supporting="Priority: P1 · Assigned to Backend Guild · Due 2026-06-20"
+              href="/"
+            >
+              {#snippet trailing()}
+                <Icon name="rocket_launch" />
+              {/snippet}
+            </ListItem>
+            <ListItem
+              headline="Draft and circulate the cross-functional data-retention policy covering GDPR Article 17 erasure obligations, CCPA opt-out flows, and internal audit log archival windows for legal sign-off"
+              supporting="Priority: P2 · Assigned to Legal Engineering · Due 2026-07-01"
+              href="/"
+            >
+              {#snippet trailing()}
+                <Icon name="gavel" />
+              {/snippet}
+            </ListItem>
+          </ul>
+        </div>
       </section>
     </SinglePane>
   {/snippet}
