@@ -136,10 +136,10 @@ export const supportingPane = tv({
       }
     },
     gap: {
-      none: { base: 'gap-0' },
-      sm: { base: 'gap-4' },
-      md: { base: 'gap-6' },
-      lg: { base: 'gap-8' }
+      none: { main: 'gap-0' },
+      sm: { main: 'gap-4' },
+      md: { main: 'gap-6' },
+      lg: { main: 'gap-8' }
     },
     full: {
       true: { base: 'min-h-dvh' },

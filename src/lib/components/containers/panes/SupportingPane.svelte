@@ -9,6 +9,17 @@ SupportingPane provides a layout with a main content area and a supporting side 
   import type { SupportingPaneProps } from './types.js';
   import { supportingPane } from './theme.js';
   import ButtonIcon from '$lib/components/buttons/ButtonIcon.svelte';
+  import { easeEmphasized } from '$lib/animation/easing.js';
+  import type { TransitionConfig } from 'svelte/transition';
+
+  function slideWidth(node: HTMLElement): TransitionConfig {
+    const width = node.offsetWidth;
+    return {
+      duration: 500,
+      easing: easeEmphasized,
+      css: (t) => `width: ${t * width}px; min-width: 0; overflow: hidden;`
+    };
+  }
 
   const {
     main,
@@ -70,6 +81,7 @@ SupportingPane provides a layout with a main content area and a supporting side 
   </div>
   {#if supportingVisible}
     <aside
+      transition:slideWidth
       id={supportingId}
       class={supportingCls({
         class: clsx(supportingClass)

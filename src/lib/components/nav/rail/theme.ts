@@ -10,7 +10,7 @@ export const rail = tv({
     ghost:
       'hidden md:block shrink-0 transition-[width] duration-[var(--md-sys-motion-duration-spatial)] ease-[var(--md-sys-motion-timing-function-emphasized)]',
     scrim:
-      'xl:hidden inset-0 -z-10 transition-opacity duration-[var(--md-sys-motion-duration-spatial)] ease-[var(--md-sys-motion-timing-function-emphasized)]'
+      'hidden md:block xl:hidden inset-0 transition-opacity duration-[var(--md-sys-motion-duration-spatial)] ease-[var(--md-sys-motion-timing-function-emphasized)]'
   },
   variants: {
     anchor: {
@@ -26,8 +26,7 @@ export const rail = tv({
     expanded: {
       true: {
         base: 'pl-9 w-60 items-start bg-md-sys-color-surface-container-highest xl:bg-md-sys-color-surface-container rounded-r-lg',
-        ghost: 'w-24 xl:w-60',
-        scrim: 'z-20 bg-black/40'
+        ghost: 'w-24 xl:w-60'
       },
       false: {
         base: 'w-24 items-center',

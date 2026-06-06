@@ -108,7 +108,9 @@
     <RailItem label="Typography" href="/typography" iconProps={{ name: 'title' }} />
     <RailItem label="Misc" href="/misc" iconProps={{ name: 'circle' }} />
   </Rail>
-  {@render children()}
+  <div class="md:ml-24">
+    {@render children()}
+  </div>
   <ThemeSwitcher />
   <Navbar ghost>
     <NavbarItem label="Overview" href="/" iconProps={{ name: 'architecture' }} />

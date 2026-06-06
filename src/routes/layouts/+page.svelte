@@ -122,27 +122,29 @@
       {/snippet}
 
       {#snippet supporting()}
-        <div class="flex flex-col gap-4 p-6">
-          <Title>Supporting Info</Title>
-          <Body>
-            This side pane provides extra context, metadata, or secondary actions related to the
-            main content.
-          </Body>
-          <Divider />
-          <Label>Metadata</Label>
-          <Body>Created: Oct 24, 2023</Body>
-          <Body>Author: Gemini CLI</Body>
-          <Body>Status: Draft</Body>
-          <Divider />
-          <Label>Actions</Label>
-          <div class="flex flex-col gap-2">
-            <Card type="filled" class="p-3">
-              <Label>Quick Note</Label>
-            </Card>
-            <Card type="filled" class="p-3">
-              <Label>View History</Label>
-            </Card>
+        <div class="flex flex-col gap-2 p-2">
+          <div class="px-4 pt-2 pb-1">
+            <Title>Supporting Info</Title>
           </div>
+          <Divider />
+          <ul class="grid gap-2">
+            {#each Array(8) as _, i}
+              <ListItem
+                headline="List Item {i + 1}"
+                supporting="Supporting text for item {i + 1}"
+              />
+            {/each}
+          </ul>
+          <Divider />
+          <ul class="grid gap-2">
+            <ListItem
+              overline="Overline"
+              headline="Three-line item with a very very very very very very very long name"
+              supporting="With overline and supporting text both present"
+            />
+            <ListItem headline="Two-line item" supporting="Just headline and supporting text" />
+            <ListItem headline="One-line item" />
+          </ul>
         </div>
       {/snippet}
     </SupportingPane>

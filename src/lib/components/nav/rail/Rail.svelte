@@ -42,7 +42,12 @@ Navigation rails provide access to primary destinations in apps when using table
 
 <div class={ghost()}></div>
 
-<div class={`${scrim()} rail-scrim`} data-expanded={expanded}></div>
+<div
+  class={`${scrim()} rail-scrim`}
+  data-expanded={expanded}
+  onclick={() => (collapsed = true)}
+  role="presentation"
+></div>
 <div
   class={railBaseClass}
   style={cssVars}
@@ -80,10 +85,14 @@ Navigation rails provide access to primary destinations in apps when using table
   .rail-scrim {
     opacity: 0;
     pointer-events: none;
+    background-color: transparent;
+    z-index: -1;
   }
 
   .rail-scrim[data-expanded='true'] {
     opacity: 1;
     pointer-events: auto;
+    background-color: rgb(0 0 0 / 0.4);
+    z-index: 30;
   }
 </style>
