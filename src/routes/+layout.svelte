@@ -102,6 +102,7 @@
   <div class="flex min-h-dvh">
     <Rail {fab} bind:collapsed>
       <RailItem label="Overview" href="/" iconProps={{ name: 'architecture' }} />
+      <RailItem label="Docs" href="/docs" iconProps={{ name: 'book' }} />
       <RailItem label="Clickables" href="/clickables" iconProps={{ name: 'smart_button' }} />
       <RailItem label="Inputs" href="/inputs" iconProps={{ name: 'edit' }} />
       <RailItem label="Commands" href="/commands" iconProps={{ name: 'terminal' }} />
