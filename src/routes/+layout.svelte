@@ -1,8 +1,6 @@
 <script lang="ts">
   import FAB from '$lib/components/buttons/FAB.svelte';
   import FABMenuItem from '$lib/components/buttons/FABMenuItem.svelte';
-  import Navbar from '$lib/components/nav/navbar/Navbar.svelte';
-  import NavbarItem from '$lib/components/nav/navbar/NavbarItem.svelte';
   import { App, Rail, RailItem, ThemeSwitcher } from '$lib/index.js';
   import '../app.css';
 
@@ -66,6 +64,7 @@
     'sentiment_satisfied',
     'rocket_launch',
     'credit_card',
+    'bottom_navigation',
     'settings',
     'light_mode',
     'dark_mode',
@@ -92,30 +91,29 @@
     >
   </FAB>
 {/snippet}
+
 <App iconProviderProps={{ extraIcons: icons }}>
-  <Rail {fab} bind:collapsed>
-    <RailItem label="Overview" href="/" iconProps={{ name: 'architecture' }} />
-    <RailItem
-      {collapsed}
-      label="Clickables"
-      href="/clickables"
-      iconProps={{ name: 'smart_button' }}
-    />
-    <RailItem label="Inputs" href="/inputs" iconProps={{ name: 'edit' }} />
-    <RailItem label="Commands" href="/commands" iconProps={{ name: 'terminal' }} />
-    <RailItem label="Layouts" href="/layouts" iconProps={{ name: 'view_quilt' }} />
-    <RailItem label="Table" href="/table" iconProps={{ name: 'table' }} />
-    <RailItem label="Typography" href="/typography" iconProps={{ name: 'title' }} />
-    <RailItem label="Misc" href="/misc" iconProps={{ name: 'circle' }} />
-  </Rail>
-  <div class="md:ml-24">
-    {@render children()}
+  <!--
+    flex row: Rail's ghost div is a flex item that pushes content.
+    Mobile (< md):  ghost hidden → content fills full width.
+    Tablet (md–lg): ghost w-24 → content offset 96 px; expanded rail overlays with scrim.
+    Desktop (lg+):  ghost transitions w-24 → w-60 on expand → content smoothly pushed right.
+  -->
+  <div class="flex min-h-dvh">
+    <Rail {fab} bind:collapsed>
+      <RailItem label="Overview" href="/" iconProps={{ name: 'architecture' }} />
+      <RailItem label="Clickables" href="/clickables" iconProps={{ name: 'smart_button' }} />
+      <RailItem label="Inputs" href="/inputs" iconProps={{ name: 'edit' }} />
+      <RailItem label="Commands" href="/commands" iconProps={{ name: 'terminal' }} />
+      <RailItem label="Layouts" href="/layouts" iconProps={{ name: 'view_quilt' }} />
+      <RailItem label="Table" href="/table" iconProps={{ name: 'table' }} />
+      <RailItem label="Typography" href="/typography" iconProps={{ name: 'title' }} />
+      <RailItem label="Nav" href="/nav" iconProps={{ name: 'bottom_navigation' }} />
+      <RailItem label="Misc" href="/misc" iconProps={{ name: 'circle' }} />
+    </Rail>
+    <div class="min-w-0 flex-1">
+      {@render children()}
+    </div>
   </div>
   <ThemeSwitcher />
-  <Navbar ghost>
-    <NavbarItem label="Overview" href="/" iconProps={{ name: 'architecture' }} />
-    <NavbarItem label="Clickables" href="/clickables" iconProps={{ name: 'smart_button' }} />
-    <NavbarItem label="Inputs" href="/inputs" iconProps={{ name: 'edit' }} />
-    <NavbarItem label="Typography" href="/typography" iconProps={{ name: 'title' }} />
-  </Navbar>
 </App>

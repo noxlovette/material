@@ -46,4 +46,10 @@ export type RailProps = RailVariants &
     anchor?: RailVariants['anchor'];
     /** Top offset in px for viewport/parent anchor (e.g. height of a top bar). Default 0. */
     railTop?: number;
+    /** Render a bottom navbar on mobile (< md). Default true. */
+    mobileNav?: boolean;
+    /** Show the fab slot above the mobile navbar. Default true. */
+    showMobileFab?: boolean;
+    /** Show the railFooter slot inside the mobile navbar. Default false. */
+    showMobileFooter?: boolean;
   };

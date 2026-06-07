@@ -3,6 +3,7 @@
 Material 3 Navigation Rail Item.
 
 A single destination within a navigation rail.
+In mobile (navbar) mode the same item renders as a bottom-bar tab.
 -->
 <script lang="ts">
   import { page } from '$app/state';
@@ -27,7 +28,11 @@ A single destination within a navigation rail.
   }: RailItemProps = $props();
 
   const railCtx = getContext<{ collapsed: boolean } | undefined>('rail');
-  const collapsed = $derived(collapsedProp ?? railCtx?.collapsed ?? true);
+  const railModeCtx = getContext<{ mobile: boolean } | undefined>('railMode');
+  const isMobile = $derived(railModeCtx?.mobile ?? false);
+
+  // Mobile items always render in collapsed (icon+label stacked) layout
+  const collapsed = $derived(isMobile ? true : (collapsedProp ?? railCtx?.collapsed ?? true));
 
   const isDisabled = $derived(!!disabled);
   const target = $derived(!isDisabled && external ? '_blank' : undefined);
@@ -57,10 +62,17 @@ A single destination within a navigation rail.
     railElement({
       active: isActive,
       expanded: !collapsed,
-      disabled: isDisabled
+      disabled: isDisabled,
+      mobile: isMobile
     })
   );
   const rootClass = $derived([base(), className].filter(Boolean).join(' '));
+
+  const itemClass = $derived(
+    isMobile
+      ? 'flex h-full flex-1 justify-center'
+      : ['flex w-full items-center', collapsed && 'justify-center'].filter(Boolean).join(' ')
+  );
 
   function handleClick(event: MouseEvent) {
     if (isDisabled) {
@@ -70,9 +82,7 @@ A single destination within a navigation rail.
   }
 </script>
 
-<NavigationMenu.Item
-  class={['flex w-full items-center', collapsed && 'justify-center'].filter(Boolean).join(' ')}
->
+<NavigationMenu.Item class={itemClass}>
   <NavigationMenu.Link active={isActive} href={hrefValue}>
     {#snippet child({ props })}
       <a

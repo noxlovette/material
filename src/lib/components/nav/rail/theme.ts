@@ -87,6 +87,16 @@ export const railElement = tv({
       true: {
         base: 'cursor-not-allowed opacity-38'
       }
+    },
+    mobile: {
+      true: {
+        base: 'flex-1 flex-col items-center justify-center h-full min-w-0 max-w-[168px]',
+        content: 'py-0 gap-1 items-center justify-center w-full',
+        iconContainer: 'h-8 w-16 py-0 px-0',
+        icon: 'size-6',
+        label: 'truncate w-full text-center'
+      },
+      false: {}
     }
   },
   compoundVariants: [
