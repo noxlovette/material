@@ -65,7 +65,18 @@ SupportingPane provides a layout with a main content area and a supporting side 
   let entered = $state(false);
   let supportingVisible = $state(true);
   let mobileSheetOpen = $state(false);
+  let isLargeScreen = $state(false);
   const supportingId = 'supporting-pane';
+
+  $effect(() => {
+    const mq = window.matchMedia('(min-width: 1024px)');
+    isLargeScreen = mq.matches;
+    const handler = (e: MediaQueryListEvent) => {
+      isLargeScreen = e.matches;
+    };
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  });
 
   const {
     base,
@@ -79,11 +90,17 @@ SupportingPane provides a layout with a main content area and a supporting side 
       : ''
   );
 
+  const mainViewportStyle = $derived(
+    anchor === 'viewport' && isLargeScreen
+      ? `transition: margin-${position === 'right' ? 'right' : 'left'} ${supportingVisible ? '500ms' : '280ms'} cubic-bezier(0.2, 0, 0, 1); margin-${position === 'right' ? 'right' : 'left'}: ${supportingVisible ? supportingWidth : 0}px;`
+      : ''
+  );
+
   const inlineSupportingClass = $derived(mobileSheet ? 'hidden lg:block' : '');
 </script>
 
 <div class={base({ class: clsx(className) })} style={cssVars}>
-  <div class={mainCls({ class: clsx('relative', mainClass) })}>
+  <div class={mainCls({ class: clsx('relative', mainClass) })} style={mainViewportStyle}>
     {#if collapsible}
       <div class="top-3 right-3 z-10 hidden h-12 w-12 lg:absolute lg:block">
         <ButtonIcon
