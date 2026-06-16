@@ -17,9 +17,9 @@ Large badges are used for specific counts.
   const styling = $derived(badge({ size }));
 </script>
 
-{#if number}
+{#if size === 'sm' || number}
   <div class={clsx(styling, className)} {...restProps}>
-    {#if size != 'sm'}
+    {#if size !== 'sm' && number}
       {number > 99 ? '99+' : number}
     {/if}
   </div>

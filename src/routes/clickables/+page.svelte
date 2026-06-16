@@ -534,10 +534,11 @@
       <!-- BADGES & AVATAR -->
       <section id="badges" class="flex scroll-mt-4 flex-col gap-6">
         <Display>Badges & Avatars</Display>
+        <Headline>On icons</Headline>
         <div class="flex flex-wrap items-center gap-8">
           <div class="relative inline-flex">
             <ButtonIcon iconProps={{ name: 'notifications' }} variant="text" />
-            <Badge size="sm" number={1} class="absolute -top-1 -right-1" />
+            <Badge size="sm" class="absolute -top-1 -right-1" />
           </div>
           <div class="relative inline-flex">
             <ButtonIcon iconProps={{ name: 'mail' }} variant="text" />
@@ -547,6 +548,24 @@
             <ButtonIcon iconProps={{ name: 'chat' }} variant="text" />
             <Badge size="lg" number={120} class="absolute -top-1 -right-1" />
           </div>
+        </div>
+        <Headline>Standalone</Headline>
+        <div class="flex flex-wrap items-center gap-6">
+          <div class="relative size-3">
+            <Badge size="sm" />
+          </div>
+          <div class="relative size-4">
+            <Badge size="lg" number={3} />
+          </div>
+          <div class="relative size-4">
+            <Badge size="lg" number={99} />
+          </div>
+          <div class="relative size-4">
+            <Badge size="lg" number={200} />
+          </div>
+        </div>
+        <Headline>Avatars</Headline>
+        <div class="flex flex-wrap items-center gap-6">
           <Avatar seed="alice" size="sm" />
           <Avatar seed="bob" size="md" />
           <Avatar seed="carol" size="lg" />
@@ -556,6 +575,52 @@
       <!-- LISTS -->
       <section id="lists" class="flex scroll-mt-4 flex-col gap-6">
         <Display>Lists</Display>
+
+        <Headline>With badges</Headline>
+        <div class="grid grid-cols-2 gap-4">
+          <ul class="max-w-5xl">
+            <ListItem headline="Inbox" supporting="3 unread messages" badge={3} href="/" />
+            <ListItem
+              headline="Notifications"
+              supporting="Has new activity"
+              badge={true}
+              href="/"
+            />
+            <ListItem headline="Updates" supporting="99+ pending items" badge={120} href="/" />
+            <ListItem headline="Archive" supporting="No new items" href="/" />
+          </ul>
+          <ul class="max-w-5xl">
+            <ListItem
+              headline="Messages"
+              supporting="Badge and trailing together"
+              badge={7}
+              href="/"
+            >
+              {#snippet trailing()}
+                <Icon name="mail" />
+              {/snippet}
+            </ListItem>
+            <ListItem
+              headline="Alerts"
+              supporting="Dot badge with trailing icon"
+              badge={true}
+              href="/"
+            >
+              {#snippet trailing()}
+                <Icon name="notifications" />
+              {/snippet}
+            </ListItem>
+            <ListItem
+              overline="Priority"
+              headline="Critical system event"
+              supporting="Requires immediate attention"
+              badge={1}
+              href="/"
+            />
+          </ul>
+        </div>
+
+        <Headline>Standard</Headline>
         <div class="grid grid-cols-2 gap-4">
           <ul class="max-w-5xl">
             {#each Array(5).fill( { headline: 'Lesson', overline: 'Interesting', supporting: 'Adipisicing ullamco veniam enim aliqua cupidatat velit deserunt ipsum.', href: '/' } ) as lesson}

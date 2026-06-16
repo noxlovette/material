@@ -3,6 +3,7 @@
   import clsx from 'clsx';
   import { listiem } from './theme.js';
   import type { ListitemProps } from './types.js';
+  import Badge from '../../badge/Badge.svelte';
 
   let {
     leading,
@@ -10,6 +11,7 @@
     headline = '',
     supporting = '',
     trailing,
+    badge,
     selected,
     class: className,
     asChild = false,
@@ -36,9 +38,17 @@
       <p class={cls.supporting()}>{supporting}</p>
     {/if}
   </div>
-  {#if trailing}
-    <div class={cls.trailing()}>
-      {@render trailing()}
+  {#if trailing || badge !== undefined}
+    <div class={clsx(cls.trailing(), 'relative overflow-visible')}>
+      {#if trailing}
+        {@render trailing()}
+      {/if}
+      {#if badge !== undefined}
+        <Badge
+          size={badge === true ? 'sm' : 'lg'}
+          number={badge === true ? undefined : (badge as number)}
+        />
+      {/if}
     </div>
   {/if}
 {/snippet}

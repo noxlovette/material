@@ -38,6 +38,12 @@ export type ListitemProps = {
    */
   trailing?: Snippet;
   /**
+   * Badge to display in the trailing area.
+   * - `true`: renders a small dot badge (notification indicator).
+   * - `number`: renders a large badge with that count (capped at 99+).
+   */
+  badge?: number | boolean;
+  /**
    * The number of text lines to reserve space for.
    * If not provided, it's calculated based on presence of overline and supporting text.
    */
