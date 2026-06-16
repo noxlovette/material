@@ -104,11 +104,10 @@ SupportingPane provides a layout with a main content area and a supporting side 
     {#if collapsible}
       <div class="top-3 right-3 z-10 hidden h-12 w-12 lg:absolute lg:block">
         <ButtonIcon
-          triggerClass=""
           type="button"
-          variant="text"
+          variant="elevated"
           tooltipContent={supportingVisible ? 'Скрыть панель' : 'Показать панель'}
-          size="sm"
+          size="xs"
           iconProps={{
             name: supportingVisible ? 'right_panel_close' : 'right_panel_open'
           }}
