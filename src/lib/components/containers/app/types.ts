@@ -9,4 +9,12 @@ export type AppProps = DivAttrs & {
   class?: string;
   /** Props to pass to the material symbols provider */
   iconProviderProps?: Partial<MaterialSymbolsProviderProps>;
+  /**
+   * Whether App manages the M3 dynamic theme (source-color extraction, dark-mode
+   * sync, and the injected `<ThemeScript>`/`<Theme>` head elements).
+   * Set to `false` if you supply your own static `@noxlovette/material/theme/*` CSS
+   * and want to opt out of the runtime dynamic-theming machinery entirely.
+   * @default true
+   */
+  dynamicTheme?: boolean;
 };
