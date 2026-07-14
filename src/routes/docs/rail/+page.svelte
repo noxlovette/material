@@ -62,16 +62,16 @@
       desc: 'Adds rounded-xl corner rounding to the rail panel.'
     },
     {
-      prop: 'mobileNav',
+      prop: 'withNavbar',
       type: 'boolean',
-      default: 'true',
-      desc: 'When true, the Rail automatically renders a bottom navigation bar on screens smaller than the md breakpoint.'
+      default: 'false',
+      desc: 'When true, the Rail automatically renders a bottom navigation bar on screens smaller than the md breakpoint. Opt in — leave false if you render your own mobile nav.'
     },
     {
       prop: 'fab',
       type: 'Snippet',
       default: '—',
-      desc: 'Optional Floating Action Button rendered above the navigation items. On mobile, when mobileNav is true, it floats above the bottom bar.'
+      desc: 'Optional Floating Action Button rendered above the navigation items. On mobile, when withNavbar is true, it floats above the bottom bar.'
     },
     {
       prop: 'railFooter',
@@ -83,7 +83,7 @@
       prop: 'showMobileFab',
       type: 'boolean',
       default: 'true',
-      desc: 'Whether to show the fab snippet above the mobile navbar. Only applies when mobileNav is true.'
+      desc: 'Whether to show the fab snippet above the mobile navbar. Only applies when withNavbar is true.'
     },
     {
       prop: 'showMobileFooter',
@@ -219,7 +219,7 @@
         pattern. It renders as a fixed vertical sidebar on <code class="doc-code">md+</code>
         screens, and can expand to show text labels alongside icons. Below the
         <code class="doc-code">md</code> breakpoint it transparently becomes a bottom navigation bar
-        (via its <code class="doc-code">mobileNav</code> prop).
+        (via its <code class="doc-code">withNavbar</code> prop).
       </Body>
       <Body>
         The Rail emits a <strong>ghost element</strong> — a hidden flex-item sibling that holds the
@@ -299,7 +299,6 @@
           anchor="parent"
           expandable={demoExpandable}
           rounded={demoRounded}
-          mobileNav={false}
           bind:collapsed={demoCollapsed}
         >
           {#snippet fab()}

@@ -100,7 +100,7 @@
     Desktop (lg+):  ghost transitions w-24 → w-60 on expand → content smoothly pushed right.
   -->
   <div class="flex min-h-dvh">
-    <Rail {fab} bind:collapsed>
+    <Rail {fab} bind:collapsed withNavbar>
       <RailItem label="Overview" href="/" iconProps={{ name: 'architecture' }} />
       <RailItem label="Docs" href="/docs" iconProps={{ name: 'book' }} />
       <RailItem label="Clickables" href="/clickables" iconProps={{ name: 'smart_button' }} />

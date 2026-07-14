@@ -15,7 +15,14 @@ This component takes NavbarItems as its children
   import { navbar } from './theme.js';
   import type { NavBarProps } from './types.js';
 
-  const { children, fab, ghost = false, class: className, ...restProps }: NavBarProps = $props();
+  const {
+    children,
+    fab,
+    trailing,
+    ghost = false,
+    class: className,
+    ...restProps
+  }: NavBarProps = $props();
   const { base, items, fab: fabCls, ghost: ghostCls } = $derived(navbar());
 </script>
 
@@ -36,6 +43,11 @@ This component takes NavbarItems as its children
       {/snippet}
     </NavigationMenu.List>
   </NavigationMenu.Root>
+  {#if trailing}
+    <div class="shrink-0 px-2">
+      {@render trailing()}
+    </div>
+  {/if}
 </div>
 {#if ghost}
   <div class={ghostCls()} aria-hidden="true"></div>

@@ -17,6 +17,7 @@ On mobile (< md) it automatically renders as a bottom navigation bar.
   import { NavigationMenu } from 'bits-ui';
   import { railStore } from './railStore.svelte.js';
   import RailNavContext from './RailNavContext.svelte';
+  import Navbar from '../navbar/Navbar.svelte';
 
   let {
     children,
@@ -27,7 +28,7 @@ On mobile (< md) it automatically renders as a bottom navigation bar.
     collapsed = $bindable(true),
     anchor = 'viewport',
     railTop = 0,
-    mobileNav = true,
+    withNavbar = false,
     showMobileFab = true,
     showMobileFooter = false,
     class: className
@@ -99,34 +100,16 @@ On mobile (< md) it automatically renders as a bottom navigation bar.
 </div>
 
 <!-- Mobile bottom navbar (md:hidden) -->
-{#if mobileNav}
-  {#if showMobileFab && fab}
-    <div class="fixed right-4 bottom-24 z-30 md:hidden">
-      {@render fab?.()}
-    </div>
-  {/if}
-
-  <nav
-    class="bg-md-sys-color-surface-container shadow-elevation-2 fixed right-0 bottom-0 left-0 z-20 flex h-20 items-center py-3 md:hidden"
-    aria-label="Mobile navigation"
+{#if withNavbar}
+  <Navbar
+    fab={showMobileFab ? fab : undefined}
+    trailing={showMobileFooter ? railFooter : undefined}
+    ghost
   >
-    <NavigationMenu.Root orientation="horizontal" class="flex w-full">
-      <NavigationMenu.List class="flex w-full justify-around">
-        <RailNavContext mobile={true}>
-          {@render children?.()}
-        </RailNavContext>
-      </NavigationMenu.List>
-    </NavigationMenu.Root>
-
-    {#if showMobileFooter && railFooter}
-      <div class="shrink-0 px-2">
-        {@render railFooter()}
-      </div>
-    {/if}
-  </nav>
-
-  <!-- Spacer so page content clears the fixed mobile navbar -->
-  <div class="h-20 w-full shrink-0 md:hidden" aria-hidden="true"></div>
+    <RailNavContext mobile={true}>
+      {@render children?.()}
+    </RailNavContext>
+  </Navbar>
 {/if}
 
 <style>
