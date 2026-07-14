@@ -37,8 +37,15 @@ scripts/           # generate-components-index.ts — regenerates barrel index.t
 - **New components**: export from the category `index.ts` and re-export in `src/lib/components/index.ts`
 - **`tailwind-variants` (tv)**: every component's styles are defined with `tv()` from `tailwind-variants`, using named `slots` for multi-element components and `variants`/`compoundVariants` for state logic. Match this pattern for all new components — do not use plain `clsx` strings for component internals.
 
+# Design & UX Skill
+
+Before creating or modifying a component, choosing a variant/color role, adding motion, or reviewing UI for M3 compliance, consult the `material-design` skill (`.claude/skills/material-design/SKILL.md`). It encodes this repo's token vocabulary (color roles, typescale, elevation, shape, motion durations/easings), the `tv()` variant-selection rules, and an M3 accessibility checklist — use it instead of re-deriving M3 mappings from general knowledge.
+
+`.claude/skills/material-design/` is the single source of truth. `bun run build` (via `scripts/copy-skill.ts`) copies it into the gitignored `claude-skill/` directory, which is published to npm alongside `dist/`. Consumers of `@noxlovette/material` run `npx @noxlovette/material material-claude-skill` (add `--force` to overwrite) to install it into their own project's `.claude/skills/material-design`. Never edit `claude-skill/` directly — it's regenerated on every build.
+
 # Adding a New Component
 
+0. Consult the `material-design` skill for variant/color-role/motion choices before writing `theme.ts`
 1. Create `src/lib/components/<category>/<ComponentName>.svelte` and a `types.ts`
 2. Define styles in `theme.ts` using `tv()` with `slots`
 3. Add the export to the category's `index.ts`

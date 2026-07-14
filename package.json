@@ -7,17 +7,22 @@
     "url": "git+https://github.com/noxlovette/material.git"
   },
   "scripts": {
-    "build": "svelte-package",
+    "build": "svelte-package && bun scripts/copy-skill.ts",
     "prepublishOnly": "bun run build",
     "check": "svelte-kit sync && svelte-check",
     "test": "vitest run",
     "format": "prettier --write .",
     "dev": "vite dev"
   },
+  "bin": {
+    "material-claude-skill": "./bin/install-skill.js"
+  },
   "files": [
     "dist",
     "!dist/**/*.test.*",
-    "!dist/**/*.spec.*"
+    "!dist/**/*.spec.*",
+    "claude-skill",
+    "bin"
   ],
   "sideEffects": false,
   "svelte": "./dist/index.js",
