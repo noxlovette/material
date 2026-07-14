@@ -29,16 +29,19 @@ export const splitPane = tv({
     },
     full: {
       true: {
+        left: 'md:bottom-[30px]',
         right: 'md:min-h-[calc(100dvh-30px)]'
       },
       false: ''
     },
     rounded: {
       true: {
-        left: 'md:rounded-t-lg'
+        left: 'md:rounded-t-lg md:rounded-b-lg',
+        right: 'md:rounded-b-lg'
       },
       false: {
-        left: ''
+        left: '',
+        right: ''
       }
     }
   },
