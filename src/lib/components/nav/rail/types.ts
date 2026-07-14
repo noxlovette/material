@@ -50,5 +50,5 @@ export type RailProps = RailVariants &
     /** Render a bottom navbar on mobile. */
     withNavbar?: boolean;
     /** Customise the navbar inside the rail */
-    navbarProps?: NavBarProps;
+    navbarProps?: Omit<NavBarProps, 'children'>;
   };
