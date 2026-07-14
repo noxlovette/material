@@ -1,6 +1,7 @@
 import type { IconProps } from '$lib/utils/index.js';
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
+import type { NavBarProps } from '../navbar/types.js';
 import type { RailItemVariants, RailVariants } from './theme.js';
 
 /**
@@ -46,10 +47,8 @@ export type RailProps = RailVariants &
     anchor?: RailVariants['anchor'];
     /** Top offset in px for viewport/parent anchor (e.g. height of a top bar). Default 0. */
     railTop?: number;
-    /** Render a bottom navbar on mobile (< md). Default false — opt in, since consumers may render their own mobile nav. */
+    /** Render a bottom navbar on mobile. */
     withNavbar?: boolean;
-    /** Show the fab slot above the mobile navbar. Default true. */
-    showMobileFab?: boolean;
-    /** Show the railFooter slot inside the mobile navbar. Default false. */
-    showMobileFooter?: boolean;
+    /** Customise the navbar inside the rail */
+    navbarProps?: NavBarProps;
   };

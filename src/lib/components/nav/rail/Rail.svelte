@@ -29,9 +29,8 @@ On mobile (< md) it automatically renders as a bottom navigation bar.
     anchor = 'viewport',
     railTop = 0,
     withNavbar = false,
-    showMobileFab = true,
-    showMobileFooter = false,
-    class: className
+    class: className,
+    navbarProps
   }: RailProps = $props();
 
   const expanded = $derived(!collapsed);
@@ -101,11 +100,7 @@ On mobile (< md) it automatically renders as a bottom navigation bar.
 
 <!-- Mobile bottom navbar (md:hidden) -->
 {#if withNavbar}
-  <Navbar
-    fab={showMobileFab ? fab : undefined}
-    trailing={showMobileFooter ? railFooter : undefined}
-    ghost
-  >
+  <Navbar {...navbarProps}>
     <RailNavContext mobile={true}>
       {@render children?.()}
     </RailNavContext>
