@@ -13,7 +13,11 @@ export default defineConfig({
   plugins: [svelte(), tailwindcss()],
   resolve: {
     alias: {
-      $lib: fileURLToPath(new URL('../src/lib', import.meta.url))
+      $lib: fileURLToPath(new URL('../src/lib', import.meta.url)),
+      // Components read `page` from $app/state for active-route detection (RailItem,
+      // NavbarItem). That module only exists inside a real SvelteKit app, so it's aliased
+      // to a static stand-in — see mocks/app-state.ts.
+      '$app/state': fileURLToPath(new URL('./mocks/app-state.ts', import.meta.url))
     }
   }
 });
