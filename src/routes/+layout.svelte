@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { base } from '$app/paths';
   import FAB from '$lib/components/buttons/FAB.svelte';
   import FABMenuItem from '$lib/components/buttons/FABMenuItem.svelte';
   import { App, Rail, RailItem, ThemeSwitcher } from '$lib/index.js';
@@ -7,6 +8,10 @@
   const { children } = $props();
 
   let collapsed = $state(true);
+
+  // Storybook runs as its own dev server locally; in production it's built into
+  // build/storybook/ alongside this static site (see .github/workflows/gh-pages.yaml).
+  const storybookHref = import.meta.env.DEV ? 'http://localhost:6006' : `${base}/storybook/`;
 
   // These icons will be pre-loaded by the MaterialSymbolsProvider inside App
   const icons = [
@@ -70,7 +75,8 @@
     'dark_mode',
     'desktop_windows',
     'search',
-    'title'
+    'title',
+    'widgets'
   ];
 </script>
 
@@ -103,14 +109,7 @@
     <Rail {fab} bind:collapsed withNavbar>
       <RailItem label="Overview" href="/" iconProps={{ name: 'architecture' }} />
       <RailItem label="Docs" href="/docs" iconProps={{ name: 'book' }} />
-      <RailItem label="Clickables" href="/clickables" iconProps={{ name: 'smart_button' }} />
-      <RailItem label="Inputs" href="/inputs" iconProps={{ name: 'edit' }} />
-      <RailItem label="Commands" href="/commands" iconProps={{ name: 'terminal' }} />
-      <RailItem label="Layouts" href="/layouts" iconProps={{ name: 'view_quilt' }} />
-      <RailItem label="Table" href="/table" iconProps={{ name: 'table' }} />
-      <RailItem label="Typography" href="/typography" iconProps={{ name: 'title' }} />
-      <RailItem label="Nav" href="/nav" iconProps={{ name: 'bottom_navigation' }} />
-      <RailItem label="Misc" href="/misc" iconProps={{ name: 'circle' }} />
+      <RailItem label="Storybook" href={storybookHref} external iconProps={{ name: 'widgets' }} />
     </Rail>
     <div class="min-w-0 flex-1">
       {@render children()}
