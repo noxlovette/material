@@ -1,26 +1,8 @@
 <script lang="ts">
-  import {
-    Rail,
-    RailItem,
-    FAB,
-    Body,
-    Title,
-    Headline,
-    Label,
-    Card,
-    Divider,
-    Avatar,
-    SupportingPane
-  } from '$lib/index.js';
+  import { Body, Title, Headline, Card, Divider, Icon, SupportingPane } from '$lib/index.js';
   import CodeBlock from '../../CodeBlock.svelte';
   import TableOfContents from '../../TableOfContents.svelte';
-
-  // ── Demo state ──────────────────────────────────────────────────
-  let demoCollapsed = $state(true);
-  let demoExpandable = $state(true);
-  let demoRounded = $state(false);
-  let demoFab = $state(false);
-  let demoFooter = $state(false);
+  import { storybookStoryUrl } from '../../storybook.js';
 
   // ── Props reference data ─────────────────────────────────────────
   type PropRow = {
@@ -206,7 +188,7 @@
           class="text-md-sys-color-primary flex items-center gap-1 text-sm no-underline hover:underline"
         >
           M3 Spec
-          <span class="text-[14px] opacity-60">open_in_new</span>
+          <Icon name="open_in_new" size="xs" class="opacity-60" />
         </a>
       </div>
     </header>
@@ -261,82 +243,39 @@
     <section id="demo" class="mb-12 flex flex-col gap-4 scroll-mt-6">
       <Title>Live Demo</Title>
       <Body class="text-md-sys-color-on-surface-variant">
-        The demo uses <code class="doc-code">anchor="parent"</code> to position the rail within the sandbox
-        rather than the viewport.
+        Storybook is the canonical place to play with Rail's props and Controls — this page sticks
+        to prose and usage guidance rather than reimplementing that preview.
       </Body>
 
-      <!-- Controls -->
-      <div class="flex flex-wrap gap-2">
-        <button
-          class="bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container rounded-full px-4 py-2 text-sm font-medium transition-opacity hover:opacity-80"
-          onclick={() => (demoCollapsed = !demoCollapsed)}
+      <div class="flex flex-col gap-3 sm:flex-row">
+        <a
+          href={storybookStoryUrl('navigation-rail--playground')}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container flex items-center gap-2 rounded-2xl p-4 no-underline transition-opacity hover:opacity-90"
         >
-          {demoCollapsed ? 'Expand' : 'Collapse'}
-        </button>
-        <button
-          class="bg-md-sys-color-surface-container text-md-sys-color-on-surface rounded-full px-4 py-2 text-sm font-medium transition-opacity hover:opacity-80"
-          onclick={() => (demoExpandable = !demoExpandable)}
+          <Icon name="widgets" />
+          <div>
+            <p class="md-sys-typescale-title-small">Playground</p>
+            <Body class="text-md-sys-color-on-secondary-container/80 text-sm"
+              >Toggle collapsed, expandable, rounded, and anchor via Controls.</Body
+            >
+          </div>
+        </a>
+        <a
+          href={storybookStoryUrl('navigation-rail--with-fab-and-footer')}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="bg-md-sys-color-surface-container flex items-center gap-2 rounded-2xl p-4 no-underline transition-opacity hover:opacity-90"
         >
-          expandable: {demoExpandable}
-        </button>
-        <button
-          class="bg-md-sys-color-surface-container text-md-sys-color-on-surface rounded-full px-4 py-2 text-sm font-medium transition-opacity hover:opacity-80"
-          onclick={() => (demoRounded = !demoRounded)}
-        >
-          rounded: {demoRounded}
-        </button>
-        <button
-          class="bg-md-sys-color-surface-container text-md-sys-color-on-surface rounded-full px-4 py-2 text-sm font-medium transition-opacity hover:opacity-80"
-          onclick={() => (demoFab = !demoFab)}
-        >
-          FAB: {demoFab ? 'on' : 'off'}
-        </button>
-        <button
-          class="bg-md-sys-color-surface-container text-md-sys-color-on-surface rounded-full px-4 py-2 text-sm font-medium transition-opacity hover:opacity-80"
-          onclick={() => (demoFooter = !demoFooter)}
-        >
-          footer: {demoFooter ? 'on' : 'off'}
-        </button>
-      </div>
-
-      <!-- Sandbox -->
-      <div
-        class="bg-md-sys-color-surface-variant relative h-[420px] overflow-hidden rounded-2xl border border-black/5"
-      >
-        <Rail
-          anchor="parent"
-          expandable={demoExpandable}
-          rounded={demoRounded}
-          bind:collapsed={demoCollapsed}
-        >
-          {#snippet fab()}
-            {#if demoFab}
-              <FAB size="small" iconProps={{ name: 'add' }} label="New" />
-            {/if}
-          {/snippet}
-
-          {#snippet railFooter()}
-            {#if demoFooter}
-              <Avatar seed="DV" />
-            {/if}
-          {/snippet}
-
-          <RailItem label="Home" href="/docs/rail" iconProps={{ name: 'house' }} selected />
-          <RailItem label="Inbox" href="#" iconProps={{ name: 'mail' }} badge={4} />
-          <RailItem label="Chat" href="#" iconProps={{ name: 'chat' }} badge={-1} />
-          <RailItem label="Settings" href="#" iconProps={{ name: 'settings' }} />
-          <RailItem label="Disabled" href="#" iconProps={{ name: 'block' }} disabled />
-        </Rail>
-
-        <div
-          class="flex h-full flex-col justify-center gap-2 p-8 transition-all duration-[var(--md-sys-motion-duration-spatial)] ease-[var(--md-sys-motion-timing-function-emphasized)]"
-          style={`margin-left: ${demoCollapsed ? '6rem' : '15rem'}`}
-        >
-          <Label class="text-md-sys-color-on-surface-variant">Page content area</Label>
-          <Body class="text-md-sys-color-on-surface-variant/60 text-sm">
-            Content shifts as the rail expands.
-          </Body>
-        </div>
+          <Icon name="widgets" />
+          <div>
+            <p class="md-sys-typescale-title-small">With FAB and Footer</p>
+            <Body class="text-md-sys-color-on-surface-variant text-sm"
+              >Rail composed with a FAB snippet and an Avatar footer.</Body
+            >
+          </div>
+        </a>
       </div>
     </section>
 
@@ -611,7 +550,7 @@
             <div
               class="bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container flex h-9 w-9 shrink-0 items-center justify-center rounded-full"
             >
-              <span class="material-symbols-outlined text-[18px]">{item.icon}</span>
+              <Icon name={item.icon} size="sm" />
             </div>
             <div>
               <p class="text-md-sys-color-on-surface mb-1 text-sm font-semibold">{item.title}</p>
@@ -629,7 +568,7 @@
         class="text-md-sys-color-primary flex items-center gap-1 text-sm no-underline hover:underline"
       >
         Next: Navbar
-        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+        <Icon name="arrow_forward" size="sm" />
       </a>
     </footer>
   {/snippet}
