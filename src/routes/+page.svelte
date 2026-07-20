@@ -1,37 +1,24 @@
 <script lang="ts">
+  import { base } from '$app/paths';
   import { Display, SinglePane, Headline, Body, Card, Title, Icon, Divider } from '$lib/index.js';
   import CodeBlock from './CodeBlock.svelte';
 
-  const sections = [
+  const storybookHref = import.meta.env.DEV ? 'http://localhost:6006' : `${base}/storybook/`;
+
+  const cta = [
     {
-      title: 'Clickables',
-      description: 'Buttons, FABs, Tooltips, Navigation, Cards, Dialogues, Popovers, and more.',
-      href: '/clickables',
-      icon: 'smart_button'
+      title: 'Browse components',
+      description: 'Every component, every variant, live and interactive — powered by Storybook.',
+      href: storybookHref,
+      icon: 'widgets',
+      external: true
     },
     {
-      title: 'Inputs',
-      description: 'Text Fields, Checkboxes, Switches, Selects, Sliders, and Form components.',
-      href: '/inputs',
-      icon: 'edit'
-    },
-    {
-      title: 'Layouts',
-      description: 'Canonical Material 3 layouts: Single Pane, Split Pane, and Supporting Pane.',
-      href: '/layouts',
-      icon: 'view_quilt'
-    },
-    {
-      title: 'Table',
-      description: 'Data tables for displaying sets of data.',
-      href: '/table',
-      icon: 'table'
-    },
-    {
-      title: 'Misc',
-      description: 'Miscellaneous components like Avatars and more.',
-      href: '/misc',
-      icon: 'circle'
+      title: 'Read the docs',
+      description: 'Props, usage guidance, and rationale behind each component.',
+      href: `${base}/docs`,
+      icon: 'book',
+      external: false
     }
   ];
 </script>
@@ -52,16 +39,21 @@
 
   <Divider />
 
-  <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-    {#each sections as section}
-      <a href={section.href} class="no-underline">
+  <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+    {#each cta as item}
+      <a
+        href={item.href}
+        target={item.external ? '_blank' : undefined}
+        rel={item.external ? 'noopener noreferrer' : undefined}
+        class="no-underline"
+      >
         <Card class="hover:bg-md-sys-color-surface-container-high h-full p-6 transition-all">
           <div class="flex flex-col gap-4">
             <div class="flex items-center gap-3">
-              <Icon name={section.icon} class="text-md-sys-color-primary" />
-              <Title>{section.title}</Title>
+              <Icon name={item.icon} class="text-md-sys-color-primary" />
+              <Title>{item.title}</Title>
             </div>
-            <Body>{section.description}</Body>
+            <Body>{item.description}</Body>
           </div>
         </Card>
       </a>
@@ -75,13 +67,13 @@
 
     <div class="flex flex-col gap-3">
       <Title>1. Install</Title>
-      <CodeBlock code="npm i @ogonek-education/ogonek-m3" />
+      <CodeBlock code="npm i @noxlovette/material" />
     </div>
 
     <div class="flex flex-col gap-3">
       <Title>2. Import styles</Title>
       <Body>Add to your root CSS file or layout stylesheet:</Body>
-      <CodeBlock code="@import '@ogonek-education/ogonek-m3/styles';" />
+      <CodeBlock code="@import '@noxlovette/material/styles';" />
     </div>
 
     <div class="flex flex-col gap-3">
@@ -92,7 +84,7 @@
       >
       <CodeBlock
         code={`<script lang="ts">
-  import { App } from '@ogonek-education/ogonek-m3';
+  import { App } from '@noxlovette/material';
 <\/script>
 
 <App iconProviderProps={{ extraIcons: ['search', 'add'] }}>
@@ -105,7 +97,7 @@
       <Title>4. Use components</Title>
       <CodeBlock
         code={`<script lang="ts">
-  import { Button, Card, Title } from '@ogonek-education/ogonek-m3';
+  import { Button, Card, Title } from '@noxlovette/material';
 <\/script>
 
 <Card class="p-4">
@@ -132,7 +124,7 @@
       </Body>
       <CodeBlock
         code={`// src/routes/+layout.server.ts
-		import { DEFAULT_CONFIG } from '@ogonek-education/ogonek-m3';
+		import { DEFAULT_CONFIG } from '@noxlovette/material';
 
 		export const load = ({ cookies }) => {
 		const themeCookie = cookies.get('ogonek-m3-theme-config');
@@ -149,7 +141,7 @@
       />
       <CodeBlock
         code={`<script lang="ts">
-			import { App, ThemeSwitcher, isDarkScheme } from '@ogonek-education/ogonek-m3';
+			import { App, ThemeSwitcher, isDarkScheme } from '@noxlovette/material';
 			const { data, children } = $props();
 
 			const isDark = $derived(isDarkScheme(data.themeConfig.scheme));

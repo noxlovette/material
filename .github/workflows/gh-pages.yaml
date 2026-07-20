@@ -38,6 +38,9 @@ jobs:
         env:
           BASE_PATH: '/${{ github.event.repository.name }}'
 
+      - name: Build Storybook
+        run: bun run build-storybook -- --output-dir build/storybook
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

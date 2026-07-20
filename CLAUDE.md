@@ -2,16 +2,18 @@
 
 Base your docs and stylistic decisions on this https://m3.material.io/
 
-**Package name**: `@noxlovette/material` (as in `package.json`). The showcase's `/src/routes/+page.svelte` shows an older name — ignore it; use `@noxlovette/material` everywhere.
+**Package name**: `@noxlovette/material` (as in `package.json`) — use it everywhere.
 
 # Commands
 
 ```bash
-bun run dev        # showcase site (SvelteKit, static adapter → GitHub Pages)
-bun run build      # svelte-package → dist/ (what gets published to npm)
-bun run check      # svelte-check + tsc
-bun run test       # vitest run
-bun run format     # prettier
+bun run dev              # showcase site: landing page + prose docs (SvelteKit, static adapter → GitHub Pages)
+bun run storybook        # component workbench: live preview, Controls, a11y — the canonical way to view/QA components
+bun run build-storybook  # storybook static build → storybook-static/
+bun run build            # svelte-package → dist/ (what gets published to npm)
+bun run check             # svelte-check + tsc
+bun run test              # vitest run
+bun run format             # prettier
 ```
 
 # Architecture
@@ -19,15 +21,24 @@ bun run format     # prettier
 ```
 src/lib/           # published library (@noxlovette/material)
   components/      # MD3 components grouped by category
+    **/*.stories.svelte  # Storybook stories (Svelte-CSF), colocated with each component
   styles/          # CSS: elevation, motion, typescale, rounding; theme/ has light/dark/hc/mc variants
   animation/       # Material Design transitions (containerTransform, sharedAxis, enterExit, etc.)
   utils/           # Icon, Layer, Theme, ThemeScript, types, theme.svelte.ts
   actions/         # Svelte actions (clickOutside, keyboard, floating, positionFloating)
-src/routes/        # showcase site only — not published
+src/routes/        # showcase site only — not published. Landing page + prose docs, NOT a component
+                    # gallery — that job belongs to Storybook. Links out to Storybook rather than
+                    # re-implementing live previews.
   docs/            # component reference docs (layout + per-component pages)
+.storybook/        # isolated Storybook config — has its own vite.config.ts, NOT the root one
+                    # (svelte-vite hard-errors if it detects SvelteKit's plugins)
 dist/              # build output, do not edit
 scripts/           # generate-components-index.ts — regenerates barrel index.ts files
 ```
+
+In production, Storybook is built into `build/storybook/` alongside the SvelteKit static site and
+served from the same GitHub Pages deployment (see `.github/workflows/gh-pages.yaml`) — one artifact,
+two surfaces, so the "Storybook" nav link resolves correctly in both dev and prod.
 
 # Key Patterns
 
@@ -53,8 +64,8 @@ Before creating or modifying a component, choosing a variant/color role, adding 
    ```bash
    bun scripts/generate-components-index.ts
    ```
-5. Add a showcase route under `src/routes/` and link it from `+layout.svelte`
-6. Add a docs page under `src/routes/docs/<component>/+page.svelte`
+5. Add `<ComponentName>.stories.svelte` next to the component (Svelte-CSF via `@storybook/addon-svelte-csf`'s `defineMeta`/`Story`) — this is the live preview, not a showcase route
+6. Add a docs page under `src/routes/docs/<component>/+page.svelte` for prose/usage guidance (only if the component needs more explanation than Storybook's autodocs gives)
 
 # Key Utils (`src/lib/utils/`)
 
