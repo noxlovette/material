@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from '$app/state';
-  import { Icon } from '$lib/index.js';
+  import { Icon, SplitPane } from '$lib/index.js';
 
   const { children } = $props();
 
@@ -87,44 +87,52 @@
   const currentPath = $derived(page.url.pathname);
 </script>
 
-<div class="flex min-h-dvh">
-  <!-- Secondary docs sidebar -->
-  <aside
-    class="bg-md-sys-color-surface border-md-sys-color-outline-variant hidden w-56 shrink-0 border-r lg:block"
-  >
-    <nav class="sticky top-0 flex h-dvh flex-col gap-1 overflow-y-auto p-4 pt-6">
-      <a
-        href="/docs"
-        class="text-md-sys-color-primary mb-4 block px-3 text-xs font-semibold tracking-widest uppercase no-underline"
-      >
-        Components
-      </a>
+<!--
+  Secondary docs sidebar. anchor="sticky" + resizable={false} because this nav is
+  nested inside the root layout's already Rail-offset content column: a "viewport"
+  anchor would fix to the true browser edge (wrong, under the Rail) and a "parent"
+  anchor would lose sticky-while-scrolling behaviour. See SplitPane's anchor docs.
+-->
+<SplitPane
+  anchor="sticky"
+  resizable={false}
+  full={false}
+  rounded={false}
+  leftWidth={224}
+  leftClass="bg-md-sys-color-surface border-md-sys-color-outline-variant border-r"
+  rightClass="min-w-0"
+>
+  {#snippet left()}
+    <a
+      href="/docs"
+      class="text-md-sys-color-primary mb-4 block px-7 pt-6 text-xs font-semibold tracking-widest uppercase no-underline"
+    >
+      Components
+    </a>
 
-      {#each nav as group}
-        <div class="mb-1">
-          <div class="text-md-sys-color-outline mb-1 flex items-center gap-2 px-3 py-1">
-            <Icon name={group.icon} class="text-[16px]" />
-            <span class="text-xs font-medium tracking-wide uppercase">{group.group}</span>
-          </div>
-
-          {#each group.items as item}
-            {@const isActive = currentPath === item.href}
-            <a
-              href={item.href}
-              class="block rounded-lg px-3 py-1.5 text-sm no-underline transition-colors {isActive
-                ? 'bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container font-medium'
-                : 'text-md-sys-color-on-surface-variant hover:bg-md-sys-color-surface-container-high'}"
-            >
-              {item.label}
-            </a>
-          {/each}
+    {#each nav as group}
+      <div class="mb-1 px-3">
+        <div class="text-md-sys-color-outline mb-1 flex items-center gap-2 px-3 py-1">
+          <Icon name={group.icon} class="text-[16px]" />
+          <span class="text-xs font-medium tracking-wide uppercase">{group.group}</span>
         </div>
-      {/each}
-    </nav>
-  </aside>
 
-  <!-- Page content -->
-  <div class="min-w-0 flex-1">
+        {#each group.items as item}
+          {@const isActive = currentPath === item.href}
+          <a
+            href={item.href}
+            class="block rounded-lg px-3 py-1.5 text-sm no-underline transition-colors {isActive
+              ? 'bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container font-medium'
+              : 'text-md-sys-color-on-surface-variant hover:bg-md-sys-color-surface-container-high'}"
+          >
+            {item.label}
+          </a>
+        {/each}
+      </div>
+    {/each}
+  {/snippet}
+
+  {#snippet right()}
     {@render children()}
-  </div>
-</div>
+  {/snippet}
+</SplitPane>

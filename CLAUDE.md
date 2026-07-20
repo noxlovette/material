@@ -30,6 +30,10 @@ src/routes/        # showcase site only — not published. Landing page + prose 
                     # gallery — that job belongs to Storybook. Links out to Storybook rather than
                     # re-implementing live previews.
   docs/            # component reference docs (layout + per-component pages)
+                    # +layout.svelte's secondary sidebar uses SplitPane (anchor="sticky",
+                    # resizable={false}); each page's content+TOC uses SupportingPane
+                    # (anchor="parent"). See "Dogfooding rule" below — do not hand-roll
+                    # this layout with raw flex/aside divs.
 .storybook/        # isolated Storybook config — has its own vite.config.ts, NOT the root one
                     # (svelte-vite hard-errors if it detects SvelteKit's plugins)
 dist/              # build output, do not edit
@@ -53,6 +57,38 @@ two surfaces, so the "Storybook" nav link resolves correctly in both dev and pro
 Before creating or modifying a component, choosing a variant/color role, adding motion, or reviewing UI for M3 compliance, consult the `material-design` skill (`.claude/skills/material-design/SKILL.md`). It encodes this repo's token vocabulary (color roles, typescale, elevation, shape, motion durations/easings), the `tv()` variant-selection rules, and an M3 accessibility checklist — use it instead of re-deriving M3 mappings from general knowledge.
 
 `.claude/skills/material-design/` is the single source of truth. `bun run build` (via `scripts/copy-skill.ts`) copies it into the gitignored `claude-skill/` directory, which is published to npm alongside `dist/`. Consumers of `@noxlovette/material` run `npx @noxlovette/material material-claude-skill` (add `--force` to overwrite) to install it into their own project's `.claude/skills/material-design`. Never edit `claude-skill/` directly — it's regenerated on every build.
+
+# Dogfooding Rule for Showcase/Docs Pages
+
+Every page under `src/routes/` (landing page, `docs/**`) MUST be built from `@noxlovette/material`
+components — `SinglePane`/`SplitPane`/`SupportingPane` for layout, `Card`/`Title`/`Body`/etc. for
+content. Never hand-roll a layout pattern (raw `flex`/`aside`/`sticky` divs) that a library
+component already covers — if you catch yourself reaching for one, that's a signal either an
+existing pane component fits, or the pattern is missing from the library and belongs there instead
+of one-off in a route file. The library is the product; routes exist to prove it works.
+
+## SplitPane's three `anchor` modes
+
+`SplitPane` (`src/lib/components/containers/panes/`) covers three distinct positioning strategies
+for a left/right two-column layout — picking the right one matters once panes get nested:
+
+- **`viewport`** (default) — left pane fixes to the true browser edge. For a full-page app layout
+  where this is the outermost/only positioned element (e.g. the root `Rail`).
+- **`parent`** — left pane is absolutely positioned within a `relative` ancestor. For
+  embedded/contained demos (a bounded sandbox box) — does **not** stay pinned while the page
+  scrolls.
+- **`sticky`** — left/right sit in normal flex flow and the left pane sticks (`position: sticky`)
+  as the page scrolls. Use this for a sidebar nested _inside other already-offset content_ — e.g.
+  the docs secondary component-list nav, which lives inside the root layout's Rail-offset content
+  column. `viewport` would fix it to the true left edge (underneath/behind the Rail); `parent`
+  would lose the "stays visible while scrolling" behavior. Pair `anchor="sticky"` with
+  `resizable={false}` for a static (non-draggable) sidebar — this hides the drag handle and skips
+  width persistence to `localStorage`.
+
+For a content-area + fixed-width side panel (e.g. a docs page's article + "On this page" TOC), use
+`SupportingPane` with `anchor="parent"` instead — that's the canonical M3
+[supporting-pane layout](https://m3.material.io/foundations/layout/canonical-layouts/supporting-pane),
+not a resizable split.
 
 # Adding a New Component
 

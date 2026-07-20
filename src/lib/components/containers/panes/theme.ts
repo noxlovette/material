@@ -25,6 +25,17 @@ export const splitPane = tv({
         base: 'relative',
         left: 'md:absolute',
         handle: 'absolute'
+      },
+      // In-flow flex row: left/right sit side by side and the left pane sticks
+      // as the page scrolls, instead of being fixed/absolute. Use for nested
+      // sidebars (e.g. a secondary docs nav) that live inside an already
+      // width-offset content column, where "viewport" would fix to the true
+      // left edge and "parent" would lose sticky-while-scrolling behaviour.
+      sticky: {
+        base: 'md:flex md:flex-row',
+        left: 'shrink-0 md:sticky md:top-0 md:self-start md:max-h-dvh',
+        handle: 'md:sticky md:top-0 md:ml-0 md:h-dvh md:translate-x-0 md:self-start',
+        right: 'md:ml-0'
       }
     },
     full: {

@@ -1,6 +1,7 @@
 <!--
 @component
-SplitPane provides a resizable two-column layout.
+SplitPane provides a two-column layout. Set `resizable={false}` for a static,
+non-draggable sidebar (e.g. a docs nav) instead of a user-resizable split.
 -->
 <script lang="ts">
   import type { SplitPaneProps } from './types.js';
@@ -16,6 +17,7 @@ SplitPane provides a resizable two-column layout.
     leftWidth = $bindable(396),
     full = true,
     rounded = true,
+    resizable = true,
     minLeft = 280,
     maxLeft = 720,
     storageKey = 'splitpane:leftWidth',
@@ -76,7 +78,7 @@ SplitPane provides a resizable two-column layout.
   onMount(() => {
     mounted = true;
 
-    if (persist && typeof localStorage !== 'undefined') {
+    if (resizable && persist && typeof localStorage !== 'undefined') {
       const stored = Number(localStorage.getItem(storageKey));
       if (!Number.isNaN(stored)) {
         leftWidth = clampWidth(stored);
@@ -96,7 +98,7 @@ SplitPane provides a resizable two-column layout.
   });
 
   $effect(() => {
-    if (!persist || typeof localStorage === 'undefined') return;
+    if (!resizable || !persist || typeof localStorage === 'undefined') return;
     localStorage.setItem(storageKey, String(leftWidth));
   });
 </script>
@@ -113,25 +115,27 @@ SplitPane provides a resizable two-column layout.
   </div>
 
   <!-- DRAG HANDLE -->
-  <div
-    class={hCls()}
-    role="separator"
-    aria-orientation="vertical"
-    aria-valuenow={leftWidth}
-    aria-valuemin={minLeft}
-    aria-valuemax={maxLeft}
-    style={`left: ${handleOffset};`}
-    onpointerdown={startDrag}
-    onpointermove={moveDrag}
-    onpointerup={endDrag}
-    onpointercancel={endDrag}
-  >
+  {#if resizable}
     <div
-      class={handleGrip({
-        class: clsx(dragging && 'w-0.5')
-      })}
-    ></div>
-  </div>
+      class={hCls()}
+      role="separator"
+      aria-orientation="vertical"
+      aria-valuenow={leftWidth}
+      aria-valuemin={minLeft}
+      aria-valuemax={maxLeft}
+      style={anchor === 'sticky' ? undefined : `left: ${handleOffset};`}
+      onpointerdown={startDrag}
+      onpointermove={moveDrag}
+      onpointerup={endDrag}
+      onpointercancel={endDrag}
+    >
+      <div
+        class={handleGrip({
+          class: clsx(dragging && 'w-0.5')
+        })}
+      ></div>
+    </div>
+  {/if}
 
   <!-- RIGHT PANE -->
   <div class={rCls({ class: clsx(rightClass, rightMobileClass) })}>

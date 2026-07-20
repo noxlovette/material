@@ -9,7 +9,8 @@
     Label,
     Card,
     Divider,
-    Avatar
+    Avatar,
+    SupportingPane
   } from '$lib/index.js';
   import CodeBlock from '../../CodeBlock.svelte';
   import TableOfContents from '../../TableOfContents.svelte';
@@ -161,9 +162,16 @@
   <title>Rail — Ogonëk M3 Docs</title>
 </svelte:head>
 
-<div class="flex min-h-dvh">
-  <!-- Main content -->
-  <article class="min-w-0 flex-1 px-8 py-12 xl:px-12">
+<SupportingPane
+  anchor="parent"
+  position="right"
+  collapsible={false}
+  rounded={false}
+  gap="none"
+  mainClass="min-w-0 px-8 py-12 xl:px-12"
+  supportingClass="hidden xl:block lg:w-52 lg:shrink-0"
+>
+  {#snippet main()}
     <!-- ── Page header ─────────────────────────────────────────── -->
     <header class="mb-10 flex flex-col gap-3">
       <div class="flex items-center gap-3">
@@ -624,13 +632,12 @@
         <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
       </a>
     </footer>
-  </article>
+  {/snippet}
 
-  <!-- ── Right TOC ──────────────────────────────────────────────── -->
-  <aside class="hidden w-52 shrink-0 xl:block">
+  {#snippet supporting()}
     <TableOfContents sections={toc} />
-  </aside>
-</div>
+  {/snippet}
+</SupportingPane>
 
 <style>
   :global(.doc-code) {

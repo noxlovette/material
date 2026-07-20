@@ -38,8 +38,24 @@ export type SplitPaneProps = SplitPaneVariants &
     persist?: boolean;
     /** Called when the component wants to update external footer padding. */
     onPaddingChange?: (padding: number) => void;
-    /** The anchor mode for the panes. */
+    /**
+     * The anchor mode for the panes.
+     * - `viewport` — left pane fixes to the true browser edge (full-page app layouts).
+     * - `parent` — left pane is absolutely positioned within a `relative` ancestor
+     *   (embedded/contained demos, does not stick while scrolling).
+     * - `sticky` — left/right sit in normal flex flow and the left pane sticks as
+     *   the page scrolls. Use for a sidebar nested inside other offset content
+     *   (e.g. a secondary docs nav inside an already Rail-offset column), where
+     *   `viewport` would fix to the wrong edge and `parent` would lose sticky
+     *   behaviour. Typically paired with `resizable={false}`.
+     */
     anchor?: SplitPaneVariants['anchor'];
+    /**
+     * Whether the split is user-draggable. Set to `false` for a static sidebar —
+     * hides the drag handle and skips width persistence.
+     * @default true
+     */
+    resizable?: boolean;
     /**
      * Which pane to show on mobile. On desktop both panes are always visible.
      * @default 'right'

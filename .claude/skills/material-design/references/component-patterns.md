@@ -32,6 +32,21 @@ Only fall back to `bare` (no color/background at all) when the component supplie
 - **Focus ring** — the `md-sys-state-focus-indicator` utility, not a custom `:focus` style.
 - **Disabled state** — `.md-component-button-base`'s disabled handling (via `disabled:`/`aria-disabled`/`data-disabled` selectors in `component.css`), not a manually-toggled opacity class.
 
+## Laying out a showcase or docs page (`src/routes/**`)
+
+Routes are not a blank canvas either — every page-level layout shape already has a `containers/panes`
+component. Reach for these instead of a hand-rolled `flex`/`aside`/`sticky` div, and if none fits,
+that's a sign the pattern belongs in the library, not in a one-off route file:
+
+| Shape you need                                                                                      | Component                                         | Notes                                                                                                         |
+| --------------------------------------------------------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| Centered/full-width single column                                                                   | `SinglePane`                                      | `centered` variant for max-width, `padding`/`gap` for spacing                                                 |
+| User-resizable two-column split                                                                     | `SplitPane` (`resizable` default)                 | Drag handle + `localStorage` persistence                                                                      |
+| Static, non-draggable sidebar fixed to the true viewport edge                                       | `SplitPane` `anchor="viewport" resizable={false}` | Only correct if this is the outermost positioned element (nothing else is already offsetting content)         |
+| Static sidebar absolutely positioned in a bounded/contained box                                     | `SplitPane` `anchor="parent" resizable={false}`   | Does not stay visible while the page scrolls — for embedded demos, not full-page nav                          |
+| Static sidebar nested inside other already-offset content, that should stay visible while scrolling | `SplitPane` `anchor="sticky" resizable={false}`   | e.g. the docs secondary component-list nav, nested inside the root layout's Rail-offset column                |
+| Main content + fixed-width side panel (TOC, filters, details)                                       | `SupportingPane` `anchor="parent"`                | The M3 [supporting-pane](https://m3.material.io/foundations/layout/canonical-layouts/supporting-pane) pattern |
+
 ## Before exporting a new component
 
 Follow CLAUDE.md's "Adding a New Component" steps as the mechanical checklist (create `.svelte` + `types.ts`, define `theme.ts` with `tv()`, export from the category `index.ts`, run `bun scripts/generate-components-index.ts`, add a showcase route and a docs page) — this skill governs the _design_ decisions (which variant/color/motion) that should be made before or while writing that `theme.ts`, not the export mechanics themselves.
