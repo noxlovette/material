@@ -67,13 +67,13 @@
 
     <div class="flex flex-col gap-3">
       <Title>1. Install</Title>
-      <CodeBlock code="npm i @noxlovette/material" />
+      <CodeBlock code="npm i @noxlovette/material" lang="bash" />
     </div>
 
     <div class="flex flex-col gap-3">
       <Title>2. Import styles</Title>
       <Body>Add to your root CSS file or layout stylesheet:</Body>
-      <CodeBlock code="@import '@noxlovette/material/styles';" />
+      <CodeBlock code="@import '@noxlovette/material/styles';" lang="css" />
     </div>
 
     <div class="flex flex-col gap-3">
@@ -138,6 +138,7 @@
 
 		return { themeConfig };
 		};`}
+        lang="typescript"
       />
       <CodeBlock
         code={`<script lang="ts">
