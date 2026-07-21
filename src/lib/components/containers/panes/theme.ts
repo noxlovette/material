@@ -35,7 +35,7 @@ export const splitPane = tv({
         base: 'md:flex md:flex-row',
         left: 'shrink-0 md:sticky md:top-0 md:self-start md:max-h-dvh',
         handle: 'md:sticky md:top-0 md:ml-0 md:h-dvh md:translate-x-0 md:self-start',
-        right: 'md:ml-0'
+        right: 'md:ml-0 md:grow md:min-w-0'
       }
     },
     full: {
