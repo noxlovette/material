@@ -46,19 +46,20 @@
     font-size: 0.875rem;
     line-height: 1.625;
     background-color: transparent !important;
-    color: var(--shiki-color-text);
+    color: var(--shiki-foreground);
 
     /* Map shiki's css-variables theme tokens to MD3 color roles instead of the
        library's built-in defaults — keeps code blocks in sync with light/dark/HC themes. */
-    --shiki-color-text: var(--md-sys-color-on-surface);
-    --shiki-token-constant: var(--md-sys-color-tertiary);
-    --shiki-token-string: var(--md-sys-color-primary);
-    --shiki-token-comment: var(--md-sys-color-on-surface-variant);
-    --shiki-token-keyword: var(--md-sys-color-secondary);
-    --shiki-token-parameter: var(--md-sys-color-on-surface);
-    --shiki-token-function: var(--md-sys-color-tertiary);
-    --shiki-token-string-expression: var(--md-sys-color-primary);
-    --shiki-token-punctuation: var(--md-sys-color-on-surface-variant);
-    --shiki-token-link: var(--md-sys-color-primary);
+    --shiki-foreground: var(--color-md-sys-color-on-surface);
+    --shiki-background: transparent;
+    --shiki-token-constant: var(--color-md-sys-color-tertiary);
+    --shiki-token-string: var(--color-md-sys-color-primary);
+    --shiki-token-comment: var(--color-md-sys-color-on-surface-variant);
+    --shiki-token-keyword: var(--color-md-sys-color-secondary);
+    --shiki-token-parameter: var(--color-md-sys-color-on-surface);
+    --shiki-token-function: var(--color-md-sys-color-tertiary);
+    --shiki-token-string-expression: var(--color-md-sys-color-primary);
+    --shiki-token-punctuation: var(--color-md-sys-color-on-surface-variant);
+    --shiki-token-link: var(--color-md-sys-color-primary);
   }
 </style>

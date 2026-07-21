@@ -100,7 +100,6 @@
   rounded={false}
   leftWidth={224}
   leftClass="bg-md-sys-color-surface border-md-sys-color-outline-variant border-r"
-  rightClass="min-w-0"
 >
   {#snippet left()}
     <a

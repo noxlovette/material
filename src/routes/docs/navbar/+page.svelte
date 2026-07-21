@@ -1,4 +1,5 @@
 <script lang="ts">
+  import SinglePane from '$lib/components/containers/panes/SinglePane.svelte';
   import { Body, Title, Headline, Card, Divider, Icon, SupportingPane } from '$lib/index.js';
   import CodeBlock from '../../CodeBlock.svelte';
   import TableOfContents from '../../TableOfContents.svelte';
@@ -85,118 +86,114 @@
   <title>Navbar — Ogonëk M3 Docs</title>
 </svelte:head>
 
-<SupportingPane
-  anchor="parent"
-  position="right"
-  collapsible={false}
-  rounded={false}
-  gap="none"
-  mainClass="min-w-0 px-8 py-12 xl:px-12"
-  supportingClass="hidden xl:block lg:w-52 lg:shrink-0"
->
+<SupportingPane anchor="viewport" position="right" collapsible={false} rounded={false} gap="none">
   {#snippet main()}
-    <header class="mb-10 flex flex-col gap-3">
-      <div class="flex items-center gap-3">
-        <nav class="text-md-sys-color-on-surface-variant text-sm" aria-label="Breadcrumb">
-          <ol class="flex items-center gap-1">
-            <li><a href="/docs" class="hover:text-md-sys-color-primary no-underline">Docs</a></li>
-            <li class="mx-1 opacity-40">/</li>
-            <li>
-              <a href="/docs" class="hover:text-md-sys-color-primary no-underline">Navigation</a>
-            </li>
-            <li class="mx-1 opacity-40">/</li>
-            <li class="text-md-sys-color-on-surface font-medium">Navbar</li>
-          </ol>
-        </nav>
-        <span
-          class="bg-md-sys-color-tertiary-container text-md-sys-color-on-tertiary-container rounded-full px-2 py-0.5 text-xs font-medium"
-          >Stable</span
-        >
-      </div>
-
-      <Headline>Navigation Bar</Headline>
-      <Body class="text-md-sys-color-on-surface-variant max-w-2xl">
-        Navigation Bars are Rail's mobile counterpart — a fixed bottom bar for 3–5 primary
-        destinations below the <code class="doc-code">md</code> breakpoint. In this library, most
-        apps don't mount it directly: <code class="doc-code">Rail</code>'s
-        <code class="doc-code">withNavbar</code> prop renders it automatically.
-      </Body>
-
-      <div class="flex flex-wrap gap-2 pt-1">
-        <a
-          href="https://m3.material.io/components/navigation-bar/overview"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-md-sys-color-primary flex items-center gap-1 text-sm no-underline hover:underline"
-        >
-          M3 Spec
-          <Icon name="open_in_new" size="xs" class="opacity-60" />
-        </a>
-      </div>
-    </header>
-
-    <Divider class="mb-12" />
-
-    <section id="overview" class="mb-12 flex flex-col gap-4 scroll-mt-6">
-      <Title>Overview</Title>
-      <Body>
-        The <code class="doc-code">Navbar</code> component implements the
-        <a
-          href="https://m3.material.io/components/navigation-bar/overview"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-md-sys-color-primary">Material Design 3 Navigation Bar</a
-        >
-        pattern: a fixed horizontal bar of <code class="doc-code">NavbarItem</code>s, each showing
-        an icon and label with an active-state indicator.
-      </Body>
-      <Body>
-        <code class="doc-code">Rail</code> renders a <code class="doc-code">Navbar</code> internally
-        when <code class="doc-code">withNavbar</code> is set, using its own
-        <code class="doc-code">RailItem</code> list — you rarely compose
-        <code class="doc-code">Navbar</code>
-        by hand unless you need a standalone mobile-only nav bar with no rail at all.
-      </Body>
-    </section>
-
-    <section id="import" class="mb-12 flex flex-col gap-4 scroll-mt-6">
-      <Title>Import</Title>
-      <CodeBlock code={`import { Navbar, NavbarItem } from '@noxlovette/material';`} />
-    </section>
-
-    <section id="demo" class="mb-12 flex flex-col gap-4 scroll-mt-6">
-      <Title>Live Demo</Title>
-      <Body class="text-md-sys-color-on-surface-variant">
-        See it live, with Controls, in Storybook rather than a hand-rolled preview here.
-      </Body>
-
-      <a
-        href={storybookStoryUrl('navigation-navbar--playground')}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container flex items-center gap-2 rounded-2xl p-4 no-underline transition-opacity hover:opacity-90 sm:max-w-sm"
-      >
-        <Icon name="widgets" />
-        <div>
-          <p class="md-sys-typescale-title-small">Playground</p>
-          <Body class="text-md-sys-color-on-secondary-container/80 text-sm"
-            >Open the Navbar story — previewed at a mobile viewport, matching its md:hidden
-            behaviour.</Body
+    <SinglePane>
+      <header class="mb-10 flex flex-col gap-3">
+        <div class="flex items-center gap-3">
+          <nav class="text-md-sys-color-on-surface-variant text-sm" aria-label="Breadcrumb">
+            <ol class="flex items-center gap-1">
+              <li><a href="/docs" class="hover:text-md-sys-color-primary no-underline">Docs</a></li>
+              <li class="mx-1 opacity-40">/</li>
+              <li>
+                <a href="/docs" class="hover:text-md-sys-color-primary no-underline">Navigation</a>
+              </li>
+              <li class="mx-1 opacity-40">/</li>
+              <li class="text-md-sys-color-on-surface font-medium">Navbar</li>
+            </ol>
+          </nav>
+          <span
+            class="bg-md-sys-color-tertiary-container text-md-sys-color-on-tertiary-container rounded-full px-2 py-0.5 text-xs font-medium"
+            >Stable</span
           >
         </div>
-      </a>
-    </section>
 
-    <section id="basic-usage" class="mb-12 flex flex-col gap-4 scroll-mt-6">
-      <Title>Basic Usage</Title>
-      <Body>
-        Prefer <code class="doc-code">Rail</code>'s <code class="doc-code">withNavbar</code> prop
-        for the common case. Mount <code class="doc-code">Navbar</code> directly only for a standalone
-        bottom bar:
-      </Body>
+        <Headline>Navigation Bar</Headline>
+        <Body class="text-md-sys-color-on-surface-variant max-w-2xl">
+          Navigation Bars are Rail's mobile counterpart — a fixed bottom bar for 3–5 primary
+          destinations below the <code class="doc-code">md</code> breakpoint. In this library, most
+          apps don't mount it directly: <code class="doc-code">Rail</code>'s
+          <code class="doc-code">withNavbar</code> prop renders it automatically.
+        </Body>
 
-      <CodeBlock
-        code={`<script lang="ts">
+        <div class="flex flex-wrap gap-2 pt-1">
+          <a
+            href="https://m3.material.io/components/navigation-bar/overview"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-md-sys-color-primary flex items-center gap-1 text-sm no-underline hover:underline"
+          >
+            M3 Spec
+            <Icon name="open_in_new" size="xs" class="opacity-60" />
+          </a>
+        </div>
+      </header>
+
+      <Divider class="mb-12" />
+
+      <section id="overview" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+        <Title>Overview</Title>
+        <Body>
+          The <code class="doc-code">Navbar</code> component implements the
+          <a
+            href="https://m3.material.io/components/navigation-bar/overview"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-md-sys-color-primary">Material Design 3 Navigation Bar</a
+          >
+          pattern: a fixed horizontal bar of <code class="doc-code">NavbarItem</code>s, each showing
+          an icon and label with an active-state indicator.
+        </Body>
+        <Body>
+          <code class="doc-code">Rail</code> renders a <code class="doc-code">Navbar</code>
+          internally when <code class="doc-code">withNavbar</code> is set, using its own
+          <code class="doc-code">RailItem</code> list — you rarely compose
+          <code class="doc-code">Navbar</code>
+          by hand unless you need a standalone mobile-only nav bar with no rail at all.
+        </Body>
+      </section>
+
+      <section id="import" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+        <Title>Import</Title>
+        <CodeBlock
+          lang="typescript"
+          code={`import { Navbar, NavbarItem } from '@noxlovette/material';`}
+        />
+      </section>
+
+      <section id="demo" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+        <Title>Live Demo</Title>
+        <Body class="text-md-sys-color-on-surface-variant">
+          See it live, with Controls, in Storybook rather than a hand-rolled preview here.
+        </Body>
+
+        <a
+          href={storybookStoryUrl('navigation-navbar--playground')}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container flex items-center gap-2 rounded-2xl p-4 no-underline transition-opacity hover:opacity-90 sm:max-w-sm"
+        >
+          <Icon name="widgets" />
+          <div>
+            <p class="md-sys-typescale-title-small">Playground</p>
+            <Body class="text-md-sys-color-on-secondary-container/80 text-sm"
+              >Open the Navbar story — previewed at a mobile viewport, matching its md:hidden
+              behaviour.</Body
+            >
+          </div>
+        </a>
+      </section>
+
+      <section id="basic-usage" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+        <Title>Basic Usage</Title>
+        <Body>
+          Prefer <code class="doc-code">Rail</code>'s <code class="doc-code">withNavbar</code> prop
+          for the common case. Mount <code class="doc-code">Navbar</code> directly only for a standalone
+          bottom bar:
+        </Body>
+
+        <CodeBlock
+          code={`<script lang="ts">
   import { Navbar, NavbarItem } from '@noxlovette/material';
 <\/script>
 
@@ -205,162 +202,163 @@
   <NavbarItem label="Messages" href="/messages" iconProps={{ name: 'mail' }} badge={5} />
   <NavbarItem label="Settings" href="/settings" iconProps={{ name: 'settings' }} />
 </Navbar>`}
-      />
-    </section>
+        />
+      </section>
 
-    <section id="navbar-props" class="mb-12 flex flex-col gap-4 scroll-mt-6">
-      <Title>Navbar Props</Title>
-      <div class="overflow-x-auto rounded-xl border border-black/5">
-        <table class="w-full border-collapse text-sm">
-          <thead>
-            <tr class="bg-md-sys-color-surface-container-highest">
-              <th class="border-md-sys-color-outline-variant border-b p-3 text-left font-semibold"
-                >Prop</th
-              >
-              <th class="border-md-sys-color-outline-variant border-b p-3 text-left font-semibold"
-                >Type</th
-              >
-              <th class="border-md-sys-color-outline-variant border-b p-3 text-left font-semibold"
-                >Default</th
-              >
-              <th class="border-md-sys-color-outline-variant border-b p-3 text-left font-semibold"
-                >Description</th
-              >
-            </tr>
-          </thead>
-          <tbody>
-            {#each navbarProps as row}
-              <tr
-                class="even:bg-md-sys-color-surface-container/30 border-md-sys-color-outline-variant/50 border-b last:border-b-0"
-              >
-                <td class="p-3">
-                  <div class="flex items-center gap-1.5">
-                    <code class="text-md-sys-color-primary font-mono text-xs font-semibold"
-                      >{row.prop}</code
-                    >
-                    {#if row.required}
-                      <span
-                        class="bg-md-sys-color-error-container text-md-sys-color-on-error-container rounded px-1 text-[10px] font-medium"
-                        >required</span
-                      >
-                    {/if}
-                  </div>
-                </td>
-                <td class="p-3"
-                  ><code class="text-md-sys-color-on-surface-variant font-mono text-xs"
-                    >{row.type}</code
-                  ></td
+      <section id="navbar-props" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+        <Title>Navbar Props</Title>
+        <div class="overflow-x-auto rounded-xl border border-black/5">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="bg-md-sys-color-surface-container-highest">
+                <th class="border-md-sys-color-outline-variant border-b p-3 text-left font-semibold"
+                  >Prop</th
                 >
-                <td class="p-3"
-                  ><code class="text-md-sys-color-on-surface-variant font-mono text-xs"
-                    >{row.default}</code
-                  ></td
+                <th class="border-md-sys-color-outline-variant border-b p-3 text-left font-semibold"
+                  >Type</th
                 >
-                <td class="text-md-sys-color-on-surface-variant p-3 text-xs leading-relaxed"
-                  >{row.desc}</td
+                <th class="border-md-sys-color-outline-variant border-b p-3 text-left font-semibold"
+                  >Default</th
+                >
+                <th class="border-md-sys-color-outline-variant border-b p-3 text-left font-semibold"
+                  >Description</th
                 >
               </tr>
-            {/each}
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <section id="navbaritem-props" class="mb-12 flex flex-col gap-4 scroll-mt-6">
-      <Title>NavbarItem Props</Title>
-      <div class="overflow-x-auto rounded-xl border border-black/5">
-        <table class="w-full border-collapse text-sm">
-          <thead>
-            <tr class="bg-md-sys-color-surface-container-highest">
-              <th class="border-md-sys-color-outline-variant border-b p-3 text-left font-semibold"
-                >Prop</th
-              >
-              <th class="border-md-sys-color-outline-variant border-b p-3 text-left font-semibold"
-                >Type</th
-              >
-              <th class="border-md-sys-color-outline-variant border-b p-3 text-left font-semibold"
-                >Default</th
-              >
-              <th class="border-md-sys-color-outline-variant border-b p-3 text-left font-semibold"
-                >Description</th
-              >
-            </tr>
-          </thead>
-          <tbody>
-            {#each navbarItemProps as row}
-              <tr
-                class="even:bg-md-sys-color-surface-container/30 border-md-sys-color-outline-variant/50 border-b last:border-b-0"
-              >
-                <td class="p-3">
-                  <div class="flex items-center gap-1.5">
-                    <code class="text-md-sys-color-primary font-mono text-xs font-semibold"
-                      >{row.prop}</code
-                    >
-                    {#if row.required}
-                      <span
-                        class="bg-md-sys-color-error-container text-md-sys-color-on-error-container rounded px-1 text-[10px] font-medium"
-                        >required</span
+            </thead>
+            <tbody>
+              {#each navbarProps as row}
+                <tr
+                  class="even:bg-md-sys-color-surface-container/30 border-md-sys-color-outline-variant/50 border-b last:border-b-0"
+                >
+                  <td class="p-3">
+                    <div class="flex items-center gap-1.5">
+                      <code class="text-md-sys-color-primary font-mono text-xs font-semibold"
+                        >{row.prop}</code
                       >
-                    {/if}
-                  </div>
-                </td>
-                <td class="p-3"
-                  ><code class="text-md-sys-color-on-surface-variant font-mono text-xs"
-                    >{row.type}</code
-                  ></td
+                      {#if row.required}
+                        <span
+                          class="bg-md-sys-color-error-container text-md-sys-color-on-error-container rounded px-1 text-[10px] font-medium"
+                          >required</span
+                        >
+                      {/if}
+                    </div>
+                  </td>
+                  <td class="p-3"
+                    ><code class="text-md-sys-color-on-surface-variant font-mono text-xs"
+                      >{row.type}</code
+                    ></td
+                  >
+                  <td class="p-3"
+                    ><code class="text-md-sys-color-on-surface-variant font-mono text-xs"
+                      >{row.default}</code
+                    ></td
+                  >
+                  <td class="text-md-sys-color-on-surface-variant p-3 text-xs leading-relaxed"
+                    >{row.desc}</td
+                  >
+                </tr>
+              {/each}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="navbaritem-props" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+        <Title>NavbarItem Props</Title>
+        <div class="overflow-x-auto rounded-xl border border-black/5">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="bg-md-sys-color-surface-container-highest">
+                <th class="border-md-sys-color-outline-variant border-b p-3 text-left font-semibold"
+                  >Prop</th
                 >
-                <td class="p-3"
-                  ><code class="text-md-sys-color-on-surface-variant font-mono text-xs"
-                    >{row.default}</code
-                  ></td
+                <th class="border-md-sys-color-outline-variant border-b p-3 text-left font-semibold"
+                  >Type</th
                 >
-                <td class="text-md-sys-color-on-surface-variant p-3 text-xs leading-relaxed"
-                  >{row.desc}</td
+                <th class="border-md-sys-color-outline-variant border-b p-3 text-left font-semibold"
+                  >Default</th
+                >
+                <th class="border-md-sys-color-outline-variant border-b p-3 text-left font-semibold"
+                  >Description</th
                 >
               </tr>
-            {/each}
-          </tbody>
-        </table>
-      </div>
-    </section>
+            </thead>
+            <tbody>
+              {#each navbarItemProps as row}
+                <tr
+                  class="even:bg-md-sys-color-surface-container/30 border-md-sys-color-outline-variant/50 border-b last:border-b-0"
+                >
+                  <td class="p-3">
+                    <div class="flex items-center gap-1.5">
+                      <code class="text-md-sys-color-primary font-mono text-xs font-semibold"
+                        >{row.prop}</code
+                      >
+                      {#if row.required}
+                        <span
+                          class="bg-md-sys-color-error-container text-md-sys-color-on-error-container rounded px-1 text-[10px] font-medium"
+                          >required</span
+                        >
+                      {/if}
+                    </div>
+                  </td>
+                  <td class="p-3"
+                    ><code class="text-md-sys-color-on-surface-variant font-mono text-xs"
+                      >{row.type}</code
+                    ></td
+                  >
+                  <td class="p-3"
+                    ><code class="text-md-sys-color-on-surface-variant font-mono text-xs"
+                      >{row.default}</code
+                    ></td
+                  >
+                  <td class="text-md-sys-color-on-surface-variant p-3 text-xs leading-relaxed"
+                    >{row.desc}</td
+                  >
+                </tr>
+              {/each}
+            </tbody>
+          </table>
+        </div>
+      </section>
 
-    <section id="accessibility" class="mb-12 flex flex-col gap-4 scroll-mt-6">
-      <Title>Accessibility</Title>
-      <div class="flex flex-col gap-3">
-        {#each [{ icon: 'visibility', title: 'Active state', desc: 'Active items receive aria-current="page" from the underlying NavigationMenu.Link (Bits UI).' }, { icon: 'smartphone', title: 'Landmark', desc: 'Rendered inside a NavigationMenu.List, announced by assistive tech as a navigation landmark.' }] as item}
-          <Card class="flex items-start gap-4 p-4">
-            <div
-              class="bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container flex h-9 w-9 shrink-0 items-center justify-center rounded-full"
-            >
-              <Icon name={item.icon} size="sm" />
-            </div>
-            <div>
-              <p class="text-md-sys-color-on-surface mb-1 text-sm font-semibold">{item.title}</p>
-              <Body class="text-md-sys-color-on-surface-variant">{item.desc}</Body>
-            </div>
-          </Card>
-        {/each}
-      </div>
-    </section>
+      <section id="accessibility" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+        <Title>Accessibility</Title>
+        <div class="flex flex-col gap-3">
+          {#each [{ icon: 'visibility', title: 'Active state', desc: 'Active items receive aria-current="page" from the underlying NavigationMenu.Link (Bits UI).' }, { icon: 'smartphone', title: 'Landmark', desc: 'Rendered inside a NavigationMenu.List, announced by assistive tech as a navigation landmark.' }] as item}
+            <Card class="flex items-start gap-4 p-4">
+              <div
+                class="bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container flex h-9 w-9 shrink-0 items-center justify-center rounded-full"
+              >
+                <Icon name={item.icon} size="sm" />
+              </div>
+              <div>
+                <p class="text-md-sys-color-on-surface mb-1 text-sm font-semibold">{item.title}</p>
+                <Body class="text-md-sys-color-on-surface-variant">{item.desc}</Body>
+              </div>
+            </Card>
+          {/each}
+        </div>
+      </section>
 
-    <footer
-      class="border-md-sys-color-outline-variant flex items-center justify-between border-t pt-8"
+      <footer
+        class="border-md-sys-color-outline-variant flex items-center justify-between border-t pt-8"
+      >
+        <a
+          href="/docs/rail"
+          class="text-md-sys-color-primary flex items-center gap-1 text-sm no-underline hover:underline"
+        >
+          <Icon name="arrow_back" size="sm" />
+          Previous: Rail
+        </a>
+        <a
+          href="/docs/tabs"
+          class="text-md-sys-color-primary flex items-center gap-1 text-sm no-underline hover:underline"
+        >
+          Next: Tabs
+          <Icon name="arrow_forward" size="sm" />
+        </a>
+      </footer></SinglePane
     >
-      <a
-        href="/docs/rail"
-        class="text-md-sys-color-primary flex items-center gap-1 text-sm no-underline hover:underline"
-      >
-        <Icon name="arrow_back" size="sm" />
-        Previous: Rail
-      </a>
-      <a
-        href="/docs/tabs"
-        class="text-md-sys-color-primary flex items-center gap-1 text-sm no-underline hover:underline"
-      >
-        Next: Tabs
-        <Icon name="arrow_forward" size="sm" />
-      </a>
-    </footer>
   {/snippet}
 
   {#snippet supporting()}
