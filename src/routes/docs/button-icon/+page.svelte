@@ -7,43 +7,97 @@
 
   type PropRow = { prop: string; type: string; default: string; required?: boolean; desc: string };
 
-  const appBarProps: PropRow[] = [
+  const buttonIconProps: PropRow[] = [
     {
-      prop: 'title',
-      type: 'string',
+      prop: 'iconProps',
+      type: 'IconProps',
       default: '—',
       required: true,
-      desc: 'The screen title.'
+      desc: 'Passed directly to the Icon component.'
     },
     {
-      prop: 'subtitle',
+      prop: 'variant',
+      type: '"elevated" | "filled" | "tonal" | "outlined" | "text" | "bare"',
+      default: '"text"',
+      desc: 'Visual emphasis. "text" (the standard icon button) is the default and lowest emphasis.'
+    },
+    {
+      prop: 'color',
+      type: '"default" | "primary" | "secondary" | "tertiary" | "error"',
+      default: '"default"',
+      desc: 'Color role. "default" resolves to the same styling as "primary".'
+    },
+    {
+      prop: 'size',
+      type: '"xs" | "sm" | "md" | "lg" | "xl"',
+      default: '"md"',
+      desc: 'Controls height, padding, and icon size.'
+    },
+    {
+      prop: 'width',
+      type: '"default" | "narrow" | "wide"',
+      default: '"default"',
+      desc: '"default" keeps the button square (aspect-square); narrow/wide adjust the horizontal footprint.'
+    },
+    {
+      prop: 'shape',
+      type: '"round" | "square"',
+      default: '"round"',
+      desc: 'Fully rounded or slightly rounded corners.'
+    },
+    {
+      prop: 'variation',
+      type: '"default" | "toggle"',
+      default: '"default"',
+      desc: '"toggle" renders a Bits UI Toggle.Root with a pressed/unpressed visual state instead of a plain button.'
+    },
+    {
+      prop: 'pressed',
+      type: 'boolean',
+      default: 'false',
+      desc: 'Only meaningful when variation="toggle". Bindable pressed state.'
+    },
+    {
+      prop: 'onPressedChange',
+      type: '(pressed: boolean) => void',
+      default: '—',
+      desc: 'Only meaningful when variation="toggle". Fires when the pressed state changes.'
+    },
+    {
+      prop: 'tooltipContent',
       type: 'string',
       default: '—',
-      desc: 'Optional subtitle rendered below the title.'
+      desc: 'Text shown in a tooltip on hover. Icon buttons have no visible label, so this is the primary way to convey the action.'
     },
     {
-      prop: 'leading',
-      type: 'Snippet',
-      default: '—',
-      desc: 'Content on the left, e.g. a back button (see showBack) or a menu icon.'
+      prop: 'triggerSide',
+      type: '"top" | "right" | "bottom" | "left"',
+      default: '"top"',
+      desc: 'Side of the tooltip relative to the button.'
     },
     {
-      prop: 'trailing',
-      type: 'Snippet',
-      default: '—',
-      desc: 'Action icons rendered on the right.'
+      prop: 'triggerAlign',
+      type: '"start" | "center" | "end"',
+      default: '"center"',
+      desc: 'Alignment of the tooltip relative to the button.'
     },
     {
-      prop: 'showBack',
+      prop: 'disabled',
       type: 'boolean',
       default: 'false',
-      desc: 'Reserves leading space for a back button. Combine with the leading snippet to render one.'
+      desc: 'Disables the button.'
     },
     {
-      prop: 'ghost',
+      prop: 'loading',
       type: 'boolean',
       default: 'false',
-      desc: 'Renders an invisible same-height spacer after the fixed bar so content below it is not obscured.'
+      desc: 'Shows a LoadingIndicator in place of the icon.'
+    },
+    {
+      prop: 'href',
+      type: 'string',
+      default: '—',
+      desc: 'Renders the button as an <a> instead of a <button>.'
     }
   ];
 
@@ -52,13 +106,13 @@
     { id: 'import', label: 'Import' },
     { id: 'demo', label: 'Live Demo' },
     { id: 'basic-usage', label: 'Basic Usage' },
-    { id: 'appbar-props', label: 'AppBar Props' },
+    { id: 'buttonicon-props', label: 'ButtonIcon Props' },
     { id: 'accessibility', label: 'Accessibility' }
   ];
 </script>
 
 <svelte:head>
-  <title>App Bar — Ogonëk M3 Docs</title>
+  <title>Button Icon — Ogonëk M3 Docs</title>
 </svelte:head>
 
 <SupportingPane anchor="viewport" position="right" collapsible={false} rounded={false} gap="none">
@@ -71,10 +125,10 @@
               <li><a href="/docs" class="hover:text-md-sys-color-primary no-underline">Docs</a></li>
               <li class="mx-1 opacity-40">/</li>
               <li>
-                <a href="/docs" class="hover:text-md-sys-color-primary no-underline">Navigation</a>
+                <a href="/docs" class="hover:text-md-sys-color-primary no-underline">Clickables</a>
               </li>
               <li class="mx-1 opacity-40">/</li>
-              <li class="text-md-sys-color-on-surface font-medium">App Bar</li>
+              <li class="text-md-sys-color-on-surface font-medium">Button Icon</li>
             </ol>
           </nav>
           <span
@@ -83,17 +137,18 @@
           >
         </div>
 
-        <Headline>Top App Bar</Headline>
+        <Headline>Icon Button</Headline>
         <Body class="text-md-sys-color-on-surface-variant max-w-2xl">
-          App Bars sit at the top of the screen for branding, titles, and actions. This
-          implementation is mobile-only (<code class="doc-code">md:hidden</code>) — on larger
-          screens the title and actions typically move into the <code class="doc-code">Rail</code>'s
-          footer or a page header instead.
+          Icon buttons help people take minor actions, often used in app bars and toolbars where
+          space is tight. <code class="doc-code">ButtonIcon</code> shares the same emphasis levels
+          as
+          <code class="doc-code">Button</code>, and can optionally act as a toggle with a pressed
+          state.
         </Body>
 
         <div class="flex flex-wrap gap-2 pt-1">
           <a
-            href="https://m3.material.io/components/top-app-bar/overview"
+            href="https://m3.material.io/components/icon-buttons/overview"
             target="_blank"
             rel="noopener noreferrer"
             class="text-md-sys-color-primary flex items-center gap-1 text-sm no-underline hover:underline"
@@ -109,21 +164,28 @@
       <section id="overview" class="mb-12 flex flex-col gap-4 scroll-mt-6">
         <Title>Overview</Title>
         <Body>
-          The <code class="doc-code">AppBar</code> component implements the
+          The <code class="doc-code">ButtonIcon</code> component implements the
           <a
-            href="https://m3.material.io/components/top-app-bar/overview"
+            href="https://m3.material.io/components/icon-buttons/overview"
             target="_blank"
             rel="noopener noreferrer"
-            class="text-md-sys-color-primary">Material Design 3 Top App Bar</a
+            class="text-md-sys-color-primary">Material Design 3 Icon Buttons</a
           >
-          pattern. It listens to <code class="doc-code">window</code> scroll and switches to an elevated,
-          tinted surface once the page scrolls past 10px.
+          pattern: standard, filled, tonal, and outlined emphasis levels, all icon-only.
+        </Body>
+        <Body>
+          Because there's no visible label, always pass <code class="doc-code">tooltipContent</code>
+          — it's wrapped in a <code class="doc-code">Tooltip</code> internally, giving both a visual
+          hint on hover and a text alternative for assistive tech. Set
+          <code class="doc-code">variation="toggle"</code> for a two-state icon button (e.g.
+          bookmark, mute) — it swaps the underlying element for Bits UI's
+          <code class="doc-code">Toggle.Root</code>.
         </Body>
       </section>
 
       <section id="import" class="mb-12 flex flex-col gap-4 scroll-mt-6">
         <Title>Import</Title>
-        <CodeBlock lang="typescript" code={`import { AppBar } from '@noxlovette/material';`} />
+        <CodeBlock lang="typescript" code={`import { ButtonIcon } from '@noxlovette/material';`} />
       </section>
 
       <section id="demo" class="mb-12 flex flex-col gap-4 scroll-mt-6">
@@ -134,7 +196,7 @@
 
         <div class="flex flex-col gap-3 sm:flex-row">
           <a
-            href={storybookStoryUrl('navigation-app-bar--playground')}
+            href={storybookStoryUrl('buttons-button-icon--playground')}
             target="_blank"
             rel="noopener noreferrer"
             class="bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container flex items-center gap-2 rounded-2xl p-4 no-underline transition-opacity hover:opacity-90"
@@ -143,21 +205,21 @@
             <div>
               <p class="md-sys-typescale-title-small">Playground</p>
               <Body class="text-md-sys-color-on-secondary-container/80 text-sm"
-                >Title, subtitle, showBack, and ghost Controls.</Body
+                >Variant, color, size, width, and variation Controls.</Body
               >
             </div>
           </a>
           <a
-            href={storybookStoryUrl('navigation-app-bar--with-back-and-subtitle')}
+            href={storybookStoryUrl('buttons-button-icon--toggle')}
             target="_blank"
             rel="noopener noreferrer"
             class="bg-md-sys-color-surface-container flex items-center gap-2 rounded-2xl p-4 no-underline transition-opacity hover:opacity-90"
           >
             <Icon name="widgets" />
             <div>
-              <p class="md-sys-typescale-title-small">With Back and Subtitle</p>
+              <p class="md-sys-typescale-title-small">Toggle</p>
               <Body class="text-md-sys-color-on-surface-variant text-sm"
-                >A detail-screen bar with a back button and subtitle.</Body
+                >A two-state toggle icon button.</Body
               >
             </div>
           </a>
@@ -166,27 +228,30 @@
 
       <section id="basic-usage" class="mb-12 flex flex-col gap-4 scroll-mt-6">
         <Title>Basic Usage</Title>
-        <Body>
-          <code class="doc-code">AppBar</code> is fixed and mobile-only; give it
-          <code class="doc-code">ghost</code> so page content isn't hidden underneath it:
-        </Body>
+        <Body>Always pair the icon with tooltip text to describe the action:</Body>
 
         <CodeBlock
           code={`<script lang="ts">
-  import { AppBar, ButtonIcon } from '@noxlovette/material';
+  import { ButtonIcon } from '@noxlovette/material';
 <\/script>
 
-<AppBar title="Inbox" ghost>
-  {#snippet trailing()}
-    <ButtonIcon variant="text" iconProps={{ name: 'search' }} />
-    <ButtonIcon variant="text" iconProps={{ name: 'more_vert' }} />
-  {/snippet}
-</AppBar>`}
+<ButtonIcon
+  variant="tonal"
+  iconProps={{ name: 'search' }}
+  tooltipContent="Search"
+/>
+
+<!-- Toggle variation -->
+<ButtonIcon
+  variation="toggle"
+  iconProps={{ name: 'bookmark' }}
+  tooltipContent="Save"
+/>`}
         />
       </section>
 
-      <section id="appbar-props" class="mb-12 flex flex-col gap-4 scroll-mt-6">
-        <Title>AppBar Props</Title>
+      <section id="buttonicon-props" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+        <Title>ButtonIcon Props</Title>
         <div class="overflow-x-auto rounded-xl border border-black/5">
           <table class="w-full border-collapse text-sm">
             <thead>
@@ -206,7 +271,7 @@
               </tr>
             </thead>
             <tbody>
-              {#each appBarProps as row}
+              {#each buttonIconProps as row}
                 <tr
                   class="even:bg-md-sys-color-surface-container/30 border-md-sys-color-outline-variant/50 border-b last:border-b-0"
                 >
@@ -246,7 +311,7 @@
       <section id="accessibility" class="mb-12 flex flex-col gap-4 scroll-mt-6">
         <Title>Accessibility</Title>
         <div class="flex flex-col gap-3">
-          {#each [{ icon: 'title', title: 'Heading semantics', desc: 'The title renders as an <h1>, giving screen readers a clear page-level heading.' }, { icon: 'smartphone', title: 'Landmark', desc: 'The bar renders as a <nav> element, announced as a landmark by assistive technology.' }] as item}
+          {#each [{ icon: 'label', title: 'Accessible name', desc: 'tooltipContent doubles as the only visible/announced description of the action — always provide it since there is no text label.' }, { icon: 'toggle_on', title: 'Toggle semantics', desc: 'variation="toggle" uses Bits UI\'s Toggle.Root, which exposes aria-pressed for the pressed/unpressed state.' }, { icon: 'block', title: 'Disabled state', desc: 'disabled removes the button from the tab order and exposes the disabled attribute to assistive tech.' }] as item}
             <Card class="flex items-start gap-4 p-4">
               <div
                 class="bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container flex h-9 w-9 shrink-0 items-center justify-center rounded-full"
@@ -266,17 +331,17 @@
         class="border-md-sys-color-outline-variant flex items-center justify-between border-t pt-8"
       >
         <a
-          href="/docs/tabs"
-          class="text-md-sys-color-primary flex items-center gap-1 text-sm no-underline hover:underline"
-        >
-          <Icon name="arrow_back" size="sm" />
-          Previous: Tabs
-        </a>
-        <a
           href="/docs/button"
           class="text-md-sys-color-primary flex items-center gap-1 text-sm no-underline hover:underline"
         >
-          Next: Button
+          <Icon name="arrow_back" size="sm" />
+          Previous: Button
+        </a>
+        <a
+          href="/docs/fab"
+          class="text-md-sys-color-primary flex items-center gap-1 text-sm no-underline hover:underline"
+        >
+          Next: FAB
           <Icon name="arrow_forward" size="sm" />
         </a>
       </footer></SinglePane

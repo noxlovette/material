@@ -7,43 +7,18 @@
 
   type PropRow = { prop: string; type: string; default: string; required?: boolean; desc: string };
 
-  const appBarProps: PropRow[] = [
+  const pillProps: PropRow[] = [
     {
-      prop: 'title',
-      type: 'string',
-      default: '—',
-      required: true,
-      desc: 'The screen title.'
-    },
-    {
-      prop: 'subtitle',
-      type: 'string',
-      default: '—',
-      desc: 'Optional subtitle rendered below the title.'
-    },
-    {
-      prop: 'leading',
+      prop: 'children',
       type: 'Snippet',
       default: '—',
-      desc: 'Content on the left, e.g. a back button (see showBack) or a menu icon.'
+      desc: "The pill's content, usually a short text label."
     },
     {
-      prop: 'trailing',
-      type: 'Snippet',
-      default: '—',
-      desc: 'Action icons rendered on the right.'
-    },
-    {
-      prop: 'showBack',
-      type: 'boolean',
-      default: 'false',
-      desc: 'Reserves leading space for a back button. Combine with the leading snippet to render one.'
-    },
-    {
-      prop: 'ghost',
-      type: 'boolean',
-      default: 'false',
-      desc: 'Renders an invisible same-height spacer after the fixed bar so content below it is not obscured.'
+      prop: 'variant',
+      type: '"primary" | "secondary" | "tertiary" | "error" | "container" | "primary-container" | "secondary-container" | "tertiary-container" | "error-container" | "yellow" | "green"',
+      default: '"primary"',
+      desc: 'Color styling. The five system-color options reuse the filled button color roles; container/tonal-container variants are lower-emphasis; yellow/green are fixed accent colors for status-style labels.'
     }
   ];
 
@@ -52,13 +27,13 @@
     { id: 'import', label: 'Import' },
     { id: 'demo', label: 'Live Demo' },
     { id: 'basic-usage', label: 'Basic Usage' },
-    { id: 'appbar-props', label: 'AppBar Props' },
+    { id: 'pill-props', label: 'Pill Props' },
     { id: 'accessibility', label: 'Accessibility' }
   ];
 </script>
 
 <svelte:head>
-  <title>App Bar — Ogonëk M3 Docs</title>
+  <title>Pill — Ogonëk M3 Docs</title>
 </svelte:head>
 
 <SupportingPane anchor="viewport" position="right" collapsible={false} rounded={false} gap="none">
@@ -71,10 +46,10 @@
               <li><a href="/docs" class="hover:text-md-sys-color-primary no-underline">Docs</a></li>
               <li class="mx-1 opacity-40">/</li>
               <li>
-                <a href="/docs" class="hover:text-md-sys-color-primary no-underline">Navigation</a>
+                <a href="/docs" class="hover:text-md-sys-color-primary no-underline">Clickables</a>
               </li>
               <li class="mx-1 opacity-40">/</li>
-              <li class="text-md-sys-color-on-surface font-medium">App Bar</li>
+              <li class="text-md-sys-color-on-surface font-medium">Pill</li>
             </ol>
           </nav>
           <span
@@ -83,25 +58,14 @@
           >
         </div>
 
-        <Headline>Top App Bar</Headline>
+        <Headline>Pill</Headline>
         <Body class="text-md-sys-color-on-surface-variant max-w-2xl">
-          App Bars sit at the top of the screen for branding, titles, and actions. This
-          implementation is mobile-only (<code class="doc-code">md:hidden</code>) — on larger
-          screens the title and actions typically move into the <code class="doc-code">Rail</code>'s
-          footer or a page header instead.
+          A small rounded label for a short piece of static text — a status word, a count, a
+          category tag. <code class="doc-code">Pill</code> renders a plain
+          <code class="doc-code">&lt;div&gt;</code>: it has no click handler, dismiss affordance, or
+          selected state, so despite the visual similarity it is not this library's implementation
+          of M3 Chips.
         </Body>
-
-        <div class="flex flex-wrap gap-2 pt-1">
-          <a
-            href="https://m3.material.io/components/top-app-bar/overview"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-md-sys-color-primary flex items-center gap-1 text-sm no-underline hover:underline"
-          >
-            M3 Spec
-            <Icon name="open_in_new" size="xs" class="opacity-60" />
-          </a>
-        </div>
       </header>
 
       <Divider class="mb-12" />
@@ -109,21 +73,28 @@
       <section id="overview" class="mb-12 flex flex-col gap-4 scroll-mt-6">
         <Title>Overview</Title>
         <Body>
-          The <code class="doc-code">AppBar</code> component implements the
-          <a
-            href="https://m3.material.io/components/top-app-bar/overview"
+          <code class="doc-code">Pill</code> is a lightweight, presentational-only label component.
+          It shares the filled-button color classes for its system-color variants (so it always
+          matches the active theme), plus two fixed accent colors (<code class="doc-code"
+            >yellow</code
+          >
+          / <code class="doc-code">green</code>) for status-style badges (e.g. "New", "Beta") that
+          should read consistently regardless of the active color scheme.
+        </Body>
+        <Body>
+          If you need an interactive, selectable, or dismissible tag — the actual M3 <a
+            href="https://m3.material.io/components/chips/overview"
             target="_blank"
             rel="noopener noreferrer"
-            class="text-md-sys-color-primary">Material Design 3 Top App Bar</a
-          >
-          pattern. It listens to <code class="doc-code">window</code> scroll and switches to an elevated,
-          tinted surface once the page scrolls past 10px.
+            class="text-md-sys-color-primary">Chips</a
+          > pattern — reach for a different component; this library does not currently ship one under
+          that name.
         </Body>
       </section>
 
       <section id="import" class="mb-12 flex flex-col gap-4 scroll-mt-6">
         <Title>Import</Title>
-        <CodeBlock lang="typescript" code={`import { AppBar } from '@noxlovette/material';`} />
+        <CodeBlock lang="typescript" code={`import { Pill } from '@noxlovette/material';`} />
       </section>
 
       <section id="demo" class="mb-12 flex flex-col gap-4 scroll-mt-6">
@@ -132,61 +103,35 @@
           See it live, with Controls, in Storybook rather than a hand-rolled preview here.
         </Body>
 
-        <div class="flex flex-col gap-3 sm:flex-row">
-          <a
-            href={storybookStoryUrl('navigation-app-bar--playground')}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container flex items-center gap-2 rounded-2xl p-4 no-underline transition-opacity hover:opacity-90"
-          >
-            <Icon name="widgets" />
-            <div>
-              <p class="md-sys-typescale-title-small">Playground</p>
-              <Body class="text-md-sys-color-on-secondary-container/80 text-sm"
-                >Title, subtitle, showBack, and ghost Controls.</Body
-              >
-            </div>
-          </a>
-          <a
-            href={storybookStoryUrl('navigation-app-bar--with-back-and-subtitle')}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="bg-md-sys-color-surface-container flex items-center gap-2 rounded-2xl p-4 no-underline transition-opacity hover:opacity-90"
-          >
-            <Icon name="widgets" />
-            <div>
-              <p class="md-sys-typescale-title-small">With Back and Subtitle</p>
-              <Body class="text-md-sys-color-on-surface-variant text-sm"
-                >A detail-screen bar with a back button and subtitle.</Body
-              >
-            </div>
-          </a>
-        </div>
+        <a
+          href={storybookStoryUrl('pill-pill--playground')}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container flex items-center gap-2 rounded-2xl p-4 no-underline transition-opacity hover:opacity-90 sm:max-w-sm"
+        >
+          <Icon name="widgets" />
+          <div>
+            <p class="md-sys-typescale-title-small">Playground</p>
+            <Body class="text-md-sys-color-on-secondary-container/80 text-sm"
+              >Variant Control over all eleven color options.</Body
+            >
+          </div>
+        </a>
       </section>
 
       <section id="basic-usage" class="mb-12 flex flex-col gap-4 scroll-mt-6">
         <Title>Basic Usage</Title>
-        <Body>
-          <code class="doc-code">AppBar</code> is fixed and mobile-only; give it
-          <code class="doc-code">ghost</code> so page content isn't hidden underneath it:
-        </Body>
-
         <CodeBlock
           code={`<script lang="ts">
-  import { AppBar, ButtonIcon } from '@noxlovette/material';
+  import { Pill } from '@noxlovette/material';
 <\/script>
 
-<AppBar title="Inbox" ghost>
-  {#snippet trailing()}
-    <ButtonIcon variant="text" iconProps={{ name: 'search' }} />
-    <ButtonIcon variant="text" iconProps={{ name: 'more_vert' }} />
-  {/snippet}
-</AppBar>`}
+<Pill variant="primary-container">New</Pill>`}
         />
       </section>
 
-      <section id="appbar-props" class="mb-12 flex flex-col gap-4 scroll-mt-6">
-        <Title>AppBar Props</Title>
+      <section id="pill-props" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+        <Title>Pill Props</Title>
         <div class="overflow-x-auto rounded-xl border border-black/5">
           <table class="w-full border-collapse text-sm">
             <thead>
@@ -206,7 +151,7 @@
               </tr>
             </thead>
             <tbody>
-              {#each appBarProps as row}
+              {#each pillProps as row}
                 <tr
                   class="even:bg-md-sys-color-surface-container/30 border-md-sys-color-outline-variant/50 border-b last:border-b-0"
                 >
@@ -246,7 +191,7 @@
       <section id="accessibility" class="mb-12 flex flex-col gap-4 scroll-mt-6">
         <Title>Accessibility</Title>
         <div class="flex flex-col gap-3">
-          {#each [{ icon: 'title', title: 'Heading semantics', desc: 'The title renders as an <h1>, giving screen readers a clear page-level heading.' }, { icon: 'smartphone', title: 'Landmark', desc: 'The bar renders as a <nav> element, announced as a landmark by assistive technology.' }] as item}
+          {#each [{ icon: 'contrast', title: 'Color pairing', desc: 'Every variant pairs a background with its matching on-* text color token, guaranteeing AA contrast by construction.' }, { icon: 'block', title: 'Not a control', desc: 'Pill renders a plain <div> with no interactive role — do not use it for anything the user needs to activate; use Button, ButtonIcon, or Toggle instead.' }] as item}
             <Card class="flex items-start gap-4 p-4">
               <div
                 class="bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container flex h-9 w-9 shrink-0 items-center justify-center rounded-full"
@@ -266,17 +211,17 @@
         class="border-md-sys-color-outline-variant flex items-center justify-between border-t pt-8"
       >
         <a
-          href="/docs/tabs"
+          href="/docs/toggle"
           class="text-md-sys-color-primary flex items-center gap-1 text-sm no-underline hover:underline"
         >
           <Icon name="arrow_back" size="sm" />
-          Previous: Tabs
+          Previous: Toggle
         </a>
         <a
-          href="/docs/button"
+          href="/docs/textfield"
           class="text-md-sys-color-primary flex items-center gap-1 text-sm no-underline hover:underline"
         >
-          Next: Button
+          Next: Textfield
           <Icon name="arrow_forward" size="sm" />
         </a>
       </footer></SinglePane

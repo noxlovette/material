@@ -7,43 +7,54 @@
 
   type PropRow = { prop: string; type: string; default: string; required?: boolean; desc: string };
 
-  const appBarProps: PropRow[] = [
+  const toggleProps: PropRow[] = [
     {
-      prop: 'title',
-      type: 'string',
-      default: '—',
-      required: true,
-      desc: 'The screen title.'
-    },
-    {
-      prop: 'subtitle',
-      type: 'string',
-      default: '—',
-      desc: 'Optional subtitle rendered below the title.'
-    },
-    {
-      prop: 'leading',
-      type: 'Snippet',
-      default: '—',
-      desc: 'Content on the left, e.g. a back button (see showBack) or a menu icon.'
-    },
-    {
-      prop: 'trailing',
-      type: 'Snippet',
-      default: '—',
-      desc: 'Action icons rendered on the right.'
-    },
-    {
-      prop: 'showBack',
+      prop: 'pressed',
       type: 'boolean',
       default: 'false',
-      desc: 'Reserves leading space for a back button. Combine with the leading snippet to render one.'
+      desc: 'Whether the toggle is currently pressed/selected. Bindable.'
     },
     {
-      prop: 'ghost',
+      prop: 'onPressedChange',
+      type: '(pressed: boolean) => void',
+      default: '—',
+      desc: 'Callback fired when the pressed state changes.'
+    },
+    {
+      prop: 'children',
+      type: 'Snippet',
+      default: '—',
+      desc: 'Label content inside the toggle.'
+    },
+    {
+      prop: 'iconProps',
+      type: 'IconProps',
+      default: '—',
+      desc: 'Optional leading icon.'
+    },
+    {
+      prop: 'size',
+      type: '"xs" | "sm" | "md" | "lg" | "xl"',
+      default: '"md"',
+      desc: 'Controls height, padding, and typescale (shared with Button).'
+    },
+    {
+      prop: 'shape',
+      type: '"round" | "square"',
+      default: '"round"',
+      desc: 'Fully rounded or slightly rounded corners.'
+    },
+    {
+      prop: 'disabled',
       type: 'boolean',
       default: 'false',
-      desc: 'Renders an invisible same-height spacer after the fixed bar so content below it is not obscured.'
+      desc: 'Disables the toggle.'
+    },
+    {
+      prop: 'loading',
+      type: 'boolean',
+      default: 'false',
+      desc: 'Shows a LoadingIndicator in place of the icon/label.'
     }
   ];
 
@@ -52,13 +63,13 @@
     { id: 'import', label: 'Import' },
     { id: 'demo', label: 'Live Demo' },
     { id: 'basic-usage', label: 'Basic Usage' },
-    { id: 'appbar-props', label: 'AppBar Props' },
+    { id: 'toggle-props', label: 'Toggle Props' },
     { id: 'accessibility', label: 'Accessibility' }
   ];
 </script>
 
 <svelte:head>
-  <title>App Bar — Ogonëk M3 Docs</title>
+  <title>Toggle — Ogonëk M3 Docs</title>
 </svelte:head>
 
 <SupportingPane anchor="viewport" position="right" collapsible={false} rounded={false} gap="none">
@@ -71,10 +82,10 @@
               <li><a href="/docs" class="hover:text-md-sys-color-primary no-underline">Docs</a></li>
               <li class="mx-1 opacity-40">/</li>
               <li>
-                <a href="/docs" class="hover:text-md-sys-color-primary no-underline">Navigation</a>
+                <a href="/docs" class="hover:text-md-sys-color-primary no-underline">Clickables</a>
               </li>
               <li class="mx-1 opacity-40">/</li>
-              <li class="text-md-sys-color-on-surface font-medium">App Bar</li>
+              <li class="text-md-sys-color-on-surface font-medium">Toggle</li>
             </ol>
           </nav>
           <span
@@ -83,17 +94,16 @@
           >
         </div>
 
-        <Headline>Top App Bar</Headline>
+        <Headline>Toggle</Headline>
         <Body class="text-md-sys-color-on-surface-variant max-w-2xl">
-          App Bars sit at the top of the screen for branding, titles, and actions. This
-          implementation is mobile-only (<code class="doc-code">md:hidden</code>) — on larger
-          screens the title and actions typically move into the <code class="doc-code">Rail</code>'s
-          footer or a page header instead.
+          A single stateful button that switches between pressed and unpressed states — for
+          standalone options like "show password" or a bold/italic formatting toggle, as opposed to
+          a mutually-exclusive group.
         </Body>
 
         <div class="flex flex-wrap gap-2 pt-1">
           <a
-            href="https://m3.material.io/components/top-app-bar/overview"
+            href="https://m3.material.io/components/buttons/overview"
             target="_blank"
             rel="noopener noreferrer"
             class="text-md-sys-color-primary flex items-center gap-1 text-sm no-underline hover:underline"
@@ -109,21 +119,30 @@
       <section id="overview" class="mb-12 flex flex-col gap-4 scroll-mt-6">
         <Title>Overview</Title>
         <Body>
-          The <code class="doc-code">AppBar</code> component implements the
+          Material 3 doesn't define a standalone "toggle button" component page — the selected/
+          pressed button state it covers is described as part of the
           <a
-            href="https://m3.material.io/components/top-app-bar/overview"
+            href="https://m3.material.io/components/buttons/overview"
             target="_blank"
             rel="noopener noreferrer"
-            class="text-md-sys-color-primary">Material Design 3 Top App Bar</a
+            class="text-md-sys-color-primary">Buttons</a
           >
-          pattern. It listens to <code class="doc-code">window</code> scroll and switches to an elevated,
-          tinted surface once the page scrolls past 10px.
+          spec. Accordingly, <code class="doc-code">Toggle</code> reuses Button's own theme under
+          <code class="doc-code">usage: 'selection'</code>, giving it the same sizing and shape
+          scale as <code class="doc-code">Button</code>, but with a binary pressed/unpressed visual
+          state instead of variant/color styling.
+        </Body>
+        <Body>
+          It's not restricted to icon-only content like an icon toggle button, and it doesn't
+          coordinate selection across a group like <code class="doc-code">ButtonGroup</code> or a
+          segmented-button row — it's a single independent on/off control. Under the hood it renders
+          Bits UI's <code class="doc-code">Toggle.Root</code>.
         </Body>
       </section>
 
       <section id="import" class="mb-12 flex flex-col gap-4 scroll-mt-6">
         <Title>Import</Title>
-        <CodeBlock lang="typescript" code={`import { AppBar } from '@noxlovette/material';`} />
+        <CodeBlock lang="typescript" code={`import { Toggle } from '@noxlovette/material';`} />
       </section>
 
       <section id="demo" class="mb-12 flex flex-col gap-4 scroll-mt-6">
@@ -134,7 +153,7 @@
 
         <div class="flex flex-col gap-3 sm:flex-row">
           <a
-            href={storybookStoryUrl('navigation-app-bar--playground')}
+            href={storybookStoryUrl('buttons-toggle--playground')}
             target="_blank"
             rel="noopener noreferrer"
             class="bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container flex items-center gap-2 rounded-2xl p-4 no-underline transition-opacity hover:opacity-90"
@@ -143,21 +162,21 @@
             <div>
               <p class="md-sys-typescale-title-small">Playground</p>
               <Body class="text-md-sys-color-on-secondary-container/80 text-sm"
-                >Title, subtitle, showBack, and ghost Controls.</Body
+                >Size, shape, pressed, disabled, and loading Controls.</Body
               >
             </div>
           </a>
           <a
-            href={storybookStoryUrl('navigation-app-bar--with-back-and-subtitle')}
+            href={storybookStoryUrl('buttons-toggle--with-icon')}
             target="_blank"
             rel="noopener noreferrer"
             class="bg-md-sys-color-surface-container flex items-center gap-2 rounded-2xl p-4 no-underline transition-opacity hover:opacity-90"
           >
             <Icon name="widgets" />
             <div>
-              <p class="md-sys-typescale-title-small">With Back and Subtitle</p>
+              <p class="md-sys-typescale-title-small">With Icon</p>
               <Body class="text-md-sys-color-on-surface-variant text-sm"
-                >A detail-screen bar with a back button and subtitle.</Body
+                >Toggles combining an icon and a label.</Body
               >
             </div>
           </a>
@@ -166,27 +185,23 @@
 
       <section id="basic-usage" class="mb-12 flex flex-col gap-4 scroll-mt-6">
         <Title>Basic Usage</Title>
-        <Body>
-          <code class="doc-code">AppBar</code> is fixed and mobile-only; give it
-          <code class="doc-code">ghost</code> so page content isn't hidden underneath it:
-        </Body>
+        <Body><code class="doc-code">pressed</code> is bindable:</Body>
 
         <CodeBlock
           code={`<script lang="ts">
-  import { AppBar, ButtonIcon } from '@noxlovette/material';
+  import { Toggle } from '@noxlovette/material';
+
+  let bold = $state(false);
 <\/script>
 
-<AppBar title="Inbox" ghost>
-  {#snippet trailing()}
-    <ButtonIcon variant="text" iconProps={{ name: 'search' }} />
-    <ButtonIcon variant="text" iconProps={{ name: 'more_vert' }} />
-  {/snippet}
-</AppBar>`}
+<Toggle bind:pressed={bold} iconProps={{ name: 'format_bold' }}>
+  Bold
+</Toggle>`}
         />
       </section>
 
-      <section id="appbar-props" class="mb-12 flex flex-col gap-4 scroll-mt-6">
-        <Title>AppBar Props</Title>
+      <section id="toggle-props" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+        <Title>Toggle Props</Title>
         <div class="overflow-x-auto rounded-xl border border-black/5">
           <table class="w-full border-collapse text-sm">
             <thead>
@@ -206,7 +221,7 @@
               </tr>
             </thead>
             <tbody>
-              {#each appBarProps as row}
+              {#each toggleProps as row}
                 <tr
                   class="even:bg-md-sys-color-surface-container/30 border-md-sys-color-outline-variant/50 border-b last:border-b-0"
                 >
@@ -246,7 +261,7 @@
       <section id="accessibility" class="mb-12 flex flex-col gap-4 scroll-mt-6">
         <Title>Accessibility</Title>
         <div class="flex flex-col gap-3">
-          {#each [{ icon: 'title', title: 'Heading semantics', desc: 'The title renders as an <h1>, giving screen readers a clear page-level heading.' }, { icon: 'smartphone', title: 'Landmark', desc: 'The bar renders as a <nav> element, announced as a landmark by assistive technology.' }] as item}
+          {#each [{ icon: 'toggle_on', title: 'Pressed state', desc: "Bits UI's Toggle.Root exposes aria-pressed, so assistive tech announces the on/off state directly." }, { icon: 'label', title: 'Icon-only toggles', desc: 'If used with iconProps and no children, give the icon an unambiguous meaning or add a visually-hidden label — there is no built-in tooltip like ButtonIcon.' }, { icon: 'block', title: 'Disabled state', desc: 'disabled removes the toggle from the tab order and exposes the disabled attribute to assistive tech.' }] as item}
             <Card class="flex items-start gap-4 p-4">
               <div
                 class="bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container flex h-9 w-9 shrink-0 items-center justify-center rounded-full"
@@ -266,17 +281,17 @@
         class="border-md-sys-color-outline-variant flex items-center justify-between border-t pt-8"
       >
         <a
-          href="/docs/tabs"
+          href="/docs/fab"
           class="text-md-sys-color-primary flex items-center gap-1 text-sm no-underline hover:underline"
         >
           <Icon name="arrow_back" size="sm" />
-          Previous: Tabs
+          Previous: FAB
         </a>
         <a
-          href="/docs/button"
+          href="/docs/pill"
           class="text-md-sys-color-primary flex items-center gap-1 text-sm no-underline hover:underline"
         >
-          Next: Button
+          Next: Pill
           <Icon name="arrow_forward" size="sm" />
         </a>
       </footer></SinglePane
