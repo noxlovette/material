@@ -47,7 +47,7 @@ Powered by bits-ui for accessibility and behavior.
   });
 </script>
 
-<div class={clsx('relative w-full', className)}>
+<div class={cls.root({ class: className })}>
   <div class={cls.base()}>
     {#if leadingIconProps}
       <Icon class={cls.leadingIcon()} {...leadingIconProps} />
