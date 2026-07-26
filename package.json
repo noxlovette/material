@@ -51,7 +51,7 @@
     "@storybook/addon-a11y": "10.5.2",
     "@storybook/addon-docs": "10.5.2",
     "@storybook/addon-svelte-csf": "5.1.2",
-    "@storybook/svelte-vite": "10.5.2",
+    "@storybook/svelte-vite": "10.5.4",
     "@sveltejs/adapter-static": "^3.0.10",
     "@sveltejs/kit": "^2.69.3",
     "@sveltejs/package": "^2.5.8",
