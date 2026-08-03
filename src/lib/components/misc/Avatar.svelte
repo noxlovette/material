@@ -14,6 +14,7 @@ Avatars can be used to represent people or objects.
     src,
     alt = 'User avatar',
     seed = 'ogonek',
+    dicebearStyle = 'shapes',
     size = 'lg',
     loadingStatus = $bindable('loading'),
     class: className,
@@ -22,7 +23,6 @@ Avatars can be used to represent people or objects.
   }: AvatarProps = $props();
 
   const materialPalette = ['e8f0fe', 'e8f5e9', 'fff7e6', 'fde7ec', 'e3f2fd'];
-  const dicebearBaseUrl = 'https://api.dicebear.com/9.x/shapes/svg';
   const sizeMap = {
     sm: 48,
     md: 72,
@@ -38,7 +38,7 @@ Avatars can be used to represent people or objects.
       backgroundColor: materialPalette.join(',')
     });
 
-    return `${dicebearBaseUrl}?${params.toString()}`;
+    return `https://api.dicebear.com/9.x/${dicebearStyle}/svg?${params.toString()}`;
   });
 
   const { root, image, fallback, button } = $derived(avatar({ size }));
