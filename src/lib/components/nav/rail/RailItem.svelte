@@ -88,6 +88,7 @@ In mobile (navbar) mode the same item renders as a bottom-bar tab.
       <a
         {...props}
         {...rest}
+        href={hrefValue}
         {target}
         {rel}
         aria-disabled={ariaDisabled}

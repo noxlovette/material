@@ -17,6 +17,7 @@
   let dialogueOpen = $state(false);
   let snackbarMessage = $state('');
 
+  // svelte-ignore state_referenced_locally (superForm takes a one-time snapshot of initial form data by design)
   const { form, errors, enhance } = superForm(data.form, {
     resetForm: true,
     onUpdated({ form }) {
@@ -26,6 +27,7 @@
     }
   });
 
+  // svelte-ignore state_referenced_locally (superForm takes a one-time snapshot of initial form data by design)
   const {
     form: dForm,
     errors: dErrors,

@@ -30,7 +30,7 @@ Use TabContent for content-panel tabs; omit it for navigation (href) tabs.
 
 <Tabs.Root bind:value {onValueChange} {activationMode}>
   <Tabs.List class={base()}>
-    {#each items as item}
+    {#each items as item (item)}
       <Tab {...item} {variant} />
     {/each}
 

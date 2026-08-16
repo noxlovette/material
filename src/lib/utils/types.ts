@@ -14,8 +14,7 @@ export const xl = 'xl';
 export type SizeType = typeof xs | typeof sm | typeof md | typeof lg | typeof xl;
 
 export type AnchorButtonAttributes =
-  | ({ href: string } & HTMLAnchorAttributes)
-  | ({ href?: undefined } & HTMLButtonAttributes);
+  ({ href: string } & HTMLAnchorAttributes) | ({ href?: undefined } & HTMLButtonAttributes);
 
 export type LabelAttrs = HTMLLabelAttributes & Required<Pick<HTMLLabelAttributes, 'for'>>;
 

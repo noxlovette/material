@@ -62,7 +62,6 @@ SupportingPane provides a layout with a main content area and a supporting side 
     mobileTriggerClass
   }: SupportingPaneProps = $props();
 
-  let entered = $state(false);
   let supportingVisible = $state(true);
   let mobileSheetOpen = $state(false);
   let isLargeScreen = $state(false);
@@ -140,7 +139,6 @@ SupportingPane provides a layout with a main content area and a supporting side 
       class={supportingCls({
         class: clsx(supportingClass, inlineSupportingClass)
       })}
-      data-entered={entered}
       data-position={position}
     >
       {@render supporting()}

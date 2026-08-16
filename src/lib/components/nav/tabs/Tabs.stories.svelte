@@ -33,10 +33,11 @@
 <Story name="Playground">
   {#snippet template(args)}
     <div class="flex flex-col gap-4">
-      <TabHolder {...args} {items} />
-      <TabContent value="flights"><Body>Flights panel content.</Body></TabContent>
-      <TabContent value="trips"><Body>Trips panel content.</Body></TabContent>
-      <TabContent value="explore"><Body>Explore panel content.</Body></TabContent>
+      <TabHolder {...args} {items}>
+        <TabContent value="flights"><Body>Flights panel content.</Body></TabContent>
+        <TabContent value="trips"><Body>Trips panel content.</Body></TabContent>
+        <TabContent value="explore"><Body>Explore panel content.</Body></TabContent>
+      </TabHolder>
     </div>
   {/snippet}
 </Story>

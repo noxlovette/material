@@ -149,10 +149,9 @@
         <Title>Overview</Title>
         <Body>
           All three components are built on bits-ui's <code class="doc-code">Progress.Root</code>
-          for the underlying ARIA semantics, and share the same determinate/indeterminate
-          convention: pass a <code class="doc-code">percent</code> between 0–100 for a determinate
-          indicator, or omit it (or pass <code class="doc-code">null</code>) for an indeterminate
-          one.
+          for the underlying ARIA semantics, and share the same determinate/indeterminate convention:
+          pass a <code class="doc-code">percent</code> between 0–100 for a determinate indicator, or
+          omit it (or pass <code class="doc-code">null</code>) for an indeterminate one.
         </Body>
         <Body>
           <code class="doc-code">CircularProgress</code> and

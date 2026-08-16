@@ -9,7 +9,7 @@ Powered by bits-ui for accessibility.
 @see https://m3.material.io/components/divider/overview
 -->
 <script lang="ts">
-  import { Separator } from 'bits-ui';
+  import { Separator, type SeparatorRootProps } from 'bits-ui';
   import clsx from 'clsx';
   import { hr } from './theme.js';
   import type { HrProps } from './types.js';
@@ -33,7 +33,6 @@ Powered by bits-ui for accessibility.
   );
   let insetClass = $derived(variant === 'inset' ? 'mr-2 ml-4' : '');
 
-  let host = $state<HTMLDivElement | null>(null);
   let width = $state(0);
   let waveHeight = 12;
   let waveThickness = 1;
@@ -43,23 +42,20 @@ Powered by bits-ui for accessibility.
   let right = $derived(Math.max(left, width - waveThickness * 0.5));
   let wavePath = $derived(width > 0 ? linear(waveAmp, waveCenter, left, right, 0) : '');
 
-  $effect(() => {
-    if (variant !== 'wavy' || !host || typeof window === 'undefined') return;
+  function trackWidth(node: HTMLElement) {
     const observer = new ResizeObserver((entries) => {
       const entry = entries[0];
       width = Math.max(0, entry?.contentRect.width ?? 0);
     });
-    observer.observe(host);
-    return () => {
-      observer.disconnect();
-    };
-  });
+    observer.observe(node);
+    return () => observer.disconnect();
+  }
 </script>
 
 {#if variant === 'wavy'}
   <div
     {...restProps}
-    bind:this={host}
+    {@attach trackWidth}
     class={clsx('w-full', insetClass, className)}
     role={decorative ? 'none' : 'separator'}
     aria-orientation={orientation}
@@ -96,5 +92,10 @@ Powered by bits-ui for accessibility.
     <div class={lineClass}></div>
   </div>
 {:else}
-  <Separator.Root {...restProps} {orientation} {decorative} class={clsx(styling, className)} />
+  <Separator.Root
+    {...restProps as SeparatorRootProps}
+    {orientation}
+    {decorative}
+    class={clsx(styling, className)}
+  />
 {/if}

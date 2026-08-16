@@ -1,4 +1,4 @@
-import type { SeparatorRootProps } from 'bits-ui';
+import type { DivAttrs } from '$lib/utils/types.js';
 import type { Snippet } from 'svelte';
 import type { HrVariants } from './theme.js';
 
@@ -6,7 +6,7 @@ import type { HrVariants } from './theme.js';
  * Props for the Divider component.
  * Dividers are thin lines that group content in lists and layouts.
  */
-export interface HrProps extends HrVariants, Omit<SeparatorRootProps, 'children' | 'orientation'> {
+export interface HrProps extends HrVariants, DivAttrs {
   /**
    * Optional content to be rendered within the divider (horizontal only).
    * If provided, the divider will show the content centered between two lines.
@@ -25,4 +25,9 @@ export interface HrProps extends HrVariants, Omit<SeparatorRootProps, 'children'
    * @default 'full'
    */
   variant?: HrVariants['variant'];
+  /**
+   * Whether the separator is decorative and should be hidden from assistive technologies.
+   * @default true
+   */
+  decorative?: boolean;
 }

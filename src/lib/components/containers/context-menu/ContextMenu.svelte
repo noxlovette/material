@@ -76,7 +76,7 @@ Context menus appear on right-click and provide actions related to the clicked e
                     mode: 'scale'
                   }}
                 >
-                  {#each item.items as subItem}
+                  {#each item.items as subItem (subItem)}
                     {@render MenuItem(subItem)}
                   {/each}
                 </div>
@@ -139,7 +139,7 @@ Context menus appear on right-click and provide actions related to the clicked e
                 mode: 'scale'
               }}
             >
-              {#each items as item}
+              {#each items as item (item)}
                 {@render MenuItem(item)}
               {/each}
             </div>

@@ -24,6 +24,7 @@ It follows the Material 3 design for time input pickers.
 
   const cls = timepicker();
 
+  // svelte-ignore state_referenced_locally (timeValue is a one-time editable seed from `time`, then mutated locally via bind:value)
   let timeValue = $state<Time>(parseTime(time?.includes(':') ? time : '00:00'));
 
   const output = $derived(
