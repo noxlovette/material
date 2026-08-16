@@ -120,7 +120,8 @@
 
     document.addEventListener('pointerdown', (e) => {
       if (e.button !== 0) return;
-      const layer = (e.target as Element).closest('.m3-layer');
+      if (!(e.target instanceof Element)) return;
+      const layer = e.target.closest('.m3-layer');
       if (!layer || !isEnabled(layer)) return;
       const rect = layer.getBoundingClientRect();
       const cancel = createRippleSvg(
@@ -142,8 +143,8 @@
 
     document.addEventListener('keydown', (e) => {
       if (e.repeat) return;
-      const target = e.target as Element;
-      const layer = target.closest('.m3-layer');
+      if (!(e.target instanceof Element)) return;
+      const layer = e.target.closest('.m3-layer');
       if (!layer || !isEnabled(layer)) return;
       const isActivate = e.key === 'Enter' || (e.key === ' ' && layer.tagName === 'BUTTON');
       if (!isActivate) return;
