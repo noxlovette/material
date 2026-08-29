@@ -26,12 +26,15 @@ They’re used for branding, screen titles, navigation, and actions.
 
   let scrollY = $state(0);
   let scrolled = $derived(scrollY > 10);
+  let barHeight = $state(64);
 
   const noTrailing = $derived(!trailing);
   const noLeading = $derived(!leading || !showBack);
 
   const {
     base,
+    row,
+    childrenRow,
     ghost: ghostCls,
     title: titleCLs,
     textContainer,
@@ -40,26 +43,42 @@ They’re used for branding, screen titles, navigation, and actions.
     trailing: trailingCls
   } = $derived(appbar({ scrolled, noLeading, noTrailing }));
   const navClass = $derived(base({ class: clsx(className) }));
+
+  function trackHeight(node: HTMLElement) {
+    const observer = new ResizeObserver((entries) => {
+      const entry = entries[0];
+      barHeight = entry?.contentRect.height ?? barHeight;
+    });
+    observer.observe(node);
+    return () => observer.disconnect();
+  }
 </script>
 
 <svelte:window bind:scrollY />
 
-<nav {...rest} class={navClass}>
-  <div class={leadingCls()}>
-    {@render leading?.()}
+<nav {...rest} class={navClass} {@attach ghost ? trackHeight : null}>
+  <div class={row()}>
+    <div class={leadingCls()}>
+      {@render leading?.()}
+    </div>
+    <div class={textContainer()}>
+      <h1 class={titleCLs()}>
+        {title}
+      </h1>
+      {#if subtitle}
+        <p class={subtitleCls()}>{subtitle}</p>
+      {/if}
+    </div>
+    <div class={trailingCls()}>
+      {@render trailing?.()}
+    </div>
   </div>
-  <div class={textContainer()}>
-    <h1 class={titleCLs()}>
-      {title}
-    </h1>
-    {#if subtitle}
-      <p class={subtitleCls()}>{subtitle}</p>
-    {/if}
-  </div>
-  <div class={trailingCls()}>
-    {@render trailing?.()}
-  </div>
+  {#if children}
+    <div class={childrenRow()}>
+      {@render children()}
+    </div>
+  {/if}
 </nav>
 {#if ghost}
-  <div class={ghostCls()} aria-hidden="true"></div>
+  <div class={ghostCls()} style="height: {barHeight}px" aria-hidden="true"></div>
 {/if}

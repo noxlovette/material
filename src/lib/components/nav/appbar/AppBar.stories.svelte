@@ -7,7 +7,7 @@
     title: 'Navigation/App Bar',
     component: AppBar,
     parameters: {
-      // AppBar is the mobile top bar (md:hidden) — preview it at a mobile viewport.
+      // AppBar is fixed across all screen sizes — preview it at a mobile viewport.
       viewport: { defaultViewport: 'mobile1' }
     },
     argTypes: {

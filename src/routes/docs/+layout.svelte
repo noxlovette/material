@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from '$app/state';
-  import { Icon, SplitPane } from '$lib/index.js';
+  import { Icon, Pane, PaneGrid } from '$lib/index.js';
 
   const { children } = $props();
 
@@ -45,9 +45,7 @@
       group: 'Layout',
       icon: 'view_quilt',
       items: [
-        { label: 'Single Pane', href: '/docs/single-pane' },
-        { label: 'Split Pane', href: '/docs/split-pane' },
-        { label: 'Supporting Pane', href: '/docs/supporting-pane' },
+        { label: 'Pane', href: '/docs/pane' },
         { label: 'Card', href: '/docs/card' }
       ]
     },
@@ -88,20 +86,20 @@
 </script>
 
 <!--
-  Secondary docs sidebar. anchor="sticky" + resizable={false} because this nav is
-  nested inside the root layout's already Rail-offset content column: a "viewport"
-  anchor would fix to the true browser edge (wrong, under the Rail) and a "parent"
-  anchor would lose sticky-while-scrolling behaviour. See SplitPane's anchor docs.
+  Secondary docs sidebar. `sticky` (native position: sticky) because this nav is
+  nested inside the root layout's already Rail-offset content column: it sticks
+  to the top of whatever scroll container it's in, which composes correctly with
+  that offset without needing a special "fixed to true viewport edge" mode.
 -->
-<SplitPane
-  anchor="sticky"
-  resizable={false}
-  full={false}
-  rounded={false}
-  leftWidth={224}
-  leftClass="bg-md-sys-color-surface border-md-sys-color-outline-variant border-r"
->
-  {#snippet left()}
+<PaneGrid rounded={false}>
+  <Pane
+    width={224}
+    sticky
+    rounded={false}
+    background={false}
+    padding="none"
+    class="bg-md-sys-color-surface border-md-sys-color-outline-variant border-r"
+  >
     <a
       href="/docs"
       class="text-md-sys-color-primary mb-4 block px-7 pt-6 text-xs font-semibold tracking-widest uppercase no-underline"
@@ -129,9 +127,9 @@
         {/each}
       </div>
     {/each}
-  {/snippet}
+  </Pane>
 
-  {#snippet right()}
+  <Pane rounded={false} background={false} padding="none">
     {@render children()}
-  {/snippet}
-</SplitPane>
+  </Pane>
+</PaneGrid>

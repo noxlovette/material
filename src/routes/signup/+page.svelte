@@ -8,9 +8,9 @@
     Body,
     Checkbox,
     Dialogue,
-    Snackbar
+    Snackbar,
+    Pane
   } from '$lib/index.js';
-  import SinglePane from '$lib/components/containers/panes/SinglePane.svelte';
 
   let { data } = $props();
 
@@ -47,7 +47,7 @@
   <title>Signup | Ogonëk M3</title>
 </svelte:head>
 
-<SinglePane contentClass="gap-12 p-12 max-w-5xl mx-auto">
+<Pane contentClass="gap-12 p-12 max-w-5xl mx-auto">
   <div class="flex flex-col gap-4">
     <Headline>Signup Demo</Headline>
     <Body class="max-w-2xl">
@@ -141,7 +141,7 @@
       >
     </Card>
   </div>
-</SinglePane>
+</Pane>
 
 <Dialogue
   bind:open={dialogueOpen}

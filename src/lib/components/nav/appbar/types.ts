@@ -7,7 +7,7 @@ import type { AppbarVariants } from './theme.js';
  */
 export type AppBarProps = AppbarVariants &
   HTMLAttributes<HTMLElementTagNameMap['nav']> & {
-    /** The content to be rendered inside the app bar. */
+    /** Extra content rendered in a full-width row below the title, e.g. a Breadcrumb trail. */
     children?: Snippet;
     /** The main title of the app bar. */
     title: string;

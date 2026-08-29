@@ -17,7 +17,7 @@ This repo is a single, already-opinionated M3 component library, not a blank can
 - Deciding which variant (filled/tonal/outlined/text/elevated) or color role (primary/secondary/tertiary/error) fits a given action or emphasis level
 - Adding a transition, page transition, or list/expand animation
 - Building a showcase route or docs page for a component — these MUST be built from
-  `@noxlovette/material` components (`SinglePane`/`SplitPane`/`SupportingPane` for layout), never
+  `@noxlovette/material` components (`Pane`/`PaneGrid` for layout), never
   hand-rolled flex/aside divs; see `references/component-patterns.md` for the pane decision table
 - Reviewing UI for M3 correctness (contrast, touch targets, focus, motion)
 

@@ -1,13 +1,10 @@
 <script>
-  import SinglePane from '$lib/components/containers/panes/SinglePane.svelte';
-  import SplitPane from '$lib/components/containers/panes/SplitPane.svelte';
+  import { Pane, PaneGrid } from '$lib/index.js';
 </script>
 
-<SplitPane>
-  {#snippet left()}
-    blabla
-  {/snippet}
-  {#snippet right()}
-    <SinglePane>hello</SinglePane>
-  {/snippet}
-</SplitPane>
+<PaneGrid full>
+  <Pane width={320} resizable>blabla</Pane>
+  <Pane>
+    <Pane>hello</Pane>
+  </Pane>
+</PaneGrid>

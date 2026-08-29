@@ -2,6 +2,7 @@
 
 // folder re-exports (export everything from these folders)
 export * from './appbar/index.js';
+export * from './breadcrumb/index.js';
 export * from './navbar/index.js';
 export * from './rail/index.js';
 export * from './tabs/index.js';

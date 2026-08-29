@@ -34,18 +34,20 @@ Only fall back to `bare` (no color/background at all) when the component supplie
 
 ## Laying out a showcase or docs page (`src/routes/**`)
 
-Routes are not a blank canvas either — every page-level layout shape already has a `containers/panes`
-component. Reach for these instead of a hand-rolled `flex`/`aside`/`sticky` div, and if none fits,
-that's a sign the pattern belongs in the library, not in a one-off route file:
+Routes are not a blank canvas either — every page-level layout shape is built from the two
+`containers/pane` primitives, `Pane` and `PaneGrid`. Reach for these instead of a hand-rolled
+`flex`/`aside`/`sticky` div, and if a shape genuinely doesn't fit, that's a sign the pattern belongs
+in the library, not in a one-off route file:
 
-| Shape you need                                                                                      | Component                                         | Notes                                                                                                         |
-| --------------------------------------------------------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| Centered/full-width single column                                                                   | `SinglePane`                                      | `centered` variant for max-width, `padding`/`gap` for spacing                                                 |
-| User-resizable two-column split                                                                     | `SplitPane` (`resizable` default)                 | Drag handle + `localStorage` persistence                                                                      |
-| Static, non-draggable sidebar fixed to the true viewport edge                                       | `SplitPane` `anchor="viewport" resizable={false}` | Only correct if this is the outermost positioned element (nothing else is already offsetting content)         |
-| Static sidebar absolutely positioned in a bounded/contained box                                     | `SplitPane` `anchor="parent" resizable={false}`   | Does not stay visible while the page scrolls — for embedded demos, not full-page nav                          |
-| Static sidebar nested inside other already-offset content, that should stay visible while scrolling | `SplitPane` `anchor="sticky" resizable={false}`   | e.g. the docs secondary component-list nav, nested inside the root layout's Rail-offset column                |
-| Main content + fixed-width side panel (TOC, filters, details)                                       | `SupportingPane` `anchor="parent"`                | The M3 [supporting-pane](https://m3.material.io/foundations/layout/canonical-layouts/supporting-pane) pattern |
+| Shape you need                                                  | Component                                                                            | Notes                                                                                                                                                                     |
+| --------------------------------------------------------------- | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Centered/full-width single column                               | `Pane` (standalone, no `PaneGrid`)                                                   | `centered` variant for max-width, `padding`/`gap` for spacing                                                                                                             |
+| User-resizable two-column split                                 | `PaneGrid` + `Pane width={...} resizable`                                            | The resizable `Pane` owns its own drag handle and width state; add `persistKey` for `localStorage` persistence                                                            |
+| Static sidebar that stays visible while its sibling scrolls     | `PaneGrid` + `Pane width={...} sticky`                                               | Native `position: sticky` — works inside any scrolling ancestor (the true page scroll or a bounded box), so this one prop covers what used to be two anchor modes         |
+| Main content + fixed-width side panel (TOC, filters, details)   | `PaneGrid direction={{ small: 'column', large: 'row' }}` + a `width`+`sticky` `Pane` | Stacks on small viewports, moves to a row from `large` up — the M3 [supporting-pane](https://m3.material.io/foundations/layout/canonical-layouts/supporting-pane) pattern |
+| List-detail, or any pane that should only show at certain sizes | `Pane visibleFrom="medium"` / `hiddenFrom="medium"`                                  | Toggles CSS display only, per Tailwind-aligned breakpoint (`small`/`medium`/`large`/`extraLarge` → unprefixed/`md:`/`lg:`/`xl:`)                                          |
+
+See `/docs/pane` in the showcase site for the full prop reference and worked examples.
 
 ## Before exporting a new component
 

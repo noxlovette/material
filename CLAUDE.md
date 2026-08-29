@@ -30,10 +30,10 @@ src/routes/        # showcase site only — not published. Landing page + prose 
                     # gallery — that job belongs to Storybook. Links out to Storybook rather than
                     # re-implementing live previews.
   docs/            # component reference docs (layout + per-component pages)
-                    # +layout.svelte's secondary sidebar uses SplitPane (anchor="sticky",
-                    # resizable={false}); each page's content+TOC uses SupportingPane
-                    # (anchor="parent"). See "Dogfooding rule" below — do not hand-roll
-                    # this layout with raw flex/aside divs.
+                    # +layout.svelte's secondary sidebar is a PaneGrid with a sticky nav
+                    # Pane; each page's content+TOC is a PaneGrid with a sticky TOC Pane.
+                    # See "Dogfooding rule" below — do not hand-roll this layout with raw
+                    # flex/aside divs.
 .storybook/        # isolated Storybook config — has its own vite.config.ts, NOT the root one
                     # (svelte-vite hard-errors if it detects SvelteKit's plugins)
 dist/              # build output, do not edit
@@ -72,34 +72,37 @@ Before creating or modifying a component, choosing a variant/color role, adding 
 # Dogfooding Rule for Showcase/Docs Pages
 
 Every page under `src/routes/` (landing page, `docs/**`) MUST be built from `@noxlovette/material`
-components — `SinglePane`/`SplitPane`/`SupportingPane` for layout, `Card`/`Title`/`Body`/etc. for
-content. Never hand-roll a layout pattern (raw `flex`/`aside`/`sticky` divs) that a library
-component already covers — if you catch yourself reaching for one, that's a signal either an
-existing pane component fits, or the pattern is missing from the library and belongs there instead
-of one-off in a route file. The library is the product; routes exist to prove it works.
+components — `Pane`/`PaneGrid` for layout, `Card`/`Title`/`Body`/etc. for content. Never hand-roll
+a layout pattern (raw `flex`/`aside`/`sticky` divs) that the library already covers — if you catch
+yourself reaching for one, that's a signal either a `Pane`/`PaneGrid` composition fits, or the
+pattern is missing from the library and belongs there instead of one-off in a route file. The
+library is the product; routes exist to prove it works.
 
-## SplitPane's three `anchor` modes
+## Pane + PaneGrid
 
-`SplitPane` (`src/lib/components/containers/panes/`) covers three distinct positioning strategies
-for a left/right two-column layout — picking the right one matters once panes get nested:
+`Pane` (`src/lib/components/containers/pane/`) is a single content region; `PaneGrid` lays out
+however many `Pane`s you give it (`direction`/`gap`/`margin`/`padding`, each independently
+responsive across `small`/`medium`/`large`/`extraLarge`, Tailwind's `md`/`lg`/`xl` breakpoints).
+There is no separate "anchor mode" concept — a `Pane`'s own props cover what three previous
+hardcoded components (`SinglePane`/`SplitPane`/`SupportingPane`, now removed) used to split across
+different components and an `anchor` prop:
 
-- **`viewport`** (default) — left pane fixes to the true browser edge. For a full-page app layout
-  where this is the outermost/only positioned element (e.g. the root `Rail`).
-- **`parent`** — left pane is absolutely positioned within a `relative` ancestor. For
-  embedded/contained demos (a bounded sandbox box) — does **not** stay pinned while the page
-  scrolls.
-- **`sticky`** — left/right sit in normal flex flow and the left pane sticks (`position: sticky`)
-  as the page scrolls. Use this for a sidebar nested _inside other already-offset content_ — e.g.
-  the docs secondary component-list nav, which lives inside the root layout's Rail-offset content
-  column. `viewport` would fix it to the true left edge (underneath/behind the Rail); `parent`
-  would lose the "stays visible while scrolling" behavior. Pair `anchor="sticky"` with
-  `resizable={false}` for a static (non-draggable) sidebar — this hides the drag handle and skips
-  width persistence to `localStorage`.
+- **`width` + `resizable`** — a fixed-width pane with a user-draggable trailing edge. Add
+  `persistKey` to persist the dragged width to `localStorage`.
+- **`sticky`** — sticks to the top of its scroll container (native `position: sticky`) instead of
+  scrolling with the page. Works inside any scrolling ancestor — the true page scroll, or a bounded
+  box — so it replaces both of the old `anchor="viewport"` (fixed to the true browser edge, which
+  broke once nested under an offset ancestor) and `anchor="sticky"` modes with one prop. Use this
+  for a sidebar nested _inside other already-offset content_ — e.g. the docs secondary
+  component-list nav, which lives inside the root layout's Rail-offset content column.
+- **`visibleFrom` / `hiddenFrom`** — hide a pane below/from a given breakpoint, e.g. for
+  list-detail layouts where only one pane shows on small viewports.
 
 For a content-area + fixed-width side panel (e.g. a docs page's article + "On this page" TOC), use
-`SupportingPane` with `anchor="parent"` instead — that's the canonical M3
-[supporting-pane layout](https://m3.material.io/foundations/layout/canonical-layouts/supporting-pane),
-not a resizable split.
+a `PaneGrid` with `direction={{ small: 'column', large: 'row' }}` and give the side panel `width` +
+`sticky` — that's the canonical M3
+[supporting-pane layout](https://m3.material.io/foundations/layout/canonical-layouts/supporting-pane).
+See `/docs/pane` for the full prop reference.
 
 # Adding a New Component
 

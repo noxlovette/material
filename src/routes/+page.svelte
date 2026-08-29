@@ -1,6 +1,6 @@
 <script lang="ts">
   import { base } from '$app/paths';
-  import { Display, SinglePane, Headline, Body, Card, Title, Icon, Divider } from '$lib/index.js';
+  import { Display, Pane, Headline, Body, Card, Title, Icon, Divider } from '$lib/index.js';
   import CodeBlock from './CodeBlock.svelte';
 
   const storybookHref = import.meta.env.DEV ? 'http://localhost:6006' : `${base}/storybook/`;
@@ -27,7 +27,7 @@
   <title>Overview | Ogonëk M3</title>
 </svelte:head>
 
-<SinglePane>
+<Pane>
   <div class="flex flex-col gap-4">
     <Display>Ogonëk M3</Display>
     <Headline>Component Library Overview</Headline>
@@ -155,4 +155,4 @@
       />
     </div>
   </div>
-</SinglePane>
+</Pane>

@@ -3,8 +3,8 @@
   `children`. It renders no backdrop, no fixed/absolute positioning, and no open/close
   transition of its own (unlike Dialogue and BottomSheet, which own their overlay). Consumers
   are expected to place it inside their own positioned container (e.g. a fixed aside, or a
-  SplitPane right pane) — the wrapping <div> below is that story-only host, not part of the
-  component.
+  resizable Pane inside a PaneGrid) — the wrapping <div> below is that story-only host, not part
+  of the component.
 -->
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
