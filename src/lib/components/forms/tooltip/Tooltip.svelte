@@ -36,10 +36,11 @@ Plain tooltips are used for simple labels, while rich tooltips can contain forma
     subhead: subheadCls,
     base,
     trigger: triggerCls,
-    supportingText: supportingTextCls
+    supportingText: supportingTextCls,
+    textContainer: textContainerCls
   } = $derived(tooltip({ variant, style }));
 
-  const baseCls = $derived(base({ class: clsx(className) }));
+  const baseCls = $derived(base({ class: clsx(className, textContainerCls()) }));
 
   /**
    * ButtonIcons always have tooltips on, but not always with text
@@ -86,7 +87,7 @@ Plain tooltips are used for simple labels, while rich tooltips can contain forma
                 {#if variant === 'rich'}
                   <Layer />
                   {#if subhead}
-                    <Title class={subheadCls()}>
+                    <Title size="small" class={subheadCls()}>
                       {subhead}
                     </Title>
                   {/if}

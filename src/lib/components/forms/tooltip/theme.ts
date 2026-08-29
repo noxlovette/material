@@ -7,6 +7,7 @@ export const tooltip = tv({
     base: 'min-w-60 py-3 px-4  shadow-elevation-2 rounded-md relative z-[100] pointer-events-auto',
     subhead: '',
     supportingText: '',
+    textContainer: '',
     trigger: 'relative inline-flex'
   },
   variants: {
@@ -15,7 +16,7 @@ export const tooltip = tv({
         base: 'flex flex-col gap-3'
       },
       snack: {
-        base: 'inlie-flex min-w-0 max-w-50 bg-md-sys-color-inverse-surface text-md-sys-color-inverse-on-surface md-sys-typescale-body-small px-3 py-2 shadow-elevation-3 before:rounded-md',
+        base: 'inline-flex min-w-0 max-w-50 bg-md-sys-color-inverse-surface text-md-sys-color-inverse-on-surface md-sys-typescale-body-small px-3 py-2 shadow-elevation-3 before:rounded-md',
         supportingText: 'text-md-sys-color-inverse-on-surface md-sys-typescale-body-small',
         textContainer: ''
       }
@@ -23,19 +24,19 @@ export const tooltip = tv({
     style: {
       container: {
         base: 'bg-md-sys-color-surface-container',
-        textContainer: 'text-md-sys-on-surface-variant'
+        textContainer: 'text-md-sys-color-on-surface-variant'
       },
       primary: {
         base: 'bg-md-sys-color-primary-container',
-        textContainer: 'text-md-sys-on-primary-container'
+        textContainer: 'text-md-sys-color-on-primary-container'
       },
       secondary: {
         base: 'bg-md-sys-color-secondary-container',
-        textContainer: 'text-md-sys-on-secondary-container'
+        textContainer: 'text-md-sys-color-on-secondary-container'
       },
       tertiary: {
         base: 'bg-md-sys-color-tertiary-container',
-        textContainer: 'text-md-sys-on-tertiary-container'
+        textContainer: 'text-md-sys-color-on-tertiary-container'
       }
     }
   },

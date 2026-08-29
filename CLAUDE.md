@@ -52,6 +52,17 @@ two surfaces, so the "Storybook" nav link resolves correctly in both dev and pro
 - **New components**: export from the category `index.ts` and re-export in `src/lib/components/index.ts`
 - **`tailwind-variants` (tv)**: every component's styles are defined with `tv()` from `tailwind-variants`, using named `slots` for multi-element components and `variants`/`compoundVariants` for state logic. Match this pattern for all new components — do not use plain `clsx` strings for component internals.
 
+# Known Pitfalls: Tokens, Icons, tv() Slots
+
+Found while auditing typescale usage across every component (see git history for the fixes). None of these error or warn — `bun run check` stays green through all of them — so they only surface on visual review.
+
+- **`md-sys-typescale-*` and `md-sys-color-*` are different kinds of classes.** The typescale ones (`md-sys-typescale-display-large`, etc., defined in `src/lib/styles/typescale.css`) are bare `@utility` classes that already bundle `text-*`/`leading-*`/`tracking-*` — apply them directly (`class="md-sys-typescale-body-medium"`). Prefixing one with `text-` (`text-md-sys-typescale-body-medium`) is not a real Tailwind utility and silently generates zero CSS. The color ones (`md-sys-color-on-surface`, etc.) are plain color tokens and DO need a prefix — `text-md-sys-color-on-surface`, `bg-md-sys-color-...`, `border-md-sys-color-...`, `outline-md-sys-color-...`.
+- **A typo'd token class — a missing `md-`, `-sys-`, or `-color-` segment (`bg-sys-color-surface-variant`, `text-md-sys-on-primary-container`, `hover:text-sys-color-on-surface`) — compiles clean and generates zero CSS.** The element just silently falls back to inherited/browser-default styling. When auditing token usage, diff the suspicious class string against a sibling file already known to render correctly rather than trusting the name alone.
+- **New Material Symbols icon name → add it to `.storybook/StorybookProviders.svelte`'s `extraIcons` list**, or that icon renders as literal ligature text (e.g. `calendar_today`) instead of a glyph in Storybook. The file has a maintained grep recipe in a comment above the list to regenerate it from every `name="..."`/`iconProps={{ name: ... }}` in the codebase — re-run it whenever a story or component introduces a new icon name, and sanity-check the output (the naive grep also picks up unrelated quoted strings like `aria-hidden="true"` — drop obvious junk before pasting it in).
+- **A `tv()` slot can be fully defined in `theme.ts` and never actually render anything.** Declaring a slot only inside `variants`/`compoundVariants` classes (not in the base `slots: {}` map) still typechecks fine — but the real trap is a slot that's correctly computed and then never applied to any element in the `.svelte` file. `forms/tooltip/theme.ts`'s `textContainer` slot (per-`style` on-color classes for rich tooltips) existed with nothing in `Tooltip.svelte` ever rendering it, so primary/secondary/tertiary tooltips had no guaranteed-contrast text color. When adding or touching a slot, grep the component file to confirm it's destructured _and_ applied to a class list, not just declared in the theme.
+- **`hidden md:X` needs an explicit display override at the breakpoint, not just a position/layout one.** `hidden` sets `display:none`; `md:absolute` only changes `position`, so the element stays `display:none` at any width unless something like `md:inline-flex`/`md:block` is added alongside it (see `typography/kbd/theme.ts`'s `position.absolute` variant).
+- **`scripts/generate-components-index.ts` currently also exports `.stories.svelte` files** from every folder's barrel `index.ts` (e.g. `export { default as BadgeStories } from './Badge.stories.svelte'`). Re-running it regenerates every barrel with this bug, which would leak dev-only Storybook code into the published npm package. Until the script itself is fixed, don't blindly commit its output — diff it first and hand-patch just the barrel(s) you actually needed to change.
+
 # Design & UX Skill
 
 Before creating or modifying a component, choosing a variant/color role, adding motion, or reviewing UI for M3 compliance, consult the `material-design` skill (`.claude/skills/material-design/SKILL.md`). It encodes this repo's token vocabulary (color roles, typescale, elevation, shape, motion durations/easings), the `tv()` variant-selection rules, and an M3 accessibility checklist — use it instead of re-deriving M3 mappings from general knowledge.
@@ -100,7 +111,8 @@ not a resizable split.
    ```bash
    bun scripts/generate-components-index.ts
    ```
-5. Add `<ComponentName>.stories.svelte` next to the component (Svelte-CSF via `@storybook/addon-svelte-csf`'s `defineMeta`/`Story`) — this is the live preview, not a showcase route
+   **Diff the output before committing** — see "Known Pitfalls" above, the script currently also exports `.stories.svelte` files from every barrel, not just the one you touched.
+5. Add `<ComponentName>.stories.svelte` next to the component (Svelte-CSF via `@storybook/addon-svelte-csf`'s `defineMeta`/`Story`) — this is the live preview, not a showcase route. New icon names used in the story need to go in `.storybook/StorybookProviders.svelte`'s `extraIcons` too (see "Known Pitfalls").
 6. Add a docs page under `src/routes/docs/<component>/+page.svelte` for prose/usage guidance (only if the component needs more explanation than Storybook's autodocs gives)
 
 # Key Utils (`src/lib/utils/`)
