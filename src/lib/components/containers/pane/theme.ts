@@ -90,7 +90,10 @@ export const pane = tv({
       false: ''
     },
     full: {
-      true: { base: 'min-h-dvh' },
+      // --appbar-height is set on the document root by a mounted AppBar (see
+      // AppBar.svelte); the var falls back to 0px so this equals plain
+      // min-h-dvh when no AppBar is present.
+      true: { base: 'min-h-[calc(100dvh-var(--appbar-height,0px))]' },
       false: ''
     },
     rounded: {
@@ -160,7 +163,8 @@ export const paneGrid = tv({
   },
   variants: {
     full: {
-      true: { base: 'min-h-dvh' },
+      // See pane's `full` variant above — same --appbar-height fallback.
+      true: { base: 'min-h-[calc(100dvh-var(--appbar-height,0px))]' },
       false: ''
     },
     rounded: {

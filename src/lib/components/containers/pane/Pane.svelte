@@ -6,6 +6,12 @@ of a multi-pane layout — a sidebar, a detail column, a supporting panel — vi
 `width`/`resizable`/`sticky`/`visibleFrom`/`hiddenFrom`. A `resizable` pane doesn't
 own a drag handle itself — place a `PaneHandle` with a matching `persistKey`
 alongside it in the PaneGrid; this pane just mirrors the width it drags to.
+
+With `full` (the default), the pane's min-height is `100dvh` minus
+`--appbar-height`, a CSS custom property `AppBar` publishes on the document root
+while mounted (0px otherwise) — automatic, no props needed here. A hand-rolled
+fixed top bar instead of `AppBar` won't set it, so set `--appbar-height: <px>` on
+the document root yourself to get the same behavior.
 -->
 <script lang="ts">
   import clsx from 'clsx';

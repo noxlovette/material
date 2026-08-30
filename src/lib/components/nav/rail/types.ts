@@ -39,8 +39,6 @@ export type RailProps = RailVariants &
     expandable?: boolean;
     /** An optional Floating Action Button snippet. */
     fab?: Snippet;
-    /** An optional snippet rendered at the bottom of the rail (e.g. avatar/settings). */
-    railFooter?: Snippet;
     /** Whether the rail is currently collapsed. */
     collapsed?: boolean;
     /** Where the rail should be anchored. */
@@ -51,4 +49,12 @@ export type RailProps = RailVariants &
     withNavbar?: boolean;
     /** Customise the navbar inside the rail */
     navbarProps?: Omit<NavBarProps, 'children'>;
+    /**
+     * Renders this Rail as a companion host for a `Toolbar` (`children`) instead of a
+     * nav-destination rail. The Toolbar auto-adopts a responsive layout: a floating
+     * vertical rail pinned right-center from lg up, collapsing to a fixed bottom bar
+     * (like a mobile navbar) below lg. All other Rail props (`anchor`, `expandable`,
+     * `fab`, `withNavbar`, etc.) are ignored in this mode.
+     */
+    companion?: boolean;
   };

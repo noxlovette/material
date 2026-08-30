@@ -18,10 +18,18 @@ export const toolbar = tv({
       vertical: { root: 'flex-col h-auto w-14 py-2 px-1', divider: 'my-1 h-px w-6' }
     },
     variant: {
-      floating: { root: 'inline-flex rounded-2xl shadow-elevation-1 py-1' },
+      floating: { root: 'inline-flex rounded-full shadow-elevation-1 py-1' },
       docked: { root: 'flex w-full rounded-none py-3' },
       mobile: {
-        root: 'flex w-full rounded-none py-3 fixed bottom-20 left-0 z-10 shadow-elevation-2'
+        root: 'lg:hidden flex w-full rounded-none py-3 fixed bottom-20 left-0 z-10 shadow-elevation-2'
+      },
+      // Responsive host variant, auto-applied to a Toolbar nested in a companion Rail:
+      // a fixed bottom bar (like `mobile`) below lg, a floating vertical rail pinned
+      // right-center from lg up. One element, so it never duplicates interactive controls.
+      companion: {
+        root: 'fixed bottom-20 left-0 z-10 flex w-full rounded-none py-3 shadow-elevation-2 lg:bottom-auto lg:left-auto lg:top-1/2 lg:right-4 lg:inline-flex lg:w-auto lg:-translate-y-1/2 lg:flex-col lg:rounded-full lg:py-1 lg:shadow-elevation-1',
+        divider: 'lg:mx-0 lg:my-1 lg:h-px lg:w-6',
+        fabSlot: 'lg:ml-0 lg:mt-auto lg:ps-0 lg:pt-2'
       }
     },
     color: {

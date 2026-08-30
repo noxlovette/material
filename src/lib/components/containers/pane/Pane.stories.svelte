@@ -1,6 +1,7 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
   import Pane from './Pane.svelte';
+  import AppBar from '../../nav/appbar/AppBar.svelte';
 
   const { Story } = defineMeta({
     title: 'Containers/Pane',
@@ -72,9 +73,25 @@
   remaining space). See PaneGrid's own stories for direction/gap/margin/resizable
   demos — this story is scoped to Pane's own props.
 -->
+<!--
+  A mounted AppBar's measured height is published to appbarStore.svelte.ts;
+  a `full` Pane (the default) reads it and subtracts it from `100dvh` so the
+  two don't stack into an overflow-scrolling page. No props needed on either
+  side — AppBar just needs to actually be mounted somewhere on the page.
+-->
+<Story name="With AppBar" asChild parameters={{ viewport: { defaultViewport: 'mobile1' } }}>
+  <AppBar title="Inbox" ghost />
+  <Pane>
+    <div class="bg-md-sys-color-secondary-container rounded-lg p-4 text-sm">
+      This pane's min-height is <code>100dvh</code> minus the AppBar's measured height above —
+      automatic, via <code>appbarStore.svelte.ts</code>.
+    </div>
+  </Pane>
+</Story>
+
 <Story name="As Grid Item" asChild>
   <div
-    class="relative h-[280px] overflow-hidden rounded-lg border border-md-sys-color-outline-variant"
+    class="border-md-sys-color-outline-variant relative h-[280px] overflow-hidden rounded-lg border"
   >
     <div class="flex h-full">
       <Pane width={200} background={false} padding="sm">

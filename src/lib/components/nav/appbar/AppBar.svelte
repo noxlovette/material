@@ -5,6 +5,11 @@ Material 3 App Bar.
 Top app bars provide content and actions related to the current screen.
 They’re used for branding, screen titles, navigation, and actions.
 
+Publishes its measured height as `--appbar-height` on the document root, so any
+`Pane`/`PaneGrid` on the page (`full`, the default) shrinks its `min-height` by
+that amount with no props or wiring on either side — see Pane.svelte's doc
+comment.
+
 @see https://m3.material.io/components/top-app-bar/overview
 -->
 <script lang="ts">
@@ -54,11 +59,16 @@ They’re used for branding, screen titles, navigation, and actions.
     observer.observe(node);
     return () => observer.disconnect();
   }
+
+  $effect(() => {
+    document.documentElement.style.setProperty('--appbar-height', `${barHeight}px`);
+    return () => document.documentElement.style.removeProperty('--appbar-height');
+  });
 </script>
 
 <svelte:window bind:scrollY />
 
-<nav {...rest} class={navClass} {@attach ghost ? trackHeight : null}>
+<nav {...rest} class={navClass} {@attach trackHeight}>
   <div class={rowFull}>
     <div class={leadingCls()}>
       {@render leading?.()}
