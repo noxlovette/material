@@ -12,11 +12,14 @@ Color is inherited from the parent Toolbar via context.
   import { toolbarGroupItem } from './theme.js';
   import type { ToolbarGroupItemProps } from './types.js';
   import type { ToolbarColor } from './types.js';
+  import Tooltip from '$lib/components/forms/tooltip/Tooltip.svelte';
 
   let {
     iconProps,
     value,
     disabled = false,
+    tooltipContent,
+    triggerClass = '',
     class: className,
     ...restProps
   }: ToolbarGroupItemProps = $props();
@@ -26,9 +29,26 @@ Color is inherited from the parent Toolbar via context.
   );
   const color = $derived(toolbarCtx?.color ?? 'standard');
   const { base, icon } = $derived(toolbarGroupItem({ color }));
+
+  const btnCls = $derived(base({ class: clsx(className) }));
 </script>
 
-<Toolbar.GroupItem {value} {disabled} class={base({ class: clsx(className) })} {...restProps}>
-  <Icon {...iconProps} class={icon()} />
-  <Layer />
-</Toolbar.GroupItem>
+<Tooltip {triggerClass} variant="snack" supportingText={tooltipContent}>
+  {#snippet trigger({
+    class: triggerClass_,
+    type: _tooltipType,
+    onclick: _tooltipOnclick,
+    ...triggerAttrs
+  })}
+    <Toolbar.GroupItem
+      {value}
+      {disabled}
+      class={clsx(btnCls, triggerClass_ as string)}
+      {...restProps}
+      {...triggerAttrs}
+    >
+      <Icon {...iconProps} class={icon()} />
+      <Layer />
+    </Toolbar.GroupItem>
+  {/snippet}
+</Tooltip>

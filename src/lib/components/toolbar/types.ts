@@ -20,6 +20,13 @@ export type ToolbarProps = ToolbarVariants &
 
 export type ToolbarButtonProps = Omit<BitsToolbarButtonProps, 'children' | 'child'> & {
   iconProps: IconProps;
+  /**
+   * Content to display in a tooltip when hovering over the button.
+   * If omitted, no tooltip is shown.
+   */
+  tooltipContent?: string;
+  /** CSS class added to the tooltip trigger wrapper. */
+  triggerClass?: string;
   class?: string;
 };
 
@@ -30,5 +37,12 @@ export type ToolbarGroupProps = Omit<BitsToolbarGroupProps, 'children' | 'child'
 
 export type ToolbarGroupItemProps = Omit<BitsToolbarGroupItemProps, 'children' | 'child'> & {
   iconProps: IconProps;
+  /**
+   * Content to display in a tooltip when hovering over the button.
+   * If omitted, no tooltip is shown.
+   */
+  tooltipContent?: string;
+  /** CSS class added to the tooltip trigger wrapper. */
+  triggerClass?: string;
   class?: string;
 };
