@@ -9,7 +9,6 @@ export * from './dialogue/index.js';
 export * from './divider/index.js';
 export * from './link-preview/index.js';
 export * from './list/index.js';
-export * from './menu-item/index.js';
 export * from './menu/index.js';
 export * from './pane/index.js';
 export * from './popover/index.js';

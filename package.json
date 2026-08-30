@@ -8,13 +8,15 @@
   },
   "scripts": {
     "build": "svelte-package",
+    "watch": "svelte-package --watch",
     "prepublishOnly": "bun run build",
     "check": "svelte-kit sync && svelte-check",
     "test": "vitest run",
     "format": "prettier --write .",
     "dev": "vite dev",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "index": "bun run scripts/generate-components-index.ts"
   },
   "files": [
     "dist",

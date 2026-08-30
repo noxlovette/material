@@ -19,30 +19,23 @@ export type PaneProps = PaneVariants &
     contentClass?: string;
     /**
      * Fixed flex-basis in px. Omit for a flexible pane that grows to fill the
-     * remaining space in its PaneGrid. Bindable — updated live while dragging
-     * when `resizable` is set.
+     * remaining space in its PaneGrid. Bindable — with `resizable` and
+     * `persistKey` set, tracks live updates from a `PaneHandle` sharing the
+     * same `persistKey` instead of managing its own drag state.
      * @default undefined (flexible)
      */
     width?: number;
     /**
-     * Minimum width in px when `resizable`.
-     * @default 200
-     */
-    min?: number;
-    /**
-     * Maximum width in px when `resizable`.
-     * @default 640
-     */
-    max?: number;
-    /**
-     * Renders a drag handle on the trailing edge and lets the user resize this
-     * pane. Requires `width` to be set.
+     * Marks this pane as driven by a `PaneHandle` sharing the same
+     * `persistKey` — the pane no longer owns a handle itself, it just mirrors
+     * whatever width the handle drags it to.
      * @default false
      */
     resizable?: boolean;
     /**
-     * localStorage key to persist the dragged width under. Omit to skip
-     * persistence.
+     * Key shared with a `PaneHandle` to sync this pane's width through the
+     * localStorage-backed resize store. Required when `resizable` is set;
+     * omit to skip persistence for a plain fixed-width pane.
      */
     persistKey?: string;
     /**
@@ -94,3 +87,38 @@ export type PaneGridProps = PaneGridVariants &
      */
     margin?: Responsive<SpaceSize>;
   };
+
+/**
+ * Props for the PaneHandle component — a drag divider placed directly inside
+ * a `PaneGrid`, between the `Pane` it resizes and its neighbor. Drags that
+ * pane's width by writing to the shared, localStorage-backed resize store;
+ * the `Pane` reads it back via a matching `persistKey`.
+ */
+export type PaneHandleProps = DivAttrs & {
+  /** Optional root class. */
+  class?: string;
+  /** Key shared with the `Pane` this handle resizes. */
+  persistKey: string;
+  /**
+   * Minimum width in px the paired pane can be dragged to.
+   * @default 200
+   */
+  min?: number;
+  /**
+   * Maximum width in px the paired pane can be dragged to.
+   * @default 640
+   */
+  max?: number;
+  /**
+   * Widths in px the drag magnetically snaps to when within `snapThreshold`.
+   * Defaults to M3's recommended custom two-pane widths (360dp/412dp) for
+   * `expanded`/`large`/`extraLarge` layouts.
+   * @default [360, 412]
+   */
+  snapPoints?: number[];
+  /**
+   * Distance in px from a snap point at which the drag locks onto it.
+   * @default 16
+   */
+  snapThreshold?: number;
+};

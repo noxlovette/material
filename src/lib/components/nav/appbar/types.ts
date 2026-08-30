@@ -21,4 +21,6 @@ export type AppBarProps = AppbarVariants &
     showBack?: boolean;
     /** Renders an invisible same-height spacer after the fixed bar so page content isn't obscured. */
     ghost?: boolean;
+    /** Additional classes passed onto the row element */
+    rowClass?: string;
   };

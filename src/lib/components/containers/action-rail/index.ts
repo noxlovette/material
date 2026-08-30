@@ -5,5 +5,4 @@ export * from './theme.js';
 export * from './types.js';
 
 // default exports for components in this folder
-export { default as ActionRailStories } from './ActionRail.stories.svelte';
 export { default as ActionRail } from './ActionRail.svelte';

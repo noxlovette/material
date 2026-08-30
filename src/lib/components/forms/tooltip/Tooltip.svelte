@@ -21,7 +21,7 @@ Plain tooltips are used for simple labels, while rich tooltips can contain forma
     children,
     trigger,
     triggerClass,
-    delayDuration = 100,
+    delayDuration = 150,
     class: className,
     variant = 'snack',
     style = 'container',

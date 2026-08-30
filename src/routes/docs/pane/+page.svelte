@@ -18,21 +18,19 @@
       prop: 'width',
       type: 'number',
       default: 'undefined',
-      desc: 'Fixed flex-basis in px. Omit for a flexible pane that grows to fill remaining space in its PaneGrid. Bindable — updates live while dragging when resizable.'
+      desc: 'Fixed flex-basis in px. Omit for a flexible pane that grows to fill remaining space in its PaneGrid. Bindable — with resizable + persistKey, tracks live updates from a PaneHandle instead of managing its own drag state.'
     },
     {
       prop: 'resizable',
       type: 'boolean',
       default: 'false',
-      desc: 'Renders a drag handle on the trailing edge and lets the user resize this pane. Requires width to be set.'
+      desc: 'Marks this pane as driven by a PaneHandle sharing the same persistKey elsewhere in the PaneGrid, instead of a fixed, static width.'
     },
-    { prop: 'min', type: 'number', default: '200', desc: 'Minimum width in px when resizable.' },
-    { prop: 'max', type: 'number', default: '640', desc: 'Maximum width in px when resizable.' },
     {
       prop: 'persistKey',
       type: 'string',
       default: '—',
-      desc: 'localStorage key to persist the dragged width under. Omit to skip persistence.'
+      desc: 'Key shared with a PaneHandle to sync this pane’s width through the localStorage-backed resize store. Required when resizable is set.'
     },
     {
       prop: 'sticky',
@@ -154,6 +152,40 @@
     }
   ];
 
+  const paneHandleProps: PropRow[] = [
+    {
+      prop: 'persistKey',
+      type: 'string',
+      default: '—',
+      required: true,
+      desc: 'Key shared with the Pane this handle resizes — must match that Pane’s own persistKey.'
+    },
+    {
+      prop: 'min',
+      type: 'number',
+      default: '200',
+      desc: 'Minimum width in px the paired pane can be dragged to.'
+    },
+    {
+      prop: 'max',
+      type: 'number',
+      default: '640',
+      desc: 'Maximum width in px the paired pane can be dragged to.'
+    },
+    {
+      prop: 'snapPoints',
+      type: 'number[]',
+      default: '[360, 412]',
+      desc: "Widths in px the drag magnetically snaps to when within snapThreshold — M3's recommended custom two-pane widths (360dp/412dp) for expanded/large/extraLarge layouts."
+    },
+    {
+      prop: 'snapThreshold',
+      type: 'number',
+      default: '16',
+      desc: 'Distance in px from a snap point at which the drag locks onto it.'
+    }
+  ];
+
   const toc = [
     { id: 'overview', label: 'Overview' },
     { id: 'import', label: 'Import' },
@@ -162,6 +194,7 @@
     { id: 'patterns', label: 'Composing Layouts' },
     { id: 'pane-props', label: 'Pane Props' },
     { id: 'panegrid-props', label: 'PaneGrid Props' },
+    { id: 'panehandle-props', label: 'PaneHandle Props' },
     { id: 'accessibility', label: 'Accessibility' }
   ];
 </script>
@@ -202,7 +235,7 @@
 
     <Divider class="mb-12" />
 
-    <section id="overview" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="overview" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Overview</Title>
       <Body>
         Earlier versions of this library shipped three separate, hardcoded layout components —
@@ -221,7 +254,7 @@
       </Body>
     </section>
 
-    <section id="import" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="import" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Import</Title>
       <CodeBlock
         lang="typescript"
@@ -229,7 +262,7 @@
       />
     </section>
 
-    <section id="demo" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="demo" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Live Demo</Title>
       <Body class="text-md-sys-color-on-surface-variant">
         See both live, with Controls, in Storybook rather than a hand-rolled preview here.
@@ -267,7 +300,7 @@
       </div>
     </section>
 
-    <section id="basic-usage" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="basic-usage" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Basic Usage</Title>
       <Body>
         Wrap page-level content directly — no <code class="doc-code">PaneGrid</code> is needed for a single-column
@@ -286,7 +319,7 @@
       />
     </section>
 
-    <section id="patterns" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="patterns" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Composing Layouts</Title>
       <Body>
         The three shapes the old separate components hardcoded are now just different prop
@@ -300,9 +333,10 @@
           </p>
           <Body class="text-md-sys-color-on-surface-variant"
             >A pane with <code class="doc-code">width</code> +
-            <code class="doc-code">resizable</code> owns its own drag handle and width state — no separate
-            anchor concept needed, since a fixed-width pane inside a flex row already sits exactly where
-            you'd expect.</Body
+            <code class="doc-code">resizable</code> mirrors whatever width a
+            <code class="doc-code">PaneHandle</code> sharing its
+            <code class="doc-code">persistKey</code> drags it to — the handle sits in the grid as its
+            own flex child, not clipped inside the pane, and can optionally snap to specific widths.</Body
           >
         </Card>
         <Card class="flex flex-col gap-1 p-4">
@@ -344,6 +378,7 @@
   <Pane width={320} resizable persistKey="app:nav-width">
     <nav>...</nav>
   </Pane>
+  <PaneHandle persistKey="app:nav-width" min={240} max={480} />
 
   <Pane>
     <main>...</main>
@@ -356,7 +391,7 @@
       />
     </section>
 
-    <section id="pane-props" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="pane-props" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Pane Props</Title>
       <div class="overflow-x-auto rounded-xl border border-black/5">
         <table class="w-full border-collapse text-sm">
@@ -414,7 +449,7 @@
       </div>
     </section>
 
-    <section id="panegrid-props" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="panegrid-props" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>PaneGrid Props</Title>
       <div class="overflow-x-auto rounded-xl border border-black/5">
         <table class="w-full border-collapse text-sm">
@@ -480,10 +515,73 @@
       </Body>
     </section>
 
-    <section id="accessibility" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="panehandle-props" class="mb-12 flex scroll-mt-6 flex-col gap-4">
+      <Title>PaneHandle Props</Title>
+      <Body class="text-md-sys-color-on-surface-variant">
+        Place a <code class="doc-code">PaneHandle</code> as its own child of a
+        <code class="doc-code">PaneGrid</code>, next to the <code class="doc-code">Pane</code> it
+        should resize — sharing a <code class="doc-code">persistKey</code> is what links the two.
+      </Body>
+      <div class="overflow-x-auto rounded-xl border border-black/5">
+        <table class="w-full border-collapse text-sm">
+          <thead>
+            <tr class="bg-md-sys-color-surface-container-highest">
+              <th class="border-md-sys-color-outline-variant border-b p-3 text-left font-semibold"
+                >Prop</th
+              >
+              <th class="border-md-sys-color-outline-variant border-b p-3 text-left font-semibold"
+                >Type</th
+              >
+              <th class="border-md-sys-color-outline-variant border-b p-3 text-left font-semibold"
+                >Default</th
+              >
+              <th class="border-md-sys-color-outline-variant border-b p-3 text-left font-semibold"
+                >Description</th
+              >
+            </tr>
+          </thead>
+          <tbody>
+            {#each paneHandleProps as row}
+              <tr
+                class="even:bg-md-sys-color-surface-container/30 border-md-sys-color-outline-variant/50 border-b last:border-b-0"
+              >
+                <td class="p-3">
+                  <div class="flex items-center gap-1.5">
+                    <code class="text-md-sys-color-primary font-mono text-xs font-semibold"
+                      >{row.prop}</code
+                    >
+                    {#if row.required}
+                      <span
+                        class="bg-md-sys-color-error-container text-md-sys-color-on-error-container rounded px-1 text-[10px] font-medium"
+                        >required</span
+                      >
+                    {/if}
+                  </div>
+                </td>
+                <td class="p-3"
+                  ><code class="text-md-sys-color-on-surface-variant font-mono text-xs"
+                    >{row.type}</code
+                  ></td
+                >
+                <td class="p-3"
+                  ><code class="text-md-sys-color-on-surface-variant font-mono text-xs"
+                    >{row.default}</code
+                  ></td
+                >
+                <td class="text-md-sys-color-on-surface-variant p-3 text-xs leading-relaxed"
+                  >{row.desc}</td
+                >
+              </tr>
+            {/each}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="accessibility" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Accessibility</Title>
       <div class="flex flex-col gap-3">
-        {#each [{ icon: 'drag_indicator', title: 'Resize handle semantics', desc: 'A resizable pane\'s drag handle renders role="separator" aria-orientation="vertical" with aria-valuenow/min/max reflecting the current and clamped width range.' }, { icon: 'contrast', title: 'Background contrast', desc: 'When background is true, a pane paints the surface color role, keeping contrast consistent with the active theme for any content placed inside.' }, { icon: 'visibility_off', title: 'Breakpoint visibility', desc: "visibleFrom/hiddenFrom toggle CSS display only — hidden content is still in the DOM. Don't rely on them alone to remove content from assistive tech; pair with aria-hidden if content is truly decorative at that size." }] as item}
+        {#each [{ icon: 'drag_indicator', title: 'Resize handle semantics', desc: 'PaneHandle renders role="separator" aria-orientation="vertical" with aria-valuenow/min/max reflecting the current and clamped width range of the Pane it drags.' }, { icon: 'contrast', title: 'Background contrast', desc: 'When background is true, a pane paints the surface color role, keeping contrast consistent with the active theme for any content placed inside.' }, { icon: 'visibility_off', title: 'Breakpoint visibility', desc: "visibleFrom/hiddenFrom toggle CSS display only — hidden content is still in the DOM. Don't rely on them alone to remove content from assistive tech; pair with aria-hidden if content is truly decorative at that size." }] as item}
           <Card class="flex items-start gap-4 p-4">
             <div
               class="bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container flex h-9 w-9 shrink-0 items-center justify-center rounded-full"

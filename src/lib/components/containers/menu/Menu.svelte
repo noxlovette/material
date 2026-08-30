@@ -43,14 +43,14 @@ Contrast with `MenuItem` (a single interactive row inside the panel) and
   </DropdownMenu.Trigger>
 
   <DropdownMenu.Portal>
-    <DropdownMenu.Content forceMount {align} sideOffset={4} class="z-[100]">
+    <DropdownMenu.Content forceMount {align} sideOffset={4} class="z-100">
       {#snippet child({ wrapperProps, props, open: isOpen })}
         {#if isOpen}
           <div {...wrapperProps} class={wrapperProps.class as any}>
             <div
               {...props}
               class={clsx(
-                'bg-md-sys-color-surface-container-high shadow-elevation-3 ring-md-sys-color-outline/10 max-w-sm min-w-48 overflow-hidden rounded-xl py-2 ring-1',
+                'bg-md-sys-color-surface-container-high shadow-elevation-3 ring-md-sys-color-outline/10 max-w-sm min-w-48 gap-1 overflow-y-auto rounded-lg px-2 py-1',
                 props.class as any,
                 contentClass
               )}

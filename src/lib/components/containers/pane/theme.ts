@@ -2,6 +2,7 @@ import { tv, type VariantProps } from 'tailwind-variants';
 
 export type PaneVariants = VariantProps<typeof pane>;
 export type PaneGridVariants = VariantProps<typeof paneGrid>;
+export type PaneHandleVariants = VariantProps<typeof paneHandle>;
 
 export type Breakpoint = 'small' | 'medium' | 'large' | 'extraLarge';
 export type SpaceSize = 'none' | 'sm' | 'md' | 'lg' | 'xl';
@@ -81,21 +82,12 @@ export function resolveResponsive<T extends string>(
 export const pane = tv({
   slots: {
     base: 'relative flex min-w-0 flex-col box-border overflow-clip items-center',
-    content: 'flex flex-1 flex-col w-full max-w-7xl mx-auto',
-    handle:
-      'group absolute top-0 bottom-0 right-0 z-30 w-3 translate-x-1.5 cursor-col-resize touch-none bg-transparent hover:bg-md-sys-color-outline/20',
-    handleGrip:
-      'absolute left-1/2 top-1/2 flex h-12 w-1 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-1 rounded-full bg-md-sys-color-secondary group-hover:w-0.5'
+    content: 'flex flex-1 flex-col w-full h-full'
   },
   variants: {
     background: {
       true: { base: 'bg-md-sys-color-surface' },
       false: ''
-    },
-    centered: {
-      narrow: { content: 'max-w-2xl' },
-      medium: { content: 'max-w-5xl' },
-      none: ''
     },
     full: {
       true: { base: 'min-h-dvh' },
@@ -107,9 +99,9 @@ export const pane = tv({
     },
     padding: {
       none: { content: 'p-0' },
-      sm: { content: 'p-3 md:p-4' },
-      md: { content: 'p-4 md:p-6 lg:p-8' },
-      lg: { content: 'p-6 md:p-8 lg:p-12' }
+      sm: { content: 'px-3 md:px-4 py-2 md:py-3' },
+      md: { content: 'px-4 md:px-6 lg:px-8 py-3 md:py-4 lg: py-6' },
+      lg: { content: 'px-6 md:px-8 lg:px-12 py-4 md:py-6 lg:py-8' }
     },
     gap: {
       none: { content: 'gap-0' },
@@ -127,16 +119,39 @@ export const pane = tv({
         base: 'sticky top-[var(--pane-sticky-top,0px)] self-start max-h-dvh overflow-y-auto scrollbar-none'
       },
       false: ''
-    },
-    dragging: {
-      true: { handleGrip: 'w-0.5' },
-      false: ''
     }
   },
   defaultVariants: {
     rounded: true,
     flexible: true
   }
+});
+
+/**
+ * A standalone drag divider, placed directly inside a `PaneGrid` between two
+ * `Pane`s. Sits in the grid's own gap as a real flex sibling — not clipped by
+ * a Pane's `overflow-clip` the way a self-owned handle was — and drags the
+ * width of whichever `Pane` shares its `persistKey` via the shared
+ * `resizeStore`.
+ */
+export const paneHandle = tv({
+  slots: {
+    base: 'group relative flex shrink-0 w-3 self-stretch cursor-col-resize touch-none items-center justify-center rounded-full bg-transparent hover:bg-md-sys-color-outline/20',
+    grip: 'rounded-full transition-[background-color,height,width] duration-150'
+  },
+  variants: {
+    dragging: {
+      true: { base: 'bg-md-sys-color-outline/20' },
+      false: ''
+    },
+    snapped: {
+      true: { grip: 'h-10 w-1.5 bg-md-sys-color-tertiary' },
+      false: {
+        grip: 'h-8 w-1 bg-md-sys-color-on-surface-variant/40 group-hover:bg-md-sys-color-primary'
+      }
+    }
+  },
+  compoundVariants: [{ dragging: true, snapped: false, class: { grip: 'w-0.5' } }]
 });
 
 export const paneGrid = tv({

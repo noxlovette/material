@@ -34,4 +34,8 @@ export interface MenuItemProps {
    * The content of the menu item, typically a label.
    */
   children: Snippet;
+  /**
+   * Whether this item is in fact a gap
+   */
+  isGap?: boolean;
 }

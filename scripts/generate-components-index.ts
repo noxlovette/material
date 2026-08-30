@@ -24,6 +24,7 @@ async function generateDir(dir: string): Promise<void> {
       folders.push(e.name);
     } else if (e.isFile()) {
       if (e.name === 'index.ts') continue; // skip index files
+      if (e.name.endsWith('.stories.svelte')) continue; // skip Storybook-only files
       if (e.name.endsWith('.svelte')) svelteFiles.push(e.name);
       // include .ts/.js modules for barrel exports (exclude declaration files)
       else if ((e.name.endsWith('.ts') || e.name.endsWith('.js')) && !e.name.endsWith('.d.ts')) {

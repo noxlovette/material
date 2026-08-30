@@ -118,6 +118,35 @@ See `/docs/pane` for the full prop reference.
 5. Add `<ComponentName>.stories.svelte` next to the component (Svelte-CSF via `@storybook/addon-svelte-csf`'s `defineMeta`/`Story`) — this is the live preview, not a showcase route. New icon names used in the story need to go in `.storybook/StorybookProviders.svelte`'s `extraIcons` too (see "Known Pitfalls").
 6. Add a docs page under `src/routes/docs/<component>/+page.svelte` for prose/usage guidance (only if the component needs more explanation than Storybook's autodocs gives)
 
+# Verifying a Component Change in the Browser
+
+`bun run check` only catches type errors — it won't catch a handle rendering off-screen, a
+clipped overlay, or a variant class that never actually gets applied (see "Known Pitfalls"
+above). After changing anything with a visual or interactive surface, actually look at it in
+Storybook before calling the change done:
+
+1. Start Storybook in the background: `(bun run storybook > /tmp/storybook.log 2>&1 &)`, then
+   poll `/tmp/storybook.log` for `Storybook ready!` (or the `Local:` URL) before opening it —
+   the first boot takes a few seconds.
+2. Open the story directly at `http://localhost:6006/iframe.html?id=<story-id>&viewMode=story`
+   (kebab-case `<title>--<name>`, e.g. `containers-pane-grid--resizable-split`) rather than the
+   `?path=/story/...` manager URL — it skips the manager chrome/sidebar so a screenshot shows
+   only the story itself.
+3. Screenshot, and `zoom` into the specific region you changed — don't trust a full-page
+   screenshot alone to catch a few-pixel clipping or alignment issue.
+4. For anything gesture-driven (drag, hover, snap points, transitions) a single screenshot can't
+   catch the mid-gesture state. Use `javascript_tool` to either (a) read
+   `getBoundingClientRect()`/`getComputedStyle()` on the element to confirm computed values
+   ground-truth rather than eyeballing pixels, or (b) dispatch synthetic `PointerEvent`s
+   (`pointerdown`/`pointermove` without a matching `pointerup`) to freeze the interaction in a
+   specific state, then screenshot or inspect it.
+5. When done, close the tab and stop the dev server (`pkill -f "storybook dev"`) — don't leave
+   it running across turns.
+
+This is also the fastest way to catch a demo/story bug that isn't the component's fault — e.g. a
+story wrapping `<PaneGrid full>` in a fixed-height `overflow-hidden` box, which clips anything
+that stretches to `min-h-dvh` inside it.
+
 # Key Utils (`src/lib/utils/`)
 
 - **`Icon.svelte`** — renders Material Symbols icons; accepts `name`, `fill`, `wght`, `size`

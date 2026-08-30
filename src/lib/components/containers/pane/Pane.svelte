@@ -3,27 +3,25 @@
 A single content region. Used standalone as a page-level wrapper (centered column,
 padding/gap, optional background), or as a child of PaneGrid to become one region
 of a multi-pane layout — a sidebar, a detail column, a supporting panel — via
-`width`/`resizable`/`sticky`/`visibleFrom`/`hiddenFrom`.
+`width`/`resizable`/`sticky`/`visibleFrom`/`hiddenFrom`. A `resizable` pane doesn't
+own a drag handle itself — place a `PaneHandle` with a matching `persistKey`
+alongside it in the PaneGrid; this pane just mirrors the width it drags to.
 -->
 <script lang="ts">
   import clsx from 'clsx';
   import { onMount } from 'svelte';
-  import { pane, resolveResponsive, responsiveTables } from './theme.js';
+  import { pane, responsiveTables } from './theme.js';
+  import { paneWidths } from './resizeStore.svelte.js';
   import type { PaneProps } from './types.js';
-
-  let dragging = $state(false);
 
   let {
     children,
-    centered = 'none',
     background = true,
     full = true,
     padding = 'md',
     gap = 'md',
     rounded = true,
     width = $bindable(undefined),
-    min = 200,
-    max = 640,
     resizable = false,
     persistKey,
     sticky = false,
@@ -37,8 +35,8 @@ of a multi-pane layout — a sidebar, a detail column, a supporting panel — vi
 
   const flexible = $derived(width === undefined);
 
-  const { base, content, handle, handleGrip } = $derived(
-    pane({ padding, gap, centered, full, background, rounded, flexible, sticky, dragging })
+  const { base, content } = $derived(
+    pane({ padding, gap, full, background, rounded, flexible, sticky })
   );
 
   const visibilityClass = $derived(
@@ -55,39 +53,15 @@ of a multi-pane layout — a sidebar, a detail column, a supporting panel — vi
     )
   );
 
-  const clampWidth = (next: number) => Math.min(max, Math.max(min, next));
-
-  let dragStartX = 0;
-  let dragStartWidth = 0;
-
-  const startDrag = (event: PointerEvent) => {
-    dragging = true;
-    dragStartX = event.clientX;
-    dragStartWidth = width ?? min;
-    (event.currentTarget as HTMLElement).setPointerCapture(event.pointerId);
-  };
-
-  const moveDrag = (event: PointerEvent) => {
-    if (!dragging) return;
-    width = clampWidth(dragStartWidth + (event.clientX - dragStartX));
-  };
-
-  const endDrag = () => {
-    dragging = false;
-  };
-
   onMount(() => {
-    if (!resizable || !persistKey || typeof localStorage === 'undefined') return;
-    const stored = Number(localStorage.getItem(persistKey));
-    if (!Number.isNaN(stored) && stored > 0) {
-      width = clampWidth(stored);
-    }
+    if (!resizable || !persistKey) return;
+    width = paneWidths.hydrate(persistKey, width ?? 200);
   });
 
   $effect(() => {
-    if (!resizable || !persistKey || width === undefined || typeof localStorage === 'undefined')
-      return;
-    localStorage.setItem(persistKey, String(width));
+    if (!resizable || !persistKey) return;
+    const stored = paneWidths.get(persistKey);
+    if (stored !== undefined) width = stored;
   });
 </script>
 
@@ -95,21 +69,4 @@ of a multi-pane layout — a sidebar, a detail column, a supporting panel — vi
   <div class={content({ class: clsx(contentClass) })}>
     {@render children()}
   </div>
-
-  {#if resizable}
-    <div
-      class={handle()}
-      role="separator"
-      aria-orientation="vertical"
-      aria-valuenow={width}
-      aria-valuemin={min}
-      aria-valuemax={max}
-      onpointerdown={startDrag}
-      onpointermove={moveDrag}
-      onpointerup={endDrag}
-      onpointercancel={endDrag}
-    >
-      <div class={handleGrip()}></div>
-    </div>
-  {/if}
 </div>

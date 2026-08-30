@@ -19,6 +19,7 @@ They’re used for branding, screen titles, navigation, and actions.
     trailing,
     leading,
     class: className,
+    rowClass,
     showBack,
     ghost = false,
     ...rest
@@ -43,6 +44,7 @@ They’re used for branding, screen titles, navigation, and actions.
     trailing: trailingCls
   } = $derived(appbar({ scrolled, noLeading, noTrailing }));
   const navClass = $derived(base({ class: clsx(className) }));
+  const rowFull = $derived(row({ class: clsx(rowClass) }));
 
   function trackHeight(node: HTMLElement) {
     const observer = new ResizeObserver((entries) => {
@@ -57,7 +59,7 @@ They’re used for branding, screen titles, navigation, and actions.
 <svelte:window bind:scrollY />
 
 <nav {...rest} class={navClass} {@attach ghost ? trackHeight : null}>
-  <div class={row()}>
+  <div class={rowFull}>
     <div class={leadingCls()}>
       {@render leading?.()}
     </div>
