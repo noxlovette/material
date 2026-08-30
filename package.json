@@ -16,9 +16,6 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
-  "bin": {
-    "material-claude-skill": "./bin/install-skill.js"
-  },
   "files": [
     "dist",
     "!dist/**/*.test.*",
