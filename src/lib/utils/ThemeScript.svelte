@@ -13,5 +13,5 @@ Add this to your root +layout.svelte (or any layout that wraps the whole app):
 </script>
 
 <svelte:head>
-  {@html `<script>${THEME_INIT_SCRIPT}</script>`}
+  {@html '<' + 'script>' + THEME_INIT_SCRIPT + '</' + 'script>'}
 </svelte:head>
