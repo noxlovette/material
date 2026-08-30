@@ -82,7 +82,7 @@
 </script>
 
 <svelte:head>
-  <title>Navbar — Ogonëk M3 Docs</title>
+  <title>Navbar — Svelte Material Docs</title>
 </svelte:head>
 
 <PaneGrid direction={{ small: 'column', large: 'row' }} gap="lg" full>

@@ -24,16 +24,16 @@
 </script>
 
 <svelte:head>
-  <title>Overview | Ogonëk M3</title>
+  <title>Overview</title>
 </svelte:head>
 
 <Pane>
   <div class="flex flex-col gap-4">
-    <Display>Ogonëk M3</Display>
+    <Display>Svelte Material Design</Display>
     <Headline>Component Library Overview</Headline>
     <Body class="max-w-2xl">
-      Welcome to the Ogonëk M3 component library. This library is built following Material Design 3
-      guidelines and uses Bits UI for headless components.
+      This library is built following Material Design 3 guidelines and uses Bits UI for headless
+      components.
     </Body>
   </div>
 

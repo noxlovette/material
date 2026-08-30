@@ -32,7 +32,7 @@
 </script>
 
 <svelte:head>
-  <title>Pill — Ogonëk M3 Docs</title>
+  <title>Pill — Svelte Material Docs</title>
 </svelte:head>
 
 <PaneGrid direction={{ small: 'column', large: 'row' }} gap="lg" full>

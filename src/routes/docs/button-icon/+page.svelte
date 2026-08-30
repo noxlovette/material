@@ -111,7 +111,7 @@
 </script>
 
 <svelte:head>
-  <title>Button Icon — Ogonëk M3 Docs</title>
+  <title>Button Icon — Svelte Material Docs</title>
 </svelte:head>
 
 <PaneGrid direction={{ small: 'column', large: 'row' }} gap="lg" full>

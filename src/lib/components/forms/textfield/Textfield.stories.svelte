@@ -8,6 +8,7 @@
     argTypes: {
       label: { control: 'text' },
       placeholder: { control: 'text' },
+      variant: { control: 'select', options: ['filled', 'outlined'] },
       disabled: { control: 'boolean' },
       error: { control: 'boolean' },
       required: { control: 'boolean' },
@@ -15,6 +16,7 @@
     },
     args: {
       label: 'Label',
+      variant: 'filled',
       disabled: false,
       error: false,
       required: false
@@ -70,5 +72,25 @@
       {/snippet}
     </Textfield>
     <Textfield label="Disabled" disabled value="Can't edit" />
+  </div>
+</Story>
+
+<Story name="Outlined" asChild>
+  <div class="flex max-w-sm flex-col gap-6 p-6">
+    <Textfield variant="outlined" label="Default" />
+    <Textfield variant="outlined" label="With value" value="Hello" />
+    <Textfield variant="outlined" label="Required" required />
+    <Textfield variant="outlined" label="Error" error value="Invalid value">
+      {#snippet supportingText()}
+        This field is required.
+      {/snippet}
+    </Textfield>
+    <Textfield variant="outlined" label="Disabled" disabled value="Can't edit" />
+    <Textfield
+      variant="outlined"
+      label="Search"
+      leadingIconProps={{ name: 'search' }}
+      trailingIconProps={{ name: 'close' }}
+    />
   </div>
 </Story>

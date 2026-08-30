@@ -88,7 +88,7 @@
 </script>
 
 <svelte:head>
-  <title>Tabs — Ogonëk M3 Docs</title>
+  <title>Tabs — Svelte Material Docs</title>
 </svelte:head>
 
 <PaneGrid direction={{ small: 'column', large: 'row' }} gap="lg" full>

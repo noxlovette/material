@@ -141,7 +141,7 @@
 </script>
 
 <svelte:head>
-  <title>Rail — Ogonëk M3 Docs</title>
+  <title>Rail — Svelte Material Docs</title>
 </svelte:head>
 
 <PaneGrid direction={{ small: 'column', large: 'row' }} gap="lg" full>

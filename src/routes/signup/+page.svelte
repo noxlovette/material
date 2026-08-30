@@ -44,7 +44,7 @@
 </script>
 
 <svelte:head>
-  <title>Signup | Ogonëk M3</title>
+  <title>Signup | Svelte Material</title>
 </svelte:head>
 
 <Pane contentClass="gap-12 p-12 max-w-5xl mx-auto">

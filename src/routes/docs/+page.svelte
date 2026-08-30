@@ -3,14 +3,14 @@
 </script>
 
 <svelte:head>
-  <title>Components | Ogonëk M3 Docs</title>
+  <title>Components | Material Docs</title>
 </svelte:head>
 
 <div class="mx-auto max-w-4xl px-8 py-12">
   <div class="mb-10 flex flex-col gap-3">
     <Display>Component Docs</Display>
     <Body class="text-md-sys-color-on-surface-variant max-w-2xl">
-      Reference documentation for every component in the Ogonëk M3 library. Each page includes
+      Reference documentation for every component in the Svelte Material library. Each page includes
       props, usage examples, and live demos.
     </Body>
   </div>

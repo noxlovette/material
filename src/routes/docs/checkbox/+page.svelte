@@ -69,7 +69,7 @@
 </script>
 
 <svelte:head>
-  <title>Checkbox — Ogonëk M3 Docs</title>
+  <title>Checkbox — Svelte Material Docs</title>
 </svelte:head>
 
 <PaneGrid direction={{ small: 'column', large: 'row' }} gap="lg" full>

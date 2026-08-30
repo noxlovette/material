@@ -41,7 +41,7 @@
 </script>
 
 <svelte:head>
-  <title>Side Sheet — Ogonëk M3 Docs</title>
+  <title>Side Sheet — Svelte Material Docs</title>
 </svelte:head>
 
 <PaneGrid direction={{ small: 'column', large: 'row' }} gap="lg" full>

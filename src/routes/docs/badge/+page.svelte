@@ -32,7 +32,7 @@
 </script>
 
 <svelte:head>
-  <title>Badge — Ogonëk M3 Docs</title>
+  <title>Badge — Svelte Material Docs</title>
 </svelte:head>
 
 <PaneGrid direction={{ small: 'column', large: 'row' }} gap="lg" full>

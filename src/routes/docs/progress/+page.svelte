@@ -94,7 +94,7 @@
 </script>
 
 <svelte:head>
-  <title>Progress — Ogonëk M3 Docs</title>
+  <title>Progress — Svelte Material Docs</title>
 </svelte:head>
 
 <PaneGrid direction={{ small: 'column', large: 'row' }} gap="lg" full>

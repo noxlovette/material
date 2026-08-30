@@ -69,6 +69,12 @@
       desc: 'Maximum character count, shown as a counter next to the supporting text.'
     },
     {
+      prop: 'variant',
+      type: "'filled' | 'outlined'",
+      default: "'filled'",
+      desc: 'Visual style — a filled container with a bottom indicator, or a bordered container whose label notches the outline.'
+    },
+    {
       prop: 'disabled',
       type: 'boolean',
       default: 'false',
@@ -111,7 +117,7 @@
 </script>
 
 <svelte:head>
-  <title>Textfield — Ogonëk M3 Docs</title>
+  <title>Textfield — Svelte Material Docs</title>
 </svelte:head>
 
 <PaneGrid direction={{ small: 'column', large: 'row' }} gap="lg" full>
@@ -137,8 +143,9 @@
 
       <Headline>Text Field</Headline>
       <Body class="text-md-sys-color-on-surface-variant max-w-2xl">
-        Text fields let users enter and edit text. This component implements M3's filled text field:
-        a floating <code class="doc-code">label</code>, an animated focus/active indicator, and
+        Text fields let users enter and edit text. This component implements both of M3's text field
+        variants — <code class="doc-code">filled</code> and <code class="doc-code">outlined</code> —
+        with a floating <code class="doc-code">label</code>, an animated focus/active indicator, and
         optional leading/trailing icons and supporting text.
       </Body>
 
@@ -169,6 +176,13 @@
         >
         pattern. The <code class="doc-code">label</code> starts centered inside the field and floats up
         when the field is focused or has a value.
+      </Body>
+      <Body>
+        Set <code class="doc-code">variant="outlined"</code> for the outlined style — a bordered
+        field with no fill, where the floating label opens a notch in the border instead of sitting
+        on a bottom indicator line. Use it in places with a lot of visual noise (e.g. over an image)
+        or next to a filled field that should carry more emphasis. The default is
+        <code class="doc-code">"filled"</code>.
       </Body>
       <Body>
         Use <code class="doc-code">leadingIconProps</code>/<code class="doc-code"
@@ -223,6 +237,10 @@
   {/snippet}
 </Textfield>`}
       />
+
+      <Body>Pass <code class="doc-code">variant="outlined"</code> for the outlined style:</Body>
+
+      <CodeBlock code={`<Textfield label="Email" bind:value={email} variant="outlined" />`} />
     </section>
 
     <section id="textfield-props" class="mb-12 flex flex-col gap-4 scroll-mt-6">

@@ -76,7 +76,7 @@
 </script>
 
 <svelte:head>
-  <title>Popover — Ogonëk M3 Docs</title>
+  <title>Popover — Svelte Material Docs</title>
 </svelte:head>
 
 <PaneGrid direction={{ small: 'column', large: 'row' }} gap="lg" full>

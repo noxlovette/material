@@ -124,7 +124,7 @@
 </script>
 
 <svelte:head>
-  <title>Select — Ogonëk M3 Docs</title>
+  <title>Select — Svelte Material Docs</title>
 </svelte:head>
 
 <PaneGrid direction={{ small: 'column', large: 'row' }} gap="lg" full>

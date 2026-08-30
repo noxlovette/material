@@ -27,13 +27,14 @@ Text fields allow users to enter and edit text.
     disabled = false,
     error = false,
     required = false,
+    variant = 'filled',
     trailingOnClick,
     inputChild,
     trailingIcon,
     ...restProps
   }: TextfieldProps = $props();
 
-  const cls = $derived(textfield({ disabled, error }));
+  const cls = $derived(textfield({ disabled, error, variant }));
 
   const inputProps = $derived({
     id,
@@ -74,6 +75,14 @@ Text fields allow users to enter and edit text.
         class={cls.trailingIcon()}
         iconProps={trailingIconProps}
       ></ButtonIcon>
+    {/if}
+
+    {#if variant === 'outlined'}
+      <fieldset class={cls.fieldset()} aria-hidden="true">
+        <legend class={cls.legend()}>
+          <span class={cls.legendLabel()}>{label}{required ? '*' : ''}</span>
+        </legend>
+      </fieldset>
     {/if}
   </div>
 

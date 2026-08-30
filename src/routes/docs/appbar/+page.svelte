@@ -74,7 +74,7 @@
 </script>
 
 <svelte:head>
-  <title>App Bar — Ogonëk M3 Docs</title>
+  <title>App Bar — Material Docs</title>
 </svelte:head>
 
 <PaneGrid direction={{ small: 'column', large: 'row' }} gap="lg" full>

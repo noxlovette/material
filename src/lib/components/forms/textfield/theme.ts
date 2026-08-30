@@ -5,16 +5,7 @@ export type TextFieldVariants = VariantProps<typeof textfield>;
 export const textfield = tv({
   slots: {
     base: `
-      group w-full h-14 px-0 bg-md-sys-color-surface-container-highest
-      rounded-t-xs state-layer before:rounded-xs hover:before:bg-md-sys-color-on-surface/8 relative flex items-center
-      after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-md-sys-color-on-surface-variant
-      after:transition-[height,background-color] after:duration-200
-      hover:after:bg-md-sys-color-on-surface
-      focus-within:after:bg-md-sys-color-primary
-      focus-within:after:h-[2px]
-      disabled:bg-md-sys-color-on-surface/4
-      disabled:after:bg-md-sys-color-on-surface/12
-
+      group relative w-full h-14 flex items-center
     `,
 
     inputWrapper: `
@@ -35,10 +26,6 @@ export const textfield = tv({
       transition-[top,font-size,line-height,color,transform] duration-200 ease-in-out
 
       peer-focus:text-md-sys-color-primary
-
-      peer-focus:top-1.5 peer-focus:md-sys-typescale-body-small peer-focus:-translate-y-1
-
-      peer-not-placeholder-shown:top-1.5 peer-not-placeholder-shown:md-sys-typescale-body-small peer-not-placeholder-shown:-translate-y-1
     `,
 
     requiredAsterisk: `
@@ -64,23 +51,81 @@ export const textfield = tv({
       px-4 pt-1 flex justify-between
       md-sys-typescale-body-small
       text-md-sys-color-on-surface-variant
+    `,
+
+    fieldset: `
+      absolute -top-[5px] left-0 right-0 bottom-0 m-0 px-2
+      pointer-events-none rounded-xs border border-md-sys-color-outline
+      transition-colors duration-150
+
+      group-hover:border-md-sys-color-on-surface
+      group-focus-within:border-2 group-focus-within:border-md-sys-color-primary
+    `,
+
+    legend: `
+      invisible float-none block h-auto max-w-[0.01px] overflow-hidden
+      whitespace-nowrap md-sys-typescale-body-small
+      transition-[max-width] duration-150 ease-in-out
+
+      group-focus-within:max-w-full
+      group-has-[input:not(:placeholder-shown)]:max-w-full
+    `,
+
+    legendLabel: `
+      px-1
     `
   },
 
   variants: {
+    variant: {
+      filled: {
+        base: `
+          px-0 bg-md-sys-color-surface-container-highest
+          rounded-t-xs state-layer before:rounded-xs hover:before:bg-md-sys-color-on-surface/8
+          after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-md-sys-color-on-surface-variant
+          after:transition-[height,background-color] after:duration-200
+          hover:after:bg-md-sys-color-on-surface
+          focus-within:after:bg-md-sys-color-primary
+          focus-within:after:h-[2px]
+          disabled:bg-md-sys-color-on-surface/4
+          disabled:after:bg-md-sys-color-on-surface/12
+        `,
+        label: `
+          peer-focus:top-1.5 peer-focus:md-sys-typescale-body-small peer-focus:-translate-y-1
+          peer-not-placeholder-shown:top-1.5 peer-not-placeholder-shown:md-sys-typescale-body-small peer-not-placeholder-shown:-translate-y-1
+        `
+      },
+      outlined: {
+        label: `
+          peer-focus:top-0 peer-focus:md-sys-typescale-body-small peer-focus:-translate-y-1/2
+          peer-not-placeholder-shown:top-0 peer-not-placeholder-shown:md-sys-typescale-body-small peer-not-placeholder-shown:-translate-y-1/2
+        `
+      }
+    },
+
     error: {
       true: {
         base: 'after:bg-md-sys-color-error focus-within:after:bg-md-sys-color-error',
         label: 'text-md-sys-color-error',
         supportingText: 'text-md-sys-color-error',
         leadingIcon: 'text-md-sys-color-error',
-        trailingIcon: 'text-md-sys-color-error'
+        trailingIcon: 'text-md-sys-color-error',
+        fieldset: `
+          border-md-sys-color-error
+          group-hover:border-md-sys-color-error
+          group-focus-within:border-md-sys-color-error
+        `
       }
     },
     disabled: {
       true: {
-        base: 'cursor-not-allowed opacity-60'
+        base: 'cursor-not-allowed opacity-60',
+        fieldset: 'border-md-sys-color-on-surface/12 group-hover:border-md-sys-color-on-surface/12'
       }
     }
+  },
+
+  defaultVariants: {
+    variant: 'filled'
   }
 });
