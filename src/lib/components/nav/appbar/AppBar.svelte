@@ -61,7 +61,7 @@ comment.
   }
 
   $effect(() => {
-    document.documentElement.style.setProperty('--appbar-height', `${barHeight}px`);
+    document.documentElement.style.setProperty('--appbar-height', `${barHeight + 32}px`);
     return () => document.documentElement.style.removeProperty('--appbar-height');
   });
 </script>
