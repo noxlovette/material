@@ -143,7 +143,7 @@
 
     <Divider class="mb-12" />
 
-    <section id="overview" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="overview" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Overview</Title>
       <Body>
         All three components are built on bits-ui's <code class="doc-code">Progress.Root</code>
@@ -167,7 +167,7 @@
       </Body>
     </section>
 
-    <section id="import" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="import" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Import</Title>
       <CodeBlock
         lang="typescript"
@@ -175,7 +175,7 @@
       />
     </section>
 
-    <section id="demo" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="demo" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Live Demo</Title>
       <Body class="text-md-sys-color-on-surface-variant">
         See all three live, with Controls, in Storybook rather than a hand-rolled preview here.
@@ -197,7 +197,7 @@
       </a>
     </section>
 
-    <section id="basic-usage" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="basic-usage" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Basic Usage</Title>
 
       <CodeBlock
@@ -219,7 +219,7 @@
       />
     </section>
 
-    <section id="circular-props" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="circular-props" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>CircularProgress Props</Title>
       <div class="overflow-x-auto rounded-xl border border-black/5">
         <table class="w-full border-collapse text-sm">
@@ -269,7 +269,7 @@
       </div>
     </section>
 
-    <section id="linear-props" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="linear-props" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>LinearProgress Props</Title>
       <div class="overflow-x-auto rounded-xl border border-black/5">
         <table class="w-full border-collapse text-sm">
@@ -319,7 +319,7 @@
       </div>
     </section>
 
-    <section id="wavy-props" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="wavy-props" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>WavyLinearProgress Props</Title>
       <div class="overflow-x-auto rounded-xl border border-black/5">
         <table class="w-full border-collapse text-sm">
@@ -369,7 +369,7 @@
       </div>
     </section>
 
-    <section id="accessibility" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="accessibility" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Accessibility</Title>
       <div class="flex flex-col gap-3">
         {#each [{ icon: 'accessibility_new', title: 'ARIA semantics via bits-ui', desc: 'Progress.Root supplies role="progressbar" with aria-valuenow/aria-valuemin/aria-valuemax wired to percent, and omits aria-valuenow automatically for indeterminate state.' }, { icon: 'hourglass_empty', title: 'Indeterminate still needs a label', desc: 'None of the three components render visible or accessible text describing what is loading — pair them with your own aria-label or adjacent text for screen reader users.' }, { icon: 'motion_photos_pause', title: 'Motion sensitivity', desc: 'WavyLinearProgress and indeterminate states rely on continuous animation; consider respecting prefers-reduced-motion in contexts where that matters.' }] as item}

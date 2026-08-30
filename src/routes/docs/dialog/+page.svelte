@@ -170,7 +170,7 @@
 
     <Divider class="mb-12" />
 
-    <section id="overview" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="overview" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Overview</Title>
       <Body>
         The component implements the
@@ -186,7 +186,7 @@
       </Body>
     </section>
 
-    <section id="naming" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="naming" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Naming: Dialogue vs Dialog</Title>
       <Body>
         The exported component name is <code class="doc-code">Dialogue</code> — the British spelling
@@ -203,12 +203,12 @@
       </Body>
     </section>
 
-    <section id="import" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="import" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Import</Title>
       <CodeBlock lang="typescript" code={`import { Dialogue } from '@noxlovette/material';`} />
     </section>
 
-    <section id="demo" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="demo" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Live Demo</Title>
       <Body class="text-md-sys-color-on-surface-variant">
         See it live, with Controls, in Storybook rather than a hand-rolled preview here.
@@ -230,7 +230,7 @@
       </a>
     </section>
 
-    <section id="basic-usage" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="basic-usage" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Basic Usage</Title>
       <Body>
         <code class="doc-code">enhance</code> and <code class="doc-code">confirmText</code> are required
@@ -259,7 +259,7 @@
       />
     </section>
 
-    <section id="dialogue-props" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="dialogue-props" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Dialogue Props</Title>
       <div class="overflow-x-auto rounded-xl border border-black/5">
         <table class="w-full border-collapse text-sm">
@@ -321,7 +321,7 @@
       </Body>
     </section>
 
-    <section id="accessibility" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="accessibility" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Accessibility</Title>
       <div class="flex flex-col gap-3">
         {#each [{ icon: 'block', title: 'Focus trap', desc: 'Focus is trapped inside the dialog while open and returned to the trigger on close, via bits-ui Dialog.Root.' }, { icon: 'label', title: 'Labelling', desc: 'headline and supportingText render as Dialog.Title and Dialog.Description, wired to aria-labelledby/aria-describedby automatically.' }, { icon: 'keyboard', title: 'Escape to dismiss', desc: 'Pressing Escape closes the dialog by default, matching modal dialog expectations.' }] as item}

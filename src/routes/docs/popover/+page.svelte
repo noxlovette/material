@@ -109,7 +109,7 @@
 
     <Divider class="mb-12" />
 
-    <section id="overview" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="overview" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Overview</Title>
       <Body>
         Material Design 3 doesn't publish a standalone "Popover" component page, so there is no M3
@@ -137,12 +137,12 @@
       </Body>
     </section>
 
-    <section id="import" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="import" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Import</Title>
       <CodeBlock lang="typescript" code={`import { Popover } from '@noxlovette/material';`} />
     </section>
 
-    <section id="demo" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="demo" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Live Demo</Title>
       <Body class="text-md-sys-color-on-surface-variant">
         See it live, with Controls, in Storybook rather than a hand-rolled preview here.
@@ -164,7 +164,7 @@
       </a>
     </section>
 
-    <section id="basic-usage" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="basic-usage" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Basic Usage</Title>
       <CodeBlock
         code={`<script lang="ts">
@@ -180,7 +180,7 @@
       />
     </section>
 
-    <section id="popover-props" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="popover-props" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Popover Props</Title>
       <div class="overflow-x-auto rounded-xl border border-black/5">
         <table class="w-full border-collapse text-sm">
@@ -238,7 +238,7 @@
       </div>
     </section>
 
-    <section id="accessibility" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="accessibility" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Accessibility</Title>
       <div class="flex flex-col gap-3">
         {#each [{ icon: 'keyboard', title: 'Keyboard dismissal', desc: 'Escape closes the popover and returns focus to the trigger, handled by bits-ui Popover primitives.' }, { icon: 'block', title: 'Non-modal', desc: 'Unlike Dialogue, the rest of the page remains interactive and focusable while a Popover is open — do not use it for content that must block further interaction.' }] as item}

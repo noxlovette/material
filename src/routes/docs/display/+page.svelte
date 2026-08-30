@@ -91,7 +91,7 @@
 
     <Divider class="mb-12" />
 
-    <section id="overview" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="overview" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Overview</Title>
       <Body>
         <code class="doc-code">Display</code>, <code class="doc-code">Headline</code>,
@@ -112,12 +112,12 @@
       </Body>
     </section>
 
-    <section id="import" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="import" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Import</Title>
       <CodeBlock lang="typescript" code={`import { Display } from '@noxlovette/material';`} />
     </section>
 
-    <section id="demo" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="demo" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Live Demo</Title>
       <Body class="text-md-sys-color-on-surface-variant">
         See it live, with Controls, in Storybook rather than a hand-rolled preview here.
@@ -139,7 +139,7 @@
       </a>
     </section>
 
-    <section id="basic-usage" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="basic-usage" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Basic Usage</Title>
       <CodeBlock
         code={`<script lang="ts">
@@ -150,7 +150,7 @@
       />
     </section>
 
-    <section id="display-props" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="display-props" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Display Props</Title>
       <div class="overflow-x-auto rounded-xl border border-black/5">
         <table class="w-full border-collapse text-sm">
@@ -208,7 +208,7 @@
       </div>
     </section>
 
-    <section id="accessibility" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="accessibility" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Accessibility</Title>
       <div class="flex flex-col gap-3">
         {#each [{ icon: 'title', title: 'Heading semantics', desc: 'Renders as an <h1> — use at most once per page/screen so assistive tech gets one clear top-level heading.' }, { icon: 'contrast', title: 'Inherits color', desc: 'Display sets no color itself; pair with an on-surface color-role utility to guarantee contrast against its background.' }] as item}

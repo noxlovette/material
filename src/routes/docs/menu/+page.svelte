@@ -151,7 +151,7 @@
 
     <Divider class="mb-12" />
 
-    <section id="overview" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="overview" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Overview</Title>
       <Body>
         <code class="doc-code">Menu</code> owns exactly two things: open/close state (bits-ui's
@@ -172,7 +172,7 @@
       </Body>
     </section>
 
-    <section id="import" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="import" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Import</Title>
       <CodeBlock
         lang="typescript"
@@ -180,7 +180,7 @@
       />
     </section>
 
-    <section id="demo" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="demo" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Live Demo</Title>
       <Body class="text-md-sys-color-on-surface-variant">
         See it live, with Controls, in Storybook rather than a hand-rolled preview here.
@@ -202,7 +202,7 @@
       </a>
     </section>
 
-    <section id="basic-usage" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="basic-usage" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Basic Usage</Title>
       <CodeBlock
         code={`<script lang="ts">
@@ -220,7 +220,7 @@
       />
     </section>
 
-    <section id="menu-props" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="menu-props" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Menu Props</Title>
       <div class="overflow-x-auto rounded-xl border border-black/5">
         <table class="w-full border-collapse text-sm">
@@ -278,7 +278,7 @@
       </div>
     </section>
 
-    <section id="menuitem-props" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="menuitem-props" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>MenuItem Props</Title>
       <div class="overflow-x-auto rounded-xl border border-black/5">
         <table class="w-full border-collapse text-sm">
@@ -336,7 +336,7 @@
       </div>
     </section>
 
-    <section id="accessibility" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="accessibility" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Accessibility</Title>
       <div class="flex flex-col gap-3">
         {#each [{ icon: 'keyboard', title: 'Keyboard navigation', desc: 'Arrow keys move through items, Enter/Space activates, Escape closes and returns focus to the trigger — all handled by bits-ui DropdownMenu primitives.' }, { icon: 'check', title: 'Selected indicator', desc: 'selected items show a check icon in addition to a colored background, avoiding a color-only signal.' }, { icon: 'block', title: 'Disabled items', desc: 'Individual items can be disabled and are skipped during keyboard navigation.' }] as item}

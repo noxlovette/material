@@ -134,7 +134,7 @@
 
     <Divider class="mb-12" />
 
-    <section id="overview" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="overview" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Overview</Title>
       <Body>
         The <code class="doc-code">Tabs</code> family implements the
@@ -147,7 +147,7 @@
       </Body>
     </section>
 
-    <section id="import" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="import" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Import</Title>
       <CodeBlock
         lang="typescript"
@@ -155,7 +155,7 @@
       />
     </section>
 
-    <section id="anatomy" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="anatomy" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Anatomy</Title>
       <div class="flex flex-col gap-3">
         {#each [{ name: 'TabHolder', desc: 'The container. Renders the tab row from an items array and the sliding active-state indicator.' }, { name: 'Tab', desc: 'A single trigger — rendered internally by TabHolder for each item. Renders as <a> when href is set, otherwise <button>.' }, { name: 'TabContent', desc: 'A content panel matched to a Tab by value. Only used for content-panel (non-href) tabs.' }] as part}
@@ -167,7 +167,7 @@
       </div>
     </section>
 
-    <section id="demo" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="demo" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Live Demo</Title>
       <Body class="text-md-sys-color-on-surface-variant">
         See it live, with Controls, in Storybook rather than a hand-rolled preview here.
@@ -205,7 +205,7 @@
       </div>
     </section>
 
-    <section id="basic-usage" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="basic-usage" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Basic Usage (content panels)</Title>
       <Body>
         Give each item a <code class="doc-code">value</code> and pair it with a matching
@@ -234,7 +234,7 @@
       />
     </section>
 
-    <section id="nav-tabs" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="nav-tabs" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Navigation Tabs (href)</Title>
       <Body>
         Give each item an <code class="doc-code">href</code> instead of a
@@ -254,7 +254,7 @@
       />
     </section>
 
-    <section id="tabholder-props" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="tabholder-props" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>TabHolder Props</Title>
       <div class="overflow-x-auto rounded-xl border border-black/5">
         <table class="w-full border-collapse text-sm">
@@ -312,7 +312,7 @@
       </div>
     </section>
 
-    <section id="tab-props" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="tab-props" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Tab Props</Title>
       <div class="overflow-x-auto rounded-xl border border-black/5">
         <table class="w-full border-collapse text-sm">
@@ -370,7 +370,7 @@
       </div>
     </section>
 
-    <section id="accessibility" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="accessibility" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Accessibility</Title>
       <div class="flex flex-col gap-3">
         {#each [{ icon: 'keyboard', title: 'Keyboard navigation', desc: 'Arrow keys move focus between tabs; automatic activationMode selects on focus, manual requires Enter/Space.' }, { icon: 'visibility', title: 'Active state', desc: 'The active Tab.Trigger sets aria-selected via Bits UI Tabs, and the sliding indicator is purely visual.' }, { icon: 'block', title: 'Disabled tabs', desc: 'Disabled tabs are removed from the arrow-key focus order.' }] as item}

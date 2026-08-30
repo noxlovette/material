@@ -117,7 +117,7 @@
 
     <Divider class="mb-12" />
 
-    <section id="overview" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="overview" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Overview</Title>
       <Body>
         The <code class="doc-code">Checkbox</code> component implements the
@@ -136,12 +136,12 @@
       </Body>
     </section>
 
-    <section id="import" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="import" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Import</Title>
       <CodeBlock lang="typescript" code={`import { Checkbox } from '@noxlovette/material';`} />
     </section>
 
-    <section id="demo" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="demo" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Live Demo</Title>
       <Body class="text-md-sys-color-on-surface-variant">
         See it live, with Controls, in Storybook rather than a hand-rolled preview here.
@@ -163,7 +163,7 @@
       </a>
     </section>
 
-    <section id="basic-usage" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="basic-usage" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Basic Usage</Title>
       <Body>Bind <code class="doc-code">checked</code> to read and set the selection state:</Body>
 
@@ -178,7 +178,7 @@
       />
     </section>
 
-    <section id="checkbox-props" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="checkbox-props" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Checkbox Props</Title>
       <div class="overflow-x-auto rounded-xl border border-black/5">
         <table class="w-full border-collapse text-sm">
@@ -236,7 +236,7 @@
       </div>
     </section>
 
-    <section id="accessibility" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="accessibility" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Accessibility</Title>
       <div class="flex flex-col gap-3">
         {#each [{ icon: 'touch_app', title: 'Large hit target', desc: 'The state layer extends the clickable/tappable area well beyond the visible 18px box, meeting the 48dp target size.' }, { icon: 'keyboard', title: 'Keyboard support', desc: 'Space toggles the checkbox; a visible focus ring (peer-focus-visible) is drawn around the control.' }, { icon: 'label', title: 'Label association', desc: 'Label.Root is tied to the control via a shared id, so clicking the label text also toggles the checkbox.' }] as item}

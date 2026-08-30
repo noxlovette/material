@@ -97,7 +97,7 @@
 
     <Divider class="mb-12" />
 
-    <section id="overview" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="overview" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Overview</Title>
       <Body>
         The <code class="doc-code">Switch</code> component implements the
@@ -115,12 +115,12 @@
       </Body>
     </section>
 
-    <section id="import" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="import" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Import</Title>
       <CodeBlock lang="typescript" code={`import { Switch } from '@noxlovette/material';`} />
     </section>
 
-    <section id="demo" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="demo" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Live Demo</Title>
       <Body class="text-md-sys-color-on-surface-variant">
         See it live, with Controls, in Storybook rather than a hand-rolled preview here.
@@ -142,7 +142,7 @@
       </a>
     </section>
 
-    <section id="basic-usage" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="basic-usage" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Basic Usage</Title>
       <Body>Bind <code class="doc-code">checked</code> to read and set the on/off state:</Body>
 
@@ -157,7 +157,7 @@
       />
     </section>
 
-    <section id="switch-props" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="switch-props" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Switch Props</Title>
       <div class="overflow-x-auto rounded-xl border border-black/5">
         <table class="w-full border-collapse text-sm">
@@ -215,7 +215,7 @@
       </div>
     </section>
 
-    <section id="accessibility" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="accessibility" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Accessibility</Title>
       <div class="flex flex-col gap-3">
         {#each [{ icon: 'keyboard', title: 'Keyboard support', desc: 'Space/Enter toggles the switch when focused, matching the native role="switch" behaviour from bits-ui.' }, { icon: 'swipe', title: 'Drag gesture', desc: 'Pointer drag past a 16px threshold flips state, mirroring native mobile switch behaviour — purely additive to click support.' }, { icon: 'visibility', title: 'State icons', desc: 'Optional check/close icons give a non-color-dependent signal of on/off state.' }] as item}

@@ -81,7 +81,7 @@
 
     <Divider class="mb-12" />
 
-    <section id="overview" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="overview" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Overview</Title>
       <Body>
         <code class="doc-code">Badge</code> implements the
@@ -107,12 +107,12 @@
       </Body>
     </section>
 
-    <section id="import" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="import" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Import</Title>
       <CodeBlock lang="typescript" code={`import { Badge } from '@noxlovette/material';`} />
     </section>
 
-    <section id="demo" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="demo" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Live Demo</Title>
       <Body class="text-md-sys-color-on-surface-variant">
         See it live, with Controls, in Storybook rather than a hand-rolled preview here.
@@ -134,7 +134,7 @@
       </a>
     </section>
 
-    <section id="basic-usage" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="basic-usage" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Basic Usage</Title>
       <Body>
         Wrap the anchor element in a <code class="doc-code">relative</code> container so the badge's absolute
@@ -160,7 +160,7 @@
       />
     </section>
 
-    <section id="badge-props" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="badge-props" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Badge Props</Title>
       <div class="overflow-x-auto rounded-xl border border-black/5">
         <table class="w-full border-collapse text-sm">
@@ -218,7 +218,7 @@
       </div>
     </section>
 
-    <section id="accessibility" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="accessibility" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Accessibility</Title>
       <div class="flex flex-col gap-3">
         {#each [{ icon: 'visibility_off', title: 'Not independently announced', desc: "Badge renders a plain <div> with no ARIA role or live-region behaviour. If the count is important to announce, expose it via the anchor element's own accessible name or an aria-live region." }, { icon: 'contrast', title: 'Color contrast', desc: 'Uses the error/on-error color pair by default, which meets AA contrast against the badge background regardless of theme.' }, { icon: 'crop_free', title: 'Positioning context', desc: 'Because it is position: absolute, always verify its relative ancestor has no overflow: hidden clipping it at small viewport sizes.' }] as item}

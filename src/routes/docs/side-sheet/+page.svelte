@@ -86,7 +86,7 @@
 
     <Divider class="mb-12" />
 
-    <section id="overview" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="overview" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Overview</Title>
       <Body>
         <code class="doc-code">SideSheet</code> is a content template only — a headline row with a
@@ -103,12 +103,12 @@
       </Body>
     </section>
 
-    <section id="import" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="import" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Import</Title>
       <CodeBlock lang="typescript" code={`import { SideSheet } from '@noxlovette/material';`} />
     </section>
 
-    <section id="demo" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="demo" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Live Demo</Title>
       <Body class="text-md-sys-color-on-surface-variant">
         See it live, with Controls, in Storybook rather than a hand-rolled preview here.
@@ -130,7 +130,7 @@
       </a>
     </section>
 
-    <section id="basic-usage" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="basic-usage" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Basic Usage</Title>
       <Body>
         Provide your own positioning wrapper — here, a fixed panel pinned to the right edge:
@@ -154,7 +154,7 @@
       />
     </section>
 
-    <section id="sidesheet-props" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="sidesheet-props" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>SideSheet Props</Title>
       <div class="overflow-x-auto rounded-xl border border-black/5">
         <table class="w-full border-collapse text-sm">
@@ -212,7 +212,7 @@
       </div>
     </section>
 
-    <section id="accessibility" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="accessibility" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Accessibility</Title>
       <div class="flex flex-col gap-3">
         {#each [{ icon: 'close', title: 'Explicit close control', desc: 'The header always renders a labelled close ButtonIcon rather than relying on an outside click or Escape, since SideSheet has no backdrop of its own to attach that behavior to.' }, { icon: 'flag', title: 'Positioning is on you', desc: "Because SideSheet doesn't manage focus trapping, portaling, or a backdrop itself, consumers building a modal-style side sheet need to add those behaviors (e.g. wrap it with Dialogue's Dialog.Root primitives, or bits-ui's Dialog directly) rather than getting them for free." }] as item}

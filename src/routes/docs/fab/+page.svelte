@@ -134,7 +134,7 @@
 
     <Divider class="mb-12" />
 
-    <section id="overview" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="overview" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Overview</Title>
       <Body>
         The <code class="doc-code">FAB</code> component implements the
@@ -154,7 +154,7 @@
       </Body>
     </section>
 
-    <section id="import" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="import" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Import</Title>
       <CodeBlock
         lang="typescript"
@@ -162,7 +162,7 @@
       />
     </section>
 
-    <section id="demo" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="demo" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Live Demo</Title>
       <Body class="text-md-sys-color-on-surface-variant">
         See it live, with Controls, in Storybook rather than a hand-rolled preview here.
@@ -200,7 +200,7 @@
       </div>
     </section>
 
-    <section id="basic-usage" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="basic-usage" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Basic Usage</Title>
       <Body>A regular primary FAB, and an extended variant with a label:</Body>
 
@@ -215,7 +215,7 @@
       />
     </section>
 
-    <section id="fab-props" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="fab-props" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>FAB Props</Title>
       <div class="overflow-x-auto rounded-xl border border-black/5">
         <table class="w-full border-collapse text-sm">
@@ -273,7 +273,7 @@
       </div>
     </section>
 
-    <section id="accessibility" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="accessibility" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Accessibility</Title>
       <div class="flex flex-col gap-3">
         {#each [{ icon: 'label', title: 'Icon-only labeling', desc: 'A non-expanded FAB has no visible text — give iconProps a symbol whose meaning is unambiguous, or prefer expanded with a label for less common actions.' }, { icon: 'menu_open', title: 'Menu dismissal', desc: "withMenu's FABMenu closes on outside click via the clickOutside action, and its icon flips to a close affordance while open." }, { icon: 'block', title: 'Disabled state', desc: 'disabled removes the FAB from the tab order and exposes the disabled attribute to assistive tech.' }] as item}

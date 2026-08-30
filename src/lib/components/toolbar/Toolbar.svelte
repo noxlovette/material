@@ -12,6 +12,12 @@ Toolbar provides a horizontal (or vertical) container for grouped actions.
 - color="standard"   — surface-container background
 - color="vibrant"    — secondary-container background with inverted toggle selection
 - fab snippet        — renders a FAB at the trailing edge (canonical for docked bottom bars)
+- sections           — splits the pill/bar into independently painted surfaces: root becomes a
+                        plain flex layout and `children` render raw, so compose it from
+                        `ToolbarSection` clusters (each gets its own bg/shape/elevation) and
+                        `ToolbarSpacer` gaps between them — literally two smaller toolbars with
+                        the page visible between. Default (false) renders one implicit
+                        ToolbarSection around all of `children`, unchanged from before.
 
 @see https://m3.material.io/components/toolbars
 -->
@@ -30,6 +36,7 @@ Toolbar provides a horizontal (or vertical) container for grouped actions.
     loop = true,
     variant = 'floating',
     color = 'standard',
+    sections = false,
     class: className,
     ...restProps
   }: ToolbarProps = $props();
@@ -61,7 +68,13 @@ Toolbar provides a horizontal (or vertical) container for grouped actions.
 </script>
 
 <Toolbar.Root {orientation} {loop} class={cls.root({ class: clsx(className) })} {...restProps}>
-  {@render children?.()}
+  {#if sections}
+    {@render children?.()}
+  {:else}
+    <div class={cls.segment()}>
+      {@render children?.()}
+    </div>
+  {/if}
   {#if fab}
     <div class={cls.fabSlot()}>
       {@render fab()}

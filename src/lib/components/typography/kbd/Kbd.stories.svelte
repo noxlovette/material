@@ -33,7 +33,7 @@
 
 <Story name="Anchored in a Search Field" asChild>
   <div
-    class="relative flex h-12 w-80 items-center rounded-full bg-md-sys-color-surface-container-high px-4 md-sys-typescale-body-large text-md-sys-color-on-surface-variant"
+    class="bg-md-sys-color-surface-container-high md-sys-typescale-body-large text-md-sys-color-on-surface-variant relative flex h-12 w-80 items-center rounded-full px-4"
   >
     Search...
     <Kbd position="absolute">⌘K</Kbd>

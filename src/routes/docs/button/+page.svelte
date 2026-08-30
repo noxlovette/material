@@ -141,7 +141,7 @@
 
     <Divider class="mb-12" />
 
-    <section id="overview" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="overview" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Overview</Title>
       <Body>
         The <code class="doc-code">Button</code> component implements the
@@ -163,12 +163,12 @@
       </Body>
     </section>
 
-    <section id="import" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="import" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Import</Title>
       <CodeBlock lang="typescript" code={`import { Button } from '@noxlovette/material';`} />
     </section>
 
-    <section id="demo" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="demo" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Live Demo</Title>
       <Body class="text-md-sys-color-on-surface-variant">
         See it live, with Controls, in Storybook rather than a hand-rolled preview here.
@@ -206,7 +206,7 @@
       </div>
     </section>
 
-    <section id="basic-usage" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="basic-usage" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Basic Usage</Title>
       <Body>
         Pick a variant matching the action's emphasis, and a color role matching its concept:
@@ -225,7 +225,7 @@
       />
     </section>
 
-    <section id="button-props" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="button-props" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Button Props</Title>
       <div class="overflow-x-auto rounded-xl border border-black/5">
         <table class="w-full border-collapse text-sm">
@@ -283,7 +283,7 @@
       </div>
     </section>
 
-    <section id="accessibility" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="accessibility" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Accessibility</Title>
       <div class="flex flex-col gap-3">
         {#each [{ icon: 'touch_app', title: 'Native semantics', desc: "Renders Bits UI's Button.Root as a native <button> (or <a> when href is set), giving default keyboard activation and role support." }, { icon: 'block', title: 'Disabled state', desc: 'disabled removes the button from the tab order and exposes the disabled attribute to assistive tech.' }, { icon: 'hourglass_top', title: 'Loading state', desc: "loading swaps the content for a LoadingIndicator while keeping the button's footprint stable." }] as item}

@@ -188,7 +188,7 @@
     <Divider class="mb-12" />
 
     <!-- ── Overview ───────────────────────────────────────────── -->
-    <section id="overview" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="overview" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Overview</Title>
       <Body>
         The <code class="doc-code">Rail</code> component implements the
@@ -211,7 +211,7 @@
     </section>
 
     <!-- ── Import ─────────────────────────────────────────────── -->
-    <section id="import" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="import" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Import</Title>
       <CodeBlock
         lang="typescript"
@@ -220,7 +220,7 @@
     </section>
 
     <!-- ── Anatomy ────────────────────────────────────────────── -->
-    <section id="anatomy" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="anatomy" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Anatomy</Title>
       <Body>The Rail is composed of several cooperating pieces:</Body>
 
@@ -235,7 +235,7 @@
     </section>
 
     <!-- ── Live Demo ──────────────────────────────────────────── -->
-    <section id="demo" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="demo" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Live Demo</Title>
       <Body class="text-md-sys-color-on-surface-variant">
         Storybook is the canonical place to play with Rail's props and Controls — this page sticks
@@ -275,7 +275,7 @@
     </section>
 
     <!-- ── Basic Usage ────────────────────────────────────────── -->
-    <section id="basic-usage" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="basic-usage" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Basic Usage</Title>
       <Body>
         Mount <code class="doc-code">Rail</code> directly inside your root
@@ -310,7 +310,7 @@
     </section>
 
     <!-- ── With AppBar ────────────────────────────────────────── -->
-    <section id="with-appbar" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="with-appbar" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>With App Bar</Title>
       <Body>
         When a top <code class="doc-code">AppBar</code> is present, pass its height (in px) to
@@ -338,7 +338,7 @@
     </section>
 
     <!-- ── With FAB ───────────────────────────────────────────── -->
-    <section id="with-fab" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="with-fab" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>With FAB and Footer</Title>
       <Body>
         Use the <code class="doc-code">fab</code> snippet for a primary action button and
@@ -364,7 +364,7 @@
     </section>
 
     <!-- ── Anchor Modes ───────────────────────────────────────── -->
-    <section id="anchor-modes" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="anchor-modes" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Anchor Modes</Title>
 
       <div class="flex flex-col gap-4">
@@ -388,7 +388,7 @@
     </section>
 
     <!-- ── Rail Props ─────────────────────────────────────────── -->
-    <section id="rail-props" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="rail-props" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Rail Props</Title>
 
       <div class="overflow-x-auto rounded-xl border border-black/5">
@@ -440,7 +440,7 @@
     </section>
 
     <!-- ── RailItem Props ─────────────────────────────────────── -->
-    <section id="railitem-props" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="railitem-props" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>RailItem Props</Title>
 
       <div class="overflow-x-auto rounded-xl border border-black/5">
@@ -500,7 +500,7 @@
     </section>
 
     <!-- ── Responsive Behaviour ───────────────────────────────── -->
-    <section id="responsive" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="responsive" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Responsive Behaviour</Title>
       <Body class="text-md-sys-color-on-surface-variant">
         The Rail and its mobile fallback are designed to work together without any manual breakpoint
@@ -536,7 +536,7 @@
     </section>
 
     <!-- ── Accessibility ──────────────────────────────────────── -->
-    <section id="accessibility" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="accessibility" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Accessibility</Title>
 
       <div class="flex flex-col gap-3">

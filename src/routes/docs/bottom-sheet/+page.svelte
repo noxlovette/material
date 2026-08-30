@@ -80,7 +80,7 @@
 
     <Divider class="mb-12" />
 
-    <section id="overview" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="overview" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Overview</Title>
       <Body>
         Unlike <code class="doc-code">Dialogue</code>, <code class="doc-code">BottomSheet</code>
@@ -100,12 +100,12 @@
       </Body>
     </section>
 
-    <section id="import" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="import" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Import</Title>
       <CodeBlock lang="typescript" code={`import { BottomSheet } from '@noxlovette/material';`} />
     </section>
 
-    <section id="demo" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="demo" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Live Demo</Title>
       <Body class="text-md-sys-color-on-surface-variant">
         See it live, with Controls, in Storybook rather than a hand-rolled preview here.
@@ -127,7 +127,7 @@
       </a>
     </section>
 
-    <section id="basic-usage" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="basic-usage" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Basic Usage</Title>
       <CodeBlock
         code={`<script lang="ts">
@@ -147,7 +147,7 @@
       />
     </section>
 
-    <section id="bottomsheet-props" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="bottomsheet-props" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>BottomSheet Props</Title>
       <div class="overflow-x-auto rounded-xl border border-black/5">
         <table class="w-full border-collapse text-sm">
@@ -205,7 +205,7 @@
       </div>
     </section>
 
-    <section id="accessibility" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="accessibility" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Accessibility</Title>
       <div class="flex flex-col gap-3">
         {#each [{ icon: 'block', title: 'Native modal semantics', desc: 'Built on the native <dialog>.showModal(), so it gets a built-in top-layer focus trap and Escape-to-dismiss for free from the browser.' }, { icon: 'keyboard', title: 'Escape handling', desc: 'The native cancel event (Escape) is intercepted and preventDefault()-ed so the sheet can animate out via close("esc") instead of disappearing instantly.' }, { icon: 'drag_handle', title: 'Drag handle affordance', desc: 'The grab-handle bar at the top is a purely visual/pointer affordance — keyboard users can still dismiss via Escape or by activating a close control in the sheet content.' }] as item}

@@ -55,7 +55,7 @@
         type="file"
         accept="image/*"
         onchange={handleImageUpload}
-        class="file:bg-md-sys-color-primary-container file:text-md-sys-color-on-primary-container hover:file:bg-md-sys-color-primary-container/80 md-sys-typescale-body-medium file:mr-4 file:rounded-full file:border-0 file:px-4 file:py-2 file:md-sys-typescale-label-large"
+        class="file:bg-md-sys-color-primary-container file:text-md-sys-color-on-primary-container hover:file:bg-md-sys-color-primary-container/80 md-sys-typescale-body-medium file:md-sys-typescale-label-large file:mr-4 file:rounded-full file:border-0 file:px-4 file:py-2"
       />
     </div>
   </div>

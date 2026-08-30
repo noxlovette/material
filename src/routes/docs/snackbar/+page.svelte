@@ -105,7 +105,7 @@
 
     <Divider class="mb-12" />
 
-    <section id="overview" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="overview" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Overview</Title>
       <Body>
         <code class="doc-code">Snackbar</code> implements the
@@ -128,12 +128,12 @@
       </Body>
     </section>
 
-    <section id="import" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="import" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Import</Title>
       <CodeBlock lang="typescript" code={`import { Snackbar } from '@noxlovette/material';`} />
     </section>
 
-    <section id="demo" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="demo" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Live Demo</Title>
       <Body class="text-md-sys-color-on-surface-variant">
         See it live, with Controls, in Storybook rather than a hand-rolled preview here.
@@ -156,7 +156,7 @@
       </a>
     </section>
 
-    <section id="basic-usage" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="basic-usage" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Basic Usage</Title>
       <Body>
         Mount <code class="doc-code">Snackbar</code> once, keep a piece of state for its message, and
@@ -178,7 +178,7 @@
       />
     </section>
 
-    <section id="snackbar-props" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="snackbar-props" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Snackbar Props</Title>
       <div class="overflow-x-auto rounded-xl border border-black/5">
         <table class="w-full border-collapse text-sm">
@@ -236,7 +236,7 @@
       </div>
     </section>
 
-    <section id="accessibility" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="accessibility" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Accessibility</Title>
       <div class="flex flex-col gap-3">
         {#each [{ icon: 'timer', title: 'Auto-dismiss timing', desc: 'Non-static snackbars dismiss after 4 seconds — avoid the sole source of critical information here since it disappears on its own.' }, { icon: 'touch_app', title: 'Dismiss control', desc: 'showClose renders an explicit close button with aria-label="Dismiss snackbar", so users are never forced to wait out the timer.' }, { icon: 'priority_high', title: 'One at a time', desc: 'Only mount one Snackbar per region and drive it through a single message binding — stacking multiple instances is not a supported pattern.' }] as item}

@@ -145,7 +145,7 @@
 
     <Divider class="mb-12" />
 
-    <section id="overview" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="overview" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Overview</Title>
       <Body>
         The <code class="doc-code">Slider</code> component implements the
@@ -164,12 +164,12 @@
       </Body>
     </section>
 
-    <section id="import" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="import" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Import</Title>
       <CodeBlock lang="typescript" code={`import { Slider } from '@noxlovette/material';`} />
     </section>
 
-    <section id="demo" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="demo" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Live Demo</Title>
       <Body class="text-md-sys-color-on-surface-variant">
         See it live, with Controls, in Storybook rather than a hand-rolled preview here.
@@ -191,7 +191,7 @@
       </a>
     </section>
 
-    <section id="basic-usage" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="basic-usage" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Basic Usage</Title>
       <Body>Bind <code class="doc-code">value</code> to read and set the position:</Body>
 
@@ -206,7 +206,7 @@
       />
     </section>
 
-    <section id="slider-props" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="slider-props" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Slider Props</Title>
       <div class="overflow-x-auto rounded-xl border border-black/5">
         <table class="w-full border-collapse text-sm">
@@ -264,7 +264,7 @@
       </div>
     </section>
 
-    <section id="accessibility" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="accessibility" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Accessibility</Title>
       <div class="flex flex-col gap-3">
         {#each [{ icon: 'keyboard', title: 'Keyboard support', desc: 'Arrow keys nudge by one step, Home/End jump to min/max — all handled by bits-ui Slider.Root.' }, { icon: 'visibility', title: 'Focus ring', desc: 'The handle draws a visible outline on keyboard focus, distinct from hover/drag states.' }, { icon: 'chat_bubble', title: 'Value bubble', desc: 'showValue surfaces the numeric value visually on hover/focus/drag; format() lets you localize or add units.' }] as item}

@@ -164,7 +164,7 @@
 
     <Divider class="mb-12" />
 
-    <section id="overview" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="overview" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Overview</Title>
       <Body>
         The <code class="doc-code">Textfield</code> component implements the
@@ -193,12 +193,12 @@
       </Body>
     </section>
 
-    <section id="import" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="import" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Import</Title>
       <CodeBlock lang="typescript" code={`import { Textfield } from '@noxlovette/material';`} />
     </section>
 
-    <section id="demo" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="demo" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Live Demo</Title>
       <Body class="text-md-sys-color-on-surface-variant">
         See it live, with Controls, in Storybook rather than a hand-rolled preview here.
@@ -220,7 +220,7 @@
       </a>
     </section>
 
-    <section id="basic-usage" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="basic-usage" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Basic Usage</Title>
       <Body>Bind <code class="doc-code">value</code> to read and set the field's contents:</Body>
 
@@ -243,7 +243,7 @@
       <CodeBlock code={`<Textfield label="Email" bind:value={email} variant="outlined" />`} />
     </section>
 
-    <section id="textfield-props" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="textfield-props" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Textfield Props</Title>
       <div class="overflow-x-auto rounded-xl border border-black/5">
         <table class="w-full border-collapse text-sm">
@@ -307,7 +307,7 @@
       </Body>
     </section>
 
-    <section id="accessibility" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="accessibility" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Accessibility</Title>
       <div class="flex flex-col gap-3">
         {#each [{ icon: 'error', title: 'Invalid state', desc: 'error sets aria-invalid on the input so assistive tech announces the validation state.' }, { icon: 'asterisk', title: 'Required fields', desc: 'required sets aria-required and required on the input, and shows a visual asterisk on the label.' }, { icon: 'label', title: 'Label association', desc: 'The floating label uses a for/id pairing (auto-generated via useId when not provided) instead of aria-label.' }] as item}

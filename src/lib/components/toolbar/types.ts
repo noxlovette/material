@@ -1,4 +1,4 @@
-import type { IconProps } from '$lib/utils/index.js';
+import type { DivAttrs, IconProps } from '$lib/utils/index.js';
 import type {
   ToolbarButtonProps as BitsToolbarButtonProps,
   ToolbarGroupItemProps as BitsToolbarGroupItemProps,
@@ -15,8 +15,17 @@ export type ToolbarProps = ToolbarVariants &
     children?: Snippet;
     fab?: Snippet;
     ghost?: boolean;
+    /**
+     * Splits the toolbar into independently painted surfaces instead of one continuous
+     * pill/bar — compose `children` from `ToolbarSection` + `ToolbarSpacer` when true.
+     */
+    sections?: boolean;
     class?: string;
   };
+
+export type ToolbarSectionProps = DivAttrs & {
+  children?: Snippet;
+};
 
 export type ToolbarButtonProps = Omit<BitsToolbarButtonProps, 'children' | 'child'> & {
   iconProps: IconProps;
@@ -34,6 +43,8 @@ export type ToolbarGroupProps = Omit<BitsToolbarGroupProps, 'children' | 'child'
   children?: Snippet;
   class?: string;
 };
+
+export type ToolbarSpacerProps = DivAttrs;
 
 export type ToolbarGroupItemProps = Omit<BitsToolbarGroupItemProps, 'children' | 'child'> & {
   iconProps: IconProps;
