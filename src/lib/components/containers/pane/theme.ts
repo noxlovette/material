@@ -94,7 +94,7 @@ export const pane = tv({
       false: ''
     },
     rounded: {
-      true: { base: 'md:rounded-t-lg md:rounded-b-lg' },
+      true: { base: 'md:rounded-t-md' },
       false: { base: '' }
     },
     padding: {

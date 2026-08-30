@@ -1,29 +1,15 @@
-import type { IconProps } from '$lib/utils/index.js';
 import type { Snippet } from 'svelte';
-import type { ButtonGroupItemVariants, ButtonGroupVariants } from './theme.js';
+import type { ButtonGroupVariants } from './theme.js';
 
 export type ButtonGroupProps = ButtonGroupVariants & {
-  /** Whether only one item can be active at a time, or multiple. */
-  type: 'single' | 'multiple';
-  /** Currently selected value(s). @bindable */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  value?: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onValueChange?: (value: any) => void;
-  disabled?: boolean;
-  loop?: boolean;
+  /** Layout direction of the buttons. */
   orientation?: 'horizontal' | 'vertical';
-  children?: Snippet;
-  class?: string;
-};
-
-export type ButtonGroupItemProps = ButtonGroupItemVariants & {
-  /** The value this item represents. */
-  value: string;
-  /** Text label displayed inside the button. */
-  label?: string;
-  /** Optional leading icon. Replaced by a check mark when selected. */
-  iconProps?: IconProps;
-  disabled?: boolean;
+  /**
+   * Drives the gap between buttons and the press-squeeze amount applied to a
+   * pressed button's immediate neighbors. Match the size of the buttons inside.
+   */
+  size?: ButtonGroupVariants['size'];
+  /** The buttons in the group — `Button`, `ButtonIcon`, or `Toggle` components, mixed freely. */
+  children: Snippet;
   class?: string;
 };

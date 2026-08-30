@@ -1,6 +1,6 @@
 <!--
 @component
-@deprecated Use `ButtonGroupItem` instead. Pair with the deprecated `ToggleGroup`.
+@deprecated Use `ConnectedButtonGroupItem` instead. Pair with the deprecated `ToggleGroup`.
 -->
 <script lang="ts">
   import { ToggleGroup } from 'bits-ui';

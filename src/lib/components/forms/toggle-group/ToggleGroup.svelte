@@ -1,7 +1,7 @@
 <!--
 @component
-@deprecated Use `ButtonGroup` instead. Google has removed segmented buttons
-from the Material Design 3 spec in favour of Button groups.
+@deprecated Use `ConnectedButtonGroup` instead. Google has removed segmented
+buttons from the Material Design 3 spec in favour of connected button groups.
 
 Toggle group renders as M3 segmented buttons — a continuous pill of
 connected toggle items for filtering or mode selection.

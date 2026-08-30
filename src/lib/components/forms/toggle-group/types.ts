@@ -2,7 +2,7 @@ import type { IconProps } from '$lib/utils/index.js';
 import type { Snippet } from 'svelte';
 import type { ToggleGroupItemVariants, ToggleGroupVariants } from './theme.js';
 
-/** @deprecated Use `ButtonGroupProps` from `ButtonGroup` instead. */
+/** @deprecated Use `ConnectedButtonGroupProps` from `ConnectedButtonGroup` instead. */
 export type ToggleGroupProps = ToggleGroupVariants & {
   /** Whether only one item can be active at a time, or multiple. */
   type: 'single' | 'multiple';
@@ -18,7 +18,7 @@ export type ToggleGroupProps = ToggleGroupVariants & {
   class?: string;
 };
 
-/** @deprecated Use `ButtonGroupItemProps` from `ButtonGroupItem` instead. */
+/** @deprecated Use `ConnectedButtonGroupItemProps` from `ConnectedButtonGroupItem` instead. */
 export type ToggleGroupItemProps = ToggleGroupItemVariants & {
   /** The value this item represents. */
   value: string;

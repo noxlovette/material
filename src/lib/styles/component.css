@@ -30,6 +30,124 @@
     }
   }
 
+  /*
+   * Standard button group (https://m3.material.io/components/button-groups/overview).
+   * A plain flex row/column of otherwise-untouched Button/ButtonIcon/Toggle children.
+   * `data-size` drives both the fixed gap between buttons and the padding-inline
+   * "squeeze" below — pressing one button grows its own padding and shrinks its
+   * immediate neighbors', which is the M3-specified adjacent-button interaction.
+   * `:has()` scopes the shrink to only the pressed button's direct neighbors.
+   */
+  .md-btn-group-standard {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    width: max-content;
+
+    &[data-orientation='vertical'] {
+      flex-direction: column;
+      align-items: stretch;
+      width: auto;
+    }
+
+    &[data-size='xs'] {
+      --btn-group-gap: 1.125rem;
+      --btn-group-base-px: 1rem;
+      --btn-group-squeeze: 0.375rem;
+    }
+    &[data-size='sm'] {
+      --btn-group-gap: 0.75rem;
+      --btn-group-base-px: 1rem;
+      --btn-group-squeeze: 0.375rem;
+    }
+    &[data-size='md'] {
+      --btn-group-gap: 0.5rem;
+      --btn-group-base-px: 1.5rem;
+      --btn-group-squeeze: 0.5rem;
+    }
+    &[data-size='lg'] {
+      --btn-group-gap: 0.5rem;
+      --btn-group-base-px: 3rem;
+      --btn-group-squeeze: 0.75rem;
+    }
+    &[data-size='xl'] {
+      --btn-group-gap: 0.5rem;
+      --btn-group-base-px: 4rem;
+      --btn-group-squeeze: 1rem;
+    }
+
+    gap: var(--btn-group-gap, 0.5rem);
+
+    > * {
+      padding-inline: var(--btn-group-base-px, 1rem);
+      transition:
+        padding-inline var(--md-sys-motion-duration-fast-spatial, 350ms)
+          var(--md-sys-motion-timing-function-fast-spatial, cubic-bezier(0.42, 1.67, 0.21, 0.9)),
+        border-radius 200ms var(--md-sys-motion-timing-function-emphasized-accel);
+    }
+
+    > *:active:not(:disabled) {
+      padding-inline: calc(var(--btn-group-base-px, 1rem) + var(--btn-group-squeeze, 0.5rem));
+    }
+
+    > *:has(+ *:active:not(:disabled)),
+    > *:active:not(:disabled) + * {
+      padding-inline: max(
+        0px,
+        calc(var(--btn-group-base-px, 1rem) - var(--btn-group-squeeze, 0.5rem))
+      );
+    }
+  }
+
+  /*
+   * Connected button group item — replaces the deprecated segmented button.
+   * `--cbg-inner` (per size) is the shared radius facing a neighbor; `--cbg-outer`
+   * defaults to fully round and is only overridden (to equal --cbg-inner) for the
+   * square shape, so the position rules below become no-ops in that case.
+   * Selecting/pressing an item collapses all four of its own corners to
+   * --cbg-inner ("round to square") without touching its neighbors' shape.
+   */
+  .md-btn-connected {
+    border-radius: var(--cbg-inner, 9999px);
+    transition:
+      border-radius 250ms var(--md-sys-motion-timing-function-emphasized-accel),
+      background-color var(--md-sys-motion-duration-fast, 150ms)
+        var(--md-sys-motion-timing-function, cubic-bezier(0.2, 0, 0, 1)),
+      color var(--md-sys-motion-duration-fast, 150ms)
+        var(--md-sys-motion-timing-function, cubic-bezier(0.2, 0, 0, 1));
+
+    &:only-child {
+      border-radius: var(--cbg-outer, 9999px);
+    }
+
+    &[data-orientation='horizontal']:first-child:not(:only-child) {
+      border-top-left-radius: var(--cbg-outer, 9999px);
+      border-bottom-left-radius: var(--cbg-outer, 9999px);
+    }
+    &[data-orientation='horizontal']:last-child:not(:only-child) {
+      border-top-right-radius: var(--cbg-outer, 9999px);
+      border-bottom-right-radius: var(--cbg-outer, 9999px);
+    }
+    &[data-orientation='vertical']:first-child:not(:only-child) {
+      border-top-left-radius: var(--cbg-outer, 9999px);
+      border-top-right-radius: var(--cbg-outer, 9999px);
+    }
+    &[data-orientation='vertical']:last-child:not(:only-child) {
+      border-bottom-left-radius: var(--cbg-outer, 9999px);
+      border-bottom-right-radius: var(--cbg-outer, 9999px);
+    }
+
+    &:active:not(:disabled),
+    &[data-state='on'] {
+      border-radius: var(--cbg-inner, 4px) !important;
+      transition-timing-function: var(--md-sys-motion-timing-function-emphasized-decel);
+    }
+
+    &:active:not(:disabled) {
+      transition-duration: 150ms;
+    }
+  }
+
   .md-component-button-filled-primary {
     @apply bg-md-sys-color-primary text-md-sys-color-on-primary;
   }

@@ -6,4 +6,3 @@ export * from './types.js';
 
 // default exports for components in this folder
 export { default as ButtonGroup } from './ButtonGroup.svelte';
-export { default as ButtonGroupItem } from './ButtonGroupItem.svelte';
