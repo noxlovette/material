@@ -54,7 +54,9 @@
     expand.setAttribute('dur', `${speed}ms`);
     expand.setAttribute('fill', 'freeze');
     expand.setAttribute('calcMode', 'spline');
-    expand.setAttribute('keySplines', '0.4 0, 0.2 1');
+    // md.sys.motion.easing.standard: cubic-bezier(0.2, 0, 0, 1) — keep in sync with
+    // --md-sys-motion-timing-function in motion.css (SMIL keySplines can't reference CSS vars).
+    expand.setAttribute('keySplines', '0.2 0, 0 1');
     circle.appendChild(expand);
 
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -105,7 +107,9 @@
       fade.setAttribute('dur', '800ms');
       fade.setAttribute('fill', 'freeze');
       fade.setAttribute('calcMode', 'spline');
-      fade.setAttribute('keySplines', '0.4 0, 0.2 1');
+      // md.sys.motion.easing.standard: cubic-bezier(0.2, 0, 0, 1) — keep in sync with
+      // --md-sys-motion-timing-function in motion.css (SMIL keySplines can't reference CSS vars).
+      fade.setAttribute('keySplines', '0.2 0, 0 1');
       circle.appendChild(fade);
       fade.beginElement();
       setTimeout(() => svg.remove(), 800);
@@ -196,7 +200,7 @@
     background-color: currentColor;
     opacity: 0;
     transition: opacity var(--md-sys-motion-duration-fast, 150ms)
-      var(--md-sys-motion-timing-function, cubic-bezier(0.34, 0.8, 0.34, 1));
+      var(--md-sys-motion-timing-function, cubic-bezier(0.2, 0, 0, 1));
 
     &:not(
       :global(input:disabled + label) > .tint,

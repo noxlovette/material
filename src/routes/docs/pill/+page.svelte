@@ -62,13 +62,13 @@
         tag. <code class="doc-code">Pill</code> renders a plain
         <code class="doc-code">&lt;div&gt;</code>: it has no click handler, dismiss affordance, or
         selected state, so despite the visual similarity it is not this library's implementation of
-        M3 Chips.
+        M3 Chips — see <a href="/docs/chip" class="text-md-sys-color-primary">Chip</a> for that.
       </Body>
     </header>
 
     <Divider class="mb-12" />
 
-    <section id="overview" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="overview" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Overview</Title>
       <Body>
         <code class="doc-code">Pill</code> is a lightweight, presentational-only label component. It
@@ -83,17 +83,18 @@
           target="_blank"
           rel="noopener noreferrer"
           class="text-md-sys-color-primary">Chips</a
-        > pattern — reach for a different component; this library does not currently ship one under that
-        name.
+        >
+        pattern — reach for
+        <a href="/docs/chip" class="text-md-sys-color-primary">Chip</a> instead.
       </Body>
     </section>
 
-    <section id="import" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="import" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Import</Title>
       <CodeBlock lang="typescript" code={`import { Pill } from '@noxlovette/material';`} />
     </section>
 
-    <section id="demo" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="demo" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Live Demo</Title>
       <Body class="text-md-sys-color-on-surface-variant">
         See it live, with Controls, in Storybook rather than a hand-rolled preview here.
@@ -115,7 +116,7 @@
       </a>
     </section>
 
-    <section id="basic-usage" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="basic-usage" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Basic Usage</Title>
       <CodeBlock
         code={`<script lang="ts">
@@ -126,7 +127,7 @@
       />
     </section>
 
-    <section id="pill-props" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="pill-props" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Pill Props</Title>
       <div class="overflow-x-auto rounded-xl border border-black/5">
         <table class="w-full border-collapse text-sm">
@@ -184,7 +185,7 @@
       </div>
     </section>
 
-    <section id="accessibility" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="accessibility" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Accessibility</Title>
       <div class="flex flex-col gap-3">
         {#each [{ icon: 'contrast', title: 'Color pairing', desc: 'Every variant pairs a background with its matching on-* text color token, guaranteeing AA contrast by construction.' }, { icon: 'block', title: 'Not a control', desc: 'Pill renders a plain <div> with no interactive role — do not use it for anything the user needs to activate; use Button, ButtonIcon, or Toggle instead.' }] as item}
@@ -207,11 +208,11 @@
       class="border-md-sys-color-outline-variant flex items-center justify-between border-t pt-8"
     >
       <a
-        href="/docs/toggle"
+        href="/docs/chip"
         class="text-md-sys-color-primary flex items-center gap-1 text-sm no-underline hover:underline"
       >
         <Icon name="arrow_back" size="sm" />
-        Previous: Toggle
+        Previous: Chip
       </a>
       <a
         href="/docs/textfield"

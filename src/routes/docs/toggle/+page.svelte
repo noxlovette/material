@@ -114,7 +114,7 @@
 
     <Divider class="mb-12" />
 
-    <section id="overview" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="overview" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Overview</Title>
       <Body>
         Material 3 doesn't define a standalone "toggle button" component page — the selected/
@@ -138,12 +138,12 @@
       </Body>
     </section>
 
-    <section id="import" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="import" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Import</Title>
       <CodeBlock lang="typescript" code={`import { Toggle } from '@noxlovette/material';`} />
     </section>
 
-    <section id="demo" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="demo" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Live Demo</Title>
       <Body class="text-md-sys-color-on-surface-variant">
         See it live, with Controls, in Storybook rather than a hand-rolled preview here.
@@ -181,7 +181,7 @@
       </div>
     </section>
 
-    <section id="basic-usage" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="basic-usage" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Basic Usage</Title>
       <Body><code class="doc-code">pressed</code> is bindable:</Body>
 
@@ -198,7 +198,7 @@
       />
     </section>
 
-    <section id="toggle-props" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="toggle-props" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Toggle Props</Title>
       <div class="overflow-x-auto rounded-xl border border-black/5">
         <table class="w-full border-collapse text-sm">
@@ -256,7 +256,7 @@
       </div>
     </section>
 
-    <section id="accessibility" class="mb-12 flex flex-col gap-4 scroll-mt-6">
+    <section id="accessibility" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Accessibility</Title>
       <div class="flex flex-col gap-3">
         {#each [{ icon: 'toggle_on', title: 'Pressed state', desc: "Bits UI's Toggle.Root exposes aria-pressed, so assistive tech announces the on/off state directly." }, { icon: 'label', title: 'Icon-only toggles', desc: 'If used with iconProps and no children, give the icon an unambiguous meaning or add a visually-hidden label — there is no built-in tooltip like ButtonIcon.' }, { icon: 'block', title: 'Disabled state', desc: 'disabled removes the toggle from the tab order and exposes the disabled attribute to assistive tech.' }] as item}
@@ -286,10 +286,10 @@
         Previous: FAB
       </a>
       <a
-        href="/docs/pill"
+        href="/docs/chip"
         class="text-md-sys-color-primary flex items-center gap-1 text-sm no-underline hover:underline"
       >
-        Next: Pill
+        Next: Chip
         <Icon name="arrow_forward" size="sm" />
       </a>
     </footer></Pane

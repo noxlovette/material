@@ -15,16 +15,19 @@
   --md-sys-motion-easing-slow-spatial: var(--md-sys-motion-timing-function-slow-spatial)
     var(--md-sys-motion-duration-slow-spatial);
 
-  --md-sys-motion-timing-function-fast: cubic-bezier(0.31, 0.94, 0.34, 1);
+  /* Standard easing — md.sys.motion.easing.standard, cubic-bezier(0.2, 0, 0, 1) per
+     m3.material.io/styles/motion/easing-and-duration/tokens-specs. Same curve across all
+     three durations; only the duration changes per tier. */
+  --md-sys-motion-timing-function-fast: cubic-bezier(0.2, 0, 0, 1);
   --md-sys-motion-duration-fast: 150ms;
   --md-sys-motion-easing-fast: var(--md-sys-motion-timing-function-fast)
     var(--md-sys-motion-duration-fast);
 
-  --md-sys-motion-timing-function: cubic-bezier(0.34, 0.8, 0.34, 1);
+  --md-sys-motion-timing-function: cubic-bezier(0.2, 0, 0, 1);
   --md-sys-motion-duration: 200ms;
   --md-sys-motion-easing: var(--md-sys-motion-timing-function) var(--md-sys-motion-duration);
 
-  --md-sys-motion-timing-function-slow: cubic-bezier(0.34, 0.88, 0.34, 1);
+  --md-sys-motion-timing-function-slow: cubic-bezier(0.2, 0, 0, 1);
   --md-sys-motion-duration-slow: 300ms;
   --md-sys-motion-easing-slow: var(--md-sys-motion-timing-function-slow)
     var(--md-sys-motion-duration-slow);

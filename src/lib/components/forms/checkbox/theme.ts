@@ -5,8 +5,8 @@ export const checkbox = tv({
     root: 'group inline-flex min-h-10 select-none items-start gap-3 text-md-sys-color-on-surface min-h-4.5 cursor-pointer',
     container: 'relative inline-flex size-[18px] shrink-0',
     control:
-      'layer-container absolute -inset-[11px] rounded-full text-md-sys-color-on-surface-variant state-layer before:rounded-full group-focus-visible:outline group-focus-visible:outline-3 group-focus-visible:outline-offset-2 group-focus-visible:outline-md-sys-color-secondary',
-    box: 'absolute inset-[11px] rounded-[4px] border-2 border-current bg-md-sys-color-surface',
+      'layer-container absolute -inset-[11px] rounded-full text-md-sys-color-on-surface-variant state-layer before:rounded-full group-focus-visible:outline group-focus-visible:outline-3 group-focus-visible:outline-offset-2 group-focus-visible:outline-md-sys-color-secondary transition-colors duration-[var(--md-sys-motion-duration-fast)] ease-[var(--md-sys-motion-timing-function)]',
+    box: 'absolute inset-[11px] rounded-[4px] border-2 border-current bg-md-sys-color-surface transition-colors duration-[var(--md-sys-motion-duration-fast)] ease-[var(--md-sys-motion-timing-function)]',
     checkIcon:
       'pointer-events-none absolute inset-0 m-auto size-3.5 text-md-sys-color-on-primary opacity-0 scale-75',
     indeterminateIcon:

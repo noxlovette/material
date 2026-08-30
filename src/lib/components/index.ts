@@ -4,6 +4,7 @@
 export * from './badge/index.js';
 export * from './buttons/index.js';
 export * from './cards/index.js';
+export * from './chips/index.js';
 export * from './containers/index.js';
 export * from './date/index.js';
 export * from './forms/index.js';

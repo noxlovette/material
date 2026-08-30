@@ -91,7 +91,8 @@
     'desktop_windows',
     'search',
     'title',
-    'widgets'
+    'widgets',
+    'waves'
   ];
 </script>
 

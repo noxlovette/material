@@ -9,7 +9,7 @@
   .md-component-button-base {
     @apply state-layer md-sys-state-focus-indicator disabled:bg-md-sys-color-on-surface/10 disabled:text-md-sys-color-on-surface/38 disabled:before:bg-md-sys-color-on-surface/38 relative inline-flex items-center justify-center select-none disabled:cursor-not-allowed;
     transition: box-shadow var(--md-sys-motion-duration, 200ms)
-      var(--md-sys-motion-timing-function, cubic-bezier(0.34, 0.8, 0.34, 1));
+      var(--md-sys-motion-timing-function, cubic-bezier(0.2, 0, 0, 1));
   }
 
   .md-btn-morph {
@@ -124,7 +124,7 @@
   .text-link {
     @apply text-md-sys-color-primary hover:text-md-sys-color-secondary underline;
     transition: color var(--md-sys-motion-duration, 200ms)
-      var(--md-sys-motion-timing-function, cubic-bezier(0.34, 0.8, 0.34, 1));
+      var(--md-sys-motion-timing-function, cubic-bezier(0.2, 0, 0, 1));
   }
 
   .text-link.md-sys-typescale-label-small {
@@ -149,6 +149,6 @@
   @apply before:pointer-events-none before:absolute before:inset-0 before:content-[''];
   &::before {
     transition: background-color var(--md-sys-motion-duration-fast, 150ms)
-      var(--md-sys-motion-timing-function, cubic-bezier(0.34, 0.8, 0.34, 1));
+      var(--md-sys-motion-timing-function, cubic-bezier(0.2, 0, 0, 1));
   }
 }
