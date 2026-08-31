@@ -1,6 +1,16 @@
 <script lang="ts">
   import { generateThemeCSS, isDarkScheme, themeState, STORAGE_KEY } from './theme.svelte.js';
 
+  /**
+   * Whether to generate and inject the M3 dynamic-color CSS custom properties
+   * derived from `themeState.sourceColor`. When `false`, this component still
+   * restores/persists `themeState.scheme` and keeps the `dark` class on
+   * `<html>` in sync with it (including system-preference changes) — it just
+   * skips generating dynamic-color CSS, for consumers supplying their own
+   * static `@noxlovette/material/theme/*` CSS.
+   */
+  let { generateCSS = true }: { generateCSS?: boolean } = $props();
+
   // Restore from localStorage on mount
   $effect(() => {
     const saved = localStorage.getItem(STORAGE_KEY);
@@ -35,7 +45,7 @@
     return () => media.removeEventListener('change', handler);
   });
 
-  const themeStyles = $derived(generateThemeCSS(themeState, finalIsDark));
+  const themeStyles = $derived(generateCSS ? generateThemeCSS(themeState, finalIsDark) : '');
 
   // Persist to localStorage on any change
   $effect(() => {
@@ -61,5 +71,7 @@
 </script>
 
 <svelte:head>
-  {@html `<` + `style id="ogonek-m3-dynamic-theme">` + themeStyles + `</` + `style>`}
+  {#if generateCSS}
+    {@html `<` + `style id="ogonek-m3-dynamic-theme">` + themeStyles + `</` + `style>`}
+  {/if}
 </svelte:head>

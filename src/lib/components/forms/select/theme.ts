@@ -6,18 +6,10 @@ export const select = tv({
   slots: {
     root: 'relative w-full',
     base: `
-      group w-full h-14 px-0 bg-md-sys-color-surface-container-highest
-      rounded-t-xs state-layer before:rounded-xs hover:before:bg-md-sys-color-on-surface/8 relative flex items-center
-      after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-md-sys-color-on-surface-variant
-      after:transition-[height,background-color] after:duration-200
-      hover:after:bg-md-sys-color-on-surface
-      data-[state=open]:after:bg-md-sys-color-primary
-      data-[state=open]:after:h-[2px]
-      disabled:bg-md-sys-color-on-surface/4
-      disabled:after:bg-md-sys-color-on-surface/12
+      group w-full h-14 px-0 relative flex items-center
     `,
     trigger: `
-      peer w-full h-full flex items-center justify-between bg-transparent outline-none
+      group peer w-full h-full flex items-center justify-between bg-transparent outline-none
       cursor-pointer
     `,
     inputWrapper: `
@@ -32,7 +24,7 @@ export const select = tv({
     `,
     leadingIcon: `
       text-md-sys-color-on-surface-variant size-6
-      group-data-[state=open]:text-md-sys-color-primary
+      group-has-[[data-state=open]]:text-md-sys-color-primary
       group-data-[invalid]:text-md-sys-color-error ml-3 text-[24px]
     `,
     dropdownIcon: `
@@ -73,9 +65,33 @@ export const select = tv({
     `
   },
   variants: {
+    variant: {
+      filled: {
+        base: `
+          bg-md-sys-color-surface-container-highest
+          rounded-t-xs state-layer before:rounded-xs hover:before:bg-md-sys-color-on-surface/8
+          after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-md-sys-color-on-surface-variant
+          after:transition-[height,background-color] after:duration-200
+          hover:after:bg-md-sys-color-on-surface
+          has-[[data-state=open]]:after:bg-md-sys-color-primary
+          has-[[data-state=open]]:after:h-[2px]
+          disabled:bg-md-sys-color-on-surface/4
+          disabled:after:bg-md-sys-color-on-surface/12
+        `
+      },
+      outlined: {
+        base: `
+          rounded-xs border border-md-sys-color-outline
+          transition-colors duration-150
+          hover:border-md-sys-color-on-surface
+          has-[[data-state=open]]:border-2 has-[[data-state=open]]:border-md-sys-color-primary
+        `
+      }
+    },
+
     error: {
       true: {
-        base: 'after:bg-md-sys-color-error data-[state=open]:after:bg-md-sys-color-error',
+        base: 'after:bg-md-sys-color-error has-[[data-state=open]]:after:bg-md-sys-color-error',
         supportingText: 'text-md-sys-color-error',
         leadingIcon: 'text-md-sys-color-error',
         trailingIcon: 'text-md-sys-color-error'
@@ -86,5 +102,26 @@ export const select = tv({
         root: 'cursor-not-allowed opacity-60'
       }
     }
+  },
+
+  compoundVariants: [
+    {
+      variant: 'outlined',
+      error: true,
+      class: {
+        base: 'border-md-sys-color-error hover:border-md-sys-color-error has-[[data-state=open]]:border-md-sys-color-error'
+      }
+    },
+    {
+      variant: 'outlined',
+      disabled: true,
+      class: {
+        base: 'border-md-sys-color-on-surface/12 hover:border-md-sys-color-on-surface/12'
+      }
+    }
+  ],
+
+  defaultVariants: {
+    variant: 'outlined'
   }
 });

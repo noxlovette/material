@@ -23,6 +23,7 @@ Powered by bits-ui for accessibility and behavior.
     options = [],
     placeholder,
     error = false,
+    variant = 'outlined',
     supportingText,
     leadingIconProps,
     triggerProps,
@@ -32,7 +33,7 @@ Powered by bits-ui for accessibility and behavior.
     ...rootProps
   }: SelectProps = $props();
 
-  const cls = $derived(selectCls({ disabled, error }));
+  const cls = $derived(selectCls({ disabled, error, variant }));
 
   const selectedLabel = $derived.by(() => {
     for (const option of options as any[]) {

@@ -27,7 +27,7 @@ Text fields allow users to enter and edit text.
     disabled = false,
     error = false,
     required = false,
-    variant = 'filled',
+    variant = 'outlined',
     trailingOnClick,
     inputChild,
     trailingIcon,

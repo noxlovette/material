@@ -16,7 +16,7 @@
     },
     args: {
       label: 'Label',
-      variant: 'filled',
+      variant: 'outlined',
       disabled: false,
       error: false,
       required: false

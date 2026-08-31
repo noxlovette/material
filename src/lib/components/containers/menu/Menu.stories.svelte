@@ -7,7 +7,7 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
   import Menu from './Menu.svelte';
-  import MenuItem from '../menu-item/MenuItem.svelte';
+  import MenuItem from './menu-item/MenuItem.svelte';
   import ButtonIcon from '../../buttons/ButtonIcon.svelte';
   import { Divider } from '$lib/index.js';
 

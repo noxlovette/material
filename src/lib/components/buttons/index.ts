@@ -3,6 +3,7 @@
 // folder re-exports (export everything from these folders)
 export * from './button-group/index.js';
 export * from './connected/index.js';
+export * from './split-button/index.js';
 
 // re-export TS/JS modules from this folder
 export * from './theme.js';

@@ -33,6 +33,11 @@ export interface BaseDateProps extends HTMLAttributes<HTMLDivElement> {
    * Supporting text shown below the field.
    */
   supportingText?: Snippet;
+  /**
+   * The visual style of the field.
+   * @default 'outlined'
+   */
+  variant?: 'filled' | 'outlined';
 }
 
 export interface DateFieldProps extends BaseDateProps {

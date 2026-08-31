@@ -21,10 +21,16 @@ export const toolbar = tv({
   },
   variants: {
     orientation: {
-      horizontal: { root: 'flex-row', segment: 'flex-row', divider: 'mx-1 h-6 w-px' },
+      horizontal: {
+        root: 'flex-row',
+        segment: 'flex-row',
+        group: 'flex-row',
+        divider: 'mx-1 h-6 w-px'
+      },
       vertical: {
         root: 'flex-col h-auto',
         segment: 'flex-col w-14 py-2 px-1',
+        group: 'flex-col',
         divider: 'my-1 h-px w-6'
       }
     },

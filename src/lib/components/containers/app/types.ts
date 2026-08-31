@@ -10,10 +10,15 @@ export type AppProps = DivAttrs & {
   /** Props to pass to the material symbols provider */
   iconProviderProps?: Partial<MaterialSymbolsProviderProps>;
   /**
-   * Whether App manages the M3 dynamic theme (source-color extraction, dark-mode
-   * sync, and the injected `<ThemeScript>`/`<Theme>` head elements).
-   * Set to `false` if you supply your own static `@noxlovette/material/theme/*` CSS
-   * and want to opt out of the runtime dynamic-theming machinery entirely.
+   * Whether App generates and injects M3 dynamic-color CSS (source-color
+   * extraction into per-scheme custom properties). Set to `false` if you
+   * supply your own static `@noxlovette/material/theme/*` CSS instead.
+   *
+   * Either way, App always mounts `<ThemeScript>`/`<Theme>` to keep the
+   * `dark` class on `<html>` in sync with `themeState.scheme` (including
+   * system `prefers-color-scheme` changes) — turning this off does not
+   * disable dark-mode tracking, since static theme CSS depends on the same
+   * `dark` class to apply.
    * @default true
    */
   dynamicTheme?: boolean;

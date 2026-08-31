@@ -1,8 +1,10 @@
 <!--
 @component
 The core App wrapper that gives default backgrounds and sets up tooltips and icons.
-By default it also manages the Material 3 Dynamic Theme and dark mode; pass
-`dynamicTheme={false}` to opt out and rely on static theme CSS instead.
+By default it also manages the Material 3 Dynamic Theme; pass `dynamicTheme={false}`
+to opt out and rely on static theme CSS instead. Either way, App always keeps the
+`dark` class on `<html>` in sync with the user's/system's color scheme, so static
+theme CSS still responds to dark mode.
 -->
 <script lang="ts">
   import { MaterialSymbolsProvider, Theme } from '$lib/utils/index.js';
@@ -22,10 +24,8 @@ By default it also manages the Material 3 Dynamic Theme and dark mode; pass
   const baseCls = $derived(app({ class: className }));
 </script>
 
-{#if dynamicTheme}
-  <ThemeScript />
-  <Theme />
-{/if}
+<ThemeScript />
+<Theme generateCSS={dynamicTheme} />
 <MaterialSymbolsProvider {...iconProviderProps} />
 <Tooltip.Provider>
   <div class={baseCls} {...restProps}>

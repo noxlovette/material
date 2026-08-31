@@ -19,12 +19,13 @@ DateField is a text field that allows users to enter a date or pick it from a ca
     required = false,
     disabled = false,
     error = false,
+    variant = 'outlined',
     supportingText,
     name,
     leadingIconProps
   }: DateFieldProps & { leadingIconProps?: any } = $props();
 
-  const cls = $derived(dateField({ disabled, error }));
+  const cls = $derived(dateField({ disabled, error, variant }));
 </script>
 
 <DatePicker.Root
@@ -45,7 +46,7 @@ DateField is a text field that allows users to enter a date or pick it from a ca
       <div class={cls.inputWrapper()}>
         <DatePicker.Input class={cls.input()} {name} id={id ?? undefined}>
           {#snippet children({ segments })}
-            <div class="flex w-full flex-col pt-4 tabular-nums">
+            <div class={cls.segments()}>
               <div class="flex items-center justify-between">
                 <div class="flex">
                   {#each segments as { part, value }}
@@ -86,6 +87,14 @@ DateField is a text field that allows users to enter a date or pick it from a ca
       <DatePicker.Trigger class={cls.trailingIcon({ class: 'flex items-center justify-center' })}>
         <Icon name="calendar_month" />
       </DatePicker.Trigger>
+
+      {#if variant === 'outlined'}
+        <fieldset class={cls.fieldset()} aria-hidden="true">
+          <legend class={cls.legend()}>
+            <span class={cls.legendLabel()}>{label}{required ? '*' : ''}</span>
+          </legend>
+        </fieldset>
+      {/if}
     </div>
 
     {#if supportingText}

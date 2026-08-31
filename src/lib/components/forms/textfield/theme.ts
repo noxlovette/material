@@ -126,6 +126,6 @@ export const textfield = tv({
   },
 
   defaultVariants: {
-    variant: 'filled'
+    variant: 'outlined'
   }
 });

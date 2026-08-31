@@ -22,12 +22,13 @@ segment inputs and a shared calendar popover.
     required = false,
     disabled = false,
     error = false,
+    variant = 'outlined',
     supportingText,
     name,
     leadingIconProps
   }: DateRangeFieldProps & { leadingIconProps?: any } = $props();
 
-  const cls = $derived(dateRangeField({ disabled, error }));
+  const cls = $derived(dateRangeField({ disabled, error, variant }));
 </script>
 
 <DateRangePicker.Root
