@@ -1,6 +1,13 @@
 import type { DivAttrs } from '$lib/utils/index.js';
 import type { Snippet } from 'svelte';
-import type { Breakpoint, PaneGridVariants, PaneVariants, Responsive, SpaceSize } from './theme.js';
+import type {
+  Breakpoint,
+  DraggablePaneVariants,
+  PaneGridVariants,
+  PaneVariants,
+  Responsive,
+  SpaceSize
+} from './theme.js';
 
 export type { Breakpoint, Direction, Responsive, SpaceSize } from './theme.js';
 
@@ -122,3 +129,71 @@ export type PaneHandleProps = DivAttrs & {
    */
   snapThreshold?: number;
 };
+
+/**
+ * Props for the DraggablePane component — a floating panel positioned by
+ * `x`/`y` and dragged into place by its header, rather than a `Pane`
+ * participating in a `PaneGrid`'s flex layout.
+ */
+export type DraggablePaneProps = DraggablePaneVariants &
+  DivAttrs & {
+    /** Panel content. */
+    children: Snippet;
+    /** Optional custom header content, replacing the default grip/title/close row. */
+    header?: Snippet;
+    /** Title shown in the default header. Ignored when `header` is given. */
+    title?: string;
+    /** Shows a close button in the default header when given; called on click. */
+    onClose?: () => void;
+    /**
+     * Current horizontal position in px, relative to `bounds`. Bindable —
+     * updates live while dragging. Omit to let the pane manage its own
+     * position starting from `initialX`.
+     */
+    x?: number;
+    /**
+     * Current vertical position in px, relative to `bounds`. Bindable —
+     * updates live while dragging. Omit to let the pane manage its own
+     * position starting from `initialY`.
+     */
+    y?: number;
+    /**
+     * Starting horizontal position in px, used when `x` is unset and (with
+     * `persistKey`) nothing is stored yet.
+     * @default 24
+     */
+    initialX?: number;
+    /**
+     * Starting vertical position in px, used when `y` is unset and (with
+     * `persistKey`) nothing is stored yet.
+     * @default 24
+     */
+    initialY?: number;
+    /**
+     * Key to persist this pane's dragged position to `localStorage` across
+     * reloads. Omit to keep the position in memory only.
+     */
+    persistKey?: string;
+    /**
+     * Clamp the drag to the viewport, or to a given element's current
+     * bounding rect.
+     * @default 'viewport'
+     */
+    bounds?: 'viewport' | HTMLElement;
+    /**
+     * Minimum distance in px kept between the pane and the edge of `bounds`.
+     * @default 8
+     */
+    boundsPadding?: number;
+    /** Fixed width — a number is treated as px, a string is used as-is. Omit for the default min-width. */
+    width?: number | string;
+    /**
+     * Disables dragging, e.g. to pin the pane in place on small viewports.
+     * @default false
+     */
+    disableDrag?: boolean;
+    /** Optional root class. */
+    class?: string;
+    /** Optional content container class. */
+    contentClass?: string;
+  };

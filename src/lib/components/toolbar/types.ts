@@ -11,7 +11,7 @@ import type { ToolbarVariants } from './theme.js';
 export type ToolbarColor = 'standard' | 'vibrant';
 
 export type ToolbarProps = ToolbarVariants &
-  Omit<ToolbarRootProps, 'children' | 'child'> & {
+  Omit<ToolbarRootProps, 'children' | 'child' | 'orientation'> & {
     children?: Snippet;
     fab?: Snippet;
     ghost?: boolean;

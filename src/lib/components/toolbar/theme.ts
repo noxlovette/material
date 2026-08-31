@@ -8,14 +8,16 @@ export const toolbar = tv({
   slots: {
     // Layout/position only — no paint. Holds one implicit `segment` by default, or,
     // with `sections`, whatever ToolbarSection/ToolbarSpacer children the consumer supplies.
-    root: 'items-center gap-0.5',
+    root: 'items-center gap-2',
     // The pill/bar surface itself — bg, shape, elevation, chrome padding. Toolbar renders
     // exactly one of these around `children` by default; ToolbarSection renders one per
     // cluster when `sections` splits the toolbar into independently painted groups.
-    segment: 'inline-flex items-center gap-0.5 px-2',
-    group: 'inline-flex items-center gap-0.5',
+    segment: 'inline-flex items-center gap-1 p-2 justify-between',
+    group: 'inline-flex items-center gap-1',
     divider: 'shrink-0 bg-md-sys-color-outline-variant',
-    spacer: 'flex-1',
+    // A marker gap between ToolbarSections under `sections` — same size as `root`'s own
+    // `gap-2`, it does not grow, so it doesn't push sections apart to opposite edges.
+    spacer: '',
     fabSlot: 'ml-auto flex items-center ps-2',
     ghost: 'h-16 w-full shrink-0 pointer-events-none'
   },
@@ -23,34 +25,20 @@ export const toolbar = tv({
     orientation: {
       horizontal: {
         root: 'flex-row',
-        segment: 'flex-row',
+        segment: 'flex-row h-13',
         group: 'flex-row',
         divider: 'mx-1 h-6 w-px'
       },
       vertical: {
-        root: 'flex-col h-auto',
-        segment: 'flex-col w-14 py-2 px-1',
+        root: 'flex-col h-max',
+        segment: 'flex-col w-14',
         group: 'flex-col',
         divider: 'my-1 h-px w-6'
       }
     },
     variant: {
-      floating: { root: 'inline-flex', segment: 'rounded-full shadow-elevation-1 py-1' },
-      docked: { root: 'flex w-full', segment: 'w-full rounded-none py-3' },
-      mobile: {
-        root: 'lg:hidden flex w-full fixed bottom-20 left-0 z-10',
-        segment: 'w-full rounded-none py-3 shadow-elevation-2'
-      },
-      // Responsive host variant, auto-applied to a Toolbar nested in a companion Rail:
-      // a fixed bottom bar (like `mobile`) below lg, a floating vertical rail pinned
-      // right-center from lg up. One element, so it never duplicates interactive controls.
-      companion: {
-        root: 'fixed bottom-20 left-0 z-10 flex w-full lg:bottom-auto lg:left-auto lg:top-1/2 lg:right-4 lg:inline-flex lg:w-auto lg:-translate-y-1/2 lg:flex-col',
-        segment:
-          'w-full rounded-none py-3 shadow-elevation-2 lg:w-auto lg:rounded-full lg:py-1 lg:shadow-elevation-1',
-        divider: 'lg:mx-0 lg:my-1 lg:h-px lg:w-6',
-        fabSlot: 'lg:ml-0 lg:mt-auto lg:ps-0 lg:pt-2'
-      }
+      floating: { root: 'inline-flex', segment: 'rounded-full shadow-elevation-1' },
+      docked: { root: 'fixed left-0 z-10 w-full', segment: 'w-full rounded-none' }
     },
     color: {
       standard: { segment: 'bg-md-sys-color-surface-container' },

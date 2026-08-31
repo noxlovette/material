@@ -3,6 +3,7 @@ import { tv, type VariantProps } from 'tailwind-variants';
 export type PaneVariants = VariantProps<typeof pane>;
 export type PaneGridVariants = VariantProps<typeof paneGrid>;
 export type PaneHandleVariants = VariantProps<typeof paneHandle>;
+export type DraggablePaneVariants = VariantProps<typeof draggablePane>;
 
 export type Breakpoint = 'small' | 'medium' | 'large' | 'extraLarge';
 export type SpaceSize = 'none' | 'sm' | 'md' | 'lg' | 'xl';
@@ -155,6 +156,37 @@ export const paneHandle = tv({
     }
   },
   compoundVariants: [{ dragging: true, snapped: false, class: { grip: 'w-0.5' } }]
+});
+
+/**
+ * A floating panel positioned by `x`/`y` instead of participating in flex
+ * layout — dragged into place by its header rather than resized in place
+ * like `PaneHandle`/`Pane`.
+ */
+export const draggablePane = tv({
+  slots: {
+    base: 'fixed z-[100] flex min-w-72 flex-col rounded-2xl bg-md-sys-color-surface-container-high shadow-elevation-3',
+    headerBar:
+      'relative flex shrink-0 items-center gap-2 rounded-t-2xl px-3 py-2 touch-none select-none md-sys-state-focus-indicator',
+    grip: 'shrink-0 text-md-sys-color-on-surface-variant',
+    headline: 'flex-1 truncate md-sys-typescale-title-small text-md-sys-color-on-surface',
+    actions: 'flex shrink-0 items-center',
+    content: 'flex flex-1 flex-col overflow-auto p-4 pt-2'
+  },
+  variants: {
+    dragging: {
+      true: { base: 'shadow-elevation-4 cursor-grabbing', headerBar: 'cursor-grabbing' },
+      false: { headerBar: 'cursor-grab' }
+    },
+    disableDrag: {
+      true: { headerBar: 'cursor-default' },
+      false: ''
+    }
+  },
+  defaultVariants: {
+    dragging: false,
+    disableDrag: false
+  }
 });
 
 export const paneGrid = tv({

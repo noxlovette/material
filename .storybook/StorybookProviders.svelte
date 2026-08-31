@@ -44,6 +44,7 @@
     'delete',
     'download',
     'draft',
+    'drag_indicator',
     'drafts',
     'draw',
     'edit',

@@ -1,7 +1,6 @@
 import type { IconProps } from '$lib/utils/index.js';
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
-import type { NavBarProps } from '../navbar/types.js';
 import type { RailItemVariants, RailVariants } from './theme.js';
 
 /**
@@ -47,14 +46,4 @@ export type RailProps = RailVariants &
     railTop?: number;
     /** Render a bottom navbar on mobile. */
     withNavbar?: boolean;
-    /** Customise the navbar inside the rail */
-    navbarProps?: Omit<NavBarProps, 'children'>;
-    /**
-     * Renders this Rail as a companion host for a `Toolbar` (`children`) instead of a
-     * nav-destination rail. The Toolbar auto-adopts a responsive layout: a floating
-     * vertical rail pinned right-center from lg up, collapsing to a fixed bottom bar
-     * (like a mobile navbar) below lg. All other Rail props (`anchor`, `expandable`,
-     * `fab`, `withNavbar`, etc.) are ignored in this mode.
-     */
-    companion?: boolean;
   };

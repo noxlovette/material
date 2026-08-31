@@ -63,6 +63,37 @@ Found while auditing typescale usage across every component (see git history for
 - **`hidden md:X` needs an explicit display override at the breakpoint, not just a position/layout one.** `hidden` sets `display:none`; `md:absolute` only changes `position`, so the element stays `display:none` at any width unless something like `md:inline-flex`/`md:block` is added alongside it (see `typography/kbd/theme.ts`'s `position.absolute` variant).
 - **`scripts/generate-components-index.ts` currently also exports `.stories.svelte` files** from every folder's barrel `index.ts` (e.g. `export { default as BadgeStories } from './Badge.stories.svelte'`). Re-running it regenerates every barrel with this bug, which would leak dev-only Storybook code into the published npm package. Until the script itself is fixed, don't blindly commit its output — diff it first and hand-patch just the barrel(s) you actually needed to change.
 
+# Known Pitfall: Story Auto-Wrap Double-Instantiation
+
+`@storybook/addon-svelte-csf`'s `<Story>` (v5 CSF factory API, what `defineMeta` gives you)
+auto-wraps bare children in another instance of `defineMeta`'s `component` — literally
+`<renderer.storyContext.component {...args}>{children}</renderer.storyContext.component>`
+(see `Story.svelte` in the addon, the `isSnippet(children)` branch). So writing
+
+```svelte
+const { Story } = defineMeta({ component: Toolbar });
+...
+<Story name="Playground">
+  <Toolbar>...</Toolbar>
+</Story>
+```
+
+silently renders **two nested `Toolbar` instances** — your literal `<Toolbar>` gets wrapped
+inside a second, invisible auto-instantiated one. `bun run check` stays green and it often
+looks fine visually (harmless for stateless/presentational components), but for anything with
+its own root element, ARIA role, or layout logic (a toolbar, a menu, a popover) it's a real bug
+— doubled roles, doubled event handlers, or layout that only makes sense once, not nested in
+itself. Caught this in `toolbar/Toolbar.svelte` where it manifested as a mysterious extra pill
+wrapper around the `Playground`/`Vertical` stories.
+
+Every `<Story>` whose body is bare markup (not wrapped in `{#snippet template(args)}`) needs
+`asChild` on the `<Story>` tag to opt out of the auto-wrap and render that markup as-is — this
+is already the convention throughout the rest of the library (grep `asChild` in any
+`*.stories.svelte` for examples). Stories that _do_ use `{#snippet template(args)}` are safe
+without `asChild` — the `template` snippet is checked first and skips the auto-wrap entirely.
+When adding a new story, use one of these two patterns; never leave bare `<Component>` markup
+under `<Story>` with neither.
+
 # Design & UX Skill
 
 Before creating or modifying a component, choosing a variant/color role, adding motion, or reviewing UI for M3 compliance, consult the `material-design` skill (`.claude/skills/material-design/SKILL.md`). It encodes this repo's token vocabulary (color roles, typescale, elevation, shape, motion durations/easings), the `tv()` variant-selection rules, and an M3 accessibility checklist — use it instead of re-deriving M3 mappings from general knowledge.

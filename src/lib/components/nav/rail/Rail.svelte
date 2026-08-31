@@ -19,8 +19,6 @@ On mobile (< md) it automatically renders as a bottom navigation bar.
   import { rail } from './theme';
   import { NavigationMenu } from 'bits-ui';
   import { railStore } from './railStore.svelte.js';
-  import RailNavContext from './RailNavContext.svelte';
-  import Navbar from '../navbar/Navbar.svelte';
 
   let {
     children,
@@ -30,10 +28,7 @@ On mobile (< md) it automatically renders as a bottom navigation bar.
     collapsed = $bindable(true),
     anchor = 'viewport',
     railTop = 0,
-    withNavbar = false,
-    class: className,
-    companion,
-    navbarProps
+    class: className
   }: RailProps = $props();
 
   const expanded = $derived(!collapsed);
@@ -42,18 +37,10 @@ On mobile (< md) it automatically renders as a bottom navigation bar.
       return collapsed;
     }
   };
-  // A companion rail hosts a Toolbar (see the `{:else}` branch below) rather than acting
-  // as the primary nav rail, so it neither publishes rail-collapse state nor shares the
-  // singleton `railStore` with a real nav Rail that may also be on the page. `companion`
-  // isn't meant to change after mount, so snapshot it once for this setup-time branching.
-  const isCompanion = untrack(() => companion);
-  if (!isCompanion) {
-    setContext('rail', railCtx);
-  }
-  setContext('inRail', isCompanion);
+  setContext('rail', railCtx);
 
   $effect(() => {
-    if (!isCompanion) railStore.collapsed = collapsed;
+    railStore.collapsed = collapsed;
   });
 
   const { base, items, ghost, scrim } = $derived(rail({ expanded, anchor, rounded }));
@@ -62,64 +49,44 @@ On mobile (< md) it automatically renders as a bottom navigation bar.
   const cssVars = $derived(`--rail-top: ${railTop}px;`);
 </script>
 
-{#if !companion}
-  <!-- Push ghost: hidden on mobile, becomes flex item on md+ to push content -->
-  <div class={ghost()}></div>
+<!-- Push ghost: hidden on mobile, becomes flex item on md+ to push content -->
+<div class={ghost()}></div>
 
-  <!-- Tablet scrim (md:block lg:hidden) — overlays content on expand -->
-  <div
-    class={`${scrim()} rail-scrim`}
-    data-expanded={expanded}
-    onclick={() => (collapsed = true)}
-    role="presentation"
-  ></div>
+<!-- Tablet scrim (md:block lg:hidden) — overlays content on expand -->
+<div
+  class={`${scrim()} rail-scrim`}
+  data-expanded={expanded}
+  onclick={() => (collapsed = true)}
+  role="presentation"
+></div>
 
-  <!-- Desktop/tablet sidebar rail -->
-  <div
-    class={railBaseClass}
-    style={cssVars}
-    data-expanded={expanded}
-    use:clickOutside={() => {
-      if (expanded) collapsed = true;
-    }}
-  >
-    {#if expandable}
-      <ButtonIcon
-        type="button"
-        tooltipContent={collapsed ? 'Открыть' : 'Закрыть'}
-        iconProps={{ name: `${collapsed ? 'menu' : 'menu_open'}` }}
-        class={toggleClass}
-        onclick={() => (collapsed = !collapsed)}
-      />
-    {/if}
-
-    {@render fab?.()}
-
-    <NavigationMenu.Root orientation="vertical" class="w-full">
-      <NavigationMenu.List class={`${items()} rail-items`}>
-        <RailNavContext mobile={false}>
-          {@render children?.()}
-        </RailNavContext>
-      </NavigationMenu.List>
-    </NavigationMenu.Root>
-  </div>
-
-  <!-- Mobile bottom navbar (md:hidden) -->
-  {#if withNavbar}
-    <Navbar {...navbarProps}>
-      <RailNavContext mobile={true}>
-        {@render children?.()}
-      </RailNavContext>
-    </Navbar>
+<!-- Desktop/tablet sidebar rail -->
+<div
+  class={railBaseClass}
+  style={cssVars}
+  data-expanded={expanded}
+  use:clickOutside={() => {
+    if (expanded) collapsed = true;
+  }}
+>
+  {#if expandable}
+    <ButtonIcon
+      type="button"
+      tooltipContent={collapsed ? 'Открыть' : 'Закрыть'}
+      iconProps={{ name: `${collapsed ? 'menu' : 'menu_open'}` }}
+      class={toggleClass}
+      onclick={() => (collapsed = !collapsed)}
+    />
   {/if}
-{:else}
-  <!-- Companion rail: hosts a Toolbar. Rendered once — the `inRail` context set above makes
-       a nested Toolbar auto-adopt the `companion` variant, which handles both layouts itself
-       (floating vertical, right-center, from lg up; fixed bottom bar below lg). Rendering the
-       children a single time (rather than once per breakpoint) is what dedupes interactive
-       controls — two live copies of the same Toolbar would desync toggle/group state. -->
-  {@render children?.()}
-{/if}
+
+  {@render fab?.()}
+
+  <NavigationMenu.Root orientation="vertical" class="w-full">
+    <NavigationMenu.List class={`${items()} rail-items`}>
+      {@render children?.()}
+    </NavigationMenu.List>
+  </NavigationMenu.Root>
+</div>
 
 <style>
   .rail-scrim {

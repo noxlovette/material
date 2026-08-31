@@ -14,7 +14,7 @@
   });
 </script>
 
-<Story name="Playground">
+<Story name="Playground" asChild>
   <Toolbar>
     <ToolbarButton iconProps={{ name: 'format_bold' }} />
     <ToolbarButton iconProps={{ name: 'format_italic' }} />
@@ -25,7 +25,7 @@
 
 <Story name="Sections">
   {#snippet template()}
-    <div class="w-[480px]">
+    <div class="w-120">
       <Toolbar sections class="w-full">
         <ToolbarSection>
           <ToolbarButton iconProps={{ name: 'format_bold' }} />
@@ -41,7 +41,7 @@
   {/snippet}
 </Story>
 
-<Story name="Vertical">
+<Story name="Vertical" asChild>
   <Toolbar orientation="vertical">
     <ToolbarGroup type="single">
       <ToolbarGroupItem value="bold" iconProps={{ name: 'format_bold' }} />
@@ -54,7 +54,7 @@
 
 <Story name="VerticalSections">
   {#snippet template()}
-    <div class="h-[480px]">
+    <div class="h-120">
       <Toolbar orientation="vertical" sections class="h-full">
         <ToolbarSection>
           <ToolbarButton iconProps={{ name: 'format_bold' }} />
