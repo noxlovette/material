@@ -149,6 +149,13 @@ export type DraggablePaneProps = DraggablePaneVariants &
     /** Shows a close button in the default header when given; called on click. */
     onClose?: () => void;
     /**
+     * Called on any pointer click outside the panel (while expanded — not
+     * wired up for the collapsed mini pill). Common use: `onClickOutside={onClose}`
+     * or `onClickOutside={() => (collapsed = true)}`. Omit to leave outside
+     * clicks with no effect.
+     */
+    onClickOutside?: () => void;
+    /**
      * Current horizontal position in px, relative to `bounds`. Bindable —
      * updates live while dragging. Omit to let the pane manage its own
      * position starting from `initialX`.

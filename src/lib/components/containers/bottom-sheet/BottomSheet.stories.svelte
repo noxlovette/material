@@ -9,7 +9,7 @@
   import { defineMeta } from '@storybook/addon-svelte-csf';
   import BottomSheet from './BottomSheet.svelte';
   import Button from '../../buttons/Button.svelte';
-  import MenuItem from '../menu-item/MenuItem.svelte';
+  import MenuItem from '../menu/menu-item/MenuItem.svelte';
 
   const { Story } = defineMeta({
     title: 'Containers/Bottom Sheet',

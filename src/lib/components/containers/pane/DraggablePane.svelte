@@ -13,6 +13,11 @@ standing `max-width`/`max-height` — `maxWidth`/`maxHeight` capped by `bounds`
 (see `sizeCaps()`) — so content taller/wider than that ceiling scrolls inside
 the `content` slot instead of rendering off-screen with no way to reach it.
 
+`onClickOutside` fires on any pointer click landing outside the panel (header,
+content, and resize handles all count as inside) while expanded — pass
+`onClose` there to dismiss on outside click, or drive `collapsed` for a
+minimize-on-outside-click panel.
+
 Note: with `bounds` set to an element, the clamp is computed from that
 element's rect at drag/resize/nudge time; a `ResizeObserver` on `bounds`
 plus a capturing window `scroll` listener keep it recomputed as that
@@ -24,6 +29,7 @@ the pane itself stays `position: fixed` and doesn't move with either.
   import { onMount } from 'svelte';
   import { Icon, Layer } from '$lib/utils/index.js';
   import { ButtonIcon } from '$lib/components/buttons/index.js';
+  import { clickOutside } from '$lib/actions/index.js';
   import { draggablePane, type ResizeEdge } from './theme.js';
   import { dragPositions } from './dragStore.svelte.js';
   import type { DraggablePaneProps } from './types.js';
@@ -33,6 +39,7 @@ the pane itself stays `position: fixed` and doesn't move with either.
     header,
     title,
     onClose,
+    onClickOutside,
     x = $bindable(undefined),
     y = $bindable(undefined),
     initialX = 24,
@@ -66,7 +73,12 @@ the pane itself stays `position: fixed` and doesn't move with either.
    * live) — applied via `style` regardless of whether `height`/`width` are
    * set, so a content-sized pane (the default — see `height`'s docs) can't
    * render taller/wider than `bounds` with no way to reach the rest of it.
-   * Undefined only before the first `onMount`/`recomputeBounds` run.
+   * Undefined only before the first `onMount`/`recomputeBounds` run — which
+   * includes SSR, since both only run client-side. Also read directly for
+   * the resize handles' `aria-valuemax` instead of calling `sizeCaps()`
+   * fresh in the template: that call site runs during SSR too (it's a plain
+   * expression producing HTML), and `sizeCaps()` → `boundsRect()` touches
+   * `window`/`HTMLElement`, which don't exist there.
    */
   let capWidth: number | undefined = $state();
   let capHeight: number | undefined = $state();
@@ -428,6 +440,7 @@ the pane itself stays `position: fixed` and doesn't move with either.
     {style}
     role="group"
     aria-label={title}
+    use:clickOutside={() => onClickOutside?.()}
     {...rest}
   >
     <div
@@ -464,7 +477,7 @@ the pane itself stays `position: fixed` and doesn't move with either.
               <ButtonIcon
                 variant="text"
                 size="sm"
-                iconProps={{ name: 'minimize' }}
+                iconProps={{ name: 'collapse_all' }}
                 aria-label="Minimize"
                 onclick={() => (collapsed = true)}
               />
@@ -496,7 +509,7 @@ the pane itself stays `position: fixed` and doesn't move with either.
             ? (width ?? panelEl?.offsetWidth)
             : (height ?? panelEl?.offsetHeight)}
           aria-valuemin={dir === 'e' || dir === 'w' ? minWidth : minHeight}
-          aria-valuemax={dir === 'e' || dir === 'w' ? sizeCaps().width : sizeCaps().height}
+          aria-valuemax={dir === 'e' || dir === 'w' ? capWidth : capHeight}
           tabindex="0"
           onpointerdown={startResize(dir)}
           onpointermove={moveResize}

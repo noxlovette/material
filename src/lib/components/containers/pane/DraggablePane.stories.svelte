@@ -69,6 +69,24 @@
   </DraggablePane>
 </Story>
 
+<!--
+  `onClickOutside` fires on any click landing outside the panel — wired to
+  `onClose` here, so clicking the surrounding canvas dismisses it.
+-->
+<Story name="Close On Outside Click" asChild>
+  <DraggablePane
+    title="Click outside to close"
+    initialX={32}
+    initialY={32}
+    onClose={() => console.log('DraggablePane closed')}
+    onClickOutside={() => console.log('DraggablePane: click outside')}
+  >
+    <p class="md-sys-typescale-body-medium text-md-sys-color-on-surface-variant w-56">
+      Click anywhere outside this panel (or the close button) to dismiss it.
+    </p>
+  </DraggablePane>
+</Story>
+
 <!-- Custom header content via the `header` snippet instead of `title`/`onClose`. -->
 <Story name="Custom Header" asChild>
   <DraggablePane initialX={32} initialY={32}>

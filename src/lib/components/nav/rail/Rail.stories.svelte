@@ -3,10 +3,6 @@
   import Rail from './Rail.svelte';
   import RailItem from './RailItem.svelte';
   import FAB from '../../buttons/FAB.svelte';
-  import Avatar from '../../misc/Avatar.svelte';
-  import Toolbar from '../../toolbar/Toolbar.svelte';
-  import ToolbarButton from '../../toolbar/ToolbarButton.svelte';
-  import ToolbarDivider from '../../toolbar/ToolbarDivider.svelte';
 
   const { Story } = defineMeta({
     title: 'Navigation/Rail',
@@ -51,7 +47,7 @@
   {/snippet}
 </Story>
 
-<Story name="With FAB and Footer" args={{ withNavbar: false }}>
+<Story name="With FAB">
   {#snippet template(args)}
     <div class="bg-md-sys-color-surface-variant relative h-[420px] overflow-hidden rounded-2xl">
       <Rail
@@ -64,27 +60,9 @@
         {#snippet fab()}
           <FAB size="small" iconProps={{ name: 'add' }} label="New" />
         {/snippet}
-        {#snippet railFooter()}
-          <Avatar seed="DV" />
-        {/snippet}
         <RailItem label="Home" href="/" iconProps={{ name: 'house' }} selected />
         <RailItem label="Inbox" href="#" iconProps={{ name: 'mail' }} badge={4} />
         <RailItem label="Settings" href="#" iconProps={{ name: 'settings' }} />
-      </Rail>
-    </div>
-  {/snippet}
-</Story>
-
-<Story name="Companion">
-  {#snippet template()}
-    <div class="bg-md-sys-color-surface-variant relative h-[420px] overflow-hidden rounded-2xl">
-      <Rail companion>
-        <Toolbar>
-          <ToolbarButton iconProps={{ name: 'edit' }} />
-          <ToolbarButton iconProps={{ name: 'share' }} />
-          <ToolbarDivider />
-          <ToolbarButton iconProps={{ name: 'delete' }} />
-        </Toolbar>
       </Rail>
     </div>
   {/snippet}

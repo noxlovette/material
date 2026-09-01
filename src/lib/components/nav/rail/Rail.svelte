@@ -5,9 +5,6 @@ Material 3 Navigation Rail.
 Navigation rails provide access to primary destinations in apps when using tablet and desktop screens.
 On mobile (< md) it automatically renders as a bottom navigation bar.
 
-`companion` mode repurposes this same component as a lightweight host for a page-action
-`Toolbar` instead of a nav-destination rail — see the `companion` prop.
-
 @see https://m3.material.io/components/navigation-rail/overview
 -->
 <script lang="ts">

@@ -7,10 +7,6 @@
     title: 'Containers/Pane',
     component: Pane,
     argTypes: {
-      centered: {
-        control: 'select',
-        options: ['none', 'narrow', 'medium']
-      },
       padding: {
         control: 'select',
         options: ['none', 'sm', 'md', 'lg']
@@ -24,7 +20,6 @@
       rounded: { control: 'boolean' }
     },
     args: {
-      centered: 'medium',
       padding: 'md',
       gap: 'md',
       background: true,
@@ -38,7 +33,6 @@
 <Story name="Standalone">
   {#snippet template(args)}
     <Pane
-      centered={args.centered}
       padding={args.padding}
       gap={args.gap}
       background={args.background}
@@ -52,15 +46,16 @@
   {/snippet}
 </Story>
 
+<!-- Pane has no built-in centered-width variant — center content by passing `contentClass`. -->
 <Story name="Centered Widths" asChild>
   <div class="flex flex-col gap-6">
-    <Pane centered="narrow" background={false}>
+    <Pane contentClass="max-w-2xl mx-auto" background={false}>
       <div class="bg-md-sys-color-secondary-container rounded-lg p-4 text-sm">narrow</div>
     </Pane>
-    <Pane centered="medium" background={false}>
+    <Pane contentClass="max-w-5xl mx-auto" background={false}>
       <div class="bg-md-sys-color-secondary-container rounded-lg p-4 text-sm">medium</div>
     </Pane>
-    <Pane centered="none" background={false}>
+    <Pane background={false}>
       <div class="bg-md-sys-color-secondary-container rounded-lg p-4 text-sm">
         none (full width)
       </div>
