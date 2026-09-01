@@ -3,11 +3,14 @@ import type { Snippet } from 'svelte';
 import type {
   Breakpoint,
   DraggablePaneVariants,
+  MinimizedCorner,
   PaneGridVariants,
   PaneVariants,
   Responsive,
   SpaceSize
 } from './theme.js';
+
+export type { MinimizedCorner, ResizeEdge } from './theme.js';
 
 export type { Breakpoint, Direction, Responsive, SpaceSize } from './theme.js';
 
@@ -185,13 +188,70 @@ export type DraggablePaneProps = DraggablePaneVariants &
      * @default 8
      */
     boundsPadding?: number;
-    /** Fixed width — a number is treated as px, a string is used as-is. Omit for the default min-width. */
-    width?: number | string;
+    /**
+     * Current width in px. Bindable — updates live while resizing. Unset
+     * (the default) lets the panel size itself to content down to an 18rem
+     * floor; setting it (directly, or by resizing) switches to a fixed
+     * width, and `minWidth`/`maxWidth` become the floor/ceiling instead.
+     */
+    width?: number;
+    /**
+     * Current height in px. Bindable — updates live while resizing. Unset
+     * (the default) lets the panel size itself to content; setting it
+     * (directly, or by resizing) switches to a fixed height, and content
+     * beyond it scrolls.
+     */
+    height?: number;
+    /**
+     * Shows resize handles on all four edges and corners, letting the user
+     * resize the panel by pointer drag or, once an edge handle is focused,
+     * the arrow keys (Shift for a bigger step).
+     * @default false
+     */
+    resizable?: boolean;
+    /**
+     * Hard floor in px the panel can be resized down to — the safety net
+     * that keeps a resize from shrinking the panel into uselessness.
+     * @default 200
+     */
+    minWidth?: number;
+    /**
+     * Hard floor in px the panel can be resized down to.
+     * @default 160
+     */
+    minHeight?: number;
+    /** Ceiling in px the panel can be resized up to. Also capped by `bounds`. */
+    maxWidth?: number;
+    /** Ceiling in px the panel can be resized up to. Also capped by `bounds`. */
+    maxHeight?: number;
     /**
      * Disables dragging, e.g. to pin the pane in place on small viewports.
      * @default false
      */
     disableDrag?: boolean;
+    /**
+     * Shows a minimize button in the default header that collapses the pane
+     * into a small fixed-corner pill (see `minimizedCorner`) showing just
+     * its title; clicking the pill restores it at its previous position/size.
+     * @default false
+     */
+    collapsible?: boolean;
+    /**
+     * Whether the pane is currently collapsed into its mini pill. Bindable —
+     * set directly to control collapse state without the default minimize
+     * button (e.g. drive it from your own UI).
+     * @default false
+     */
+    collapsed?: boolean;
+    /** Title shown on the collapsed mini pill. Defaults to `title`. */
+    minimizedTitle?: string;
+    /**
+     * Corner the collapsed mini pill docks to.
+     * @default 'bottom-left'
+     */
+    minimizedCorner?: MinimizedCorner;
+    /** Optional class for the collapsed mini pill — e.g. to override its docked corner with your own CSS. */
+    minimizedClass?: string;
     /** Optional root class. */
     class?: string;
     /** Optional content container class. */

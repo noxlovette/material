@@ -1,11 +1,12 @@
 import { SvelteMap } from 'svelte/reactivity';
 
-export type DragPosition = { x: number; y: number };
+export type DragPosition = { x: number; y: number; width?: number; height?: number };
 
 /**
- * Shared, localStorage-backed position registry keyed by `persistKey`. A
+ * Shared, localStorage-backed position/size registry keyed by `persistKey`. A
  * `DraggablePane` reads/writes its own entry here so its last dragged
- * position survives reloads without the consumer having to manage it.
+ * position and (once resized) size survive reloads without the consumer
+ * having to manage it.
  */
 const positions = new SvelteMap<string, DragPosition>();
 

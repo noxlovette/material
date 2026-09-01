@@ -105,3 +105,77 @@
     </div>
   {/snippet}
 </Story>
+
+<!--
+  `resizable` adds edge/corner handles (pointer drag, or arrow keys once an
+  edge handle is focused). `minWidth`/`minHeight` are the safety net that
+  keeps a resize from shrinking the panel into uselessness; `maxWidth`/
+  `maxHeight` cap the other direction (both are also implicitly capped by
+  `bounds`, the viewport here).
+-->
+<Story name="Resizable" asChild>
+  <DraggablePane
+    title="Resizable"
+    initialX={32}
+    initialY={32}
+    resizable
+    minWidth={220}
+    minHeight={140}
+    maxWidth={520}
+    maxHeight={420}
+  >
+    <p class="md-sys-typescale-body-medium text-md-sys-color-on-surface-variant">
+      Drag any edge or corner to resize. Can't go below 220×140, or above 520×420.
+    </p>
+  </DraggablePane>
+</Story>
+
+<!--
+  Content-sized (no `height`) is the default — but content taller than the
+  viewport still carries a standing `max-height` (`bounds` minus
+  `boundsPadding`, see the component doc comment), so it scrolls internally
+  instead of rendering off-screen with the bottom of the panel unreachable.
+-->
+<Story name="Content Overflow (Unbounded)" asChild>
+  <DraggablePane title="Long Form">
+    <div
+      class="md-sys-typescale-body-medium text-md-sys-color-on-surface-variant flex w-56 flex-col gap-3"
+    >
+      {#each Array(30) as _, i (i)}
+        <p>
+          Field {i + 1} — this panel never sets `height`, yet can't render taller than the viewport.
+        </p>
+      {/each}
+    </div>
+  </DraggablePane>
+</Story>
+
+<!--
+  A fixed `height` turns the content area into an internal scroll region
+  instead of letting the panel grow past its bound — the `content` slot needs
+  `min-h-0` alongside `flex-1 overflow-auto`, otherwise a flex child's default
+  `min-height: auto` lets it grow past its flex-basis and overflow the fixed-
+  height panel instead of scrolling internally.
+-->
+<Story name="Scrollable Content" asChild>
+  <DraggablePane title="Long List" initialX={32} initialY={32} height={240} width={280}>
+    <ul class="md-sys-typescale-body-medium text-md-sys-color-on-surface-variant">
+      {#each Array(40) as _, i (i)}
+        <li>Item {i + 1}</li>
+      {/each}
+    </ul>
+  </DraggablePane>
+</Story>
+
+<!--
+  `collapsible` adds a minimize button that docks the pane into a small pill
+  at `minimizedCorner` (default bottom-left) showing `minimizedTitle` (falls
+  back to `title`); clicking the pill restores it at its previous position.
+-->
+<Story name="Collapsible" asChild>
+  <DraggablePane title="Mini Player" initialX={32} initialY={32} collapsible resizable>
+    <p class="md-sys-typescale-body-medium text-md-sys-color-on-surface-variant w-56">
+      Click the minimize icon in the header to collapse this into a pill in the bottom-left corner.
+    </p>
+  </DraggablePane>
+</Story>

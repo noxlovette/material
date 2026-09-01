@@ -163,15 +163,26 @@ export const paneHandle = tv({
  * layout — dragged into place by its header rather than resized in place
  * like `PaneHandle`/`Pane`.
  */
+/** The eight `PaneHandle`-style directions a `DraggablePane` can be resized from. */
+export type ResizeEdge = 'n' | 's' | 'e' | 'w' | 'ne' | 'nw' | 'se' | 'sw';
+
+/** Corner a collapsed `DraggablePane` docks its mini pill to. */
+export type MinimizedCorner = 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right';
+
 export const draggablePane = tv({
   slots: {
-    base: 'fixed z-[100] flex min-w-72 flex-col rounded-2xl bg-md-sys-color-surface-container-high shadow-elevation-3',
+    base: 'fixed z-[100] flex min-w-72 flex-col rounded-md bg-md-sys-color-surface-container-highest shadow-elevation-3',
     headerBar:
       'relative flex shrink-0 items-center gap-2 rounded-t-2xl px-3 py-2 touch-none select-none md-sys-state-focus-indicator',
     grip: 'shrink-0 text-md-sys-color-on-surface-variant',
     headline: 'flex-1 truncate md-sys-typescale-title-small text-md-sys-color-on-surface',
-    actions: 'flex shrink-0 items-center',
-    content: 'flex flex-1 flex-col overflow-auto p-4 pt-2'
+    actions: 'flex shrink-0 items-center gap-1',
+    content: 'flex flex-1 flex-col min-h-0 min-w-0 overflow-auto p-4 pt-2',
+    resizeHandle: 'absolute touch-none',
+    miniBase:
+      'fixed z-[100] flex cursor-pointer items-center gap-2 rounded-full bg-md-sys-color-surface-container-high px-4 py-2 shadow-elevation-2 md-sys-state-focus-indicator hover:shadow-elevation-3',
+    miniIcon: 'shrink-0 text-md-sys-color-on-surface-variant',
+    miniLabel: 'md-sys-typescale-label-large max-w-48 truncate text-md-sys-color-on-surface'
   },
   variants: {
     dragging: {
@@ -181,11 +192,36 @@ export const draggablePane = tv({
     disableDrag: {
       true: { headerBar: 'cursor-default' },
       false: ''
+    },
+    edge: {
+      n: { resizeHandle: 'top-0 inset-x-3 h-1.5 -translate-y-1/2 cursor-ns-resize' },
+      s: { resizeHandle: 'bottom-0 inset-x-3 h-1.5 translate-y-1/2 cursor-ns-resize' },
+      e: { resizeHandle: 'right-0 inset-y-3 w-1.5 translate-x-1/2 cursor-ew-resize' },
+      w: { resizeHandle: 'left-0 inset-y-3 w-1.5 -translate-x-1/2 cursor-ew-resize' },
+      ne: {
+        resizeHandle: 'top-0 right-0 size-3 -translate-y-1/2 translate-x-1/2 cursor-nesw-resize'
+      },
+      nw: {
+        resizeHandle: 'top-0 left-0 size-3 -translate-y-1/2 -translate-x-1/2 cursor-nwse-resize'
+      },
+      se: {
+        resizeHandle: 'bottom-0 right-0 size-3 translate-y-1/2 translate-x-1/2 cursor-nwse-resize'
+      },
+      sw: {
+        resizeHandle: 'bottom-0 left-0 size-3 translate-y-1/2 -translate-x-1/2 cursor-nesw-resize'
+      }
+    },
+    corner: {
+      'bottom-left': { miniBase: 'bottom-4 left-4' },
+      'bottom-right': { miniBase: 'bottom-4 right-4' },
+      'top-left': { miniBase: 'top-4 left-4' },
+      'top-right': { miniBase: 'top-4 right-4' }
     }
   },
   defaultVariants: {
     dragging: false,
-    disableDrag: false
+    disableDrag: false,
+    corner: 'bottom-left'
   }
 });
 
