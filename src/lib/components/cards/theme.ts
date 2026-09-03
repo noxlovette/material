@@ -2,7 +2,7 @@ import { tv } from 'tailwind-variants';
 
 export const card = tv({
   slots: {
-    base: 'relative flex flex-col rounded-lg disabled:opacity-[0.38] disabled:bg-md-sys-color-surface-variant state-layer before:rounded-lg focus:outline-3 focus:outline-md-sys-color-secondary [transition:box-shadow_var(--md-sys-motion-duration,200ms)_var(--md-sys-motion-timing-function,cubic-bezier(0.34,0.8,0.34,1))]',
+    base: 'relative flex flex-col rounded-lg disabled:opacity-[0.38] disabled:bg-md-sys-color-surface-variant state-layer before:rounded-lg [transition:box-shadow_var(--md-sys-motion-duration,200ms)_var(--md-sys-motion-timing-function,cubic-bezier(0.34,0.8,0.34,1))]',
     icon: 'size-6 text-[24px] text-md-sys-color-primary'
   },
   variants: {
@@ -19,6 +19,10 @@ export const card = tv({
     },
     hoverable: {
       true: ''
+    },
+    selected: {
+      true: 'outline-3 outline-md-sys-color-primary',
+      false: 'focus:outline-3 focus:outline-md-sys-color-secondary'
     }
   },
   compoundVariants: [

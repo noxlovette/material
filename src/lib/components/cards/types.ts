@@ -34,7 +34,34 @@ export type CardProps = CardVariants &
     padding?: CardVariants['padding'];
     /**
      * Whether the card should show a state layer on hover.
-     * Defaults to true if `href` is provided.
+     * Defaults to true if `href`, `onselect`, or `ondelete` is provided.
      */
     hoverable?: boolean;
+    /**
+     * Whether the card is in a selected state. Purely visual — shows a
+     * `primary`-colored outline unconditionally, distinct from the `secondary`
+     * outline shown on plain keyboard focus, so the two states stay visually
+     * distinguishable. Selection state itself is owned by the consumer, not
+     * the card, e.g. `selected={selectedId === item.id}`.
+     * @default false
+     */
+    selected?: boolean;
+    /**
+     * Called when the card's surface is clicked, or when Enter/Space is pressed
+     * while the card itself (not a nested control) has focus. Providing this
+     * makes the card keyboard-focusable (`tabindex`, and — for non-link cards —
+     * `role="button"` + `aria-pressed`). Typically closes over the represented
+     * item's id: `onselect={() => (selectedId = item.id)}`.
+     *
+     * Nested interactive elements (buttons, form controls) should call
+     * `event.stopPropagation()` in their own handlers if they shouldn't also
+     * trigger selection — the whole card surface is clickable.
+     */
+    onselect?: () => void;
+    /**
+     * Called when Delete/Backspace is pressed while the card itself (not a
+     * nested form control) has focus. Typically deletes the represented item:
+     * `ondelete={() => remove(item.id)}`.
+     */
+    ondelete?: () => void;
   };
