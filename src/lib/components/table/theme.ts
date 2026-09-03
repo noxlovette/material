@@ -7,7 +7,7 @@ export const table = tv({
     body: '[&_tr:last-child]:border-b-0',
     foot: 'border-t border-md-sys-color-outline-variant',
     row: 'border-b border-md-sys-color-outline-variant transition-colors',
-    cell: 'px-4 py-3 align-middle',
+    cell: 'px-4 py-3 align-middle wrap-anywhere',
     header:
       'px-4 py-4 align-middle md-sys-typescale-label-large text-md-sys-color-on-surface font-medium whitespace-nowrap'
   },

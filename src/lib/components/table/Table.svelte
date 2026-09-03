@@ -14,7 +14,7 @@ Compose with TableHead, TableBody, TableFoot, TableRow, TableCell, and TableHead
 </script>
 
 {#if rounded}
-  <div class="ring-md-sys-color-outline-variant overflow-hidden rounded-xl ring-1">
+  <div class="ring-md-sys-color-outline-variant overflow-x-auto rounded-sm ring-1">
     <table class={root({ class: clsx(className) })} {...restProps}>
       {@render children()}
     </table>
