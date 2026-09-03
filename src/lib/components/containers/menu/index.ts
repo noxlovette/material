@@ -4,7 +4,13 @@
 export * from './menu-item/index.js';
 
 // re-export TS/JS modules from this folder
+export * from './theme.js';
 export * from './types.js';
 
 // default exports for components in this folder
 export { default as Menu } from './Menu.svelte';
+export { default as MenuCheckboxItem } from './MenuCheckboxItem.svelte';
+export { default as MenuGroup } from './MenuGroup.svelte';
+export { default as MenuRadioGroup } from './MenuRadioGroup.svelte';
+export { default as MenuRadioItem } from './MenuRadioItem.svelte';
+export { default as MenuSub } from './MenuSub.svelte';
