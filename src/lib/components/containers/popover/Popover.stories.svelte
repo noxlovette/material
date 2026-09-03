@@ -40,8 +40,8 @@
         align={args.align}
         sideOffset={args.sideOffset}
       >
-        {#snippet trigger()}
-          <Button variant="outlined">Show info</Button>
+        {#snippet trigger(triggerProps)}
+          <Button variant="outlined" {...triggerProps}>Show info</Button>
         {/snippet}
         <Body class="text-md-sys-color-on-surface-variant">
           75% of your storage has been used. Consider upgrading your plan.
@@ -54,8 +54,8 @@
 <Story name="Icon Trigger, No Title" asChild>
   <div class="p-24">
     <Popover showClose={false}>
-      {#snippet trigger()}
-        <ButtonIcon iconProps={{ name: 'info' }} variant="text" />
+      {#snippet trigger(triggerProps)}
+        <ButtonIcon iconProps={{ name: 'info' }} variant="text" {...triggerProps} />
       {/snippet}
       <Body class="text-md-sys-color-on-surface-variant">
         A minimal popover with no header — just an icon trigger and body text.

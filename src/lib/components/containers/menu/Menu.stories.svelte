@@ -53,8 +53,8 @@
 <Story name="With Custom Trigger" asChild>
   <div class="p-6">
     <Menu align="end">
-      {#snippet trigger()}
-        <ButtonIcon iconProps={{ name: 'more_vert' }} variant="text" />
+      {#snippet trigger(triggerProps)}
+        <ButtonIcon iconProps={{ name: 'more_vert' }} variant="text" {...triggerProps} />
       {/snippet}
       <MenuItem iconProps={{ name: 'edit' }}>Edit</MenuItem>
       <MenuItem iconProps={{ name: 'archive' }} helper="Move to archive folder">Archive</MenuItem>

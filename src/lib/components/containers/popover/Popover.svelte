@@ -29,7 +29,9 @@ Popovers display rich content in a non-modal overlay anchored to a trigger eleme
 
 <Popover.Root bind:open>
   <Popover.Trigger>
-    {@render trigger()}
+    {#snippet child({ props })}
+      {@render trigger(props)}
+    {/snippet}
   </Popover.Trigger>
 
   <Popover.Portal>

@@ -3,8 +3,12 @@ import type { Snippet } from 'svelte';
 import type { PopoverVariants } from './theme.js';
 
 export interface PopoverProps extends PopoverVariants {
-  /** Snippet rendered as the trigger element (typically a Button or ButtonIcon). */
-  trigger: Snippet;
+  /**
+   * Snippet rendered as the trigger element (typically a Button or ButtonIcon).
+   * Receives the trigger's props — spread them onto the rendered element/component
+   * so bits-ui doesn't wrap it in its own `<button>` (which would nest buttons).
+   */
+  trigger: Snippet<[Record<string, unknown>]>;
   /** The popover panel content. */
   children: Snippet;
   /** Optional heading displayed at the top of the panel. */

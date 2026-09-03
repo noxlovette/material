@@ -172,8 +172,8 @@
 <\/script>
 
 <Popover title="Storage">
-  {#snippet trigger()}
-    <Button variant="outlined">Show info</Button>
+  {#snippet trigger(triggerProps)}
+    <Button variant="outlined" {...triggerProps}>Show info</Button>
   {/snippet}
   <Body>75% of your storage has been used.</Body>
 </Popover>`}

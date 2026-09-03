@@ -64,16 +64,19 @@ selectable items, no menu).
 
   <DropdownMenu.Root bind:open>
     <DropdownMenu.Trigger {disabled}>
-      <ButtonIcon
-        {variant}
-        {color}
-        {size}
-        {disabled}
-        width="narrow"
-        style={trailingStyle}
-        tooltipContent={menuLabel}
-        iconProps={{ name: 'arrow_drop_down', class: chevronCls }}
-      />
+      {#snippet child({ props })}
+        <ButtonIcon
+          {variant}
+          {color}
+          {size}
+          {disabled}
+          width="narrow"
+          style={trailingStyle}
+          tooltipContent={menuLabel}
+          iconProps={{ name: 'arrow_drop_down', class: chevronCls }}
+          {...props}
+        />
+      {/snippet}
     </DropdownMenu.Trigger>
 
     <DropdownMenu.Portal>

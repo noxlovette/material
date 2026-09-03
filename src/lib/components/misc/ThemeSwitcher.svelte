@@ -8,8 +8,8 @@
 
 <div class="fixed right-4 bottom-4 z-50 hidden md:block">
   <Popover bind:open title="Theme Settings" side="top" align="end" sideOffset={16}>
-    {#snippet trigger()}
-      <FAB iconProps={{ name: 'palette' }} config="primary" />
+    {#snippet trigger(triggerProps)}
+      <FAB iconProps={{ name: 'palette' }} config="primary" {...triggerProps} />
     {/snippet}
 
     <div

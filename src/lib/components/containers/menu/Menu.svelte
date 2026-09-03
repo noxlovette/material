@@ -35,11 +35,13 @@ Contrast with `MenuItem` (a single interactive row inside the panel) and
 
 <DropdownMenu.Root bind:open>
   <DropdownMenu.Trigger>
-    {#if trigger}
-      {@render trigger()}
-    {:else}
-      <Button variant="filled" type="button">{label}</Button>
-    {/if}
+    {#snippet child({ props })}
+      {#if trigger}
+        {@render trigger(props)}
+      {:else}
+        <Button variant="filled" {...props}>{label}</Button>
+      {/if}
+    {/snippet}
   </DropdownMenu.Trigger>
 
   <DropdownMenu.Portal>

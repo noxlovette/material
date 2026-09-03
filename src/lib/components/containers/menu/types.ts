@@ -20,9 +20,11 @@ export type MenuProps = {
   children: Snippet;
   /**
    * Custom trigger element. When omitted, a default filled `Button` labelled
-   * by `label` is used.
+   * by `label` is used. Receives the trigger's props — spread them onto the
+   * rendered element/component so bits-ui doesn't wrap it in its own
+   * `<button>` (which would nest buttons).
    */
-  trigger?: Snippet;
+  trigger?: Snippet<[Record<string, unknown>]>;
   /**
    * Label for the default button trigger. Ignored when `trigger` is provided.
    * @default 'Open menu'
