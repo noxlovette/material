@@ -35,27 +35,27 @@ export const select = tv({
       group-data-[state=open]:rotate-180
     `,
     content: `
-      z-[100] min-w-[var(--bits-select-trigger-width)] max-h-96 overflow-y-auto
-      rounded-xl bg-md-sys-color-surface-container-high
-      shadow-elevation-3 py-2 outline-none
+      z-[100] min-w-[var(--bits-select-anchor-width)] max-h-96 overflow-y-auto
+      rounded-lg gap-1 bg-md-sys-color-surface-container-high
+      shadow-elevation-3 ring-md-sys-color-outline/10 px-2 py-1 outline-none
     `,
     item: `
-      relative flex w-full cursor-pointer select-none
-      px-4 py-3 outline-none
+      rounded-sm relative flex w-full cursor-pointer select-none items-center
+      px-3 py-2 outline-none
       md-sys-typescale-body-large text-md-sys-color-on-surface
       hover:bg-md-sys-color-on-surface/8
-      focus:bg-md-sys-color-on-surface/8
+      data-[highlighted]:bg-md-sys-color-on-surface/8
       data-[selected]:bg-md-sys-color-secondary-container
       data-[selected]:text-md-sys-color-on-secondary-container
-      data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50
-      transition-colors duration-150 first:rounded-t-xl last:rounded-b-xl
+      data-[disabled]:cursor-not-allowed data-[disabled]:opacity-38
+      transition-colors duration-150
     `,
     groupLabel: `
-      px-4 py-2 md-sys-typescale-label-medium
+      px-3 pt-2 pb-1 md-sys-typescale-label-medium
       text-md-sys-color-primary
     `,
     separator: `
-      -mx-1 my-1 h-px bg-md-sys-color-outline-variant
+      my-1 h-px bg-md-sys-color-outline-variant
     `,
     supportingText: `
       px-4 pt-1 flex justify-between

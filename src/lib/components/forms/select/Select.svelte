@@ -83,7 +83,7 @@ Powered by bits-ui for accessibility and behavior.
                       easing: easeEmphasized,
                       mode: 'scale'
                     }}
-                    style:width="var(--bits-select-trigger-width)"
+                    style:width="var(--bits-select-anchor-width)"
                     style:max-width="min(calc(100vw - 32px), 560px)"
                   >
                     <Select.Viewport class="w-full">

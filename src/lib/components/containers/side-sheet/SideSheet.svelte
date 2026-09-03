@@ -34,7 +34,7 @@ rendering the component ({#if open}<SideSheet ...>{/if}).
 </script>
 
 <dialog
-  class="bg-md-sys-color-surface-container-low fixed inset-y-0 right-0 left-auto m-0 h-full w-full max-w-sm rounded-l-xl"
+  class="bg-md-sys-color-surface-container-low fixed inset-y-0 right-0 left-auto m-0 h-full w-full max-w-sm rounded-l-md"
   use:open
   use:outroClass
   oncancel={(e) => {
