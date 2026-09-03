@@ -61,7 +61,7 @@ while keeping the main screen content visible.
 />
 
 <dialog
-  class="bg-md-sys-color-surface-container-low text-md-sys-color-on-surface m-0 mt-auto w-full max-w-2xl overflow-hidden rounded-t-[28px] border-none p-0"
+  class="bg-md-sys-color-surface-container-low mx-auto mt-auto w-full max-w-2xl overflow-hidden rounded-t-md"
   style:max-height="{height}px"
   use:open
   use:outroClass

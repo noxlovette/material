@@ -26,7 +26,7 @@
       type: '() => void',
       default: '—',
       required: true,
-      desc: 'Called when the close (×) button is clicked. The consumer is responsible for hiding the sheet in response.'
+      desc: 'Called when the close (×) button is clicked, Esc is pressed, or the backdrop is clicked. The consumer is responsible for hiding the sheet in response.'
     }
   ];
 
@@ -89,17 +89,17 @@
     <section id="overview" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Overview</Title>
       <Body>
-        <code class="doc-code">SideSheet</code> is a content template only — a headline row with a
-        close button, followed by your <code class="doc-code">children</code>. It does not render a
-        backdrop, does not position itself (no fixed/absolute CSS), and does not animate open/close
-        on its own — unlike <code class="doc-code">Dialogue</code> and
-        <code class="doc-code">BottomSheet</code>, which both own their overlay and transitions.
+        <code class="doc-code">SideSheet</code> owns its own overlay, the same way
+        <code class="doc-code">BottomSheet</code> does: it renders as a native
+        <code class="doc-code">&lt;dialog&gt;</code> pinned to the right edge of the screen, full height,
+        dimming the rest of the app behind a backdrop and sliding in/out.
       </Body>
       <Body>
-        This means you're responsible for placing it: mount it inside your own positioned container
-        — a fixed-position <code class="doc-code">&lt;aside&gt;</code>, or a resizable
-        <code class="doc-code">Pane</code> in a <code class="doc-code">PaneGrid</code> — and for any enter/exit
-        transition, if you want one.
+        Mounting it calls <code class="doc-code">showModal()</code> immediately, so visibility is
+        controlled by conditionally rendering the component — no separate
+        <code class="doc-code">open</code> prop. It closes itself on Esc or a backdrop click, in
+        addition to the header's close button; the consumer's <code class="doc-code">close</code>
+        callback is responsible for flipping its own open flag in response.
       </Body>
     </section>
 
@@ -124,7 +124,7 @@
         <div>
           <p class="md-sys-typescale-title-small">Playground</p>
           <Body class="text-md-sys-color-on-secondary-container/80 text-sm"
-            >SideSheet placed inside a fixed-position host, the pattern you'd use in a real layout.</Body
+            >SideSheet toggled open/closed, dimming the rest of the page behind it.</Body
           >
         </div>
       </a>
@@ -133,7 +133,8 @@
     <section id="basic-usage" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Basic Usage</Title>
       <Body>
-        Provide your own positioning wrapper — here, a fixed panel pinned to the right edge:
+        Conditionally render <code class="doc-code">SideSheet</code> — it handles its own positioning,
+        backdrop, and transition:
       </Body>
       <CodeBlock
         code={`<script lang="ts">
@@ -145,11 +146,9 @@
 <button onclick={() => (open = true)}>Show details</button>
 
 {#if open}
-  <div class="fixed top-0 right-0 h-full w-80 bg-md-sys-color-surface-container-low shadow-elevation-1">
-    <SideSheet headline="Details" close={() => (open = false)}>
-      <Body class="px-6 pb-6">Supplementary content goes here.</Body>
-    </SideSheet>
-  </div>
+  <SideSheet headline="Details" close={() => (open = false)}>
+    <Body class="px-6 pb-6">Supplementary content goes here.</Body>
+  </SideSheet>
 {/if}`}
       />
     </section>
@@ -215,7 +214,7 @@
     <section id="accessibility" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Accessibility</Title>
       <div class="flex flex-col gap-3">
-        {#each [{ icon: 'close', title: 'Explicit close control', desc: 'The header always renders a labelled close ButtonIcon rather than relying on an outside click or Escape, since SideSheet has no backdrop of its own to attach that behavior to.' }, { icon: 'flag', title: 'Positioning is on you', desc: "Because SideSheet doesn't manage focus trapping, portaling, or a backdrop itself, consumers building a modal-style side sheet need to add those behaviors (e.g. wrap it with Dialogue's Dialog.Root primitives, or bits-ui's Dialog directly) rather than getting them for free." }] as item}
+        {#each [{ icon: 'close', title: 'Multiple ways to dismiss', desc: 'The header renders a labelled close ButtonIcon, and the sheet also closes on Esc and on a backdrop click, matching BottomSheet and Dialogue.' }, { icon: 'flag', title: 'Focus trapping and portaling included', desc: 'SideSheet renders as a native <dialog> opened with showModal(), so focus trapping, top-layer stacking, and backdrop dimming come from the platform for free — no extra wrapper needed.' }] as item}
           <Card class="flex items-start gap-4 p-4">
             <div
               class="bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container flex h-9 w-9 shrink-0 items-center justify-center rounded-full"

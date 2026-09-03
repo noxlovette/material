@@ -1,10 +1,9 @@
 <!--
-  SideSheet is a content template only — a headline row with a close button, followed by
-  `children`. It renders no backdrop, no fixed/absolute positioning, and no open/close
-  transition of its own (unlike Dialogue and BottomSheet, which own their overlay). Consumers
-  are expected to place it inside their own positioned container (e.g. a fixed aside, or a
-  resizable Pane inside a PaneGrid) — the wrapping <div> below is that story-only host, not part
-  of the component.
+  SideSheet has no `open` prop of its own — mounting it calls the native <dialog>'s showModal()
+  immediately, so visibility is controlled by conditionally rendering the component
+  ({#if open}<SideSheet ...>{/if}), same as BottomSheet. `close` is a required callback the
+  sheet invokes on Esc or backdrop click — the consumer is expected to flip its own `open` flag
+  to false in response.
 -->
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
@@ -25,29 +24,22 @@
 </script>
 
 <script lang="ts">
-  let playgroundOpen = $state(true);
+  let playgroundOpen = $state(false);
 </script>
 
 <Story name="Playground">
   {#snippet template(args)}
-    <div class="bg-md-sys-color-surface relative h-[420px] overflow-hidden">
+    <div class="p-6">
+      <Button onclick={() => (playgroundOpen = true)}>Show side sheet</Button>
       {#if playgroundOpen}
-        <div
-          class="bg-md-sys-color-surface-container-low shadow-elevation-1 absolute top-0 right-0 h-full w-80"
-        >
-          <SideSheet headline={args.headline} close={() => (playgroundOpen = false)}>
-            <div class="flex flex-col gap-3 px-6 pb-6">
-              <Body class="text-md-sys-color-on-surface-variant">
-                Supplementary content and actions, anchored to the edge of the screen while the main
-                content stays visible.
-              </Body>
-            </div>
-          </SideSheet>
-        </div>
-      {:else}
-        <div class="p-6">
-          <Button onclick={() => (playgroundOpen = true)}>Show side sheet</Button>
-        </div>
+        <SideSheet headline={args.headline} close={() => (playgroundOpen = false)}>
+          <div class="flex flex-col gap-3 px-6 pb-6">
+            <Body class="text-md-sys-color-on-surface-variant">
+              Supplementary content and actions, anchored to the edge of the screen while the main
+              content stays visible.
+            </Body>
+          </div>
+        </SideSheet>
       {/if}
     </div>
   {/snippet}
