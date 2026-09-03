@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { generateThemeCSS, isDarkScheme, themeState, STORAGE_KEY } from './theme.svelte.js';
+  import { MediaQuery } from 'svelte/reactivity';
+  import { generateThemeCSS, themeState, STORAGE_KEY } from './theme.svelte.js';
 
   /**
    * Whether to generate and inject the M3 dynamic-color CSS custom properties
@@ -27,23 +28,10 @@
   });
 
   // Track dark mode, including system preference changes
-  let finalIsDark = $state(isDarkScheme(themeState.scheme));
-
-  $effect(() => {
-    if (themeState.scheme !== 'system') {
-      finalIsDark = themeState.scheme === 'dark';
-      return;
-    }
-
-    const media = window.matchMedia('(prefers-color-scheme: dark)');
-    const handler = (e: MediaQueryListEvent) => {
-      finalIsDark = e.matches;
-    };
-
-    finalIsDark = media.matches;
-    media.addEventListener('change', handler);
-    return () => media.removeEventListener('change', handler);
-  });
+  const systemDark = new MediaQuery('(prefers-color-scheme: dark)');
+  const finalIsDark = $derived(
+    themeState.scheme === 'system' ? systemDark.current : themeState.scheme === 'dark'
+  );
 
   const themeStyles = $derived(generateCSS ? generateThemeCSS(themeState, finalIsDark) : '');
 
