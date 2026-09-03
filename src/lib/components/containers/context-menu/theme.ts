@@ -36,6 +36,12 @@ export const contextMenu = tv({
       true: {
         item: 'rounded-lg bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container'
       }
+    },
+    color: {
+      error: {
+        item: 'text-md-sys-color-error hover:bg-md-sys-color-error/8 data-[highlighted]:bg-md-sys-color-error/8',
+        icon: 'text-md-sys-color-error'
+      }
     }
   }
 });

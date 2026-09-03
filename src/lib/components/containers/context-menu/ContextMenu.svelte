@@ -16,6 +16,17 @@ Context menus appear on right-click and provide actions related to the clicked e
 </ContextMenu>
 ```
 
+Pass `trigger` instead of `children` when the wrapping `<div>` isn't valid where
+you need it (e.g. a table row):
+
+```svelte
+<ContextMenu items={rowItems} onselect={handleSelect}>
+  {#snippet trigger(props)}
+    <TableRow {...props} hoverable>...</TableRow>
+  {/snippet}
+</ContextMenu>
+```
+
 @see https://m3.material.io/components/menus/guidelines
 -->
 <script lang="ts">
@@ -31,6 +42,7 @@ Context menus appear on right-click and provide actions related to the clicked e
     items = [],
     selected,
     children,
+    trigger,
     onselect,
     itemDataCyPrefix = 'context-menu-item',
     disabled = false
@@ -89,7 +101,7 @@ Context menus appear on right-click and provide actions related to the clicked e
   {:else}
     {@const isSelected = item.selected || (selected !== undefined && item.value === selected)}
     <BitsContextMenu.Item
-      class={theme.item({ selected: isSelected })}
+      class={theme.item({ selected: isSelected, color: item.color })}
       disabled={item.disabled}
       onSelect={() => {
         if (item.value !== undefined) {
@@ -100,7 +112,7 @@ Context menus appear on right-click and provide actions related to the clicked e
       data-cy={`${itemDataCyPrefix}-${toDataCy(item.value)}`}
     >
       {#if item.iconProps}
-        <Icon class={theme.icon()} {...item.iconProps} />
+        <Icon class={theme.icon({ color: item.color })} {...item.iconProps} />
       {/if}
       <div class={theme.itemContent()}>
         <span class={theme.label()}>{item.label}</span>
@@ -119,9 +131,13 @@ Context menus appear on right-click and provide actions related to the clicked e
 <BitsContextMenu.Root>
   <BitsContextMenu.Trigger {disabled}>
     {#snippet child({ props })}
-      <div {...props}>
-        {@render children()}
-      </div>
+      {#if trigger}
+        {@render trigger(props)}
+      {:else}
+        <div {...props}>
+          {@render children?.()}
+        </div>
+      {/if}
     {/snippet}
   </BitsContextMenu.Trigger>
 

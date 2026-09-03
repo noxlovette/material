@@ -19,6 +19,8 @@ export type ContextMenuDataItem = {
   separator?: boolean;
   /** Whether the item is selected. */
   selected?: boolean;
+  /** Tint the item (and its icon) with the error color, for destructive actions. */
+  color?: 'error';
   /** Callback function when the item is selected. */
   onselect?: (value: string) => void;
   /** Optional sub-items for nested menus. */
@@ -33,8 +35,18 @@ export type ContextMenuProps = {
   items: ContextMenuDataItem[];
   /** The value of the currently selected item. */
   selected?: string;
-  /** The element(s) that will trigger the context menu on right-click. */
-  children: Snippet;
+  /**
+   * The element(s) that will trigger the context menu on right-click,
+   * rendered inside a plain wrapping `<div>`. Ignored when `trigger` is given.
+   */
+  children?: Snippet;
+  /**
+   * Escape hatch for when the wrapping `<div>` from `children` isn't valid in
+   * context (e.g. a table row, which can't have a `<div>` as its parent's
+   * direct child). Receives the trigger props to spread onto your own
+   * element instead.
+   */
+  trigger?: Snippet<[Record<string, unknown>]>;
   /** Callback function when an item is selected. */
   onselect?: (value: string) => void;
   /**
