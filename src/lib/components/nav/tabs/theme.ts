@@ -7,6 +7,12 @@ export const tabHolder = tv({
   slots: {
     base: 'relative flex w-full bg-md-sys-color-surface',
     bar: 'absolute bottom-0 h-[3px] rounded-t-full bg-md-sys-color-primary transition-transform duration-200 ease-out'
+  },
+  variants: {
+    rounded: {
+      true: { base: 'rounded-t-md' },
+      false: {}
+    }
   }
 });
 

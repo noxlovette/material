@@ -1,5 +1,5 @@
 import type { IconProps } from '$lib/utils/index.js';
-import type { TabVariants } from './theme.js';
+import type { TabHolderVariants, TabVariants } from './theme.js';
 
 export type TabProps = {
   /** Props for the Icon component. Omit for secondary tabs. */
@@ -32,7 +32,7 @@ export type TabHolderProps = {
   variant?: TabVariants['variant'];
   /** Tab items to render. */
   items: TabProps[];
-};
+} & TabHolderVariants;
 
 export type TabContentProps = {
   /** Must match the value of the corresponding Tab. */

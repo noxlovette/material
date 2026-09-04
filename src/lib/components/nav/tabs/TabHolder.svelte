@@ -20,12 +20,13 @@ Use TabContent for content-panel tabs; omit it for navigation (href) tabs.
     onValueChange,
     activationMode = 'automatic',
     variant = 'primary',
+    rounded = false,
     children
   }: TabHolderProps & { children?: Snippet } = $props();
 
   const idx = $derived(items.findIndex((i) => i.value === value));
   const count = $derived(items.length);
-  const { base, bar } = tabHolder();
+  const { base, bar } = $derived(tabHolder({ rounded }));
 </script>
 
 <Tabs.Root bind:value {onValueChange} {activationMode}>
