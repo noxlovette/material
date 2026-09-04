@@ -53,3 +53,11 @@
 <Story name="Clickable" asChild>
   <Avatar seed="clickable" onclick={() => console.log('Avatar clicked')} />
 </Story>
+
+<Story name="Animated" asChild>
+  <div class="flex items-end gap-4">
+    <Avatar seed="alice" dicebearStyle="gaze" tags={['animation']} />
+    <Avatar seed="bob" dicebearStyle="shapes" tags={['animation']} />
+    <Avatar seed="carol" dicebearStyle="blobs" tags={['animation']} />
+  </div>
+</Story>

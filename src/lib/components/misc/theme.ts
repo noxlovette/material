@@ -11,6 +11,12 @@ export const avatar = tv({
   },
   variants: {
     size: {
+      xxs: {
+        root: 'size-5'
+      },
+      xs: {
+        root: 'size-8'
+      },
       sm: {
         root: 'size-12'
       },
@@ -23,6 +29,6 @@ export const avatar = tv({
     }
   },
   defaultVariants: {
-    size: 'lg'
+    size: 'md'
   }
 });

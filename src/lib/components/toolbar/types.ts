@@ -28,7 +28,12 @@ export type ToolbarSectionProps = DivAttrs & {
 };
 
 export type ToolbarButtonProps = Omit<BitsToolbarButtonProps, 'children' | 'child'> & {
-  iconProps: IconProps;
+  /** Configuration for the leading icon. Omit when `avatar` is provided. */
+  iconProps?: IconProps;
+  /**
+   * Custom leading content (e.g. an avatar/image) rendered instead of `iconProps`.
+   */
+  avatar?: Snippet;
   /**
    * Content to display in a tooltip when hovering over the button.
    * If omitted, no tooltip is shown.
@@ -47,7 +52,12 @@ export type ToolbarGroupProps = Omit<BitsToolbarGroupProps, 'children' | 'child'
 export type ToolbarSpacerProps = DivAttrs;
 
 export type ToolbarGroupItemProps = Omit<BitsToolbarGroupItemProps, 'children' | 'child'> & {
-  iconProps: IconProps;
+  /** Configuration for the leading icon. Omit when `avatar` is provided. */
+  iconProps?: IconProps;
+  /**
+   * Custom leading content (e.g. an avatar/image) rendered instead of `iconProps`.
+   */
+  avatar?: Snippet;
   /**
    * Content to display in a tooltip when hovering over the button.
    * If omitted, no tooltip is shown.

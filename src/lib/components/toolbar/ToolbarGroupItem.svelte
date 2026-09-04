@@ -16,6 +16,7 @@ Color is inherited from the parent Toolbar via context.
 
   let {
     iconProps,
+    avatar,
     value,
     disabled = false,
     tooltipContent,
@@ -47,7 +48,11 @@ Color is inherited from the parent Toolbar via context.
       {...restProps}
       {...triggerAttrs}
     >
-      <Icon {...iconProps} class={icon()} />
+      {#if avatar}
+        {@render avatar()}
+      {:else if iconProps}
+        <Icon {...iconProps} class={icon()} />
+      {/if}
       <Layer />
     </Toolbar.GroupItem>
   {/snippet}

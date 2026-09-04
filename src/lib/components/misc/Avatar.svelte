@@ -8,6 +8,8 @@ Avatars can be used to represent people or objects.
   import { Avatar as AvatarPrimitive } from 'bits-ui';
   import { Layer } from '$lib/utils/index.js';
   import { avatar } from './theme.js';
+  import { DicebearAvatarBuilder } from './DicebearAvatarBuilder.js';
+  import { getMaterialAvatarPalette } from './materialAvatarPalette.js';
   import type { AvatarProps } from './types.js';
 
   let {
@@ -15,6 +17,8 @@ Avatars can be used to represent people or objects.
     alt = 'User avatar',
     seed = 'ogonek',
     dicebearStyle = 'shapes',
+    backgroundColor,
+    tags,
     size = 'lg',
     loadingStatus = $bindable('loading'),
     class: className,
@@ -22,23 +26,40 @@ Avatars can be used to represent people or objects.
     ...rest
   }: AvatarProps = $props();
 
-  const materialPalette = ['e8f0fe', 'e8f5e9', 'fff7e6', 'fde7ec', 'e3f2fd'];
   const sizeMap = {
+    xxs: 20,
+    xs: 32,
     sm: 48,
     md: 72,
     lg: 96
   } as const;
 
-  const generatedAvatar = $derived.by(() => {
+  let generatedAvatar = $state('');
+
+  $effect(() => {
     const sizePx = sizeMap[size ?? 'lg'] ?? 96;
-    const params = new URLSearchParams({
-      seed,
-      size: String(sizePx),
-      radius: '50',
-      backgroundColor: materialPalette.join(',')
+    const currentSeed = seed;
+    const currentStyle = dicebearStyle ?? 'shapes';
+    const palette = backgroundColor ?? getMaterialAvatarPalette();
+    const currentTags = tags;
+    let cancelled = false;
+
+    const builder = new DicebearAvatarBuilder(currentStyle)
+      .seed(currentSeed)
+      .size(sizePx)
+      .borderRadius(50)
+      .background(palette);
+
+    if (currentTags) builder.tags(currentTags);
+
+    builder.toDataUri().then((uri) => {
+      if (cancelled) return;
+      generatedAvatar = uri;
     });
 
-    return `https://api.dicebear.com/9.x/${dicebearStyle}/svg?${params.toString()}`;
+    return () => {
+      cancelled = true;
+    };
   });
 
   const { root, image, fallback, button } = $derived(avatar({ size }));
@@ -54,7 +75,9 @@ Avatars can be used to represent people or objects.
         <AvatarPrimitive.Image {src} {alt} class={image()} />
       {/if}
       <AvatarPrimitive.Fallback class={fallback()}>
-        <img src={generatedAvatar} {alt} class={image()} />
+        {#if generatedAvatar}
+          <img src={generatedAvatar} {alt} class={image()} />
+        {/if}
       </AvatarPrimitive.Fallback>
     </AvatarPrimitive.Root>
   </button>
@@ -64,7 +87,9 @@ Avatars can be used to represent people or objects.
       <AvatarPrimitive.Image {src} {alt} class={image()} />
     {/if}
     <AvatarPrimitive.Fallback class={fallback()}>
-      <img src={generatedAvatar} {alt} class={image()} />
+      {#if generatedAvatar}
+        <img src={generatedAvatar} {alt} class={image()} />
+      {/if}
     </AvatarPrimitive.Fallback>
   </AvatarPrimitive.Root>
 {/if}
