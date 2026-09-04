@@ -21,6 +21,13 @@ export type TableHeadProps = HTMLAttributes<HTMLTableSectionElement> & {
 
 export type TableBodyProps = HTMLAttributes<HTMLTableSectionElement> & {
   children: Snippet;
+  /**
+   * Make rows keyboard-navigable: roving tabindex so Tab/Shift+Tab stop on the table
+   * once, and ArrowUp/ArrowDown (or k/j) move focus between rows. Default `true`.
+   */
+  navigable?: boolean;
+  /** Loop focus from the last row back to the first (and vice versa). Default `false`. */
+  loop?: boolean;
 };
 
 export type TableFootProps = HTMLAttributes<HTMLTableSectionElement> & {

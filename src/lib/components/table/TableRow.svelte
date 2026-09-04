@@ -19,6 +19,6 @@ and `hoverable` to show a hover background (e.g. for clickable rows).
   const { row } = $derived(table({ selected, hoverable }));
 </script>
 
-<tr class={row({ class: clsx(className) })} {...restProps}>
+<tr data-table-row class={row({ class: clsx(className) })} {...restProps}>
   {@render children()}
 </tr>
