@@ -11,7 +11,7 @@ import {
   SchemeTonalSpot,
   SchemeVibrant,
   Score
-} from '@material/material-color-utilities';
+} from '@ktibow/material-color-utilities-nightly';
 
 // --- Types & Config ---
 

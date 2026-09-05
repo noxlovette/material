@@ -9,7 +9,7 @@
         "@dicebear/styles": "^10.6.0",
         "@floating-ui/dom": "^1.8.0",
         "@internationalized/date": "^3.12.3",
-        "@material/material-color-utilities": "^0.4.0",
+        "@ktibow/material-color-utilities-nightly": "^0.4.1772748028000",
         "bits-ui": "^2.19.0",
         "clsx": "^2.1.1",
         "mode-watcher": "^1.1.0",
@@ -193,7 +193,7 @@
 
     "@jridgewell/trace-mapping": ["@jridgewell/trace-mapping@0.3.31", "", { "dependencies": { "@jridgewell/resolve-uri": "^3.1.0", "@jridgewell/sourcemap-codec": "^1.4.14" } }, "sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw=="],
 
-    "@material/material-color-utilities": ["@material/material-color-utilities@0.4.0", "", {}, "sha512-dlq6VExJReb8dhjj3a/yTigr3ncNwoFmL5Iy2ENtbDX03EmNeOEdZ+vsaGrj7RTuO+mB7L58II4LCsl4NpM8uw=="],
+    "@ktibow/material-color-utilities-nightly": ["@ktibow/material-color-utilities-nightly@0.4.1772748028000", "", {}, "sha512-JI6V95I3QZphrD26LcUe1euH+B3lz1zuF9uPaB0jZVDA9e8nfFuEF9GIYVtwqRQB86S2RZLzDf+LcEHJnh8auw=="],
 
     "@mdx-js/react": ["@mdx-js/react@3.1.1", "", { "dependencies": { "@types/mdx": "^2.0.0" }, "peerDependencies": { "@types/react": ">=16", "react": ">=16" } }, "sha512-f++rKLQgUVYDAtECQ6fn/is15GkEH9+nZPM3MS0RcxVqoTfawHvDlSCH7JbMhAM6uJ32v3eXLvLmLvjGu7PTQw=="],
 
