@@ -182,7 +182,7 @@ that stretches to `min-h-dvh` inside it.
 
 - **`Icon.svelte`** — renders Material Symbols icons; accepts `name`, `fill`, `wght`, `size`
 - **`Layer.svelte`** — renders the M3 state-layer overlay (hover/pressed ripple container); wrap interactive elements with it
-- **`Theme.svelte`** / **`ThemeScript.svelte`** — dynamic theming via `@ktibow/material-color-utilities-nightly`; `ThemeScript` goes in `<svelte:head>` to prevent FOUC
+- **`Theme.svelte`** / **`ThemeScript.svelte`** — dynamic theming via `@material/material-color-utilities`; `ThemeScript` goes in `<svelte:head>` to prevent FOUC
 - **`theme.svelte.ts`** — exports `ThemeConfig`, `DEFAULT_CONFIG`, `STORAGE_KEY`, `ColorScheme`, `ContrastMode`, `ThemeVariant`, and `isDarkScheme()`
 - **`MaterialSymbolsProvider`** — lazily loads icon font variants; used inside `App.svelte`
 
