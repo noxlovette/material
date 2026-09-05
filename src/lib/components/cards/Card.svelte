@@ -22,10 +22,12 @@ and serve as an entry point to more detailed information.
     href,
     onselect,
     ondelete,
+    onleave,
     hoverable = !!href || !!onselect || !!ondelete,
     selected = false,
     onclick: onclickProp,
     onkeydown: onkeydownProp,
+    onfocusout: onfocusoutProp,
     ...restProps
   }: CardProps = $props();
 
@@ -49,6 +51,15 @@ and serve as an entry point to more detailed information.
       ondelete();
     }
   };
+
+  const handleFocusOut: (event: FocusEvent) => void = (event) => {
+    (onfocusoutProp as ((event: FocusEvent) => void) | undefined)?.(event);
+    if (!onleave) return;
+    const currentTarget = event.currentTarget as HTMLElement;
+    const relatedTarget = event.relatedTarget as Node | null;
+    if (relatedTarget && currentTarget.contains(relatedTarget)) return;
+    onleave();
+  };
 </script>
 
 {#snippet content()}
@@ -65,6 +76,7 @@ and serve as an entry point to more detailed information.
     {...restProps}
     onclick={handleClick}
     onkeydown={handleKeydown}
+    onfocusout={handleFocusOut}
   >
     {@render content()}
   </a>
@@ -78,6 +90,7 @@ and serve as an entry point to more detailed information.
     {...restProps}
     onclick={handleClick}
     onkeydown={handleKeydown}
+    onfocusout={handleFocusOut}
   >
     {@render content()}
   </div>
@@ -88,6 +101,7 @@ and serve as an entry point to more detailed information.
     {...restProps}
     onclick={handleClick}
     onkeydown={handleKeydown}
+    onfocusout={handleFocusOut}
   >
     {@render content()}
   </div>

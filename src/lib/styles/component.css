@@ -7,7 +7,11 @@
   }
 
   .md-component-button-base {
-    @apply state-layer md-sys-state-focus-indicator disabled:bg-md-sys-color-on-surface/10 disabled:text-md-sys-color-on-surface/38 disabled:before:bg-md-sys-color-on-surface/38 relative inline-flex items-center justify-center select-none disabled:cursor-not-allowed;
+    /* `relative` is applied as a literal utility token at each call site (theme.ts), not
+     * baked in here — that lets tailwind-merge dedupe it against a caller-supplied
+     * `fixed`/`absolute`/`sticky` override. Baking it into this custom class's own compiled
+     * CSS rule would set `position` outside of anything twMerge can see or override. */
+    @apply state-layer md-sys-state-focus-indicator disabled:bg-md-sys-color-on-surface/10 disabled:text-md-sys-color-on-surface/38 disabled:before:bg-md-sys-color-on-surface/38 inline-flex items-center justify-center select-none disabled:cursor-not-allowed;
     transition: box-shadow var(--md-sys-motion-duration, 200ms)
       var(--md-sys-motion-timing-function, cubic-bezier(0.2, 0, 0, 1));
   }

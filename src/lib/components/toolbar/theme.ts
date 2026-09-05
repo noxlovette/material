@@ -8,7 +8,7 @@ export const toolbar = tv({
   slots: {
     // Layout/position only — no paint. Holds one implicit `segment` by default, or,
     // with `sections`, whatever ToolbarSection/ToolbarSpacer children the consumer supplies.
-    root: 'items-center gap-2',
+    root: 'flex items-center gap-2',
     // The pill/bar surface itself — bg, shape, elevation, chrome padding. Toolbar renders
     // exactly one of these around `children` by default; ToolbarSection renders one per
     // cluster when `sections` splits the toolbar into independently painted groups.

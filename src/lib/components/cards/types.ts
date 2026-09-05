@@ -64,4 +64,15 @@ export type CardProps = CardVariants &
      * `ondelete={() => remove(item.id)}`.
      */
     ondelete?: () => void;
+    /**
+     * Called when focus moves from somewhere inside the card to somewhere
+     * outside it entirely. Unlike the native `blur`/`focusout` (which fire
+     * on every focus change between the card's own inner elements, e.g.
+     * tabbing between two fields in the same card), this only fires once
+     * focus actually leaves the card's subtree — checked via
+     * `event.relatedTarget` containment. Useful for autosaving inline-edited
+     * content once the user is done with this card:
+     * `onleave={() => save(item)}`.
+     */
+    onleave?: () => void;
   };
