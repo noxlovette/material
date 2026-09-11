@@ -13,6 +13,10 @@ export type AppBarProps = AppbarVariants &
     title: string;
     /** An optional subtitle displayed below the title. */
     subtitle?: string;
+    /** Additional props for the title `<h1>` element (e.g. `data-cy`). */
+    titleProps?: HTMLAttributes<HTMLHeadingElement>;
+    /** Additional props for the subtitle `<p>` element (e.g. `data-cy`). */
+    subtitleProps?: HTMLAttributes<HTMLParagraphElement>;
     /** A snippet to be rendered on the left side (e.g., navigation icon). */
     leading?: Snippet;
     /** A snippet to be rendered on the right side (e.g., action icons). */

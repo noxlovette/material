@@ -21,6 +21,8 @@ comment.
     children,
     title,
     subtitle,
+    titleProps,
+    subtitleProps,
     trailing,
     leading,
     class: className,
@@ -74,11 +76,13 @@ comment.
       {@render leading?.()}
     </div>
     <div class={textContainer()}>
-      <h1 class={titleCLs()}>
+      <h1 class={titleCLs({ class: clsx(titleProps?.class) })} {...titleProps}>
         {title}
       </h1>
       {#if subtitle}
-        <p class={subtitleCls()}>{subtitle}</p>
+        <p class={subtitleCls({ class: clsx(subtitleProps?.class) })} {...subtitleProps}>
+          {subtitle}
+        </p>
       {/if}
     </div>
     <div class={trailingCls()}>
