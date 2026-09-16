@@ -2,12 +2,29 @@
   "name": "@noxlovette/material",
   "version": "0.4.3",
   "type": "module",
+  "description": "A Material Design 3 component library for Svelte, built on Bits UI.",
+  "keywords": [
+    "svelte",
+    "sveltekit",
+    "material-design",
+    "material-you",
+    "md3",
+    "component-library",
+    "bits-ui",
+    "ui"
+  ],
   "license": "MIT",
+  "homepage": "https://material.noxlovette.com",
   "repository": {
-    "url": "git+https://codeberg.org/noxlovette/material.git"
+    "type": "git",
+    "url": "git+https://github.com/noxlovette/material.git"
+  },
+  "bugs": {
+    "url": "https://github.com/noxlovette/material/issues"
   },
   "scripts": {
     "build": "svelte-package",
+    "build:site": "vite build",
     "watch": "svelte-package --watch",
     "prepublishOnly": "bun run build",
     "check": "svelte-kit sync && svelte-check",
@@ -16,6 +33,7 @@
     "dev": "vite dev",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
+    "publint": "publint",
     "index": "bun run scripts/generate-components-index.ts"
   },
   "files": [

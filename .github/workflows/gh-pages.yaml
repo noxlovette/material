@@ -1,0 +1,58 @@
+name: Deploy Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - run: bun install --frozen-lockfile
+
+      # SvelteKit showcase site (landing page + prose docs) -> build/
+      - run: bun run build:site
+
+      # Storybook (component workbench, canonical live preview) -> storybook-static/
+      - run: bun run build-storybook
+
+      # One artifact, two surfaces: nest Storybook's output inside the site's
+      # build/ so both are deployed together and the "Storybook" nav link
+      # resolves at /storybook/ in production (see src/routes/+layout.svelte).
+      - run: |
+          mkdir -p build/storybook
+          cp -r storybook-static/. build/storybook/
+
+      - run: echo "material.noxlovette.com" > build/CNAME
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: build
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,59 @@
+name: Publish
+
+# Release flow: bump the version and tag it locally, then push the tag.
+#   npm version patch   # or minor / major — bumps package.json and creates the git tag
+#   git push --follow-tags
+# The tag (vX.Y.Z) must match package.json's version — the workflow refuses to
+# publish otherwise, so a bad tag never reaches npm.
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+
+      - run: bun install --frozen-lockfile
+
+      - name: Verify tag matches package.json version
+        run: |
+          PKG_VERSION="v$(node -p "require('./package.json').version")"
+          if [ "$PKG_VERSION" != "$GITHUB_REF_NAME" ]; then
+            echo "Tag $GITHUB_REF_NAME does not match package.json version ($PKG_VERSION)"
+            exit 1
+          fi
+
+      - run: bun run check
+
+      - run: bun run test
+
+      - run: bun run build
+
+      - run: bunx publint
+
+      - name: Publish to npm
+        run: npm publish --access public --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
