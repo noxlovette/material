@@ -11,6 +11,7 @@ claude-skill/
 .cache
 .zed
 .DS_Store
+.mcp.json
 
 *.timestamp-*
 cypress/screenshots/
