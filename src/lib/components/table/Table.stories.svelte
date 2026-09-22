@@ -7,6 +7,7 @@
   import TableRow from './TableRow.svelte';
   import TableHeader from './TableHeader.svelte';
   import TableCell from './TableCell.svelte';
+  import Pill from '../pill/Pill.svelte';
 
   const { Story } = defineMeta({
     title: 'Table/Table',
@@ -245,6 +246,29 @@
       </TableRow>
     </TableBody>
   </Table>
+</Story>
+
+<Story name="Extreme: Narrow Viewport With Pill" asChild>
+  <div class="w-[390px]">
+    <Table rounded>
+      <TableHead>
+        <TableRow>
+          <TableHeader>Student</TableHeader>
+          <TableHeader>Lesson</TableHeader>
+          <TableHeader>Status</TableHeader>
+          <TableHeader>Paid</TableHeader>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        <TableRow>
+          <TableCell>Student 8</TableCell>
+          <TableCell>English, 60 minutes</TableCell>
+          <TableCell><Pill variant="error">Error</Pill></TableCell>
+          <TableCell>Not paid</TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
+  </div>
 </Story>
 
 <Story name="Mixed Alignment" asChild>

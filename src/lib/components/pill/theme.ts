@@ -3,7 +3,7 @@ import { tv, type VariantProps } from 'tailwind-variants';
 export type PillVariants = VariantProps<typeof pill>;
 
 export const pill = tv({
-  base: 'relative inline-flex items-center justify-center px-4 py-1.5 md-sys-typescale-label-large select-none rounded-full',
+  base: 'relative inline-flex items-center justify-center px-4 py-1.5 md-sys-typescale-label-large select-none rounded-full whitespace-nowrap',
   variants: {
     variant: {
       primary: 'md-component-button-filled-primary',
