@@ -1,19 +1,287 @@
 @theme {
-  /* Expressive easing */
-  --md-sys-motion-timing-function-fast-spatial: cubic-bezier(0.42, 1.67, 0.21, 0.9);
-  --md-sys-motion-duration-fast-spatial: 350ms;
+  /* Expressive springs — generated from src/lib/animation/spring.ts, do not edit by hand.
+     Regenerate with `bun scripts/generate-motion-springs.ts`. Each is a `linear()` sampling of a
+     real spring plus its settle time. Spatial tokens overshoot; effects tokens don't. */
+  /* @generated:springs:start */
+  --md-sys-motion-timing-function-fast-spatial: linear(
+    0,
+    0.0373,
+    0.1315,
+    0.2592,
+    0.4017,
+    0.5444,
+    0.6773,
+    0.794,
+    0.8908,
+    0.9669,
+    1.023,
+    1.061,
+    1.0835,
+    1.0935,
+    1.094,
+    1.0877,
+    1.0771,
+    1.0642,
+    1.0505,
+    1.0373,
+    1.0253,
+    1.0151,
+    1.0068,
+    1.0005,
+    0.996,
+    0.9931,
+    0.9915,
+    0.991,
+    0.9913,
+    0.9921,
+    0.9932,
+    0.9945,
+    0.9958,
+    0.997,
+    0.9981,
+    0.9989,
+    0.9996,
+    1.0002,
+    1.0005,
+    1.0007,
+    1
+  );
+  --md-sys-motion-duration-fast-spatial: 410ms;
   --md-sys-motion-easing-fast-spatial: var(--md-sys-motion-timing-function-fast-spatial)
     var(--md-sys-motion-duration-fast-spatial);
 
-  --md-sys-motion-timing-function-spatial: cubic-bezier(0.38, 1.21, 0.22, 1);
-  --md-sys-motion-duration-spatial: 500ms;
+  --md-sys-motion-timing-function-spatial: linear(
+    0,
+    0.0178,
+    0.0639,
+    0.1291,
+    0.206,
+    0.2888,
+    0.373,
+    0.4554,
+    0.5338,
+    0.6066,
+    0.6728,
+    0.732,
+    0.7841,
+    0.8294,
+    0.868,
+    0.9006,
+    0.9276,
+    0.9498,
+    0.9675,
+    0.9816,
+    0.9924,
+    1.0005,
+    1.0064,
+    1.0105,
+    1.0131,
+    1.0146,
+    1.0151,
+    1.015,
+    1.0145,
+    1.0135,
+    1.0124,
+    1.0112,
+    1.0099,
+    1.0086,
+    1.0074,
+    1.0063,
+    1.0053,
+    1.0043,
+    1.0035,
+    1.0028,
+    1.0022,
+    1.0017,
+    1.0012,
+    1.0009,
+    1.0006,
+    1.0003,
+    1.0002,
+    1,
+    1
+  );
+  --md-sys-motion-duration-spatial: 490ms;
   --md-sys-motion-easing-spatial: var(--md-sys-motion-timing-function-spatial)
     var(--md-sys-motion-duration-spatial);
 
-  --md-sys-motion-timing-function-slow-spatial: cubic-bezier(0.39, 1.29, 0.35, 0.98);
-  --md-sys-motion-duration-slow-spatial: 650ms;
+  --md-sys-motion-timing-function-slow-spatial: linear(
+    0,
+    0.0095,
+    0.0354,
+    0.0736,
+    0.121,
+    0.1749,
+    0.2329,
+    0.2931,
+    0.3539,
+    0.4141,
+    0.4728,
+    0.5291,
+    0.5825,
+    0.6326,
+    0.6792,
+    0.7221,
+    0.7613,
+    0.7969,
+    0.8289,
+    0.8575,
+    0.8828,
+    0.9051,
+    0.9245,
+    0.9414,
+    0.9559,
+    0.9682,
+    0.9785,
+    0.9872,
+    0.9943,
+    1,
+    1.0046,
+    1.0081,
+    1.0108,
+    1.0127,
+    1.014,
+    1.0148,
+    1.0151,
+    1.0151,
+    1.0148,
+    1.0143,
+    1.0137,
+    1.0129,
+    1.012,
+    1.0111,
+    1.0102,
+    1.0093,
+    1.0084,
+    1.0075,
+    1.0067,
+    1.0059,
+    1.0052,
+    1.0045,
+    1.0039,
+    1.0033,
+    1.0028,
+    1.0024,
+    1.0019,
+    1.0016,
+    1.0013,
+    1.001,
+    1.0008,
+    1.0006,
+    1.0004,
+    1.0003,
+    1.0001,
+    1
+  );
+  --md-sys-motion-duration-slow-spatial: 660ms;
   --md-sys-motion-easing-slow-spatial: var(--md-sys-motion-timing-function-slow-spatial)
     var(--md-sys-motion-duration-slow-spatial);
+
+  --md-sys-motion-timing-function-fast-effects-spring: linear(
+    0,
+    0.1389,
+    0.3737,
+    0.5809,
+    0.7331,
+    0.8356,
+    0.9011,
+    0.9416,
+    0.966,
+    0.9804,
+    0.9888,
+    0.9936,
+    0.9964,
+    0.998,
+    0.9989,
+    0.9994,
+    0.9997,
+    0.9998,
+    1
+  );
+  --md-sys-motion-duration-fast-effects-spring: 190ms;
+  --md-sys-motion-easing-fast-effects-spring: var(
+      --md-sys-motion-timing-function-fast-effects-spring
+    )
+    var(--md-sys-motion-duration-fast-effects-spring);
+
+  --md-sys-motion-timing-function-effects-spring: linear(
+    0,
+    0.0657,
+    0.2023,
+    0.354,
+    0.4947,
+    0.6144,
+    0.7111,
+    0.7866,
+    0.8442,
+    0.8873,
+    0.9191,
+    0.9423,
+    0.9591,
+    0.9711,
+    0.9797,
+    0.9858,
+    0.9901,
+    0.9931,
+    0.9952,
+    0.9967,
+    0.9977,
+    0.9984,
+    0.9989,
+    0.9993,
+    0.9995,
+    0.9996,
+    1
+  );
+  --md-sys-motion-duration-effects-spring: 270ms;
+  --md-sys-motion-easing-effects-spring: var(--md-sys-motion-timing-function-effects-spring)
+    var(--md-sys-motion-duration-effects-spring);
+
+  --md-sys-motion-timing-function-slow-effects-spring: linear(
+    0,
+    0.0349,
+    0.1158,
+    0.2173,
+    0.3239,
+    0.4265,
+    0.5204,
+    0.6034,
+    0.675,
+    0.7357,
+    0.7865,
+    0.8285,
+    0.8629,
+    0.8908,
+    0.9134,
+    0.9315,
+    0.946,
+    0.9576,
+    0.9667,
+    0.974,
+    0.9797,
+    0.9841,
+    0.9877,
+    0.9904,
+    0.9926,
+    0.9942,
+    0.9955,
+    0.9965,
+    0.9973,
+    0.9979,
+    0.9984,
+    0.9988,
+    0.9991,
+    0.9993,
+    0.9994,
+    0.9996,
+    1
+  );
+  --md-sys-motion-duration-slow-effects-spring: 370ms;
+  --md-sys-motion-easing-slow-effects-spring: var(
+      --md-sys-motion-timing-function-slow-effects-spring
+    )
+    var(--md-sys-motion-duration-slow-effects-spring);
+  /* @generated:springs:end */
 
   /* Standard easing — md.sys.motion.easing.standard, cubic-bezier(0.2, 0, 0, 1) per
      m3.material.io/styles/motion/easing-and-duration/tokens-specs. Same curve across all
