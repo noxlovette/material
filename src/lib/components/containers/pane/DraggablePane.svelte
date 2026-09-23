@@ -29,7 +29,7 @@ the pane itself stays `position: fixed` and doesn't move with either.
   import { onMount } from 'svelte';
   import { Icon, Layer } from '$lib/utils/index.js';
   import { ButtonIcon } from '$lib/components/buttons/index.js';
-  import { clickOutside } from '$lib/actions/index.js';
+  import { clickOutside } from '$lib/attachments/index.js';
   import { draggablePane, type ResizeEdge } from './theme.js';
   import { dragPositions } from './dragStore.svelte.js';
   import type { DraggablePaneProps } from './types.js';
@@ -440,7 +440,7 @@ the pane itself stays `position: fixed` and doesn't move with either.
     {style}
     role="group"
     aria-label={title}
-    use:clickOutside={() => onClickOutside?.()}
+    {@attach onClickOutside && clickOutside(onClickOutside)}
     {...rest}
   >
     <div
