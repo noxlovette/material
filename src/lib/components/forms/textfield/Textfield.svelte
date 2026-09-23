@@ -34,7 +34,7 @@ Text fields allow users to enter and edit text.
     ...restProps
   }: TextfieldProps = $props();
 
-  const cls = $derived(textfield({ disabled, error, variant }));
+  const cls = $derived(textfield({ disabled, error, variant, leadingIcon: !!leadingIconProps }));
 
   const inputProps = $derived({
     id,

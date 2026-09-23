@@ -43,7 +43,10 @@ const resolveSpring = (token: SpringToken) => {
  */
 export const springTransition = ({ stiffness, dampingRatio }: SpringToken) =>
   ({
-    type: 'spring',
+    // The generator itself, not the string 'spring': the view-transition / WAAPI path
+    // (`animateView`, NativeAnimation) only bakes springs from the function and otherwise falls
+    // back to a 300ms easeOut.
+    type: spring,
     stiffness,
     damping: dampingRatio * 2 * Math.sqrt(stiffness),
     mass: 1

@@ -27,6 +27,8 @@ the pane itself stays `position: fixed` and doesn't move with either.
 <script lang="ts">
   import clsx from 'clsx';
   import { onMount } from 'svelte';
+  import { animate, type AnimationPlaybackControls } from 'motion';
+  import { springTokens, springTransition } from '$lib/animation/spring.js';
   import { Icon, Layer } from '$lib/utils/index.js';
   import { ButtonIcon } from '$lib/components/buttons/index.js';
   import { clickOutside } from '$lib/attachments/index.js';
@@ -269,7 +271,10 @@ the pane itself stays `position: fixed` and doesn't move with either.
     persist();
 
     window.addEventListener('resize', recomputeBounds);
-    return () => window.removeEventListener('resize', recomputeBounds);
+    return () => {
+      window.removeEventListener('resize', recomputeBounds);
+      stopSettle();
+    };
   });
 
   // `bounds` can be an element that resizes or scrolls independently of the
@@ -301,28 +306,106 @@ the pane itself stays `position: fixed` and doesn't move with either.
     }
   });
 
+  /*
+    Expressive drag: the pane tracks the pointer 1:1 (direct manipulation never lags behind a
+    spring), rubber-bands past `bounds` instead of hitting a wall, and on release springs back
+    inside on the fast spatial spring, carrying the pointer's velocity. Keyboard nudges glide on
+    the same spring. Grabbing the pane mid-spring stops it where it is.
+  */
+  const SETTLE_SPRING = springTransition(springTokens.fastSpatial);
+  /* Share of the overshoot still applied at the edge, shrinking the further it's pulled. The
+     UIScrollView rubber-band constant — M3 has no token for this; tune by eye. */
+  const RUBBER_BAND = 0.55;
+  /* Pointer samples older than this don't count towards the release velocity. */
+  const VELOCITY_WINDOW_MS = 100;
+
+  let settleX: AnimationPlaybackControls | undefined;
+  let settleY: AnimationPlaybackControls | undefined;
+  /** Where the running spring is headed; undefined once it's done or stopped. */
+  let settleTarget: { x: number; y: number } | undefined;
+
+  function stopSettle() {
+    settleX?.stop();
+    settleY?.stop();
+    settleTarget = undefined;
+  }
+
+  /** Springs the pane to `target` (clamped), starting with `velocity` px/s. */
+  function settleTo(targetX: number, targetY: number, velocity = { x: 0, y: 0 }) {
+    stopSettle();
+    const next = clamp(targetX, targetY);
+    const fromX = x ?? initialX;
+    const fromY = y ?? initialY;
+    settleTarget = next;
+    settleX = animate(fromX, next.x, {
+      ...SETTLE_SPRING,
+      velocity: velocity.x,
+      onUpdate: (value) => (x = value),
+      onComplete: () => (settleTarget = undefined)
+    });
+    settleY = animate(fromY, next.y, {
+      ...SETTLE_SPRING,
+      velocity: velocity.y,
+      onUpdate: (value) => (y = value)
+    });
+    // Persist the resting position up front — the spring only animates towards it.
+    if (persistKey) dragPositions.set(persistKey, { x: next.x, y: next.y, width, height });
+  }
+
+  /** Resisted overshoot: the further past the edge, the less the pane follows. */
+  function rubberBand(overshoot: number, limit: number) {
+    return (1 - 1 / ((overshoot * RUBBER_BAND) / limit + 1)) * limit;
+  }
+
+  function resist(value: number, min: number, max: number, size: number) {
+    if (value < min) return min - rubberBand(min - value, size);
+    if (value > max) return max + rubberBand(value - max, size);
+    return value;
+  }
+
   let dragStartX = 0;
   let dragStartY = 0;
   let originX = 0;
   let originY = 0;
+  let samples: { x: number; y: number; t: number }[] = [];
 
   function startDrag(event: PointerEvent) {
     if (disableDrag) return;
+    stopSettle();
     dragging = true;
     dragStartX = event.clientX;
     dragStartY = event.clientY;
     originX = x ?? initialX;
     originY = y ?? initialY;
+    samples = [{ x: event.clientX, y: event.clientY, t: event.timeStamp }];
     (event.currentTarget as HTMLElement).setPointerCapture(event.pointerId);
   }
 
   function moveDrag(event: PointerEvent) {
     if (!dragging) return;
-    moveTo(originX + (event.clientX - dragStartX), originY + (event.clientY - dragStartY));
+    const rawX = originX + (event.clientX - dragStartX);
+    const rawY = originY + (event.clientY - dragStartY);
+    const rect = boundsRect();
+    const { x: minX, y: minY } = clamp(-Infinity, -Infinity);
+    const { x: maxX, y: maxY } = clamp(Infinity, Infinity);
+    x = resist(rawX, minX, maxX, rect.right - rect.left);
+    y = resist(rawY, minY, maxY, rect.bottom - rect.top);
+    samples.push({ x: event.clientX, y: event.clientY, t: event.timeStamp });
+    samples = samples.filter((sample) => event.timeStamp - sample.t <= VELOCITY_WINDOW_MS);
+  }
+
+  function releaseVelocity() {
+    const first = samples[0];
+    const last = samples[samples.length - 1];
+    const seconds = first && last ? (last.t - first.t) / 1000 : 0;
+    if (!seconds) return { x: 0, y: 0 };
+    return { x: (last.x - first.x) / seconds, y: (last.y - first.y) / seconds };
   }
 
   function endDrag() {
+    if (!dragging) return;
     dragging = false;
+    settleTo(x ?? initialX, y ?? initialY, releaseVelocity());
   }
 
   const NUDGE = 8;
@@ -339,7 +422,9 @@ the pane itself stays `position: fixed` and doesn't move with either.
     const delta = deltas[event.key];
     if (!delta) return;
     event.preventDefault();
-    moveTo((x ?? initialX) + delta[0], (y ?? initialY) + delta[1]);
+    // Retargets a running nudge, so holding an arrow key glides instead of stepping.
+    const from = settleTarget ?? clamp(x ?? initialX, y ?? initialY);
+    settleTo(from.x + delta[0], from.y + delta[1]);
   }
 
   let resizeStartClientX = 0;

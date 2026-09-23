@@ -1,44 +1,78 @@
 import { tv, type VariantProps } from 'tailwind-variants';
 
+/**
+ * M3 Expressive slider: an active and an inactive track separated from a bar handle by a 6dp gap.
+ * Track/handle positions are set inline by `Slider.svelte` from one animated value; these slots
+ * only carry size, shape and color.
+ *
+ * https://m3.material.io/components/sliders/specs
+ */
 export const slider = tv({
   slots: {
-    root: 'slider-root group relative block min-w-40 [block-size:var(--handle-height)] [print-color-adjust:exact] [--m3-slider-track-out-shape:0.5rem] [--m3-slider-track-in-shape:0.125rem] [--m3-slider-handle-shape:var(--m3-shape-full)] [--functional-width:calc(100%-2*(0.25rem+0.125rem))] [--handle-left:calc(50%+var(--functional-width)*var(--handle)-0.125rem-0.375rem)] [--handle-center:calc(50%+var(--functional-width)*var(--handle))] [--handle-right:calc(50%+var(--functional-width)*var(--handle)+0.125rem+0.375rem)] cursor-pointer data-[disabled]:cursor-not-allowed',
-    input:
-      'peer absolute left-1/2 [inline-size:calc(var(--functional-width)+1rem)] [block-size:100%] -translate-x-1/2 appearance-none opacity-0 m-0 enabled:cursor-pointer',
-    leadingIcon:
-      'absolute top-1/2 left-1 h-[var(--icon-size)] w-[var(--icon-size)] -translate-y-1/2 text-[var(--m3c-secondary-container)] pointer-events-none',
-    leadingIconPop: 'left-[var(--handle-right)] text-[var(--m3c-primary)]',
-    trailingIcon:
-      'absolute top-1/2 right-1 h-[var(--icon-size)] w-[var(--icon-size)] -translate-y-1/2 text-[var(--m3c-primary)] pointer-events-none',
-    trailingIconPop: 'right-[calc(100%-var(--handle-left))] text-[var(--m3c-secondary-container)]',
-    trackFill:
-      'absolute inset-x-0 [inset-block:calc((var(--handle-height)-var(--track-height))/2)] pointer-events-none bg-[var(--m3c-primary)] [clip-path:inset(0_calc(100%-var(--handle-left))_0_0_round_var(--track-radius)_var(--m3-slider-track-in-shape)_var(--m3-slider-track-in-shape)_var(--track-radius))] group-data-[disabled]:bg-[--translucent(var(--m3c-on-surface),0.38)] [@media(forced-colors:active)]:bg-[selecteditem] group-data-[disabled]:[@media(forced-colors:active)]:bg-[canvastext]',
-    trackRest:
-      'absolute inset-x-0 [inset-block:calc((var(--handle-height)-var(--track-height))/2)] pointer-events-none bg-[var(--m3c-secondary-container)] [clip-path:inset(0_0_0_var(--handle-right)_round_var(--m3-slider-track-in-shape)_var(--track-radius)_var(--track-radius)_var(--m3-slider-track-in-shape))] group-data-[disabled]:bg-[--translucent(var(--m3c-on-surface),0.12)] [@media(forced-colors:active)]:bg-[canvastext] group-data-[disabled]:[@media(forced-colors:active)]:bg-[graytext]',
-    stopBase:
-      'absolute top-1/2 h-1 w-1 rounded-full [inset-inline-start:calc(50%+(100%-0.5rem-0.25rem)*var(--x))] pointer-events-none',
-    stopFill: 'bg-[var(--m3c-on-primary)] group-data-[disabled]:bg-[var(--m3c-inverse-on-surface)]',
-    stopRest:
-      'bg-[var(--m3c-primary)] group-data-[disabled]:bg-[--translucent(var(--m3c-on-surface),0.38)]',
-    handle:
-      'absolute inset-y-0 left-[var(--handle-center)] w-1 rounded-[1.25rem] bg-[var(--m3c-primary)] pointer-events-none group-focus-within:outline group-focus-within:outline-[4px] group-focus-within:outline-[var(--m3c-on-secondary-container)] group-focus-within:outline-offset-[5px] group-focus-within:z-[2] group-focus-within:w-0.5 group-active:w-0.5 group-data-[disabled]:bg-[--translucent(var(--m3c-on-surface),0.38)] [@media(forced-colors:active)]:bg-[selecteditem] group-data-[disabled]:[@media(forced-colors:active)]:bg-[graytext]',
-    value:
-      'absolute flex min-w-12 items-center justify-center rounded-[var(--m3-slider-handle-shape)] bg-[var(--m3c-inverse-surface)] px-4 py-3 text-[var(--m3c-inverse-on-surface)] md-sys-typescale-label-large [inset-inline-start:var(--handle-center)] [inset-block-end:calc(var(--handle-height)+4px)] opacity-0 pointer-events-none select-none z-[1] group-hover:opacity-100 group-focus-within:opacity-100 group-active:opacity-100 [@media(forced-colors:active)]:border-2 [@media(forced-colors:active)]:border-[selecteditem] [@media(forced-colors:active)]:overflow-hidden'
+    root: 'group relative flex shrink-0 cursor-pointer touch-none select-none data-[disabled]:cursor-not-allowed',
+    track: 'pointer-events-none absolute',
+    activeTrack: 'bg-md-sys-color-primary group-data-[disabled]:bg-md-sys-color-on-surface/38',
+    inactiveTrack:
+      'bg-md-sys-color-secondary-container group-data-[disabled]:bg-md-sys-color-on-surface/12',
+    stop: 'pointer-events-none absolute size-1 rounded-full',
+    stopOnActive:
+      'bg-md-sys-color-on-primary group-data-[disabled]:bg-md-sys-color-inverse-on-surface',
+    stopOnInactive:
+      'bg-md-sys-color-on-secondary-container group-data-[disabled]:bg-md-sys-color-on-surface/38',
+    icon: 'pointer-events-none absolute',
+    iconOnActive: 'text-md-sys-color-on-primary',
+    iconOnInactive: 'text-md-sys-color-on-secondary-container',
+    handle: `
+      absolute rounded-full bg-md-sys-color-primary outline-none
+      transition-[width,height] md-sys-motion-fast-spatial
+      focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-md-sys-color-secondary
+      group-data-[disabled]:bg-md-sys-color-on-surface/38
+    `,
+    value: `
+      pointer-events-none absolute z-10 flex min-w-12 items-center justify-center rounded-full
+      bg-md-sys-color-inverse-surface px-4 py-3
+      md-sys-typescale-label-large text-md-sys-color-inverse-on-surface
+      opacity-0 transition-opacity md-sys-motion-effects
+      group-has-[[data-slider-thumb]:focus-visible]:opacity-100
+    `
   },
   variants: {
     size: {
-      xs: '[--track-height:1rem] [--handle-height:2.75rem] [--track-radius:var(--m3-shape-small)] [--icon-size:0]',
-      s: '[--track-height:1.5rem] [--handle-height:2.75rem] [--track-radius:var(--m3-shape-small)] [--icon-size:0]',
-      m: '[--track-height:2.5rem] [--handle-height:3.25rem] [--track-radius:var(--m3-shape-medium)] [--icon-size:1.5rem]',
-      l: '[--track-height:3.5rem] [--handle-height:4.25rem] [--track-radius:var(--m3-shape-large)] [--icon-size:1.5rem]',
-      xl: '[--track-height:6rem] [--handle-height:6.75rem] [--track-radius:var(--m3-shape-extra-large)] [--icon-size:2rem]'
+      xs: { root: '[--track:1rem] [--handle:2.75rem] [--outer:var(--radius-sm)]' },
+      s: { root: '[--track:1.5rem] [--handle:2.75rem] [--outer:var(--radius-sm)]' },
+      m: { root: '[--track:2.5rem] [--handle:3.25rem] [--outer:var(--radius-md)]' },
+      l: { root: '[--track:3.5rem] [--handle:4.25rem] [--outer:var(--radius-lg)]' },
+      xl: { root: '[--track:6rem] [--handle:6.75rem] [--outer:var(--radius-xl)]' }
     },
     vertical: {
-      true: '[writing-mode:sideways-lr]'
+      false: {
+        root: 'h-[var(--handle)] w-full min-w-40',
+        track: 'top-1/2 h-[var(--track)] -translate-y-1/2',
+        activeTrack: 'left-0 rounded-l-[var(--outer)] rounded-r-[2px]',
+        inactiveTrack: 'right-0 rounded-l-[2px] rounded-r-[var(--outer)]',
+        stop: 'top-1/2 -translate-x-1/2 -translate-y-1/2',
+        icon: 'top-1/2 -translate-y-1/2',
+        handle: 'top-0 h-full w-1 -translate-x-1/2 data-[active]:w-0.5',
+        value: 'bottom-[calc(100%+4px)] -translate-x-1/2'
+      },
+      true: {
+        root: 'h-full min-h-40 w-[var(--handle)]',
+        track: 'left-1/2 w-[var(--track)] -translate-x-1/2',
+        activeTrack: 'bottom-0 rounded-t-[2px] rounded-b-[var(--outer)]',
+        inactiveTrack: 'top-0 rounded-t-[var(--outer)] rounded-b-[2px]',
+        stop: 'left-1/2 -translate-x-1/2 translate-y-1/2',
+        icon: 'left-1/2 -translate-x-1/2',
+        handle: 'left-0 h-1 w-full translate-y-1/2 data-[active]:h-0.5',
+        value: 'left-[calc(100%+4px)] translate-y-1/2'
+      }
+    },
+    active: {
+      true: { value: 'opacity-100' }
     }
   },
   defaultVariants: {
-    size: 'xs'
+    size: 'xs',
+    vertical: false
   }
 });
 

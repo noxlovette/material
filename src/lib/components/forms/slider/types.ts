@@ -5,7 +5,7 @@ import type { SliderVariants } from './theme.js';
 /**
  * Props for the Slider component.
  */
-export type SliderProps = SliderVariants &
+export type SliderProps = Omit<SliderVariants, 'active'> &
   Omit<HTMLAttributes<HTMLSpanElement>, 'size' | 'value'> & {
     /**
      * The current value of the slider.
