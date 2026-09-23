@@ -17,7 +17,7 @@ export const SPLIT_BUTTON_INNER_RADIUS: Record<NonNullable<ButtonMDVariants['siz
 export const splitButton = tv({
   slots: {
     root: 'inline-flex items-center gap-0.5',
-    icon: 'transition-transform duration-200'
+    icon: 'transition-transform md-sys-motion-fast-spatial'
   },
   variants: {
     open: {

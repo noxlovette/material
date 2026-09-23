@@ -8,7 +8,7 @@ On mobile (< md) it automatically renders as a bottom navigation bar.
 @see https://m3.material.io/components/navigation-rail/overview
 -->
 <script lang="ts">
-  import { clickOutside } from '$lib/actions/index.js';
+  import { clickOutside } from '$lib/attachments/index.js';
   import clsx from 'clsx';
   import { setContext, untrack } from 'svelte';
   import type { RailProps } from './types';
@@ -62,9 +62,7 @@ On mobile (< md) it automatically renders as a bottom navigation bar.
   class={railBaseClass}
   style={cssVars}
   data-expanded={expanded}
-  use:clickOutside={() => {
-    if (expanded) collapsed = true;
-  }}
+  {@attach expanded && clickOutside(() => (collapsed = true))}
 >
   {#if expandable}
     <ButtonIcon
@@ -91,7 +89,8 @@ On mobile (< md) it automatically renders as a bottom navigation bar.
     pointer-events: none;
     background-color: transparent;
     z-index: -1;
-    transition: opacity 200ms ease;
+    transition: opacity var(--md-sys-motion-duration-effects-spring)
+      var(--md-sys-motion-timing-function-effects-spring);
   }
 
   .rail-scrim[data-expanded='true'] {

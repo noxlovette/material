@@ -9,30 +9,36 @@ while keeping the main screen content visible.
 -->
 <script lang="ts">
   import type { BottomSheetProps } from './types.js';
-  import type { TransitionConfig } from 'svelte/transition';
-  import { easeEmphasizedAccel, easeEmphasizedDecel } from '$lib/animation/easing.js';
-  import { outroClass } from '$lib/animation/outroClass.js';
+  import { untrack } from 'svelte';
+  import { enterExit, Presence } from '$lib/animation/index.js';
 
-  let { children, close }: BottomSheetProps = $props();
+  const DEFAULT_HEIGHT = 480;
+  const DISMISS_HEIGHT = 48;
 
-  let height = $state(480);
+  let { children, open = $bindable(true), close }: BottomSheetProps = $props();
+
+  let height = $state(DEFAULT_HEIGHT);
   let container: HTMLDivElement | undefined = $state();
   let isDragging = $state(false);
   let startY = $state(0);
 
-  const open = (node: HTMLDialogElement) => node.showModal();
+  const sheet = new Presence(() => open);
 
-  const heightAnim = (
-    node: HTMLDialogElement,
-    options: { duration: number; easing: typeof easeEmphasizedDecel }
-  ): TransitionConfig => {
-    if (node.clientHeight < height) height = node.clientHeight;
-    return {
-      duration: options.duration,
-      easing: options.easing,
-      css: (t) => `max-height: ${t * height}px`
-    };
+  // untrack: re-running this attachment on every drag would call showModal() on an open dialog.
+  const showModal = (node: HTMLDialogElement) => {
+    untrack(() => node.clientHeight < height && (height = node.clientHeight));
+    node.showModal();
   };
+
+  const dismiss = (reason: 'esc' | 'click' | 'low') => {
+    open = false;
+    close?.(reason);
+  };
+
+  // A sheet dragged shut keeps its collapsed height through the exit; restore it on reopen.
+  $effect.pre(() => {
+    if (open) untrack(() => height < DISMISS_HEIGHT && (height = DEFAULT_HEIGHT));
+  });
 
   const moveWheel = (e: WheelEvent) => {
     e.preventDefault();
@@ -49,7 +55,7 @@ while keeping the main screen content visible.
   };
 
   $effect(() => {
-    if (height < 48) close('low');
+    if (height < DISMISS_HEIGHT && untrack(() => open)) dismiss('low');
   });
 </script>
 
@@ -60,51 +66,57 @@ while keeping the main screen content visible.
   ontouchend={() => (isDragging = false)}
 />
 
-<dialog
-  class="bg-md-sys-color-surface-container-low text-md-sys-color-on-surface mx-auto mt-auto w-full max-w-2xl overflow-hidden rounded-t-md"
-  style:max-height="{height}px"
-  use:open
-  use:outroClass
-  oncancel={(e) => {
-    e.preventDefault();
-    close('esc');
-  }}
-  onmousedown={(e) => {
-    if (e.target != e.currentTarget) return;
-    close('click');
-  }}
-  onwheel={moveWheel}
-  in:heightAnim={{ easing: easeEmphasizedDecel, duration: 400 }}
-  out:heightAnim={{ easing: easeEmphasizedAccel, duration: 300 }}
->
-  <div class="px-4" bind:this={container}>
-    <!-- svelte-ignore a11y_no_static_element_interactions -->
-    <div
-      class="flex h-12 w-full cursor-grab items-center justify-center"
-      onmousedown={(e) => {
-        e.preventDefault();
-        isDragging = true;
-        startY = e.clientY;
-      }}
-      ontouchstart={(e) => {
-        isDragging = true;
-        startY = e.touches[0].clientY;
-      }}
-    >
-      <div class="bg-md-sys-color-on-surface-variant/40 h-1 w-8 rounded-full"></div>
+{#if sheet.mounted}
+  <dialog
+    class="bg-md-sys-color-surface-container-low text-md-sys-color-on-surface mx-auto mt-auto w-full max-w-2xl overflow-hidden rounded-t-md"
+    style:max-height="{height}px"
+    data-state={open ? 'open' : 'closed'}
+    {@attach showModal}
+    {@attach sheet.attach(enterExit.bottomSheet)}
+    oncancel={(e) => {
+      e.preventDefault();
+      dismiss('esc');
+    }}
+    onmousedown={(e) => {
+      if (e.target != e.currentTarget) return;
+      dismiss('click');
+    }}
+    onwheel={moveWheel}
+  >
+    <div class="px-4" bind:this={container}>
+      <!-- svelte-ignore a11y_no_static_element_interactions -->
+      <div
+        class="flex h-12 w-full cursor-grab items-center justify-center"
+        onmousedown={(e) => {
+          e.preventDefault();
+          isDragging = true;
+          startY = e.clientY;
+        }}
+        ontouchstart={(e) => {
+          isDragging = true;
+          startY = e.touches[0].clientY;
+        }}
+      >
+        <div class="bg-md-sys-color-on-surface-variant/40 h-1 w-8 rounded-full"></div>
+      </div>
+      {@render children()}
     </div>
-    {@render children()}
-  </div>
-</dialog>
+  </dialog>
+{/if}
 
 <style>
   dialog::backdrop {
     background-color: rgba(0, 0, 0, 0.5);
-    animation: backdrop 400ms;
+    animation: backdrop var(--md-sys-motion-duration-effects-spring)
+      var(--md-sys-motion-timing-function-effects-spring);
   }
-  dialog:global(.leaving)::backdrop {
+  dialog[data-state='closed'] {
+    pointer-events: none;
+  }
+  dialog[data-state='closed']::backdrop {
     background-color: transparent;
-    animation: backdropReverse 400ms;
+    animation: backdropReverse var(--md-sys-motion-duration-fast-effects-spring)
+      var(--md-sys-motion-timing-function-fast-effects-spring);
   }
   @keyframes backdrop {
     from {

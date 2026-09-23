@@ -1,4 +1,7 @@
 <script module lang="ts">
+  import { animate } from 'motion';
+  import { springTokens, springTransition } from '$lib/animation/spring.js';
+
   let initialized = false;
 
   const activePointerRipples: (() => void)[] = [];
@@ -24,7 +27,6 @@
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return null;
 
     const size = Math.hypot(Math.max(x, width - x), Math.max(y, height - y)) * 2.5;
-    const speed = Math.max(Math.min(Math.log(size) * 50, 600), 200);
 
     const gradient = document.createElementNS('http://www.w3.org/2000/svg', 'radialGradient');
     gradient.id = `ripple-${Date.now()}-${Math.random().toString(36).slice(2)}`;
@@ -44,20 +46,12 @@
     const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
     circle.setAttribute('cx', `${x}`);
     circle.setAttribute('cy', `${y}`);
-    circle.setAttribute('r', '0');
+    circle.setAttribute('r', `${size / 2}`);
     circle.setAttribute('fill', `url(#${gradient.id})`);
-
-    const expand = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
-    expand.setAttribute('attributeName', 'r');
-    expand.setAttribute('from', '0');
-    expand.setAttribute('to', `${size / 2}`);
-    expand.setAttribute('dur', `${speed}ms`);
-    expand.setAttribute('fill', 'freeze');
-    expand.setAttribute('calcMode', 'spline');
-    // md.sys.motion.easing.standard: cubic-bezier(0.2, 0, 0, 1) — keep in sync with
-    // --md-sys-motion-timing-function in motion.css (SMIL keySplines can't reference CSS vars).
-    expand.setAttribute('keySplines', '0.2 0, 0 1');
-    circle.appendChild(expand);
+    // Grow by scale rather than `r`: transform runs on WAAPI, an SVG attribute would not.
+    circle.style.transformBox = 'fill-box';
+    circle.style.transformOrigin = 'center';
+    circle.style.transform = 'scale(0)';
 
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.classList.add('m3-ripple');
@@ -99,20 +93,13 @@
 
     node.appendChild(svg);
 
+    // Ripples are an effect, not layout: critically damped springs, no overshoot.
+    animate(circle, { transform: 'scale(1)' }, springTransition(springTokens.slowEffects));
+
     return () => {
-      const fade = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
-      fade.setAttribute('attributeName', 'opacity');
-      fade.setAttribute('from', '1');
-      fade.setAttribute('to', '0');
-      fade.setAttribute('dur', '800ms');
-      fade.setAttribute('fill', 'freeze');
-      fade.setAttribute('calcMode', 'spline');
-      // md.sys.motion.easing.standard: cubic-bezier(0.2, 0, 0, 1) — keep in sync with
-      // --md-sys-motion-timing-function in motion.css (SMIL keySplines can't reference CSS vars).
-      fade.setAttribute('keySplines', '0.2 0, 0 1');
-      circle.appendChild(fade);
-      fade.beginElement();
-      setTimeout(() => svg.remove(), 800);
+      animate(circle, { opacity: 0 }, springTransition(springTokens.slowEffects)).then(() =>
+        svg.remove()
+      );
     };
   };
 
@@ -199,8 +186,8 @@
 
     background-color: currentColor;
     opacity: 0;
-    transition: opacity var(--md-sys-motion-duration-fast, 150ms)
-      var(--md-sys-motion-timing-function, cubic-bezier(0.2, 0, 0, 1));
+    transition: opacity var(--md-sys-motion-duration-fast-effects-spring)
+      var(--md-sys-motion-timing-function-fast-effects-spring);
 
     &:not(
       :global(input:disabled + label) > .tint,

@@ -15,8 +15,7 @@ Floating action buttons (FABs) help people take primary actions.
   import type { FABProps } from './types.js';
   import FABMenu from './FABMenu.svelte';
   import { Layer, Icon, LoadingIndicator } from '$lib/utils/index.js';
-  import { clickOutside } from '$lib/actions/index.js';
-  import { Button, type ButtonRootProps } from 'bits-ui';
+  import { Button, DropdownMenu, type ButtonRootProps } from 'bits-ui';
 
   let {
     children,
@@ -30,44 +29,43 @@ Floating action buttons (FABs) help people take primary actions.
     expanded = false,
     class: className,
     withMenu,
+    onclick,
     ...restProps
   }: FABProps = $props();
 
   const { base, icon, label: labelClass } = $derived(fab({ size, config, expanded }));
 
   let showMenu = $state(false);
-  let wrapperEl = $state<HTMLElement | null>(null);
 
   const btnCls = $derived(
     base({
       class: clsx(
         className,
-        'transition-[border-radius] duration-300',
+        'transition-[border-radius] md-sys-motion-fast-spatial',
         withMenu && showMenu && '!rounded-full'
       )
     })
   );
 
-  function handleClick(e: MouseEvent) {
+  function handleClick(e: MouseEvent, triggerClick?: unknown) {
     if (disabled || loading) {
       e.preventDefault();
       return;
     }
-    if (withMenu) {
-      e.preventDefault();
-      showMenu = !showMenu;
-    }
+    (onclick as ((e: MouseEvent) => void) | null | undefined)?.(e);
+    if (typeof triggerClick === 'function') triggerClick(e);
   }
 </script>
 
-<div class="contents" bind:this={wrapperEl} use:clickOutside={() => (showMenu = false)}>
+{#snippet fabButton(triggerProps: Record<string, unknown>)}
   <Button.Root
     {disabled}
     {formaction}
-    class={btnCls}
-    onclick={handleClick}
     data-cy="m3-fab"
     {...restProps as ButtonRootProps}
+    {...triggerProps}
+    class={btnCls}
+    onclick={(e: MouseEvent) => handleClick(e, triggerProps.onclick)}
   >
     {#if loading}
       <LoadingIndicator />
@@ -81,10 +79,19 @@ Floating action buttons (FABs) help people take primary actions.
       </p>
     {/if}
   </Button.Root>
+{/snippet}
 
-  {#if withMenu && showMenu && wrapperEl?.firstElementChild}
-    <FABMenu anchorEl={wrapperEl.firstElementChild as HTMLElement}>
+{#if withMenu}
+  <DropdownMenu.Root bind:open={showMenu}>
+    <DropdownMenu.Trigger disabled={disabled || loading}>
+      {#snippet child({ props })}
+        {@render fabButton(props)}
+      {/snippet}
+    </DropdownMenu.Trigger>
+    <FABMenu>
       {@render children?.()}
     </FABMenu>
-  {/if}
-</div>
+  </DropdownMenu.Root>
+{:else}
+  {@render fabButton({})}
+{/if}

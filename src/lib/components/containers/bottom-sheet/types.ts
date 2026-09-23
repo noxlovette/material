@@ -10,8 +10,14 @@ export interface BottomSheetProps {
    */
   children: Snippet;
   /**
-   * Callback function to close the bottom sheet.
+   * Whether the sheet is shown. Bind it (`bind:open`) so the sheet can play its exit animation
+   * before unmounting.
+   * @default true
+   */
+  open?: boolean;
+  /**
+   * Called when the user dismisses the sheet.
    * @param reason The reason for closing ('esc' key, 'click' outside, or 'low' drag height).
    */
-  close: (reason: 'esc' | 'click' | 'low') => void;
+  close?: (reason: 'esc' | 'click' | 'low') => void;
 }

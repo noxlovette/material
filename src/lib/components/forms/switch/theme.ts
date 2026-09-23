@@ -16,7 +16,7 @@ export const toggle = tv({
       'group-data-[disabled]:cursor-not-allowed',
       'group-data-[disabled]:border-md-sys-color-on-surface/12 group-data-[disabled]:bg-md-sys-color-surface-container-highest',
       'group-data-[state=checked]:group-data-[disabled]:border-transparent group-data-[state=checked]:group-data-[disabled]:bg-md-sys-color-on-surface/12',
-      'transition-colors duration-200'
+      'transition-colors md-sys-motion-effects'
     ].join(' '),
 
     // Thumb — absolute over track
@@ -24,7 +24,7 @@ export const toggle = tv({
       'pointer-events-none absolute left-2 top-1/2 flex h-4 w-4 -translate-y-1/2',
       'items-center justify-center rounded-full relative',
       'bg-md-sys-color-outline',
-      'transition-[left,transform,background-color] duration-200 ease-in-out',
+      'transition-[left,transform,background-color] md-sys-motion-fast-spatial',
       // checked: move right + scale up + on-primary color
       'group-data-[state=checked]:left-[1.75rem] group-data-[state=checked]:scale-[1.5] group-data-[state=checked]:bg-md-sys-color-on-primary',
       // disabled
@@ -42,7 +42,7 @@ export const toggle = tv({
     hover: [
       'pointer-events-none absolute left-4 top-1/2 h-12 w-12',
       '-translate-x-1/2 -translate-y-1/2 rounded-full',
-      'transition-[left,background-color] duration-200',
+      'transition-[left,background-color] md-sys-motion-fast-spatial',
       'group-data-[state=checked]:left-9',
       'group-data-[disabled]:hidden',
       'group-hover:bg-md-sys-color-on-surface/8',
@@ -52,7 +52,7 @@ export const toggle = tv({
     // Icon inside thumb - shared base (sized via size="xs" prop on Icon, not here)
     icon: [
       'absolute inset-0 m-auto pointer-events-none flex items-center justify-center',
-      'opacity-0 transition-opacity duration-150 shrink-0'
+      'opacity-0 transition-opacity md-sys-motion-fast-effects shrink-0'
     ].join(' '),
 
     // Specific icon states - colour matches M3 spec for each thumb background

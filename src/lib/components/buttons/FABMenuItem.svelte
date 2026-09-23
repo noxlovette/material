@@ -1,13 +1,15 @@
 <!--
 @component
-An individual action within a FAB menu.
+An individual action within a FAB menu. Wraps bits-ui's `DropdownMenu.Item`, so it gets the
+`menuitem` role, arrow-key navigation, and closes the menu when selected. Must be rendered
+inside a `FAB` with `withMenu`.
 -->
 <script lang="ts">
   import clsx from 'clsx';
   import { fabMenuItem } from './theme.js';
   import type { FABMenuItemProps } from './types.js';
   import { Icon, LoadingIndicator, Layer } from '$lib/utils/index.js';
-  import { Button, type ButtonRootProps } from 'bits-ui';
+  import { Button, DropdownMenu, type DropdownMenuItemProps } from 'bits-ui';
 
   let {
     class: className,
@@ -16,6 +18,7 @@ An individual action within a FAB menu.
     children,
     iconProps,
     formaction,
+    disabled,
     ...restProps
   }: FABMenuItemProps = $props();
 
@@ -23,21 +26,21 @@ An individual action within a FAB menu.
   const btnCls = $derived(base({ class: clsx(className) }));
 </script>
 
-<Button.Root
-  {formaction}
-  class={btnCls}
-  data-cy="m3-fab-menu-item"
-  {...restProps as ButtonRootProps}
->
-  {#if iconProps}
-    {#if loading}
-      <LoadingIndicator />
-    {:else}
-      <Icon class={icon()} {...iconProps} />
-    {/if}
-  {:else if loading}
-    <LoadingIndicator />
-  {/if}
-  {@render children?.()}
-  <Layer />
-</Button.Root>
+<!-- Spread onto the Item, not the button: bits-ui merges (and chains handlers of) these into `props`. -->
+<DropdownMenu.Item {disabled} {...restProps as DropdownMenuItemProps}>
+  {#snippet child({ props })}
+    <Button.Root {formaction} {disabled} data-cy="m3-fab-menu-item" {...props} class={btnCls}>
+      {#if iconProps}
+        {#if loading}
+          <LoadingIndicator />
+        {:else}
+          <Icon class={icon()} {...iconProps} />
+        {/if}
+      {:else if loading}
+        <LoadingIndicator />
+      {/if}
+      {@render children?.()}
+      <Layer />
+    </Button.Root>
+  {/snippet}
+</DropdownMenu.Item>

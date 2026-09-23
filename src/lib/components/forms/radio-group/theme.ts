@@ -8,9 +8,9 @@ export const radioGroup = tv({
     control:
       'relative layer-container absolute -inset-[10px] rounded-full text-md-sys-color-on-surface-variant state-layer before:rounded-full',
     outerRing:
-      'absolute inset-0 rounded-full border-2 border-md-sys-color-outline transition-colors',
+      'absolute inset-0 rounded-full border-2 border-md-sys-color-outline transition-colors md-sys-motion-fast-effects',
     innerDot:
-      'absolute inset-0 m-auto size-2.5 scale-0 rounded-full bg-md-sys-color-on-primary-container transition-transform duration-[350ms] [transition-timing-function:var(--md-sys-motion-timing-function-fast-spatial)]',
+      'absolute inset-0 m-auto size-2.5 scale-0 rounded-full bg-md-sys-color-on-primary-container transition-transform md-sys-motion-fast-spatial',
     label: 'md-sys-typescale-body-large text-md-sys-color-on-surface',
     supporting: 'md-sys-typescale-body-medium text-md-sys-color-on-surface-variant'
   },

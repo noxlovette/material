@@ -1,4 +1,6 @@
-const frequencyT = (Math.PI * 2) / 1000;
+/** One full wave cycle, in ms. */
+export const WAVE_PERIOD_MS = 1000;
+const frequencyT = (Math.PI * 2) / WAVE_PERIOD_MS;
 const frequencyX = (Math.PI * 2) / 40;
 const round2 = (x: number) => Math.round(x * 100) / 100;
 const round1 = (x: number) => Math.round(x * 10) / 10;

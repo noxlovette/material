@@ -141,7 +141,7 @@ export const pane = tv({
 export const paneHandle = tv({
   slots: {
     base: 'group relative flex shrink-0 w-3 self-stretch cursor-col-resize touch-none items-center justify-center rounded-full bg-transparent hover:bg-md-sys-color-outline/20',
-    grip: 'rounded-full transition-[background-color,height,width] duration-150'
+    grip: 'rounded-full transition-[background-color,height,width] md-sys-motion-fast-spatial'
   },
   variants: {
     dragging: {
@@ -171,7 +171,7 @@ export type MinimizedCorner = 'bottom-left' | 'bottom-right' | 'top-left' | 'top
 
 export const draggablePane = tv({
   slots: {
-    base: 'fixed z-[100] flex min-w-72 flex-col rounded-md bg-md-sys-color-surface-container-highest shadow-elevation-3',
+    base: 'fixed z-[100] flex min-w-72 flex-col rounded-md bg-md-sys-color-surface-container-highest shadow-elevation-3 transition-shadow md-sys-motion-effects',
     headerBar:
       'relative flex shrink-0 items-center gap-2 rounded-t-2xl px-3 py-2 touch-none select-none md-sys-state-focus-indicator',
     grip: 'shrink-0 text-md-sys-color-on-surface-variant',

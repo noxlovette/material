@@ -30,7 +30,7 @@ and `sortDirection` props. Defaults to `scope="col"`.
     {#if sortable}
       <span
         class={[
-          'transition-[opacity,transform] duration-200',
+          'md-sys-motion-fast-spatial transition-[opacity,transform]',
           sorted ? 'opacity-100' : 'opacity-0 group-hover:opacity-40',
           sortDirection === 'desc' ? 'rotate-180' : 'rotate-0'
         ].join(' ')}

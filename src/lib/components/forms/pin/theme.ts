@@ -11,9 +11,9 @@ export const pinInput = tv({
       relative flex h-14 w-12 items-center justify-center
       bg-md-sys-color-surface-container-highest rounded-t-xs
       md-sys-typescale-headline-small text-md-sys-color-on-surface
-      transition-all duration-200
+      transition-colors md-sys-motion-fast-effects
       after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-md-sys-color-on-surface-variant
-      after:transition-[height,background-color] after:duration-200
+      after:transition-[height,background-color] after:md-sys-motion-fast-spatial
       data-[focus]:after:bg-md-sys-color-primary data-[focus]:after:h-[2px]
       data-[placeholder]:text-md-sys-color-on-surface-variant/38
     `,

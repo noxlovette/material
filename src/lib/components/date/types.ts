@@ -1,3 +1,4 @@
+import type { IconProps } from '$lib/utils/index.js';
 import type { DateValue } from '@internationalized/date';
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
@@ -38,6 +39,18 @@ export interface BaseDateProps extends HTMLAttributes<HTMLDivElement> {
    * @default 'outlined'
    */
   variant?: 'filled' | 'outlined';
+  /**
+   * BCP 47 locale for segment order, month names and weekday labels.
+   * @default 'en'
+   */
+  locale?: string;
+  /**
+   * First day of the week in the calendar, 0 = Sunday.
+   * @default 0
+   */
+  weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+  /** Optional icon before the date segments. */
+  leadingIconProps?: IconProps;
 }
 
 export interface DateFieldProps extends BaseDateProps {

@@ -22,11 +22,18 @@
       desc: "The sheet's body content, rendered below the headline row."
     },
     {
+      prop: 'open',
+      type: 'boolean',
+      default: 'true',
+      required: false,
+      desc: 'Whether the sheet is shown. Use bind:open so the sheet can set it to false on dismiss and play its exit animation before unmounting.'
+    },
+    {
       prop: 'close',
       type: '() => void',
       default: '—',
-      required: true,
-      desc: 'Called when the close (×) button is clicked, Esc is pressed, or the backdrop is clicked. The consumer is responsible for hiding the sheet in response.'
+      required: false,
+      desc: 'Called after the sheet dismisses itself: close (×) button, Esc, or a backdrop click.'
     }
   ];
 
@@ -95,11 +102,9 @@
         dimming the rest of the app behind a backdrop and sliding in/out.
       </Body>
       <Body>
-        Mounting it calls <code class="doc-code">showModal()</code> immediately, so visibility is
-        controlled by conditionally rendering the component — no separate
-        <code class="doc-code">open</code> prop. It closes itself on Esc or a backdrop click, in
-        addition to the header's close button; the consumer's <code class="doc-code">close</code>
-        callback is responsible for flipping its own open flag in response.
+        Visibility is controlled with <code class="doc-code">bind:open</code>. It closes itself on
+        Esc or a backdrop click, in addition to the header's close button — setting
+        <code class="doc-code">open</code> to false and staying mounted until its exit animation finishes.
       </Body>
     </section>
 
@@ -133,8 +138,8 @@
     <section id="basic-usage" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Basic Usage</Title>
       <Body>
-        Conditionally render <code class="doc-code">SideSheet</code> — it handles its own positioning,
-        backdrop, and transition:
+        Bind <code class="doc-code">open</code> — the sheet handles its own positioning, backdrop, and
+        enter/exit animation, staying mounted until the exit finishes:
       </Body>
       <CodeBlock
         code={`<script lang="ts">
@@ -145,11 +150,9 @@
 
 <button onclick={() => (open = true)}>Show details</button>
 
-{#if open}
-  <SideSheet headline="Details" close={() => (open = false)}>
-    <Body class="px-6 pb-6">Supplementary content goes here.</Body>
-  </SideSheet>
-{/if}`}
+<SideSheet headline="Details" bind:open>
+  <Body class="px-6 pb-6">Supplementary content goes here.</Body>
+</SideSheet>`}
       />
     </section>
 

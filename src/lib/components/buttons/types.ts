@@ -159,9 +159,7 @@ export type FABProps = FABVariants &
     children?: Snippet;
   };
 
-export type FABMenuProps = HTMLAttributes<HTMLUListElement> & {
-  /** The FAB button element to position the menu relative to. */
-  anchorEl: HTMLElement;
+export type FABMenuProps = HTMLAttributes<HTMLDivElement> & {
   /**
    * The menu items. Use `FABMenuItem` components.
    */
@@ -174,6 +172,8 @@ export type FABMenuItemProps = FABMenuItemVariants &
      * The visual variant of the menu item.
      */
     variant?: FABMenuItemVariants['variant'];
+    /** Whether the menu item is disabled (skipped by keyboard navigation). */
+    disabled?: boolean;
     /** Whether the menu item is in a loading state. */
     loading?: boolean;
     /**

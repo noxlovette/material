@@ -8,13 +8,12 @@ Powered by bits-ui for accessibility and behavior.
 @see https://m3.material.io/components/menus/overview
 -->
 <script lang="ts">
+  import { enterExit, presence } from '$lib/animation/index.js';
   import { Select } from 'bits-ui';
   import { select as selectCls } from './theme.js';
   import { Icon } from '$lib/utils/index.js';
   import type { SelectProps } from './types.js';
   import clsx from 'clsx';
-  import { enterExit } from '$lib/animation/enterExit.js';
-  import { easeEmphasized } from '$lib/animation/easing.js';
 
   let {
     value = $bindable(),
@@ -66,7 +65,6 @@ Powered by bits-ui for accessibility and behavior.
 
         <Select.Portal disabled={portalDisabled}>
           <Select.Content
-            forceMount
             class={cls.content({ class: clsx('z-[100]', contentProps?.class) })}
             sideOffset={4}
             align="start"
@@ -74,58 +72,48 @@ Powered by bits-ui for accessibility and behavior.
           >
             {#snippet child({ wrapperProps, props, open })}
               <div {...wrapperProps} class={clsx('z-[100]', wrapperProps.class as any)}>
-                {#if open}
-                  <div
-                    {...props}
-                    class={clsx('relative flex flex-col outline-none', props.class as any)}
-                    transition:enterExit={{
-                      duration: 200,
-                      easing: easeEmphasized,
-                      mode: 'scale'
-                    }}
-                    style:width="var(--bits-select-anchor-width)"
-                    style:max-width="min(calc(100vw - 32px), 560px)"
-                  >
-                    <Select.Viewport class="w-full">
-                      {#each options as item, i (i)}
-                        {#if item.type === 'group'}
-                          <Select.Group>
-                            {#if item.heading}
-                              <Select.GroupHeading class={cls.groupLabel()}>
-                                {item.heading}
-                              </Select.GroupHeading>
+                <div
+                  {...props}
+                  class={clsx('relative flex flex-col outline-none', props.class as any)}
+                  {@attach presence(() => open, enterExit.scale)}
+                  style:width="var(--bits-select-anchor-width)"
+                  style:max-width="min(calc(100vw - 32px), 560px)"
+                >
+                  <Select.Viewport class="w-full">
+                    {#each options as item, i (i)}
+                      {#if item.type === 'group'}
+                        <Select.Group>
+                          {#if item.heading}
+                            <Select.GroupHeading class={cls.groupLabel()}>
+                              {item.heading}
+                            </Select.GroupHeading>
+                          {/if}
+                          {#each item.items as innerItem, j (j)}
+                            {#if innerItem.type !== 'group'}
+                              <Select.Item {...innerItem} class={cls.item()}>
+                                {#snippet children({ selected })}
+                                  <span class="flex-1 truncate">{innerItem.label}</span>
+                                  {#if selected}
+                                    <Icon aria-hidden="true" name="check" class="size-5 shrink-0" />
+                                  {/if}
+                                {/snippet}
+                              </Select.Item>
                             {/if}
-                            {#each item.items as innerItem, j (j)}
-                              {#if innerItem.type !== 'group'}
-                                <Select.Item {...innerItem} class={cls.item()}>
-                                  {#snippet children({ selected })}
-                                    <span class="flex-1 truncate">{innerItem.label}</span>
-                                    {#if selected}
-                                      <Icon
-                                        aria-hidden="true"
-                                        name="check"
-                                        class="size-5 shrink-0"
-                                      />
-                                    {/if}
-                                  {/snippet}
-                                </Select.Item>
-                              {/if}
-                            {/each}
-                          </Select.Group>
-                        {:else}
-                          <Select.Item {...item} class={cls.item()}>
-                            {#snippet children({ selected })}
-                              <span class="flex-1 truncate">{item.label}</span>
-                              {#if selected}
-                                <Icon aria-hidden="true" name="check" class="size-5 shrink-0" />
-                              {/if}
-                            {/snippet}
-                          </Select.Item>
-                        {/if}
-                      {/each}
-                    </Select.Viewport>
-                  </div>
-                {/if}
+                          {/each}
+                        </Select.Group>
+                      {:else}
+                        <Select.Item {...item} class={cls.item()}>
+                          {#snippet children({ selected })}
+                            <span class="flex-1 truncate">{item.label}</span>
+                            {#if selected}
+                              <Icon aria-hidden="true" name="check" class="size-5 shrink-0" />
+                            {/if}
+                          {/snippet}
+                        </Select.Item>
+                      {/if}
+                    {/each}
+                  </Select.Viewport>
+                </div>
               </div>
             {/snippet}
           </Select.Content>

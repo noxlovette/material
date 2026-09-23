@@ -16,11 +16,10 @@ Contrast with `MenuItem` (a single interactive row inside the panel) and
 @see https://m3.material.io/components/menus/guidelines
 -->
 <script lang="ts">
+  import { enterExit, presence } from '$lib/animation/index.js';
   import { DropdownMenu } from 'bits-ui';
   import clsx from 'clsx';
   import Button from '../../buttons/Button.svelte';
-  import { enterExit } from '$lib/animation/enterExit.js';
-  import { easeEmphasizedDecel } from '$lib/animation/easing.js';
   import type { MenuProps } from './types.js';
 
   let {
@@ -45,27 +44,21 @@ Contrast with `MenuItem` (a single interactive row inside the panel) and
   </DropdownMenu.Trigger>
 
   <DropdownMenu.Portal>
-    <DropdownMenu.Content forceMount {align} sideOffset={4} class="z-100">
+    <DropdownMenu.Content {align} sideOffset={4} class="z-100">
       {#snippet child({ wrapperProps, props, open: isOpen })}
-        {#if isOpen}
-          <div {...wrapperProps} class={wrapperProps.class as any}>
-            <div
-              {...props}
-              class={clsx(
-                'bg-md-sys-color-surface-container-high shadow-elevation-3 ring-md-sys-color-outline/10 max-w-sm min-w-48 gap-1 overflow-y-auto rounded-lg px-2 py-1',
-                props.class as any,
-                contentClass
-              )}
-              transition:enterExit={{
-                duration: 200,
-                easing: easeEmphasizedDecel,
-                mode: 'scale'
-              }}
-            >
-              {@render children()}
-            </div>
+        <div {...wrapperProps} class={wrapperProps.class as any}>
+          <div
+            {...props}
+            class={clsx(
+              'bg-md-sys-color-surface-container-high shadow-elevation-3 ring-md-sys-color-outline/10 max-w-sm min-w-48 gap-1 overflow-y-auto rounded-lg px-2 py-1',
+              props.class as any,
+              contentClass
+            )}
+            {@attach presence(() => isOpen, enterExit.scale)}
+          >
+            {@render children()}
           </div>
-        {/if}
+        </div>
       {/snippet}
     </DropdownMenu.Content>
   </DropdownMenu.Portal>

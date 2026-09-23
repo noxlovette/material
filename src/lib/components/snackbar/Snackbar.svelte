@@ -9,8 +9,7 @@ Snackbars provide brief messages about app processes at the bottom of the screen
   import type { SnackBarProps } from './types.js';
   import Icon from '../../utils/icon/Icon.svelte';
   import { Layer } from '$lib/utils/index.js';
-  import { enterExit } from '$lib/animation/enterExit.js';
-  import { easeEmphasizedDecel, easeEmphasizedAccel } from '$lib/animation/easing.js';
+  import { enterExit, Presence } from '$lib/animation/index.js';
 
   let {
     message = $bindable(''),
@@ -49,6 +48,12 @@ Snackbars provide brief messages about app processes at the bottom of the screen
     };
   });
 
+  const snack = new Presence(() => Boolean(message) && !dismissed);
+
+  // Dismissing clears `message`; keep rendering the last one while the exit animation plays.
+  let lastMessage: SnackBarProps['message'] = '';
+  const shownMessage = $derived.by(() => (message ? (lastMessage = message) : lastMessage));
+
   const {
     base,
     icon,
@@ -58,27 +63,18 @@ Snackbars provide brief messages about app processes at the bottom of the screen
   } = $derived(snackbar({ fixed }));
 </script>
 
-{#if message && !dismissed}
+{#if snack.mounted}
   <div
     class={base()}
     data-cy="m3-snackbar"
     {...restProps}
-    in:enterExit={{
-      duration: 400,
-      easing: easeEmphasizedDecel,
-      mode: 'slide-up'
-    }}
-    out:enterExit={{
-      duration: 200,
-      easing: easeEmphasizedAccel,
-      mode: 'slide-up'
-    }}
+    {@attach snack.attach(enterExit.slideUp)}
   >
-    {#if typeof message === 'string'}
-      <p class={supportingText()}>{message}</p>
-    {:else}
+    {#if typeof shownMessage === 'string'}
+      <p class={supportingText()}>{shownMessage}</p>
+    {:else if shownMessage}
       <p class={supportingText()}>
-        {@render message()}
+        {@render shownMessage()}
       </p>
     {/if}
 

@@ -6,12 +6,11 @@ It combines a Material 3 Textfield with a TimepickerInput for intuitive time sel
 @see https://m3.material.io/components/time-pickers/overview
 -->
 <script lang="ts">
+  import { enterExit, presence } from '$lib/animation/index.js';
   import type { HTMLInputAttributes } from 'svelte/elements';
   import Textfield from '$lib/components/forms/textfield/Textfield.svelte';
   import TimepickerInput from './TimepickerInput.svelte';
-  import { clickOutside, positionFloating } from '$lib/actions/index.js';
-  import { enterExit } from '$lib/animation/enterExit.js';
-  import { easeEmphasizedDecel, easeEmphasizedAccel } from '$lib/animation/easing.js';
+  import { Popover } from 'bits-ui';
 
   let {
     label = 'Время',
@@ -48,64 +47,66 @@ It combines a Material 3 Textfield with a TimepickerInput for intuitive time sel
   let anchorEl = $state<HTMLDivElement>();
 </script>
 
-<div
-  class="relative w-full"
-  bind:this={anchorEl}
-  use:clickOutside={() => {
-    picker = false;
-  }}
->
-  <Textfield
-    id={id as string}
-    {label}
-    {value}
-    {name}
-    {disabled}
-    {error}
-    {leadingIconProps}
-    class="pointer-events-none"
-    trailingIconProps={{ name: 'timer' }}
-    trailingOnClick={() => !disabled && (picker = !picker)}
-    {...restProps as any}
-  >
-    {#snippet supportingText()}
-      ЧЧ-ММ
-    {/snippet}
-  </Textfield>
-
-  <button
-    {disabled}
-    title="time-overlay"
-    class="absolute inset-0 cursor-pointer disabled:cursor-not-allowed"
-    type="button"
-    onclick={() => !disabled && (picker = !picker)}
-    data-cy="calendar-time-toggle"
-  ></button>
-
-  {#if picker}
-    <div
-      class="picker"
-      use:positionFloating={{ anchor: anchorEl, offset: 12 }}
-      in:enterExit={{
-        duration: 200,
-        easing: easeEmphasizedDecel,
-        mode: 'scale'
-      }}
-      out:enterExit={{
-        duration: 150,
-        easing: easeEmphasizedAccel,
-        mode: 'scale'
-      }}
-      style="transform-origin: top center;"
+<Popover.Root bind:open={picker}>
+  <div class="relative w-full" bind:this={anchorEl}>
+    <Textfield
+      id={id as string}
+      {label}
+      {value}
+      {name}
+      {disabled}
+      {error}
+      {leadingIconProps}
+      class="pointer-events-none"
+      trailingIconProps={{ name: 'timer' }}
+      trailingOnClick={() => !disabled && (picker = !picker)}
+      {...restProps as any}
     >
-      <TimepickerInput time={value} close={() => (picker = false)} setTime={(t) => (value = t)} />
-    </div>
-  {/if}
-</div>
+      {#snippet supportingText()}
+        ЧЧ-ММ
+      {/snippet}
+    </Textfield>
 
-<style>
-  .picker {
-    z-index: 1;
-    position: absolute;
-  }
-</style>
+    <Popover.Trigger {disabled}>
+      {#snippet child({ props })}
+        <button
+          {...props}
+          title="time-overlay"
+          class="absolute inset-0 cursor-pointer disabled:cursor-not-allowed"
+          type="button"
+          data-cy="calendar-time-toggle"
+        ></button>
+      {/snippet}
+    </Popover.Trigger>
+  </div>
+
+  <Popover.Portal>
+    <Popover.Content
+      customAnchor={anchorEl}
+      side="bottom"
+      align="start"
+      sideOffset={12}
+      collisionPadding={8}
+      class="z-100"
+    >
+      {#snippet child({ wrapperProps, props, open })}
+        <div {...wrapperProps}>
+          <div
+            {...props}
+            class={[
+              props.class,
+              'max-h-(--bits-floating-available-height) min-w-(--bits-floating-anchor-width) overflow-auto'
+            ]}
+            {@attach presence(() => open, enterExit.scale)}
+          >
+            <TimepickerInput
+              time={value}
+              close={() => (picker = false)}
+              setTime={(t) => (value = t)}
+            />
+          </div>
+        </div>
+      {/snippet}
+    </Popover.Content>
+  </Popover.Portal>
+</Popover.Root>

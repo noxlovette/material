@@ -276,7 +276,7 @@
     <section id="accessibility" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Accessibility</Title>
       <div class="flex flex-col gap-3">
-        {#each [{ icon: 'label', title: 'Icon-only labeling', desc: 'A non-expanded FAB has no visible text — give iconProps a symbol whose meaning is unambiguous, or prefer expanded with a label for less common actions.' }, { icon: 'menu_open', title: 'Menu dismissal', desc: "withMenu's FABMenu closes on outside click via the clickOutside action, and its icon flips to a close affordance while open." }, { icon: 'block', title: 'Disabled state', desc: 'disabled removes the FAB from the tab order and exposes the disabled attribute to assistive tech.' }] as item}
+        {#each [{ icon: 'label', title: 'Icon-only labeling', desc: 'A non-expanded FAB has no visible text — give iconProps a symbol whose meaning is unambiguous, or prefer expanded with a label for less common actions.' }, { icon: 'menu_open', title: 'Menu dismissal', desc: "withMenu's FABMenu is a bits-ui DropdownMenu: items get the menuitem role and arrow-key navigation, the menu closes on selection, outside click, or Escape, and the FAB icon flips to a close affordance while open." }, { icon: 'block', title: 'Disabled state', desc: 'disabled removes the FAB from the tab order and exposes the disabled attribute to assistive tech.' }] as item}
           <Card class="flex items-start gap-4 p-4">
             <div
               class="bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container flex h-9 w-9 shrink-0 items-center justify-center rounded-full"

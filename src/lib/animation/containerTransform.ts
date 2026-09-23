@@ -1,202 +1,36 @@
-import type { TransitionConfig } from 'svelte/transition';
-import { easeEmphasized } from './easing.js';
-import type { TransitionOptions } from './transitionTypes.js';
+import { animateView, type ViewTransitionTargetDefinition } from 'motion';
+import { springTokens, springTransition, type SpringToken } from './spring.js';
 
-interface ContainerOptions {
-  fallback?: (
-    node: Element,
-    params: TransitionOptions & ContainerOptions & ContainerParamOptions,
-    intro: boolean
-  ) => TransitionConfig;
-  bgContainerZ?: number;
-  fgContainerZ?: number;
+export interface ContainerTransformOptions {
+  /** The container before the update (e.g. a card). */
+  from: ViewTransitionTargetDefinition;
+  /** The container after the update (e.g. the detail view). Pass a selector if it isn't mounted yet. */
+  to: ViewTransitionTargetDefinition;
+  /** Spring for the bounds/shape morph. `slowSpatial` suits full-screen expansions. */
+  spring?: SpringToken;
 }
 
-interface ContainerParamOptions {
-  key: string;
-}
-
-type ClientRectMap = Map<string, { rect: DOMRect; node: Element }>;
-
-const getBackgroundColor = (node: Element, defaultColor?: string): string => {
-  if (!defaultColor) {
-    const tmp = document.createElement('div');
-    document.body.appendChild(tmp);
-    defaultColor = getComputedStyle(tmp).backgroundColor;
-    tmp.remove();
-  }
-  const color = getComputedStyle(node).backgroundColor;
-  if (color != defaultColor) return color;
-  if (node.parentElement) return getBackgroundColor(node.parentElement, defaultColor);
-  return defaultColor;
-};
-
-const parseColor = (color: string) => {
-  const match = color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);
-  if (match) {
-    const [r, g, b, opacity = 1.0] = match.slice(1, 5).map((val) => val && parseFloat(val));
-    if (
-      typeof r != 'number' ||
-      typeof g != 'number' ||
-      typeof b != 'number' ||
-      typeof opacity != 'number'
-    ) {
-      throw new Error('something went down in the color parser, see previous info');
-    }
-    return [r, g, b, opacity];
-  }
-  return [0, 0, 0, 0];
-};
-
-export const containerTransform = ({
-  fallback,
-  ...defaults
-}: TransitionOptions & ContainerOptions) => {
-  /* This code is based on the crossfade function from Svelte. Svelte is under the MIT license.
-  https://github.com/sveltejs/svelte/blob/master/src/runtime/transition/index.ts
-  If you have an idea for cleaning up this mess of code, please make a PR. */
-  const to_receive: ClientRectMap = new Map();
-  const to_send: ClientRectMap = new Map();
-
-  function calcTransition(
-    from: DOMRect,
-    fromNode: Element,
-    node: Element,
-    params: TransitionOptions & ContainerOptions
-  ): TransitionConfig {
-    const to = node.getBoundingClientRect();
-    const isEntering = from.width * from.height < to.width * to.height;
-    const dx = from.left + from.width / 2 - (to.left + to.width / 2);
-    const dy = from.top - to.top;
-
-    const style = getComputedStyle(node);
-    const transform = style.transform == 'none' ? '' : style.transform;
-    const opacity = +style.opacity;
-    const bgContainerZ = params.bgContainerZ ?? defaults.bgContainerZ ?? 4;
-    const fgContainerZ = params.fgContainerZ ?? defaults.fgContainerZ ?? 5;
-
-    let container: {
-      backwards?: boolean;
-      e?: HTMLDivElement;
-      fromColor: ReturnType<typeof parseColor>;
-      fromRadius: number;
-      fromBorderWidth: number;
-      fromBorderColor: ReturnType<typeof parseColor>;
-      toColor: ReturnType<typeof parseColor>;
-      toRadius: number;
-      toBorderWidth: number;
-      toBorderColor: ReturnType<typeof parseColor>;
-    } | null = {
-      fromColor: parseColor(getBackgroundColor(node)),
-      fromRadius: parseSize(style.borderRadius),
-      fromBorderWidth: parseSize(style.borderLeftWidth),
-      fromBorderColor: parseColor(style.borderLeftColor),
-      toColor: parseColor(getBackgroundColor(fromNode)),
-      toRadius: parseSize(getComputedStyle(fromNode).borderRadius),
-      toBorderWidth: parseSize(getComputedStyle(fromNode).borderLeftWidth),
-      toBorderColor: parseColor(getComputedStyle(fromNode).borderLeftColor)
-    };
-
-    return {
-      delay: params.delay ?? defaults.delay ?? 0,
-      duration: params.duration ?? defaults.duration ?? 500,
-      easing: params.easing ?? defaults.easing ?? easeEmphasized,
-      css: (t, u) => {
-        const dw = t + u * (from.width / to.width);
-        const dh = t + u * (from.height / to.height);
-        const tOpacity = (isEntering ? (10 * t - 3) / 7 : (-10 / 3) * u + 1) * opacity;
-        const tScale = isEntering ? Math.max(dw, dh) : Math.min(dw, dh);
-        const horizontalTrim = ((tScale - dw) * to.width) / tScale / 2;
-        const verticalTrim = ((tScale - dh) * to.height) / tScale;
-        return `
-					opacity: ${tOpacity};
-					transform-origin: top center;
-					transform: ${transform} translate(${u * dx}px, ${u * dy}px) scale(${tScale});
-					clip-path: inset(0 ${horizontalTrim}px ${verticalTrim}px ${horizontalTrim}px);
-					z-index: ${fgContainerZ};
-					${t < 0.98 ? 'background-color: transparent;' : ''}
-					border-color: transparent;
-					pointer-events: none;
-				`;
-      },
-      tick: (t, u) => {
-        if (!isEntering || !container) return;
-        if (container.backwards == null) container.backwards = Boolean(t);
-        if (!container.e) {
-          container.e = document.createElement('div');
-          container.e.style.position = 'fixed';
-          container.e.style.zIndex = bgContainerZ.toString();
-          container.e.style.boxSizing = 'border-box';
-          container.e.style.borderStyle = 'solid';
-          document.body.appendChild(container.e);
-        } else if (t == (container.backwards ? 0 : 1)) {
-          document.body.removeChild(container.e);
-          container = null;
-          return;
-        }
-        if (!container?.e) return;
-
-        container.e.style.top = (u * from.top + t * to.top).toFixed(1) + 'px';
-        container.e.style.left = (u * from.left + t * to.left).toFixed(1) + 'px';
-        container.e.style.width = (u * from.width + t * to.width).toFixed(1) + 'px';
-        container.e.style.height = (u * from.height + t * to.height).toFixed(1) + 'px';
-
-        const {
-          fromColor,
-          fromRadius,
-          fromBorderWidth,
-          fromBorderColor,
-          toColor,
-          toRadius,
-          toBorderWidth,
-          toBorderColor
-        } = container;
-
-        const interpColor = [0, 0, 0, 0].map((_, i) =>
-          Math.trunc(t * fromColor[i] + u * toColor[i])
-        );
-        container.e.style.backgroundColor = `rgba(${interpColor.join(',')})`;
-        container.e.style.borderRadius = (t * fromRadius + u * toRadius).toFixed(1) + 'px';
-        container.e.style.borderWidth = (t * fromBorderWidth + u * toBorderWidth).toFixed(1) + 'px';
-        const interpBorder = [0, 0, 0, 0].map((_, i) =>
-          Math.trunc(t * fromBorderColor[i] + u * toBorderColor[i])
-        );
-        container.e.style.borderColor = `rgba(${interpBorder.join(',')})`;
-      }
-    };
-  }
-
-  function makeTransition(items: ClientRectMap, counterparts: ClientRectMap, intro: boolean) {
-    return (
-      node: Element,
-      params: TransitionOptions & ContainerOptions & ContainerParamOptions
-    ) => {
-      items.set(params.key, {
-        rect: node.getBoundingClientRect(),
-        node
-      });
-      return () => {
-        const counterpart = counterparts.get(params.key);
-        if (counterpart) {
-          counterparts.delete(params.key);
-          return calcTransition(counterpart.rect, counterpart.node, node, params);
-        }
-
-        // if the node is disappearing altogether
-        // (i.e. wasn't claimed by the other list)
-        // then we need to supply an outro
-        items.delete(params.key);
-        return fallback ? fallback(node, params, intro) : {};
-      };
-    };
-  }
-
-  return [makeTransition(to_send, to_receive, false), makeTransition(to_receive, to_send, true)];
-};
-
-export const parseSize = (size: string) =>
-  (size.endsWith('px')
-    ? +size.slice(0, -2)
-    : size.endsWith('rem')
-      ? +size.slice(0, -3) * 16
-      : null) || 0;
+/**
+ * M3 container transform: one container morphs its bounds, shape and color into another while
+ * the outgoing content fades out and the incoming content fades in on top.
+ * https://m3.material.io/styles/motion/transitions/transition-patterns#container-transform
+ *
+ * Built on Motion's `animateView()` (View Transition API), so `from` and `to` never have to be in
+ * the DOM at the same time — `update` swaps one for the other. Browsers without the API just run
+ * `update`. A second call while one is running is queued, not interrupted.
+ *
+ * ```ts
+ * containerTransform(
+ *   async () => { expanded = true; await tick(); },
+ *   { from: cardEl, to: '[data-detail]' }
+ * );
+ * ```
+ */
+export const containerTransform = (
+  update: () => void | Promise<void>,
+  { from, to, spring = springTokens.spatial }: ContainerTransformOptions
+) =>
+  animateView(update, springTransition(spring))
+    .add(from, to)
+    .old({ opacity: [1, 0] }, springTransition(springTokens.fastEffects))
+    .new({ opacity: [0, 1] }, { ...springTransition(springTokens.effects), delay: 0.05 });

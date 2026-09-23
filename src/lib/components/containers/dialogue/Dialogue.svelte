@@ -13,8 +13,7 @@ on screen until confirmed, dismissed, or a required action has been taken.
   import { dialogue } from './theme.js';
   import type { DialogueProps } from './types.js';
   import { Dialog } from 'bits-ui';
-  import { enterExit } from '$lib/animation/enterExit.js';
-  import { easeEmphasized, easeEmphasizedDecel } from '$lib/animation/easing.js';
+  import { enterExit, presence } from '$lib/animation/index.js';
   import { Button } from '$lib/components/buttons/index.js';
 
   let {
@@ -44,79 +43,64 @@ on screen until confirmed, dismissed, or a required action has been taken.
 
 <Dialog.Root bind:open {...rootRest}>
   <Dialog.Portal disabled={portalDisabled}>
-    <Dialog.Overlay forceMount>
+    <Dialog.Overlay>
       {#snippet child({ props, open })}
-        {#if open}
-          <div
-            {...props}
-            class={base()}
-            transition:enterExit={{
-              duration: 500,
-              easing: easeEmphasizedDecel
-            }}
-          ></div>
-        {/if}
+        <div {...props} class={base()} {@attach presence(() => open, enterExit.fade)}></div>
       {/snippet}
     </Dialog.Overlay>
-    <Dialog.Content forceMount>
+    <Dialog.Content>
       {#snippet child({ props, open: isOpen })}
-        {#if isOpen}
-          <form
-            method="POST"
-            action={confirmAction}
-            use:enhance
-            {...props}
-            {...formProps}
-            class={inner({ class: className })}
-            style:min-width={minWidth}
-            style:max-width={maxWidth}
-            transition:enterExit={{
-              duration: 500,
-              easing: easeEmphasized,
-              mode: 'dialog-m3'
-            }}
-          >
-            {#if headline}
-              <Dialog.Title class={headlineContainer()}>
-                {headline}
-              </Dialog.Title>
-            {/if}
-            {#if supportingText}
-              <Dialog.Description class={supportingTextContainer()}>
-                {supportingText}
-              </Dialog.Description>
-            {/if}
+        <form
+          method="POST"
+          action={confirmAction}
+          use:enhance
+          {...props}
+          {...formProps}
+          class={inner({ class: className })}
+          style:min-width={minWidth}
+          style:max-width={maxWidth}
+          {@attach presence(() => isOpen, enterExit.dialog)}
+        >
+          {#if headline}
+            <Dialog.Title class={headlineContainer()}>
+              {headline}
+            </Dialog.Title>
+          {/if}
+          {#if supportingText}
+            <Dialog.Description class={supportingTextContainer()}>
+              {supportingText}
+            </Dialog.Description>
+          {/if}
 
-            {#if children}
-              <div class="flex w-full flex-col gap-4">
-                {@render children()}
-              </div>
-            {/if}
+          {#if children}
+            <div class="flex w-full flex-col gap-4">
+              {@render children()}
+            </div>
+          {/if}
 
-            <div class={buttonContainer()}>
-              <Button
-                type="button"
-                variant="text"
-                data-cy="dialogue-cancel"
-                onclick={() => (open = false)}
-              >
-                {cancelText}
+          <div class={buttonContainer()}>
+            <Button
+              type="button"
+              variant="text"
+              data-cy="dialogue-cancel"
+              onclick={() => (open = false)}
+            >
+              {cancelText}
+            </Button>
+
+            {#if delegateClose}
+              <Button type="submit" {disabled} {loading} data-cy="dialogue-confirm">
+                {confirmText}
               </Button>
-
-              {#if delegateClose}
+            {:else}
+              <Dialog.Close>
                 <Button type="submit" {disabled} {loading} data-cy="dialogue-confirm">
                   {confirmText}
                 </Button>
-              {:else}
-                <Dialog.Close>
-                  <Button type="submit" {disabled} {loading} data-cy="dialogue-confirm">
-                    {confirmText}
-                  </Button>
-                </Dialog.Close>
-              {/if}
-            </div>
-          </form>
-        {/if}
+              </Dialog.Close>
+            {/if}
+          </div>
+        </form>
       {/snippet}
     </Dialog.Content>
   </Dialog.Portal>

@@ -1,6 +1,6 @@
 {
   "name": "@noxlovette/material",
-  "version": "0.4.8",
+  "version": "0.5.0",
   "type": "module",
   "description": "A Material Design 3 component library for Svelte, built on Bits UI.",
   "keywords": [
@@ -23,7 +23,8 @@
     "url": "https://github.com/noxlovette/material/issues"
   },
   "scripts": {
-    "build": "svelte-package",
+    "build": "bun run generate:springs && svelte-package",
+    "generate:springs": "bun scripts/generate-motion-springs.ts && prettier --write src/lib/styles/motion.css",
     "build:site": "vite build",
     "watch": "svelte-package --watch",
     "prepublishOnly": "bun run build",
@@ -81,6 +82,7 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-svelte": "^3.23.0",
     "globals": "^17.11.0",
+    "jsdom": "^30.1.1",
     "lefthook": "^2.1.12",
     "prettier": "^3.9.6",
     "prettier-plugin-organize-imports": "^4.3.0",
@@ -110,6 +112,7 @@
     "bits-ui": "^2.19.0",
     "clsx": "^2.1.1",
     "mode-watcher": "^1.1.0",
+    "motion": "^13.4.0",
     "nanoid": "^6.0.1",
     "tailwind-merge": "^3.6.0",
     "tailwind-variants": "^3.3.1"

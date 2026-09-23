@@ -4,9 +4,9 @@ export const scrollArea = tv({
   slots: {
     root: 'relative overflow-hidden',
     viewport: 'size-full rounded-[inherit]',
-    scrollbar: 'flex touch-none select-none transition-colors duration-150 ease-out',
+    scrollbar: 'flex touch-none select-none transition-colors md-sys-motion-fast-effects',
     thumb:
-      'relative flex-1 rounded-full bg-md-sys-color-outline-variant hover:bg-md-sys-color-secondary active:bg-md-sys-color-secondary transition-colors duration-150',
+      'relative flex-1 rounded-full bg-md-sys-color-outline-variant hover:bg-md-sys-color-secondary active:bg-md-sys-color-secondary transition-colors md-sys-motion-fast-effects',
     corner: 'bg-md-sys-color-surface-container-highest'
   },
   variants: {

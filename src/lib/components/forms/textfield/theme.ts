@@ -8,8 +8,10 @@ export const textfield = tv({
       group relative w-full h-14 flex items-center
     `,
 
+    /* Stretches to the full field height so the label floats relative to the field's top edge,
+       not the input's. */
     inputWrapper: `
-      relative flex-1 px-4
+      relative flex-1 self-stretch flex items-center px-4
     `,
 
     input: `
@@ -23,7 +25,7 @@ export const textfield = tv({
       md-sys-typescale-body-large
       text-md-sys-color-on-surface-variant
       pointer-events-none
-      transition-[top,font-size,line-height,color,transform] duration-200 ease-in-out
+      transition-[top,left,font-size,line-height,color,transform] md-sys-motion-fast-spatial
 
       peer-focus:text-md-sys-color-primary
     `,
@@ -32,7 +34,7 @@ export const textfield = tv({
       ml-0.5
       text-md-sys-color-error
       group-focus-within:text-md-sys-color-primary
-      transition-colors duration-200
+      transition-colors md-sys-motion-effects
     `,
 
     leadingIcon: `
@@ -54,9 +56,9 @@ export const textfield = tv({
     `,
 
     fieldset: `
-      absolute -top-[5px] left-0 right-0 bottom-0 m-0 px-2
+      absolute -top-2 left-0 right-0 bottom-0 m-0 px-3
       pointer-events-none rounded-xs border border-md-sys-color-outline
-      transition-colors duration-150
+      transition-colors md-sys-motion-fast-effects
 
       group-hover:border-md-sys-color-on-surface
       group-focus-within:border-2 group-focus-within:border-md-sys-color-primary
@@ -65,7 +67,7 @@ export const textfield = tv({
     legend: `
       invisible float-none block h-auto max-w-[0.01px] overflow-hidden
       whitespace-nowrap md-sys-typescale-body-small
-      transition-[max-width] duration-150 ease-in-out
+      transition-[max-width] md-sys-motion-fast-spatial
 
       group-focus-within:max-w-full
       group-has-[input:not(:placeholder-shown)]:max-w-full
@@ -83,7 +85,7 @@ export const textfield = tv({
           px-0 bg-md-sys-color-surface-container-highest
           rounded-t-xs state-layer before:rounded-xs hover:before:bg-md-sys-color-on-surface/8
           after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-md-sys-color-on-surface-variant
-          after:transition-[height,background-color] after:duration-200
+          after:transition-[height,background-color] after:md-sys-motion-fast-spatial
           hover:after:bg-md-sys-color-on-surface
           focus-within:after:bg-md-sys-color-primary
           focus-within:after:h-[2px]
@@ -91,8 +93,8 @@ export const textfield = tv({
           disabled:after:bg-md-sys-color-on-surface/12
         `,
         label: `
-          peer-focus:top-1.5 peer-focus:md-sys-typescale-body-small peer-focus:-translate-y-1
-          peer-not-placeholder-shown:top-1.5 peer-not-placeholder-shown:md-sys-typescale-body-small peer-not-placeholder-shown:-translate-y-1
+          peer-focus:top-2 peer-focus:md-sys-typescale-body-small peer-focus:translate-y-0
+          peer-not-placeholder-shown:top-2 peer-not-placeholder-shown:md-sys-typescale-body-small peer-not-placeholder-shown:translate-y-0
         `
       },
       outlined: {
@@ -117,6 +119,9 @@ export const textfield = tv({
         `
       }
     },
+    leadingIcon: {
+      true: {}
+    },
     disabled: {
       true: {
         base: 'cursor-not-allowed opacity-60',
@@ -124,6 +129,19 @@ export const textfield = tv({
       }
     }
   },
+
+  compoundVariants: [
+    {
+      /* M3: an outlined label floats back to the field's start edge, over the leading icon, into
+         the notch. The wrapper starts after the icon (ml-3 + size-6 = 36px), so -20px puts the
+         label at 16px from the field's edge. */
+      variant: 'outlined',
+      leadingIcon: true,
+      class: {
+        label: 'peer-focus:-left-5 peer-not-placeholder-shown:-left-5'
+      }
+    }
+  ],
 
   defaultVariants: {
     variant: 'outlined'

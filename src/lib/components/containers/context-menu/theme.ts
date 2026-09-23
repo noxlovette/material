@@ -12,14 +12,14 @@ export const contextMenu = tv({
     item: `
       rounded-sm relative flex w-full cursor-pointer select-none items-center gap-2
       px-3 py-2 text-left md-sys-typescale-body-large text-md-sys-color-on-surface
-      outline-none transition-colors duration-150
+      outline-none transition-colors md-sys-motion-fast-effects
       hover:bg-md-sys-color-on-surface/8 data-[highlighted]:bg-md-sys-color-on-surface/8
       data-[disabled]:cursor-not-allowed data-[disabled]:opacity-38
     `,
     subTrigger: `
       rounded-sm relative flex w-full cursor-pointer select-none items-center gap-2
       px-3 py-2 text-left md-sys-typescale-body-large text-md-sys-color-on-surface
-      outline-none transition-colors duration-150
+      outline-none transition-colors md-sys-motion-fast-effects
       hover:bg-md-sys-color-on-surface/8 data-[state=open]:bg-md-sys-color-on-surface/8
       data-[highlighted]:bg-md-sys-color-on-surface/8
       data-[disabled]:cursor-not-allowed data-[disabled]:opacity-38

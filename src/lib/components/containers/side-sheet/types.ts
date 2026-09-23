@@ -13,7 +13,13 @@ export interface SideSheetProps {
    */
   children: Snippet;
   /**
-   * Callback function to close the side sheet.
+   * Whether the sheet is shown. Bind it (`bind:open`) so the sheet can play its exit animation
+   * before unmounting.
+   * @default true
    */
-  close: () => void;
+  open?: boolean;
+  /**
+   * Called when the user dismisses the sheet (close button, Esc, backdrop click).
+   */
+  close?: () => void;
 }

@@ -15,10 +15,9 @@ selectable items, no menu).
 @see https://m3.material.io/components/buttons/guidelines#834f5f31-e363-4d0f-bc4d-abac128f5f0e
 -->
 <script lang="ts">
+  import { enterExit, presence } from '$lib/animation/index.js';
   import { DropdownMenu } from 'bits-ui';
   import clsx from 'clsx';
-  import { easeEmphasizedDecel } from '$lib/animation/easing.js';
-  import { enterExit } from '$lib/animation/enterExit.js';
   import Button from '../Button.svelte';
   import ButtonIcon from '../ButtonIcon.svelte';
   import { buttonIcon } from '../theme.js';
@@ -80,23 +79,17 @@ selectable items, no menu).
     </DropdownMenu.Trigger>
 
     <DropdownMenu.Portal>
-      <DropdownMenu.Content forceMount {align} sideOffset={4} class="z-100">
+      <DropdownMenu.Content {align} sideOffset={4} class="z-100">
         {#snippet child({ wrapperProps, props, open: isOpen })}
-          {#if isOpen}
-            <div {...wrapperProps} class={wrapperProps.class as any}>
-              <div
-                {...props}
-                class="bg-md-sys-color-surface-container-high shadow-elevation-3 ring-md-sys-color-outline/10 max-w-sm min-w-48 gap-1 overflow-y-auto rounded-lg px-2 py-1"
-                transition:enterExit={{
-                  duration: 200,
-                  easing: easeEmphasizedDecel,
-                  mode: 'scale'
-                }}
-              >
-                {@render menuChildren()}
-              </div>
+          <div {...wrapperProps} class={wrapperProps.class as any}>
+            <div
+              {...props}
+              class="bg-md-sys-color-surface-container-high shadow-elevation-3 ring-md-sys-color-outline/10 max-w-sm min-w-48 gap-1 overflow-y-auto rounded-lg px-2 py-1"
+              {@attach presence(() => isOpen, enterExit.scale)}
+            >
+              {@render menuChildren()}
             </div>
-          {/if}
+          </div>
         {/snippet}
       </DropdownMenu.Content>
     </DropdownMenu.Portal>
