@@ -4,69 +4,69 @@ Side sheets are supplementary surfaces which are anchored to the edge of the scr
 
 Like BottomSheet, SideSheet owns its own overlay: it renders as a native `<dialog>` pinned to
 the right edge of the screen, dims the rest of the app behind a backdrop, and slides in/out.
-Mounting it calls `showModal()` immediately, so visibility is controlled by conditionally
-rendering the component ({#if open}<SideSheet ...>{/if}).
+Visibility is controlled by `bind:open`; the sheet stays mounted until its exit animation
+finishes. Conditionally rendering it ({#if open}<SideSheet close={…} />{/if}) still works, but
+skips the exit animation.
 
 @see https://m3.material.io/components/side-sheets/guidelines
 -->
 <script lang="ts">
   import type { SideSheetProps } from './types.js';
-  import type { TransitionConfig } from 'svelte/transition';
   import ButtonIcon from '$lib/components/buttons/ButtonIcon.svelte';
-  import { easeEmphasizedAccel, easeEmphasizedDecel } from '$lib/animation/easing.js';
-  import { outroClass } from '$lib/animation/outroClass.js';
+  import { enterExit, Presence } from '$lib/animation/index.js';
 
-  let { headline, children, close }: SideSheetProps = $props();
+  let { headline, children, open = $bindable(true), close }: SideSheetProps = $props();
 
-  const open = (node: HTMLDialogElement) => node.showModal();
+  const sheet = new Presence(() => open);
 
-  const slideAnim = (
-    node: HTMLDialogElement,
-    options: { duration: number; easing: typeof easeEmphasizedDecel }
-  ): TransitionConfig => {
-    const width = node.getBoundingClientRect().width;
-    return {
-      duration: options.duration,
-      easing: options.easing,
-      css: (t) => `transform: translateX(${(1 - t) * width}px)`
-    };
+  const showModal = (node: HTMLDialogElement) => node.showModal();
+
+  const dismiss = () => {
+    open = false;
+    close?.();
   };
 </script>
 
-<dialog
-  class="bg-md-sys-color-surface-container-low text-md-sys-color-on-surface fixed inset-y-0 right-0 left-auto m-0 h-full w-full max-w-sm rounded-l-md"
-  use:open
-  use:outroClass
-  oncancel={(e) => {
-    e.preventDefault();
-    close();
-  }}
-  onmousedown={(e) => {
-    if (e.target != e.currentTarget) return;
-    close();
-  }}
-  in:slideAnim={{ easing: easeEmphasizedDecel, duration: 400 }}
-  out:slideAnim={{ easing: easeEmphasizedAccel, duration: 300 }}
->
-  <div class="flex h-full flex-col">
-    <div class="flex items-center justify-between p-6">
-      <span class="md-sys-typescale-title-large text-md-sys-color-on-surface-variant"
-        >{headline}</span
-      >
-      <ButtonIcon type="button" variant="text" iconProps={{ name: 'close' }} onclick={close} />
+{#if sheet.mounted}
+  <dialog
+    class="bg-md-sys-color-surface-container-low text-md-sys-color-on-surface fixed inset-y-0 right-0 left-auto m-0 h-full w-full max-w-sm rounded-l-md"
+    data-state={open ? 'open' : 'closed'}
+    {@attach showModal}
+    {@attach sheet.attach(enterExit.sideSheet)}
+    oncancel={(e) => {
+      e.preventDefault();
+      dismiss();
+    }}
+    onmousedown={(e) => {
+      if (e.target != e.currentTarget) return;
+      dismiss();
+    }}
+  >
+    <div class="flex h-full flex-col">
+      <div class="flex items-center justify-between p-6">
+        <span class="md-sys-typescale-title-large text-md-sys-color-on-surface-variant"
+          >{headline}</span
+        >
+        <ButtonIcon type="button" variant="text" iconProps={{ name: 'close' }} onclick={dismiss} />
+      </div>
+      {@render children()}
     </div>
-    {@render children()}
-  </div>
-</dialog>
+  </dialog>
+{/if}
 
 <style>
   dialog::backdrop {
     background-color: rgba(0, 0, 0, 0.5);
-    animation: backdrop 400ms;
+    animation: backdrop var(--md-sys-motion-duration-effects-spring)
+      var(--md-sys-motion-timing-function-effects-spring);
   }
-  dialog:global(.leaving)::backdrop {
+  dialog[data-state='closed'] {
+    pointer-events: none;
+  }
+  dialog[data-state='closed']::backdrop {
     background-color: transparent;
-    animation: backdropReverse 400ms;
+    animation: backdropReverse var(--md-sys-motion-duration-fast-effects-spring)
+      var(--md-sys-motion-timing-function-fast-effects-spring);
   }
   @keyframes backdrop {
     from {

@@ -61,12 +61,12 @@ DateField is a text field that allows users to enter a date or pick it from a ca
                       <DatePicker.Segment
                         {part}
                         class="text-md-sys-color-on-surface hover:bg-md-sys-color-on-surface/8 focus:bg-md-sys-color-primary-container focus:text-md-sys-color-on-primary-container focus:outline-md-sys-color-primary
-											   aria-[valuetext=Empty]:text-md-sys-color-on-surface-variant cursor-default
+											   aria-[valuetext=Empty]:text-md-sys-color-on-surface-variant md-sys-motion-fast-effects
+											   cursor-default
 											   rounded-xs
 											   px-1
 											   py-0.5
-											   transition-colors
-											   duration-100 select-none focus:outline-2
+											   transition-colors select-none focus:outline-2
 											   focus-visible:ring-0! focus-visible:ring-offset-0!"
                       >
                         {value}

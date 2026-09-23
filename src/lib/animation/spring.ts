@@ -1,7 +1,7 @@
 import { generateLinearEasing, spring } from 'motion';
 
 /**
- * M3 Expressive spring tokens: `stiffness` plus a `dampingRatio` (1 = no overshoot).
+ * M3 Expressive spring tokens: `stiffness` plus a `dampingRatio`
  *
  * - **spatial** springs move things (position, size, shape) and overshoot slightly.
  * - **effects** springs change things in place (opacity, color) and are critically damped.
@@ -22,9 +22,9 @@ export type SpringToken = { stiffness: number; dampingRatio: number };
 const STEP_MS = 10;
 const MAX_MS = 5000;
 
-const resolveSpring = ({ stiffness, dampingRatio }: SpringToken) => {
+const resolveSpring = (token: SpringToken) => {
   // Motion takes an absolute damping coefficient; M3 specifies a ratio (mass is 1).
-  const damping = dampingRatio * 2 * Math.sqrt(stiffness);
+  const { stiffness, damping } = springTransition(token);
   const generator = spring({ keyframes: [0, 1], stiffness, damping });
 
   let duration = 0;
@@ -34,17 +34,20 @@ const resolveSpring = ({ stiffness, dampingRatio }: SpringToken) => {
 };
 
 /**
- * A spring as a Svelte-transition-friendly `{ duration, easing }` pair. `duration` is the time
- * (ms) the spring takes to settle; `easing` may briefly exceed 1 for underdamped springs.
+ * A spring token as Motion transition options, for `animate()` / `animateView()`. Physics-based
+ * (stiffness/damping, mass 1), so an animation that interrupts another inherits its velocity.
  *
- * ```svelte
- * <div in:enterExit={{ ...springEasing(springTokens.spatial), mode: 'scale' }}>
+ * ```ts
+ * animate(node, { transform: 'scale(1)' }, springTransition(springTokens.fastSpatial));
  * ```
  */
-export const springEasing = (token: SpringToken) => {
-  const { duration, at } = resolveSpring(token);
-  return { duration, easing: at };
-};
+export const springTransition = ({ stiffness, dampingRatio }: SpringToken) =>
+  ({
+    type: 'spring',
+    stiffness,
+    damping: dampingRatio * 2 * Math.sqrt(stiffness),
+    mass: 1
+  }) as const;
 
 /**
  * A spring as CSS `transition` parts: a settle `duration` and a `linear()` `easing`.

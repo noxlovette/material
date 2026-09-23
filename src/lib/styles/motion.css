@@ -282,41 +282,52 @@
     )
     var(--md-sys-motion-duration-slow-effects-spring);
   /* @generated:springs:end */
+}
 
-  /* Standard easing — md.sys.motion.easing.standard, cubic-bezier(0.2, 0, 0, 1) per
-     m3.material.io/styles/motion/easing-and-duration/tokens-specs. Same curve across all
-     three durations; only the duration changes per tier. */
-  --md-sys-motion-timing-function-fast: cubic-bezier(0.2, 0, 0, 1);
-  --md-sys-motion-duration-fast: 150ms;
-  --md-sys-motion-easing-fast: var(--md-sys-motion-timing-function-fast)
-    var(--md-sys-motion-duration-fast);
+/*
+  One utility per Expressive spring, setting duration + timing function together. Pair with a
+  Tailwind transition-property utility: `transition-colors md-sys-motion-fast-effects`.
+  They set Tailwind's own --tw-duration/--tw-ease, so they win over `transition-*` regardless of
+  source order.
 
-  --md-sys-motion-timing-function: cubic-bezier(0.2, 0, 0, 1);
-  --md-sys-motion-duration: 200ms;
-  --md-sys-motion-easing: var(--md-sys-motion-timing-function) var(--md-sys-motion-duration);
-
-  --md-sys-motion-timing-function-slow: cubic-bezier(0.2, 0, 0, 1);
-  --md-sys-motion-duration-slow: 300ms;
-  --md-sys-motion-easing-slow: var(--md-sys-motion-timing-function-slow)
-    var(--md-sys-motion-duration-slow);
-
-  --md-sys-motion-timing-function-emphasized: linear(
-    0,
-    0.034 6%,
-    0.073 9%,
-    0.126 11%,
-    0.194 13%,
-    0.273 15%,
-    0.351 16%,
-    0.541 18%,
-    0.652 20%,
-    0.755 24%,
-    0.839 30%,
-    0.91 39%,
-    0.959 53%,
-    0.989 72%,
-    1
-  );
-  --md-sys-motion-timing-function-emphasized-accel: cubic-bezier(0.3, 0, 0.8, 0.15);
-  --md-sys-motion-timing-function-emphasized-decel: cubic-bezier(0.05, 0.7, 0.1, 1);
+  - spatial: position, size, shape (transform, width, top, border-radius…). Overshoots slightly.
+  - effects: color, opacity, shadow. Critically damped, never overshoots.
+  - fast-*: small parts and direct feedback (handles, indicators, hover/press); default: component
+    containers; slow-*: large or full-screen surfaces.
+*/
+@utility md-sys-motion-fast-spatial {
+  --tw-duration: var(--md-sys-motion-duration-fast-spatial);
+  --tw-ease: var(--md-sys-motion-timing-function-fast-spatial);
+  transition-duration: var(--md-sys-motion-duration-fast-spatial);
+  transition-timing-function: var(--md-sys-motion-timing-function-fast-spatial);
+}
+@utility md-sys-motion-spatial {
+  --tw-duration: var(--md-sys-motion-duration-spatial);
+  --tw-ease: var(--md-sys-motion-timing-function-spatial);
+  transition-duration: var(--md-sys-motion-duration-spatial);
+  transition-timing-function: var(--md-sys-motion-timing-function-spatial);
+}
+@utility md-sys-motion-slow-spatial {
+  --tw-duration: var(--md-sys-motion-duration-slow-spatial);
+  --tw-ease: var(--md-sys-motion-timing-function-slow-spatial);
+  transition-duration: var(--md-sys-motion-duration-slow-spatial);
+  transition-timing-function: var(--md-sys-motion-timing-function-slow-spatial);
+}
+@utility md-sys-motion-fast-effects {
+  --tw-duration: var(--md-sys-motion-duration-fast-effects-spring);
+  --tw-ease: var(--md-sys-motion-timing-function-fast-effects-spring);
+  transition-duration: var(--md-sys-motion-duration-fast-effects-spring);
+  transition-timing-function: var(--md-sys-motion-timing-function-fast-effects-spring);
+}
+@utility md-sys-motion-effects {
+  --tw-duration: var(--md-sys-motion-duration-effects-spring);
+  --tw-ease: var(--md-sys-motion-timing-function-effects-spring);
+  transition-duration: var(--md-sys-motion-duration-effects-spring);
+  transition-timing-function: var(--md-sys-motion-timing-function-effects-spring);
+}
+@utility md-sys-motion-slow-effects {
+  --tw-duration: var(--md-sys-motion-duration-slow-effects-spring);
+  --tw-ease: var(--md-sys-motion-timing-function-slow-effects-spring);
+  transition-duration: var(--md-sys-motion-duration-slow-effects-spring);
+  transition-timing-function: var(--md-sys-motion-timing-function-slow-effects-spring);
 }

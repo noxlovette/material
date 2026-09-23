@@ -31,7 +31,7 @@ export const select = tv({
       mr-3 text-md-sys-color-on-surface-variant size-6
       group-data-[state=open]:text-md-sys-color-primary
       group-data-[invalid]:text-md-sys-color-error z-20 text-[24px]
-      transition-transform duration-200
+      transition-transform md-sys-motion-fast-spatial
       group-data-[state=open]:rotate-180
     `,
     content: `
@@ -48,7 +48,7 @@ export const select = tv({
       data-[selected]:bg-md-sys-color-secondary-container
       data-[selected]:text-md-sys-color-on-secondary-container
       data-[disabled]:cursor-not-allowed data-[disabled]:opacity-38
-      transition-colors duration-150
+      transition-colors md-sys-motion-fast-effects
     `,
     groupLabel: `
       px-3 pt-2 pb-1 md-sys-typescale-label-medium
@@ -71,7 +71,7 @@ export const select = tv({
           bg-md-sys-color-surface-container-highest
           rounded-t-xs state-layer before:rounded-xs hover:before:bg-md-sys-color-on-surface/8
           after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-md-sys-color-on-surface-variant
-          after:transition-[height,background-color] after:duration-200
+          after:transition-[height,background-color] after:md-sys-motion-fast-spatial
           hover:after:bg-md-sys-color-on-surface
           has-[[data-state=open]]:after:bg-md-sys-color-primary
           has-[[data-state=open]]:after:h-[2px]
@@ -82,7 +82,7 @@ export const select = tv({
       outlined: {
         base: `
           rounded-xs border border-md-sys-color-outline
-          transition-colors duration-150
+          transition-colors md-sys-motion-fast-effects
           hover:border-md-sys-color-on-surface
           has-[[data-state=open]]:border-2 has-[[data-state=open]]:border-md-sys-color-primary
         `

@@ -141,7 +141,7 @@ export const pane = tv({
 export const paneHandle = tv({
   slots: {
     base: 'group relative flex shrink-0 w-3 self-stretch cursor-col-resize touch-none items-center justify-center rounded-full bg-transparent hover:bg-md-sys-color-outline/20',
-    grip: 'rounded-full transition-[background-color,height,width] duration-150'
+    grip: 'rounded-full transition-[background-color,height,width] md-sys-motion-fast-spatial'
   },
   variants: {
     dragging: {

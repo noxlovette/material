@@ -13,7 +13,7 @@ Plain tooltips are used for simple labels, while rich tooltips can contain forma
   import { tooltip } from './theme.js';
   import type { TooltipProps } from './types.js';
   import { Tooltip } from 'bits-ui';
-  import { enterExit, easeEmphasizedDecel, easeEmphasizedAccel } from '$lib/animation/index.js';
+  import { enterExit, presence } from '$lib/animation/index.js';
 
   let {
     subhead,
@@ -66,43 +66,32 @@ Plain tooltips are used for simple labels, while rich tooltips can contain forma
     {/if}
 
     {#if hasTooltipContent}
-      <Tooltip.Content {...contentProps} forceMount>
+      <Tooltip.Content {...contentProps}>
         {#snippet child({ wrapperProps, props, open })}
-          {#if open}
-            <div {...wrapperProps} class={wrapperProps.class as any}>
-              <div
-                {...props}
-                class={clsx(baseCls, props.class as any)}
-                in:enterExit={{
-                  duration: variant === 'rich' ? 200 : 150,
-                  easing: easeEmphasizedDecel,
-                  mode: 'scale'
-                }}
-                out:enterExit={{
-                  duration: variant === 'rich' ? 150 : 75,
-                  easing: easeEmphasizedAccel,
-                  mode: 'scale'
-                }}
-              >
-                {#if variant === 'rich'}
-                  <Layer />
-                  {#if subhead}
-                    <Title size="small" class={subheadCls()}>
-                      {subhead}
-                    </Title>
-                  {/if}
-                  <Body class={supportingTextCls()}>
-                    {supportingText}
-                  </Body>
-                  {@render children?.()}
-                {:else if supportingText}
-                  <Body class={supportingTextCls()}>
-                    {supportingText}
-                  </Body>
+          <div {...wrapperProps} class={wrapperProps.class as any}>
+            <div
+              {...props}
+              class={clsx(baseCls, props.class as any)}
+              {@attach presence(() => open, enterExit.scale)}
+            >
+              {#if variant === 'rich'}
+                <Layer />
+                {#if subhead}
+                  <Title size="small" class={subheadCls()}>
+                    {subhead}
+                  </Title>
                 {/if}
-              </div>
+                <Body class={supportingTextCls()}>
+                  {supportingText}
+                </Body>
+                {@render children?.()}
+              {:else if supportingText}
+                <Body class={supportingTextCls()}>
+                  {supportingText}
+                </Body>
+              {/if}
             </div>
-          {/if}
+          </div>
         {/snippet}
       </Tooltip.Content>
     {/if}

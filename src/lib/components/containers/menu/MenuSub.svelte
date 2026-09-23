@@ -25,13 +25,12 @@ trigger row (`iconProps`/`helper`/`children` label) behaves like a
 @see https://m3.material.io/components/menus/guidelines
 -->
 <script lang="ts">
+  import { enterExit, presence } from '$lib/animation/index.js';
   import { DropdownMenu } from 'bits-ui';
   import clsx from 'clsx';
   import Icon from '$lib/utils/icon/Icon.svelte';
   import Layer from '$lib/utils/Layer.svelte';
   import { menu as menuCls } from './theme.js';
-  import { enterExit } from '$lib/animation/enterExit.js';
-  import { easeEmphasizedDecel } from '$lib/animation/easing.js';
   import type { MenuSubProps } from './types.js';
 
   let {
@@ -68,23 +67,17 @@ trigger row (`iconProps`/`helper`/`children` label) behaves like a
   </DropdownMenu.SubTrigger>
 
   <DropdownMenu.Portal>
-    <DropdownMenu.SubContent forceMount sideOffset={4} class="z-100">
+    <DropdownMenu.SubContent sideOffset={4} class="z-100">
       {#snippet child({ wrapperProps, props, open: isOpen })}
-        {#if isOpen}
-          <div {...wrapperProps} class={wrapperProps.class as any}>
-            <div
-              {...props}
-              class={clsx(cls.content(), props.class as any, submenuClass)}
-              transition:enterExit={{
-                duration: 200,
-                easing: easeEmphasizedDecel,
-                mode: 'scale'
-              }}
-            >
-              {@render submenu()}
-            </div>
+        <div {...wrapperProps} class={wrapperProps.class as any}>
+          <div
+            {...props}
+            class={clsx(cls.content(), props.class as any, submenuClass)}
+            {@attach presence(() => isOpen, enterExit.scale)}
+          >
+            {@render submenu()}
           </div>
-        {/if}
+        </div>
       {/snippet}
     </DropdownMenu.SubContent>
   </DropdownMenu.Portal>

@@ -9,8 +9,7 @@ Should be used with `FABMenuItem` as children.
   import { DropdownMenu } from 'bits-ui';
   import { fabMenu } from './theme.js';
   import type { FABMenuProps } from './types.js';
-  import { enterExit } from '$lib/animation/enterExit.js';
-  import { easeEmphasizedAccel, easeEmphasizedDecel } from '$lib/animation/easing.js';
+  import { enterExit, presence } from '$lib/animation/index.js';
 
   let { children, class: className, ...restProps }: FABMenuProps = $props();
 
@@ -18,24 +17,21 @@ Should be used with `FABMenuItem` as children.
 </script>
 
 <DropdownMenu.Portal>
-  <DropdownMenu.Content forceMount side="top" align="end" sideOffset={8} collisionPadding={8}>
+  <DropdownMenu.Content side="top" align="end" sideOffset={8} collisionPadding={8}>
     {#snippet child({ wrapperProps, props, open })}
-      {#if open}
-        <div {...wrapperProps}>
-          <div
-            data-cy="m3-fab-menu"
-            {...restProps}
-            {...props}
-            class={base({
-              class: clsx(className, 'origin-(--bits-floating-transform-origin) overflow-y-auto')
-            })}
-            in:enterExit={{ duration: 300, easing: easeEmphasizedDecel, mode: 'scale' }}
-            out:enterExit={{ duration: 200, easing: easeEmphasizedAccel, mode: 'scale' }}
-          >
-            {@render children()}
-          </div>
+      <div {...wrapperProps}>
+        <div
+          data-cy="m3-fab-menu"
+          {...restProps}
+          {...props}
+          class={base({
+            class: clsx(className, 'overflow-y-auto')
+          })}
+          {@attach presence(() => open, enterExit.scale)}
+        >
+          {@render children()}
         </div>
-      {/if}
+      </div>
     {/snippet}
   </DropdownMenu.Content>
 </DropdownMenu.Portal>

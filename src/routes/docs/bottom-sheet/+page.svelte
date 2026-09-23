@@ -15,11 +15,18 @@
       desc: 'The content rendered inside the sheet, below the drag handle — typically a list of actions or supplementary information.'
     },
     {
+      prop: 'open',
+      type: 'boolean',
+      default: 'true',
+      required: false,
+      desc: 'Whether the sheet is shown. Use bind:open so the sheet can set it to false on dismiss and play its exit animation before unmounting.'
+    },
+    {
       prop: 'close',
       type: "(reason: 'esc' | 'click' | 'low') => void",
       default: '—',
-      required: true,
-      desc: "Called when the sheet should close: 'esc' (Escape key), 'click' (clicking the backdrop), or 'low' (dragged/scrolled below a minimum height). The consumer is responsible for actually unmounting the component in response."
+      required: false,
+      desc: "Called after the sheet dismisses itself: 'esc' (Escape key), 'click' (clicking the backdrop), or 'low' (dragged/scrolled below a minimum height)."
     }
   ];
 
@@ -83,14 +90,13 @@
     <section id="overview" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Overview</Title>
       <Body>
-        Unlike <code class="doc-code">Dialogue</code>, <code class="doc-code">BottomSheet</code>
-        has no <code class="doc-code">open</code> prop of its own. It renders a native
-        <code class="doc-code">&lt;dialog&gt;</code> element and calls its
-        <code class="doc-code">showModal()</code> as soon as it mounts — so visibility is controlled
-        by whether the component is mounted at all, not by a boolean prop. Wrap it in an
-        <code class="doc-code">{'{#if open}'}</code> block and flip
-        <code class="doc-code">open</code>
-        to false from the <code class="doc-code">close</code> callback.
+        <code class="doc-code">BottomSheet</code> renders a native
+        <code class="doc-code">&lt;dialog&gt;</code> opened with
+        <code class="doc-code">showModal()</code>. Control it with
+        <code class="doc-code">bind:open</code>: the sheet slides up on a spatial spring, and on
+        dismiss (Esc, backdrop click, or dragged below the handle) it sets
+        <code class="doc-code">open</code> to false and stays mounted until its exit finishes. The
+        optional <code class="doc-code">close</code> callback reports why it closed.
       </Body>
       <Body>
         The sheet's height is draggable via the handle at the top (mouse or touch) and resizable
@@ -138,12 +144,10 @@
 
 <button onclick={() => (open = true)}>Open actions</button>
 
-{#if open}
-  <BottomSheet close={() => (open = false)}>
-    <MenuItem iconProps={{ name: 'share' }}>Share</MenuItem>
-    <MenuItem iconProps={{ name: 'link' }}>Copy link</MenuItem>
-  </BottomSheet>
-{/if}`}
+<BottomSheet bind:open>
+  <MenuItem iconProps={{ name: 'share' }}>Share</MenuItem>
+  <MenuItem iconProps={{ name: 'link' }}>Copy link</MenuItem>
+</BottomSheet>`}
       />
     </section>
 

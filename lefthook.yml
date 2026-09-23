@@ -1,5 +1,15 @@
 pre-commit:
-  commands:
-    format:
+  # `jobs` run in order: regenerate the spring tokens first, so `format` sees the final CSS.
+  jobs:
+    - name: motion-springs
+      # CSS spring tokens in motion.css are generated from springTokens in spring.ts — never let
+      # them drift. Also re-runs when motion.css itself is staged, undoing hand edits to the block.
+      glob:
+        - 'src/lib/animation/spring.ts'
+        - 'scripts/generate-motion-springs.ts'
+        - 'src/lib/styles/motion.css'
+      run: bun run generate:springs && git add src/lib/styles/motion.css
+
+    - name: format
       glob: '*.{js,ts,svelte,css,json,md}'
       run: bun prettier --write {staged_files} && git add {staged_files}

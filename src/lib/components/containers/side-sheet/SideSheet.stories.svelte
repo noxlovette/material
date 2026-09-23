@@ -1,9 +1,6 @@
 <!--
-  SideSheet has no `open` prop of its own — mounting it calls the native <dialog>'s showModal()
-  immediately, so visibility is controlled by conditionally rendering the component
-  ({#if open}<SideSheet ...>{/if}), same as BottomSheet. `close` is a required callback the
-  sheet invokes on Esc or backdrop click — the consumer is expected to flip its own `open` flag
-  to false in response.
+  SideSheet is controlled with `bind:open`: it dismisses itself (close button, Esc, backdrop
+  click) by setting `open` to false, and stays mounted until its exit animation finishes.
 -->
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
@@ -31,16 +28,14 @@
   {#snippet template(args)}
     <div class="p-6">
       <Button onclick={() => (playgroundOpen = true)}>Show side sheet</Button>
-      {#if playgroundOpen}
-        <SideSheet headline={args.headline} close={() => (playgroundOpen = false)}>
-          <div class="flex flex-col gap-3 px-6 pb-6">
-            <Body class="text-md-sys-color-on-surface-variant">
-              Supplementary content and actions, anchored to the edge of the screen while the main
-              content stays visible.
-            </Body>
-          </div>
-        </SideSheet>
-      {/if}
+      <SideSheet headline={args.headline} bind:open={playgroundOpen}>
+        <div class="flex flex-col gap-3 px-6 pb-6">
+          <Body class="text-md-sys-color-on-surface-variant">
+            Supplementary content and actions, anchored to the edge of the screen while the main
+            content stays visible.
+          </Body>
+        </div>
+      </SideSheet>
     </div>
   {/snippet}
 </Story>

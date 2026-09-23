@@ -211,6 +211,11 @@ Instead of their Separator, use our Divider.svelte, which already implements Sep
 Use Material Design transitions and animations
 Implementations live in `src/lib/animation/` — use existing transition functions before writing new ones
 
+- **M3 Expressive springs only** (`springTokens` in `spring.ts`). No hand-picked `ms` durations or `ease-*` curves anywhere — JS or CSS.
+- **No Svelte transitions** (`in:`/`out:`/`transition:`/`animate:`). Mount/unmount → `presence`/`Presence` attachments on Motion's `animate()`; navigation → `containerTransform`/`sharedAxis`/`lateral`/`fadeThrough` on Motion's `animateView()`. Hover/press/selected state stays as CSS transitions using the `md-sys-motion-*` spring utilities from `motion.css`.
+- **bits-ui content**: drop `forceMount` and the `{#if open}` wrapper, attach `presence(() => open, enterExit.x)` to the element receiving `props` — bits-ui's presence layer waits for its WAAPI exit animation before unmounting.
+- Full rules: `.claude/skills/material-design/references/motion-guide.md`. Live demos: Storybook → Motion/Transition patterns.
+
 ---
 
 Cypress skills have been installed with GitHub CLI

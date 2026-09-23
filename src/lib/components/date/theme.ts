@@ -34,7 +34,7 @@ export const dateRangeField = tv({
 			md-sys-typescale-body-small
 			text-md-sys-color-on-surface-variant
 			pointer-events-none
-			transition-[top,font-size,line-height,color,transform] duration-200 ease-in-out
+			transition-[top,font-size,line-height,color,transform] md-sys-motion-fast-spatial
 			group-focus-within:text-md-sys-color-primary
 			z-20
 		`,
@@ -42,7 +42,7 @@ export const dateRangeField = tv({
 			ml-0.5
 			text-md-sys-color-error
 			group-focus-within:text-md-sys-color-primary
-			transition-colors duration-200
+			transition-colors md-sys-motion-effects
 		`,
     supportingText: `
 			px-4 pt-1 flex justify-between
@@ -58,7 +58,7 @@ export const dateRangeField = tv({
           after:absolute after:bottom-0 after:left-0 after:right-0
           state-layer before:rounded-xs hover:before:bg-md-sys-color-on-surface/8
           after:h-px after:bg-md-sys-color-on-surface-variant
-          after:transition-[height,background-color] after:duration-200
+          after:transition-[height,background-color] after:md-sys-motion-fast-spatial
           hover:after:bg-md-sys-color-on-surface
           focus-within:after:bg-md-sys-color-primary focus-within:after:h-[2px]
           disabled:bg-md-sys-color-on-surface/4
@@ -68,7 +68,7 @@ export const dateRangeField = tv({
       outlined: {
         base: `
           rounded-xs border border-md-sys-color-outline
-          transition-colors duration-150
+          transition-colors md-sys-motion-fast-effects
           hover:border-md-sys-color-on-surface
           focus-within:border-2 focus-within:border-md-sys-color-primary
         `
@@ -145,7 +145,7 @@ export const dateField = tv({
 			md-sys-typescale-body-small
 			text-md-sys-color-on-surface-variant
 			pointer-events-none
-			transition-[top,font-size,line-height,color,transform] duration-200 ease-in-out
+			transition-[top,font-size,line-height,color,transform] md-sys-motion-fast-spatial
 			group-focus-within:text-md-sys-color-primary
 			z-20
 		`,
@@ -153,7 +153,7 @@ export const dateField = tv({
 			ml-0.5
 			text-md-sys-color-error
 			group-focus-within:text-md-sys-color-primary
-			transition-colors duration-200
+			transition-colors md-sys-motion-effects
 		`,
     supportingText: `
 			px-4 pt-1 flex justify-between
@@ -163,7 +163,7 @@ export const dateField = tv({
     fieldset: `
       absolute -top-[5px] left-0 right-0 bottom-0 m-0 px-2
       pointer-events-none rounded-xs border border-md-sys-color-outline
-      transition-colors duration-150
+      transition-colors md-sys-motion-fast-effects
 
       group-hover:border-md-sys-color-on-surface
       group-focus-within:border-2 group-focus-within:border-md-sys-color-primary
@@ -184,7 +184,7 @@ export const dateField = tv({
           after:absolute after:bottom-0 after:left-0 after:right-0
           state-layer before:rounded-xs hover:before:bg-md-sys-color-on-surface/8
           after:h-px after:bg-md-sys-color-on-surface-variant
-          after:transition-[height,background-color] after:duration-200
+          after:transition-[height,background-color] after:md-sys-motion-fast-spatial
           hover:after:bg-md-sys-color-on-surface
           focus-within:after:bg-md-sys-color-primary focus-within:after:h-[2px]
           disabled:bg-md-sys-color-on-surface/4

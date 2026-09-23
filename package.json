@@ -23,7 +23,8 @@
     "url": "https://github.com/noxlovette/material/issues"
   },
   "scripts": {
-    "build": "svelte-package",
+    "build": "bun run generate:springs && svelte-package",
+    "generate:springs": "bun scripts/generate-motion-springs.ts && prettier --write src/lib/styles/motion.css",
     "build:site": "vite build",
     "watch": "svelte-package --watch",
     "prepublishOnly": "bun run build",

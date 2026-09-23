@@ -30,13 +30,12 @@ you need it (e.g. a table row):
 @see https://m3.material.io/components/menus/guidelines
 -->
 <script lang="ts">
+  import { enterExit, presence } from '$lib/animation/index.js';
   import { ContextMenu as BitsContextMenu } from 'bits-ui';
   import { contextMenu } from './theme.js';
   import type { ContextMenuProps, ContextMenuDataItem } from './types.js';
   import Icon from '$lib/utils/icon/Icon.svelte';
   import Divider from '../divider/Divider.svelte';
-  import { enterExit } from '$lib/animation/enterExit.js';
-  import { easeEmphasizedDecel } from '$lib/animation/easing.js';
 
   let {
     items = [],
@@ -75,25 +74,19 @@ you need it (e.g. a table row):
         <Icon name="chevron_right" class={theme.rightSlot()} />
       </BitsContextMenu.SubTrigger>
       <BitsContextMenu.Portal>
-        <BitsContextMenu.SubContent forceMount class={theme.content()}>
+        <BitsContextMenu.SubContent class={theme.content()}>
           {#snippet child({ wrapperProps, props, open })}
-            {#if open}
-              <div {...wrapperProps} class={wrapperProps.class as any}>
-                <div
-                  {...props}
-                  class={props.class as any}
-                  transition:enterExit={{
-                    duration: 200,
-                    easing: easeEmphasizedDecel,
-                    mode: 'scale'
-                  }}
-                >
-                  {#each item.items as subItem (subItem)}
-                    {@render MenuItem(subItem)}
-                  {/each}
-                </div>
+            <div {...wrapperProps} class={wrapperProps.class as any}>
+              <div
+                {...props}
+                class={props.class as any}
+                {@attach presence(() => open, enterExit.scale)}
+              >
+                {#each item.items as subItem (subItem)}
+                  {@render MenuItem(subItem)}
+                {/each}
               </div>
-            {/if}
+            </div>
           {/snippet}
         </BitsContextMenu.SubContent>
       </BitsContextMenu.Portal>
@@ -142,25 +135,19 @@ you need it (e.g. a table row):
   </BitsContextMenu.Trigger>
 
   <BitsContextMenu.Portal>
-    <BitsContextMenu.Content forceMount class={theme.content()}>
+    <BitsContextMenu.Content class={theme.content()}>
       {#snippet child({ wrapperProps, props, open })}
-        {#if open}
-          <div {...wrapperProps} class={wrapperProps.class as any}>
-            <div
-              {...props}
-              class={props.class as any}
-              transition:enterExit={{
-                duration: 200,
-                easing: easeEmphasizedDecel,
-                mode: 'scale'
-              }}
-            >
-              {#each items as item (item)}
-                {@render MenuItem(item)}
-              {/each}
-            </div>
+        <div {...wrapperProps} class={wrapperProps.class as any}>
+          <div
+            {...props}
+            class={props.class as any}
+            {@attach presence(() => open, enterExit.scale)}
+          >
+            {#each items as item (item)}
+              {@render MenuItem(item)}
+            {/each}
           </div>
-        {/if}
+        </div>
       {/snippet}
     </BitsContextMenu.Content>
   </BitsContextMenu.Portal>

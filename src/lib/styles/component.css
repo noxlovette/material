@@ -12,17 +12,20 @@
      * `fixed`/`absolute`/`sticky` override. Baking it into this custom class's own compiled
      * CSS rule would set `position` outside of anything twMerge can see or override. */
     @apply state-layer md-sys-state-focus-indicator disabled:bg-md-sys-color-on-surface/10 disabled:text-md-sys-color-on-surface/38 disabled:before:bg-md-sys-color-on-surface/38 inline-flex items-center justify-center select-none disabled:cursor-not-allowed;
-    transition: box-shadow var(--md-sys-motion-duration, 200ms)
-      var(--md-sys-motion-timing-function, cubic-bezier(0.2, 0, 0, 1));
+    transition: box-shadow var(--md-sys-motion-duration-effects-spring)
+      var(--md-sys-motion-timing-function-effects-spring);
   }
 
+  /* Shape morphs run on the fast spatial spring in both directions (press and release). */
   .md-btn-morph {
     border-radius: var(--btn-shape-override, var(--btn-shape, 9999px));
-    transition: border-radius 200ms var(--md-sys-motion-timing-function-emphasized-accel);
+    transition: border-radius var(--md-sys-motion-duration-fast-spatial)
+      var(--md-sys-motion-timing-function-fast-spatial);
 
     &::before {
       border-radius: inherit;
-      transition: border-radius 200ms var(--md-sys-motion-timing-function-emphasized-accel);
+      transition: border-radius var(--md-sys-motion-duration-fast-spatial)
+        var(--md-sys-motion-timing-function-fast-spatial);
     }
 
     &:active:not(:disabled) {
@@ -30,7 +33,6 @@
         --btn-pressed-shape,
         var(--btn-shape-override, var(--btn-shape, 9999px))
       ) !important;
-      transition-timing-function: var(--md-sys-motion-timing-function-emphasized-decel);
     }
   }
 
@@ -85,9 +87,10 @@
     > * {
       padding-inline: var(--btn-group-base-px, 1rem);
       transition:
-        padding-inline var(--md-sys-motion-duration-fast-spatial, 350ms)
-          var(--md-sys-motion-timing-function-fast-spatial, cubic-bezier(0.42, 1.67, 0.21, 0.9)),
-        border-radius 200ms var(--md-sys-motion-timing-function-emphasized-accel);
+        padding-inline var(--md-sys-motion-duration-fast-spatial)
+          var(--md-sys-motion-timing-function-fast-spatial),
+        border-radius var(--md-sys-motion-duration-fast-spatial)
+          var(--md-sys-motion-timing-function-fast-spatial);
     }
 
     > *:active:not(:disabled) {
@@ -114,11 +117,12 @@
   .md-btn-connected {
     border-radius: var(--cbg-inner, 9999px);
     transition:
-      border-radius 250ms var(--md-sys-motion-timing-function-emphasized-accel),
-      background-color var(--md-sys-motion-duration-fast, 150ms)
-        var(--md-sys-motion-timing-function, cubic-bezier(0.2, 0, 0, 1)),
-      color var(--md-sys-motion-duration-fast, 150ms)
-        var(--md-sys-motion-timing-function, cubic-bezier(0.2, 0, 0, 1));
+      border-radius var(--md-sys-motion-duration-fast-spatial)
+        var(--md-sys-motion-timing-function-fast-spatial),
+      background-color var(--md-sys-motion-duration-fast-effects-spring)
+        var(--md-sys-motion-timing-function-fast-effects-spring),
+      color var(--md-sys-motion-duration-fast-effects-spring)
+        var(--md-sys-motion-timing-function-fast-effects-spring);
 
     &:only-child {
       border-radius: var(--cbg-outer, 9999px);
@@ -144,11 +148,6 @@
     &:active:not(:disabled),
     &[data-state='on'] {
       border-radius: var(--cbg-inner, 4px) !important;
-      transition-timing-function: var(--md-sys-motion-timing-function-emphasized-decel);
-    }
-
-    &:active:not(:disabled) {
-      transition-duration: 150ms;
     }
   }
 
@@ -245,8 +244,8 @@
 
   .text-link {
     @apply text-md-sys-color-primary hover:text-md-sys-color-secondary underline;
-    transition: color var(--md-sys-motion-duration, 200ms)
-      var(--md-sys-motion-timing-function, cubic-bezier(0.2, 0, 0, 1));
+    transition: color var(--md-sys-motion-duration-effects-spring)
+      var(--md-sys-motion-timing-function-effects-spring);
   }
 
   .text-link.md-sys-typescale-label-small {
@@ -270,7 +269,7 @@
 @utility state-layer {
   @apply before:pointer-events-none before:absolute before:inset-0 before:content-[''];
   &::before {
-    transition: background-color var(--md-sys-motion-duration-fast, 150ms)
-      var(--md-sys-motion-timing-function, cubic-bezier(0.2, 0, 0, 1));
+    transition: background-color var(--md-sys-motion-duration-fast-effects-spring)
+      var(--md-sys-motion-timing-function-fast-effects-spring);
   }
 }

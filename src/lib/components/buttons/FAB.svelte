@@ -41,7 +41,7 @@ Floating action buttons (FABs) help people take primary actions.
     base({
       class: clsx(
         className,
-        'transition-[border-radius] duration-300',
+        'transition-[border-radius] md-sys-motion-fast-spatial',
         withMenu && showMenu && '!rounded-full'
       )
     })

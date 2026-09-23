@@ -54,7 +54,7 @@ export const toolbar = tv({
 
 export const toolbarButton = tv({
   slots: {
-    base: 'layer-container state-layer before:rounded-full relative inline-flex size-10 items-center justify-center rounded-full outline-none transition-colors disabled:cursor-not-allowed disabled:opacity-38',
+    base: 'layer-container state-layer before:rounded-full relative inline-flex size-10 items-center justify-center rounded-full outline-none transition-colors md-sys-motion-fast-effects disabled:cursor-not-allowed disabled:opacity-38',
     icon: 'size-5 text-[20px]'
   },
   variants: {
@@ -68,7 +68,7 @@ export const toolbarButton = tv({
 
 export const toolbarGroupItem = tv({
   slots: {
-    base: 'layer-container state-layer before:rounded-full relative inline-flex size-10 items-center justify-center rounded-full outline-none transition-colors disabled:cursor-not-allowed disabled:opacity-38',
+    base: 'layer-container state-layer before:rounded-full relative inline-flex size-10 items-center justify-center rounded-full outline-none transition-colors md-sys-motion-fast-effects disabled:cursor-not-allowed disabled:opacity-38',
     icon: 'size-5 text-[20px]'
   },
   variants: {

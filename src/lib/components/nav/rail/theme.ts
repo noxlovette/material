@@ -5,10 +5,9 @@ export type RailItemVariants = VariantProps<typeof railElement>;
 
 export const rail = tv({
   slots: {
-    base: 'py-12 hidden bg-md-sys-color-surface-container z-40 flex-col md:flex gap-6 transition-[width,padding,background-color] duration-[var(--md-sys-motion-duration-spatial)] ease-[var(--md-sys-motion-timing-function-emphasized)]',
+    base: 'py-12 hidden bg-md-sys-color-surface-container z-40 flex-col md:flex gap-6 transition-[width,padding,background-color] md-sys-motion-spatial',
     items: 'flex flex-col gap-3 pt-6 scrollbar-none w-full overflow-x-hidden',
-    ghost:
-      'hidden md:block shrink-0 transition-[width] duration-[var(--md-sys-motion-duration-spatial)] ease-[var(--md-sys-motion-timing-function-emphasized)]',
+    ghost: 'hidden md:block shrink-0 transition-[width] md-sys-motion-spatial',
     scrim: 'hidden md:block lg:hidden inset-0'
   },
   variants: {
@@ -47,14 +46,13 @@ export const rail = tv({
 
 export const railElement = tv({
   slots: {
-    base: 'group relative z-30 flex w-full transition-all duration-[var(--md-sys-motion-duration-spatial)] ease-[var(--md-sys-motion-timing-function-emphasized)]',
+    base: 'group relative z-30 flex w-full transition-all md-sys-motion-spatial',
     content:
-      'flex items-center min-w-0 rounded-full gap-0.5 py-1.5 transition-all duration-[var(--md-sys-motion-duration-spatial)] ease-[var(--md-sys-motion-timing-function-emphasized)]',
+      'flex items-center min-w-0 rounded-full gap-0.5 py-1.5 transition-all md-sys-motion-spatial',
     iconContainer:
-      'relative rounded-full items-center justify-center inline-flex transition-all duration-[var(--md-sys-motion-duration-spatial)] ease-[var(--md-sys-motion-timing-function-emphasized)]',
-    icon: 'text-[24px] transition-all duration-[var(--md-sys-motion-duration-spatial)] ease-[var(--md-sys-motion-timing-function-emphasized)]',
-    label:
-      'transition-all duration-[var(--md-sys-motion-duration-spatial)] ease-[var(--md-sys-motion-timing-function-emphasized)] whitespace-nowrap'
+      'relative rounded-full items-center justify-center inline-flex transition-all md-sys-motion-spatial',
+    icon: 'text-[24px] transition-all md-sys-motion-spatial',
+    label: 'transition-all md-sys-motion-spatial whitespace-nowrap'
   },
   variants: {
     active: {

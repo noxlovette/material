@@ -89,7 +89,8 @@ On mobile (< md) it automatically renders as a bottom navigation bar.
     pointer-events: none;
     background-color: transparent;
     z-index: -1;
-    transition: opacity 200ms ease;
+    transition: opacity var(--md-sys-motion-duration-effects-spring)
+      var(--md-sys-motion-timing-function-effects-spring);
   }
 
   .rail-scrim[data-expanded='true'] {

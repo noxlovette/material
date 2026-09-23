@@ -1,9 +1,7 @@
 <!--
-  BottomSheet has no `open` prop of its own — mounting it calls the native <dialog>'s
-  showModal() immediately, so visibility is controlled by conditionally rendering the component
-  ({#if open}<BottomSheet ...>{/if}). `close` is a required callback the sheet invokes on Esc,
-  backdrop click, or dragging the handle down below a minimum height ('esc' | 'click' | 'low') —
-  the consumer is expected to flip its own `open` flag to false in response.
+  BottomSheet is controlled with `bind:open`: it dismisses itself on Esc, backdrop click, or
+  dragging the handle below a minimum height, and stays mounted until its exit animation
+  finishes. The optional `close` callback reports why ('esc' | 'click' | 'low').
 -->
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
@@ -24,12 +22,10 @@
 <Story name="Playground" asChild>
   <div class="p-6">
     <Button onclick={() => (playgroundOpen = true)}>Open bottom sheet</Button>
-    {#if playgroundOpen}
-      <BottomSheet close={() => (playgroundOpen = false)}>
-        <MenuItem iconProps={{ name: 'share' }}>Share</MenuItem>
-        <MenuItem iconProps={{ name: 'link' }}>Copy link</MenuItem>
-        <MenuItem iconProps={{ name: 'download' }}>Download</MenuItem>
-      </BottomSheet>
-    {/if}
+    <BottomSheet bind:open={playgroundOpen}>
+      <MenuItem iconProps={{ name: 'share' }}>Share</MenuItem>
+      <MenuItem iconProps={{ name: 'link' }}>Copy link</MenuItem>
+      <MenuItem iconProps={{ name: 'download' }}>Download</MenuItem>
+    </BottomSheet>
   </div>
 </Story>

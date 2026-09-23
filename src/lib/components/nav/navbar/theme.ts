@@ -11,10 +11,10 @@ export const navbar = tv({
 
 export const navitem = tv({
   slots: {
-    base: 'group relative flex flex-1 flex-col items-center justify-center min-w-0 max-w-[168px] h-full transition-colors',
+    base: 'group relative flex flex-1 flex-col items-center justify-center min-w-0 max-w-[168px] h-full transition-colors md-sys-motion-fast-effects',
     content: 'flex flex-col items-center justify-center gap-1 w-full',
     iconContainer:
-      'relative flex items-center justify-center h-8 w-16 rounded-full transition-colors duration-200 ease-in-out',
+      'relative flex items-center justify-center h-8 w-16 rounded-full transition-colors md-sys-motion-effects',
     icon: 'text-[24px] size-6',
     label: 'md-sys-typescale-label-medium truncate w-full text-center'
   },

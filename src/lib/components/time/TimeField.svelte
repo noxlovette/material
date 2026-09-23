@@ -6,12 +6,11 @@ It combines a Material 3 Textfield with a TimepickerInput for intuitive time sel
 @see https://m3.material.io/components/time-pickers/overview
 -->
 <script lang="ts">
+  import { enterExit, presence } from '$lib/animation/index.js';
   import type { HTMLInputAttributes } from 'svelte/elements';
   import Textfield from '$lib/components/forms/textfield/Textfield.svelte';
   import TimepickerInput from './TimepickerInput.svelte';
   import { Popover } from 'bits-ui';
-  import { enterExit } from '$lib/animation/enterExit.js';
-  import { easeEmphasizedDecel, easeEmphasizedAccel } from '$lib/animation/easing.js';
 
   let {
     label = 'Время',
@@ -83,7 +82,6 @@ It combines a Material 3 Textfield with a TimepickerInput for intuitive time sel
 
   <Popover.Portal>
     <Popover.Content
-      forceMount
       customAnchor={anchorEl}
       side="bottom"
       align="start"
@@ -92,25 +90,22 @@ It combines a Material 3 Textfield with a TimepickerInput for intuitive time sel
       class="z-100"
     >
       {#snippet child({ wrapperProps, props, open })}
-        {#if open}
-          <div {...wrapperProps}>
-            <div
-              {...props}
-              class={[
-                props.class,
-                'max-h-(--bits-floating-available-height) min-w-(--bits-floating-anchor-width) origin-(--bits-floating-transform-origin) overflow-auto'
-              ]}
-              in:enterExit={{ duration: 200, easing: easeEmphasizedDecel, mode: 'scale' }}
-              out:enterExit={{ duration: 150, easing: easeEmphasizedAccel, mode: 'scale' }}
-            >
-              <TimepickerInput
-                time={value}
-                close={() => (picker = false)}
-                setTime={(t) => (value = t)}
-              />
-            </div>
+        <div {...wrapperProps}>
+          <div
+            {...props}
+            class={[
+              props.class,
+              'max-h-(--bits-floating-available-height) min-w-(--bits-floating-anchor-width) overflow-auto'
+            ]}
+            {@attach presence(() => open, enterExit.scale)}
+          >
+            <TimepickerInput
+              time={value}
+              close={() => (picker = false)}
+              setTime={(t) => (value = t)}
+            />
           </div>
-        {/if}
+        </div>
       {/snippet}
     </Popover.Content>
   </Popover.Portal>

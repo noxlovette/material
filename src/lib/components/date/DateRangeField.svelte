@@ -65,11 +65,11 @@ segment inputs and a shared calendar popover.
                     <DateRangePicker.Segment
                       {part}
                       class="text-md-sys-color-on-surface hover:bg-md-sys-color-on-surface/8 focus:bg-md-sys-color-primary-container focus:text-md-sys-color-on-primary-container focus:outline-md-sys-color-primary
-										   aria-[valuetext=Empty]:text-md-sys-color-on-surface-variant cursor-default rounded-xs
+										   aria-[valuetext=Empty]:text-md-sys-color-on-surface-variant md-sys-motion-fast-effects cursor-default
+										   rounded-xs
 										   px-1
 										   py-0.5
-										   transition-colors
-										   duration-100 select-none focus:outline-2
+										   transition-colors select-none focus:outline-2
 										   focus-visible:ring-0! focus-visible:ring-offset-0!"
                     >
                       {segVal}
@@ -108,11 +108,11 @@ segment inputs and a shared calendar popover.
                     <DateRangePicker.Segment
                       {part}
                       class="text-md-sys-color-on-surface hover:bg-md-sys-color-on-surface/8 focus:bg-md-sys-color-primary-container focus:text-md-sys-color-on-primary-container focus:outline-md-sys-color-primary
-										   aria-[valuetext=Empty]:text-md-sys-color-on-surface-variant cursor-default rounded-xs
+										   aria-[valuetext=Empty]:text-md-sys-color-on-surface-variant md-sys-motion-fast-effects cursor-default
+										   rounded-xs
 										   px-1
 										   py-0.5
-										   transition-colors
-										   duration-100 select-none focus:outline-2
+										   transition-colors select-none focus:outline-2
 										   focus-visible:ring-0! focus-visible:ring-offset-0!"
                     >
                       {segVal}
@@ -187,12 +187,12 @@ segment inputs and a shared calendar popover.
                       <DateRangePicker.Day
                         class="group data-disabled:text-md-sys-color-on-surface/38 data-highlighted:bg-md-sys-color-primary-container/20 data-range-end:bg-md-sys-color-primary data-range-end:text-md-sys-color-on-primary data-range-middle:bg-md-sys-color-primary-container/40 data-range-start:bg-md-sys-color-primary
 												   data-range-start:text-md-sys-color-on-primary data-selected:bg-md-sys-color-primary data-selected:text-md-sys-color-on-primary data-unavailable:text-md-sys-color-on-surface/38
-												   relative flex
-												   size-10 items-center
-												   justify-center rounded-full
-												   bg-transparent p-0
-												   transition-colors
-												   duration-100 data-disabled:cursor-not-allowed
+												   md-sys-motion-fast-effects relative
+												   flex size-10
+												   items-center justify-center
+												   rounded-full bg-transparent
+												   p-0
+												   transition-colors data-disabled:cursor-not-allowed
 												   data-outside-month:pointer-events-none data-outside-month:opacity-0
 												   data-range-middle:rounded-none data-unavailable:line-through"
                       >
