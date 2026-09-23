@@ -1,140 +1,101 @@
 <!--
 @component
 DateRangeField lets users enter or pick a date range (start + end) via two
-segment inputs and a shared calendar popover.
+segment inputs and a shared docked calendar.
 
 @see https://m3.material.io/components/date-pickers/guidelines
 -->
 <script lang="ts">
-  import { DateRangePicker } from 'bits-ui';
+  import { DateRangePicker, Portal, useId } from 'bits-ui';
+  import { enterExit, presence } from '$lib/animation/index.js';
   import ButtonIcon from '../buttons/ButtonIcon.svelte';
   import Icon from '$lib/utils/icon/Icon.svelte';
   import Layer from '$lib/utils/Layer.svelte';
   import type { DateRangeFieldProps } from './types';
-  import { dateRangeField } from './theme';
+  import { dateCalendar, dateRangeField, dateSegment } from './theme';
 
   let {
     value = $bindable(),
     label,
     startLabel = 'Start',
     endLabel = 'End',
-    id,
+    id = useId(),
     required = false,
     disabled = false,
     error = false,
     variant = 'outlined',
     supportingText,
     name,
+    locale,
+    weekStartsOn,
     leadingIconProps
-  }: DateRangeFieldProps & { leadingIconProps?: any } = $props();
+  }: DateRangeFieldProps = $props();
 
   const cls = $derived(dateRangeField({ disabled, error, variant }));
+  const calendar = dateCalendar();
 </script>
+
+{#snippet rangeInput(type: 'start' | 'end', fieldLabel: string)}
+  <div class={cls.inputWrapper()}>
+    <DateRangePicker.Input
+      {type}
+      class={cls.input()}
+      name={type === 'start' ? name : undefined}
+      id={`${id}-${type}`}
+    >
+      {#snippet children({ segments })}
+        <div class="flex w-full pt-4 tabular-nums">
+          {#each segments as { part, value: segment }}
+            <DateRangePicker.Segment
+              {part}
+              class={dateSegment({ part: part === 'literal' ? 'literal' : 'value' })}
+            >
+              {segment}
+            </DateRangePicker.Segment>
+          {/each}
+        </div>
+      {/snippet}
+    </DateRangePicker.Input>
+
+    <span class={cls.label()}>
+      {fieldLabel}{#if required}<span class={cls.requiredAsterisk()} aria-hidden="true">*</span
+        >{/if}
+    </span>
+  </div>
+{/snippet}
 
 <DateRangePicker.Root
   bind:value
-  weekStartsOn={1}
+  {weekStartsOn}
   {required}
   {disabled}
-  locale="ru"
-  weekdayFormat="short"
+  {locale}
+  weekdayFormat="narrow"
   fixedWeeks
   closeOnRangeSelect
 >
   <div class="relative w-full">
+    {#if label}
+      <DateRangePicker.Label class="sr-only">{label}</DateRangePicker.Label>
+    {/if}
     <div class={cls.base()} data-invalid={error || undefined}>
       {#if leadingIconProps}
         <Icon class={cls.leadingIcon()} {...leadingIconProps} />
       {/if}
 
-      <div class={cls.inputWrapper()}>
-        <!-- Start date input -->
-        <DateRangePicker.Input type="start" class={cls.input()} {name} id={id ?? undefined}>
-          {#snippet children({ segments })}
-            <div class="flex w-full flex-col pt-4 tabular-nums">
-              <div class="flex">
-                {#each segments as { part, value: segVal }}
-                  {#if part === 'literal'}
-                    <DateRangePicker.Segment
-                      {part}
-                      class="text-md-sys-color-on-surface-variant px-0.5 select-none first:pl-0"
-                    >
-                      {segVal}
-                    </DateRangePicker.Segment>
-                  {:else}
-                    <DateRangePicker.Segment
-                      {part}
-                      class="text-md-sys-color-on-surface hover:bg-md-sys-color-on-surface/8 focus:bg-md-sys-color-primary-container focus:text-md-sys-color-on-primary-container focus:outline-md-sys-color-primary
-										   aria-[valuetext=Empty]:text-md-sys-color-on-surface-variant md-sys-motion-fast-effects cursor-default
-										   rounded-xs
-										   px-1
-										   py-0.5
-										   transition-colors select-none focus:outline-2
-										   focus-visible:ring-0! focus-visible:ring-offset-0!"
-                    >
-                      {segVal}
-                    </DateRangePicker.Segment>
-                  {/if}
-                {/each}
-              </div>
-            </div>
-          {/snippet}
-        </DateRangePicker.Input>
-
-        <label class={cls.label()} for={id}>
-          {startLabel ?? label}{#if required}<span class={cls.requiredAsterisk()} aria-hidden="true"
-              >*</span
-            >{/if}
-        </label>
-      </div>
-
+      {@render rangeInput('start', startLabel)}
       <span class={cls.separator()}>–</span>
+      {@render rangeInput('end', endLabel)}
 
-      <div class={cls.inputWrapper()}>
-        <!-- End date input -->
-        <DateRangePicker.Input type="end" class={cls.input()} id={id ? `${id}-end` : undefined}>
-          {#snippet children({ segments })}
-            <div class="flex w-full flex-col pt-4 tabular-nums">
-              <div class="flex">
-                {#each segments as { part, value: segVal }}
-                  {#if part === 'literal'}
-                    <DateRangePicker.Segment
-                      {part}
-                      class="text-md-sys-color-on-surface-variant px-0.5 select-none first:pl-0"
-                    >
-                      {segVal}
-                    </DateRangePicker.Segment>
-                  {:else}
-                    <DateRangePicker.Segment
-                      {part}
-                      class="text-md-sys-color-on-surface hover:bg-md-sys-color-on-surface/8 focus:bg-md-sys-color-primary-container focus:text-md-sys-color-on-primary-container focus:outline-md-sys-color-primary
-										   aria-[valuetext=Empty]:text-md-sys-color-on-surface-variant md-sys-motion-fast-effects cursor-default
-										   rounded-xs
-										   px-1
-										   py-0.5
-										   transition-colors select-none focus:outline-2
-										   focus-visible:ring-0! focus-visible:ring-offset-0!"
-                    >
-                      {segVal}
-                    </DateRangePicker.Segment>
-                  {/if}
-                {/each}
-              </div>
-            </div>
-          {/snippet}
-        </DateRangePicker.Input>
-
-        <label class={cls.label()} for={id ? `${id}-end` : undefined}>
-          {endLabel ?? label}{#if required}<span class={cls.requiredAsterisk()} aria-hidden="true"
-              >*</span
-            >{/if}
-        </label>
-      </div>
-
-      <DateRangePicker.Trigger
-        class={cls.trailingIcon({ class: 'flex items-center justify-center' })}
-      >
-        <Icon name="calendar_month" />
+      <DateRangePicker.Trigger>
+        {#snippet child({ props })}
+          <ButtonIcon
+            {...props}
+            {disabled}
+            class={cls.trailingIcon()}
+            iconProps={{ name: 'date_range' }}
+          />
+        {/snippet}
       </DateRangePicker.Trigger>
     </div>
 
@@ -145,68 +106,65 @@ segment inputs and a shared calendar popover.
     {/if}
   </div>
 
-  <DateRangePicker.Content sideOffset={6} class="z-[100]">
-    <DateRangePicker.Calendar
-      class="bg-md-sys-color-surface-container-high shadow-elevation-3 h-104 w-90 rounded-lg p-6"
-    >
-      {#snippet children({ months, weekdays })}
-        <DateRangePicker.Header
-          class="text-md-sys-color-on-surface-variant z-10 flex w-full items-center justify-between pb-7.5"
-        >
-          <DateRangePicker.PrevButton>
-            <ButtonIcon type="button" iconProps={{ name: 'chevron_left' }} />
-          </DateRangePicker.PrevButton>
-          <DateRangePicker.Heading class="md-sys-typescale-label-large" />
-          <DateRangePicker.NextButton>
-            <ButtonIcon type="button" iconProps={{ name: 'chevron_right' }} />
-          </DateRangePicker.NextButton>
-        </DateRangePicker.Header>
+  <Portal>
+    <DateRangePicker.Content sideOffset={4} align="start">
+      {#snippet child({ wrapperProps, props, open })}
+        <div {...wrapperProps}>
+          <div {...props} {@attach presence(() => open, enterExit.scale)}>
+            <DateRangePicker.Calendar class={calendar.surface()}>
+              {#snippet children({ months, weekdays })}
+                <DateRangePicker.Header class={calendar.header()}>
+                  <DateRangePicker.Heading class={calendar.heading()} />
+                  <div class={calendar.nav()}>
+                    <DateRangePicker.PrevButton>
+                      {#snippet child({ props })}
+                        <ButtonIcon {...props} iconProps={{ name: 'chevron_left' }} />
+                      {/snippet}
+                    </DateRangePicker.PrevButton>
+                    <DateRangePicker.NextButton>
+                      {#snippet child({ props })}
+                        <ButtonIcon {...props} iconProps={{ name: 'chevron_right' }} />
+                      {/snippet}
+                    </DateRangePicker.NextButton>
+                  </div>
+                </DateRangePicker.Header>
 
-        {#each months as month}
-          <DateRangePicker.Grid class="w-full border-collapse select-none">
-            <DateRangePicker.GridHead>
-              <DateRangePicker.GridRow class="flex w-full justify-between">
-                {#each weekdays as day}
-                  <DateRangePicker.HeadCell
-                    class="md-sys-typescale-label-large text-md-sys-color-on-surface-variant size-10"
-                  >
-                    {day}
-                  </DateRangePicker.HeadCell>
+                {#each months as month (month.value.toString())}
+                  <DateRangePicker.Grid class={calendar.grid()}>
+                    <DateRangePicker.GridHead>
+                      <DateRangePicker.GridRow class={calendar.row()}>
+                        {#each weekdays as day, i (i)}
+                          <DateRangePicker.HeadCell class={calendar.weekday()}>
+                            {day}
+                          </DateRangePicker.HeadCell>
+                        {/each}
+                      </DateRangePicker.GridRow>
+                    </DateRangePicker.GridHead>
+                    <DateRangePicker.GridBody>
+                      {#each month.weeks as weekDates, i (i)}
+                        <DateRangePicker.GridRow class={calendar.row()}>
+                          {#each weekDates as date (date.toString())}
+                            <DateRangePicker.Cell
+                              {date}
+                              month={month.value}
+                              class={calendar.cell()}
+                            >
+                              <DateRangePicker.Day class={calendar.day()}>
+                                <Layer />
+                                {date.day}
+                              </DateRangePicker.Day>
+                            </DateRangePicker.Cell>
+                          {/each}
+                        </DateRangePicker.GridRow>
+                      {/each}
+                    </DateRangePicker.GridBody>
+                  </DateRangePicker.Grid>
                 {/each}
-              </DateRangePicker.GridRow>
-            </DateRangePicker.GridHead>
-            <DateRangePicker.GridBody>
-              {#each month.weeks as weekDates}
-                <DateRangePicker.GridRow class="flex w-full justify-between">
-                  {#each weekDates as date}
-                    <DateRangePicker.Cell
-                      {date}
-                      month={month.value}
-                      class="md-sys-typescale-body-large text-center"
-                    >
-                      <DateRangePicker.Day
-                        class="group data-disabled:text-md-sys-color-on-surface/38 data-highlighted:bg-md-sys-color-primary-container/20 data-range-end:bg-md-sys-color-primary data-range-end:text-md-sys-color-on-primary data-range-middle:bg-md-sys-color-primary-container/40 data-range-start:bg-md-sys-color-primary
-												   data-range-start:text-md-sys-color-on-primary data-selected:bg-md-sys-color-primary data-selected:text-md-sys-color-on-primary data-unavailable:text-md-sys-color-on-surface/38
-												   md-sys-motion-fast-effects relative
-												   flex size-10
-												   items-center justify-center
-												   rounded-full bg-transparent
-												   p-0
-												   transition-colors data-disabled:cursor-not-allowed
-												   data-outside-month:pointer-events-none data-outside-month:opacity-0
-												   data-range-middle:rounded-none data-unavailable:line-through"
-                      >
-                        <Layer />
-                        {date.day}
-                      </DateRangePicker.Day>
-                    </DateRangePicker.Cell>
-                  {/each}
-                </DateRangePicker.GridRow>
-              {/each}
-            </DateRangePicker.GridBody>
-          </DateRangePicker.Grid>
-        {/each}
+              {/snippet}
+            </DateRangePicker.Calendar>
+          </div>
+        </div>
       {/snippet}
-    </DateRangePicker.Calendar>
-  </DateRangePicker.Content>
+    </DateRangePicker.Content>
+  </Portal>
 </DateRangePicker.Root>

@@ -30,6 +30,7 @@
     'bookmark',
     'calculate',
     'calendar_month',
+    'date_range',
     'calendar_today',
     'chat',
     'check',

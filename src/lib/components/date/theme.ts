@@ -22,9 +22,8 @@ export const dateRangeField = tv({
       group-data-[invalid]:text-md-sys-color-error ml-3 text-[24px]
     `,
     trailingIcon: `
-      text-md-sys-color-on-surface-variant size-6
-      group-focus-within:text-md-sys-color-primary
-      group-data-[invalid]:text-md-sys-color-error mr-3 text-[24px]
+      mr-1 shrink-0 text-md-sys-color-on-surface-variant
+      group-data-[invalid]:text-md-sys-color-error
     `,
     separator: `
 			text-md-sys-color-on-surface-variant select-none shrink-0
@@ -136,9 +135,8 @@ export const dateField = tv({
       group-data-[invalid]:text-md-sys-color-error ml-3 text-[24px]
     `,
     trailingIcon: `
-      text-md-sys-color-on-surface-variant size-6
-      group-focus-within:text-md-sys-color-primary
-      group-data-[invalid]:text-md-sys-color-error mr-3 text-[24px]
+      mr-1 shrink-0 text-md-sys-color-on-surface-variant
+      group-data-[invalid]:text-md-sys-color-error
     `,
     label: `
 			absolute left-4 top-1.5
@@ -224,5 +222,94 @@ export const dateField = tv({
 
   defaultVariants: {
     variant: 'outlined'
+  }
+});
+
+/** Segments of the typed date (`DatePicker.Segment` / `DateRangePicker.Segment`). */
+export const dateSegment = tv({
+  base: `
+    rounded-xs px-0.5 py-0.5 select-none cursor-default outline-none
+    transition-colors md-sys-motion-fast-effects
+  `,
+  variants: {
+    part: {
+      literal: 'text-md-sys-color-on-surface-variant px-0',
+      value: `
+        text-md-sys-color-on-surface
+        aria-[valuetext=Empty]:text-md-sys-color-on-surface-variant
+        hover:bg-md-sys-color-on-surface/8
+        focus:bg-md-sys-color-primary-container focus:text-md-sys-color-on-primary-container
+      `
+    }
+  },
+  defaultVariants: {
+    part: 'value'
+  }
+});
+
+/**
+ * Docked date picker surface, shared by DateField and DateRangeField.
+ * @see https://m3.material.io/components/date-pickers/specs#docked-date-picker
+ * 360dp wide = 12dp padding + 7 × 48dp targets; each day is a 40dp circle inside its target.
+ */
+export const dateCalendar = tv({
+  slots: {
+    surface: `
+      w-90 rounded-lg px-3 pb-3
+      bg-md-sys-color-surface-container-high shadow-elevation-3
+      text-md-sys-color-on-surface
+    `,
+    header: `
+      flex h-14 items-center justify-between pl-4 pr-1
+    `,
+    heading: `
+      md-sys-typescale-label-large text-md-sys-color-on-surface-variant
+    `,
+    nav: `
+      flex items-center text-md-sys-color-on-surface-variant
+    `,
+    grid: `
+      w-full border-collapse select-none
+    `,
+    row: `
+      flex w-full
+    `,
+    weekday: `
+      flex size-12 items-center justify-center
+      md-sys-typescale-body-large text-md-sys-color-on-surface
+    `,
+    cell: `
+      relative flex size-12 items-center justify-center p-0
+      before:absolute before:inset-x-0 before:h-10 before:bg-md-sys-color-secondary-container
+      before:opacity-0 before:transition-opacity before:md-sys-motion-fast-effects
+      data-range-middle:before:opacity-100
+      data-highlighted:before:opacity-100
+      data-range-start:before:left-1/2 data-range-end:before:right-1/2
+      data-range-start:data-range-end:before:opacity-0
+      data-outside-month:before:opacity-0
+    `,
+    day: `
+      relative flex size-10 items-center justify-center rounded-full
+      md-sys-typescale-body-large text-md-sys-color-on-surface
+      cursor-pointer outline-none
+      transition-colors md-sys-motion-fast-effects
+
+      focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-md-sys-color-secondary
+
+      data-today:border data-today:border-md-sys-color-primary data-today:text-md-sys-color-primary
+
+      data-range-middle:text-md-sys-color-on-secondary-container
+      data-highlighted:text-md-sys-color-on-secondary-container
+
+      data-selected:not-data-range-middle:border-transparent
+      data-selected:not-data-range-middle:bg-md-sys-color-primary
+      data-selected:not-data-range-middle:text-md-sys-color-on-primary
+
+      data-disabled:cursor-not-allowed data-disabled:text-md-sys-color-on-surface/38
+      data-unavailable:cursor-not-allowed data-unavailable:text-md-sys-color-on-surface/38
+      data-unavailable:line-through
+
+      data-outside-month:invisible
+    `
   }
 });

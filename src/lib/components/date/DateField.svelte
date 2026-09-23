@@ -1,40 +1,44 @@
 <!--
 @component
-DateField is a text field that allows users to enter a date or pick it from a calendar.
+DateField is a text field that allows users to enter a date or pick it from a docked calendar.
 
 @see https://m3.material.io/components/date-pickers/guidelines
 -->
 <script lang="ts">
-  import { DatePicker } from 'bits-ui';
+  import { DatePicker, useId } from 'bits-ui';
+  import { enterExit, presence } from '$lib/animation/index.js';
   import ButtonIcon from '../buttons/ButtonIcon.svelte';
   import Icon from '$lib/utils/icon/Icon.svelte';
   import Layer from '$lib/utils/Layer.svelte';
   import type { DateFieldProps } from './types';
-  import { dateField } from './theme';
+  import { dateCalendar, dateField, dateSegment } from './theme';
 
   let {
     value = $bindable(),
     label,
-    id,
+    id = useId(),
     required = false,
     disabled = false,
     error = false,
     variant = 'outlined',
     supportingText,
     name,
+    locale,
+    weekStartsOn,
     leadingIconProps
-  }: DateFieldProps & { leadingIconProps?: any } = $props();
+  }: DateFieldProps = $props();
 
   const cls = $derived(dateField({ disabled, error, variant }));
+  const calendar = dateCalendar();
 </script>
 
 <DatePicker.Root
   bind:value
-  weekStartsOn={1}
+  {weekStartsOn}
   {required}
   {disabled}
-  locale="ru"
-  weekdayFormat="short"
+  {locale}
+  weekdayFormat="narrow"
   fixedWeeks
 >
   <div class="relative w-full">
@@ -47,45 +51,34 @@ DateField is a text field that allows users to enter a date or pick it from a ca
         <DatePicker.Input class={cls.input()} {name} id={id ?? undefined}>
           {#snippet children({ segments })}
             <div class={cls.segments()}>
-              <div class="flex items-center justify-between">
-                <div class="flex">
-                  {#each segments as { part, value }}
-                    {#if part === 'literal'}
-                      <DatePicker.Segment
-                        {part}
-                        class="text-md-sys-color-on-surface-variant px-0.5 select-none first:pl-0"
-                      >
-                        {value}
-                      </DatePicker.Segment>
-                    {:else}
-                      <DatePicker.Segment
-                        {part}
-                        class="text-md-sys-color-on-surface hover:bg-md-sys-color-on-surface/8 focus:bg-md-sys-color-primary-container focus:text-md-sys-color-on-primary-container focus:outline-md-sys-color-primary
-											   aria-[valuetext=Empty]:text-md-sys-color-on-surface-variant md-sys-motion-fast-effects
-											   cursor-default
-											   rounded-xs
-											   px-1
-											   py-0.5
-											   transition-colors select-none focus:outline-2
-											   focus-visible:ring-0! focus-visible:ring-offset-0!"
-                      >
-                        {value}
-                      </DatePicker.Segment>
-                    {/if}
-                  {/each}
-                </div>
+              <div class="flex">
+                {#each segments as { part, value: segment }}
+                  <DatePicker.Segment
+                    {part}
+                    class={dateSegment({ part: part === 'literal' ? 'literal' : 'value' })}
+                  >
+                    {segment}
+                  </DatePicker.Segment>
+                {/each}
               </div>
             </div>
           {/snippet}
         </DatePicker.Input>
 
-        <label class={cls.label()} for={id}>
+        <DatePicker.Label class={cls.label()}>
           {label}{#if required}<span class={cls.requiredAsterisk()} aria-hidden="true">*</span>{/if}
-        </label>
+        </DatePicker.Label>
       </div>
 
-      <DatePicker.Trigger class={cls.trailingIcon({ class: 'flex items-center justify-center' })}>
-        <Icon name="calendar_month" />
+      <DatePicker.Trigger>
+        {#snippet child({ props })}
+          <ButtonIcon
+            {...props}
+            {disabled}
+            class={cls.trailingIcon()}
+            iconProps={{ name: 'calendar_month' }}
+          />
+        {/snippet}
       </DatePicker.Trigger>
 
       {#if variant === 'outlined'}
@@ -103,62 +96,62 @@ DateField is a text field that allows users to enter a date or pick it from a ca
       </div>
     {/if}
   </div>
+
   <DatePicker.Portal>
-    <DatePicker.Content sideOffset={6} class="z-[100]">
-      <DatePicker.Calendar
-        class="bg-md-sys-color-surface-container-high shadow-elevation-3 h-104 w-90 rounded-lg p-6"
-      >
-        {#snippet children({ months, weekdays })}
-          <DatePicker.Header
-            class="text-md-sys-color-on-surface-variant z-10 flex w-full items-center justify-between pb-7.5"
-          >
-            <DatePicker.PrevButton>
-              <ButtonIcon type="button" iconProps={{ name: 'chevron_left' }} />
-            </DatePicker.PrevButton>
-            <DatePicker.Heading class="md-sys-typescale-label-large" />
-            <DatePicker.NextButton>
-              <ButtonIcon type="button" iconProps={{ name: 'chevron_right' }} />
-            </DatePicker.NextButton>
-          </DatePicker.Header>
+    <DatePicker.Content sideOffset={4} align="start">
+      {#snippet child({ wrapperProps, props, open })}
+        <div {...wrapperProps}>
+          <div {...props} {@attach presence(() => open, enterExit.scale)}>
+            <DatePicker.Calendar class={calendar.surface()}>
+              {#snippet children({ months, weekdays })}
+                <DatePicker.Header class={calendar.header()}>
+                  <DatePicker.Heading class={calendar.heading()} />
+                  <div class={calendar.nav()}>
+                    <DatePicker.PrevButton>
+                      {#snippet child({ props })}
+                        <ButtonIcon {...props} iconProps={{ name: 'chevron_left' }} />
+                      {/snippet}
+                    </DatePicker.PrevButton>
+                    <DatePicker.NextButton>
+                      {#snippet child({ props })}
+                        <ButtonIcon {...props} iconProps={{ name: 'chevron_right' }} />
+                      {/snippet}
+                    </DatePicker.NextButton>
+                  </div>
+                </DatePicker.Header>
 
-          {#each months as month}
-            <DatePicker.Grid class="w-full border-collapse select-none">
-              <DatePicker.GridHead>
-                <DatePicker.GridRow class="flex w-full justify-between">
-                  {#each weekdays as day}
-                    <DatePicker.HeadCell
-                      class="md-sys-typescale-label-large text-md-sys-color-on-surface-variant size-10"
-                    >
-                      {day}
-                    </DatePicker.HeadCell>
-                  {/each}
-                </DatePicker.GridRow>
-              </DatePicker.GridHead>
-              <DatePicker.GridBody>
-                {#each month.weeks as weekDates}
-                  <DatePicker.GridRow class="flex w-full justify-between">
-                    {#each weekDates as date}
-                      <DatePicker.Cell
-                        {date}
-                        month={month.value}
-                        class="md-sys-typescale-body-large text-center"
-                      >
-                        <DatePicker.Day
-                          class="group data-disabled:text-md-sys-color-on-surface/38 data-selected:bg-md-sys-color-primary data-selected:text-md-sys-color-on-primary data-unavailable:text-md-sys-color-on-surface/38 relative flex size-10 items-center justify-center rounded-full bg-transparent p-0 data-disabled:cursor-not-allowed data-outside-month:pointer-events-none data-unavailable:line-through"
-                        >
-                          <Layer />
-
-                          {date.day}
-                        </DatePicker.Day>
-                      </DatePicker.Cell>
-                    {/each}
-                  </DatePicker.GridRow>
+                {#each months as month (month.value.toString())}
+                  <DatePicker.Grid class={calendar.grid()}>
+                    <DatePicker.GridHead>
+                      <DatePicker.GridRow class={calendar.row()}>
+                        {#each weekdays as day, i (i)}
+                          <DatePicker.HeadCell class={calendar.weekday()}>
+                            {day}
+                          </DatePicker.HeadCell>
+                        {/each}
+                      </DatePicker.GridRow>
+                    </DatePicker.GridHead>
+                    <DatePicker.GridBody>
+                      {#each month.weeks as weekDates, i (i)}
+                        <DatePicker.GridRow class={calendar.row()}>
+                          {#each weekDates as date (date.toString())}
+                            <DatePicker.Cell {date} month={month.value} class={calendar.cell()}>
+                              <DatePicker.Day class={calendar.day()}>
+                                <Layer />
+                                {date.day}
+                              </DatePicker.Day>
+                            </DatePicker.Cell>
+                          {/each}
+                        </DatePicker.GridRow>
+                      {/each}
+                    </DatePicker.GridBody>
+                  </DatePicker.Grid>
                 {/each}
-              </DatePicker.GridBody>
-            </DatePicker.Grid>
-          {/each}
-        {/snippet}
-      </DatePicker.Calendar>
+              {/snippet}
+            </DatePicker.Calendar>
+          </div>
+        </div>
+      {/snippet}
     </DatePicker.Content>
   </DatePicker.Portal>
 </DatePicker.Root>
