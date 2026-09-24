@@ -1,7 +1,5 @@
 <script lang="ts">
   import { base } from '$app/paths';
-  import FAB from '$lib/components/buttons/FAB.svelte';
-  import FABMenuItem from '$lib/components/buttons/FABMenuItem.svelte';
   import { App, Navbar, NavbarItem, Rail, RailItem, ThemeSwitcher } from '$lib/index.js';
   import { storybookHref } from './storybook.js';
   import '../app.css';
@@ -105,24 +103,6 @@
   ];
 </script>
 
-{#snippet fab()}
-  <FAB withMenu label="Добавить" data-cy="fab-add" iconProps={{ name: 'add' }}>
-    <FABMenuItem
-      href="#"
-      data-sveltekit-preload-data="tap"
-      data-cy="fab-add-task"
-      iconProps={{ name: 'assignment' }}>Задание</FABMenuItem
-    >
-    <FABMenuItem href="#" data-cy="fab-add-event" iconProps={{ name: 'home' }}>Событие</FABMenuItem>
-    <FABMenuItem
-      href="#"
-      data-sveltekit-preload-data="tap"
-      data-cy="fab-add-deck"
-      iconProps={{ name: 'note_stack' }}>Дека</FABMenuItem
-    >
-  </FAB>
-{/snippet}
-
 <App iconProviderProps={{ extraIcons: icons }}>
   <!--
     flex row: Rail's ghost div is a flex item that pushes content.
@@ -131,7 +111,7 @@
     Desktop (lg+):  ghost transitions w-24 → w-60 on expand → content smoothly pushed right.
   -->
   <div class="flex min-h-dvh">
-    <Rail {fab} bind:collapsed>
+    <Rail bind:collapsed>
       {#each destinations as item (item.label)}
         <RailItem {...item} />
       {/each}

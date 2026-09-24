@@ -1,4 +1,4 @@
-import { tv, type VariantProps } from 'tailwind-variants';
+import { tv, type VariantProps } from '$lib/utils/tv.js';
 
 export type AppVariants = VariantProps<typeof app>;
 

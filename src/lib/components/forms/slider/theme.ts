@@ -1,4 +1,4 @@
-import { tv, type VariantProps } from 'tailwind-variants';
+import { tv, type VariantProps } from '$lib/utils/tv.js';
 
 /**
  * M3 Expressive slider: an active and an inactive track separated from a bar handle by a 6dp gap.

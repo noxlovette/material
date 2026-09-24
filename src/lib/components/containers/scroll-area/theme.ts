@@ -1,4 +1,4 @@
-import { tv } from 'tailwind-variants';
+import { tv } from '$lib/utils/tv.js';
 
 export const scrollArea = tv({
   slots: {

@@ -1,10 +1,10 @@
-import { tv, type VariantProps } from 'tailwind-variants';
+import { tv, type VariantProps } from '$lib/utils/tv.js';
 
 export type ActionRailVariants = VariantProps<typeof actionRail>;
 
 export const actionRail = tv({
   slots: {
-    base: 'z-30 flex flex-col items-center justify-center right-spacing-0'
+    base: 'z-layer-bar flex flex-col items-center justify-center right-spacing-0'
   },
   variants: {
     anchor: {

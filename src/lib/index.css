@@ -3,5 +3,6 @@
 @import './styles/motion.css';
 @import './styles/rounding.css';
 @import './styles/elevation.css';
+@import './styles/layers.css';
 @import './styles/prose.css';
 @import './styles/component.css';

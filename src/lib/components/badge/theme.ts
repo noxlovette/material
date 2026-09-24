@@ -1,4 +1,4 @@
-import { tv } from 'tailwind-variants';
+import { tv } from '$lib/utils/tv.js';
 
 /**
  * M3 badge (https://m3.material.io/components/badges/specs).

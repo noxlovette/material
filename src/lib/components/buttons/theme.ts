@@ -1,4 +1,4 @@
-import { tv, type VariantProps } from 'tailwind-variants';
+import { tv, type VariantProps } from '$lib/utils/tv.js';
 import type { Breakpoint } from '../containers/pane/theme.js';
 
 /*
@@ -401,7 +401,7 @@ export const fabExpandedClasses: Record<
 export const fabSurface = tv({
   slots: {
     anchor: 'relative inline-grid',
-    wrapper: 'drop-shadow-elevation-3 absolute end-spacing-0 bottom-spacing-0 z-50',
+    wrapper: 'drop-shadow-elevation-3 absolute end-spacing-0 bottom-spacing-0 z-layer-modal',
     surface:
       'bg-md-sys-color-surface text-md-sys-color-on-surface max-h-[min(36rem,calc(100dvh-2rem))] w-max max-w-[calc(100vw-2rem)] min-w-60 overflow-y-auto rounded-3xl py-spacing-100 outline-none'
   }
@@ -409,7 +409,7 @@ export const fabSurface = tv({
 
 export const fabMenu = tv({
   slots: {
-    base: '-me-[5px] flex flex-col items-end gap-spacing-50 overflow-y-auto p-[5px]'
+    base: 'z-layer-popup -me-[5px] flex flex-col items-end gap-spacing-50 overflow-y-auto p-[5px]'
   }
 });
 

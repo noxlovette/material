@@ -25,6 +25,8 @@ On mobile (< md) it automatically renders as a bottom navigation bar.
     collapsed = $bindable(true),
     anchor = 'viewport',
     railTop = 0,
+    expandLabel = 'Expand navigation',
+    collapseLabel = 'Collapse navigation',
     class: className
   }: RailProps = $props();
 
@@ -68,7 +70,7 @@ On mobile (< md) it automatically renders as a bottom navigation bar.
     <ButtonIcon
       variant="standard"
       type="button"
-      tooltipContent={collapsed ? 'Открыть' : 'Закрыть'}
+      tooltipContent={collapsed ? expandLabel : collapseLabel}
       iconProps={{ name: `${collapsed ? 'menu' : 'menu_open'}` }}
       class={toggleClass}
       onclick={() => (collapsed = !collapsed)}
@@ -98,6 +100,6 @@ On mobile (< md) it automatically renders as a bottom navigation bar.
     opacity: 1;
     pointer-events: auto;
     background-color: rgb(0 0 0 / 0.4);
-    z-index: 30;
+    z-index: var(--z-layer-rail);
   }
 </style>

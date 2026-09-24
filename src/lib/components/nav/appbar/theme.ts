@@ -1,4 +1,4 @@
-import { tv, type VariantProps } from 'tailwind-variants';
+import { tv, type VariantProps } from '$lib/utils/tv.js';
 import type { Breakpoint } from '../../containers/pane/theme.js';
 
 export type AppbarVariants = VariantProps<typeof appbar>;
@@ -146,7 +146,7 @@ export function appbarSize(
 
 export const appbar = tv({
   slots: {
-    base: 'fixed top-spacing-0 left-spacing-0 w-full flex flex-col z-30 transition-colors md-sys-motion-effects',
+    base: 'fixed top-spacing-0 left-spacing-0 w-full flex flex-col z-layer-bar transition-colors md-sys-motion-effects',
     row: 'grid w-full items-center px-spacing-50',
     childrenRow: 'w-full px-spacing-100 pb-spacing-100',
     ghost: 'w-full shrink-0 pointer-events-none',

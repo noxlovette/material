@@ -1,4 +1,4 @@
-import { tv, type VariantProps } from 'tailwind-variants';
+import { tv, type VariantProps } from '$lib/utils/tv.js';
 
 /**
  * Shared styling for every row-shaped element inside a `Menu`'s floating

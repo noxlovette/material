@@ -1,4 +1,4 @@
-import { tv, type VariantProps } from 'tailwind-variants';
+import { tv, type VariantProps } from '$lib/utils/tv.js';
 
 export type BottomSheetVariants = VariantProps<typeof bottomSheet>;
 
@@ -14,7 +14,7 @@ export type BottomSheetVariants = VariantProps<typeof bottomSheet>;
 export const bottomSheet = tv({
   slots: {
     base: [
-      'fixed inset-x-spacing-0 top-auto bottom-spacing-0 z-40 mx-auto mt-auto mb-spacing-0 p-spacing-0',
+      'fixed inset-x-spacing-0 top-auto bottom-spacing-0 z-layer-sheet mx-auto mt-auto mb-spacing-0 p-spacing-0',
       'w-full max-w-160 sm:w-[calc(100%-7rem)]',
       'max-h-[calc(100dvh-4.5rem)] sm:max-h-[calc(100dvh-3.5rem)]',
       'overflow-visible bg-transparent outline-none'

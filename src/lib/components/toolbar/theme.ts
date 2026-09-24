@@ -1,4 +1,4 @@
-import { tv, type VariantProps } from 'tailwind-variants';
+import { tv, type VariantProps } from '$lib/utils/tv.js';
 
 export type ToolbarVariants = VariantProps<typeof toolbar>;
 export type ToolbarButtonVariants = VariantProps<typeof toolbarButton>;
@@ -38,7 +38,7 @@ export const toolbar = tv({
     },
     variant: {
       floating: { root: 'inline-flex', segment: 'rounded-full shadow-elevation-1' },
-      docked: { root: 'fixed left-spacing-0 z-10 w-full', segment: 'w-full rounded-none' }
+      docked: { root: 'fixed left-spacing-0 z-layer-bar w-full', segment: 'w-full rounded-none' }
     },
     color: {
       standard: { segment: 'bg-md-sys-color-surface-container' },

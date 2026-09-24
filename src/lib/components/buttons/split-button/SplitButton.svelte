@@ -95,7 +95,7 @@ only opens a menu, use `Menu`; for selectable options, `ConnectedButtonGroup`.
       {/snippet}
     </DropdownMenu.Trigger>
     <DropdownMenu.Portal>
-      <DropdownMenu.Content {align} sideOffset={4} class="z-100">
+      <DropdownMenu.Content {align} sideOffset={4} class="z-layer-popup">
         {#snippet child({ wrapperProps, props, open: isOpen })}
           <div {...wrapperProps}>
             <!-- Menu's own panel, so MenuItem rows look the same here. -->
