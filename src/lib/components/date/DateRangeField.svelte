@@ -102,6 +102,7 @@ Changing the visible month slides the grid with the M3 lateral transition (see c
       <DateRangePicker.Trigger>
         {#snippet child({ props })}
           <ButtonIcon
+            variant="standard"
             {...props}
             {disabled}
             class={cls.trailingIcon()}
@@ -130,12 +131,20 @@ Changing the visible month slides the grid with the M3 lateral transition (see c
                   <div class={calendar.nav()}>
                     <DateRangePicker.PrevButton>
                       {#snippet child({ props })}
-                        <ButtonIcon {...props} iconProps={{ name: 'chevron_left' }} />
+                        <ButtonIcon
+                          variant="standard"
+                          {...props}
+                          iconProps={{ name: 'chevron_left' }}
+                        />
                       {/snippet}
                     </DateRangePicker.PrevButton>
                     <DateRangePicker.NextButton>
                       {#snippet child({ props })}
-                        <ButtonIcon {...props} iconProps={{ name: 'chevron_right' }} />
+                        <ButtonIcon
+                          variant="standard"
+                          {...props}
+                          iconProps={{ name: 'chevron_right' }}
+                        />
                       {/snippet}
                     </DateRangePicker.NextButton>
                   </div>

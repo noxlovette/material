@@ -36,8 +36,8 @@
   {#snippet template(args)}
     <AppBar {...args}>
       {#snippet trailing()}
-        <ButtonIcon variant="text" iconProps={{ name: 'search' }} />
-        <ButtonIcon variant="text" iconProps={{ name: 'more_vert' }} />
+        <ButtonIcon variant="standard" iconProps={{ name: 'search' }} />
+        <ButtonIcon variant="standard" iconProps={{ name: 'more_vert' }} />
       {/snippet}
     </AppBar>
   {/snippet}
@@ -56,8 +56,8 @@
   {#snippet template(args)}
     <AppBar {...args}>
       {#snippet trailing()}
-        <ButtonIcon variant="text" iconProps={{ name: 'search' }} />
-        <ButtonIcon variant="text" iconProps={{ name: 'more_vert' }} />
+        <ButtonIcon variant="standard" iconProps={{ name: 'search' }} />
+        <ButtonIcon variant="standard" iconProps={{ name: 'more_vert' }} />
       {/snippet}
     </AppBar>
   {/snippet}
@@ -70,7 +70,7 @@
   {#snippet template(args)}
     <AppBar {...args}>
       {#snippet trailing()}
-        <ButtonIcon variant="text" iconProps={{ name: 'more_vert' }} />
+        <ButtonIcon variant="standard" iconProps={{ name: 'more_vert' }} />
       {/snippet}
     </AppBar>
   {/snippet}
@@ -80,10 +80,14 @@
   {#snippet template(args)}
     <AppBar {...args}>
       {#snippet leading()}
-        <ButtonIcon variant="text" iconProps={{ name: 'menu' }} aria-label="Menu" />
+        <ButtonIcon variant="standard" iconProps={{ name: 'menu' }} aria-label="Menu" />
       {/snippet}
       {#snippet trailing()}
-        <ButtonIcon variant="text" iconProps={{ name: 'account_circle' }} aria-label="Account" />
+        <ButtonIcon
+          variant="standard"
+          iconProps={{ name: 'account_circle' }}
+          aria-label="Account"
+        />
       {/snippet}
     </AppBar>
   {/snippet}
@@ -101,7 +105,7 @@
   {#snippet template(args)}
     <AppBar {...args} showBack>
       {#snippet trailing()}
-        <ButtonIcon variant="text" iconProps={{ name: 'more_vert' }} aria-label="More" />
+        <ButtonIcon variant="standard" iconProps={{ name: 'more_vert' }} aria-label="More" />
       {/snippet}
     </AppBar>
   {/snippet}
@@ -110,13 +114,13 @@
 <Story name="Search" asChild>
   <AppBar search="Search products" title="Products">
     {#snippet leading()}
-      <ButtonIcon variant="text" iconProps={{ name: 'menu' }} aria-label="Menu" />
+      <ButtonIcon variant="standard" iconProps={{ name: 'menu' }} aria-label="Menu" />
     {/snippet}
     {#snippet searchTrailing()}
-      <ButtonIcon variant="text" iconProps={{ name: 'mic' }} aria-label="Voice search" />
+      <ButtonIcon variant="standard" iconProps={{ name: 'mic' }} aria-label="Voice search" />
     {/snippet}
     {#snippet trailing()}
-      <ButtonIcon variant="text" iconProps={{ name: 'account_circle' }} aria-label="Account" />
+      <ButtonIcon variant="standard" iconProps={{ name: 'account_circle' }} aria-label="Account" />
     {/snippet}
   </AppBar>
 </Story>

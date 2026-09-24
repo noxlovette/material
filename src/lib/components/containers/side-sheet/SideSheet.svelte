@@ -66,7 +66,7 @@ Visibility is controlled with `bind:open`.
     {#if onback}
       <ButtonIcon
         type="button"
-        variant="text"
+        variant="standard"
         class={cls.iconButton()}
         iconProps={{ name: 'arrow_back' }}
         aria-label="Back"
@@ -76,7 +76,7 @@ Visibility is controlled with `bind:open`.
     <h2 id="{id}-headline" class={cls.headline()}>{headline}</h2>
     <ButtonIcon
       type="button"
-      variant="text"
+      variant="standard"
       class={cls.iconButton()}
       iconProps={{ name: 'close' }}
       aria-label="Close"

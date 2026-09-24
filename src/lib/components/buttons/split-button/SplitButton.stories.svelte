@@ -9,11 +9,7 @@
     argTypes: {
       variant: {
         control: 'select',
-        options: ['elevated', 'filled', 'tonal', 'outlined', 'text']
-      },
-      color: {
-        control: 'select',
-        options: ['default', 'primary', 'secondary', 'tertiary', 'error']
+        options: ['elevated', 'filled', 'tonal', 'outlined']
       },
       size: {
         control: 'select',
@@ -22,15 +18,14 @@
     },
     args: {
       variant: 'filled',
-      color: 'default',
-      size: 'md'
+      size: 'sm'
     }
   });
 </script>
 
 <Story name="Playground">
   {#snippet template(args)}
-    <SplitButton variant={args.variant} color={args.color} size={args.size}>
+    <SplitButton variant={args.variant} size={args.size}>
       {#snippet children()}
         Reply
       {/snippet}
@@ -42,7 +37,7 @@
   {/snippet}
 </Story>
 
-<Story name="WithLeadingIcon" asChild>
+<Story name="With leading icon" asChild>
   <div class="p-6">
     <SplitButton iconProps={{ name: 'send' }}>
       {#snippet children()}
@@ -58,7 +53,7 @@
 
 <Story name="Variants" asChild>
   <div class="flex flex-wrap items-center gap-6 p-6">
-    {#each ['elevated', 'filled', 'tonal', 'outlined', 'text'] as const as variant (variant)}
+    {#each ['elevated', 'filled', 'tonal', 'outlined'] as const as variant (variant)}
       <SplitButton {variant}>
         {#snippet children()}
           Reply
@@ -73,7 +68,7 @@
 </Story>
 
 <Story name="Sizes" asChild>
-  <div class="flex flex-wrap items-center gap-6 p-6">
+  <div class="flex flex-col items-start gap-6 p-6">
     {#each ['xs', 'sm', 'md', 'lg', 'xl'] as const as size (size)}
       <SplitButton {size}>
         {#snippet children()}

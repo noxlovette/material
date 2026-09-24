@@ -70,6 +70,7 @@ Text fields allow users to enter and edit text.
       {@render trailingIcon()}
     {:else if trailingIconProps}
       <ButtonIcon
+        variant="standard"
         type="button"
         onclick={trailingOnClick}
         class={cls.trailingIcon()}

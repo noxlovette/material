@@ -1,29 +1,31 @@
 <!--
 @component
-Icon buttons help people take minor actions and are often used in app bars.
+Icon buttons help people take minor actions with one tap.
 
-- Standard: Low emphasis
-- Filled: High emphasis
-- Filled Tonal: Medium-high emphasis
-- Outlined: Medium emphasis
+- Filled: high emphasis (default)
+- Tonal: medium-high emphasis
+- Outlined: medium emphasis
+- Standard: low emphasis, no container at rest; for app bars, fields and dense layouts
 
-@see https://m3.material.io/components/icon-buttons/overview
+`variation="toggle"` makes a two-state icon button.
+
+@see https://m3.material.io/components/icon-buttons/specs
 -->
 <script lang="ts">
   import type { ButtonIconProps } from './types.js';
   import { Icon, LoadingIndicator, Layer } from '$lib/utils/index.js';
-  import { buttonIcon } from './theme.js';
+  import { buttonColor, buttonIcon } from './theme.js';
   import clsx from 'clsx';
+  import { buttonCorners, shapeMorph } from './shapeMorph.js';
   import Tooltip from '$lib/components/forms/tooltip/Tooltip.svelte';
-  import { Button, Toggle, type ButtonRootProps } from 'bits-ui';
-  import type { ToggleRootProps } from 'bits-ui';
+  import { Button, Toggle, type ButtonRootProps, type ToggleRootProps } from 'bits-ui';
 
   let {
     iconProps,
-    variant = 'text',
-    color = 'default',
-    size = 'md',
+    variant = 'filled',
+    size = 'sm',
     shape = 'round',
+    width = 'default',
     variation = 'default',
     triggerClass = '',
     triggerSide = 'top',
@@ -32,61 +34,81 @@ Icon buttons help people take minor actions and are often used in app bars.
     formaction,
     tooltipContent,
     loading,
-    width = 'default',
-    pressed = false,
+    pressed = $bindable(false),
     onPressedChange,
     class: className,
     ...restProps
   }: ButtonIconProps = $props();
 
-  const selected = $derived(variation === 'toggle' ? pressed : undefined);
+  let ref = $state<HTMLElement | null>(null);
+  $effect(() => (ref ? shapeMorph(ref, buttonCorners) : undefined));
 
-  const { base, icon } = $derived(
-    buttonIcon({ variant, color, shape, variation, size, width, selected })
+  const toggle = $derived(variation === 'toggle');
+  const cls = $derived(buttonIcon({ variant, size, width, shape, selected: toggle && pressed }));
+  const colorCls = $derived(
+    buttonColor({
+      variant,
+      state: toggle ? (pressed ? 'selected' : 'unselected') : 'default'
+    })
   );
-
-  const btnCls = $derived(base({ class: clsx(className) }));
+  const label = $derived(restProps['aria-label'] ?? tooltipContent);
 </script>
 
-<Tooltip {triggerClass} variant="snack" supportingText={tooltipContent}>
+{#snippet content()}
+  {#if loading}
+    <LoadingIndicator center={false} class={cls.icon({ class: 'text-current' })} />
+  {:else}
+    <Icon
+      fill={toggle && pressed ? 1 : 0}
+      {...iconProps}
+      class={cls.icon({ class: clsx(iconProps.class) })}
+    />
+  {/if}
+  <Layer />
+{/snippet}
+
+<Tooltip
+  {triggerClass}
+  supportingText={tooltipContent}
+  contentProps={{ side: triggerSide, align: triggerAlign }}
+>
   {#snippet trigger({
-    class: triggerClass_,
+    class: tooltipTriggerClass,
     type: _tooltipType,
     onclick: _tooltipOnclick,
     ...triggerAttrs
   })}
-    {#if variation === 'toggle'}
+    {@const btnCls = cls.base({
+      class: clsx(colorCls, className, tooltipTriggerClass as string)
+    })}
+    {#if toggle}
       <Toggle.Root
+        bind:ref
         bind:pressed
         {onPressedChange}
         {disabled}
-        class={clsx(btnCls, triggerClass_ as string)}
+        class={btnCls}
+        aria-busy={loading || undefined}
         data-cy="m3-button-icon"
         {...restProps as ToggleRootProps}
         {...triggerAttrs}
+        aria-label={label}
       >
-        {#if loading}
-          <LoadingIndicator />
-        {:else}
-          <Icon class={icon()} {...iconProps} />
-          <Layer />
-        {/if}
+        {@render content()}
       </Toggle.Root>
     {:else}
       <Button.Root
+        bind:ref
         {disabled}
         {formaction}
-        class={clsx(btnCls, triggerClass_ as string)}
+        class={btnCls}
+        aria-busy={loading || undefined}
         data-cy="m3-button-icon"
         {...restProps as ButtonRootProps}
         {...triggerAttrs}
+        aria-label={label}
       >
-        {#if loading}
-          <LoadingIndicator />
-        {:else}
-          <Icon class={icon()} {...iconProps} />
-          <Layer />
-        {/if}
+        {@render content()}
       </Button.Root>
     {/if}
   {/snippet}

@@ -113,9 +113,13 @@
           class="bg-md-sys-color-secondary-container aspect-square w-full max-w-72 self-center rounded-3xl"
         ></div>
         <div class="flex justify-center gap-4">
-          <ButtonIcon iconProps={{ name: 'skip_previous' }} aria-label="Previous" />
+          <ButtonIcon
+            variant="standard"
+            iconProps={{ name: 'skip_previous' }}
+            aria-label="Previous"
+          />
           <ButtonIcon variant="filled" iconProps={{ name: 'pause' }} aria-label="Pause" />
-          <ButtonIcon iconProps={{ name: 'skip_next' }} aria-label="Next" />
+          <ButtonIcon variant="standard" iconProps={{ name: 'skip_next' }} aria-label="Next" />
         </div>
       </div>
     </BottomSheet>

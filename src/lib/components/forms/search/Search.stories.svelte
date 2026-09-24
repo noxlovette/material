@@ -35,11 +35,15 @@
   <div class="flex max-w-md flex-col gap-4 p-6">
     <Search>
       {#snippet leading()}
-        <ButtonIcon variant="text" iconProps={{ name: 'menu' }} aria-label="Menu" />
+        <ButtonIcon variant="standard" iconProps={{ name: 'menu' }} aria-label="Menu" />
       {/snippet}
       {#snippet trailing()}
-        <ButtonIcon variant="text" iconProps={{ name: 'mic' }} aria-label="Voice search" />
-        <ButtonIcon variant="text" iconProps={{ name: 'account_circle' }} aria-label="Account" />
+        <ButtonIcon variant="standard" iconProps={{ name: 'mic' }} aria-label="Voice search" />
+        <ButtonIcon
+          variant="standard"
+          iconProps={{ name: 'account_circle' }}
+          aria-label="Account"
+        />
       {/snippet}
     </Search>
     <Search value="query" leadingIconProps={null} placeholder="No leading icon" />

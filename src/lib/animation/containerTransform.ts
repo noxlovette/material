@@ -25,8 +25,10 @@ export interface ContainerTransformOptions {
  * the DOM at the same time — `update` swaps one for the other. Browsers without the API just run
  * `update`. A second call while one is running is queued, not interrupted.
  *
- * Not built into any component: `Search` is a plain field with no search view to expand into, and
- * card → detail is the app's own navigation.
+ * Not built into any component. FAB → sheet is the FAB's own morph (a clip-path on Motion, in
+ * `FAB.svelte`), because M3 keeps that container opaque and changes its colour, which a
+ * snapshot cross-fade can't. Card → detail is the app's own navigation, and `Search` is a plain
+ * field with no search view to expand into.
  *
  * ```ts
  * containerTransform(

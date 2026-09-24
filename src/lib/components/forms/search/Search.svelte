@@ -62,7 +62,7 @@ Search bars allow users to enter a query to find specific information within an 
     <span class={s.trailing()}>
       {#if showClear}
         <ButtonIcon
-          variant="text"
+          variant="standard"
           type="button"
           iconProps={trailingIconProps!}
           aria-label={clearLabel}

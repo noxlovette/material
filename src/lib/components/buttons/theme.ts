@@ -1,492 +1,435 @@
 import { tv, type VariantProps } from 'tailwind-variants';
+import type { Breakpoint } from '../containers/pane/theme.js';
 
-// Variants
+/*
+ * Button, toggle button, icon button and FAB styles, from the M3 Expressive specs:
+ * https://m3.material.io/components/buttons/specs
+ * https://m3.material.io/components/icon-buttons/specs
+ * https://m3.material.io/components/floating-action-button/specs
+ * https://m3.material.io/components/extended-fab/specs
+ * https://m3.material.io/components/fab-menu/specs
+ *
+ * Shape: size classes set --btn-round (half the height), --btn-square and --btn-pressed, and the
+ * shape variant points --btn-shape at one of them. `.md-btn-shape` (styles/component.css) turns
+ * that into border-radius and morphs to --btn-pressed while pressed.
+ */
+
 export type ButtonVariants = VariantProps<typeof button>;
-export type FABVariants = VariantProps<typeof fab>;
-export type FABMenuVariants = VariantProps<typeof fabMenu>;
-export type ButtonMDVariants = VariantProps<typeof button>;
 export type ButtonIconVariants = VariantProps<typeof buttonIcon>;
+export type ButtonColorVariants = VariantProps<typeof buttonColor>;
+export type FABVariants = VariantProps<typeof fab>;
 export type FABMenuItemVariants = VariantProps<typeof fabMenuItem>;
+/** @deprecated Use `ButtonVariants`. */
+export type ButtonMDVariants = ButtonVariants;
 
-export const button = tv({
-  slots: {
-    base: 'md-component-button-base relative md-btn-morph group max-w-max',
-    icon: 'inline-flex items-center justify-center leading-none'
-  },
+export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
+/** Container, border and content colours for one button colour style in one state. */
+export const buttonColor = tv({
+  base: '',
   variants: {
     variant: {
       elevated: '',
       filled: '',
       tonal: '',
-      outlined: '',
+      outlined: '[border-width:var(--btn-outline)] border-solid',
       text: '',
-      bare: ''
+      standard: ''
     },
-    color: {
+    /** `default` for plain buttons; `unselected`/`selected` for toggles. */
+    state: {
       default: '',
-      primary: '',
-      secondary: '',
-      tertiary: '',
-      error: ''
-    },
-    usage: {
-      selection: '',
-      default: ''
-    },
-    size: {
-      xs: {
-        base: 'h-8 gap-2 px-4 md-sys-typescale-label-large font-medium [--btn-shape:1rem] [--btn-pressed-shape:4px]',
-        icon: 'text-[20px] size-5'
-      },
-      sm: {
-        base: 'h-10 gap-2 px-4 md-sys-typescale-label-large font-medium [--btn-shape:1.25rem] [--btn-pressed-shape:4px]',
-        icon: 'size-5 text-[20px]'
-      },
-      md: {
-        base: 'h-14 px-6 gap-2 md-sys-typescale-title-medium font-medium [--btn-shape:1.75rem] [--btn-pressed-shape:12px]',
-        icon: 'size-6 text-[24px]'
-      },
-      lg: {
-        base: 'h-24 px-12 gap-3 md-sys-typescale-headline-small [--btn-shape:3rem] [--btn-pressed-shape:16px]',
-        icon: 'size-8 text-[32px]'
-      },
-      xl: {
-        base: 'h-34 px-16 md-sys-typescale-headline-large gap-4 [--btn-shape:4.25rem] [--btn-pressed-shape:28px]',
-        icon: 'text-[40px] size-10'
-      }
-    },
-    shape: {
-      round: '',
-      square: '[--btn-shape-override:0.375rem]'
-    },
-    selected: {
-      true: '',
-      false: ''
+      unselected: '',
+      selected: ''
     }
   },
   compoundVariants: [
     {
-      usage: 'selection',
-      selected: true,
-      class: {
-        base: 'bg-md-sys-color-primary text-md-sys-color-on-primary [--btn-shape-override:0.75rem]'
-      }
-    },
-    {
-      usage: 'selection',
-      selected: false,
-      class: { base: 'bg-md-sys-color-surface-container-high text-md-sys-color-on-surface-variant' }
-    },
-    {
-      variant: 'text',
-      class: { base: 'bg-transparent' }
-    },
-    {
-      variant: 'bare',
-      class: { base: 'bg-transparent' }
-    },
-    {
-      variant: 'filled',
-      color: 'default',
-      class: { base: 'md-component-button-filled-primary' }
-    },
-    {
-      variant: 'filled',
-      color: 'primary',
-      class: { base: 'md-component-button-filled-primary' }
-    },
-    {
-      variant: 'filled',
-      color: 'secondary',
-      class: { base: 'md-component-button-filled-secondary' }
-    },
-    {
-      variant: 'filled',
-      color: 'tertiary',
-      class: { base: 'md-component-button-filled-tertiary' }
-    },
-    {
-      variant: 'filled',
-      color: 'error',
-      class: { base: 'md-component-button-filled-error' }
-    },
-    {
-      variant: 'tonal',
-      color: 'default',
-      class: { base: 'md-component-button-tonal-primary' }
-    },
-    {
-      variant: 'tonal',
-      color: 'primary',
-      class: { base: 'md-component-button-tonal-primary' }
-    },
-    {
-      variant: 'tonal',
-      color: 'secondary',
-      class: { base: 'md-component-button-tonal-secondary' }
-    },
-    {
-      variant: 'tonal',
-      color: 'tertiary',
-      class: { base: 'md-component-button-tonal-tertiary' }
-    },
-    {
-      variant: 'tonal',
-      color: 'error',
-      class: { base: 'md-component-button-tonal-error' }
-    },
-    {
-      variant: 'outlined',
-      color: 'default',
-      class: { base: 'md-component-button-outline-default' }
-    },
-    {
-      variant: 'outlined',
-      color: 'primary',
-      class: { base: 'md-component-button-outline-primary' }
-    },
-    {
-      variant: 'outlined',
-      color: 'secondary',
-      class: { base: 'md-component-button-outline-secondary' }
-    },
-    {
-      variant: 'outlined',
-      color: 'tertiary',
-      class: { base: 'md-component-button-outline-tertiary' }
-    },
-    {
-      variant: 'outlined',
-      color: 'error',
-      class: { base: 'md-component-button-outline-error' }
-    },
-    {
-      variant: 'text',
-      color: 'default',
-      class: { base: 'md-component-button-text-default' }
-    },
-    {
-      variant: 'text',
-      color: 'primary',
-      class: { base: 'md-component-button-text-primary' }
-    },
-    {
-      variant: 'text',
-      color: 'secondary',
-      class: { base: 'md-component-button-text-secondary' }
-    },
-    {
-      variant: 'text',
-      color: 'tertiary',
-      class: { base: 'md-component-button-text-tertiary' }
-    },
-    {
-      variant: 'text',
-      color: 'error',
-      class: { base: 'md-component-button-text-error' }
+      variant: 'elevated',
+      state: ['default', 'unselected'],
+      class: 'bg-md-sys-color-surface-container-low text-md-sys-color-primary'
     },
     {
       variant: 'elevated',
-      color: 'default',
-      class: { base: 'md-component-button-elevated-default' }
+      state: 'selected',
+      class: 'bg-md-sys-color-primary text-md-sys-color-on-primary'
     },
     {
-      variant: 'elevated',
-      color: 'primary',
-      class: { base: 'md-component-button-elevated-primary' }
+      variant: 'filled',
+      state: ['default', 'selected'],
+      class: 'bg-md-sys-color-primary text-md-sys-color-on-primary'
     },
     {
-      variant: 'elevated',
-      color: 'secondary',
-      class: { base: 'md-component-button-elevated-secondary' }
+      variant: 'filled',
+      state: 'unselected',
+      class: 'bg-md-sys-color-surface-container text-md-sys-color-on-surface-variant'
     },
     {
-      variant: 'elevated',
-      color: 'tertiary',
-      class: { base: 'md-component-button-elevated-tertiary' }
+      variant: 'tonal',
+      state: ['default', 'unselected'],
+      class: 'bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container'
     },
     {
-      variant: 'elevated',
-      color: 'error',
-      class: { base: 'md-component-button-elevated-error' }
+      variant: 'tonal',
+      state: 'selected',
+      class: 'bg-md-sys-color-secondary text-md-sys-color-on-secondary'
+    },
+    {
+      variant: 'outlined',
+      state: ['default', 'unselected'],
+      class:
+        'border-md-sys-color-outline-variant text-md-sys-color-on-surface-variant disabled:bg-transparent aria-disabled:bg-transparent'
+    },
+    {
+      variant: 'outlined',
+      state: 'selected',
+      class:
+        'bg-md-sys-color-inverse-surface text-md-sys-color-inverse-on-surface border-transparent'
+    },
+    {
+      variant: 'text',
+      class: 'text-md-sys-color-primary disabled:bg-transparent aria-disabled:bg-transparent'
+    },
+    {
+      variant: 'standard',
+      state: ['default', 'unselected'],
+      class:
+        'text-md-sys-color-on-surface-variant disabled:bg-transparent aria-disabled:bg-transparent'
+    },
+    {
+      variant: 'standard',
+      state: 'selected',
+      class: 'text-md-sys-color-primary disabled:bg-transparent aria-disabled:bg-transparent'
     }
   ]
+});
+
+// Disabled: a 10% on-surface container (styles without a container drop it again above) and 38%
+// on-surface content, no elevation.
+export const buttonBase =
+  'md-btn md-sys-state-focus-indicator relative inline-flex shrink-0 cursor-pointer items-center justify-center whitespace-nowrap select-none disabled:cursor-not-allowed disabled:bg-md-sys-color-on-surface/10 disabled:text-md-sys-color-on-surface/38 disabled:shadow-none aria-disabled:cursor-not-allowed aria-disabled:bg-md-sys-color-on-surface/10 aria-disabled:text-md-sys-color-on-surface/38 aria-disabled:shadow-none';
+
+/** Button measurements per size: height, padding, icon-label gap, label type, shape and outline. */
+export const buttonSizes = {
+  xs: {
+    base: 'md-sys-typescale-label-large h-8 gap-1 px-3 [--btn-outline:1px] [--btn-pressed:0.5rem] [--btn-round:1rem] [--btn-square:0.75rem]',
+    icon: 'size-5 text-[20px]'
+  },
+  sm: {
+    base: 'md-sys-typescale-label-large h-10 gap-2 px-4 [--btn-outline:1px] [--btn-pressed:0.5rem] [--btn-round:1.25rem] [--btn-square:0.75rem]',
+    icon: 'size-5 text-[20px]'
+  },
+  md: {
+    base: 'md-sys-typescale-title-medium h-14 gap-2 px-6 [--btn-outline:1px] [--btn-pressed:0.75rem] [--btn-round:1.75rem] [--btn-square:1rem]',
+    icon: 'size-6 text-[24px]'
+  },
+  lg: {
+    base: 'md-sys-typescale-headline-small h-24 gap-3 px-12 [--btn-outline:2px] [--btn-pressed:1rem] [--btn-round:3rem] [--btn-square:1.75rem]',
+    icon: 'size-8 text-[32px]'
+  },
+  xl: {
+    base: 'md-sys-typescale-headline-large h-34 gap-4 px-16 [--btn-outline:3px] [--btn-pressed:1rem] [--btn-round:4.25rem] [--btn-square:1.75rem]',
+    icon: 'size-10 text-[40px]'
+  }
+} as const;
+
+/** Resting elevation and hover lift per colour style (the text and outlined styles have none). */
+export const buttonElevation = {
+  elevated: 'shadow-elevation-1 not-disabled:hover:shadow-elevation-2',
+  filled: 'not-disabled:hover:shadow-elevation-1',
+  tonal: 'not-disabled:hover:shadow-elevation-1',
+  outlined: '',
+  text: ''
+} as const;
+
+export const button = tv({
+  slots: {
+    base: ['md-btn-shape', buttonBase],
+    icon: 'shrink-0'
+  },
+  variants: {
+    variant: {
+      elevated: { base: buttonElevation.elevated },
+      filled: { base: buttonElevation.filled },
+      tonal: { base: buttonElevation.tonal },
+      outlined: {},
+      text: {}
+    },
+    size: buttonSizes,
+    shape: {
+      round: { base: '[--btn-shape:var(--btn-round)]' },
+      square: { base: '[--btn-shape:var(--btn-square)]' }
+    },
+    /** Toggle buttons only: selected swaps the resting shape (round ↔ square). */
+    selected: {
+      true: {},
+      false: {}
+    }
+  },
+  compoundVariants: [
+    { selected: true, shape: 'round', class: { base: '[--btn-shape:var(--btn-square)]' } },
+    { selected: true, shape: 'square', class: { base: '[--btn-shape:var(--btn-round)]' } }
+  ],
+  defaultVariants: {
+    variant: 'filled',
+    size: 'sm',
+    shape: 'round'
+  }
 });
 
 export const buttonIcon = tv({
   slots: {
-    base: 'md-component-button-base relative md-btn-morph group max-w-max',
-    icon: 'inline-flex items-center justify-center leading-none'
+    base: ['md-btn-shape', buttonBase],
+    icon: 'shrink-0'
   },
   variants: {
     variant: {
-      elevated: '',
-      filled: '',
-      tonal: '',
-      outlined: '',
-      text: '',
-      bare: ''
-    },
-    color: {
-      default: '',
-      primary: '',
-      secondary: '',
-      tertiary: '',
-      error: ''
+      filled: {},
+      tonal: {},
+      outlined: {},
+      standard: {}
     },
     size: {
       xs: {
-        base: 'h-8 gap-2 px-4 md-sys-typescale-label-large font-medium [--btn-shape:1rem] [--btn-pressed-shape:4px]',
-        icon: 'text-[20px] size-5'
-      },
-      sm: {
-        base: 'h-10 gap-2 px-4 md-sys-typescale-label-large font-medium [--btn-shape:1.25rem] [--btn-pressed-shape:4px]',
+        base: 'h-8 [--btn-outline:1px] [--btn-pressed:0.5rem] [--btn-round:1rem] [--btn-square:0.75rem]',
         icon: 'size-5 text-[20px]'
       },
+      sm: {
+        base: 'h-10 [--btn-outline:1px] [--btn-pressed:0.5rem] [--btn-round:1.25rem] [--btn-square:0.75rem]',
+        icon: 'size-6 text-[24px]'
+      },
       md: {
-        base: 'h-14 px-6 gap-2 md-sys-typescale-title-medium font-medium [--btn-shape:1.75rem] [--btn-pressed-shape:12px]',
+        base: 'h-14 [--btn-outline:1px] [--btn-pressed:0.75rem] [--btn-round:1.75rem] [--btn-square:1rem]',
         icon: 'size-6 text-[24px]'
       },
       lg: {
-        base: 'h-24 px-12 gap-3 md-sys-typescale-headline-small [--btn-shape:3rem] [--btn-pressed-shape:16px]',
+        base: 'h-24 [--btn-outline:2px] [--btn-pressed:1rem] [--btn-round:3rem] [--btn-square:1.75rem]',
         icon: 'size-8 text-[32px]'
       },
       xl: {
-        base: 'h-34 px-16 md-sys-typescale-headline-large gap-4 [--btn-shape:4.25rem] [--btn-pressed-shape:28px]',
-        icon: 'text-[40px] size-10'
+        base: 'h-34 [--btn-outline:3px] [--btn-pressed:1rem] [--btn-round:4.25rem] [--btn-square:1.75rem]',
+        icon: 'size-10 text-[40px]'
       }
     },
+    /** Container width: the icon plus the size's narrow, default or wide leading/trailing space. */
     width: {
-      narrow: '',
-      wide: '',
-      default: 'aspect-square'
+      narrow: {},
+      default: {},
+      wide: {}
     },
     shape: {
-      round: '',
-      square: '[--btn-shape-override:0.75rem]'
+      round: { base: '[--btn-shape:var(--btn-round)]' },
+      square: { base: '[--btn-shape:var(--btn-square)]' }
     },
     selected: {
-      true: '',
-      false: ''
+      true: {},
+      false: {}
+    }
+  },
+  compoundVariants: [
+    { size: 'xs', width: 'narrow', class: { base: 'w-7' } },
+    { size: 'xs', width: 'default', class: { base: 'w-8' } },
+    { size: 'xs', width: 'wide', class: { base: 'w-10' } },
+    { size: 'sm', width: 'narrow', class: { base: 'w-8' } },
+    { size: 'sm', width: 'default', class: { base: 'w-10' } },
+    { size: 'sm', width: 'wide', class: { base: 'w-13' } },
+    { size: 'md', width: 'narrow', class: { base: 'w-12' } },
+    { size: 'md', width: 'default', class: { base: 'w-14' } },
+    { size: 'md', width: 'wide', class: { base: 'w-18' } },
+    { size: 'lg', width: 'narrow', class: { base: 'w-16' } },
+    { size: 'lg', width: 'default', class: { base: 'w-24' } },
+    { size: 'lg', width: 'wide', class: { base: 'w-32' } },
+    { size: 'xl', width: 'narrow', class: { base: 'w-26' } },
+    { size: 'xl', width: 'default', class: { base: 'w-34' } },
+    { size: 'xl', width: 'wide', class: { base: 'w-46' } },
+    { selected: true, shape: 'round', class: { base: '[--btn-shape:var(--btn-square)]' } },
+    { selected: true, shape: 'square', class: { base: '[--btn-shape:var(--btn-round)]' } }
+  ],
+  defaultVariants: {
+    variant: 'filled',
+    size: 'sm',
+    width: 'default',
+    shape: 'round'
+  }
+});
+
+export type FABColor =
+  | 'primary-container'
+  | 'secondary-container'
+  | 'tertiary-container'
+  | 'primary'
+  | 'secondary'
+  | 'tertiary';
+
+/** The FAB menu's colour set follows the FAB's colour family. */
+export const fabMenuSet = (color: FABColor) =>
+  color.startsWith('secondary')
+    ? 'secondary'
+    : color.startsWith('tertiary')
+      ? 'tertiary'
+      : 'primary';
+
+/*
+ * FAB and extended FAB. Collapsed, the padding centres the icon in the square FAB
+ * ((size - icon) / 2); extended, it is the extended FAB's leading/trailing space and the label
+ * opens beside the icon.
+ */
+export const fab = tv({
+  slots: {
+    base: 'md-btn md-sys-state-focus-indicator relative inline-flex shrink-0 cursor-pointer items-center justify-start whitespace-nowrap select-none shadow-elevation-3 not-disabled:hover:shadow-elevation-4 disabled:cursor-not-allowed disabled:bg-md-sys-color-on-surface/10 disabled:text-md-sys-color-on-surface/38 disabled:shadow-none',
+    icon: 'shrink-0',
+    labelTrack: 'grid',
+    labelClip: 'min-w-0 overflow-hidden',
+    label: 'block'
+  },
+  variants: {
+    color: {
+      'primary-container': {
+        base: 'bg-md-sys-color-primary-container text-md-sys-color-on-primary-container'
+      },
+      'secondary-container': {
+        base: 'bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container'
+      },
+      'tertiary-container': {
+        base: 'bg-md-sys-color-tertiary-container text-md-sys-color-on-tertiary-container'
+      },
+      primary: { base: 'bg-md-sys-color-primary text-md-sys-color-on-primary' },
+      secondary: { base: 'bg-md-sys-color-secondary text-md-sys-color-on-secondary' },
+      tertiary: { base: 'bg-md-sys-color-tertiary text-md-sys-color-on-tertiary' }
     },
-    variation: {
-      toggle: '',
-      default: ''
+    size: {
+      /** Baseline small FAB. No longer recommended by M3; kept for dense layouts. */
+      small: { base: 'h-10 rounded-xl px-2', icon: 'size-6 text-[24px]' },
+      regular: {
+        base: 'md-sys-typescale-title-medium h-14 rounded-2xl px-4',
+        icon: 'size-6 text-[24px]',
+        label: 'ps-2'
+      },
+      medium: {
+        base: 'md-sys-typescale-title-large h-20 rounded-[1.25rem] px-[1.625rem]',
+        icon: 'size-7 text-[28px]',
+        label: 'ps-3'
+      },
+      large: {
+        base: 'md-sys-typescale-headline-small h-24 rounded-[1.75rem] px-[1.875rem]',
+        icon: 'size-9 text-[36px]',
+        label: 'ps-4'
+      }
+    },
+    /**
+     * The FAB menu's open state: the FAB becomes the round close button, label shut. Its size and
+     * corners spring to 56dp round in FAB.svelte.
+     */
+    menuOpen: {
+      true: {
+        base: 'justify-center px-0',
+        icon: 'size-5 text-[20px]',
+        labelTrack: 'grid-cols-[0fr]!'
+      },
+      false: {}
+    },
+    menuSet: {
+      primary: {},
+      secondary: {},
+      tertiary: {}
     }
   },
   compoundVariants: [
     {
-      variation: 'toggle',
-      selected: true,
-      class: {
-        base: 'bg-md-sys-color-primary text-md-sys-color-on-primary [--btn-shape-override:0.75rem]'
-      }
+      menuOpen: true,
+      menuSet: 'primary',
+      class: { base: 'bg-md-sys-color-primary text-md-sys-color-on-primary' }
     },
     {
-      variation: 'toggle',
-      selected: false,
-      class: { base: 'bg-md-sys-color-surface-container-high text-md-sys-color-on-surface-variant' }
+      menuOpen: true,
+      menuSet: 'secondary',
+      class: { base: 'bg-md-sys-color-secondary text-md-sys-color-on-secondary' }
     },
     {
-      variant: 'text',
-      class: { base: 'bg-transparent' }
-    },
-    {
-      variant: 'bare',
-      class: { base: 'bg-transparent' }
-    },
-    {
-      variant: 'filled',
-      color: 'default',
-      class: { base: 'md-component-button-filled-primary' }
-    },
-    {
-      variant: 'filled',
-      color: 'primary',
-      class: { base: 'md-component-button-filled-primary' }
-    },
-    {
-      variant: 'filled',
-      color: 'secondary',
-      class: { base: 'md-component-button-filled-secondary' }
-    },
-    {
-      variant: 'filled',
-      color: 'tertiary',
-      class: { base: 'md-component-button-filled-tertiary' }
-    },
-    {
-      variant: 'filled',
-      color: 'error',
-      class: { base: 'md-component-button-filled-error' }
-    },
-    {
-      variant: 'tonal',
-      color: 'default',
-      class: { base: 'md-component-button-tonal-primary' }
-    },
-    {
-      variant: 'tonal',
-      color: 'primary',
-      class: { base: 'md-component-button-tonal-primary' }
-    },
-    {
-      variant: 'tonal',
-      color: 'secondary',
-      class: { base: 'md-component-button-tonal-secondary' }
-    },
-    {
-      variant: 'tonal',
-      color: 'tertiary',
-      class: { base: 'md-component-button-tonal-tertiary' }
-    },
-    {
-      variant: 'tonal',
-      color: 'error',
-      class: { base: 'md-component-button-tonal-error' }
-    },
-    {
-      variant: 'outlined',
-      color: 'default',
-      class: { base: 'md-component-button-outline-default' }
-    },
-    {
-      variant: 'outlined',
-      color: 'primary',
-      class: { base: 'md-component-button-outline-primary' }
-    },
-    {
-      variant: 'outlined',
-      color: 'secondary',
-      class: { base: 'md-component-button-outline-secondary' }
-    },
-    {
-      variant: 'outlined',
-      color: 'tertiary',
-      class: { base: 'md-component-button-outline-tertiary' }
-    },
-    {
-      variant: 'outlined',
-      color: 'error',
-      class: { base: 'md-component-button-outline-error' }
-    },
-    {
-      variant: 'text',
-      color: 'default',
-      class: { base: 'md-component-button-text-default' }
-    },
-    {
-      variant: 'text',
-      color: 'primary',
-      class: { base: 'md-component-button-text-primary' }
-    },
-    {
-      variant: 'text',
-      color: 'secondary',
-      class: { base: 'md-component-button-text-secondary' }
-    },
-    {
-      variant: 'text',
-      color: 'tertiary',
-      class: { base: 'md-component-button-text-tertiary' }
-    },
-    {
-      variant: 'text',
-      color: 'error',
-      class: { base: 'md-component-button-text-error' }
-    },
-    {
-      variant: 'elevated',
-      color: 'default',
-      class: { base: 'md-component-button-elevated-default' }
-    },
-    {
-      variant: 'elevated',
-      color: 'primary',
-      class: { base: 'md-component-button-elevated-primary' }
-    },
-    {
-      variant: 'elevated',
-      color: 'secondary',
-      class: { base: 'md-component-button-elevated-secondary' }
-    },
-    {
-      variant: 'elevated',
-      color: 'tertiary',
-      class: { base: 'md-component-button-elevated-tertiary' }
-    },
-    {
-      variant: 'elevated',
-      color: 'error',
-      class: { base: 'md-component-button-elevated-error' }
+      menuOpen: true,
+      menuSet: 'tertiary',
+      class: { base: 'bg-md-sys-color-tertiary text-md-sys-color-on-tertiary' }
     }
-  ]
+  ],
+  defaultVariants: {
+    color: 'primary-container',
+    size: 'regular',
+    menuOpen: false,
+    menuSet: 'primary'
+  }
 });
 
-export const fab = tv({
-  slots: {
-    base: 'md-component-button-base relative z-50',
-    icon: '',
-    label: ''
+// 5px padding leaves room for the items' focus ring inside the scroll box; the negative end
+// margin puts the items back on the close button's trailing edge, and 3px offset + 5px padding
+// is the spec's 8dp above it.
+/*
+ * `expanded` is responsive (FAB on compact windows, extended FAB with room to spare), so it
+ * resolves to per-tier classes rather than a tv variant: the label track opens, and the large
+ * FAB's padding moves from centring its icon (30dp) to the extended FAB's 28dp. These classes
+ * decide the layout (and the first paint); FAB.svelte springs the change between them.
+ */
+export const fabExpandedClasses: Record<
+  Breakpoint,
+  Record<'true' | 'false', { track: string; large: string }>
+> = {
+  small: {
+    true: { track: 'grid-cols-[1fr]', large: 'px-7' },
+    false: { track: 'grid-cols-[0fr]', large: 'px-[1.875rem]' }
   },
-  variants: {
-    config: {
-      primary: {
-        base: 'md-component-button-filled-primary shadow-elevation-1 hover:shadow-elevation-2',
-        icon: 'text-md-sys-color-on-primary',
-        label: 'text-md-sys-color-on-primary'
-      },
-      secondary: {
-        base: 'md-component-button-filled-secondary shadow-elevation-1 hover:shadow-elevation-2',
-        icon: 'text-md-sys-color-on-secondary',
-        label: 'text-md-sys-color-on-secondary'
-      },
-      tertiary: {
-        base: 'md-component-button-filled-tertiary shadow-elevation-1 hover:shadow-elevation-2',
-        icon: 'text-md-sys-color-on-tertiary',
-        label: 'text-md-sys-color-on-tertiary'
-      }
-    },
-    expanded: {
-      true: 'gap-3 px-4',
-      false: 'aspect-square'
-    },
-    size: {
-      small: {
-        base: 'h-10 rounded-xl before:rounded-xl',
-        icon: 'size-6 text-[24px]',
-        label: 'md-sys-typescale-label-large'
-      },
-      regular: {
-        base: 'h-14 rounded-2xl before:rounded-2xl',
-        icon: 'size-6 text-[24px]',
-        label: 'md-sys-typescale-fab-label'
-      },
-      large: {
-        base: 'h-24 rounded-[28px] before:rounded-[28px]',
-        icon: 'size-9 text-[36px]',
-        label: 'md-sys-typescale-headline-small'
-      }
-    }
+  medium: {
+    true: { track: 'md:grid-cols-[1fr]', large: 'md:px-7' },
+    false: { track: 'md:grid-cols-[0fr]', large: 'md:px-[1.875rem]' }
+  },
+  large: {
+    true: { track: 'lg:grid-cols-[1fr]', large: 'lg:px-7' },
+    false: { track: 'lg:grid-cols-[0fr]', large: 'lg:px-[1.875rem]' }
+  },
+  extraLarge: {
+    true: { track: 'xl:grid-cols-[1fr]', large: 'xl:px-7' },
+    false: { track: 'xl:grid-cols-[0fr]', large: 'xl:px-[1.875rem]' }
+  }
+};
+
+/**
+ * The surface a FAB opens into with a container transform, anchored at the FAB's corner. It is
+ * `surface`, the colour lists and most content paint, so padding doesn't show as bands. The
+ * shadow is a filter on the wrapper, because the surface's shape is a clip-path while it morphs.
+ */
+export const fabSurface = tv({
+  slots: {
+    anchor: 'relative inline-grid',
+    wrapper: 'drop-shadow-elevation-3 absolute end-0 bottom-0 z-50',
+    surface:
+      'bg-md-sys-color-surface text-md-sys-color-on-surface max-h-[min(36rem,calc(100dvh-2rem))] w-max max-w-[calc(100vw-2rem)] min-w-60 overflow-y-auto rounded-3xl py-2 outline-none'
   }
 });
 
 export const fabMenu = tv({
   slots: {
-    base: 'gap-2 pb-2 flex flex-col z-[9999] overflow-visible p-1'
+    base: '-me-[5px] flex flex-col items-end gap-1 overflow-y-auto p-[5px]'
   }
 });
 
+/** FAB menu items share the medium button's measurements, fully round, without elevation. */
 export const fabMenuItem = tv({
   slots: {
-    base: 'md-component-button-base group relative w-full h-14 rounded-full before:rounded-full gap-2 px-6 md-sys-typescale-fab-label z-[100] shadow-elevation-2 hover:shadow-elevation-3',
-    icon: 'size-6 text-[24px]'
+    base: 'md-btn md-sys-state-focus-indicator md-sys-typescale-title-medium relative inline-flex h-14 shrink-0 cursor-pointer items-center gap-2 rounded-full px-6 whitespace-nowrap select-none data-disabled:cursor-not-allowed data-disabled:bg-md-sys-color-on-surface/10 data-disabled:text-md-sys-color-on-surface/38',
+    icon: 'size-6 shrink-0 text-[24px]'
   },
   variants: {
-    variant: {
-      primary: 'md-component-button-filled-primary',
-      secondary: 'md-component-button-tonal-secondary',
-      tertiary: 'md-component-button-outline-tertiary'
+    set: {
+      primary: {
+        base: 'bg-md-sys-color-primary-container text-md-sys-color-on-primary-container'
+      },
+      secondary: {
+        base: 'bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container'
+      },
+      tertiary: {
+        base: 'bg-md-sys-color-tertiary-container text-md-sys-color-on-tertiary-container'
+      }
     }
+  },
+  defaultVariants: {
+    set: 'primary'
   }
 });

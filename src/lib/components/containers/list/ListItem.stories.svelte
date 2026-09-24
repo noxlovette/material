@@ -168,7 +168,7 @@
           {/snippet}
         </ListItem>
         <ButtonIcon
-          variant="text"
+          variant="standard"
           iconProps={{ name: 'more_vert' }}
           aria-label="More for {track}"
         />

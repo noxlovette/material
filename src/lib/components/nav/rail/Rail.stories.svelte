@@ -58,7 +58,7 @@
         withNavbar={args.withNavbar}
       >
         {#snippet fab()}
-          <FAB size="small" iconProps={{ name: 'add' }} label="New" />
+          <FAB iconProps={{ name: 'add' }} label="New" />
         {/snippet}
         <RailItem label="Home" href="/" iconProps={{ name: 'house' }} selected />
         <RailItem label="Inbox" href="#" iconProps={{ name: 'mail' }} badge={4} />

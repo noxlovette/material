@@ -55,7 +55,7 @@ Popovers display rich content in a non-modal overlay anchored to a trigger eleme
                         <ButtonIcon
                           {...closeProps}
                           iconProps={{ name: 'close' }}
-                          variant="text"
+                          variant="standard"
                           size="sm"
                         />
                       </div>

@@ -98,7 +98,7 @@ comment.
         {@render leading()}
       {:else if showBack}
         <ButtonIcon
-          variant="text"
+          variant="standard"
           iconProps={{ name: 'arrow_back' }}
           aria-label="Back"
           onclick={onback}

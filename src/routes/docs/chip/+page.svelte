@@ -342,11 +342,11 @@
       class="border-md-sys-color-outline-variant flex items-center justify-between border-t pt-8"
     >
       <a
-        href="/docs/toggle"
+        href="/docs/appbar"
         class="text-md-sys-color-primary flex items-center gap-1 text-sm no-underline hover:underline"
       >
         <Icon name="arrow_back" size="sm" />
-        Previous: Toggle
+        Previous: App Bar
       </a>
       <a
         href="/docs/pill"

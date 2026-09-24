@@ -560,7 +560,7 @@ the pane itself stays `position: fixed` and doesn't move with either.
           >
             {#if collapsible}
               <ButtonIcon
-                variant="text"
+                variant="standard"
                 size="sm"
                 iconProps={{ name: 'collapse_all' }}
                 aria-label="Minimize"
@@ -569,7 +569,7 @@ the pane itself stays `position: fixed` and doesn't move with either.
             {/if}
             {#if onClose}
               <ButtonIcon
-                variant="text"
+                variant="standard"
                 size="sm"
                 iconProps={{ name: 'close' }}
                 aria-label="Close"

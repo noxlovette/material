@@ -22,10 +22,6 @@
       group: 'Clickables',
       icon: 'smart_button',
       items: [
-        { label: 'Button', href: '/docs/button' },
-        { label: 'Button Icon', href: '/docs/button-icon' },
-        { label: 'FAB', href: '/docs/fab' },
-        { label: 'Toggle', href: '/docs/toggle' },
         { label: 'Chip', href: '/docs/chip' },
         { label: 'Pill', href: '/docs/pill' }
       ]

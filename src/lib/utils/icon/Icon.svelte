@@ -1,5 +1,6 @@
 <script lang="ts">
   import clsx from 'clsx';
+  import { twMerge } from 'tailwind-merge';
   import type { IconProps, IconSize } from './types.js';
 
   const sizeMap: Record<IconSize, { cls: string; opsz: number }> = {
@@ -26,7 +27,8 @@
   const wrapperClass = 'inline-flex items-center justify-center leading-none';
 </script>
 
-<div class={clsx(resolved.cls, className, wrapperClass)}>
+<!-- twMerge: a caller's size class replaces the preset's instead of racing it in the cascade. -->
+<div class={twMerge(resolved.cls, clsx(className), wrapperClass)}>
   <span
     class="material-symbols-{variant}"
     style="font-size: 1em; font-variation-settings: 'FILL' {fill}, 'wght' {wght}, 'GRAD' {grad}, 'opsz' {resolvedOpsz};"

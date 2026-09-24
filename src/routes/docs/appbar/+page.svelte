@@ -239,8 +239,8 @@
 
 <AppBar title="Inbox" ghost>
   {#snippet trailing()}
-    <ButtonIcon variant="text" iconProps={{ name: 'search' }} />
-    <ButtonIcon variant="text" iconProps={{ name: 'more_vert' }} />
+    <ButtonIcon variant="standard" iconProps={{ name: 'search' }} />
+    <ButtonIcon variant="standard" iconProps={{ name: 'more_vert' }} />
   {/snippet}
 </AppBar>`}
       />
@@ -385,10 +385,10 @@
         Previous: Tabs
       </a>
       <a
-        href="/docs/button"
+        href="/docs/chip"
         class="text-md-sys-color-primary flex items-center gap-1 text-sm no-underline hover:underline"
       >
-        Next: Button
+        Next: Chip
         <Icon name="arrow_forward" size="sm" />
       </a>
     </footer></Pane

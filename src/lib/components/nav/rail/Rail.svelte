@@ -66,6 +66,7 @@ On mobile (< md) it automatically renders as a bottom navigation bar.
 >
   {#if expandable}
     <ButtonIcon
+      variant="standard"
       type="button"
       tooltipContent={collapsed ? 'Открыть' : 'Закрыть'}
       iconProps={{ name: `${collapsed ? 'menu' : 'menu_open'}` }}

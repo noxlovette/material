@@ -54,7 +54,7 @@
   <div class="p-6">
     <Menu align="end">
       {#snippet trigger(triggerProps)}
-        <ButtonIcon iconProps={{ name: 'more_vert' }} variant="text" {...triggerProps} />
+        <ButtonIcon iconProps={{ name: 'more_vert' }} variant="standard" {...triggerProps} />
       {/snippet}
       <MenuItem iconProps={{ name: 'edit' }}>Edit</MenuItem>
       <MenuItem iconProps={{ name: 'archive' }} helper="Move to archive folder">Archive</MenuItem>
