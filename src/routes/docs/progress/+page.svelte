@@ -392,11 +392,11 @@
       class="border-md-sys-color-outline-variant flex items-center justify-between border-t pt-8"
     >
       <a
-        href="/docs/badge"
+        href="/docs/snackbar"
         class="text-md-sys-color-primary flex items-center gap-1 text-sm no-underline hover:underline"
       >
         <Icon name="arrow_back" size="sm" />
-        Previous: Badge
+        Previous: Snackbar
       </a>
       <a
         href="/docs/display"

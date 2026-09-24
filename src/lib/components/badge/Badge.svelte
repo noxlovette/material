@@ -12,15 +12,22 @@ Large badges are used for specific counts.
   import { badge } from './theme.js';
   import type { BadgeProps } from './types.js';
 
-  const { number, size = 'lg', class: className, ...restProps }: BadgeProps = $props();
+  const {
+    number,
+    size = 'lg',
+    max = 999,
+    standalone = false,
+    class: className,
+    ...restProps
+  }: BadgeProps = $props();
 
-  const styling = $derived(badge({ size }));
+  const styling = $derived(badge({ size, standalone }));
 </script>
 
 {#if size === 'sm' || number}
-  <div class={clsx(styling, className)} {...restProps}>
+  <span class={clsx(styling, className)} {...restProps}>
     {#if size !== 'sm' && number}
-      {number > 99 ? '99+' : number}
+      {number > max ? `${max}+` : number}
     {/if}
-  </div>
+  </span>
 {/if}

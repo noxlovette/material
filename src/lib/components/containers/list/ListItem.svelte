@@ -108,6 +108,7 @@
         <Badge
           size={badge === true ? 'sm' : 'lg'}
           number={badge === true ? undefined : (badge as number)}
+          standalone
         />
       {/if}
       {#if expandable}

@@ -60,7 +60,6 @@
       icon: 'notifications',
       items: [
         { label: 'Snackbar', href: '/docs/snackbar' },
-        { label: 'Badge', href: '/docs/badge' },
         { label: 'Progress', href: '/docs/progress' }
       ]
     },

@@ -266,10 +266,10 @@
         Previous: Popover
       </a>
       <a
-        href="/docs/badge"
+        href="/docs/progress"
         class="text-md-sys-color-primary flex items-center gap-1 text-sm no-underline hover:underline"
       >
-        Next: Badge
+        Next: Progress
         <Icon name="arrow_forward" size="sm" />
       </a>
     </footer></Pane
