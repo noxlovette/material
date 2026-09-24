@@ -41,13 +41,18 @@ the track, a new `value` from outside) springs to it on the fast spatial spring.
 
   /* M3 slider geometry, in px. */
   const HANDLE_PX = 4;
+  /* Pressed and focused handles narrow to 2dp. */
+  const HANDLE_NARROW_PX = 2;
   const GAP_PX = 6;
-  const ICON_PADDING_PX = 8;
-  /* Stops closer than this to the handle's center are hidden under its gap. */
-  const STOP_CLEARANCE_PX = HANDLE_PX / 2 + GAP_PX;
+  /* Stop indicators are 4dp with 4dp trailing space, so their centers sit 6dp in from each end. */
+  const STOP_INSET_PX = 6;
 
-  const iconSize = $derived(size === 'xl' ? 'lg' : 'md');
-  const iconPx = $derived(size === 'xl' ? 40 : 24);
+  /* Inset icons exist only on M, L and XL: 24dp/6dp padding, 32dp/8dp on XL. */
+  const hasIcons = $derived(size === 'm' || size === 'l' || size === 'xl');
+  const iconPx = $derived(size === 'xl' ? 32 : 24);
+  const iconPaddingPx = $derived(size === 'xl' ? 8 : 6);
+  const leadingIcon = $derived(hasIcons ? leadingIconProps : undefined);
+  const trailingIcon = $derived(hasIcons ? trailingIconProps : undefined);
 
   const stepValue = $derived(typeof step === 'number' ? step : undefined);
   const range = $derived(max - min);
@@ -60,17 +65,21 @@ the track, a new `value` from outside) springs to it on the fast spatial spring.
     pressed, the handle is being dragged and tracks it directly.
   */
   let dragging = $state(false);
+  let pressed = $state(false);
+  let focusVisible = $state(false);
 
   const trackDrag: Attachment<HTMLElement> = (node) => {
     const move = () => (dragging = true);
     const release = () => {
       dragging = false;
+      pressed = false;
       window.removeEventListener('pointermove', move);
       window.removeEventListener('pointerup', release);
       window.removeEventListener('pointercancel', release);
     };
     const press = () => {
       if (disabled) return;
+      pressed = true;
       window.addEventListener('pointermove', move);
       window.addEventListener('pointerup', release);
       window.addEventListener('pointercancel', release);
@@ -92,6 +101,15 @@ the track, a new `value` from outside) springs to it on the fast spatial spring.
   /* The spring may overshoot the ends; the track can't. */
   const pos = $derived(Math.min(1, Math.max(0, fraction.current)));
 
+  /** Handle thickness: 4dp at rest, 2dp while pressed or keyboard-focused. */
+  const handleThickness = new SpringValue(
+    () => (pressed || focusVisible ? HANDLE_NARROW_PX : HANDLE_PX),
+    springTokens.fastSpatial
+  );
+  const handlePx = $derived(Math.max(1, handleThickness.current));
+  /* The gap is measured from the handle's current edge, so it stays 6dp as the handle narrows. */
+  const clearPx = $derived(handlePx / 2 + GAP_PX);
+
   /* ---- geometry -------------------------------------------------------------------------- */
 
   let trackWidth = $state(0);
@@ -101,21 +119,19 @@ the track, a new `value` from outside) springs to it on the fast spatial spring.
   const start = $derived(vertical ? 'bottom' : 'left');
   const extent = $derived(vertical ? 'height' : 'width');
 
-  /** Handle center: travels the track inset by half a handle so it never overhangs the ends. */
+  /** Handle center: travels the track inset by half a resting handle so it never overhangs the ends. */
   const center = (f: number) => `calc(${HANDLE_PX / 2}px + ${f} * (100% - ${HANDLE_PX}px))`;
   const centerPx = $derived(HANDLE_PX / 2 + pos * (length - HANDLE_PX));
 
-  const activePx = $derived(centerPx - HANDLE_PX / 2 - GAP_PX);
-  const inactivePx = $derived(length - centerPx - HANDLE_PX / 2 - GAP_PX);
+  const activePx = $derived(centerPx - clearPx);
+  const inactivePx = $derived(length - centerPx - clearPx);
 
-  const activeStyle = $derived(
-    `${extent}: max(0px, calc(${pos} * (100% - ${HANDLE_PX}px) - ${GAP_PX}px))`
-  );
-  const inactiveStyle = $derived(
-    `${extent}: max(0px, calc(${1 - pos} * (100% - ${HANDLE_PX}px) - ${GAP_PX}px))`
-  );
+  const trackStyle = (f: number) =>
+    `${extent}: max(0px, calc(${f} * (100% - ${HANDLE_PX}px) + ${HANDLE_PX / 2 - clearPx}px))`;
+  const activeStyle = $derived(trackStyle(pos));
+  const inactiveStyle = $derived(trackStyle(1 - pos));
 
-  /* Stops sit inset by half the track thickness so the end stops land in the rounded caps. */
+  /* Stops span the track inset by STOP_INSET_PX, so the end stops keep their 4dp trailing space. */
   const stopList = $derived.by(() => {
     const output: number[] = [];
     if (stops && stepValue && range > 0) {
@@ -124,24 +140,24 @@ the track, a new `value` from outside) springs to it on the fast spatial spring.
       output.push(1);
     }
     return output.filter((s) => {
-      if (leadingIconProps && s === 0) return false;
-      if (trailingIconProps && s === 1) return false;
-      return !length || Math.abs(s - pos) * length > STOP_CLEARANCE_PX;
+      if (leadingIcon && s === 0) return false;
+      if (trailingIcon && s === 1) return false;
+      return !length || Math.abs(s - pos) * length > clearPx;
     });
   });
 
   /* Icons ride inside their track; when it gets too short they hop across the handle. */
-  const iconFits = (trackPx: number) => trackPx >= iconPx + ICON_PADDING_PX * 2;
+  const iconFits = (trackPx: number) => trackPx >= iconPx + iconPaddingPx * 2;
   const leadingOnActive = $derived(!length || iconFits(activePx));
   const trailingOnInactive = $derived(!length || iconFits(inactivePx));
 
   const leadingOffset = $derived(
-    leadingOnActive ? ICON_PADDING_PX : centerPx + HANDLE_PX / 2 + GAP_PX + ICON_PADDING_PX
+    leadingOnActive ? iconPaddingPx : centerPx + clearPx + iconPaddingPx
   );
   const trailingOffset = $derived(
     trailingOnInactive
-      ? length - ICON_PADDING_PX - iconPx
-      : centerPx - HANDLE_PX / 2 - GAP_PX - ICON_PADDING_PX - iconPx
+      ? length - iconPaddingPx - iconPx
+      : centerPx - clearPx - iconPaddingPx - iconPx
   );
 
   const sliderDir = $derived(dir === null || dir === 'auto' ? undefined : dir);
@@ -175,26 +191,26 @@ the track, a new `value` from outside) springs to it on the fast spatial spring.
       {#each stopList as s (s)}
         <div
           class={cls.stop({ class: s < pos ? cls.stopOnActive() : cls.stopOnInactive() })}
-          style="{start}: calc(var(--track) / 2 + {s} * (100% - var(--track)))"
+          style="{start}: calc({STOP_INSET_PX}px + {s} * (100% - {STOP_INSET_PX * 2}px))"
         ></div>
       {/each}
 
-      {#if leadingIconProps}
+      {#if leadingIcon}
         <span
           class={cls.icon({ class: leadingOnActive ? cls.iconOnActive() : cls.iconOnInactive() })}
           style="{start}: {leadingOffset}px"
         >
-          <Icon size={iconSize} {...leadingIconProps} />
+          <Icon {...leadingIcon} class={cls.iconGlyph({ class: clsx(leadingIcon.class) })} />
         </span>
       {/if}
-      {#if trailingIconProps}
+      {#if trailingIcon}
         <span
           class={cls.icon({
             class: trailingOnInactive ? cls.iconOnInactive() : cls.iconOnActive()
           })}
           style="{start}: {trailingOffset}px"
         >
-          <Icon size={iconSize} {...trailingIconProps} />
+          <Icon {...trailingIcon} class={cls.iconGlyph({ class: clsx(trailingIcon.class) })} />
         </span>
       {/if}
 
@@ -204,7 +220,9 @@ the track, a new `value` from outside) springs to it on the fast spatial spring.
             {...thumbProps}
             class={cls.handle()}
             data-active={active || undefined}
-            style="{start}: {center(pos)}"
+            style="{start}: {center(pos)}; {extent}: {handlePx}px"
+            onfocus={(e) => (focusVisible = e.currentTarget.matches(':focus-visible'))}
+            onblur={() => (focusVisible = false)}
           ></div>
         {/snippet}
       </Slider.Thumb>

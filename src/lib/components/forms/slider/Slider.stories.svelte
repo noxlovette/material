@@ -52,7 +52,7 @@
   </div>
 </Story>
 
-<Story name="With Icons" asChild>
+<Story name="With Icons" exportName="WithIcons" asChild>
   <div class="max-w-sm p-10">
     <Slider
       value={60}
@@ -63,7 +63,7 @@
   </div>
 </Story>
 
-<Story name="Discrete With Stops" asChild>
+<Story name="Discrete With Stops" exportName="DiscreteWithStops" asChild>
   <div class="max-w-sm p-10">
     <Slider value={40} step={20} stops />
   </div>

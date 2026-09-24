@@ -140,8 +140,9 @@ export const pane = tv({
  */
 export const paneHandle = tv({
   slots: {
-    base: 'group relative flex shrink-0 w-3 self-stretch cursor-col-resize touch-none items-center justify-center rounded-full bg-transparent hover:bg-md-sys-color-outline/20',
-    grip: 'rounded-full transition-[background-color,height,width] md-sys-motion-fast-spatial'
+    base: 'group relative flex shrink-0 w-3 self-stretch cursor-col-resize touch-none items-center justify-center rounded-full bg-transparent outline-none hover:bg-md-sys-color-outline/20 focus-visible:outline-2 focus-visible:outline-md-sys-color-secondary',
+    // Size is sprung inline by PaneHandle.svelte; only color transitions here.
+    grip: 'rounded-full transition-colors md-sys-motion-effects'
   },
   variants: {
     dragging: {
@@ -149,13 +150,12 @@ export const paneHandle = tv({
       false: ''
     },
     snapped: {
-      true: { grip: 'h-10 w-1.5 bg-md-sys-color-tertiary' },
+      true: { grip: 'bg-md-sys-color-tertiary' },
       false: {
-        grip: 'h-8 w-1 bg-md-sys-color-on-surface-variant/40 group-hover:bg-md-sys-color-primary'
+        grip: 'bg-md-sys-color-on-surface-variant/40 group-hover:bg-md-sys-color-primary'
       }
     }
-  },
-  compoundVariants: [{ dragging: true, snapped: false, class: { grip: 'w-0.5' } }]
+  }
 });
 
 /**

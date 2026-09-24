@@ -15,7 +15,9 @@ the document root yourself to get the same behavior.
 -->
 <script lang="ts">
   import clsx from 'clsx';
-  import { onMount } from 'svelte';
+  import { onMount, untrack } from 'svelte';
+  import { animate, motionValue } from 'motion';
+  import { springTokens, springTransition } from '$lib/animation/spring.js';
   import { pane, responsiveTables } from './theme.js';
   import { paneWidths } from './resizeStore.svelte.js';
   import type { PaneProps } from './types.js';
@@ -52,9 +54,29 @@ the document root yourself to get the same behavior.
     )
   );
 
+  /*
+    The rendered width. A drag moves it 1:1; a snap or keyboard step springs, and a drag that
+    continues while that spring is in flight retargets it (keeping its velocity) until it catches
+    up with the pointer.
+  */
+  const shownWidth = motionValue(untrack(() => width) ?? 0);
+  let shown = $state(untrack(() => width) ?? 0);
+  $effect(() => shownWidth.on('change', (v) => (shown = v)));
+
+  $effect(() => {
+    const to = width;
+    if (to === undefined) return;
+    const spring = resizable && persistKey ? paneWidths.shouldSpring(persistKey) : false;
+    untrack(() => {
+      if (!spring && !shownWidth.isAnimating()) shownWidth.jump(to);
+      else animate(shownWidth, to, springTransition(springTokens.fastSpatial));
+    });
+  });
+  $effect(() => () => shownWidth.stop());
+
   const style = $derived(
     clsx(
-      !flexible && `width: ${width}px; flex-basis: ${width}px;`,
+      !flexible && `width: ${shown}px; flex-basis: ${shown}px;`,
       sticky && `--pane-sticky-top: ${stickyTop}px;`
     )
   );

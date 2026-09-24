@@ -7,6 +7,8 @@ import { SvelteMap } from 'svelte/reactivity';
  * writes on drag, the pane reads reactively.
  */
 const widths = new SvelteMap<string, number>();
+/** Whether the last write to a key should spring (a snap, a keyboard step) rather than jump. */
+const springs = new SvelteMap<string, boolean>();
 
 function get(key: string): number | undefined {
   return widths.get(key);
@@ -26,9 +28,19 @@ function hydrate(key: string, fallback: number): number {
   return initial;
 }
 
-function set(key: string, value: number): void {
+/** Whether the pane should spring to `key`'s latest width instead of jumping to it. */
+function shouldSpring(key: string): boolean {
+  return springs.get(key) ?? false;
+}
+
+/**
+ * Writes `key`'s width. `spring: true` asks the pane to spring there; otherwise it jumps (a drag
+ * tracking the pointer 1:1), unless a spring is still in flight, which it retargets instead.
+ */
+function set(key: string, value: number, { spring = false }: { spring?: boolean } = {}): void {
+  springs.set(key, spring);
   widths.set(key, value);
   if (typeof localStorage !== 'undefined') localStorage.setItem(key, String(value));
 }
 
-export const paneWidths = { get, hydrate, set };
+export const paneWidths = { get, hydrate, set, shouldSpring };

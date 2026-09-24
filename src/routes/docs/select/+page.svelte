@@ -414,10 +414,10 @@
         Previous: Switch
       </a>
       <a
-        href="/docs/slider"
+        href="/docs/search"
         class="text-md-sys-color-primary flex items-center gap-1 text-sm no-underline hover:underline"
       >
-        Next: Slider
+        Next: Search
         <Icon name="arrow_forward" size="sm" />
       </a>
     </footer></Pane

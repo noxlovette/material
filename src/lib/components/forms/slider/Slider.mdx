@@ -1,0 +1,85 @@
+import { Meta, Title, Subtitle, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as SliderStories from './Slider.stories.svelte';
+
+<Meta of={SliderStories} />
+
+<Title />
+
+<Subtitle>Sliders allow users to make selections from a range of values.</Subtitle>
+
+[M3 spec](https://m3.material.io/components/sliders/specs) ·
+`import { Slider } from '@noxlovette/material';`
+
+<Canvas of={SliderStories.Playground} />
+
+<Controls of={SliderStories.Playground} />
+
+This is the M3 Expressive slider. It has two tracks, active and inactive, with a 6dp gap on each
+side of a 4dp bar handle. Bind `value` to read and set it:
+
+```svelte
+<script lang="ts">
+  let volume = $state(40);
+</script>
+
+<Slider bind:value={volume} min={0} max={100} />
+```
+
+## Choosing a size
+
+`xs` is the default. Go larger when the slider is the main control on the screen, or when it needs
+inset icons.
+
+| Size | Track | Handle | Outer corner | Inset icon   |
+| ---- | ----- | ------ | ------------ | ------------ |
+| `xs` | 16dp  | 44dp   | 8dp          | —            |
+| `s`  | 24dp  | 44dp   | 8dp          | —            |
+| `m`  | 40dp  | 52dp   | 12dp         | 24dp, 6dp in |
+| `l`  | 56dp  | 68dp   | 16dp         | 24dp, 6dp in |
+| `xl` | 96dp  | 108dp  | 28dp         | 32dp, 8dp in |
+
+The corners next to the handle are always 2dp.
+
+<Canvas of={SliderStories.Sizes} />
+
+## Inset icons
+
+`leadingIconProps` and `trailingIconProps` put an icon inside the track. M3 defines inset icons
+only for `m`, `l` and `xl`, so they're ignored on `xs` and `s`. When the handle gets too close for
+the icon to fit in its track, the icon moves across the handle into the other track. It also takes
+that track's color.
+
+<Canvas of={SliderStories.WithIcons} />
+
+## Continuous or discrete
+
+Leave `step="any"` for a continuous slider. Set a numeric `step` to make it discrete, and add
+`stops` to show a 4dp stop indicator at each step. With or without `stops`, `endStops` marks the
+end of the track 4dp from its edge. Stops hide within 6dp of the handle, and wherever an inset
+icon covers them.
+
+<Canvas of={SliderStories.DiscreteWithStops} />
+
+## Value indicator
+
+With `showValue`, a 48×44dp indicator shows above the handle while it's dragged or has keyboard
+focus. It sits 12dp above the handle, on inverse-surface. Use `format` to add units or localize
+the number.
+
+## States
+
+- **Pressed and focused:** the handle narrows from 4dp to 2dp on a fast spatial spring, and the
+  6dp gaps follow its edge.
+- **Disabled:** the active track is on-surface at 38% opacity, the inactive track 12%, and the
+  handle 38%.
+
+<Canvas of={SliderStories.Disabled} />
+
+## Accessibility
+
+- **Keyboard:** the arrow keys move by one step, and Home/End jump to `min`/`max` (via bits-ui's
+  `Slider.Root`).
+- **Focus:** keyboard focus narrows the handle, draws an outline around it, and reveals the value
+  indicator.
+- **Labelling:** give the slider an accessible name, such as `aria-label="Volume"`. Inset icons
+  are decorative and don't label it.

@@ -34,7 +34,6 @@
         { label: 'Checkbox', href: '/docs/checkbox' },
         { label: 'Switch', href: '/docs/switch' },
         { label: 'Select', href: '/docs/select' },
-        { label: 'Slider', href: '/docs/slider' },
         { label: 'Search', href: '/docs/search' }
       ]
     },

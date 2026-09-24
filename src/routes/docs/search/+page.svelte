@@ -263,11 +263,11 @@
       class="border-md-sys-color-outline-variant flex items-center justify-between border-t pt-8"
     >
       <a
-        href="/docs/slider"
+        href="/docs/select"
         class="text-md-sys-color-primary flex items-center gap-1 text-sm no-underline hover:underline"
       >
         <Icon name="arrow_back" size="sm" />
-        Previous: Slider
+        Previous: Select
       </a>
       <a
         href="/docs/pane"
