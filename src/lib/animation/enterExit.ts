@@ -7,6 +7,15 @@ import { springTokens, springTransition, type SpringToken } from './spring.js';
  * layer detects to delay unmounting.
  *
  * https://m3.material.io/styles/motion/transitions/transition-patterns#enter-and-exit
+ *
+ * Introduces a component in the context of the current screen, modal or not
+ * (https://m3.material.io/styles/motion/transitions/applying-transitions). Never use it to navigate between hierarchical screens.
+ * Clean fades: opacity always runs on `fastEffects` so it never lingers over the content behind.
+ * Edge-anchored sheets slide without fading, as M3 asks.
+ *
+ * Required for every component that mounts a surface within the current screen: dialogs, sheets,
+ * menus, popovers, tooltips, pickers, snackbars, the FAB menu. See the ownership table in
+ * `.claude/skills/material-design/references/motion-guide.md`.
  */
 export interface PresenceTransition {
   /** Where the enter animation starts. */
@@ -80,14 +89,14 @@ export const enterExit: Record<EnterExitPreset, PresenceTransition> = {
     enter: enterWith(springTokens.spatial),
     exit
   },
-  /** Side sheet anchored to the inline-end edge. */
+  /** Side sheet anchored to the inline-end edge. Slides only: no opacity (M3: don't fade sheets). */
   sideSheet: {
     hidden: { transform: 'translateX(100%)' },
     shown: { transform: 'translateX(0%)' },
     enter: springTransition(springTokens.spatial),
     exit: springTransition(springTokens.effects)
   },
-  /** Bottom sheet anchored to the bottom edge. */
+  /** Bottom sheet anchored to the bottom edge. Slides only: no opacity (M3: don't fade sheets). */
   bottomSheet: {
     hidden: { transform: 'translateY(100%)' },
     shown: { transform: 'translateY(0%)' },

@@ -276,14 +276,18 @@ export const dateCalendar = tv({
     `,
     weekday: `
       flex size-12 items-center justify-center
-      md-sys-typescale-body-large text-md-sys-color-on-surface
+      md-sys-typescale-body-large font-normal text-md-sys-color-on-surface
     `,
+    /* The range band runs behind every day in the range. On the endpoints it covers only the inner
+       half, so it meets the selected circle instead of sticking out past it. A one-day range has
+       no band. */
     cell: `
       relative flex size-12 items-center justify-center p-0
       before:absolute before:inset-x-0 before:h-10 before:bg-md-sys-color-secondary-container
       before:opacity-0 before:transition-opacity before:md-sys-motion-fast-effects
       data-range-middle:before:opacity-100
       data-highlighted:before:opacity-100
+      data-range-start:before:opacity-100 data-range-end:before:opacity-100
       data-range-start:before:left-1/2 data-range-end:before:right-1/2
       data-range-start:data-range-end:before:opacity-0
       data-outside-month:before:opacity-0

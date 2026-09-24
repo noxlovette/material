@@ -15,7 +15,11 @@ It follows the Material 3 design for time input pickers.
   import { ButtonIcon } from '../buttons/index.js';
 
   const {
-    label = 'Введите время',
+    label = 'Enter time',
+    hourLabel = 'Hour',
+    minuteLabel = 'Minute',
+    cancelText = 'Cancel',
+    confirmText = 'OK',
     time = '09:41',
     close,
     setTime,
@@ -48,7 +52,7 @@ It follows the Material 3 design for time input pickers.
                   {value}
                 </TimeField.Segment>
                 <p class={cls.timeInputSupportingText()}>
-                  {part === 'hour' ? 'Часы' : 'Минуты'}
+                  {part === 'hour' ? hourLabel : minuteLabel}
                 </p>
               </div>
             {/if}
@@ -61,7 +65,7 @@ It follows the Material 3 design for time input pickers.
   <div class={cls.buttonDiv()}>
     <ButtonIcon type="button" iconProps={{ name: 'schedule' }} />
     <div>
-      <Button variant="text" type="button" onclick={() => close()}>Отмена</Button>
+      <Button variant="text" type="button" onclick={() => close()}>{cancelText}</Button>
       <Button
         variant="text"
         type="button"
@@ -69,7 +73,7 @@ It follows the Material 3 design for time input pickers.
           setTime(output);
           close();
         }}
-        data-cy="calendar-time-confirm">Готово</Button
+        data-cy="calendar-time-confirm">{confirmText}</Button
       >
     </div>
   </div>

@@ -11,6 +11,11 @@ const PULSE_HOLD_S = 0.5;
  * for the content with `presence(…, enterExit.fade)` so the reveal is a fade, not a cut.
  * https://m3.material.io/styles/motion/transitions/transition-patterns#skeleton-loaders
  *
+ * M3 "stable layouts" (https://m3.material.io/styles/motion/transitions/applying-transitions): the placeholder takes the loaded
+ * content's footprint so nothing pops in or shifts position when the data arrives.
+ *
+ * Not built into any component — none of them load their own data. Apps apply it to placeholders.
+ *
  * ```svelte
  * <div class="bg-md-sys-color-surface-container-highest h-4 rounded-sm" {@attach skeleton}></div>
  * ```

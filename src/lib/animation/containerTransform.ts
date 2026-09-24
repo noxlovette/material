@@ -15,9 +15,18 @@ export interface ContainerTransformOptions {
  * the outgoing content fades out and the incoming content fades in on top.
  * https://m3.material.io/styles/motion/transitions/transition-patterns#container-transform
  *
+ * The most dramatic pattern (https://m3.material.io/styles/motion/transitions/applying-transitions).
+ * Use it for hero moments, shallow expand → collapse hierarchies and seamless element-to-element
+ * connections. Don't use it in deep hierarchies or utility-focused navigation, where it becomes
+ * excessive. Use `sharedAxis` there. Keep `spring` at `spatial`/`slowSpatial`, never the bouncy
+ * `fastSpatial`.
+ *
  * Built on Motion's `animateView()` (View Transition API), so `from` and `to` never have to be in
  * the DOM at the same time — `update` swaps one for the other. Browsers without the API just run
  * `update`. A second call while one is running is queued, not interrupted.
+ *
+ * Not built into any component: `Search` is a plain field with no search view to expand into, and
+ * card → detail is the app's own navigation.
  *
  * ```ts
  * containerTransform(

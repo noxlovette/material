@@ -81,6 +81,7 @@
     { id: 'demo', label: 'Live Demo' },
     { id: 'basic-usage', label: 'Basic Usage (content panels)' },
     { id: 'nav-tabs', label: 'Navigation Tabs (href)' },
+    { id: 'motion', label: 'Motion' },
     { id: 'tabholder-props', label: 'TabHolder Props' },
     { id: 'tab-props', label: 'Tab Props' },
     { id: 'accessibility', label: 'Accessibility' }
@@ -252,6 +253,27 @@
   ]}
 />`}
       />
+    </section>
+
+    <section id="motion" class="mb-12 flex scroll-mt-6 flex-col gap-4">
+      <Title>Motion</Title>
+      <Body>
+        Tabs are peers, so switching content panels runs the M3
+        <a
+          href="https://m3.material.io/styles/motion/transitions/transition-patterns#lateral"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-md-sys-color-primary">lateral transition</a
+        > out of the box: the new panel pushes the old one out toward the side of the selected tab. The
+        active indicator slides on the fast spatial spring. Nothing to configure.
+      </Body>
+      <Body>
+        Navigation (<code class="doc-code">href</code>) tabs have no panels inside
+        <code class="doc-code">TabHolder</code>, so the route change is yours to animate — wrap it
+        in
+        <code class="doc-code">lateral()</code> from
+        <code class="doc-code">@noxlovette/material</code>.
+      </Body>
     </section>
 
     <section id="tabholder-props" class="mb-12 flex scroll-mt-6 flex-col gap-4">

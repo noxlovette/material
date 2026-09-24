@@ -15,7 +15,7 @@ export const textfield = tv({
     `,
 
     input: `
-      peer w-full pt-4 bg-transparent outline-none
+      peer w-full bg-transparent outline-none
       md-sys-typescale-body-large text-md-sys-color-on-surface
       disabled:text-md-sys-color-on-surface/38
     `,
@@ -92,6 +92,9 @@ export const textfield = tv({
           disabled:bg-md-sys-color-on-surface/4
           disabled:after:bg-md-sys-color-on-surface/12
         `,
+        /* Room for the label floated inside the container. Outlined labels float into the border
+           notch instead, so their input stays vertically centered. */
+        input: 'pt-4',
         label: `
           peer-focus:top-2 peer-focus:md-sys-typescale-body-small peer-focus:translate-y-0
           peer-not-placeholder-shown:top-2 peer-not-placeholder-shown:md-sys-typescale-body-small peer-not-placeholder-shown:translate-y-0

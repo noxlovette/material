@@ -1,6 +1,8 @@
 <!--
   The six M3 transition patterns, each on its own M3 shape, driven by `src/lib/animation/`.
   https://m3.material.io/styles/motion/transitions/transition-patterns
+  Choosing and applying them: https://m3.material.io/styles/motion/transitions/applying-transitions
+  (summarized in .claude/skills/material-design/references/motion-guide.md → "Applying transitions").
 
   Every demo loops by default; "Replay" retriggers it on demand. The Overview plays the six in
   turn rather than all at once: container transform, forward/backward, lateral and top level run
