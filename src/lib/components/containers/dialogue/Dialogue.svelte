@@ -22,7 +22,7 @@ on screen until confirmed, dismissed, or a required action has been taken.
     headline,
     supportingText,
     confirmText,
-    cancelText = 'Отмена',
+    cancelText = 'Cancel',
     confirmAction,
     loading = false,
     portalDisabled = false,

@@ -409,7 +409,7 @@ export const fabSurface = tv({
 
 export const fabMenu = tv({
   slots: {
-    base: '-me-[5px] flex flex-col items-end gap-spacing-50 overflow-y-auto p-[5px]'
+    base: 'z-[100] -me-[5px] flex flex-col items-end gap-spacing-50 overflow-y-auto p-[5px]'
   }
 });
 

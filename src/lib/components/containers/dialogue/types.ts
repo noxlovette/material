@@ -20,7 +20,7 @@ export type DialogueProps = DialogueVariants &
     headline?: string;
     /** The label for the confirmation button. */
     confirmText: string;
-    /** The label for the cancel button. Defaults to 'Отмена'. */
+    /** The label for the cancel button. Defaults to 'Cancel'. */
     cancelText?: string;
     /**
      * Optional additional content to be rendered between the supporting text
