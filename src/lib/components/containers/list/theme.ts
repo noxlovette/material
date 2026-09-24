@@ -29,7 +29,6 @@ export const listItem = tv({
     base: [
       'relative flex w-full min-w-0 gap-3 ps-4 pe-4 pt-2.5 pb-2.5 text-start',
       '[--li-shape:0.25rem] rounded-t-[var(--li-top,var(--li-shape))] rounded-b-[var(--li-bottom,var(--li-shape))]',
-      'state-layer before:rounded-[inherit]',
       'transition-[border-radius,background-color,color] md-sys-motion-fast-spatial',
       'text-md-sys-color-on-surface-variant'
     ],
@@ -69,10 +68,10 @@ export const listItem = tv({
       true: {
         base: [
           'cursor-pointer outline-none',
-          'hover:before:bg-md-sys-color-on-surface/8 hover:[--li-shape:0.75rem]',
-          'focus-visible:before:bg-md-sys-color-on-surface/10 focus-visible:[--li-shape:1rem]',
+          'hover:[--li-shape:0.75rem]',
+          'focus-visible:[--li-shape:1rem]',
           'focus-visible:outline-3 focus-visible:-outline-offset-3 focus-visible:outline-md-sys-color-secondary',
-          'active:before:bg-md-sys-color-on-surface/10 active:[--li-shape:1rem]'
+          'active:[--li-shape:1rem]'
         ]
       },
       false: ''
