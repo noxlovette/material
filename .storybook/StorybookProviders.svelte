@@ -71,6 +71,7 @@
     'inbox',
     'info',
     'ios_share',
+    'keyboard_arrow_down',
     'link',
     'luggage',
     'mail',
@@ -78,6 +79,7 @@
     'minimize',
     'mood',
     'more_vert',
+    'music_note',
     'note_stack',
     'notifications',
     'nutrition',
@@ -100,7 +102,8 @@
     'view_list',
     'volume_down',
     'volume_up',
-    'widgets'
+    'widgets',
+    'wifi'
   ];
 
   let { children } = $props();
