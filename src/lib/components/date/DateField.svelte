@@ -2,15 +2,19 @@
 @component
 DateField is a text field that allows users to enter a date or pick it from a docked calendar.
 
+Changing the visible month slides the grid with the M3 lateral transition (see calendarMotion.ts).
+
 @see https://m3.material.io/components/date-pickers/guidelines
 -->
 <script lang="ts">
   import { DatePicker, useId } from 'bits-ui';
+  import type { DateValue } from '@internationalized/date';
   import { enterExit, presence } from '$lib/animation/index.js';
   import ButtonIcon from '../buttons/ButtonIcon.svelte';
   import Icon from '$lib/utils/icon/Icon.svelte';
   import Layer from '$lib/utils/Layer.svelte';
   import type { DateFieldProps } from './types';
+  import { slideMonth } from './calendarMotion.js';
   import { dateCalendar, dateField, dateSegment } from './theme';
 
   let {
@@ -30,10 +34,18 @@ DateField is a text field that allows users to enter a date or pick it from a do
 
   const cls = $derived(dateField({ disabled, error, variant }));
   const calendar = dateCalendar();
+
+  // Starts undefined on purpose: bits-ui writes its own default (from value, else today) through
+  // the setter on mount, which is why the getter below can assert.
+  let placeholder = $state<DateValue>();
+  let grids = $state<HTMLElement | null>(null);
+  const setPlaceholder = (next: DateValue) =>
+    slideMonth(placeholder, next, grids, (date) => (placeholder = date));
 </script>
 
 <DatePicker.Root
   bind:value
+  bind:placeholder={() => placeholder as DateValue, setPlaceholder}
   {weekStartsOn}
   {required}
   {disabled}
@@ -120,33 +132,35 @@ DateField is a text field that allows users to enter a date or pick it from a do
                   </div>
                 </DatePicker.Header>
 
-                {#each months as month (month.value.toString())}
-                  <DatePicker.Grid class={calendar.grid()}>
-                    <DatePicker.GridHead>
-                      <DatePicker.GridRow class={calendar.row()}>
-                        {#each weekdays as day, i (i)}
-                          <DatePicker.HeadCell class={calendar.weekday()}>
-                            {day}
-                          </DatePicker.HeadCell>
-                        {/each}
-                      </DatePicker.GridRow>
-                    </DatePicker.GridHead>
-                    <DatePicker.GridBody>
-                      {#each month.weeks as weekDates, i (i)}
+                <div bind:this={grids}>
+                  {#each months as month (month.value.toString())}
+                    <DatePicker.Grid class={calendar.grid()}>
+                      <DatePicker.GridHead>
                         <DatePicker.GridRow class={calendar.row()}>
-                          {#each weekDates as date (date.toString())}
-                            <DatePicker.Cell {date} month={month.value} class={calendar.cell()}>
-                              <DatePicker.Day class={calendar.day()}>
-                                <Layer />
-                                {date.day}
-                              </DatePicker.Day>
-                            </DatePicker.Cell>
+                          {#each weekdays as day, i (i)}
+                            <DatePicker.HeadCell class={calendar.weekday()}>
+                              {day}
+                            </DatePicker.HeadCell>
                           {/each}
                         </DatePicker.GridRow>
-                      {/each}
-                    </DatePicker.GridBody>
-                  </DatePicker.Grid>
-                {/each}
+                      </DatePicker.GridHead>
+                      <DatePicker.GridBody>
+                        {#each month.weeks as weekDates, i (i)}
+                          <DatePicker.GridRow class={calendar.row()}>
+                            {#each weekDates as date (date.toString())}
+                              <DatePicker.Cell {date} month={month.value} class={calendar.cell()}>
+                                <DatePicker.Day class={calendar.day()}>
+                                  <Layer />
+                                  {date.day}
+                                </DatePicker.Day>
+                              </DatePicker.Cell>
+                            {/each}
+                          </DatePicker.GridRow>
+                        {/each}
+                      </DatePicker.GridBody>
+                    </DatePicker.Grid>
+                  {/each}
+                </div>
               {/snippet}
             </DatePicker.Calendar>
           </div>

@@ -11,9 +11,11 @@ It combines a Material 3 Textfield with a TimepickerInput for intuitive time sel
   import Textfield from '$lib/components/forms/textfield/Textfield.svelte';
   import TimepickerInput from './TimepickerInput.svelte';
   import { Popover } from 'bits-ui';
+  import type { Snippet } from 'svelte';
+  import type { TimepickerLabels } from './types.js';
 
   let {
-    label = 'Время',
+    label = 'Time',
     value = $bindable(),
     required = false,
     disabled = false,
@@ -21,6 +23,8 @@ It combines a Material 3 Textfield with a TimepickerInput for intuitive time sel
     datePickerTitle = 'Pick date',
     name,
     leadingIconProps,
+    supportingText,
+    pickerLabels,
     ...restProps
   }: {
     /** The label for the text field. */
@@ -39,6 +43,10 @@ It combines a Material 3 Textfield with a TimepickerInput for intuitive time sel
     datePickerTitle?: string;
     /** Props for the leading icon. */
     leadingIconProps?: any;
+    /** Supporting text under the field. */
+    supportingText?: Snippet;
+    /** Headline, input and button strings for the picker overlay (English by default). */
+    pickerLabels?: TimepickerLabels;
   } & HTMLInputAttributes = $props();
 
   const id = $props.id();
@@ -58,14 +66,11 @@ It combines a Material 3 Textfield with a TimepickerInput for intuitive time sel
       {error}
       {leadingIconProps}
       class="pointer-events-none"
-      trailingIconProps={{ name: 'timer' }}
+      trailingIconProps={{ name: 'schedule' }}
       trailingOnClick={() => !disabled && (picker = !picker)}
+      {supportingText}
       {...restProps as any}
-    >
-      {#snippet supportingText()}
-        ЧЧ-ММ
-      {/snippet}
-    </Textfield>
+    />
 
     <Popover.Trigger {disabled}>
       {#snippet child({ props })}
@@ -100,6 +105,7 @@ It combines a Material 3 Textfield with a TimepickerInput for intuitive time sel
             {@attach presence(() => open, enterExit.scale)}
           >
             <TimepickerInput
+              {...pickerLabels}
               time={value}
               close={() => (picker = false)}
               setTime={(t) => (value = t)}

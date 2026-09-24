@@ -3,15 +3,19 @@
 DateRangeField lets users enter or pick a date range (start + end) via two
 segment inputs and a shared docked calendar.
 
+Changing the visible month slides the grid with the M3 lateral transition (see calendarMotion.ts).
+
 @see https://m3.material.io/components/date-pickers/guidelines
 -->
 <script lang="ts">
   import { DateRangePicker, Portal, useId } from 'bits-ui';
+  import type { DateValue } from '@internationalized/date';
   import { enterExit, presence } from '$lib/animation/index.js';
   import ButtonIcon from '../buttons/ButtonIcon.svelte';
   import Icon from '$lib/utils/icon/Icon.svelte';
   import Layer from '$lib/utils/Layer.svelte';
   import type { DateRangeFieldProps } from './types';
+  import { slideMonth } from './calendarMotion.js';
   import { dateCalendar, dateRangeField, dateSegment } from './theme';
 
   let {
@@ -33,6 +37,13 @@ segment inputs and a shared docked calendar.
 
   const cls = $derived(dateRangeField({ disabled, error, variant }));
   const calendar = dateCalendar();
+
+  // Starts undefined on purpose: bits-ui writes its own default (from value, else today) through
+  // the setter on mount, which is why the getter below can assert.
+  let placeholder = $state<DateValue>();
+  let grids = $state<HTMLElement | null>(null);
+  const setPlaceholder = (next: DateValue) =>
+    slideMonth(placeholder, next, grids, (date) => (placeholder = date));
 </script>
 
 {#snippet rangeInput(type: 'start' | 'end', fieldLabel: string)}
@@ -66,6 +77,7 @@ segment inputs and a shared docked calendar.
 
 <DateRangePicker.Root
   bind:value
+  bind:placeholder={() => placeholder as DateValue, setPlaceholder}
   {weekStartsOn}
   {required}
   {disabled}
@@ -129,37 +141,39 @@ segment inputs and a shared docked calendar.
                   </div>
                 </DateRangePicker.Header>
 
-                {#each months as month (month.value.toString())}
-                  <DateRangePicker.Grid class={calendar.grid()}>
-                    <DateRangePicker.GridHead>
-                      <DateRangePicker.GridRow class={calendar.row()}>
-                        {#each weekdays as day, i (i)}
-                          <DateRangePicker.HeadCell class={calendar.weekday()}>
-                            {day}
-                          </DateRangePicker.HeadCell>
-                        {/each}
-                      </DateRangePicker.GridRow>
-                    </DateRangePicker.GridHead>
-                    <DateRangePicker.GridBody>
-                      {#each month.weeks as weekDates, i (i)}
+                <div bind:this={grids}>
+                  {#each months as month (month.value.toString())}
+                    <DateRangePicker.Grid class={calendar.grid()}>
+                      <DateRangePicker.GridHead>
                         <DateRangePicker.GridRow class={calendar.row()}>
-                          {#each weekDates as date (date.toString())}
-                            <DateRangePicker.Cell
-                              {date}
-                              month={month.value}
-                              class={calendar.cell()}
-                            >
-                              <DateRangePicker.Day class={calendar.day()}>
-                                <Layer />
-                                {date.day}
-                              </DateRangePicker.Day>
-                            </DateRangePicker.Cell>
+                          {#each weekdays as day, i (i)}
+                            <DateRangePicker.HeadCell class={calendar.weekday()}>
+                              {day}
+                            </DateRangePicker.HeadCell>
                           {/each}
                         </DateRangePicker.GridRow>
-                      {/each}
-                    </DateRangePicker.GridBody>
-                  </DateRangePicker.Grid>
-                {/each}
+                      </DateRangePicker.GridHead>
+                      <DateRangePicker.GridBody>
+                        {#each month.weeks as weekDates, i (i)}
+                          <DateRangePicker.GridRow class={calendar.row()}>
+                            {#each weekDates as date (date.toString())}
+                              <DateRangePicker.Cell
+                                {date}
+                                month={month.value}
+                                class={calendar.cell()}
+                              >
+                                <DateRangePicker.Day class={calendar.day()}>
+                                  <Layer />
+                                  {date.day}
+                                </DateRangePicker.Day>
+                              </DateRangePicker.Cell>
+                            {/each}
+                          </DateRangePicker.GridRow>
+                        {/each}
+                      </DateRangePicker.GridBody>
+                    </DateRangePicker.Grid>
+                  {/each}
+                </div>
               {/snippet}
             </DateRangePicker.Calendar>
           </div>

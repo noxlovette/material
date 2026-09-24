@@ -27,7 +27,9 @@ const view = (
   return target ? builder.add(target) : builder;
 };
 
-/* Outgoing content clears quickly; incoming content waits a beat so the two never overlap fully. */
+/* Outgoing content clears quickly; incoming content waits a beat so the two never overlap fully.
+   M3 "clean fades" (https://m3.material.io/styles/motion/transitions/applying-transitions): fade out before fading in; any cross-fade stays short
+   and hidden in the fastest part of the motion. Don't lengthen these. */
 const fadeOut = springTransition(springTokens.fastEffects);
 const fadeIn = { ...springTransition(springTokens.effects), delay: 0.05 };
 
@@ -36,8 +38,15 @@ const fadeIn = { ...springTransition(springTokens.effects), delay: 0.05 };
  * axis while fading through each other.
  * https://m3.material.io/styles/motion/transitions/transition-patterns#forward-and-backward
  *
+ * The default for common hierarchical navigation (https://m3.material.io/styles/motion/transitions/applying-transitions).
+ * Don't use it for hero moments; use `containerTransform` for those. Keep one axis per relationship
+ * across the app (coherent spatial model), and move one `target` region as a unit instead of
+ * animating many elements independently.
+ *
  * `update` performs the DOM change (`async () => { step++; await tick(); }`). Built on Motion's
  * `animateView()` — both states never need to coexist in the DOM.
+ *
+ * Not built into any component: hierarchy levels and wizard steps live in the consuming app.
  */
 export const sharedAxis = (
   update: () => void | Promise<void>,
@@ -67,6 +76,14 @@ export const sharedAxis = (
  * M3 lateral: peer screens at the same level (tabs, carousels) slide past each other edge to edge,
  * without fading — the new screen pushes the old one out.
  * https://m3.material.io/styles/motion/transitions/transition-patterns#lateral
+ *
+ * Only for peers in one set (https://m3.material.io/styles/motion/transitions/applying-transitions). Never use it for hierarchical screens
+ * (use `sharedAxis`) or navbar/rail/drawer destinations (use `fadeThrough`, since the implied swipe
+ * conflicts with carousels and swipeable list items). Don't add a fade: it hides the peer
+ * relationship and makes the slide look like forward/backward.
+ *
+ * Built in: `TabHolder` (switching content panels) and `DateField`/`DateRangeField` (changing the
+ * visible month). Any new component that pages between peer views must use this too.
  */
 export const lateral = (
   update: () => void | Promise<void>,
@@ -83,6 +100,13 @@ export const lateral = (
  * M3 top level (fade through): destinations with no spatial relationship, e.g. navigation bar
  * items. The outgoing screen fades out, then the incoming one fades in while scaling up from 92%.
  * https://m3.material.io/styles/motion/transitions/transition-patterns#top-level
+ *
+ * The quick fade for navigation bar, rail and drawer destinations (https://m3.material.io/styles/motion/transitions/applying-transitions).
+ * It deliberately creates no spatial connection between screens, and it's the pattern to use
+ * instead of `lateral` there.
+ *
+ * Not built into `Navbar`/`Rail`: they don't own the content region that changes, so the app wraps
+ * its own route change in this.
  */
 export const fadeThrough = (
   update: () => void | Promise<void>,

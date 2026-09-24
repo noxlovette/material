@@ -1,3 +1,4 @@
+export * from './shapeMorph.svelte.js';
 export * from './shapes.js';
 export * from './shapesAnimatable.js';
 export * from './shapesAnimatableSmall.js';
