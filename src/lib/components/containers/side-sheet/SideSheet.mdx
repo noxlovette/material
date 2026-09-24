@@ -1,0 +1,71 @@
+import { Meta, Title, Subtitle, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as SheetStories from './SideSheet.stories.svelte';
+
+<Meta of={SheetStories} />
+
+<Title />
+
+<Subtitle>Side sheets show secondary content anchored to the side of the screen.</Subtitle>
+
+[M3 spec](https://m3.material.io/components/side-sheets/specs) ·
+`import { SideSheet } from '@noxlovette/material';`
+
+<Canvas of={SheetStories.Modal} />
+
+<Controls of={SheetStories.Modal} />
+
+## Modal or standard
+
+- **`modal`** (default) opens at the window's end edge above a scrim, and blocks the app until
+  it's closed with its close button, Escape, or a scrim tap. Use it on compact and medium windows,
+  or when the content needs full attention. It is a native `<dialog>` opened with `showModal()`,
+  so the browser handles the focus trap, top-layer stacking and making the page behind it inert.
+- **`standard`** is part of the layout. Make it the last child of a full-height row. It opens by
+  widening, so the content beside it reflows instead of being covered, and everything stays
+  usable. Use it on expanded windows, for filters or details that people use alongside the main
+  content.
+
+```svelte
+<div class="flex h-dvh">
+  <main class="min-w-0 flex-1">…</main>
+  <SideSheet variant="standard" headline="Filters" bind:open>…</SideSheet>
+</div>
+```
+
+<Canvas of={SheetStories.Standard} />
+
+## Anatomy
+
+- **Header:** an optional back button (`onback`), the `headline`, and a close button. The headline
+  is `title-large` and names the sheet for assistive technology.
+- **Content:** your `children`, padded 24dp. It scrolls inside the sheet.
+- **Actions** (optional): the `actions` snippet, pinned to the bottom and left-aligned below a
+  divider. Put the most important action first, e.g. Save before Cancel.
+
+Show `onback` only when the sheet navigates within itself. The header's start padding then drops
+from 24dp to 16dp.
+
+<Canvas of={SheetStories.ModalWithBackButton} />
+
+## Size and shape
+
+Side sheets are 256dp wide by default and never wider than 400dp, and they span the full height.
+
+|          | Docked                                                               | `detached`                        |
+| -------- | -------------------------------------------------------------------- | --------------------------------- |
+| Modal    | `surface-container-low`, elevation 1, 16dp corners on the inner side | 16dp from the edges, 16dp corners |
+| Standard | `surface`, elevation 0, square, divider on the inner edge            | 16dp from the edges, 16dp corners |
+
+`divider={false}` removes the edge divider and the one above the actions.
+
+<Canvas of={SheetStories.StandardDetached} />
+
+## Motion
+
+A modal sheet slides in from the edge on the spatial spring, without fading, and stays mounted
+until it has slid out. A standard sheet animates its width on the same spring, so the content
+beside it reflows as it slides.
+
+## Not yet supported
+
+Right-to-left layouts: the modal sheet sits at the end edge, but always slides in from the right.

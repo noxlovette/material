@@ -259,11 +259,11 @@
       class="border-md-sys-color-outline-variant flex items-center justify-between border-t pt-8"
     >
       <a
-        href="/docs/side-sheet"
+        href="/docs/popover"
         class="text-md-sys-color-primary flex items-center gap-1 text-sm no-underline hover:underline"
       >
         <Icon name="arrow_back" size="sm" />
-        Previous: Side Sheet
+        Previous: Popover
       </a>
       <a
         href="/docs/badge"

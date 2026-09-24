@@ -1,0 +1,80 @@
+import { Meta, Title, Subtitle, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as CarouselStories from './Carousel.stories.svelte';
+
+<Meta of={CarouselStories} />
+
+<Title />
+
+<Subtitle>
+  Carousels show a collection of items that can be scrolled on and off the screen.
+</Subtitle>
+
+[M3 spec](https://m3.material.io/components/carousel/specs) ·
+`import { Carousel } from '@noxlovette/material';`
+
+<Canvas of={CarouselStories.Playground} />
+
+<Controls of={CarouselStories.Playground} />
+
+## Choosing a layout
+
+| Layout         | Items                                                       | Use for                                              |
+| -------------- | ----------------------------------------------------------- | ---------------------------------------------------- |
+| `multiBrowse`  | Large, medium and small at once; they resize as they scroll | Browsing many items: albums, photos, products        |
+| `hero`         | One large item and a small one peeking                      | Spotlighting one item at a time, with a hint of more |
+| `centeredHero` | One large item centred between two small ones               | The same, symmetric                                  |
+| `uncontained`  | Fixed widths that run off the trailing edge; no snapping    | Items that shouldn't resize, e.g. cards with text    |
+| `fullScreen`   | One edge-to-edge item, scrolling vertically                 | Immersive media, one item per screen                 |
+
+Give `uncontained` an `itemWidth` function for mixed aspect ratios.
+
+<Canvas of={CarouselStories.Hero} />
+
+<Canvas of={CarouselStories.UncontainedMultiAspect} />
+
+## Sizing
+
+The carousel fills its container's width. Set its height with a class; it defaults to `h-56`.
+
+- **Multi-browse** takes `itemWidth` as the preferred large width (186 by default). It then fits
+  as many whole large items as it can, plus a medium and a small one.
+- **Small items** are 40–56dp. They are 56dp once the carousel is at least 392px wide.
+- Items keep 28dp corners and 8dp gaps. Multi-browse and hero keep 16dp padding on both sides.
+
+## Item content
+
+The `item` snippet fills each item, so use `object-cover` media. It also gets `progress`, which
+runs from 0 when the item is small to 1 when it's large. Fade titles and other secondary content
+with it, since text belongs on large items only.
+
+Item content keeps the large width and stays centred while the item narrows, which gives the
+parallax.
+
+```svelte
+<Carousel items={albums} label="Recently played">
+  {#snippet item(album, { progress })}
+    <img src={album.cover} alt="" class="h-full w-full object-cover" />
+    <span style:opacity={progress}>{album.title}</span>
+  {/snippet}
+</Carousel>
+```
+
+## Interaction and accessibility
+
+- `label` names the carousel (`role="region"`, `aria-roledescription="carousel"`). It's required.
+- `onitemclick` makes items buttons and `itemHref` makes them links. `itemLabel` names each item;
+  it defaults to "n of total". A tapped item opening into its detail is a
+  [container transform](?path=/story/motion-transition-patterns--container-transform) that the app applies.
+- Tab reaches every item, including ones scrolled out of view. Focusing an item scrolls it into
+  the large slot. When items aren't interactive, the carousel itself takes focus so arrow keys
+  can scroll it.
+- Touch and trackpads scroll natively. A mouse can drag to scroll, and a drag doesn't count as
+  a click.
+- Before the carousel is measured, including during SSR, keyline layouts render as an
+  uncontained row.
+
+<Canvas of={CarouselStories.OutlinedAndDisabled} />
+
+## Not yet supported
+
+Right-to-left layouts.

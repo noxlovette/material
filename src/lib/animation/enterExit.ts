@@ -89,9 +89,12 @@ export const enterExit: Record<EnterExitPreset, PresenceTransition> = {
     enter: enterWith(springTokens.spatial),
     exit
   },
-  /** Side sheet anchored to the inline-end edge. Slides only: no opacity (M3: don't fade sheets). */
+  /**
+   * Side sheet anchored to the inline-end edge. Slides only: no opacity (M3: don't fade sheets).
+   * The extra 1rem clears a detached sheet's 16dp margin, so no sliver is left at the edge.
+   */
   sideSheet: {
-    hidden: { transform: 'translateX(100%)' },
+    hidden: { transform: 'translateX(calc(100% + 1rem))' },
     shown: { transform: 'translateX(0%)' },
     enter: springTransition(springTokens.spatial),
     exit: springTransition(springTokens.effects)

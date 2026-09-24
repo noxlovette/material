@@ -56,9 +56,7 @@
       items: [
         { label: 'Dialog', href: '/docs/dialog' },
         { label: 'Menu', href: '/docs/menu' },
-        { label: 'Popover', href: '/docs/popover' },
-        { label: 'Bottom Sheet', href: '/docs/bottom-sheet' },
-        { label: 'Side Sheet', href: '/docs/side-sheet' }
+        { label: 'Popover', href: '/docs/popover' }
       ]
     },
     {

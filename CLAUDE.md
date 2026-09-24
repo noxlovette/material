@@ -171,7 +171,19 @@ See `/docs/pane` for the full prop reference.
    ```
    **Diff the output before committing** — see "Known Pitfalls" above, the script currently also exports `.stories.svelte` files from every barrel, not just the one you touched.
 5. Add `<ComponentName>.stories.svelte` next to the component (Svelte-CSF via `@storybook/addon-svelte-csf`'s `defineMeta`/`Story`) — this is the live preview, not a showcase route. New icon names used in the story need to go in `.storybook/StorybookProviders.svelte`'s `extraIcons` too (see "Known Pitfalls").
-6. Add a docs page under `src/routes/docs/<component>/+page.svelte` for prose/usage guidance (only if the component needs more explanation than Storybook's autodocs gives)
+6. Document it in Storybook, not in `src/routes/docs/` (issue #28 moves component reference there;
+   no new per-component route pages). Write the prop docs as JSDoc in `types.ts` — that is the
+   props table. Then either:
+   - add `tags: ['autodocs']` to `defineMeta` when the props table says everything, or
+   - add `<ComponentName>.mdx` next to the stories when there are rules the table can't carry
+     (when to use which variant, content rules, accessibility, spec deviations). Attach it with
+     `<Meta of={Stories} />` and include `<Controls />`/`<ArgTypes />` so the props table stays.
+     **Don't also tag that CSF file `autodocs`**: Storybook refuses to index a component with
+     both ("You created a component docs page … but also tagged the CSF file with 'autodocs'").
+     Examples: `ListItem.mdx`, `Carousel.mdx`, `BottomSheet.mdx`, `SideSheet.mdx`.
+     A story whose open state covers the page (a fixed-position sheet, say) needs
+     `parameters={{ docs: { story: { inline: false, height: '…' } } }}` so the docs page renders it
+     in its own iframe.
 
 # Verifying a Component Change in the Browser
 

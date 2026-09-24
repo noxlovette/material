@@ -268,10 +268,10 @@
         Previous: Menu
       </a>
       <a
-        href="/docs/bottom-sheet"
+        href="/docs/snackbar"
         class="text-md-sys-color-primary flex items-center gap-1 text-sm no-underline hover:underline"
       >
-        Next: Bottom Sheet
+        Next: Snackbar
         <Icon name="arrow_forward" size="sm" />
       </a>
     </footer></Pane
