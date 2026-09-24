@@ -49,7 +49,7 @@ Radio buttons let users select one option from a set.
           <div class={itemCls.outerRing()}></div>
           <div class={itemCls.innerDot()}></div>
         </div>
-        <div class="flex flex-col gap-0.5 text-left">
+        <div class="gap-spacing-25 flex flex-col text-left">
           <span class={itemCls.label()}>{item.label}</span>
           {#if item.supportingText}
             <span class={itemCls.supporting()}>{item.supportingText}</span>

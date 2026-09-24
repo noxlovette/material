@@ -1,0 +1,35 @@
+import { Meta, Title, Subtitle, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as CheckboxStories from './Checkbox.stories.svelte';
+
+<Meta of={CheckboxStories} />
+
+<Title />
+
+<Subtitle>
+  Checkboxes let users select one or more items from a list, or turn a single item on or off.
+</Subtitle>
+
+[M3 spec](https://m3.material.io/components/checkbox/specs) ·
+`import { Checkbox } from '@noxlovette/material';`
+
+<Canvas of={CheckboxStories.Playground} />
+
+<Controls of={CheckboxStories.Playground} />
+
+## States
+
+Bind `checked` for the value. Bind `indeterminate` for a "select all" checkbox whose list is
+only partly selected; it wins over `checked` while set. `error` marks the control invalid.
+
+```svelte
+<Checkbox labelText="Accept terms and conditions" bind:checked={accepted} />
+```
+
+<Canvas of={CheckboxStories.States} />
+
+## Accessibility
+
+- **Label.** `labelText` is required and tied to the control by id, so clicking the text toggles
+  the checkbox too.
+- **Target size.** The state layer extends the target well past the 18dp box, to 48dp.
+- **Keyboard.** Space toggles; focus draws the M3 focus indicator.

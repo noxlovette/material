@@ -6,6 +6,7 @@
 
   const { Story } = defineMeta({
     title: 'Containers/Pane Grid',
+    tags: ['autodocs'],
     component: PaneGrid
   });
 </script>
@@ -29,8 +30,8 @@
         background={false}
         full={false}
       >
-        <div class="p-4">
-          <p class="md-sys-typescale-title-small mb-2">Left pane</p>
+        <div class="p-spacing-200">
+          <p class="md-sys-typescale-title-small mb-spacing-100">Left pane</p>
           <p class="text-md-sys-color-on-surface-variant text-sm">
             Drag the handle to resize — persisted to localStorage, and snaps near 360/412px.
           </p>
@@ -38,8 +39,8 @@
       </Pane>
       <PaneHandle persistKey="storybook:pane-grid-split" min={240} max={560} />
       <Pane rounded={false} full={false}>
-        <div class="p-4">
-          <p class="md-sys-typescale-title-small mb-2">Right pane</p>
+        <div class="p-spacing-200">
+          <p class="md-sys-typescale-title-small mb-spacing-100">Right pane</p>
           <p class="text-md-sys-color-on-surface-variant text-sm">Main content area.</p>
         </div>
       </Pane>
@@ -58,17 +59,17 @@
   <div class="border-md-sys-color-outline-variant h-[420px] overflow-y-auto rounded-lg border">
     <PaneGrid direction="row" rounded>
       <Pane width={240} sticky rounded={false}>
-        <div class="p-4">
-          <p class="md-sys-typescale-title-small mb-2">Sticky nav</p>
+        <div class="p-spacing-200">
+          <p class="md-sys-typescale-title-small mb-spacing-100">Sticky nav</p>
           <p class="text-md-sys-color-on-surface-variant text-sm">
             Stays pinned to the top of the scroll container while the right pane scrolls past it.
           </p>
         </div>
       </Pane>
       <Pane rounded={false}>
-        <div class="flex flex-col gap-4 p-4">
+        <div class="gap-spacing-200 p-spacing-200 flex flex-col">
           {#each Array(12) as _, i}
-            <div class="bg-md-sys-color-surface-container-high rounded-lg p-6">
+            <div class="bg-md-sys-color-surface-container-high p-spacing-300 rounded-lg">
               Scrollable content block {i + 1}
             </div>
           {/each}
@@ -87,17 +88,17 @@
   <div class="border-md-sys-color-outline-variant h-[420px] overflow-y-auto rounded-lg border">
     <PaneGrid direction={{ small: 'column', large: 'row' }} gap="lg" padding="md">
       <Pane background={false} padding="none">
-        <div class="flex flex-col gap-4">
+        <div class="gap-spacing-200 flex flex-col">
           {#each Array(6) as _, i}
-            <div class="bg-md-sys-color-surface-container-high rounded-lg p-6">
+            <div class="bg-md-sys-color-surface-container-high p-spacing-300 rounded-lg">
               Main content block {i + 1}
             </div>
           {/each}
         </div>
       </Pane>
       <Pane width={280} sticky background={false} padding="none">
-        <div class="bg-md-sys-color-surface-container rounded-lg p-4">
-          <p class="md-sys-typescale-title-small mb-2">Supporting content</p>
+        <div class="bg-md-sys-color-surface-container p-spacing-200 rounded-lg">
+          <p class="md-sys-typescale-title-small mb-spacing-100">Supporting content</p>
           <p class="text-md-sys-color-on-surface-variant text-sm">
             Fixed-width panel — e.g. a table of contents or contextual actions.
           </p>
@@ -118,14 +119,14 @@
   >
     <PaneGrid full>
       <Pane width={320} rounded={false} background={false}>
-        <div class="p-4">
-          <p class="md-sys-typescale-title-small mb-2">List</p>
+        <div class="p-spacing-200">
+          <p class="md-sys-typescale-title-small mb-spacing-100">List</p>
           <p class="text-md-sys-color-on-surface-variant text-sm">Always visible.</p>
         </div>
       </Pane>
       <Pane visibleFrom="medium" rounded={false}>
-        <div class="p-4">
-          <p class="md-sys-typescale-title-small mb-2">Detail</p>
+        <div class="p-spacing-200">
+          <p class="md-sys-typescale-title-small mb-spacing-100">Detail</p>
           <p class="text-md-sys-color-on-surface-variant text-sm">Visible from `medium` up only.</p>
         </div>
       </Pane>

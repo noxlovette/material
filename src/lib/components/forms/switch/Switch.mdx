@@ -1,0 +1,38 @@
+import { Meta, Title, Subtitle, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as SwitchStories from './Switch.stories.svelte';
+
+<Meta of={SwitchStories} />
+
+<Title />
+
+<Subtitle>Switches toggle a single setting on or off.</Subtitle>
+
+[M3 spec](https://m3.material.io/components/switch/specs) ·
+`import { Switch } from '@noxlovette/material';`
+
+<Canvas of={SwitchStories.Playground} />
+
+<Controls of={SwitchStories.Playground} />
+
+## Icons
+
+`icons` controls the thumb icon: `checked` (the default) shows a check only when on, `both`
+shows a check when on and a close icon when off, and `none` shows a plain thumb. Showing icons
+gives a signal that doesn't depend on color alone.
+
+<Canvas of={SwitchStories.IconModes} />
+
+## Dragging
+
+Besides click and tap, the thumb can be dragged: moving it more than 16px toward the other side
+flips the state, like a native mobile switch.
+
+```svelte
+<Switch bind:checked={notifications} />
+```
+
+## Accessibility
+
+- **Role.** The control is a `role="switch"` from bits-ui; Space and Enter toggle it.
+- **Label.** The switch has no built-in label. Wrap it in a `<label>` with visible text, or give
+  it an `aria-label`.

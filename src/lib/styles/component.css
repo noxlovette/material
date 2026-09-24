@@ -170,7 +170,7 @@
 }
 
 @utility state-layer {
-  @apply before:pointer-events-none before:absolute before:inset-0 before:content-[''];
+  @apply before:inset-spacing-0 before:pointer-events-none before:absolute before:content-[''];
   &::before {
     transition: background-color var(--md-sys-motion-duration-fast-effects-spring)
       var(--md-sys-motion-timing-function-fast-effects-spring);

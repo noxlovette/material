@@ -88,7 +88,7 @@ Snackbars provide brief messages about app processes at the bottom of the screen
 
       {#if showClose}
         <button
-          class="relative rounded-full p-1"
+          class="p-spacing-50 relative rounded-full"
           onclick={() => {
             dismissed = true;
             if (typeof message === 'string') {

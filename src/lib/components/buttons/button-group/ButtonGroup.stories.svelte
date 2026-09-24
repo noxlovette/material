@@ -36,7 +36,7 @@
 </Story>
 
 <Story name="Mixed buttons" asChild>
-  <div class="flex flex-col items-start gap-8 p-6">
+  <div class="gap-spacing-400 p-spacing-300 flex flex-col items-start">
     <ButtonGroup size="md" aria-label="Player">
       <ButtonIcon
         size="md"
@@ -80,7 +80,7 @@
 </Story>
 
 <Story name="Sizes" asChild>
-  <div class="flex flex-col items-start gap-6 p-6">
+  <div class="gap-spacing-300 p-spacing-300 flex flex-col items-start">
     {#each sizes as size (size)}
       <ButtonGroup {size}>
         <Button {size} variant="tonal">One</Button>
@@ -92,7 +92,7 @@
 </Story>
 
 <Story name="Vertical" asChild>
-  <div class="p-6">
+  <div class="p-spacing-300">
     <ButtonGroup orientation="vertical">
       <Button variant="tonal">Top</Button>
       <Button variant="tonal">Middle</Button>

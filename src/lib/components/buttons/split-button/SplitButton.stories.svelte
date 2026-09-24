@@ -38,7 +38,7 @@
 </Story>
 
 <Story name="With leading icon" asChild>
-  <div class="p-6">
+  <div class="p-spacing-300">
     <SplitButton iconProps={{ name: 'send' }}>
       {#snippet children()}
         Send
@@ -52,7 +52,7 @@
 </Story>
 
 <Story name="Variants" asChild>
-  <div class="flex flex-wrap items-center gap-6 p-6">
+  <div class="gap-spacing-300 p-spacing-300 flex flex-wrap items-center">
     {#each ['elevated', 'filled', 'tonal', 'outlined'] as const as variant (variant)}
       <SplitButton {variant}>
         {#snippet children()}
@@ -68,7 +68,7 @@
 </Story>
 
 <Story name="Sizes" asChild>
-  <div class="flex flex-col items-start gap-6 p-6">
+  <div class="gap-spacing-300 p-spacing-300 flex flex-col items-start">
     {#each ['xs', 'sm', 'md', 'lg', 'xl'] as const as size (size)}
       <SplitButton {size}>
         {#snippet children()}
@@ -84,7 +84,7 @@
 </Story>
 
 <Story name="Disabled" asChild>
-  <div class="p-6">
+  <div class="p-spacing-300">
     <SplitButton disabled>
       {#snippet children()}
         Reply

@@ -5,25 +5,25 @@ export type RailItemVariants = VariantProps<typeof railElement>;
 
 export const rail = tv({
   slots: {
-    base: 'py-12 hidden bg-md-sys-color-surface-container z-40 flex-col md:flex gap-6 transition-[width,padding,background-color] md-sys-motion-spatial',
-    items: 'flex flex-col gap-3 pt-6 scrollbar-none w-full overflow-x-hidden',
+    base: 'py-spacing-600 hidden bg-md-sys-color-surface-container z-40 flex-col md:flex gap-spacing-300 transition-[width,padding,background-color] md-sys-motion-spatial',
+    items: 'flex flex-col gap-spacing-150 pt-spacing-300 scrollbar-none w-full overflow-x-hidden',
     ghost: 'hidden md:block shrink-0 transition-[width] md-sys-motion-spatial',
-    scrim: 'hidden md:block lg:hidden inset-0'
+    scrim: 'hidden md:block lg:hidden inset-spacing-0'
   },
   variants: {
     anchor: {
       viewport: {
-        base: 'fixed top-[var(--rail-top,0px)] bottom-0 left-0',
+        base: 'fixed top-[var(--rail-top,0px)] bottom-spacing-0 left-spacing-0',
         scrim: 'fixed'
       },
       parent: {
-        base: 'absolute top-[var(--rail-top,0px)] bottom-0 left-0',
+        base: 'absolute top-[var(--rail-top,0px)] bottom-spacing-0 left-spacing-0',
         scrim: 'absolute'
       }
     },
     expanded: {
       true: {
-        base: 'pl-9 w-60 items-start bg-md-sys-color-surface-container-highest lg:bg-md-sys-color-surface-container rounded-r-lg',
+        base: 'pl-spacing-450 w-60 items-start bg-md-sys-color-surface-container-highest lg:bg-md-sys-color-surface-container rounded-r-lg',
         ghost: 'w-24 lg:w-60'
       },
       false: {
@@ -48,7 +48,7 @@ export const railElement = tv({
   slots: {
     base: 'group relative z-30 flex w-full transition-all md-sys-motion-spatial',
     content:
-      'flex items-center min-w-0 rounded-full gap-0.5 py-1.5 transition-all md-sys-motion-spatial',
+      'flex items-center min-w-spacing-0 rounded-full gap-spacing-25 py-spacing-75 transition-all md-sys-motion-spatial',
     iconContainer:
       'relative rounded-full items-center justify-center inline-flex transition-all md-sys-motion-spatial',
     icon: 'text-[24px] transition-all md-sys-motion-spatial',
@@ -70,14 +70,14 @@ export const railElement = tv({
     expanded: {
       true: {
         base: 'justify-start',
-        content: 'p-4 gap-3',
+        content: 'p-spacing-200 gap-spacing-150',
         iconContainer: '',
         label: 'md-sys-typescale-label-large'
       },
       false: {
         base: 'text-center justify-center',
         content: 'flex-col',
-        iconContainer: 'py-1.5 px-4',
+        iconContainer: 'py-spacing-75 px-spacing-200',
         label: 'md-sys-typescale-label-medium'
       }
     },
@@ -88,10 +88,10 @@ export const railElement = tv({
     },
     mobile: {
       true: {
-        base: 'flex-1 flex-col items-center justify-center h-full min-w-0 max-w-[168px]',
-        content: 'py-0 gap-1 items-center justify-center w-full',
-        iconContainer: 'h-8 w-16 py-0 px-0',
-        icon: 'size-6',
+        base: 'flex-1 flex-col items-center justify-center h-full min-w-spacing-0 max-w-[168px]',
+        content: 'py-spacing-0 gap-spacing-50 items-center justify-center w-full',
+        iconContainer: 'h-spacing-400 w-spacing-800 py-spacing-0 px-spacing-0',
+        icon: 'size-spacing-300',
         label: 'truncate w-full text-center'
       },
       false: {}

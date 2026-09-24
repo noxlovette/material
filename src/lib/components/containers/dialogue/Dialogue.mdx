@@ -1,0 +1,65 @@
+import { Meta, Title, Subtitle, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as DialogueStories from './Dialogue.stories.svelte';
+
+<Meta of={DialogueStories} />
+
+<Title />
+
+<Subtitle>
+  Dialogs give important information or ask for a decision, and block the app until the user
+  responds.
+</Subtitle>
+
+[M3 spec](https://m3.material.io/components/dialogs/specs) ·
+`import { Dialogue } from '@noxlovette/material';`
+
+<Canvas of={DialogueStories.Playground} />
+
+<Controls of={DialogueStories.Playground} />
+
+## It's `Dialogue`, not `Dialog`
+
+The export uses the British spelling. `import { Dialog } from '@noxlovette/material'` fails;
+`Dialog` is bits-ui's headless primitive, which `Dialogue` wraps.
+
+## The confirm button submits a form
+
+`enhance` and `confirmText` are required. The confirm button is a real submit button in a form
+that posts to `confirmAction`, so the action runs through SvelteKit (or Superforms) rather than a
+click handler. Any other bits-ui `Dialog.Root` props are passed through to the root.
+
+```svelte
+<script lang="ts">
+  import { Dialogue } from '@noxlovette/material';
+  import { enhance } from '$app/forms';
+
+  let open = $state(false);
+</script>
+
+<Dialogue
+  bind:open
+  {enhance}
+  headline="Delete this file?"
+  supportingText="This action cannot be undone."
+  confirmText="Delete"
+  cancelText="Cancel"
+  confirmAction="?/deleteFile"
+/>
+```
+
+By default the confirm button also closes the dialog. To keep it open until the server
+responds, for example on a validation error, set `delegateClose` and close it yourself. `loading`
+shows progress on the confirm button meanwhile.
+
+<Canvas of={DialogueStories.LoadingConfirm} />
+
+`children` renders between the supporting text and the buttons:
+
+<Canvas of={DialogueStories.WithExtraContent} />
+
+## Accessibility
+
+- **Focus.** Focus is trapped inside while open and goes back to the trigger on close.
+- **Labelling.** `headline` and `supportingText` become the dialog's accessible name and
+  description.
+- **Escape** closes the dialog.

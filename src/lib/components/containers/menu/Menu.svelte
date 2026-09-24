@@ -50,7 +50,7 @@ Contrast with `MenuItem` (a single interactive row inside the panel) and
           <div
             {...props}
             class={clsx(
-              'bg-md-sys-color-surface-container-high shadow-elevation-3 ring-md-sys-color-outline/10 max-w-sm min-w-48 gap-1 overflow-y-auto rounded-lg px-2 py-1',
+              'bg-md-sys-color-surface-container-high shadow-elevation-3 ring-md-sys-color-outline/10 gap-spacing-50 px-spacing-100 py-spacing-50 max-w-sm min-w-48 overflow-y-auto rounded-lg',
               props.class as any,
               contentClass
             )}

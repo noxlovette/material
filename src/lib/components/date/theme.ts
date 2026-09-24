@@ -6,10 +6,10 @@ export type DateRangeFieldVariants = VariantProps<typeof dateRangeField>;
 export const dateRangeField = tv({
   slots: {
     base: `
-			group w-full h-14 relative flex items-center
+			group w-full h-spacing-700 relative flex items-center
 		`,
     inputWrapper: `
-			relative flex-1 px-4 h-full flex items-center
+			relative flex-1 px-spacing-200 h-full flex items-center
 		`,
     input: `
 			bg-transparent outline-none flex items-center
@@ -17,19 +17,19 @@ export const dateRangeField = tv({
 			disabled:text-md-sys-color-on-surface/38 w-full
 		`,
     leadingIcon: `
-      text-md-sys-color-on-surface-variant size-6
+      text-md-sys-color-on-surface-variant size-spacing-300
       group-focus-within:text-md-sys-color-primary
-      group-data-[invalid]:text-md-sys-color-error ml-3 text-[24px]
+      group-data-[invalid]:text-md-sys-color-error ml-spacing-150 text-[24px]
     `,
     trailingIcon: `
-      mr-1 shrink-0 text-md-sys-color-on-surface-variant
+      mr-spacing-50 shrink-0 text-md-sys-color-on-surface-variant
       group-data-[invalid]:text-md-sys-color-error
     `,
     separator: `
 			text-md-sys-color-on-surface-variant select-none shrink-0
 		`,
     label: `
-			absolute left-4 top-1.5
+			absolute left-spacing-200 top-spacing-75
 			md-sys-typescale-body-small
 			text-md-sys-color-on-surface-variant
 			pointer-events-none
@@ -38,13 +38,13 @@ export const dateRangeField = tv({
 			z-20
 		`,
     requiredAsterisk: `
-			ml-0.5
+			ml-spacing-25
 			text-md-sys-color-error
 			group-focus-within:text-md-sys-color-primary
 			transition-colors md-sys-motion-effects
 		`,
     supportingText: `
-			px-4 pt-1 flex justify-between
+			px-spacing-200 pt-spacing-50 flex justify-between
 			md-sys-typescale-body-small
 			text-md-sys-color-on-surface-variant
 		`
@@ -54,7 +54,7 @@ export const dateRangeField = tv({
       filled: {
         base: `
           bg-md-sys-color-surface-container-highest rounded-t-xs
-          after:absolute after:bottom-0 after:left-0 after:right-0
+          after:absolute after:bottom-spacing-0 after:left-spacing-0 after:right-spacing-0
           state-layer before:rounded-xs hover:before:bg-md-sys-color-on-surface/8
           after:h-px after:bg-md-sys-color-on-surface-variant
           after:transition-[height,background-color] after:md-sys-motion-fast-spatial
@@ -116,10 +116,10 @@ export const dateRangeField = tv({
 export const dateField = tv({
   slots: {
     base: `
-				group w-full h-14 relative flex items-center justify-between
+				group w-full h-spacing-700 relative flex items-center justify-between
 			`,
     inputWrapper: `
-			relative flex-1 px-4 h-full flex items-center
+			relative flex-1 px-spacing-200 h-full flex items-center
 		`,
     input: `
 				w-full bg-transparent outline-none
@@ -130,16 +130,16 @@ export const dateField = tv({
 			flex w-full flex-col tabular-nums
 		`,
     leadingIcon: `
-      text-md-sys-color-on-surface-variant size-6
+      text-md-sys-color-on-surface-variant size-spacing-300
       group-focus-within:text-md-sys-color-primary
-      group-data-[invalid]:text-md-sys-color-error ml-3 text-[24px]
+      group-data-[invalid]:text-md-sys-color-error ml-spacing-150 text-[24px]
     `,
     trailingIcon: `
-      mr-1 shrink-0 text-md-sys-color-on-surface-variant
+      mr-spacing-50 shrink-0 text-md-sys-color-on-surface-variant
       group-data-[invalid]:text-md-sys-color-error
     `,
     label: `
-			absolute left-4 top-1.5
+			absolute left-spacing-200 top-spacing-75
 			md-sys-typescale-body-small
 			text-md-sys-color-on-surface-variant
 			pointer-events-none
@@ -148,18 +148,18 @@ export const dateField = tv({
 			z-20
 		`,
     requiredAsterisk: `
-			ml-0.5
+			ml-spacing-25
 			text-md-sys-color-error
 			group-focus-within:text-md-sys-color-primary
 			transition-colors md-sys-motion-effects
 		`,
     supportingText: `
-			px-4 pt-1 flex justify-between
+			px-spacing-200 pt-spacing-50 flex justify-between
 			md-sys-typescale-body-small
 			text-md-sys-color-on-surface-variant
 		`,
     fieldset: `
-      absolute -top-[5px] left-0 right-0 bottom-0 m-0 px-2
+      absolute -top-[5px] left-spacing-0 right-spacing-0 bottom-spacing-0 m-spacing-0 px-spacing-100
       pointer-events-none rounded-xs border border-md-sys-color-outline
       transition-colors md-sys-motion-fast-effects
 
@@ -171,7 +171,7 @@ export const dateField = tv({
       whitespace-nowrap md-sys-typescale-body-small
     `,
     legendLabel: `
-      px-1
+      px-spacing-50
     `
   },
   variants: {
@@ -179,7 +179,7 @@ export const dateField = tv({
       filled: {
         base: `
           bg-md-sys-color-surface-container-highest rounded-t-xs
-          after:absolute after:bottom-0 after:left-0 after:right-0
+          after:absolute after:bottom-spacing-0 after:left-spacing-0 after:right-spacing-0
           state-layer before:rounded-xs hover:before:bg-md-sys-color-on-surface/8
           after:h-px after:bg-md-sys-color-on-surface-variant
           after:transition-[height,background-color] after:md-sys-motion-fast-spatial
@@ -188,11 +188,11 @@ export const dateField = tv({
           disabled:bg-md-sys-color-on-surface/4
           disabled:after:bg-md-sys-color-on-surface/12
         `,
-        segments: 'pt-4'
+        segments: 'pt-spacing-200'
       },
       outlined: {
         label: `
-          top-0 -translate-y-1/2
+          top-spacing-0 -translate-y-1/2
         `
       }
     },
@@ -228,12 +228,12 @@ export const dateField = tv({
 /** Segments of the typed date (`DatePicker.Segment` / `DateRangePicker.Segment`). */
 export const dateSegment = tv({
   base: `
-    rounded-xs px-0.5 py-0.5 select-none cursor-default outline-none
+    rounded-xs px-spacing-25 py-spacing-25 select-none cursor-default outline-none
     transition-colors md-sys-motion-fast-effects
   `,
   variants: {
     part: {
-      literal: 'text-md-sys-color-on-surface-variant px-0',
+      literal: 'text-md-sys-color-on-surface-variant px-spacing-0',
       value: `
         text-md-sys-color-on-surface
         aria-[valuetext=Empty]:text-md-sys-color-on-surface-variant
@@ -255,12 +255,12 @@ export const dateSegment = tv({
 export const dateCalendar = tv({
   slots: {
     surface: `
-      w-90 rounded-lg px-3 pb-3
+      w-90 rounded-lg px-spacing-150 pb-spacing-150
       bg-md-sys-color-surface-container-high shadow-elevation-3
       text-md-sys-color-on-surface
     `,
     header: `
-      flex h-14 items-center justify-between pl-4 pr-1
+      flex h-spacing-700 items-center justify-between pl-spacing-200 pr-spacing-50
     `,
     heading: `
       md-sys-typescale-label-large text-md-sys-color-on-surface-variant
@@ -275,15 +275,15 @@ export const dateCalendar = tv({
       flex w-full
     `,
     weekday: `
-      flex size-12 items-center justify-center
-      md-sys-typescale-body-large font-normal text-md-sys-color-on-surface
+      flex size-spacing-600 items-center justify-center
+      md-sys-typescale-body-large text-md-sys-color-on-surface
     `,
     /* The range band runs behind every day in the range. On the endpoints it covers only the inner
        half, so it meets the selected circle instead of sticking out past it. A one-day range has
        no band. */
     cell: `
-      relative flex size-12 items-center justify-center p-0
-      before:absolute before:inset-x-0 before:h-10 before:bg-md-sys-color-secondary-container
+      relative flex size-spacing-600 items-center justify-center p-spacing-0
+      before:absolute before:inset-x-spacing-0 before:h-spacing-500 before:bg-md-sys-color-secondary-container
       before:opacity-0 before:transition-opacity before:md-sys-motion-fast-effects
       data-range-middle:before:opacity-100
       data-highlighted:before:opacity-100
@@ -293,7 +293,7 @@ export const dateCalendar = tv({
       data-outside-month:before:opacity-0
     `,
     day: `
-      relative flex size-10 items-center justify-center rounded-full
+      relative flex size-spacing-500 items-center justify-center rounded-full
       md-sys-typescale-body-large text-md-sys-color-on-surface
       cursor-pointer outline-none
       transition-colors md-sys-motion-fast-effects

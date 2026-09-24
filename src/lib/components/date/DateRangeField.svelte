@@ -55,7 +55,7 @@ Changing the visible month slides the grid with the M3 lateral transition (see c
       id={`${id}-${type}`}
     >
       {#snippet children({ segments })}
-        <div class="flex w-full pt-4 tabular-nums">
+        <div class="pt-spacing-200 flex w-full tabular-nums">
           {#each segments as { part, value: segment }}
             <DateRangePicker.Segment
               {part}

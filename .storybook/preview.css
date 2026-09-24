@@ -1,0 +1,8 @@
+/* Paint the story canvas and docs pages with the active scheme's M3 surface, so stories are
+   previewed on the background they're designed for instead of Storybook's white. */
+body,
+.sbdocs-wrapper,
+.docs-story {
+  background-color: var(--color-md-sys-color-surface) !important;
+  color: var(--color-md-sys-color-on-surface);
+}

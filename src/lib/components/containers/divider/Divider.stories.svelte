@@ -5,6 +5,7 @@
 
   const { Story } = defineMeta({
     title: 'Containers/Divider',
+    tags: ['autodocs'],
     component: Divider,
     argTypes: {
       variant: { control: 'select', options: ['full', 'inset', 'wavy'] },
@@ -54,7 +55,7 @@
 </Story>
 
 <Story name="Vertical" asChild>
-  <div class="flex h-24 items-center gap-4">
+  <div class="gap-spacing-200 flex h-24 items-center">
     <Body>Left</Body>
     <Divider orientation="vertical" />
     <Body>Right</Body>

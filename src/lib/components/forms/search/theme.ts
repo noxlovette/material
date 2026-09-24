@@ -10,15 +10,15 @@ export type SearchVariants = VariantProps<typeof search>;
  */
 export const search = tv({
   slots: {
-    base: 'state-layer relative flex h-14 w-full max-w-[720px] grow cursor-text items-center rounded-full bg-md-sys-color-surface-container-high ps-1 pe-1 before:rounded-full hover:before:bg-md-sys-color-on-surface/8 active:before:bg-md-sys-color-on-surface/10 has-[input:focus-visible]:outline-3 has-[input:focus-visible]:outline-offset-2 has-[input:focus-visible]:outline-md-sys-color-secondary',
+    base: 'state-layer relative flex h-spacing-700 w-full max-w-[720px] grow cursor-text items-center rounded-full bg-md-sys-color-surface-container-high ps-spacing-50 pe-spacing-50 before:rounded-full hover:before:bg-md-sys-color-on-surface/8 active:before:bg-md-sys-color-on-surface/10 has-[input:focus-visible]:outline-3 has-[input:focus-visible]:outline-offset-2 has-[input:focus-visible]:outline-md-sys-color-secondary',
     leading: 'text-md-sys-color-on-surface relative flex shrink-0 items-center',
-    leadingIcon: 'text-md-sys-color-on-surface grid size-12 shrink-0 place-items-center',
+    leadingIcon: 'text-md-sys-color-on-surface grid size-spacing-600 shrink-0 place-items-center',
     input:
-      'md-sys-typescale-body-large text-md-sys-color-on-surface placeholder:text-md-sys-color-on-surface-variant relative ms-1 me-1 w-full min-w-0 bg-transparent outline-none [&::-webkit-search-cancel-button]:hidden',
+      'md-sys-typescale-body-large text-md-sys-color-on-surface placeholder:text-md-sys-color-on-surface-variant relative ms-spacing-50 me-spacing-50 w-full min-w-spacing-0 bg-transparent outline-none [&::-webkit-search-cancel-button]:hidden',
     trailing: 'text-md-sys-color-on-surface-variant relative flex shrink-0 items-center'
   },
   variants: {
-    hasLeading: { true: '', false: { input: 'ms-3' } },
-    hasTrailing: { true: '', false: { input: 'me-3' } }
+    hasLeading: { true: '', false: { input: 'ms-spacing-150' } },
+    hasTrailing: { true: '', false: { input: 'me-spacing-150' } }
   }
 });

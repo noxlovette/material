@@ -9,6 +9,7 @@
 
   const { Story } = defineMeta({
     title: 'Time/TimeField',
+    tags: ['autodocs'],
     component: TimeField,
     argTypes: {
       label: { control: 'text' },
@@ -28,14 +29,14 @@
 
 <Story name="Playground">
   {#snippet template(args)}
-    <div class="max-w-xs p-8">
+    <div class="p-spacing-400 max-w-xs">
       <TimeField {...args} />
     </div>
   {/snippet}
 </Story>
 
 <Story name="Near Bottom Edge" asChild>
-  <div class="flex min-h-dvh max-w-xs flex-col justify-end p-8">
+  <div class="p-spacing-400 flex min-h-dvh max-w-xs flex-col justify-end">
     <TimeField label="Time" value="18:45" />
   </div>
 </Story>

@@ -45,7 +45,7 @@
 
 {#snippet photo(p: Photo, { progress }: { index: number; progress: number })}
   <div
-    class="flex h-full w-full items-end p-4"
+    class="p-spacing-200 flex h-full w-full items-end"
     style="background: linear-gradient(135deg, {p.from}, {p.to})"
   >
     <span
@@ -75,7 +75,7 @@
 <Story name="Multi-browse" asChild>
   <div class="w-full max-w-xl">
     <Carousel items={photos} item={photo} label="Places" onitemclick={(p) => (opened = p.title)} />
-    <p class="md-sys-typescale-body-medium mt-2 px-4">
+    <p class="md-sys-typescale-body-medium mt-spacing-100 px-spacing-200">
       {opened ? `Opened ${opened}` : 'Tap an item. Drag with the mouse, or Tab through the items.'}
     </p>
   </div>

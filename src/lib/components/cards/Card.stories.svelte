@@ -47,7 +47,7 @@
       href={args.href}
       class="max-w-sm"
     >
-      <p class="md-sys-typescale-title-medium mb-1">Card title</p>
+      <p class="md-sys-typescale-title-medium mb-spacing-50">Card title</p>
       <p class="text-md-sys-color-on-surface-variant text-sm">
         Supporting text describing the card's content.
       </p>
@@ -56,19 +56,19 @@
 </Story>
 
 <Story name="Types" asChild>
-  <div class="flex flex-wrap gap-4 p-6">
+  <div class="gap-spacing-200 p-spacing-300 flex flex-wrap">
     <Card type="elevated" class="w-56">
-      <p class="md-sys-typescale-title-medium mb-1">Elevated</p>
+      <p class="md-sys-typescale-title-medium mb-spacing-50">Elevated</p>
       <p class="text-md-sys-color-on-surface-variant text-sm">Shadow separates from background.</p>
     </Card>
     <Card type="filled" class="w-56">
-      <p class="md-sys-typescale-title-medium mb-1">Filled</p>
+      <p class="md-sys-typescale-title-medium mb-spacing-50">Filled</p>
       <p class="text-md-sys-color-on-surface-variant text-sm">
         Solid background, subtle separation.
       </p>
     </Card>
     <Card type="outlined" class="w-56">
-      <p class="md-sys-typescale-title-medium mb-1">Outlined</p>
+      <p class="md-sys-typescale-title-medium mb-spacing-50">Outlined</p>
       <p class="text-md-sys-color-on-surface-variant text-sm">Boundary line, least separation.</p>
     </Card>
   </div>
@@ -76,7 +76,7 @@
 
 <Story name="Hoverable Link" asChild>
   <Card href="#" class="max-w-sm">
-    <p class="md-sys-typescale-title-medium mb-1">Clickable card</p>
+    <p class="md-sys-typescale-title-medium mb-spacing-50">Clickable card</p>
     <p class="text-md-sys-color-on-surface-variant text-sm">
       Rendered as an anchor when <code>href</code> is provided; hoverable defaults to true.
     </p>
@@ -84,7 +84,7 @@
 </Story>
 
 <Story name="Selectable" asChild>
-  <div class="flex flex-wrap gap-4 p-6">
+  <div class="gap-spacing-200 p-spacing-300 flex flex-wrap">
     {#each items as item (item.id)}
       <Card
         type="outlined"
@@ -96,7 +96,7 @@
           if (selectedId === item.id) selectedId = null;
         }}
       >
-        <p class="md-sys-typescale-title-medium mb-1">{item.title}</p>
+        <p class="md-sys-typescale-title-medium mb-spacing-50">{item.title}</p>
         <p class="text-md-sys-color-on-surface-variant text-sm">{item.body}</p>
       </Card>
     {/each}
@@ -104,15 +104,15 @@
 </Story>
 
 <Story name="Selectable With Nested Button" asChild>
-  <div class="flex flex-wrap gap-4 p-6">
+  <div class="gap-spacing-200 p-spacing-300 flex flex-wrap">
     <Card
       type="outlined"
       class="w-64"
       onselect={() => console.log('card selected')}
       ondelete={() => console.log('card deleted')}
     >
-      <p class="md-sys-typescale-title-medium mb-1">Card with an action</p>
-      <p class="text-md-sys-color-on-surface-variant mb-3 text-sm">
+      <p class="md-sys-typescale-title-medium mb-spacing-50">Card with an action</p>
+      <p class="text-md-sys-color-on-surface-variant mb-spacing-150 text-sm">
         Clicking the card selects it. The button below calls
         <code>event.stopPropagation()</code> so it doesn't also trigger selection.
       </p>

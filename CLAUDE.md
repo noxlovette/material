@@ -7,7 +7,7 @@ Base your docs and stylistic decisions on this https://m3.material.io/
 # Commands
 
 ```bash
-bun run dev              # showcase site: landing page + prose docs (SvelteKit, static adapter → GitHub Pages)
+bun run dev              # showcase site: landing page + guides (SvelteKit, static adapter → GitHub Pages)
 bun run storybook        # component workbench: live preview, Controls, a11y — the canonical way to view/QA components
 bun run build-storybook  # storybook static build → storybook-static/
 bun run build            # svelte-package → dist/ (what gets published to npm)
@@ -26,18 +26,18 @@ src/lib/           # published library (@noxlovette/material)
   animation/       # Material Design transitions (containerTransform, sharedAxis, enterExit, etc.)
   utils/           # Icon, Layer, Theme, ThemeScript, types, theme.svelte.ts
   actions/         # Svelte actions (clickOutside, keyboard, floating, positionFloating)
-src/routes/        # showcase site only — not published. Landing page + prose docs, NOT a component
-                    # gallery — that job belongs to Storybook. Links out to Storybook rather than
-                    # re-implementing live previews.
-  docs/            # component reference docs (layout + per-component pages)
-                    # +layout.svelte's secondary sidebar is a PaneGrid with a sticky nav
-                    # Pane; each page's content+TOC is a PaneGrid with a sticky TOC Pane.
-                    # See "Dogfooding rule" below — do not hand-roll this layout with raw
-                    # flex/aside divs.
+src/routes/        # showcase site only — not published. Landing page + cross-cutting guides.
+                    # NOT a component reference: that is Storybook (autodocs + <Component>.mdx).
+                    # No per-component route pages.
+  guides/          # Get started, Theming, Tokens, Responsive props, Layout, Motion, Claude skill.
+                    # nav.ts lists them; +layout.svelte is a PaneGrid with a sticky List nav Pane;
+                    # GuidePage.svelte is content + a sticky "On this page" Pane. See "Dogfooding
+                    # rule" below — do not hand-roll this layout with raw flex/aside divs.
 .storybook/        # isolated Storybook config — has its own vite.config.ts, NOT the root one
                     # (svelte-vite hard-errors if it detects SvelteKit's plugins)
 dist/              # build output, do not edit
 scripts/           # generate-components-index.ts — regenerates barrel index.ts files
+bin/               # material-claude-skill.js — the npx installer for the published Claude skill
 ```
 
 In production, Storybook is built into `build/storybook/` alongside the SvelteKit static site and
@@ -50,6 +50,8 @@ two surfaces, so the "Storybook" nav link resolves correctly in both dev and pro
 - **Utility types**: prefer types from `utils/types.ts` (`AnchorButtonAttributes`, `SizeType`, `DivAttrs`, etc.)
 - **Theme import**: consumers use `@noxlovette/material/styles` for base CSS and `@noxlovette/material/theme/light` etc.
 - **New components**: export from the category `index.ts` and re-export in `src/lib/components/index.ts`
+- **Spacing: M3 tokens only in library code.** `src/lib/styles/spacing.css` registers `md.sys.measurement.space<N>` as `*-spacing-<N>` (`p-spacing-200` = 16dp, `gap-spacing-50` = 4dp; N is M3's number, not Tailwind's multiplier). Library components, stories, MDX and guides use these, never Tailwind's numeric scale (`p-4`), which stays available only for consumers. Off-grid component dimensions are pending named component tokens (issue #30); don't add new numeric or arbitrary sizes, and don't "snap" existing spec dimensions to the nearest spacing token.
+- **Type scale** (`src/lib/styles/typescale.css`) is generated from the M3 token DB: 15 baseline + 15 emphasized styles (`md-sys-typescale-emphasized-*`), rem units, line heights per language height (`lang`). Selected/active/unread states use the emphasized style, never `font-bold` on a baseline one.
 - **`tailwind-variants` (tv)**: every component's styles are defined with `tv()` from `tailwind-variants`, using named `slots` for multi-element components and `variants`/`compoundVariants` for state logic. Match this pattern for all new components — do not use plain `clsx` strings for component internals.
 
 # Responsive Props (IMPORTANT)
@@ -124,9 +126,9 @@ Before creating or modifying a component, choosing a variant/color role, adding 
 
 `.claude/skills/material-design/` is the single source of truth. `bun run build` (via `scripts/copy-skill.ts`) copies it into the gitignored `claude-skill/` directory, which is published to npm alongside `dist/`. Consumers of `@noxlovette/material` run `npx @noxlovette/material material-claude-skill` (add `--force` to overwrite) to install it into their own project's `.claude/skills/material-design`. Never edit `claude-skill/` directly — it's regenerated on every build.
 
-# Dogfooding Rule for Showcase/Docs Pages
+# Dogfooding Rule for Showcase/Guide Pages
 
-Every page under `src/routes/` (landing page, `docs/**`) MUST be built from `@noxlovette/material`
+Every page under `src/routes/` (landing page, `guides/**`) MUST be built from `@noxlovette/material`
 components — `Pane`/`PaneGrid` for layout, `Card`/`Title`/`Body`/etc. for content. Never hand-roll
 a layout pattern (raw `flex`/`aside`/`sticky` divs) that the library already covers — if you catch
 yourself reaching for one, that's a signal either a `Pane`/`PaneGrid` composition fits, or the
@@ -148,16 +150,15 @@ different components and an `anchor` prop:
   scrolling with the page. Works inside any scrolling ancestor — the true page scroll, or a bounded
   box — so it replaces both of the old `anchor="viewport"` (fixed to the true browser edge, which
   broke once nested under an offset ancestor) and `anchor="sticky"` modes with one prop. Use this
-  for a sidebar nested _inside other already-offset content_ — e.g. the docs secondary
-  component-list nav, which lives inside the root layout's Rail-offset content column.
+  for a sidebar nested _inside other already-offset content_ — e.g. the guides nav, which lives inside the root layout's Rail-offset content column.
 - **`visibleFrom` / `hiddenFrom`** — hide a pane below/from a given breakpoint, e.g. for
   list-detail layouts where only one pane shows on small viewports.
 
-For a content-area + fixed-width side panel (e.g. a docs page's article + "On this page" TOC), use
+For a content-area + fixed-width side panel (e.g. a guide's article + "On this page" TOC), use
 a `PaneGrid` with `direction={{ small: 'column', large: 'row' }}` and give the side panel `width` +
 `sticky` — that's the canonical M3
 [supporting-pane layout](https://m3.material.io/foundations/layout/canonical-layouts/supporting-pane).
-See `/docs/pane` for the full prop reference.
+See the Layout guide (`/guides/layout`) and Storybook → Containers/Pane Grid for the full reference.
 
 # Adding a New Component
 
@@ -171,8 +172,7 @@ See `/docs/pane` for the full prop reference.
    ```
    **Diff the output before committing** — see "Known Pitfalls" above, the script currently also exports `.stories.svelte` files from every barrel, not just the one you touched.
 5. Add `<ComponentName>.stories.svelte` next to the component (Svelte-CSF via `@storybook/addon-svelte-csf`'s `defineMeta`/`Story`) — this is the live preview, not a showcase route. New icon names used in the story need to go in `.storybook/StorybookProviders.svelte`'s `extraIcons` too (see "Known Pitfalls").
-6. Document it in Storybook, not in `src/routes/docs/` (issue #28 moves component reference there;
-   no new per-component route pages). Write the prop docs as JSDoc in `types.ts` — that is the
+6. Document it in Storybook, never in `src/routes/` (no per-component route pages). Write the prop docs as JSDoc in `types.ts` — that is the
    props table. Then either:
    - add `tags: ['autodocs']` to `defineMeta` when the props table says everything, or
    - add `<ComponentName>.mdx` next to the stories when there are rules the table can't carry
@@ -184,6 +184,13 @@ See `/docs/pane` for the full prop reference.
      A story whose open state covers the page (a fixed-position sheet, say) needs
      `parameters={{ docs: { story: { inline: false, height: '…' } } }}` so the docs page renders it
      in its own iframe.
+
+# Storybook Docs Notes
+
+- `.storybook/preview.ts` has a **Scheme** toolbar (light/dark). It toggles the `dark` class on `<html>` for stories and docs (the docs container follows it through the channel), and `preview.css` paints canvases with `surface`. Don't hard-code light backgrounds in stories.
+- MDX is compiled with `remark-gfm` (`.storybook/main.ts`), so Markdown tables render.
+- `defineMeta` must live in `<script module>`; in the instance script the CSF file silently fails to index and any MDX `of={}` pointing at it breaks the build.
+- The five typography components share one unattached `typography/Typography.mdx` (`<Meta title=…>`), so their CSF files keep `autodocs`.
 
 # Verifying a Component Change in the Browser
 

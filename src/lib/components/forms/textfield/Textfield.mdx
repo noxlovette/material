@@ -1,0 +1,53 @@
+import { Meta, Title, Subtitle, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as TextfieldStories from './Textfield.stories.svelte';
+
+<Meta of={TextfieldStories} />
+
+<Title />
+
+<Subtitle>Text fields let users enter and edit text.</Subtitle>
+
+[M3 spec](https://m3.material.io/components/text-fields/specs) ·
+`import { Textfield } from '@noxlovette/material';`
+
+<Canvas of={TextfieldStories.Playground} />
+
+<Controls of={TextfieldStories.Playground} />
+
+## Outlined or filled
+
+`variant` defaults to `outlined`: a bordered field whose floating label opens a gap in the border.
+`filled` has a container and a bottom indicator line, and carries more emphasis. Use outlined in
+busy surroundings (over an image, in dense forms) or next to a filled field that should stand
+out.
+
+<Canvas of={TextfieldStories.Outlined} />
+
+The `label` starts inside the field and floats up on focus or once there's a value.
+
+```svelte
+<Textfield label="Email" bind:value={email} required>
+  {#snippet supportingText()}
+    We'll never share your email.
+  {/snippet}
+</Textfield>
+```
+
+## Icons and supporting text
+
+`leadingIconProps` and `trailingIconProps` add icons (a trailing icon is a good place for a clear
+button). The `supportingText` snippet renders helper or error text below the field. Other native
+`<input>` attributes (`type`, `maxlength`, `autocomplete`…) pass through to the input.
+
+<Canvas of={TextfieldStories.WithIcons} />
+
+<Canvas of={TextfieldStories.CharacterLimit} />
+
+## Accessibility
+
+- **Label.** The floating label is a real `<label for>` tied to the input's id (generated when you
+  don't pass one), not an `aria-label`.
+- **Errors.** `error` sets `aria-invalid`. Say what's wrong in `supportingText`, not just with
+  color.
+- **Required.** `required` sets `required` and `aria-required`, and shows an asterisk that screen
+  readers skip.

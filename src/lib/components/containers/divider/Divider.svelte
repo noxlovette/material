@@ -31,7 +31,7 @@ Powered by bits-ui for accessibility.
       orientation === 'horizontal' ? 'h-[1px] w-full' : 'w-[1px] h-full'
     )
   );
-  let insetClass = $derived(variant === 'inset' ? 'mr-2 ml-4' : '');
+  let insetClass = $derived(variant === 'inset' ? 'mr-spacing-100 ml-spacing-200' : '');
 
   let width = $state(0);
   let waveHeight = 12;
@@ -79,7 +79,7 @@ Powered by bits-ui for accessibility.
 {:else if children && orientation === 'horizontal'}
   <div
     {...restProps}
-    class={clsx('flex h-full w-full items-center gap-3', insetClass, className)}
+    class={clsx('gap-spacing-150 flex h-full w-full items-center', insetClass, className)}
     role={decorative ? 'none' : 'separator'}
     aria-orientation="horizontal"
   >

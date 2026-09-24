@@ -69,7 +69,7 @@
 </Story>
 
 <Story name="Standalone" asChild>
-  <span class="inline-flex items-center gap-2">
+  <span class="gap-spacing-100 inline-flex items-center">
     <Badge size="sm" standalone />
     <Badge size="lg" number={3} standalone />
   </span>

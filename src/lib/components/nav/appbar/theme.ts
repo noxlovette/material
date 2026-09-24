@@ -17,102 +17,104 @@ export type AppBarSize = 'small' | 'medium' | 'large';
 const sizeClasses: Record<Breakpoint, Record<AppBarSize, Record<SizeSlot, string>>> = {
   small: {
     small: {
-      row: 'grid-rows-[4rem] pt-0 min-h-16',
+      row: 'grid-rows-[4rem] pt-spacing-0 min-h-spacing-800',
       rowSubtitle: '',
       textContainer:
-        'col-start-2 col-span-1 row-start-1 self-center ps-(--lead) pe-(--trail) pt-0 pb-0',
+        'col-start-2 col-span-1 row-start-1 self-center ps-(--lead) pe-(--trail) pt-spacing-0 pb-spacing-0',
       title: 'md-sys-typescale-title-large line-clamp-1',
       subtitle: 'md-sys-typescale-label-medium line-clamp-1'
     },
     medium: {
-      row: 'grid-rows-[3rem_1fr] pt-2 min-h-28',
+      row: 'grid-rows-[3rem_1fr] pt-spacing-100 min-h-28',
       rowSubtitle: 'min-h-34',
-      textContainer: 'col-start-1 col-span-3 row-start-2 self-end ps-4 pe-4 pt-1 pb-3',
+      textContainer:
+        'col-start-1 col-span-3 row-start-2 self-end ps-spacing-200 pe-spacing-200 pt-spacing-50 pb-spacing-150',
       title: 'md-sys-typescale-headline-medium line-clamp-none',
       subtitle: 'md-sys-typescale-title-small line-clamp-none'
     },
     large: {
-      row: 'grid-rows-[3rem_1fr] pt-2 min-h-30',
+      row: 'grid-rows-[3rem_1fr] pt-spacing-100 min-h-30',
       rowSubtitle: 'min-h-38',
-      textContainer: 'col-start-1 col-span-3 row-start-2 self-end ps-4 pe-4 pt-1 pb-3',
+      textContainer:
+        'col-start-1 col-span-3 row-start-2 self-end ps-spacing-200 pe-spacing-200 pt-spacing-50 pb-spacing-150',
       title: 'md-sys-typescale-display-small line-clamp-none',
       subtitle: 'md-sys-typescale-title-medium line-clamp-none'
     }
   },
   medium: {
     small: {
-      row: 'md:grid-rows-[4rem] md:pt-0 md:min-h-16',
+      row: 'md:grid-rows-[4rem] md:pt-spacing-0 md:min-h-spacing-800',
       rowSubtitle: '',
       textContainer:
-        'md:col-start-2 md:col-span-1 md:row-start-1 md:self-center md:ps-(--lead) md:pe-(--trail) md:pt-0 md:pb-0',
+        'md:col-start-2 md:col-span-1 md:row-start-1 md:self-center md:ps-(--lead) md:pe-(--trail) md:pt-spacing-0 md:pb-spacing-0',
       title: 'md:md-sys-typescale-title-large md:line-clamp-1',
       subtitle: 'md:md-sys-typescale-label-medium md:line-clamp-1'
     },
     medium: {
-      row: 'md:grid-rows-[3rem_1fr] md:pt-2 md:min-h-28',
+      row: 'md:grid-rows-[3rem_1fr] md:pt-spacing-100 md:min-h-28',
       rowSubtitle: 'md:min-h-34',
       textContainer:
-        'md:col-start-1 md:col-span-3 md:row-start-2 md:self-end md:ps-4 md:pe-4 md:pt-1 md:pb-3',
+        'md:col-start-1 md:col-span-3 md:row-start-2 md:self-end md:ps-spacing-200 md:pe-spacing-200 md:pt-spacing-50 md:pb-spacing-150',
       title: 'md:md-sys-typescale-headline-medium md:line-clamp-none',
       subtitle: 'md:md-sys-typescale-title-small md:line-clamp-none'
     },
     large: {
-      row: 'md:grid-rows-[3rem_1fr] md:pt-2 md:min-h-30',
+      row: 'md:grid-rows-[3rem_1fr] md:pt-spacing-100 md:min-h-30',
       rowSubtitle: 'md:min-h-38',
       textContainer:
-        'md:col-start-1 md:col-span-3 md:row-start-2 md:self-end md:ps-4 md:pe-4 md:pt-1 md:pb-3',
+        'md:col-start-1 md:col-span-3 md:row-start-2 md:self-end md:ps-spacing-200 md:pe-spacing-200 md:pt-spacing-50 md:pb-spacing-150',
       title: 'md:md-sys-typescale-display-small md:line-clamp-none',
       subtitle: 'md:md-sys-typescale-title-medium md:line-clamp-none'
     }
   },
   large: {
     small: {
-      row: 'lg:grid-rows-[4rem] lg:pt-0 lg:min-h-16',
+      row: 'lg:grid-rows-[4rem] lg:pt-spacing-0 lg:min-h-spacing-800',
       rowSubtitle: '',
       textContainer:
-        'lg:col-start-2 lg:col-span-1 lg:row-start-1 lg:self-center lg:ps-(--lead) lg:pe-(--trail) lg:pt-0 lg:pb-0',
+        'lg:col-start-2 lg:col-span-1 lg:row-start-1 lg:self-center lg:ps-(--lead) lg:pe-(--trail) lg:pt-spacing-0 lg:pb-spacing-0',
       title: 'lg:md-sys-typescale-title-large lg:line-clamp-1',
       subtitle: 'lg:md-sys-typescale-label-medium lg:line-clamp-1'
     },
     medium: {
-      row: 'lg:grid-rows-[3rem_1fr] lg:pt-2 lg:min-h-28',
+      row: 'lg:grid-rows-[3rem_1fr] lg:pt-spacing-100 lg:min-h-28',
       rowSubtitle: 'lg:min-h-34',
       textContainer:
-        'lg:col-start-1 lg:col-span-3 lg:row-start-2 lg:self-end lg:ps-4 lg:pe-4 lg:pt-1 lg:pb-3',
+        'lg:col-start-1 lg:col-span-3 lg:row-start-2 lg:self-end lg:ps-spacing-200 lg:pe-spacing-200 lg:pt-spacing-50 lg:pb-spacing-150',
       title: 'lg:md-sys-typescale-headline-medium lg:line-clamp-none',
       subtitle: 'lg:md-sys-typescale-title-small lg:line-clamp-none'
     },
     large: {
-      row: 'lg:grid-rows-[3rem_1fr] lg:pt-2 lg:min-h-30',
+      row: 'lg:grid-rows-[3rem_1fr] lg:pt-spacing-100 lg:min-h-30',
       rowSubtitle: 'lg:min-h-38',
       textContainer:
-        'lg:col-start-1 lg:col-span-3 lg:row-start-2 lg:self-end lg:ps-4 lg:pe-4 lg:pt-1 lg:pb-3',
+        'lg:col-start-1 lg:col-span-3 lg:row-start-2 lg:self-end lg:ps-spacing-200 lg:pe-spacing-200 lg:pt-spacing-50 lg:pb-spacing-150',
       title: 'lg:md-sys-typescale-display-small lg:line-clamp-none',
       subtitle: 'lg:md-sys-typescale-title-medium lg:line-clamp-none'
     }
   },
   extraLarge: {
     small: {
-      row: 'xl:grid-rows-[4rem] xl:pt-0 xl:min-h-16',
+      row: 'xl:grid-rows-[4rem] xl:pt-spacing-0 xl:min-h-spacing-800',
       rowSubtitle: '',
       textContainer:
-        'xl:col-start-2 xl:col-span-1 xl:row-start-1 xl:self-center xl:ps-(--lead) xl:pe-(--trail) xl:pt-0 xl:pb-0',
+        'xl:col-start-2 xl:col-span-1 xl:row-start-1 xl:self-center xl:ps-(--lead) xl:pe-(--trail) xl:pt-spacing-0 xl:pb-spacing-0',
       title: 'xl:md-sys-typescale-title-large xl:line-clamp-1',
       subtitle: 'xl:md-sys-typescale-label-medium xl:line-clamp-1'
     },
     medium: {
-      row: 'xl:grid-rows-[3rem_1fr] xl:pt-2 xl:min-h-28',
+      row: 'xl:grid-rows-[3rem_1fr] xl:pt-spacing-100 xl:min-h-28',
       rowSubtitle: 'xl:min-h-34',
       textContainer:
-        'xl:col-start-1 xl:col-span-3 xl:row-start-2 xl:self-end xl:ps-4 xl:pe-4 xl:pt-1 xl:pb-3',
+        'xl:col-start-1 xl:col-span-3 xl:row-start-2 xl:self-end xl:ps-spacing-200 xl:pe-spacing-200 xl:pt-spacing-50 xl:pb-spacing-150',
       title: 'xl:md-sys-typescale-headline-medium xl:line-clamp-none',
       subtitle: 'xl:md-sys-typescale-title-small xl:line-clamp-none'
     },
     large: {
-      row: 'xl:grid-rows-[3rem_1fr] xl:pt-2 xl:min-h-30',
+      row: 'xl:grid-rows-[3rem_1fr] xl:pt-spacing-100 xl:min-h-30',
       rowSubtitle: 'xl:min-h-38',
       textContainer:
-        'xl:col-start-1 xl:col-span-3 xl:row-start-2 xl:self-end xl:ps-4 xl:pe-4 xl:pt-1 xl:pb-3',
+        'xl:col-start-1 xl:col-span-3 xl:row-start-2 xl:self-end xl:ps-spacing-200 xl:pe-spacing-200 xl:pt-spacing-50 xl:pb-spacing-150',
       title: 'xl:md-sys-typescale-display-small xl:line-clamp-none',
       subtitle: 'xl:md-sys-typescale-title-medium xl:line-clamp-none'
     }
@@ -144,11 +146,12 @@ export function appbarSize(
 
 export const appbar = tv({
   slots: {
-    base: 'fixed top-0 left-0 w-full flex flex-col z-30 transition-colors md-sys-motion-effects',
-    row: 'grid w-full items-center px-1',
-    childrenRow: 'w-full px-2 pb-2',
+    base: 'fixed top-spacing-0 left-spacing-0 w-full flex flex-col z-30 transition-colors md-sys-motion-effects',
+    row: 'grid w-full items-center px-spacing-50',
+    childrenRow: 'w-full px-spacing-100 pb-spacing-100',
     ghost: 'w-full shrink-0 pointer-events-none',
-    textContainer: 'flex min-w-0 flex-col gap-0.5 [--lead:0.25rem] [--trail:0.25rem]',
+    textContainer:
+      'flex min-w-spacing-0 flex-col gap-spacing-25 [--lead:0.25rem] [--trail:0.25rem]',
     title: 'text-md-sys-color-on-surface',
     subtitle: 'text-md-sys-color-on-surface-variant',
     leading:
@@ -156,9 +159,9 @@ export const appbar = tv({
     trailing:
       'text-md-sys-color-on-surface-variant col-start-3 row-start-1 flex shrink-0 items-center justify-self-end',
     search:
-      'state-layer relative flex h-14 w-full min-w-0 cursor-text items-center rounded-full ps-4 pe-4 transition-colors md-sys-motion-effects before:rounded-full hover:before:bg-md-sys-color-on-surface/8 focus-within:outline-3 focus-within:outline-offset-2 focus-within:outline-md-sys-color-secondary',
+      'state-layer relative flex h-spacing-700 w-full min-w-spacing-0 cursor-text items-center rounded-full ps-spacing-200 pe-spacing-200 transition-colors md-sys-motion-effects before:rounded-full hover:before:bg-md-sys-color-on-surface/8 focus-within:outline-3 focus-within:outline-offset-2 focus-within:outline-md-sys-color-secondary',
     searchInput:
-      'md-sys-typescale-body-large text-md-sys-color-on-surface placeholder:text-md-sys-color-on-surface-variant w-full min-w-0 bg-transparent text-start outline-none placeholder-shown:text-center [&::-webkit-search-cancel-button]:hidden',
+      'md-sys-typescale-body-large text-md-sys-color-on-surface placeholder:text-md-sys-color-on-surface-variant w-full min-w-spacing-0 bg-transparent text-start outline-none placeholder-shown:text-center [&::-webkit-search-cancel-button]:hidden',
     searchTrailing: 'text-md-sys-color-on-surface-variant flex shrink-0 items-center'
   },
   variants: {
@@ -182,7 +185,7 @@ export const appbar = tv({
       },
       false: ''
     },
-    hasSearchTrailing: { true: { search: 'pe-1' }, false: '' },
+    hasSearchTrailing: { true: { search: 'pe-spacing-50' }, false: '' },
     noTrailing: { true: '', false: '' },
     noLeading: { true: '', false: '' }
   },

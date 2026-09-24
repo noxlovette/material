@@ -28,7 +28,7 @@
     {:else}
       <span class="flex-1 truncate">{label ?? value}</span>
       {#if selected}
-        <Icon name="check" class="size-5 shrink-0" />
+        <Icon name="check" class="size-spacing-250 shrink-0" />
       {/if}
     {/if}
   {/snippet}

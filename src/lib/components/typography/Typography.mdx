@@ -1,0 +1,67 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as DisplayStories from './display/Display.stories.svelte';
+import * as HeadlineStories from './headline/Headline.stories.svelte';
+import * as TitleStories from './title/Title.stories.svelte';
+import * as BodyStories from './body/Body.stories.svelte';
+import * as LabelStories from './label/Label.stories.svelte';
+
+<Meta title="Typography/Overview" />
+
+# Typography
+
+[M3 type scale](https://m3.material.io/styles/typography/type-scale-tokens) ·
+`import { Display, Headline, Title, Body, Label } from '@noxlovette/material';`
+
+Five components implement the M3 type scale. They share one prop shape, `size` (`small`,
+`medium` by default, or `large`) and `emphasized`, and differ in role and element:
+
+| Component  | Element | Use for                                                                                            |
+| ---------- | ------- | -------------------------------------------------------------------------------------------------- |
+| `Display`  | `<h1>`  | Short, high-impact text or numerals: a hero, a splash screen, a big stat. Once per screen at most  |
+| `Headline` | `<h2>`  | Page and section titles that need more weight than `Title`                                         |
+| `Title`    | `<h3>`  | Medium-emphasis text: section headers, card titles, list-item leads                                |
+| `Body`     | `<p>`   | Running text. `medium` for most copy, `small` for dense UI text, `large` for lead paragraphs       |
+| `Label`    | `<p>`   | Standalone captions and custom controls. Buttons, tabs and chips already set their own label style |
+
+Their element is fixed by role, not size. If the heading level doesn't fit the page outline,
+pick the component that matches the level and adjust `size`; keep levels sequential.
+
+## Emphasized
+
+`emphasized` switches to the M3 emphasized style of the same size: the same size, line height and
+tracking, with a heavier weight (400 → 500, or 500 → 700 for title-medium/small and labels). Use
+it for selected, active or unread states, and for editorial emphasis. Don't add `font-bold` to a
+baseline style instead.
+
+<Canvas of={TitleStories.Sizes} />
+
+## Utility classes
+
+Outside these components, apply the styles as classes: `md-sys-typescale-<role>-<size>`, and
+`md-sys-typescale-emphasized-<role>-<size>`. Each class sets font, weight, size, line height and
+tracking together; don't combine it with `text-*`, `leading-*`, `tracking-*` or `font-*`.
+
+The typefaces come from `--md-ref-typeface-brand` (display, headline, title-large) and
+`--md-ref-typeface-plain` (everything else). Both default to `--font-sans`.
+
+## Language height
+
+Line heights follow the language of each element: medium by default, small for Latin, Cyrillic,
+Greek and Hebrew languages, and taller for Burmese, Telugu and Urdu. Set `lang` on your `<html>`
+(SvelteKit's template does) and on any passage in another language. To force a category, set
+`data-md-language-height="small|medium|large|extra-large"` on an element.
+
+## Accessibility
+
+- **Headings.** `Display`, `Headline` and `Title` are headings; `Body` and `Label` never are. Use
+  a heading component for anything that titles a section.
+- **Color.** None of them sets a color. Pair them with an `on-*` color role for the surface
+  they're on, especially at label sizes, where contrast matters most.
+
+<Canvas of={DisplayStories.Sizes} />
+
+<Canvas of={HeadlineStories.Sizes} />
+
+<Canvas of={BodyStories.Sizes} />
+
+<Canvas of={LabelStories.Sizes} />

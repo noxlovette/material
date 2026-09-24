@@ -57,20 +57,20 @@
 
 <Story name="Playground">
   {#snippet template(args)}
-    <div class="max-w-sm p-6">
+    <div class="p-spacing-300 max-w-sm">
       <Select {...args} />
     </div>
   {/snippet}
 </Story>
 
 <Story name="Grouped Options" asChild>
-  <div class="max-w-sm p-6">
+  <div class="p-spacing-300 max-w-sm">
     <Select type="single" placeholder="Choose a fruit" options={groupedOptions} />
   </div>
 </Story>
 
 <Story name="With Leading Icon" asChild>
-  <div class="max-w-sm p-6">
+  <div class="p-spacing-300 max-w-sm">
     <Select
       type="single"
       placeholder="Choose a fruit"
@@ -81,7 +81,7 @@
 </Story>
 
 <Story name="States" asChild>
-  <div class="flex max-w-sm flex-col gap-6 p-6">
+  <div class="gap-spacing-300 p-spacing-300 flex max-w-sm flex-col">
     <Select type="single" placeholder="Default" options={fruitOptions} />
     <Select type="single" placeholder="Error" options={fruitOptions} error value="apple" />
     <Select type="single" placeholder="Disabled" options={fruitOptions} disabled />

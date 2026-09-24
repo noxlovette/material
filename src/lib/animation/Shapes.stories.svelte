@@ -26,26 +26,30 @@
 </script>
 
 <Story name="Shape library" asChild>
-  <div class="flex flex-col gap-6">
-    <div class="flex items-center gap-6">
+  <div class="gap-spacing-300 flex flex-col">
+    <div class="gap-spacing-300 flex items-center">
       <svg viewBox="0 0 380 380" class="text-md-sys-color-primary size-48" aria-hidden="true">
         <path fill="currentColor" {@attach shapeMorph(() => animatableShapes[selected])} />
       </svg>
-      <svg viewBox="0 0 48 48" class="text-md-sys-color-tertiary size-12" aria-hidden="true">
+      <svg
+        viewBox="0 0 48 48"
+        class="text-md-sys-color-tertiary size-spacing-600"
+        aria-hidden="true"
+      >
         <path fill="currentColor" {@attach shapeMorph(() => animatableShapesSmall[selected])} />
       </svg>
       <Body>{selected}</Body>
     </div>
 
-    <div class="grid grid-cols-5 gap-2 sm:grid-cols-7">
+    <div class="gap-spacing-100 grid grid-cols-5 sm:grid-cols-7">
       {#each shapeNames as name (name)}
         <button
           type="button"
           aria-pressed={selected === name}
           onclick={() => (selected = name)}
-          class="md-sys-typescale-label-small text-md-sys-color-on-surface-variant aria-pressed:bg-md-sys-color-secondary-container aria-pressed:text-md-sys-color-on-secondary-container flex flex-col items-center gap-1 rounded-md p-2"
+          class="md-sys-typescale-label-small text-md-sys-color-on-surface-variant aria-pressed:bg-md-sys-color-secondary-container aria-pressed:text-md-sys-color-on-secondary-container gap-spacing-50 p-spacing-100 flex flex-col items-center rounded-md"
         >
-          <svg viewBox="0 0 48 48" class="size-10" aria-hidden="true">
+          <svg viewBox="0 0 48 48" class="size-spacing-500" aria-hidden="true">
             <path fill="currentColor" d={animatableShapesSmall[name]} />
           </svg>
           {name}

@@ -50,7 +50,7 @@
 </Story>
 
 <Story name="Colour styles" asChild>
-  <div class="flex max-w-md flex-col gap-4 p-6">
+  <div class="gap-spacing-200 p-spacing-300 flex max-w-md flex-col">
     {#each variants as variant (variant)}
       <ConnectedButtonGroup type="single" {variant} bind:value={mode} aria-label="Travel mode">
         <ConnectedButtonGroupItem value="walk" label="Walk" />
@@ -62,7 +62,7 @@
 </Story>
 
 <Story name="Multi-select icons" asChild>
-  <div class="flex flex-col items-start gap-4 p-6">
+  <div class="gap-spacing-200 p-spacing-300 flex flex-col items-start">
     <ConnectedButtonGroup type="multiple" bind:value={format} class="w-auto" aria-label="Format">
       <ConnectedButtonGroupItem
         value="bold"
@@ -84,9 +84,9 @@
 </Story>
 
 <Story name="Sizes and shapes" asChild>
-  <div class="flex max-w-xl flex-col gap-4 p-6">
+  <div class="gap-spacing-200 p-spacing-300 flex max-w-xl flex-col">
     {#each sizes as size (size)}
-      <div class="flex gap-4">
+      <div class="gap-spacing-200 flex">
         {#each ['round', 'square'] as const as shape (shape)}
           <ConnectedButtonGroup type="single" {size} {shape} value="b">
             <ConnectedButtonGroupItem value="a" label="A" />

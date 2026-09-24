@@ -18,10 +18,10 @@ export const buttonGroup = tv({
     },
     size: {
       xs: { root: 'gap-[1.125rem]' },
-      sm: { root: 'gap-3' },
-      md: { root: 'gap-2' },
-      lg: { root: 'gap-2' },
-      xl: { root: 'gap-2' }
+      sm: { root: 'gap-spacing-150' },
+      md: { root: 'gap-spacing-100' },
+      lg: { root: 'gap-spacing-100' },
+      xl: { root: 'gap-spacing-100' }
     }
   },
   defaultVariants: {

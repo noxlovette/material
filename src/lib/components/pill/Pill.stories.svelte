@@ -32,7 +32,7 @@
 <Story name="Playground">New</Story>
 
 <Story name="Variants" asChild>
-  <div class="flex flex-wrap items-center gap-3 p-6">
+  <div class="gap-spacing-150 p-spacing-300 flex flex-wrap items-center">
     <Pill variant="primary">Primary</Pill>
     <Pill variant="secondary">Secondary</Pill>
     <Pill variant="tertiary">Tertiary</Pill>

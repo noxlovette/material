@@ -14,8 +14,8 @@ export const carousel = tv({
     scroller:
       'h-full w-full overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden focus-visible:outline-3 focus-visible:-outline-offset-3 focus-visible:outline-md-sys-color-secondary',
     track: 'relative h-full',
-    snapPoint: 'pointer-events-none absolute top-0 h-px w-px snap-start',
-    viewport: 'sticky left-0 h-full overflow-clip',
+    snapPoint: 'pointer-events-none absolute top-spacing-0 h-px w-px snap-start',
+    viewport: 'sticky left-spacing-0 h-full overflow-clip',
     item: [
       'text-md-sys-color-on-surface bg-md-sys-color-surface relative block shrink-0 overflow-hidden rounded-[28px] text-start',
       'md-sys-state-focus-indicator transition-shadow md-sys-motion-effects'
@@ -29,10 +29,10 @@ export const carousel = tv({
       centeredHero: {},
       uncontained: {
         scroller:
-          'flex gap-2 overflow-x-auto overflow-y-clip ps-4 pe-4 pt-2 pb-2 [scroll-padding-inline:1rem]'
+          'flex gap-spacing-100 overflow-x-auto overflow-y-clip ps-spacing-200 pe-spacing-200 pt-spacing-100 pb-spacing-100 [scroll-padding-inline:1rem]'
       },
       fullScreen: {
-        scroller: 'flex snap-y snap-mandatory flex-col gap-4 overflow-y-auto',
+        scroller: 'flex snap-y snap-mandatory flex-col gap-spacing-200 overflow-y-auto',
         item: 'h-full w-full snap-start [scroll-snap-stop:always]'
       }
     },
@@ -41,8 +41,8 @@ export const carousel = tv({
     keyline: {
       true: {
         scroller: 'overflow-x-auto overflow-y-clip',
-        item: 'absolute top-2 bottom-2 left-4 will-change-transform',
-        content: 'absolute inset-y-0 left-1/2 -translate-x-1/2'
+        item: 'absolute top-spacing-100 bottom-spacing-100 left-spacing-200 will-change-transform',
+        content: 'absolute inset-y-spacing-0 left-1/2 -translate-x-1/2'
       },
       false: {}
     },

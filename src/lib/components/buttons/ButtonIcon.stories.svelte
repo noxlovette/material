@@ -39,7 +39,9 @@
 </Story>
 
 <Story name="Colour styles" asChild>
-  <div class="grid grid-cols-[repeat(3,auto)] items-center justify-start gap-4 p-6">
+  <div
+    class="gap-spacing-200 p-spacing-300 grid grid-cols-[repeat(3,auto)] items-center justify-start"
+  >
     {#each variants as variant (variant)}
       <ButtonIcon {variant} tooltipContent={variant} iconProps={{ name: 'settings' }} />
       <ButtonIcon
@@ -60,13 +62,13 @@
 </Story>
 
 <Story name="Sizes and widths" asChild>
-  <div class="flex flex-col items-start gap-4 p-6">
+  <div class="gap-spacing-200 p-spacing-300 flex flex-col items-start">
     <p class="md-sys-typescale-body-medium text-md-sys-color-on-surface-variant max-w-lg">
       Per size: narrow, default and wide round buttons (fully round on their short side, so narrow
       is a vertical pill and wide a horizontal one), then a filled square button.
     </p>
     {#each sizes as size (size)}
-      <div class="flex items-center gap-4">
+      <div class="gap-spacing-200 flex items-center">
         {#each widths as width (width)}
           <ButtonIcon
             {size}
@@ -88,7 +90,7 @@
 </Story>
 
 <Story name="Disabled" asChild>
-  <div class="flex gap-4 p-6">
+  <div class="gap-spacing-200 p-spacing-300 flex">
     {#each variants as variant (variant)}
       <ButtonIcon {variant} disabled aria-label={variant} iconProps={{ name: 'delete' }} />
     {/each}

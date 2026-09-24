@@ -18,7 +18,8 @@ export const list = tv({
     variant: {
       standard: '',
       // 2dp between segments; outer corners 16dp (md.comp.list.container.shape).
-      segmented: 'gap-0.5 [&>:first-child]:[--li-top:1rem] [&>:last-child]:[--li-bottom:1rem]'
+      segmented:
+        'gap-spacing-25 [&>:first-child]:[--li-top:1rem] [&>:last-child]:[--li-bottom:1rem]'
     }
   },
   defaultVariants: { variant: 'standard' }
@@ -27,32 +28,32 @@ export const list = tv({
 export const listItem = tv({
   slots: {
     base: [
-      'relative flex w-full min-w-0 gap-3 ps-4 pe-4 pt-2.5 pb-2.5 text-start',
+      'relative flex w-full min-w-spacing-0 gap-spacing-150 ps-spacing-200 pe-spacing-200 pt-spacing-125 pb-spacing-125 text-start',
       '[--li-shape:0.25rem] rounded-t-[var(--li-top,var(--li-shape))] rounded-b-[var(--li-bottom,var(--li-shape))]',
       'transition-[border-radius,background-color,color] md-sys-motion-fast-spatial',
       'text-md-sys-color-on-surface-variant'
     ],
     leading: 'flex shrink-0 items-center text-md-sys-color-on-surface-variant',
-    body: 'flex min-w-0 flex-1 flex-col justify-center',
+    body: 'flex min-w-spacing-0 flex-1 flex-col justify-center',
     overline: 'md-sys-typescale-label-small line-clamp-1 text-md-sys-color-on-surface-variant',
     headline: 'md-sys-typescale-body-large line-clamp-1 text-md-sys-color-on-surface',
     supporting: 'md-sys-typescale-body-medium line-clamp-2 text-md-sys-color-on-surface-variant',
     trailing:
-      'relative flex shrink-0 items-center gap-3 overflow-visible text-md-sys-color-on-surface-variant',
+      'relative flex shrink-0 items-center gap-spacing-150 overflow-visible text-md-sys-color-on-surface-variant',
     trailingText: 'md-sys-typescale-label-small text-md-sys-color-on-surface-variant',
     expandIcon:
-      'grid size-8 place-items-center rounded-full text-md-sys-color-on-surface transition-[background-color,rotate] md-sys-motion-fast-spatial',
+      'grid size-spacing-400 place-items-center rounded-full text-md-sys-color-on-surface transition-[background-color,rotate] md-sys-motion-fast-spatial',
     group: 'flex flex-col',
     region: 'grid transition-[grid-template-rows] md-sys-motion-spatial',
-    regionInner: 'min-h-0 overflow-hidden',
+    regionInner: 'min-h-spacing-0 overflow-hidden',
     nested: 'flex flex-col [--li-top:initial] [--li-bottom:initial]'
   },
   variants: {
     // md.comp.list.list-item.{one,two,three}-line.container.height: minimums, so larger text grows
     // the item instead of clipping. From 88dp up, leading/text/trailing align to the top.
     lines: {
-      1: { base: 'min-h-14 items-center' },
-      2: { base: 'min-h-18 items-center' },
+      1: { base: 'min-h-spacing-700 items-center' },
+      2: { base: 'min-h-spacing-900 items-center' },
       3: { base: 'min-h-22 items-start', leading: 'items-start', trailing: 'items-start' }
     },
     variant: {
@@ -61,7 +62,7 @@ export const listItem = tv({
          tone up so they read against the page; surface-container matches the figures. */
       segmented: {
         base: 'bg-md-sys-color-surface-container',
-        nested: 'gap-0.5 pt-0.5'
+        nested: 'gap-spacing-25 pt-spacing-25'
       }
     },
     interactive: {
@@ -152,11 +153,11 @@ export const listMedia = tv({
   base: 'shrink-0',
   variants: {
     kind: {
-      icon: 'size-5',
-      avatar: 'size-10 rounded-full',
-      image: 'size-14 rounded-lg object-cover',
-      video: 'h-14 w-25 rounded-lg object-cover',
-      videoLarge: 'h-16 w-28.5 rounded-lg object-cover'
+      icon: 'size-spacing-250',
+      avatar: 'size-spacing-500 rounded-full',
+      image: 'size-spacing-700 rounded-lg object-cover',
+      video: 'h-spacing-700 w-25 rounded-lg object-cover',
+      videoLarge: 'h-spacing-800 w-28.5 rounded-lg object-cover'
     }
   },
   defaultVariants: { kind: 'icon' }

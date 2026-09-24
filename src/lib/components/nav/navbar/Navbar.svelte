@@ -44,7 +44,7 @@ This component takes NavbarItems as its children
     </NavigationMenu.List>
   </NavigationMenu.Root>
   {#if trailing}
-    <div class="shrink-0 px-2">
+    <div class="px-spacing-100 shrink-0">
       {@render trailing()}
     </div>
   {/if}

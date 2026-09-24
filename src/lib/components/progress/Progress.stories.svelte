@@ -23,42 +23,42 @@
 
 <Story name="Circular (Determinate)">
   {#snippet template(args)}
-    <div class="flex items-center justify-center p-6">
+    <div class="p-spacing-300 flex items-center justify-center">
       <CircularProgress percent={args.percent} />
     </div>
   {/snippet}
 </Story>
 
 <Story name="Circular (Indeterminate)" asChild>
-  <div class="flex items-center justify-center p-6">
+  <div class="p-spacing-300 flex items-center justify-center">
     <CircularProgress />
   </div>
 </Story>
 
 <Story name="Linear (Determinate)">
   {#snippet template(args)}
-    <div class="flex items-center p-6">
+    <div class="p-spacing-300 flex items-center">
       <LinearProgress percent={args.percent} class="w-full max-w-sm" />
     </div>
   {/snippet}
 </Story>
 
 <Story name="Linear (Indeterminate)" asChild>
-  <div class="flex items-center p-6">
+  <div class="p-spacing-300 flex items-center">
     <LinearProgress class="w-full max-w-sm" />
   </div>
 </Story>
 
 <Story name="Wavy (Determinate)">
   {#snippet template(args)}
-    <div class="flex items-center p-6">
+    <div class="p-spacing-300 flex items-center">
       <WavyLinearProgress percent={args.percent} class="w-full max-w-sm" />
     </div>
   {/snippet}
 </Story>
 
 <Story name="Wavy (Indeterminate)" asChild>
-  <div class="flex items-center p-6">
+  <div class="p-spacing-300 flex items-center">
     <WavyLinearProgress class="w-full max-w-sm" />
   </div>
 </Story>

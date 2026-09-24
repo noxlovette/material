@@ -1,0 +1,73 @@
+import { Meta, Title, Subtitle, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as RailStories from './Rail.stories.svelte';
+
+<Meta of={RailStories} />
+
+<Title />
+
+<Subtitle>
+  Navigation rails give access to 3–7 primary destinations on medium and larger windows.
+</Subtitle>
+
+[M3 spec](https://m3.material.io/components/navigation-rail/specs) ·
+`import { Rail, RailItem } from '@noxlovette/material';`
+
+<Canvas of={RailStories.Playground} />
+
+<Controls of={RailStories.Playground} />
+
+## Anatomy
+
+- **`Rail`** is the container: the sidebar, a spacer that reserves its width in the page, and the
+  scrim shown while it's expanded on medium windows.
+- **`RailItem`** is one destination. It detects the active route, shows an optional `badge` (a
+  count, or `-1` for a dot), and lays itself out for the collapsed or expanded rail.
+- **`railStore`** exposes the collapsed state to components outside the rail.
+
+## Window sizes
+
+The rail shows from `md` up and is hidden below it. For small windows, mount a `Navbar` with the
+same destinations; it hides itself from `md` up, so the two never show together.
+
+| Window         | Collapsed rail | Expanded rail                                       |
+| -------------- | -------------- | --------------------------------------------------- |
+| Small (< `md`) | Hidden         | Hidden                                              |
+| Medium (`md`)  | 96dp           | Overlays content over a scrim; outside click closes |
+| Large (`lg`+)  | 96dp           | Pushes content aside                                |
+
+## Layout
+
+The rail renders a spacer next to itself that takes the rail's width. Put the rail and your
+content in a flex row and the content moves aside on its own, with no `margin-left`:
+
+```svelte
+<div class="flex min-h-dvh">
+  <Rail bind:collapsed>
+    <RailItem label="Home" href="/" iconProps={{ name: 'house' }} />
+    <RailItem label="Messages" href="/messages" iconProps={{ name: 'mail' }} badge={5} />
+  </Rail>
+  <div class="min-w-spacing-0 flex-1">
+    {@render children()}
+  </div>
+</div>
+
+<Navbar>
+  <NavbarItem label="Home" href="/" iconProps={{ name: 'house' }} />
+  <NavbarItem label="Messages" href="/messages" iconProps={{ name: 'mail' }} badge={5} />
+</Navbar>
+```
+
+- **Under an app bar:** pass the bar's height in px to `railTop` so the rail starts below it.
+- **Anchoring:** `anchor="viewport"` (the default) fixes the rail to the window's leading edge.
+  `anchor="parent"` positions it inside the nearest positioned ancestor, for embedded layouts
+  and demos.
+- **Extras:** the `fab` snippet places a FAB above the destinations. `expandable={false}` removes
+  the menu toggle.
+
+<Canvas of={RailStories.WithFAB} />
+
+## Accessibility
+
+- **Active item.** The active item gets `aria-current="page"`.
+- **Disabled items** set `aria-disabled` and leave the tab order but stay visible.
+- **Keyboard.** Every item is a link reachable with Tab; the menu toggle is a real button.

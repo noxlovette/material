@@ -2,16 +2,19 @@
   import { base } from '$app/paths';
   import FAB from '$lib/components/buttons/FAB.svelte';
   import FABMenuItem from '$lib/components/buttons/FABMenuItem.svelte';
-  import { App, Rail, RailItem, ThemeSwitcher } from '$lib/index.js';
+  import { App, Navbar, NavbarItem, Rail, RailItem, ThemeSwitcher } from '$lib/index.js';
+  import { storybookHref } from './storybook.js';
   import '../app.css';
 
   const { children } = $props();
 
   let collapsed = $state(true);
 
-  // Storybook runs as its own dev server locally; in production it's built into
-  // build/storybook/ alongside this static site (see .github/workflows/gh-pages.yaml).
-  const storybookHref = import.meta.env.DEV ? 'http://localhost:6006' : `${base}/storybook/`;
+  const destinations = [
+    { label: 'Overview', href: `${base}/`, iconProps: { name: 'architecture' } },
+    { label: 'Guides', href: `${base}/guides`, iconProps: { name: 'menu_book' } },
+    { label: 'Storybook', href: storybookHref(), external: true, iconProps: { name: 'widgets' } }
+  ];
 
   // These icons will be pre-loaded by the MaterialSymbolsProvider inside App
   const icons = [
@@ -92,7 +95,13 @@
     'search',
     'title',
     'widgets',
-    'waves'
+    'waves',
+    'palette',
+    'menu_book',
+    'token',
+    'devices',
+    'animation',
+    'smart_toy'
   ];
 </script>
 
@@ -122,14 +131,19 @@
     Desktop (lg+):  ghost transitions w-24 → w-60 on expand → content smoothly pushed right.
   -->
   <div class="flex min-h-dvh">
-    <Rail {fab} bind:collapsed withNavbar>
-      <RailItem label="Overview" href="/" iconProps={{ name: 'architecture' }} />
-      <RailItem label="Docs" href="/docs" iconProps={{ name: 'book' }} />
-      <RailItem label="Storybook" href={storybookHref} external iconProps={{ name: 'widgets' }} />
+    <Rail {fab} bind:collapsed>
+      {#each destinations as item (item.label)}
+        <RailItem {...item} />
+      {/each}
     </Rail>
-    <div class="min-w-0 flex-1">
+    <div class="min-w-spacing-0 flex-1">
       {@render children()}
     </div>
   </div>
+  <Navbar ghost>
+    {#each destinations as item (item.label)}
+      <NavbarItem label={item.label} href={item.href} iconProps={item.iconProps} />
+    {/each}
+  </Navbar>
   <ThemeSwitcher />
 </App>

@@ -4,7 +4,7 @@ Toolbar provides a horizontal (or vertical) container for grouped actions.
 
 - variant="floating" — elevated, rounded, inline (default)
 - variant="docked"   — full-width, flat, anchored to top/bottom
-- ghost             — renders a h-16 spacer after the toolbar to prevent content scroll-under
+- ghost             — renders a h-spacing-800 spacer after the toolbar to prevent content scroll-under
 - color="standard"   — surface-container background
 - color="vibrant"    — secondary-container background with inverted toggle selection
 - fab snippet        — renders a FAB at the trailing edge (canonical for docked bottom bars)

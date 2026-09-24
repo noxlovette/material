@@ -9,7 +9,7 @@ Run through this before calling a component/UI change done.
 
 ## Touch targets
 
-- Interactive elements should hit the M3 minimum 48dp target. The existing `size` scales already encode this (e.g. button `sm`/`md` = `h-10`/`h-14`); when adding a new interactive size below that, either pad the hit area (see `.text-link`'s `min-height: 44px` + padding trick) or confirm it's genuinely dense-UI/desktop-only and document why.
+- Interactive elements should hit the M3 minimum 48dp target. The existing `size` scales already encode this (e.g. button `sm`/`md` = `h-spacing-500`/`h-spacing-700`); when adding a new interactive size below that, either pad the hit area (see `.text-link`'s `min-height: 44px` + padding trick) or confirm it's genuinely dense-UI/desktop-only and document why.
 
 ## Focus
 

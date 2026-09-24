@@ -4,6 +4,7 @@
 
   const { Story } = defineMeta({
     title: 'Typography/Body',
+    tags: ['autodocs'],
     component: Body,
     argTypes: {
       size: {
@@ -22,7 +23,7 @@
 <Story name="Playground">Body text used for longer passages of content.</Story>
 
 <Story name="Sizes" asChild>
-  <div class="flex flex-col gap-4 p-6">
+  <div class="gap-spacing-200 p-spacing-300 flex flex-col">
     <Body size="small">Body small</Body>
     <Body size="medium">Body medium</Body>
     <Body size="large">Body large</Body>

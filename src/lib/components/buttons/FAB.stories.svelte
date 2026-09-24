@@ -48,7 +48,7 @@
 </Story>
 
 <Story name="Sizes" asChild>
-  <div class="flex items-end gap-6 p-6">
+  <div class="gap-spacing-300 p-spacing-300 flex items-end">
     <FAB size="regular" aria-label="Compose" iconProps={{ name: 'edit' }} />
     <FAB size="medium" aria-label="Compose" iconProps={{ name: 'edit' }} />
     <FAB size="large" aria-label="Compose" iconProps={{ name: 'edit' }} />
@@ -57,7 +57,7 @@
 </Story>
 
 <Story name="Colours" asChild>
-  <div class="flex flex-wrap gap-6 p-6">
+  <div class="gap-spacing-300 p-spacing-300 flex flex-wrap">
     {#each colors as color (color)}
       <FAB {color} aria-label={color} iconProps={{ name: 'edit' }} />
     {/each}
@@ -65,7 +65,7 @@
 </Story>
 
 <Story name="Extended" asChild>
-  <div class="flex flex-col items-start gap-6 p-6">
+  <div class="gap-spacing-300 p-spacing-300 flex flex-col items-start">
     <FAB expanded label="Compose" iconProps={{ name: 'edit' }} />
     <FAB size="medium" expanded label="Compose" iconProps={{ name: 'edit' }} />
     <FAB size="large" expanded label="Compose" iconProps={{ name: 'edit' }} />
@@ -73,8 +73,8 @@
 </Story>
 
 <Story name="Responsive" asChild>
-  <div class="flex flex-col items-start gap-6 p-6">
-    <label class="md-sys-typescale-body-medium flex items-center gap-2">
+  <div class="gap-spacing-300 p-spacing-300 flex flex-col items-start">
+    <label class="md-sys-typescale-body-medium gap-spacing-100 flex items-center">
       <input type="checkbox" bind:checked={extended} /> Extended
     </label>
     <FAB expanded={extended} label="Create" iconProps={{ name: 'add' }} />
@@ -92,7 +92,7 @@
   parameters={{ docs: { story: { inline: false, height: '28rem' } } }}
 >
   {#snippet template()}
-    <div class="fixed end-4 bottom-4 flex gap-4">
+    <div class="end-spacing-200 bottom-spacing-200 gap-spacing-200 fixed flex">
       <FAB
         withMenu
         size="medium"
@@ -118,7 +118,7 @@
   parameters={{ docs: { story: { inline: false, height: '32rem' } } }}
 >
   {#snippet template()}
-    <div class="fixed end-4 bottom-4">
+    <div class="end-spacing-200 bottom-spacing-200 fixed">
       <FAB label="Compose" iconProps={{ name: 'edit' }} expanded={false}>
         {#snippet surface({ close })}
           <List>

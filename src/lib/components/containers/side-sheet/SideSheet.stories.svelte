@@ -35,7 +35,7 @@
 </script>
 
 {#snippet filterList()}
-  <div class="flex flex-col gap-4">
+  <div class="gap-spacing-200 flex flex-col">
     {#each filters as f (f)}
       <Checkbox labelText={f} />
     {/each}
@@ -49,7 +49,7 @@
 
 <Story name="Modal">
   {#snippet template(args)}
-    <div class="p-6">
+    <div class="p-spacing-300">
       <Button onclick={() => (playgroundOpen = true)}>Show filters</Button>
       <SideSheet
         headline={args.headline}
@@ -68,7 +68,7 @@
 </Story>
 
 <Story name="Modal with back button" asChild>
-  <div class="p-6">
+  <div class="p-spacing-300">
     <Button
       onclick={() => {
         detailPage = 'list';
@@ -82,7 +82,7 @@
       onback={detailPage === 'item' ? () => (detailPage = 'list') : undefined}
     >
       {#if detailPage === 'list'}
-        <List class="-mx-6">
+        <List class="-mx-spacing-300">
           {#each [1042, 1041, 1040] as n (n)}
             <ListItem
               headline="Order {n}"
@@ -103,7 +103,7 @@
 
 <Story name="Standard" asChild>
   <div class="bg-md-sys-color-surface flex h-[36rem] w-full">
-    <main class="flex min-w-0 flex-1 flex-col items-start gap-4 p-6">
+    <main class="min-w-spacing-0 gap-spacing-200 p-spacing-300 flex flex-1 flex-col items-start">
       <p class="md-sys-typescale-body-large max-w-md">
         The standard sheet is part of the layout: this column reflows as it opens and closes, and
         stays usable while it's open.
@@ -123,7 +123,7 @@
 
 <Story name="Standard detached" asChild>
   <div class="bg-md-sys-color-surface-container flex h-[36rem] w-full">
-    <main class="flex min-w-0 flex-1 flex-col items-start gap-4 p-6">
+    <main class="min-w-spacing-0 gap-spacing-200 p-spacing-300 flex flex-1 flex-col items-start">
       <Button variant="tonal" onclick={() => (detachedOpen = !detachedOpen)}>
         {detachedOpen ? 'Hide details' : 'Show details'}
       </Button>

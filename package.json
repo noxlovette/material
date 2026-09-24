@@ -23,7 +23,7 @@
     "url": "https://github.com/noxlovette/material/issues"
   },
   "scripts": {
-    "build": "bun run generate:springs && svelte-package",
+    "build": "bun run generate:springs && svelte-package && bun scripts/copy-skill.ts",
     "generate:springs": "bun scripts/generate-motion-springs.ts && prettier --write src/lib/styles/motion.css",
     "build:site": "vite build",
     "watch": "svelte-package --watch",
@@ -44,6 +44,9 @@
     "claude-skill",
     "bin"
   ],
+  "bin": {
+    "material-claude-skill": "./bin/material-claude-skill.js"
+  },
   "sideEffects": false,
   "svelte": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -89,6 +92,7 @@
     "prettier-plugin-svelte": "^4.1.1",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "publint": "^0.3.24",
+    "remark-gfm": "^4.0.1",
     "shiki": "^4.4.3",
     "storybook": "10.5.10",
     "svelte": "^5.57.1",

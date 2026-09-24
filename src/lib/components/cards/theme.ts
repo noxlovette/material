@@ -3,7 +3,7 @@ import { tv } from 'tailwind-variants';
 export const card = tv({
   slots: {
     base: 'relative flex flex-col rounded-lg disabled:opacity-[0.38] disabled:bg-md-sys-color-surface-variant state-layer before:rounded-lg transition-shadow md-sys-motion-effects',
-    icon: 'size-6 text-[24px] text-md-sys-color-primary'
+    icon: 'size-spacing-300 text-[24px] text-md-sys-color-primary'
   },
   variants: {
     type: {
@@ -12,10 +12,10 @@ export const card = tv({
       outlined: 'bg-md-sys-color-surface outline-1 outline-md-sys-color-outline-variant'
     },
     padding: {
-      none: { base: 'p-0' },
-      sm: { base: 'p-3' },
-      md: { base: 'p-4' },
-      lg: { base: 'p-6' }
+      none: { base: 'p-spacing-0' },
+      sm: { base: 'p-spacing-150' },
+      md: { base: 'p-spacing-200' },
+      lg: { base: 'p-spacing-300' }
     },
     hoverable: {
       true: ''

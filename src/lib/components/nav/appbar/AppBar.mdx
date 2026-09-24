@@ -1,0 +1,71 @@
+import { Meta, Title, Subtitle, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as AppBarStories from './AppBar.stories.svelte';
+import * as BreadcrumbStories from '../breadcrumb/Breadcrumb.stories.svelte';
+
+<Meta of={AppBarStories} />
+
+<Title />
+
+<Subtitle>Top app bars show the screen's title, navigation, and actions.</Subtitle>
+
+[M3 spec](https://m3.material.io/components/app-bars/specs) ·
+`import { AppBar } from '@noxlovette/material';`
+
+<Canvas of={AppBarStories.Playground} />
+
+<Controls of={AppBarStories.Playground} />
+
+## Two kinds of bar
+
+The props form a union, so the bar is one of two kinds:
+
+- **Titled bar.** Pass `title`. `size` is `small` (64dp, one line), or the Expressive `medium` or
+  `large` flexible bars, whose headline wraps and grows. `size` is responsive: pass
+  `{ small: 'small', large: 'large' }` to grow the bar on wider windows. The switch happens in CSS,
+  so server rendering needs no JS.
+- **Search bar.** Pass `search` (the hint text) instead. The bar is always 64dp. `title` then
+  becomes a screen-reader-only heading.
+
+<Canvas of={AppBarStories.MediumFlexible} />
+
+<Canvas of={AppBarStories.Search} />
+
+## Placement
+
+The bar is fixed at the top at every window size. Pass `ghost` to render a same-height spacer
+after it, so page content doesn't start underneath. The bar also publishes its height as
+`--appbar-height` on the root element. `Pane`/`PaneGrid` read it to shrink their `min-height`, so
+nothing needs wiring. Next to a `Rail`, pass the bar's height to the rail's `railTop`.
+
+```svelte
+<AppBar title="Inbox" ghost>
+  {#snippet trailing()}
+    <ButtonIcon variant="standard" iconProps={{ name: 'search' }} />
+    <ButtonIcon variant="standard" iconProps={{ name: 'more_vert' }} />
+  {/snippet}
+</AppBar>
+```
+
+## Scroll color
+
+The bar switches to its on-scroll color once the page scrolls more than 10px. If content scrolls
+inside a container instead (a `Pane`, say), pass that element as `scrollContainer`.
+
+<Canvas of={AppBarStories.ScrollContainer} />
+
+## Breadcrumbs
+
+`children` renders in a full-width row below the title, which is where a `Breadcrumb` goes. M3
+has no breadcrumb pattern, so `Breadcrumb` uses `label-large` crumbs separated by chevrons. The
+current page uses the emphasized `label-large` and is always static text with
+`aria-current="page"`. `color` sets the current crumb's color and the links' hover color.
+
+<Canvas of={BreadcrumbStories.InAppBar} />
+
+## Accessibility
+
+- **Landmark.** The bar renders a `<nav>`, which assistive tech announces as a landmark.
+- **Heading.** The title is the page's `<h1>`. On a search bar it stays an `<h1>`, hidden
+  visually. Don't render a second `<h1>` on the page.
+- **Back button.** `showBack` renders a labelled back button that calls `onback`, or
+  `history.back()` by default.

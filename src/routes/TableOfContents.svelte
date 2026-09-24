@@ -23,14 +23,17 @@
   });
 </script>
 
-<nav class="flex flex-col gap-0.5 p-4 pt-12">
-  <p class="text-md-sys-color-outline mb-3 px-3 text-xs font-medium tracking-wider uppercase">
+<nav class="gap-spacing-25 p-spacing-200 pt-spacing-600 flex flex-col">
+  <p
+    class="text-md-sys-color-outline mb-spacing-150 px-spacing-150 text-xs font-medium tracking-wider uppercase"
+  >
     On this page
   </p>
   {#each sections as { id, label }}
     <a
       href="#{id}"
-      class="rounded-lg px-3 py-2 text-sm no-underline transition-colors {activeId === id
+      class="px-spacing-150 py-spacing-100 rounded-lg text-sm no-underline transition-colors {activeId ===
+      id
         ? 'bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container font-medium'
         : 'text-md-sys-color-on-surface-variant hover:bg-md-sys-color-surface-container-high'}"
     >

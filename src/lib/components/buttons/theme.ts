@@ -112,24 +112,24 @@ export const buttonBase =
 /** Button measurements per size: height, padding, icon-label gap, label type, shape and outline. */
 export const buttonSizes = {
   xs: {
-    base: 'md-sys-typescale-label-large h-8 gap-1 px-3 [--btn-outline:1px] [--btn-pressed:0.5rem] [--btn-round:1rem] [--btn-square:0.75rem]',
-    icon: 'size-5 text-[20px]'
+    base: 'md-sys-typescale-label-large h-spacing-400 gap-spacing-50 px-spacing-150 [--btn-outline:1px] [--btn-pressed:0.5rem] [--btn-round:1rem] [--btn-square:0.75rem]',
+    icon: 'size-spacing-250 text-[20px]'
   },
   sm: {
-    base: 'md-sys-typescale-label-large h-10 gap-2 px-4 [--btn-outline:1px] [--btn-pressed:0.5rem] [--btn-round:1.25rem] [--btn-square:0.75rem]',
-    icon: 'size-5 text-[20px]'
+    base: 'md-sys-typescale-label-large h-spacing-500 gap-spacing-100 px-spacing-200 [--btn-outline:1px] [--btn-pressed:0.5rem] [--btn-round:1.25rem] [--btn-square:0.75rem]',
+    icon: 'size-spacing-250 text-[20px]'
   },
   md: {
-    base: 'md-sys-typescale-title-medium h-14 gap-2 px-6 [--btn-outline:1px] [--btn-pressed:0.75rem] [--btn-round:1.75rem] [--btn-square:1rem]',
-    icon: 'size-6 text-[24px]'
+    base: 'md-sys-typescale-title-medium h-spacing-700 gap-spacing-100 px-spacing-300 [--btn-outline:1px] [--btn-pressed:0.75rem] [--btn-round:1.75rem] [--btn-square:1rem]',
+    icon: 'size-spacing-300 text-[24px]'
   },
   lg: {
-    base: 'md-sys-typescale-headline-small h-24 gap-3 px-12 [--btn-outline:2px] [--btn-pressed:1rem] [--btn-round:3rem] [--btn-square:1.75rem]',
-    icon: 'size-8 text-[32px]'
+    base: 'md-sys-typescale-headline-small h-24 gap-spacing-150 px-spacing-600 [--btn-outline:2px] [--btn-pressed:1rem] [--btn-round:3rem] [--btn-square:1.75rem]',
+    icon: 'size-spacing-400 text-[32px]'
   },
   xl: {
-    base: 'md-sys-typescale-headline-large h-34 gap-4 px-16 [--btn-outline:3px] [--btn-pressed:1rem] [--btn-round:4.25rem] [--btn-square:1.75rem]',
-    icon: 'size-10 text-[40px]'
+    base: 'md-sys-typescale-headline-large h-34 gap-spacing-200 px-spacing-800 [--btn-outline:3px] [--btn-pressed:1rem] [--btn-round:4.25rem] [--btn-square:1.75rem]',
+    icon: 'size-spacing-500 text-[40px]'
   }
 } as const;
 
@@ -191,24 +191,24 @@ export const buttonIcon = tv({
     },
     size: {
       xs: {
-        base: 'h-8 [--btn-outline:1px] [--btn-pressed:0.5rem] [--btn-round:1rem] [--btn-square:0.75rem]',
-        icon: 'size-5 text-[20px]'
+        base: 'h-spacing-400 [--btn-outline:1px] [--btn-pressed:0.5rem] [--btn-round:1rem] [--btn-square:0.75rem]',
+        icon: 'size-spacing-250 text-[20px]'
       },
       sm: {
-        base: 'h-10 [--btn-outline:1px] [--btn-pressed:0.5rem] [--btn-round:1.25rem] [--btn-square:0.75rem]',
-        icon: 'size-6 text-[24px]'
+        base: 'h-spacing-500 [--btn-outline:1px] [--btn-pressed:0.5rem] [--btn-round:1.25rem] [--btn-square:0.75rem]',
+        icon: 'size-spacing-300 text-[24px]'
       },
       md: {
-        base: 'h-14 [--btn-outline:1px] [--btn-pressed:0.75rem] [--btn-round:1.75rem] [--btn-square:1rem]',
-        icon: 'size-6 text-[24px]'
+        base: 'h-spacing-700 [--btn-outline:1px] [--btn-pressed:0.75rem] [--btn-round:1.75rem] [--btn-square:1rem]',
+        icon: 'size-spacing-300 text-[24px]'
       },
       lg: {
         base: 'h-24 [--btn-outline:2px] [--btn-pressed:1rem] [--btn-round:3rem] [--btn-square:1.75rem]',
-        icon: 'size-8 text-[32px]'
+        icon: 'size-spacing-400 text-[32px]'
       },
       xl: {
         base: 'h-34 [--btn-outline:3px] [--btn-pressed:1rem] [--btn-round:4.25rem] [--btn-square:1.75rem]',
-        icon: 'size-10 text-[40px]'
+        icon: 'size-spacing-500 text-[40px]'
       }
     },
     /** Container width: the icon plus the size's narrow, default or wide leading/trailing space. */
@@ -228,15 +228,15 @@ export const buttonIcon = tv({
   },
   compoundVariants: [
     { size: 'xs', width: 'narrow', class: { base: 'w-7' } },
-    { size: 'xs', width: 'default', class: { base: 'w-8' } },
-    { size: 'xs', width: 'wide', class: { base: 'w-10' } },
-    { size: 'sm', width: 'narrow', class: { base: 'w-8' } },
-    { size: 'sm', width: 'default', class: { base: 'w-10' } },
+    { size: 'xs', width: 'default', class: { base: 'w-spacing-400' } },
+    { size: 'xs', width: 'wide', class: { base: 'w-spacing-500' } },
+    { size: 'sm', width: 'narrow', class: { base: 'w-spacing-400' } },
+    { size: 'sm', width: 'default', class: { base: 'w-spacing-500' } },
     { size: 'sm', width: 'wide', class: { base: 'w-13' } },
-    { size: 'md', width: 'narrow', class: { base: 'w-12' } },
-    { size: 'md', width: 'default', class: { base: 'w-14' } },
-    { size: 'md', width: 'wide', class: { base: 'w-18' } },
-    { size: 'lg', width: 'narrow', class: { base: 'w-16' } },
+    { size: 'md', width: 'narrow', class: { base: 'w-spacing-600' } },
+    { size: 'md', width: 'default', class: { base: 'w-spacing-700' } },
+    { size: 'md', width: 'wide', class: { base: 'w-spacing-900' } },
+    { size: 'lg', width: 'narrow', class: { base: 'w-spacing-800' } },
     { size: 'lg', width: 'default', class: { base: 'w-24' } },
     { size: 'lg', width: 'wide', class: { base: 'w-32' } },
     { size: 'xl', width: 'narrow', class: { base: 'w-26' } },
@@ -279,7 +279,7 @@ export const fab = tv({
     base: 'md-btn md-sys-state-focus-indicator relative inline-flex shrink-0 cursor-pointer items-center justify-start whitespace-nowrap select-none shadow-elevation-3 not-disabled:hover:shadow-elevation-4 disabled:cursor-not-allowed disabled:bg-md-sys-color-on-surface/10 disabled:text-md-sys-color-on-surface/38 disabled:shadow-none',
     icon: 'shrink-0',
     labelTrack: 'grid',
-    labelClip: 'min-w-0 overflow-hidden',
+    labelClip: 'min-w-spacing-0 overflow-hidden',
     label: 'block'
   },
   variants: {
@@ -299,21 +299,24 @@ export const fab = tv({
     },
     size: {
       /** Baseline small FAB. No longer recommended by M3; kept for dense layouts. */
-      small: { base: 'h-10 rounded-xl px-2', icon: 'size-6 text-[24px]' },
+      small: {
+        base: 'h-spacing-500 rounded-xl px-spacing-100',
+        icon: 'size-spacing-300 text-[24px]'
+      },
       regular: {
-        base: 'md-sys-typescale-title-medium h-14 rounded-2xl px-4',
-        icon: 'size-6 text-[24px]',
-        label: 'ps-2'
+        base: 'md-sys-typescale-title-medium h-spacing-700 rounded-2xl px-spacing-200',
+        icon: 'size-spacing-300 text-[24px]',
+        label: 'ps-spacing-100'
       },
       medium: {
         base: 'md-sys-typescale-title-large h-20 rounded-[1.25rem] px-[1.625rem]',
         icon: 'size-7 text-[28px]',
-        label: 'ps-3'
+        label: 'ps-spacing-150'
       },
       large: {
         base: 'md-sys-typescale-headline-small h-24 rounded-[1.75rem] px-[1.875rem]',
-        icon: 'size-9 text-[36px]',
-        label: 'ps-4'
+        icon: 'size-spacing-450 text-[36px]',
+        label: 'ps-spacing-200'
       }
     },
     /**
@@ -322,8 +325,8 @@ export const fab = tv({
      */
     menuOpen: {
       true: {
-        base: 'justify-center px-0',
-        icon: 'size-5 text-[20px]',
+        base: 'justify-center px-spacing-0',
+        icon: 'size-spacing-250 text-[20px]',
         labelTrack: 'grid-cols-[0fr]!'
       },
       false: {}
@@ -398,23 +401,23 @@ export const fabExpandedClasses: Record<
 export const fabSurface = tv({
   slots: {
     anchor: 'relative inline-grid',
-    wrapper: 'drop-shadow-elevation-3 absolute end-0 bottom-0 z-50',
+    wrapper: 'drop-shadow-elevation-3 absolute end-spacing-0 bottom-spacing-0 z-50',
     surface:
-      'bg-md-sys-color-surface text-md-sys-color-on-surface max-h-[min(36rem,calc(100dvh-2rem))] w-max max-w-[calc(100vw-2rem)] min-w-60 overflow-y-auto rounded-3xl py-2 outline-none'
+      'bg-md-sys-color-surface text-md-sys-color-on-surface max-h-[min(36rem,calc(100dvh-2rem))] w-max max-w-[calc(100vw-2rem)] min-w-60 overflow-y-auto rounded-3xl py-spacing-100 outline-none'
   }
 });
 
 export const fabMenu = tv({
   slots: {
-    base: '-me-[5px] flex flex-col items-end gap-1 overflow-y-auto p-[5px]'
+    base: '-me-[5px] flex flex-col items-end gap-spacing-50 overflow-y-auto p-[5px]'
   }
 });
 
 /** FAB menu items share the medium button's measurements, fully round, without elevation. */
 export const fabMenuItem = tv({
   slots: {
-    base: 'md-btn md-sys-state-focus-indicator md-sys-typescale-title-medium relative inline-flex h-14 shrink-0 cursor-pointer items-center gap-2 rounded-full px-6 whitespace-nowrap select-none data-disabled:cursor-not-allowed data-disabled:bg-md-sys-color-on-surface/10 data-disabled:text-md-sys-color-on-surface/38',
-    icon: 'size-6 shrink-0 text-[24px]'
+    base: 'md-btn md-sys-state-focus-indicator md-sys-typescale-title-medium relative inline-flex h-spacing-700 shrink-0 cursor-pointer items-center gap-spacing-100 rounded-full px-spacing-300 whitespace-nowrap select-none data-disabled:cursor-not-allowed data-disabled:bg-md-sys-color-on-surface/10 data-disabled:text-md-sys-color-on-surface/38',
+    icon: 'size-spacing-300 shrink-0 text-[24px]'
   },
   variants: {
     set: {

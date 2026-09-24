@@ -35,13 +35,13 @@
 </script>
 
 <Story name="Modal" asChild>
-  <div class="flex flex-col items-start gap-2 p-6">
+  <div class="gap-spacing-100 p-spacing-300 flex flex-col items-start">
     <Button onclick={() => (modalOpen = true)}>Open bottom sheet</Button>
     <p class="md-sys-typescale-body-medium">
       {lastReason ? `Dismissed by: ${lastReason}` : 'Drag it down, tap the scrim, or press Esc.'}
     </p>
     <BottomSheet bind:open={modalOpen} label="File actions" close={(r) => (lastReason = r)}>
-      <List class="pb-4">
+      <List class="pb-spacing-200">
         {#each shareTargets as t (t.name)}
           <ListItem headline={t.label} onclick={() => (modalOpen = false)}>
             {#snippet leading()}
@@ -55,10 +55,10 @@
 </Story>
 
 <Story name="Scrolling content" asChild>
-  <div class="p-6">
+  <div class="p-spacing-300">
     <Button onclick={() => (longOpen = true)}>Open a long sheet</Button>
     <BottomSheet bind:open={longOpen} aria-labelledby="terms-heading">
-      <div class="flex flex-col gap-4 px-6 pb-6">
+      <div class="gap-spacing-200 px-spacing-300 pb-spacing-300 flex flex-col">
         <h2 id="terms-heading" class="md-sys-typescale-title-large">Terms of service</h2>
         {#each { length: 12 } as _, i (i)}
           <p class="md-sys-typescale-body-medium text-md-sys-color-on-surface-variant">
@@ -74,12 +74,12 @@
 
 <!-- Its own iframe on the docs page: an open, fixed-position sheet would cover the docs. -->
 <Story name="Standard" asChild parameters={{ docs: { story: { inline: false, height: '36rem' } } }}>
-  <div class="flex min-h-[32rem] flex-col gap-4 p-6">
+  <div class="gap-spacing-200 p-spacing-300 flex min-h-[32rem] flex-col">
     <p class="md-sys-typescale-body-large max-w-md">
       A standard sheet leaves the page usable. Drag the handle, or activate it, to expand and
       collapse the player.
     </p>
-    <div class="flex gap-2">
+    <div class="gap-spacing-100 flex">
       <Button variant="tonal" onclick={() => (playerOpen = !playerOpen)}>
         {playerOpen ? 'Hide player' : 'Show player'}
       </Button>
@@ -94,14 +94,14 @@
       peekHeight={120}
       label="Now playing"
     >
-      <div class="flex flex-col gap-6 px-6 pb-6">
-        <div class="flex items-center gap-4">
+      <div class="gap-spacing-300 px-spacing-300 pb-spacing-300 flex flex-col">
+        <div class="gap-spacing-200 flex items-center">
           <div
-            class="bg-md-sys-color-tertiary-container text-md-sys-color-on-tertiary-container flex size-14 items-center justify-center rounded-lg"
+            class="bg-md-sys-color-tertiary-container text-md-sys-color-on-tertiary-container size-spacing-700 flex items-center justify-center rounded-lg"
           >
             <Icon name="music_note" />
           </div>
-          <div class="min-w-0 flex-1">
+          <div class="min-w-spacing-0 flex-1">
             <p class="md-sys-typescale-title-medium">Harbour lights</p>
             <p class="md-sys-typescale-body-medium text-md-sys-color-on-surface-variant">
               The Tidelines
@@ -112,7 +112,7 @@
         <div
           class="bg-md-sys-color-secondary-container aspect-square w-full max-w-72 self-center rounded-3xl"
         ></div>
-        <div class="flex justify-center gap-4">
+        <div class="gap-spacing-200 flex justify-center">
           <ButtonIcon
             variant="standard"
             iconProps={{ name: 'skip_previous' }}

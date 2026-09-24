@@ -75,7 +75,7 @@
 </Story>
 
 <Story name="Segmented" asChild>
-  <div class="bg-md-sys-color-surface w-96 p-4">
+  <div class="bg-md-sys-color-surface p-spacing-200 w-96">
     <List variant="segmented">
       {#each ['Wi-Fi', 'Bluetooth', 'Notifications', 'Display'] as label, i (label)}
         <ListItem

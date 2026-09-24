@@ -1,0 +1,52 @@
+import { Meta, Title, Subtitle, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as SnackbarStories from './Snackbar.stories.svelte';
+
+<Meta of={SnackbarStories} />
+
+<Title />
+
+<Subtitle>
+  Snackbars show a brief message about an app process at the bottom of the screen.
+</Subtitle>
+
+[M3 spec](https://m3.material.io/components/snackbar/specs) ·
+`import { Snackbar } from '@noxlovette/material';`
+
+<Canvas of={SnackbarStories.Playground} />
+
+<Controls of={SnackbarStories.Playground} />
+
+## Showing a snackbar
+
+There's no `toast()` function or queue. Mount one `Snackbar`, bind its `message`, and assign to
+that state to show it:
+
+```svelte
+<script lang="ts">
+  import { Snackbar } from '@noxlovette/material';
+
+  let snackbarMessage = $state('');
+</script>
+
+<button onclick={() => (snackbarMessage = 'Changes saved.')}>Save</button>
+
+<Snackbar bind:message={snackbarMessage} label="Undo" callback={undoSave} />
+```
+
+When `message` becomes non-empty (a string or a snippet), the snackbar slides in. After 4
+seconds it hides and resets a string `message` to `''`, so the same text can be shown again. With
+`static`, it stays until the user closes it.
+
+`label` and `callback` add an action button.
+
+<Canvas of={SnackbarStories.Triggered} />
+
+<Canvas of={SnackbarStories.WithAction} />
+
+## Accessibility
+
+- **Timing.** A non-static snackbar disappears on its own, so never make it the only place
+  critical information appears.
+- **Dismiss.** `showClose` (on by default) renders a close button labelled "Dismiss snackbar".
+- **One at a time.** Mount one snackbar per region and drive it through one binding; stacking
+  instances isn't supported.

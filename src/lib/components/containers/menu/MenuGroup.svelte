@@ -13,7 +13,7 @@ set. Purely organizational — it renders no interactive behavior of its own.
     <MenuItem>A to Z</MenuItem>
     <MenuItem>Z to A</MenuItem>
   </MenuGroup>
-  <Divider class="my-1" />
+  <Divider class="my-spacing-50" />
   <MenuGroup heading="Date">
     <MenuItem>Newest first</MenuItem>
     <MenuItem>Oldest first</MenuItem>

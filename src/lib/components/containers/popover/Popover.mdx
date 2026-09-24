@@ -1,0 +1,45 @@
+import { Meta, Title, Subtitle, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as PopoverStories from './Popover.stories.svelte';
+
+<Meta of={PopoverStories} />
+
+<Title />
+
+<Subtitle>
+  A non-modal surface anchored to a trigger, for supplementary content or a few controls.
+</Subtitle>
+
+`import { Popover } from '@noxlovette/material';`
+
+<Canvas of={PopoverStories.Playground} />
+
+<Controls of={PopoverStories.Playground} />
+
+## When to use it
+
+M3 has no popover component; this one sits between its patterns. It opens on click and can hold
+interactive content, unlike a `Tooltip`. It doesn't block the page and has no scrim, unlike a
+`Dialogue`.
+
+- **Popover:** supplementary information or a few controls tied to one button.
+- **`Menu`:** a list of actions to choose from.
+- **`Dialogue`:** anything that must be resolved before the user continues.
+
+Pass the trigger as a snippet and spread the props it receives onto it:
+
+```svelte
+<Popover title="Storage">
+  {#snippet trigger(triggerProps)}
+    <Button variant="outlined" {...triggerProps}>Show info</Button>
+  {/snippet}
+  <Body>75% of your storage has been used.</Body>
+</Popover>
+```
+
+<Canvas of={PopoverStories.IconTriggerNoTitle} />
+
+## Accessibility
+
+- **Dismissal.** Escape closes the popover and returns focus to the trigger.
+- **Non-modal.** The rest of the page stays interactive while it's open, so don't use it for
+  content that must block the user.

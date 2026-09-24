@@ -4,12 +4,12 @@ export type ChipVariants = VariantProps<typeof chip>;
 
 export const chip = tv({
   slots: {
-    base: 'md-component-button-base group inline-flex h-8 max-w-max items-center justify-center gap-2 rounded-sm before:rounded-sm px-4 md-sys-typescale-label-large font-medium',
+    base: 'md-component-button-base group inline-flex h-spacing-400 max-w-max items-center justify-center gap-spacing-100 rounded-sm before:rounded-sm px-spacing-200 md-sys-typescale-label-large',
     icon: 'shrink-0',
     label: '',
     trailing:
-      'relative -mr-2 ml-1 inline-flex size-[18px] shrink-0 items-center justify-center rounded-full',
-    checkIcon: 'size-4 shrink-0'
+      'relative -mr-spacing-100 ml-spacing-50 inline-flex size-[18px] shrink-0 items-center justify-center rounded-full',
+    checkIcon: 'size-spacing-200 shrink-0'
   },
   variants: {
     variant: {

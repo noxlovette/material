@@ -94,7 +94,11 @@ Powered by bits-ui for accessibility and behavior.
                                 {#snippet children({ selected })}
                                   <span class="flex-1 truncate">{innerItem.label}</span>
                                   {#if selected}
-                                    <Icon aria-hidden="true" name="check" class="size-5 shrink-0" />
+                                    <Icon
+                                      aria-hidden="true"
+                                      name="check"
+                                      class="size-spacing-250 shrink-0"
+                                    />
                                   {/if}
                                 {/snippet}
                               </Select.Item>
@@ -106,7 +110,11 @@ Powered by bits-ui for accessibility and behavior.
                           {#snippet children({ selected })}
                             <span class="flex-1 truncate">{item.label}</span>
                             {#if selected}
-                              <Icon aria-hidden="true" name="check" class="size-5 shrink-0" />
+                              <Icon
+                                aria-hidden="true"
+                                name="check"
+                                class="size-spacing-250 shrink-0"
+                              />
                             {/if}
                           {/snippet}
                         </Select.Item>

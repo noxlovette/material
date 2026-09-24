@@ -7,9 +7,9 @@ export const table = tv({
     body: '[&_tr:last-child]:border-b-0',
     foot: 'border-t border-md-sys-color-outline-variant',
     row: 'border-b border-md-sys-color-outline-variant transition-colors md-sys-motion-fast-effects focus-visible:outline focus-visible:-outline-offset-2 focus-visible:outline-md-sys-color-primary',
-    cell: 'px-4 py-3 align-middle',
+    cell: 'px-spacing-200 py-spacing-150 align-middle',
     header:
-      'px-4 py-4 align-middle md-sys-typescale-label-large text-md-sys-color-on-surface font-medium whitespace-nowrap'
+      'px-spacing-200 py-spacing-200 align-middle md-sys-typescale-label-large text-md-sys-color-on-surface whitespace-nowrap'
   },
   variants: {
     hoverable: {
@@ -45,7 +45,7 @@ export const table = tv({
     },
     sticky: {
       true: {
-        head: 'sticky top-0 z-10 bg-md-sys-color-surface-container-high shadow-[0_1px_0_0_var(--md-sys-color-outline-variant)]'
+        head: 'sticky top-spacing-0 z-10 bg-md-sys-color-surface-container-high shadow-[0_1px_0_0_var(--md-sys-color-outline-variant)]'
       }
     }
   }

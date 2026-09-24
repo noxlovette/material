@@ -19,20 +19,20 @@
 
 <Story name="Playground">
   {#snippet template(args)}
-    <div class="max-w-md p-6">
+    <div class="p-spacing-300 max-w-md">
       <Search {...args} />
     </div>
   {/snippet}
 </Story>
 
 <Story name="With Value" asChild>
-  <div class="max-w-md p-6">
+  <div class="p-spacing-300 max-w-md">
     <Search value="Material Design" />
   </div>
 </Story>
 
 <Story name="With actions" asChild>
-  <div class="flex max-w-md flex-col gap-4 p-6">
+  <div class="gap-spacing-200 p-spacing-300 flex max-w-md flex-col">
     <Search>
       {#snippet leading()}
         <ButtonIcon variant="standard" iconProps={{ name: 'menu' }} aria-label="Menu" />

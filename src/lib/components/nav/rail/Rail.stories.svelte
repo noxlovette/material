@@ -14,15 +14,13 @@
       anchor: {
         control: 'select',
         options: ['viewport', 'parent']
-      },
-      withNavbar: { control: 'boolean' }
+      }
     },
     args: {
       collapsed: true,
       expandable: true,
       rounded: false,
-      anchor: 'parent',
-      withNavbar: false
+      anchor: 'parent'
     }
   });
 </script>
@@ -35,7 +33,6 @@
         collapsed={args.collapsed}
         expandable={args.expandable}
         rounded={args.rounded}
-        withNavbar={args.withNavbar}
       >
         <RailItem label="Home" href="/" iconProps={{ name: 'house' }} selected />
         <RailItem label="Inbox" href="#" iconProps={{ name: 'mail' }} badge={4} />
@@ -55,7 +52,6 @@
         collapsed={args.collapsed}
         expandable={args.expandable}
         rounded={args.rounded}
-        withNavbar={args.withNavbar}
       >
         {#snippet fab()}
           <FAB iconProps={{ name: 'add' }} label="New" />

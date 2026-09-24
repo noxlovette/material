@@ -6,7 +6,7 @@ export type TabHolderVariants = VariantProps<typeof tabHolder>;
 export const tabHolder = tv({
   slots: {
     base: 'relative flex w-full bg-md-sys-color-surface',
-    bar: 'absolute bottom-0 h-[3px] rounded-t-full bg-md-sys-color-primary transition-transform md-sys-motion-fast-spatial'
+    bar: 'absolute bottom-spacing-0 h-[3px] rounded-t-full bg-md-sys-color-primary transition-transform md-sys-motion-fast-spatial'
   },
   variants: {
     rounded: {
@@ -24,15 +24,15 @@ export const tab = tv({
       'data-[state=inactive]:text-md-sys-color-on-surface-variant'
     ].join(' '),
     label: 'md-sys-typescale-title-small',
-    icon: 'size-6 text-[24px]'
+    icon: 'size-spacing-300 text-[24px]'
   },
   variants: {
     variant: {
       primary: {
-        base: 'h-16 gap-1 py-3'
+        base: 'h-spacing-800 gap-spacing-50 py-spacing-150'
       },
       secondary: {
-        base: 'h-12 py-3',
+        base: 'h-spacing-600 py-spacing-150',
         icon: 'hidden'
       }
     },

@@ -16,7 +16,7 @@ export const slider = tv({
     activeTrack: 'bg-md-sys-color-primary group-data-[disabled]:bg-md-sys-color-on-surface/38',
     inactiveTrack:
       'bg-md-sys-color-secondary-container group-data-[disabled]:bg-md-sys-color-on-surface/12',
-    stop: 'pointer-events-none absolute size-1 rounded-full',
+    stop: 'pointer-events-none absolute size-spacing-50 rounded-full',
     stopOnActive:
       'bg-md-sys-color-on-primary group-data-[disabled]:bg-md-sys-color-inverse-on-surface',
     stopOnInactive:
@@ -31,8 +31,8 @@ export const slider = tv({
       group-data-[disabled]:bg-md-sys-color-on-surface/38
     `,
     value: `
-      pointer-events-none absolute z-10 flex min-w-12 items-center justify-center rounded-full
-      bg-md-sys-color-inverse-surface px-4 py-3
+      pointer-events-none absolute z-10 flex min-w-spacing-600 items-center justify-center rounded-full
+      bg-md-sys-color-inverse-surface px-spacing-200 py-spacing-150
       md-sys-typescale-body-medium tracking-[0.5px] text-md-sys-color-inverse-on-surface
       opacity-0 transition-opacity md-sys-motion-effects
       group-has-[[data-slider-thumb]:focus-visible]:opacity-100
@@ -44,36 +44,36 @@ export const slider = tv({
       s: { root: '[--track:1.5rem] [--handle:2.75rem] [--outer:var(--radius-sm)]' },
       m: {
         root: '[--track:2.5rem] [--handle:3.25rem] [--outer:var(--radius-md)]',
-        iconGlyph: 'size-6 text-[24px]'
+        iconGlyph: 'size-spacing-300 text-[24px]'
       },
       l: {
         root: '[--track:3.5rem] [--handle:4.25rem] [--outer:var(--radius-lg)]',
-        iconGlyph: 'size-6 text-[24px]'
+        iconGlyph: 'size-spacing-300 text-[24px]'
       },
       xl: {
         root: '[--track:6rem] [--handle:6.75rem] [--outer:var(--radius-xl)]',
-        iconGlyph: 'size-8 text-[32px]'
+        iconGlyph: 'size-spacing-400 text-[32px]'
       }
     },
     vertical: {
       false: {
         root: 'h-[var(--handle)] w-full min-w-40',
         track: 'top-1/2 h-[var(--track)] -translate-y-1/2',
-        activeTrack: 'left-0 rounded-l-[var(--outer)] rounded-r-[2px]',
-        inactiveTrack: 'right-0 rounded-l-[2px] rounded-r-[var(--outer)]',
+        activeTrack: 'left-spacing-0 rounded-l-[var(--outer)] rounded-r-[2px]',
+        inactiveTrack: 'right-spacing-0 rounded-l-[2px] rounded-r-[var(--outer)]',
         stop: 'top-1/2 -translate-x-1/2 -translate-y-1/2',
         icon: 'top-1/2 -translate-y-1/2',
-        handle: 'top-0 h-full -translate-x-1/2',
+        handle: 'top-spacing-0 h-full -translate-x-1/2',
         value: 'bottom-[calc(100%+12px)] -translate-x-1/2'
       },
       true: {
         root: 'h-full min-h-40 w-[var(--handle)]',
         track: 'left-1/2 w-[var(--track)] -translate-x-1/2',
-        activeTrack: 'bottom-0 rounded-t-[2px] rounded-b-[var(--outer)]',
-        inactiveTrack: 'top-0 rounded-t-[var(--outer)] rounded-b-[2px]',
+        activeTrack: 'bottom-spacing-0 rounded-t-[2px] rounded-b-[var(--outer)]',
+        inactiveTrack: 'top-spacing-0 rounded-t-[var(--outer)] rounded-b-[2px]',
         stop: 'left-1/2 -translate-x-1/2 translate-y-1/2',
         icon: 'left-1/2 -translate-x-1/2',
-        handle: 'left-0 w-full translate-y-1/2',
+        handle: 'left-spacing-0 w-full translate-y-1/2',
         value: 'left-[calc(100%+12px)] translate-y-1/2'
       }
     },

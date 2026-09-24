@@ -4,11 +4,11 @@
   import type { IconProps, IconSize } from './types.js';
 
   const sizeMap: Record<IconSize, { cls: string; opsz: number }> = {
-    xs: { cls: 'size-4 text-[16px]', opsz: 20 },
-    sm: { cls: 'size-5 text-[20px]', opsz: 20 },
-    md: { cls: 'size-6 text-[24px]', opsz: 24 },
-    lg: { cls: 'size-10 text-[40px]', opsz: 40 },
-    xl: { cls: 'size-12 text-[48px]', opsz: 48 }
+    xs: { cls: 'size-spacing-200 text-[16px]', opsz: 20 },
+    sm: { cls: 'size-spacing-250 text-[20px]', opsz: 20 },
+    md: { cls: 'size-spacing-300 text-[24px]', opsz: 24 },
+    lg: { cls: 'size-spacing-500 text-[40px]', opsz: 40 },
+    xl: { cls: 'size-spacing-600 text-[48px]', opsz: 48 }
   };
 
   const {

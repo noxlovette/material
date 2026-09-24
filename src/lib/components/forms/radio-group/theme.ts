@@ -3,21 +3,21 @@ import { tv, type VariantProps } from 'tailwind-variants';
 export const radioGroup = tv({
   slots: {
     root: 'flex',
-    item: 'inline-flex min-h-10 cursor-pointer select-none items-center gap-3 text-md-sys-color-on-surface',
+    item: 'inline-flex min-h-spacing-500 cursor-pointer select-none items-center gap-spacing-150 text-md-sys-color-on-surface',
     indicator: 'relative inline-flex  size-[20px] shrink-0',
     control:
       'relative layer-container absolute -inset-[10px] rounded-full text-md-sys-color-on-surface-variant state-layer before:rounded-full',
     outerRing:
-      'absolute inset-0 rounded-full border-2 border-md-sys-color-outline transition-colors md-sys-motion-fast-effects',
+      'absolute inset-spacing-0 rounded-full border-2 border-md-sys-color-outline transition-colors md-sys-motion-fast-effects',
     innerDot:
-      'absolute inset-0 m-auto size-2.5 scale-0 rounded-full bg-md-sys-color-on-primary-container transition-transform md-sys-motion-fast-spatial',
+      'absolute inset-spacing-0 m-auto size-spacing-125 scale-0 rounded-full bg-md-sys-color-on-primary-container transition-transform md-sys-motion-fast-spatial',
     label: 'md-sys-typescale-body-large text-md-sys-color-on-surface',
     supporting: 'md-sys-typescale-body-medium text-md-sys-color-on-surface-variant'
   },
   variants: {
     orientation: {
-      vertical: { root: 'flex-col gap-1' },
-      horizontal: { root: 'flex-row flex-wrap gap-6' }
+      vertical: { root: 'flex-col gap-spacing-50' },
+      horizontal: { root: 'flex-row flex-wrap gap-spacing-300' }
     },
     checked: {
       true: {

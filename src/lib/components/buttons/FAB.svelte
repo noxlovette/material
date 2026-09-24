@@ -82,8 +82,8 @@ Floating action buttons (FABs) help people take primary actions.
   // The close button shares the FAB's top trailing corner, so the FAB keeps its footprint while
   // it shrinks into it.
   const footprint: Record<NonNullable<FABProps['size']>, string> = {
-    small: 'size-10',
-    regular: 'size-14',
+    small: 'size-spacing-500',
+    regular: 'size-spacing-700',
     medium: 'size-20',
     large: 'size-24'
   };

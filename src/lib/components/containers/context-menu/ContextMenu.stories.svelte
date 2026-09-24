@@ -10,6 +10,7 @@
 
   const { Story } = defineMeta({
     title: 'Containers/Context Menu',
+    tags: ['autodocs'],
     component: ContextMenu
   });
 

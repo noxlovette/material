@@ -129,7 +129,11 @@
   <div bind:this={scroller} class="h-[480px] overflow-y-auto">
     <AppBar title="Scroll this box" scrollContainer={scroller} ghost />
     {#each { length: 40 } as _, i (i)}
-      <p class="md-sys-typescale-body-large text-md-sys-color-on-surface px-4 py-2">Row {i + 1}</p>
+      <p
+        class="md-sys-typescale-body-large text-md-sys-color-on-surface px-spacing-200 py-spacing-100"
+      >
+        Row {i + 1}
+      </p>
     {/each}
   </div>
 </Story>

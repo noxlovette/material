@@ -32,7 +32,7 @@
 </Story>
 
 <Story name="Colour styles" asChild>
-  <div class="flex flex-wrap items-center gap-4 p-6">
+  <div class="gap-spacing-200 p-spacing-300 flex flex-wrap items-center">
     {#each variants as variant (variant)}
       <Button {variant}>{variant[0].toUpperCase() + variant.slice(1)}</Button>
     {/each}
@@ -40,7 +40,7 @@
 </Story>
 
 <Story name="With icon" asChild>
-  <div class="flex flex-wrap items-center gap-4 p-6">
+  <div class="gap-spacing-200 p-spacing-300 flex flex-wrap items-center">
     {#each variants as variant (variant)}
       <Button {variant} iconProps={{ name: 'add' }}>Create</Button>
     {/each}
@@ -48,9 +48,9 @@
 </Story>
 
 <Story name="Sizes" asChild>
-  <div class="flex flex-col items-start gap-4 p-6">
+  <div class="gap-spacing-200 p-spacing-300 flex flex-col items-start">
     {#each sizes as size (size)}
-      <div class="flex items-center gap-4">
+      <div class="gap-spacing-200 flex items-center">
         <Button {size} iconProps={{ name: 'send' }}>Send</Button>
         <Button {size} shape="square" variant="tonal" iconProps={{ name: 'send' }}>Send</Button>
         <Button {size} variant="outlined">Cancel</Button>
@@ -60,7 +60,7 @@
 </Story>
 
 <Story name="Round and square" asChild>
-  <div class="flex flex-wrap items-center gap-4 p-6">
+  <div class="gap-spacing-200 p-spacing-300 flex flex-wrap items-center">
     <Button size="md">Round</Button>
     <Button size="md" shape="square">Square</Button>
     <p class="md-sys-typescale-body-medium text-md-sys-color-on-surface-variant w-full">
@@ -70,7 +70,7 @@
 </Story>
 
 <Story name="Disabled" asChild>
-  <div class="flex flex-wrap items-center gap-4 p-6">
+  <div class="gap-spacing-200 p-spacing-300 flex flex-wrap items-center">
     {#each variants as variant (variant)}
       <Button {variant} disabled>{variant}</Button>
     {/each}
@@ -78,7 +78,7 @@
 </Story>
 
 <Story name="Link" asChild>
-  <div class="flex gap-4 p-6">
+  <div class="gap-spacing-200 p-spacing-300 flex">
     <Button href="#" variant="text">Learn more</Button>
     <Button href="#" variant="outlined" disabled>Disabled link</Button>
   </div>

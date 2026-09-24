@@ -13,7 +13,7 @@ export type ConnectedButtonGroupItemVariants = VariantProps<typeof connectedButt
  */
 export const connectedButtonGroup = tv({
   slots: {
-    root: 'flex w-full items-stretch gap-0.5'
+    root: 'flex w-full items-stretch gap-spacing-25'
   },
   variants: {
     orientation: {
@@ -28,7 +28,7 @@ export const connectedButtonGroup = tv({
 
 export const connectedButtonGroupItem = tv({
   slots: {
-    base: [buttonBase, 'md-btn-connected min-w-12 flex-1'],
+    base: [buttonBase, 'md-btn-connected min-w-spacing-600 flex-1'],
     icon: 'shrink-0'
   },
   variants: {
