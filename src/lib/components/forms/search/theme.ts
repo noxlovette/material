@@ -2,18 +2,23 @@ import { tv, type VariantProps } from 'tailwind-variants';
 
 export type SearchVariants = VariantProps<typeof search>;
 
+/**
+ * M3 Expressive contained search bar (https://m3.material.io/components/search/specs):
+ * 56dp, circular, surface-container-high, flat. 48dp leading/trailing targets at a 4dp inset,
+ * 4dp between the leading element and the label, 0 between trailing actions; 16dp at an edge
+ * with no action. Hover 8% / pressed 10% on-surface; focus 3dp secondary outline, 2dp offset.
+ */
 export const search = tv({
   slots: {
-    base: 'group grow cursor-text focus-inside:ring-3 focus-inside:ring-inset-2 focus-inside:ring-md-sys-color-secondary relative bg-md-sys-color-surface-container-high  rounded-full h-14 state-layer before:rounded-full hover:before:bg-md-sys-color-on-surface/8 items-center flex w-full max-w-[720px] px-4',
-    leadingIcon: 'text-md-sys-color-on-surface text-[24px] size-6 mr-4',
-    trailingIcon: 'text-md-sys-color-on-surface-variant text-[24px] size-6 ml-4',
+    base: 'state-layer relative flex h-14 w-full max-w-[720px] grow cursor-text items-center rounded-full bg-md-sys-color-surface-container-high ps-1 pe-1 before:rounded-full hover:before:bg-md-sys-color-on-surface/8 active:before:bg-md-sys-color-on-surface/10 has-[input:focus-visible]:outline-3 has-[input:focus-visible]:outline-offset-2 has-[input:focus-visible]:outline-md-sys-color-secondary',
+    leading: 'text-md-sys-color-on-surface relative flex shrink-0 items-center',
+    leadingIcon: 'text-md-sys-color-on-surface grid size-12 shrink-0 place-items-center',
     input:
-      ' placeholder:text-md-sys-color-on-surface-variant placeholder:md-sys-typescale-body-large z-50 md-sys-typescale-body-large text-md-sys-color-on-surface outline-none w-full'
+      'md-sys-typescale-body-large text-md-sys-color-on-surface placeholder:text-md-sys-color-on-surface-variant relative ms-1 me-1 w-full min-w-0 bg-transparent outline-none [&::-webkit-search-cancel-button]:hidden',
+    trailing: 'text-md-sys-color-on-surface-variant relative flex shrink-0 items-center'
   },
   variants: {
-    shadow: {
-      true: 'shadow-elevation-3',
-      false: ''
-    }
+    hasLeading: { true: '', false: { input: 'ms-3' } },
+    hasTrailing: { true: '', false: { input: 'me-3' } }
   }
 });

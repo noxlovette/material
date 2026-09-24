@@ -2,7 +2,8 @@
 @component
 Arranges Pane children relative to one another: direction, gap, and outer
 margin/padding, each independently responsive across viewport tiers
-(small/medium/large/extraLarge). PaneGrid owns layout only — sizing, stickiness,
+(small/medium/large/extraLarge). `direction` defaults to M3's canonical layouts: panes stack
+below `large` and sit side by side from `large` (expanded) up. PaneGrid owns layout only — sizing, stickiness,
 resizing, and breakpoint visibility are declared per-Pane.
 
 With `full`, min-height is `100dvh` minus `--appbar-height` — see Pane.svelte's
@@ -15,7 +16,7 @@ doc comment for how that CSS custom property gets set.
 
   const {
     children,
-    direction = 'row',
+    direction = { small: 'column', large: 'row' },
     gap = 'md',
     padding = 'none',
     margin = 'none',

@@ -17,6 +17,7 @@
   // default baseIcons subset. Re-run the extraction if a new icon name is introduced:
   //   grep -rhoE "(iconProps\s*=\s*\{\s*name:\s*['\"][a-z_0-9]+['\"]|<Icon[^>]*\bname=['\"][a-z_0-9]+['\"]|\bname:\s*['\"][a-z_0-9]+['\"])" src/lib src/routes | grep -oE "['\"][a-z_0-9]+['\"]" | tr -d "'\"" | sort -u
   const extraIcons = [
+    'account_circle',
     'add',
     'architecture',
     'archive',

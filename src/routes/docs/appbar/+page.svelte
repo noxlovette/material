@@ -22,7 +22,7 @@
       type: 'string',
       default: '—',
       required: true,
-      desc: 'The screen title.'
+      desc: 'The screen title (optional for search app bars).'
     },
     {
       prop: 'subtitle',
@@ -34,7 +34,7 @@
       prop: 'leading',
       type: 'Snippet',
       default: '—',
-      desc: 'Content on the left, e.g. a back button (see showBack) or a menu icon.'
+      desc: 'Content on the left, e.g. a menu icon. Takes precedence over showBack.'
     },
     {
       prop: 'trailing',
@@ -52,7 +52,55 @@
       prop: 'showBack',
       type: 'boolean',
       default: 'false',
-      desc: 'Reserves leading space for a back button. Combine with the leading snippet to render one.'
+      desc: 'Renders a back button in the leading slot (unless a leading snippet is given).'
+    },
+    {
+      prop: 'onback',
+      type: '() => void',
+      default: 'history.back()',
+      desc: 'Called when the back button is pressed.'
+    },
+    {
+      prop: 'size',
+      type: "Responsive<'small' | 'medium' | 'large'>",
+      default: "'small'",
+      desc: "small: 64dp single line. medium/large: M3 Expressive flexible bars (112/120dp, 136/152dp with a subtitle) whose headline wraps. Pass one per breakpoint, e.g. { small: 'small', large: 'large' }, as with PaneGrid. Switched in CSS, so SSR renders the right size."
+    },
+    {
+      prop: 'align',
+      type: "'start' | 'center'",
+      default: "'start'",
+      desc: 'Title alignment. Center replaces the old center-aligned app bar.'
+    },
+    {
+      prop: 'search',
+      type: 'string',
+      default: '—',
+      desc: 'Hint text. Makes this a 64dp search app bar with a search field in place of the title (the title becomes screen-reader only). Excludes size.'
+    },
+    {
+      prop: 'query',
+      type: 'string (bindable)',
+      default: "''",
+      desc: 'The search field value.'
+    },
+    {
+      prop: 'searchTrailing',
+      type: 'Snippet',
+      default: '—',
+      desc: 'An action inside the search field, e.g. a voice-search icon button.'
+    },
+    {
+      prop: 'searchProps',
+      type: 'HTMLInputAttributes',
+      default: '—',
+      desc: 'Props for the search input, e.g. onfocus to open a search view.'
+    },
+    {
+      prop: 'scrollContainer',
+      type: 'HTMLElement | null',
+      default: 'window',
+      desc: 'The element whose scroll switches the bar to its on-scroll color.'
     },
     {
       prop: 'ghost',
@@ -105,7 +153,7 @@
 
       <div class="flex flex-wrap gap-2 pt-1">
         <a
-          href="https://m3.material.io/components/top-app-bar/overview"
+          href="https://m3.material.io/components/app-bars/overview"
           target="_blank"
           rel="noopener noreferrer"
           class="text-md-sys-color-primary flex items-center gap-1 text-sm no-underline hover:underline"
@@ -123,13 +171,14 @@
       <Body>
         The <code class="doc-code">AppBar</code> component implements the
         <a
-          href="https://m3.material.io/components/top-app-bar/overview"
+          href="https://m3.material.io/components/app-bars/overview"
           target="_blank"
           rel="noopener noreferrer"
           class="text-md-sys-color-primary">Material Design 3 Top App Bar</a
         >
-        pattern. It listens to <code class="doc-code">window</code> scroll and switches to an elevated,
-        tinted surface once the page scrolls past 10px.
+        pattern. It listens to <code class="doc-code">scrollContainer</code> (default
+        <code class="doc-code">window</code>) scroll and switches to the surface-container color
+        once the page scrolls past 10px.
       </Body>
     </section>
 

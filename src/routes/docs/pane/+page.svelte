@@ -111,8 +111,8 @@
     {
       prop: 'direction',
       type: '"row" | "column" | Partial<Record<Breakpoint, "row" | "column">>',
-      default: '"row"',
-      desc: "Side by side or stacked, independently per breakpoint, e.g. {{ small: 'column', large: 'row' }}."
+      default: "{ small: 'column', large: 'row' }",
+      desc: 'Side by side or stacked, independently per breakpoint. The default follows M3 canonical layouts: stacked on compact/medium windows, side by side from large (expanded) up.'
     },
     {
       prop: 'gap',

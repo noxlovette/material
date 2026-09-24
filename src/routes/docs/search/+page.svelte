@@ -16,8 +16,8 @@
     {
       prop: 'placeholder',
       type: 'string',
-      default: "'Поиск'",
-      desc: "Placeholder text shown in the empty input. Note: the component's built-in default is Russian ('Поиск', i.e. 'Search') — pass an explicit placeholder for other locales."
+      default: "'Search'",
+      desc: 'Hint text shown in the empty field.'
     },
     {
       prop: 'elementRef',
@@ -26,28 +26,40 @@
       desc: 'Bindable reference to the underlying input element.'
     },
     {
+      prop: 'leading',
+      type: 'Snippet',
+      default: '—',
+      desc: 'A leading action, e.g. a menu or back icon button. Replaces the leading icon.'
+    },
+    {
+      prop: 'trailing',
+      type: 'Snippet',
+      default: '—',
+      desc: 'Trailing actions and/or an avatar (48dp targets, no gap), after the clear button.'
+    },
+    {
       prop: 'leadingIconProps',
-      type: 'IconProps',
+      type: 'IconProps | null',
       default: "{ name: 'search' }",
-      desc: 'Props for the leading icon.'
+      desc: 'Props for the decorative leading icon; null removes it (16dp inset instead).'
     },
     {
       prop: 'trailingIconProps',
-      type: 'IconProps',
+      type: 'IconProps | null',
       default: "{ name: 'close' }",
-      desc: 'Props for the trailing icon button, shown only while value is non-empty.'
+      desc: 'Icon of the clear button, shown only while there is a value; null removes the button.'
     },
     {
       prop: 'trailingClick',
       type: '() => void',
-      default: "() => (value = '')",
-      desc: 'Click handler for the trailing icon button. Defaults to clearing the value.'
+      default: 'clear + refocus',
+      desc: 'Click handler for the clear button. Defaults to clearing the value and refocusing the input.'
     },
     {
-      prop: 'children',
-      type: 'Snippet',
-      default: '—',
-      desc: 'Reserved for custom layout content; not rendered by the current implementation.'
+      prop: 'clearLabel',
+      type: 'string',
+      default: "'Clear search'",
+      desc: 'Accessible label for the clear button.'
     }
   ];
 
@@ -118,8 +130,8 @@
           rel="noopener noreferrer"
           class="text-md-sys-color-primary">Material Design 3 Search Bar</a
         >
-        pattern: a pill-shaped, fully-rounded field with a focus ring, distinct from the filled rectangular
-        Text Field.
+        pattern: the contained M3 Expressive search bar: a 56dp, fully-rounded surface-container-high
+        field, distinct from the filled rectangular Text Field.
       </Body>
       <Body>
         It's a plain labelled <code class="doc-code">&lt;input&gt;</code> under the hood (no bits-ui
@@ -231,7 +243,7 @@
     <section id="accessibility" class="mb-12 flex scroll-mt-6 flex-col gap-4">
       <Title>Accessibility</Title>
       <div class="flex flex-col gap-3">
-        {#each [{ icon: 'label', title: 'Label association', desc: 'The input is wrapped in a <label for="search"> so the whole bar is a clickable/tappable hit target.' }, { icon: 'close', title: 'Clear affordance', desc: 'The trailing clear button only renders once there is a value, avoiding a dead click target on an empty field.' }, { icon: 'visibility', title: 'Focus ring', desc: 'A visible focus-inside ring is drawn on the bar when the input receives keyboard focus.' }] as item}
+        {#each [{ icon: 'label', title: 'Label association', desc: 'The input (type="search") is wrapped in a label tied to a unique id, so the whole bar is a tap target and several bars can share a page.' }, { icon: 'close', title: 'Clear affordance', desc: 'The clear button renders only once there is a value, is a 48dp labelled type="button" (it never submits a form), and returns focus to the input.' }, { icon: 'visibility', title: 'Focus indicator', desc: 'Keyboard focus in the input draws the M3 focus indicator on the bar: 3dp secondary outline at a 2dp offset.' }] as item}
           <Card class="flex items-start gap-4 p-4">
             <div
               class="bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container flex h-9 w-9 shrink-0 items-center justify-center rounded-full"

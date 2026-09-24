@@ -52,6 +52,30 @@ two surfaces, so the "Storybook" nav link resolves correctly in both dev and pro
 - **New components**: export from the category `index.ts` and re-export in `src/lib/components/index.ts`
 - **`tailwind-variants` (tv)**: every component's styles are defined with `tv()` from `tailwind-variants`, using named `slots` for multi-element components and `variants`/`compoundVariants` for state logic. Match this pattern for all new components — do not use plain `clsx` strings for component internals.
 
+# Responsive Props (IMPORTANT)
+
+Any prop whose right value depends on the window size takes `Responsive<T>`
+(`src/lib/components/containers/pane/theme.ts`): one value, or one per M3 window tier:
+`{ small, medium, large, extraLarge }`, which map to base/`md:`/`lg:`/`xl:`. `PaneGrid`'s
+`direction`/`gap`/`padding`/`margin` and `AppBar`'s `size` use it.
+
+- **Defaults are responsive.** When a component supports `Responsive<T>`, its default follows M3's
+  window-size-class guidance, not a single value. For example, the search view layout defaults to
+  `{ small: 'fullScreen', medium: 'docked' }`. `PaneGrid`'s `direction` defaults to
+  `{ small: 'column', large: 'row' }` (canonical layouts: one pane until the expanded class), so
+  a split that must stay side by side at every width passes `direction="row"` explicitly. A static default is acceptable only where M3 gives
+  no per-window guidance, and then the prop's JSDoc says so.
+- **Resolve responsive values in CSS, never JS.** Write every class as a literal in a per-breakpoint
+  lookup table (see `responsiveTables`/`resolveResponsive`, `appbarSize`) so Tailwind's scanner
+  sees it and SSR renders the right variant with no `matchMedia` and no flash. If a variant
+  changes structure, use one markup and move elements with grid/flex classes per breakpoint
+  (`AppBar` puts its title in a grid cell or a full-width row), not `{#if}` branches.
+- **Each tier restates every property it changes.** `md:` classes only override what they name.
+  So if the small tier sets `pt-0 line-clamp-1`, the medium tier must set its own `md:pt-*`
+  and `md:line-clamp-*`. Otherwise small's values leak upward.
+- **Missing tiers inherit upward.** A value given at a lower tier carries to the larger tiers
+  until another tier overrides it, as with Tailwind prefixes.
+
 # Known Pitfalls: Tokens, Icons, tv() Slots
 
 Found while auditing typescale usage across every component (see git history for the fixes). None of these error or warn — `bun run check` stays green through all of them — so they only surface on visual review.

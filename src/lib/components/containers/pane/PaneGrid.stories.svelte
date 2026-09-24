@@ -20,7 +20,7 @@
   <div
     class="border-md-sys-color-outline-variant relative h-[420px] overflow-hidden rounded-lg border"
   >
-    <PaneGrid gap="none" class="h-full">
+    <PaneGrid direction="row" gap="none" class="h-full">
       <Pane
         width={320}
         resizable
@@ -56,7 +56,7 @@
 -->
 <Story name="Sticky Sidebar" asChild>
   <div class="border-md-sys-color-outline-variant h-[420px] overflow-y-auto rounded-lg border">
-    <PaneGrid rounded>
+    <PaneGrid direction="row" rounded>
       <Pane width={240} sticky rounded={false}>
         <div class="p-4">
           <p class="md-sys-typescale-title-small mb-2">Sticky nav</p>

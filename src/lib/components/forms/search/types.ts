@@ -1,17 +1,11 @@
 import type { IconProps } from '$lib/utils/index.js';
 import type { Snippet } from 'svelte';
 import type { HTMLInputAttributes } from 'svelte/elements';
-import type { SearchVariants } from './theme.js';
 
 /**
  * Props for the Search component.
  */
-export interface SearchProps extends SearchVariants, Omit<HTMLInputAttributes, 'size'> {
-  /**
-   * The content of the search bar, typically used for custom layouts.
-   */
-  children?: Snippet;
-
+export interface SearchProps extends Omit<HTMLInputAttributes, 'size'> {
   /**
    * The current value of the search input.
    */
@@ -23,18 +17,32 @@ export interface SearchProps extends SearchVariants, Omit<HTMLInputAttributes, '
   elementRef?: HTMLInputElement;
 
   /**
-   * Callback function when the trailing icon is clicked.
-   * Default behavior clears the search value.
+   * A leading action, e.g. a menu or back icon button. Replaces the leading icon.
+   */
+  leading?: Snippet;
+
+  /**
+   * Trailing actions and/or an avatar, e.g. a mic icon button. Rendered after the clear button.
+   */
+  trailing?: Snippet;
+
+  /**
+   * Called by the clear button. Defaults to clearing the value and refocusing the input.
    */
   trailingClick?: () => void;
 
   /**
-   * Props for the leading icon (typically a search icon).
+   * Props for the leading icon (a search icon by default); `null` removes it.
    */
-  leadingIconProps?: IconProps;
+  leadingIconProps?: IconProps | null;
 
   /**
-   * Props for the trailing icon (typically a clear/close icon).
+   * Props for the clear button's icon, shown while there is a value; `null` removes the button.
    */
-  trailingIconProps?: IconProps;
+  trailingIconProps?: IconProps | null;
+
+  /**
+   * Accessible label for the clear button.
+   */
+  clearLabel?: string;
 }

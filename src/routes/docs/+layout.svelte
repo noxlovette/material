@@ -92,7 +92,7 @@
   to the top of whatever scroll container it's in, which composes correctly with
   that offset without needing a special "fixed to true viewport edge" mode.
 -->
-<PaneGrid rounded={false}>
+<PaneGrid direction="row" rounded={false}>
   <Pane
     width={224}
     sticky

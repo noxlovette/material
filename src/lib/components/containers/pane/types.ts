@@ -77,8 +77,9 @@ export type PaneGridProps = PaneGridVariants &
     /** Optional root class. */
     class?: string;
     /**
-     * Row (side by side) or column (stacked), per breakpoint.
-     * @default 'row'
+     * Row (side by side) or column (stacked), per breakpoint. Defaults to M3's canonical layouts:
+     * one pane per row below the expanded window class, side by side from `large` up.
+     * @default { small: 'column', large: 'row' }
      */
     direction?: Responsive<'row' | 'column'>;
     /**

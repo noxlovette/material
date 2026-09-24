@@ -1,41 +1,201 @@
 import { tv, type VariantProps } from 'tailwind-variants';
+import type { Breakpoint } from '../../containers/pane/theme.js';
 
 export type AppbarVariants = VariantProps<typeof appbar>;
+export type AppBarSize = 'small' | 'medium' | 'large';
+
+/*
+  M3 Expressive app bar (https://m3.material.io/components/app-bars/specs), laid out on one
+  3-column grid (leading · text · trailing) so the size can change per breakpoint in CSS alone:
+  - small: 64dp, one row, title between the buttons.
+  - medium/large flexible: an actions row (8dp top, 48dp) above a headline block spanning all
+    columns (16dp inset, 12dp bottom) that wraps and grows; min height 112/120dp, or 136/152dp
+    with a subtitle.
+  4dp container padding and 0 gap between 48dp icon buttons throughout. Every class below is a
+  literal so the Tailwind scanner sees it; `appbarSize` picks them per breakpoint.
+*/
+const sizeClasses: Record<Breakpoint, Record<AppBarSize, Record<SizeSlot, string>>> = {
+  small: {
+    small: {
+      row: 'grid-rows-[4rem] pt-0 min-h-16',
+      rowSubtitle: '',
+      textContainer:
+        'col-start-2 col-span-1 row-start-1 self-center ps-(--lead) pe-(--trail) pt-0 pb-0',
+      title: 'md-sys-typescale-title-large line-clamp-1',
+      subtitle: 'md-sys-typescale-label-medium line-clamp-1'
+    },
+    medium: {
+      row: 'grid-rows-[3rem_1fr] pt-2 min-h-28',
+      rowSubtitle: 'min-h-34',
+      textContainer: 'col-start-1 col-span-3 row-start-2 self-end ps-4 pe-4 pt-1 pb-3',
+      title: 'md-sys-typescale-headline-medium line-clamp-none',
+      subtitle: 'md-sys-typescale-title-small line-clamp-none'
+    },
+    large: {
+      row: 'grid-rows-[3rem_1fr] pt-2 min-h-30',
+      rowSubtitle: 'min-h-38',
+      textContainer: 'col-start-1 col-span-3 row-start-2 self-end ps-4 pe-4 pt-1 pb-3',
+      title: 'md-sys-typescale-display-small line-clamp-none',
+      subtitle: 'md-sys-typescale-title-medium line-clamp-none'
+    }
+  },
+  medium: {
+    small: {
+      row: 'md:grid-rows-[4rem] md:pt-0 md:min-h-16',
+      rowSubtitle: '',
+      textContainer:
+        'md:col-start-2 md:col-span-1 md:row-start-1 md:self-center md:ps-(--lead) md:pe-(--trail) md:pt-0 md:pb-0',
+      title: 'md:md-sys-typescale-title-large md:line-clamp-1',
+      subtitle: 'md:md-sys-typescale-label-medium md:line-clamp-1'
+    },
+    medium: {
+      row: 'md:grid-rows-[3rem_1fr] md:pt-2 md:min-h-28',
+      rowSubtitle: 'md:min-h-34',
+      textContainer:
+        'md:col-start-1 md:col-span-3 md:row-start-2 md:self-end md:ps-4 md:pe-4 md:pt-1 md:pb-3',
+      title: 'md:md-sys-typescale-headline-medium md:line-clamp-none',
+      subtitle: 'md:md-sys-typescale-title-small md:line-clamp-none'
+    },
+    large: {
+      row: 'md:grid-rows-[3rem_1fr] md:pt-2 md:min-h-30',
+      rowSubtitle: 'md:min-h-38',
+      textContainer:
+        'md:col-start-1 md:col-span-3 md:row-start-2 md:self-end md:ps-4 md:pe-4 md:pt-1 md:pb-3',
+      title: 'md:md-sys-typescale-display-small md:line-clamp-none',
+      subtitle: 'md:md-sys-typescale-title-medium md:line-clamp-none'
+    }
+  },
+  large: {
+    small: {
+      row: 'lg:grid-rows-[4rem] lg:pt-0 lg:min-h-16',
+      rowSubtitle: '',
+      textContainer:
+        'lg:col-start-2 lg:col-span-1 lg:row-start-1 lg:self-center lg:ps-(--lead) lg:pe-(--trail) lg:pt-0 lg:pb-0',
+      title: 'lg:md-sys-typescale-title-large lg:line-clamp-1',
+      subtitle: 'lg:md-sys-typescale-label-medium lg:line-clamp-1'
+    },
+    medium: {
+      row: 'lg:grid-rows-[3rem_1fr] lg:pt-2 lg:min-h-28',
+      rowSubtitle: 'lg:min-h-34',
+      textContainer:
+        'lg:col-start-1 lg:col-span-3 lg:row-start-2 lg:self-end lg:ps-4 lg:pe-4 lg:pt-1 lg:pb-3',
+      title: 'lg:md-sys-typescale-headline-medium lg:line-clamp-none',
+      subtitle: 'lg:md-sys-typescale-title-small lg:line-clamp-none'
+    },
+    large: {
+      row: 'lg:grid-rows-[3rem_1fr] lg:pt-2 lg:min-h-30',
+      rowSubtitle: 'lg:min-h-38',
+      textContainer:
+        'lg:col-start-1 lg:col-span-3 lg:row-start-2 lg:self-end lg:ps-4 lg:pe-4 lg:pt-1 lg:pb-3',
+      title: 'lg:md-sys-typescale-display-small lg:line-clamp-none',
+      subtitle: 'lg:md-sys-typescale-title-medium lg:line-clamp-none'
+    }
+  },
+  extraLarge: {
+    small: {
+      row: 'xl:grid-rows-[4rem] xl:pt-0 xl:min-h-16',
+      rowSubtitle: '',
+      textContainer:
+        'xl:col-start-2 xl:col-span-1 xl:row-start-1 xl:self-center xl:ps-(--lead) xl:pe-(--trail) xl:pt-0 xl:pb-0',
+      title: 'xl:md-sys-typescale-title-large xl:line-clamp-1',
+      subtitle: 'xl:md-sys-typescale-label-medium xl:line-clamp-1'
+    },
+    medium: {
+      row: 'xl:grid-rows-[3rem_1fr] xl:pt-2 xl:min-h-28',
+      rowSubtitle: 'xl:min-h-34',
+      textContainer:
+        'xl:col-start-1 xl:col-span-3 xl:row-start-2 xl:self-end xl:ps-4 xl:pe-4 xl:pt-1 xl:pb-3',
+      title: 'xl:md-sys-typescale-headline-medium xl:line-clamp-none',
+      subtitle: 'xl:md-sys-typescale-title-small xl:line-clamp-none'
+    },
+    large: {
+      row: 'xl:grid-rows-[3rem_1fr] xl:pt-2 xl:min-h-30',
+      rowSubtitle: 'xl:min-h-38',
+      textContainer:
+        'xl:col-start-1 xl:col-span-3 xl:row-start-2 xl:self-end xl:ps-4 xl:pe-4 xl:pt-1 xl:pb-3',
+      title: 'xl:md-sys-typescale-display-small xl:line-clamp-none',
+      subtitle: 'xl:md-sys-typescale-title-medium xl:line-clamp-none'
+    }
+  }
+};
+
+type SizeSlot = 'row' | 'rowSubtitle' | 'textContainer' | 'title' | 'subtitle';
+
+/**
+ * Resolves `size` (one value, or one per breakpoint like `PaneGrid`'s props) into per-slot
+ * classes. Sizes cascade upward from the smallest breakpoint given, like Tailwind prefixes.
+ */
+export function appbarSize(
+  size: AppBarSize | Partial<Record<Breakpoint, AppBarSize>>,
+  hasSubtitle: boolean
+): Record<'row' | 'textContainer' | 'title' | 'subtitle', string> {
+  const tiers = typeof size === 'string' ? { small: size } : { small: 'small' as const, ...size };
+  const pick = (slot: SizeSlot) =>
+    Object.entries(tiers)
+      .map(([bp, s]) => sizeClasses[bp as Breakpoint][s][slot])
+      .join(' ');
+  return {
+    row: `${pick('row')} ${hasSubtitle ? pick('rowSubtitle') : ''}`,
+    textContainer: pick('textContainer'),
+    title: pick('title'),
+    subtitle: pick('subtitle')
+  };
+}
 
 export const appbar = tv({
   slots: {
-    base: 'fixed top-0 left-0 w-full flex flex-col z-30',
-    row: 'h-16 py-1 flex w-full items-center justify-between',
+    base: 'fixed top-0 left-0 w-full flex flex-col z-30 transition-colors md-sys-motion-effects',
+    row: 'grid w-full items-center px-1',
     childrenRow: 'w-full px-2 pb-2',
     ghost: 'w-full shrink-0 pointer-events-none',
-    textContainer: 'flex flex-col items-start gap-0.5 grow',
-    title: 'text-md-sys-color-on-surface md-sys-typescale-title-large line-clamp-1   capitalize ',
-    subtitle: 'text-md-sys-color-on-surface-variant md-sys-typescale-label-medium',
-    leading: 'text-md-sys-color-on-surface ml-0.5',
-    trailing: 'text-md-sys-color-on-surface-variant mr-4 md:mr-6 lg:mr-8'
+    textContainer: 'flex min-w-0 flex-col gap-0.5 [--lead:0.25rem] [--trail:0.25rem]',
+    title: 'text-md-sys-color-on-surface',
+    subtitle: 'text-md-sys-color-on-surface-variant',
+    leading:
+      'text-md-sys-color-on-surface col-start-1 row-start-1 flex shrink-0 items-center justify-self-start',
+    trailing:
+      'text-md-sys-color-on-surface-variant col-start-3 row-start-1 flex shrink-0 items-center justify-self-end',
+    search:
+      'state-layer relative flex h-14 w-full min-w-0 cursor-text items-center rounded-full ps-4 pe-4 transition-colors md-sys-motion-effects before:rounded-full hover:before:bg-md-sys-color-on-surface/8 focus-within:outline-3 focus-within:outline-offset-2 focus-within:outline-md-sys-color-secondary',
+    searchInput:
+      'md-sys-typescale-body-large text-md-sys-color-on-surface placeholder:text-md-sys-color-on-surface-variant w-full min-w-0 bg-transparent text-start outline-none placeholder-shown:text-center [&::-webkit-search-cancel-button]:hidden',
+    searchTrailing: 'text-md-sys-color-on-surface-variant flex shrink-0 items-center'
   },
   variants: {
+    align: {
+      start: { row: 'grid-cols-[auto_1fr_auto]', textContainer: 'items-start text-start' },
+      // 1fr side columns centre a small bar's title on the bar, not between uneven button groups.
+      center: { row: 'grid-cols-[1fr_auto_1fr]', textContainer: 'items-center text-center' }
+    },
     scrolled: {
-      true: { base: 'shadow-elevation-1 bg-md-sys-color-surface-container' },
-      false: {
-        base: 'shadow-elevation-0 bg-md-sys-color-surface md:bg-md-sys-color-surface-container'
-      }
+      true: {
+        base: 'bg-md-sys-color-surface-container',
+        search: 'bg-md-sys-color-surface-container-highest'
+      },
+      false: { base: 'bg-md-sys-color-surface', search: 'bg-md-sys-color-surface-container' }
     },
+    // Search app bar: the search container fills the text column, 8dp from the buttons.
     searchContainer: {
-      true: '',
-      false: ''
-    },
-    noTrailing: {
       true: {
-        textContainer: 'pr-4 md:pr-6 lg:pr-8'
+        row: 'grid-cols-[auto_1fr_auto]',
+        textContainer: '[--lead:0.5rem] [--trail:0.5rem]'
       },
       false: ''
     },
-    noLeading: {
-      true: {
-        textContainer: 'pl-4 md:pl-6 lg:pl-8'
-      },
-      false: ''
-    }
+    hasSearchTrailing: { true: { search: 'pe-1' }, false: '' },
+    noTrailing: { true: '', false: '' },
+    noLeading: { true: '', false: '' }
+  },
+  compoundVariants: [
+    // A title with no button beside it sits at the 16dp inset.
+    { align: 'start', noLeading: true, class: { textContainer: '[--lead:1rem]' } },
+    { align: 'start', noTrailing: true, class: { textContainer: '[--trail:1rem]' } },
+    { searchContainer: true, noLeading: true, class: { textContainer: '[--lead:0.75rem]' } },
+    { searchContainer: true, noTrailing: true, class: { textContainer: '[--trail:0.75rem]' } }
+  ],
+  defaultVariants: {
+    align: 'start',
+    scrolled: false,
+    searchContainer: false
   }
 });

@@ -2,7 +2,7 @@
   import { Pane, PaneGrid, PaneHandle } from '$lib/index.js';
 </script>
 
-<PaneGrid full>
+<PaneGrid direction="row" full>
   <Pane width={320} resizable persistKey="app:nav-width">blabla</Pane>
   <PaneHandle persistKey="app:nav-width" />
   <Pane>
