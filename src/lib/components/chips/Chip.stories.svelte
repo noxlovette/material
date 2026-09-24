@@ -28,7 +28,7 @@
 <Story name="Playground">Chip</Story>
 
 <Story name="Assist" asChild>
-  <div class="flex flex-wrap items-center gap-4 p-6">
+  <div class="gap-spacing-200 p-spacing-300 flex flex-wrap items-center">
     <Chip variant="assist" iconProps={{ name: 'calendar_today' }}>Set reminder</Chip>
     <Chip variant="assist" elevated iconProps={{ name: 'calendar_today' }}>Set reminder</Chip>
     <Chip variant="assist" disabled iconProps={{ name: 'calendar_today' }}>Set reminder</Chip>
@@ -36,7 +36,7 @@
 </Story>
 
 <Story name="Filter" asChild>
-  <div class="flex flex-wrap items-center gap-4 p-6">
+  <div class="gap-spacing-200 p-spacing-300 flex flex-wrap items-center">
     <Chip variant="filter" bind:selected={filterSelected}>Filter chip</Chip>
     <Chip variant="filter" iconProps={{ name: 'star' }}>Starred</Chip>
     <Chip variant="filter" elevated selected>Elevated selected</Chip>
@@ -45,7 +45,7 @@
 </Story>
 
 <Story name="Input" asChild>
-  <div class="flex flex-wrap items-center gap-4 p-6">
+  <div class="gap-spacing-200 p-spacing-300 flex flex-wrap items-center">
     <Chip variant="input" iconProps={{ name: 'person' }} onRemove={() => {}}>Ada Lovelace</Chip>
     <Chip variant="input" onRemove={() => {}}>No avatar</Chip>
     <Chip variant="input" selected iconProps={{ name: 'person' }} onRemove={() => {}}>Selected</Chip
@@ -56,7 +56,7 @@
 </Story>
 
 <Story name="Suggestion" asChild>
-  <div class="flex flex-wrap items-center gap-4 p-6">
+  <div class="gap-spacing-200 p-spacing-300 flex flex-wrap items-center">
     <Chip variant="suggestion">Try this</Chip>
     <Chip variant="suggestion" elevated>Elevated</Chip>
     <Chip variant="suggestion" disabled>Disabled</Chip>

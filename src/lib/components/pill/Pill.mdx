@@ -1,0 +1,32 @@
+import { Meta, Title, Subtitle, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as PillStories from './Pill.stories.svelte';
+
+<Meta of={PillStories} />
+
+<Title />
+
+<Subtitle>A small rounded label for short static text: a status, a count, a category.</Subtitle>
+
+`import { Pill } from '@noxlovette/material';`
+
+<Canvas of={PillStories.Playground} />
+
+<Controls of={PillStories.Playground} />
+
+## Pill or Chip
+
+`Pill` is not an M3 component. It renders a plain `<div>` with no click handler, remove button or
+selected state. For anything the user interacts with, use `Chip`, which implements M3 chips.
+
+## Variants
+
+The system variants (`primary`, `secondary-container`, and so on) use M3 color roles, so they
+follow the theme. `yellow` and `green` are fixed colors for status labels like "New" or "Beta"
+that should look the same in every theme.
+
+<Canvas of={PillStories.Variants} />
+
+## Accessibility
+
+- **Not a control.** A pill has no role and isn't focusable, so never make one clickable.
+- **Contrast.** Each system variant pairs a container with its `on-*` role.

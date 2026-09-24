@@ -9,6 +9,7 @@
 
   const { Story } = defineMeta({
     title: 'Typography/Kbd',
+    tags: ['autodocs'],
     component: Kbd,
     argTypes: {
       position: { control: 'select', options: ['relative', 'absolute'] }
@@ -33,7 +34,7 @@
 
 <Story name="Anchored in a Search Field" asChild>
   <div
-    class="bg-md-sys-color-surface-container-high md-sys-typescale-body-large text-md-sys-color-on-surface-variant relative flex h-12 w-80 items-center rounded-full px-4"
+    class="bg-md-sys-color-surface-container-high md-sys-typescale-body-large text-md-sys-color-on-surface-variant h-spacing-600 px-spacing-200 relative flex w-80 items-center rounded-full"
   >
     Search...
     <Kbd position="absolute">⌘K</Kbd>

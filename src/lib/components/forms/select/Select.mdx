@@ -1,0 +1,53 @@
+import { Meta, Title, Subtitle, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as SelectStories from './Select.stories.svelte';
+
+<Meta of={SelectStories} />
+
+<Title />
+
+<Subtitle>Select lets users choose one option from a list.</Subtitle>
+
+[M3 spec (menus)](https://m3.material.io/components/menus/specs) ·
+`import { Select } from '@noxlovette/material';`
+
+<Canvas of={SelectStories.Playground} />
+
+<Controls of={SelectStories.Playground} />
+
+## Options
+
+M3 specifies dropdown selection as part of menus, so `Select` pairs a text-field-style trigger
+with a menu panel. The panel is built entirely from the `options` array; it takes no children.
+
+Each entry is either an item (bits-ui's `Select.ItemProps`: `value`, `label`, `disabled`…) or a
+group, `{ type: 'group', heading?, items }`, which renders a labelled section:
+
+```svelte
+<script lang="ts">
+  import { Select, type SelectOption } from '@noxlovette/material';
+
+  let fruit = $state<string | undefined>();
+  const options: SelectOption[] = [
+    { value: 'apple', label: 'Apple' },
+    { value: 'banana', label: 'Banana' }
+  ];
+</script>
+
+<Select type="single" placeholder="Choose a fruit" {options} bind:value={fruit} />
+```
+
+<Canvas of={SelectStories.GroupedOptions} />
+
+<Canvas of={SelectStories.States} />
+
+## Styled primitives
+
+`SelectItem`, `SelectGroup`, `SelectLabel` and `SelectSeparator` carry the same styling. Use them
+only when building your own dropdown directly on bits-ui's `Select.Root`; `Select` itself doesn't
+accept them.
+
+## Accessibility
+
+- **Keyboard.** Arrow keys move through options, Enter and Space select, and Escape closes.
+- **Selection** shows a check icon as well as a color.
+- **Disabled options** are skipped by keyboard navigation.

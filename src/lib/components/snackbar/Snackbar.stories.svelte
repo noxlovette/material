@@ -9,10 +9,6 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
   import Snackbar from './Snackbar.svelte';
-</script>
-
-<script lang="ts">
-  import Button from '../buttons/Button.svelte';
 
   const { Story } = defineMeta({
     title: 'Feedback/Snackbar',
@@ -28,6 +24,10 @@
       static: false
     }
   });
+</script>
+
+<script lang="ts">
+  import Button from '../buttons/Button.svelte';
 
   let playgroundMessage = $state('This is a snackbar message.');
   let triggeredMessage = $state('');
@@ -50,7 +50,7 @@
 </Story>
 
 <Story name="Triggered" asChild>
-  <div class="relative flex min-h-32 flex-col items-center justify-center gap-4">
+  <div class="gap-spacing-200 relative flex min-h-32 flex-col items-center justify-center">
     <Button
       variant="tonal"
       onclick={() => {

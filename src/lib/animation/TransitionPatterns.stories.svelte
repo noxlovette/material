@@ -203,27 +203,30 @@
       <button
         type="button"
         data-demo="ct-card"
-        class="bg-md-sys-color-primary-container text-md-sys-color-on-primary-container absolute top-4 left-4 flex items-center gap-3 rounded-lg p-3"
+        class="bg-md-sys-color-primary-container text-md-sys-color-on-primary-container top-spacing-200 left-spacing-200 gap-spacing-150 p-spacing-150 absolute flex items-center rounded-lg"
         onclick={runContainer}
       >
-        {@render shape(pathFourSidedCookie, 'size-10 text-md-sys-color-primary')}
+        {@render shape(pathFourSidedCookie, 'size-spacing-500 text-md-sys-color-primary')}
         <span class="md-sys-typescale-label-large">Open</span>
       </button>
     {:else}
       <div
         data-demo="ct-detail"
-        class="bg-md-sys-color-surface-container-highest text-md-sys-color-on-surface absolute inset-3 flex flex-col items-center justify-center gap-3 rounded-xl"
+        class="bg-md-sys-color-surface-container-highest text-md-sys-color-on-surface inset-spacing-150 gap-spacing-150 absolute flex flex-col items-center justify-center rounded-xl"
       >
         {@render shape(pathFourSidedCookie, 'size-24 text-md-sys-color-primary')}
         <span class="md-sys-typescale-title-medium">Detail</span>
       </div>
     {/if}
   {:else if pattern.id === 'axis'}
-    <div data-demo="axis" class="absolute inset-0 flex flex-col items-center justify-center gap-3">
+    <div
+      data-demo="axis"
+      class="inset-spacing-0 gap-spacing-150 absolute flex flex-col items-center justify-center"
+    >
       {@render shape(
         pathPentagon,
         [
-          'size-16 text-md-sys-color-primary',
+          'size-spacing-800 text-md-sys-color-primary',
           'size-20 text-md-sys-color-secondary',
           'size-24 text-md-sys-color-tertiary'
         ][level]
@@ -233,7 +236,9 @@
       </span>
     </div>
   {:else if pattern.id === 'lateral'}
-    <div class="absolute inset-x-0 top-0 flex justify-center gap-6 pt-3">
+    <div
+      class="inset-x-spacing-0 top-spacing-0 gap-spacing-300 pt-spacing-150 absolute flex justify-center"
+    >
       {#each tabs as name, i (name)}
         <span
           class={[
@@ -245,7 +250,7 @@
     </div>
     <div
       data-demo="lateral"
-      class="bg-md-sys-color-surface-container absolute inset-x-3 top-11 bottom-3 flex items-center justify-center rounded-lg"
+      class="bg-md-sys-color-surface-container inset-x-spacing-150 bottom-spacing-150 absolute top-11 flex items-center justify-center rounded-lg"
     >
       {@render shape(pathFourLeafClover, 'size-24 text-md-sys-color-primary')}
       <span
@@ -257,7 +262,7 @@
     <div
       data-demo="top"
       class={[
-        'absolute inset-3 flex flex-col items-center justify-center gap-3 rounded-lg',
+        'inset-spacing-150 gap-spacing-150 absolute flex flex-col items-center justify-center rounded-lg',
         destinations[destination].color
       ]}
     >
@@ -267,23 +272,25 @@
   {:else if pattern.id === 'enter-exit'}
     {#if pop.mounted}
       <div
-        class="bg-md-sys-color-surface-container-high shadow-elevation-3 absolute inset-x-8 inset-y-6 flex items-center justify-center rounded-xl"
+        class="bg-md-sys-color-surface-container-high shadow-elevation-3 inset-x-spacing-400 inset-y-spacing-300 absolute flex items-center justify-center rounded-xl"
         {@attach pop.attach(enterExit.scale)}
       >
         {@render shape(pathSoftBurst, 'size-24 text-md-sys-color-tertiary')}
       </div>
     {/if}
   {:else if pattern.id === 'skeleton'}
-    <div class="absolute inset-3 grid [&>*]:[grid-area:1/1]">
+    <div class="inset-spacing-150 absolute grid [&>*]:[grid-area:1/1]">
       {#if !loaded}
-        <div class="flex flex-col items-center justify-center gap-3" {@attach skeleton}>
+        <div class="gap-spacing-150 flex flex-col items-center justify-center" {@attach skeleton}>
           <div class="bg-md-sys-color-surface-container-highest size-24 rounded-full"></div>
-          <div class="bg-md-sys-color-surface-container-highest h-4 w-28 rounded-full"></div>
+          <div
+            class="bg-md-sys-color-surface-container-highest h-spacing-200 w-28 rounded-full"
+          ></div>
         </div>
       {/if}
       {#if content.mounted}
         <div
-          class="flex flex-col items-center justify-center gap-3"
+          class="gap-spacing-150 flex flex-col items-center justify-center"
           {@attach content.attach(enterExit.fade)}
         >
           {@render shape(pathGem, 'size-24 text-md-sys-color-secondary')}
@@ -296,10 +303,10 @@
 
 {#snippet demo(pattern: Pattern, tall = false)}
   <section
-    class="bg-md-sys-color-surface-container-low text-md-sys-color-on-surface flex flex-col gap-3 rounded-xl p-4"
+    class="bg-md-sys-color-surface-container-low text-md-sys-color-on-surface gap-spacing-150 p-spacing-200 flex flex-col rounded-xl"
   >
-    <header class="flex items-start justify-between gap-3">
-      <div class="flex flex-col gap-1">
+    <header class="gap-spacing-150 flex items-start justify-between">
+      <div class="gap-spacing-50 flex flex-col">
         <Title size="medium">{pattern.title}</Title>
         <Body size="small" class="text-md-sys-color-on-surface-variant">{pattern.summary}</Body>
       </div>
@@ -320,7 +327,7 @@
 {/snippet}
 
 {#snippet toolbar()}
-  <div class="flex items-center justify-between gap-4">
+  <div class="gap-spacing-200 flex items-center justify-between">
     <Title size="large">M3 transition patterns</Title>
     <Button variant={looping ? 'filled' : 'outlined'} onclick={() => (looping = !looping)}>
       {looping ? 'Pause loop' : 'Loop'}
@@ -329,9 +336,12 @@
 {/snippet}
 
 <Story name="Overview" asChild>
-  <div class="bg-md-sys-color-surface flex min-h-dvh flex-col gap-6 p-6" {@attach roundRobin}>
+  <div
+    class="bg-md-sys-color-surface gap-spacing-300 p-spacing-300 flex min-h-dvh flex-col"
+    {@attach roundRobin}
+  >
     {@render toolbar()}
-    <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+    <div class="gap-spacing-200 grid md:grid-cols-2 xl:grid-cols-3">
       {#each all as pattern (pattern.id)}
         {@render demo(pattern)}
       {/each}
@@ -341,7 +351,7 @@
 
 {#snippet single(pattern: Pattern)}
   <div
-    class="bg-md-sys-color-surface flex min-h-dvh flex-col gap-6 p-6"
+    class="bg-md-sys-color-surface gap-spacing-300 p-spacing-300 flex min-h-dvh flex-col"
     {@attach loop(pattern.run)}
   >
     {@render toolbar()}

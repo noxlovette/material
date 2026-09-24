@@ -1,0 +1,38 @@
+import { Meta, Title, Subtitle, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as NavbarStories from './Navbar.stories.svelte';
+
+<Meta of={NavbarStories} />
+
+<Title />
+
+<Subtitle>
+  Navigation bars give access to 3–5 primary destinations at the bottom of small windows.
+</Subtitle>
+
+[M3 spec](https://m3.material.io/components/navigation-bar/specs) ·
+`import { Navbar, NavbarItem } from '@noxlovette/material';`
+
+<Canvas of={NavbarStories.Playground} />
+
+<Controls of={NavbarStories.Playground} />
+
+## Pairing with Rail
+
+The bar is fixed to the bottom of the window and hides itself from `md` up, where a `Rail` takes
+over. Give both the same destinations. `ghost` adds a spacer the height of the bar, so the end of
+the page isn't hidden behind it.
+
+```svelte
+<Navbar ghost>
+  <NavbarItem label="Home" href="/" iconProps={{ name: 'house' }} />
+  <NavbarItem label="Messages" href="/messages" iconProps={{ name: 'mail' }} badge={5} />
+  <NavbarItem label="Settings" href="/settings" iconProps={{ name: 'settings' }} />
+</Navbar>
+```
+
+## Accessibility
+
+- **Landmark.** The bar is a navigation list, so assistive tech announces it as navigation.
+- **Active item.** The active item gets `aria-current="page"`.
+- **Badges.** A `badge` isn't announced on its own; put the count in the item's label if it
+  matters.

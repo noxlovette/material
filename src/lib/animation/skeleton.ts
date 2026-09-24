@@ -17,7 +17,7 @@ const PULSE_HOLD_S = 0.5;
  * Not built into any component — none of them load their own data. Apps apply it to placeholders.
  *
  * ```svelte
- * <div class="bg-md-sys-color-surface-container-highest h-4 rounded-sm" {@attach skeleton}></div>
+ * <div class="bg-md-sys-color-surface-container-highest h-spacing-200 rounded-sm" {@attach skeleton}></div>
  * ```
  */
 export const skeleton: Attachment<HTMLElement> = (node) => {

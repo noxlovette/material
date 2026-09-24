@@ -1,0 +1,48 @@
+import { Meta, Title, Subtitle, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as SplitStories from './SplitButton.stories.svelte';
+
+<Meta of={SplitStories} />
+
+<Title />
+
+<Subtitle>Split buttons open a menu of options related to their main action.</Subtitle>
+
+[M3 spec](https://m3.material.io/components/split-button/specs) ·
+`import { SplitButton } from '@noxlovette/material';`
+
+<Canvas of={SplitStories.Playground} />
+
+<Controls of={SplitStories.Playground} />
+
+## Anatomy
+
+- **Leading button:** the main action, with a label, an icon, or both. An icon-only leading
+  button needs an `aria-label`.
+- **Trailing button:** always a menu icon. It opens the menu (`menuLabel` names it) and flips the
+  icon while open.
+
+The two share one colour style (elevated, filled, tonal or outlined; there is no text split
+button), and opening the menu doesn't change their colours.
+
+<Canvas of={SplitStories.WithLeadingIcon} />
+
+## Shape and size
+
+The buttons sit 2dp apart. Their outer corners are fully round; the inner corners are small at
+rest and round out while hovered, focused or pressed. While the menu is open, the trailing
+button becomes fully round and centres its icon, which sits slightly toward the leading button
+otherwise.
+
+| `size` | Height | Inner corner | Hovered/pressed | Trailing width | Menu icon |
+| ------ | ------ | ------------ | --------------- | -------------- | --------- |
+| `xs`   | 32dp   | 4dp          | 8dp             | 48dp           | 22dp      |
+| `sm`   | 40dp   | 4dp          | 12dp            | 48dp           | 22dp      |
+| `md`   | 56dp   | 4dp          | 12dp            | 56dp           | 26dp      |
+| `lg`   | 96dp   | 8dp          | 20dp            | 96dp           | 38dp      |
+| `xl`   | 136dp  | 12dp         | 20dp            | 136dp          | 50dp      |
+
+<Canvas of={SplitStories.Sizes} />
+
+## Migrating
+
+`color` and the `text` variant are gone, and the default size is now `sm`.

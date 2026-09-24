@@ -43,3 +43,12 @@
 @utility shadow-elevation-5 {
   box-shadow: var(--md-sys-elevation-5);
 }
+
+/* Elevation 3 as a filter, for surfaces whose shape is a clip-path (a box-shadow would be
+   clipped with it). drop-shadow has no spread, so the ambient layer is a little tighter. */
+@utility drop-shadow-elevation-3 {
+  filter: drop-shadow(
+      0px 1px 3px color-mix(in srgb, var(--color-md-sys-color-shadow) 30%, transparent)
+    )
+    drop-shadow(0px 4px 8px color-mix(in srgb, var(--color-md-sys-color-shadow) 15%, transparent));
+}

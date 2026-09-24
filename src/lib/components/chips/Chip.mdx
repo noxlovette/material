@@ -1,0 +1,68 @@
+import { Meta, Title, Subtitle, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as ChipStories from './Chip.stories.svelte';
+
+<Meta of={ChipStories} />
+
+<Title />
+
+<Subtitle>
+  Chips help people enter information, make selections, filter content, or trigger actions.
+</Subtitle>
+
+[M3 spec](https://m3.material.io/components/chips/specs) ·
+`import { Chip } from '@noxlovette/material';`
+
+<Canvas of={ChipStories.Playground} />
+
+<Controls of={ChipStories.Playground} />
+
+## Choosing a variant
+
+`variant` sets both the look and the element the chip renders:
+
+| Variant      | Use for                                                         | Renders                                                |
+| ------------ | --------------------------------------------------------------- | ------------------------------------------------------ |
+| `assist`     | A smart or automated action, like adding an event to a calendar | `<button>` (or `<a>` with `href`); icon tinted primary |
+| `filter`     | Filtering content by tags or descriptive words                  | A toggle; a checkmark replaces the icon when selected  |
+| `input`      | A piece of information the user entered (a contact, a value)    | A plain container; `onRemove` adds a remove button     |
+| `suggestion` | A generated suggestion that narrows intent                      | Like `assist`, without the tinted icon                 |
+
+`elevated` swaps the flat, outlined container for a shadowed one on every variant except `input`,
+which the spec keeps flat. For a static label with no interaction (a status or a count), use
+`Pill` instead.
+
+<Canvas of={ChipStories.Assist} />
+
+<Canvas of={ChipStories.Filter} />
+
+```svelte
+<Chip variant="filter" bind:selected={wifiOnly}>Wifi</Chip>
+```
+
+<Canvas of={ChipStories.Input} />
+
+Render one input chip per entry, and remove the entry from your own array in `onRemove`:
+
+```svelte
+{#each recipients as name}
+  <Chip
+    variant="input"
+    iconProps={{ name: 'person' }}
+    onRemove={() => (recipients = recipients.filter((r) => r !== name))}
+  >
+    {name}
+  </Chip>
+{/each}
+```
+
+<Canvas of={ChipStories.Suggestion} />
+
+## Accessibility
+
+- **Roles.** Assist and suggestion chips are real buttons or links. Filter chips are toggles
+  whose `aria-pressed` reflects `selected`. An input chip's remove button is its own focusable
+  `<button>`, never nested inside another interactive element.
+- **Disabled.** Assist, filter and suggestion chips use the native `disabled` attribute. An input
+  chip's container is a `<div>`, so it gets `aria-disabled`, and its remove button a real
+  `disabled`.
+- **Contrast.** Every state pairs a container with its `on-*` role, so text keeps AA contrast.

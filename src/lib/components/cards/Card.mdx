@@ -1,0 +1,44 @@
+import { Meta, Title, Subtitle, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as CardStories from './Card.stories.svelte';
+
+<Meta of={CardStories} />
+
+<Title />
+
+<Subtitle>Cards group related content and actions about a single subject.</Subtitle>
+
+[M3 spec](https://m3.material.io/components/cards/specs) ·
+`import { Card } from '@noxlovette/material';`
+
+<Canvas of={CardStories.Playground} />
+
+<Controls of={CardStories.Playground} />
+
+## Types
+
+`type` picks one of the three M3 treatments: `elevated`, `filled` or `outlined`. A card is a
+container, not a template: title, media and actions are whatever you put in `children`.
+
+<Canvas of={CardStories.Types} />
+
+## Clickable cards
+
+With `href`, the card renders a real `<a>`. `hoverable` then defaults to on, and so does it
+when `onselect` or `ondelete` is set, so the card gets the state layer. Don't nest another link
+inside a link card. For a card that holds its own buttons, use the selectable pattern below.
+
+```svelte
+<Card href="/details" type="outlined">
+  <h3>Go to details</h3>
+</Card>
+```
+
+<Canvas of={CardStories.HoverableLink} />
+
+<Canvas of={CardStories.SelectableWithNestedButton} />
+
+## Accessibility
+
+- **Native link.** Link cards are a real `<a>`, so they work with the keyboard and assistive
+  tech without extra handlers.
+- **Focus.** Interactive cards draw the M3 focus indicator on keyboard focus.

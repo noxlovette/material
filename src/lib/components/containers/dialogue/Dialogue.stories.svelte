@@ -38,7 +38,7 @@
 </script>
 
 <Story name="Playground" asChild>
-  <div class="p-6">
+  <div class="p-spacing-300">
     <Button onclick={() => (playgroundOpen = true)}>Open dialog</Button>
     <Dialogue
       bind:open={playgroundOpen}
@@ -52,7 +52,7 @@
 </Story>
 
 <Story name="With Extra Content" asChild>
-  <div class="p-6">
+  <div class="p-spacing-300">
     <Button onclick={() => (extraContentOpen = true)}>Open dialog with content</Button>
     <Dialogue
       bind:open={extraContentOpen}
@@ -64,14 +64,14 @@
       <input
         type="text"
         value="Untitled project"
-        class="border-md-sys-color-outline-variant bg-md-sys-color-surface w-full rounded-lg border px-3 py-2"
+        class="border-md-sys-color-outline-variant bg-md-sys-color-surface px-spacing-150 py-spacing-100 w-full rounded-lg border"
       />
     </Dialogue>
   </div>
 </Story>
 
 <Story name="Loading Confirm" asChild>
-  <div class="p-6">
+  <div class="p-spacing-300">
     <Button onclick={() => (loadingOpen = true)}>Open dialog</Button>
     <Dialogue
       bind:open={loadingOpen}

@@ -25,7 +25,7 @@ and `sortDirection` props. Defaults to `scope="col"`.
 </script>
 
 <th {scope} class={header({ class: clsx(className) })} {...restProps}>
-  <span class="inline-flex items-center gap-1">
+  <span class="gap-spacing-50 inline-flex items-center">
     {@render children?.()}
     {#if sortable}
       <span

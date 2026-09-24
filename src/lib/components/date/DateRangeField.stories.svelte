@@ -4,6 +4,7 @@
 
   const { Story } = defineMeta({
     title: 'Date/DateRangeField',
+    tags: ['autodocs'],
     component: DateRangeField,
     argTypes: {
       variant: { control: 'select', options: ['filled', 'outlined'] },
@@ -22,14 +23,14 @@
 
 <Story name="Playground">
   {#snippet template(args)}
-    <div class="max-w-sm p-6">
+    <div class="p-spacing-300 max-w-sm">
       <DateRangeField {...args} />
     </div>
   {/snippet}
 </Story>
 
 <Story name="Outlined States" asChild>
-  <div class="flex max-w-sm flex-col gap-6 p-6">
+  <div class="gap-spacing-300 p-spacing-300 flex max-w-sm flex-col">
     <DateRangeField variant="outlined" />
     <DateRangeField variant="outlined" error>
       {#snippet supportingText()}
@@ -41,7 +42,7 @@
 </Story>
 
 <Story name="Filled States" asChild>
-  <div class="flex max-w-sm flex-col gap-6 p-6">
+  <div class="gap-spacing-300 p-spacing-300 flex max-w-sm flex-col">
     <DateRangeField variant="filled" />
     <DateRangeField variant="filled" error>
       {#snippet supportingText()}

@@ -10,6 +10,7 @@
 
   const { Story } = defineMeta({
     title: 'Forms/Tooltip',
+    tags: ['autodocs'],
     component: Tooltip
   });
 </script>

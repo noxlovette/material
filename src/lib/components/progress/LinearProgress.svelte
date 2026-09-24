@@ -35,7 +35,7 @@ The track always keeps a gap either side of the bar.
   const linearProgress = tv({
     slots: {
       container: 'relative overflow-hidden',
-      segment: 'absolute inset-y-0 rounded-full',
+      segment: 'absolute inset-y-spacing-0 rounded-full',
       bar: 'bg-md-sys-color-primary',
       track: 'bg-md-sys-color-secondary-container'
     }

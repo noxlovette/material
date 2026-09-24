@@ -73,7 +73,7 @@ on screen until confirmed, dismissed, or a required action has been taken.
           {/if}
 
           {#if children}
-            <div class="flex w-full flex-col gap-4">
+            <div class="gap-spacing-200 flex w-full flex-col">
               {@render children()}
             </div>
           {/if}

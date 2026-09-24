@@ -23,14 +23,14 @@
 
 <Story name="Playground">
   {#snippet template(args)}
-    <div class="p-6">
+    <div class="p-spacing-300">
       <Switch {...args} />
     </div>
   {/snippet}
 </Story>
 
 <Story name="Icon Modes" asChild>
-  <div class="flex flex-col gap-4 p-6">
+  <div class="gap-spacing-200 p-spacing-300 flex flex-col">
     <Switch checked icons="checked" />
     <Switch checked icons="both" />
     <Switch checked icons="none" />
@@ -38,7 +38,7 @@
 </Story>
 
 <Story name="States" asChild>
-  <div class="flex flex-col gap-4 p-6">
+  <div class="gap-spacing-200 p-spacing-300 flex flex-col">
     <Switch checked={false} />
     <Switch checked={true} />
     <Switch checked={false} disabled />

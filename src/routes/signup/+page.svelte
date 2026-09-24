@@ -47,8 +47,8 @@
   <title>Signup | Svelte Material</title>
 </svelte:head>
 
-<Pane contentClass="gap-12 p-12 max-w-5xl mx-auto">
-  <div class="flex flex-col gap-4">
+<Pane contentClass="gap-spacing-600 p-spacing-600 max-w-5xl mx-auto">
+  <div class="gap-spacing-200 flex flex-col">
     <Headline>Signup Demo</Headline>
     <Body class="max-w-2xl">
       This page demonstrates two ways of using forms: an inline card and a modal dialogue. Both use
@@ -56,15 +56,15 @@
     </Body>
   </div>
 
-  <div class="grid grid-cols-1 items-start gap-12 lg:grid-cols-2">
+  <div class="gap-spacing-600 grid grid-cols-1 items-start lg:grid-cols-2">
     <!-- Inline Form / Card "Modal" -->
-    <Card type="outlined" class="flex flex-col gap-6 p-8">
-      <div class="flex flex-col gap-2">
+    <Card type="outlined" class="gap-spacing-300 p-spacing-400 flex flex-col">
+      <div class="gap-spacing-100 flex flex-col">
         <Headline size="small">Create an Account</Headline>
         <Body>Inline card form</Body>
       </div>
 
-      <form method="POST" action="?/main" use:enhance class="flex flex-col gap-4">
+      <form method="POST" action="?/main" use:enhance class="gap-spacing-200 flex flex-col">
         <Textfield
           name="username"
           label="Username"
@@ -103,34 +103,40 @@
           {/snippet}
         </Textfield>
 
-        <div class="flex flex-col gap-1 pt-2">
+        <div class="gap-spacing-50 pt-spacing-100 flex flex-col">
           <Checkbox
             name="terms"
             bind:checked={$form.terms}
             labelText="I accept the terms and conditions"
           />
           {#if $errors.terms}
-            <Body class="text-md-sys-color-error md-sys-typescale-body-small px-4"
+            <Body class="text-md-sys-color-error md-sys-typescale-body-small px-spacing-200"
               >{$errors.terms[0]}</Body
             >
           {/if}
         </div>
 
-        <div class="mt-4 flex justify-end">
+        <div class="mt-spacing-200 flex justify-end">
           <Button type="submit" variant="filled">Sign Up</Button>
         </div>
       </form>
     </Card>
 
     <!-- Dialogue Form -->
-    <Card type="elevated" class="flex flex-col items-center justify-center gap-6 p-8 text-center">
+    <Card
+      type="elevated"
+      class="gap-spacing-300 p-spacing-400 flex flex-col items-center justify-center text-center"
+    >
       <Headline size="small">Signup via Dialogue</Headline>
       <Body>Click the button below to open the signup form in a modal dialogue.</Body>
       <Button variant="tonal" onclick={() => (dialogueOpen = true)}>Open Signup Dialogue</Button>
     </Card>
 
     <!-- Snackbar Test -->
-    <Card type="outlined" class="flex flex-col items-center justify-center gap-6 p-8 text-center">
+    <Card
+      type="outlined"
+      class="gap-spacing-300 p-spacing-400 flex flex-col items-center justify-center text-center"
+    >
       <Headline size="small">Snackbar Test</Headline>
       <Body>Click the button below to trigger a snackbar notification.</Body>
       <Button
@@ -151,7 +157,7 @@
   confirmText="Sign Up"
   confirmAction="?/dialogue"
 >
-  <div class="flex flex-col gap-4 pt-4">
+  <div class="gap-spacing-200 pt-spacing-200 flex flex-col">
     <Textfield
       name="username"
       label="Username"
@@ -190,14 +196,14 @@
       {/snippet}
     </Textfield>
 
-    <div class="flex flex-col gap-1">
+    <div class="gap-spacing-50 flex flex-col">
       <Checkbox
         name="terms"
         bind:checked={$dForm.terms}
         labelText="I accept the terms and conditions"
       />
       {#if $dErrors.terms}
-        <Body class="text-md-sys-color-error md-sys-typescale-body-small px-4"
+        <Body class="text-md-sys-color-error md-sys-typescale-body-small px-spacing-200"
           >{$dErrors.terms[0]}</Body
         >
       {/if}

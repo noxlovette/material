@@ -1,0 +1,85 @@
+import { Meta, Title, Subtitle, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as ButtonStories from './Button.stories.svelte';
+
+<Meta of={ButtonStories} />
+
+<Title />
+
+<Subtitle>Buttons prompt most actions in a UI.</Subtitle>
+
+[M3 spec](https://m3.material.io/components/buttons/specs) ·
+`import { Button, Toggle } from '@noxlovette/material';`
+
+<Canvas of={ButtonStories.Playground} />
+
+<Controls of={ButtonStories.Playground} />
+
+## Choosing a button
+
+One high-emphasis button per screen, for its primary action. Show the rest's importance through
+their colour style.
+
+| Emphasis | Use                                                                   | For example          |
+| -------- | --------------------------------------------------------------------- | -------------------- |
+| Highest  | `FAB` or extended FAB, for the screen's main action                   | Compose, Create      |
+| High     | `Button variant="filled"`: final or unblocking actions                | Save, Confirm, Done  |
+| High     | `SplitButton`: a key action with related options                      | Send + Schedule send |
+| Medium   | `variant="tonal"`: important, a step below filled                     | Save draft           |
+| Medium   | `variant="elevated"`: only to stand apart from a patterned background | Add to cart          |
+| Medium   | `variant="outlined"`: attention without being primary; leaving a flow | View all, Cancel     |
+| Low      | `variant="text"`: optional actions                                    | Learn more           |
+| Low      | `ButtonIcon`: compact supplementary actions                           | Favourite, Print     |
+
+Put buttons side by side rather than stacked when there's room, with the higher-emphasis one
+for the more important action.
+
+<Canvas of={ButtonStories.ColourStyles} />
+
+## Sizes
+
+| `size` | Height | Padding | Icon | Label          |
+| ------ | ------ | ------- | ---- | -------------- |
+| `xs`   | 32dp   | 12dp    | 20dp | label large    |
+| `sm`   | 40dp   | 16dp    | 20dp | label large    |
+| `md`   | 56dp   | 24dp    | 24dp | title medium   |
+| `lg`   | 96dp   | 48dp    | 32dp | headline small |
+| `xl`   | 136dp  | 64dp    | 40dp | headline large |
+
+`sm` is the default. XS and S buttons keep a 48dp target area around them, so leave room
+between them (a `ButtonGroup` does). The outline thickens to 2dp at L and 3dp at XL.
+
+<Canvas of={ButtonStories.Sizes} />
+
+## Shape
+
+`round` (default) is fully rounded; `square` has 12, 12, 16, 28 and 28dp corners from XS to XL.
+While pressed, both morph to the same tighter corner (8, 8, 12, 16, 16dp) on the fast spatial
+spring, which carries its velocity when you let go mid-morph, so a quick tap still bounces.
+
+<Canvas of={ButtonStories.RoundAndSquare} />
+
+## Toggle buttons
+
+`Toggle` is a button with a selected state (`aria-pressed`). Selecting changes its colours and
+swaps its shape: round becomes square, square becomes round. It comes in the elevated, filled,
+tonal and outlined styles; there is no text toggle. See **Buttons/Toggle**.
+
+## States and accessibility
+
+- Hover, focus and press tint the container 8%, 10% and 10% in the content colour. Keyboard
+  focus draws a 3dp ring 2dp outside the button.
+- Disabled buttons drop to a 10% on-surface container and 38% on-surface content, and lose
+  their elevation. A disabled link gets `aria-disabled` and leaves the tab order.
+- `loading` swaps the icon (or the label, with no icon) for a loading indicator and sets
+  `aria-busy`.
+
+<Canvas of={ButtonStories.Disabled} />
+
+## Where this differs from the spec
+
+- The text button's disabled state has no container. Its token lists a 10% container, but the
+  spec's figures show none.
+- Shape morphs use the library's fast spatial spring (stiffness 800, damping 0.6) instead of
+  the button token's 1400 / 0.9, as every motion here uses the Expressive springs.
+- `color` (primary, secondary, tertiary, error) is gone. M3 has one colour mapping per style;
+  restyle with a class if you need another role, keeping 3:1 contrast.

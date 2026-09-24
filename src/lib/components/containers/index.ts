@@ -4,6 +4,7 @@
 export * from './action-rail/index.js';
 export * from './app/index.js';
 export * from './bottom-sheet/index.js';
+export * from './carousel/index.js';
 export * from './context-menu/index.js';
 export * from './dialogue/index.js';
 export * from './divider/index.js';
@@ -14,4 +15,3 @@ export * from './pane/index.js';
 export * from './popover/index.js';
 export * from './scroll-area/index.js';
 export * from './side-sheet/index.js';
-export * from './stack/index.js';

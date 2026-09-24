@@ -36,14 +36,14 @@
 
 <Story name="Playground">
   {#snippet template(args)}
-    <div class="max-w-sm p-10">
+    <div class="p-spacing-500 max-w-sm">
       <Slider {...args} />
     </div>
   {/snippet}
 </Story>
 
 <Story name="Sizes" asChild>
-  <div class="flex max-w-sm flex-col gap-8 p-10">
+  <div class="gap-spacing-400 p-spacing-500 flex max-w-sm flex-col">
     <Slider value={30} size="xs" />
     <Slider value={30} size="s" />
     <Slider value={30} size="m" />
@@ -52,8 +52,8 @@
   </div>
 </Story>
 
-<Story name="With Icons" asChild>
-  <div class="max-w-sm p-10">
+<Story name="With Icons" exportName="WithIcons" asChild>
+  <div class="p-spacing-500 max-w-sm">
     <Slider
       value={60}
       size="m"
@@ -63,14 +63,14 @@
   </div>
 </Story>
 
-<Story name="Discrete With Stops" asChild>
-  <div class="max-w-sm p-10">
+<Story name="Discrete With Stops" exportName="DiscreteWithStops" asChild>
+  <div class="p-spacing-500 max-w-sm">
     <Slider value={40} step={20} stops />
   </div>
 </Story>
 
 <Story name="Disabled" asChild>
-  <div class="max-w-sm p-10">
+  <div class="p-spacing-500 max-w-sm">
     <Slider value={40} disabled />
   </div>
 </Story>

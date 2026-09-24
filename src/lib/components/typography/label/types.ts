@@ -15,7 +15,8 @@ export type LabelProps = LabelVariants &
      */
     children: Snippet;
     /**
-     * Whether to use the emphasized weight for the label text.
+     * Use the M3 emphasized style (`md-sys-typescale-emphasized-label-*`): same size, heavier weight.
+     * Use it for selected, active, or unread states, or for editorial emphasis.
      */
     emphasized?: boolean;
     /**

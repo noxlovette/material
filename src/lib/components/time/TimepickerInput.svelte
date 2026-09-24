@@ -63,7 +63,7 @@ It follows the Material 3 design for time input pickers.
   </TimeField.Root>
 
   <div class={cls.buttonDiv()}>
-    <ButtonIcon type="button" iconProps={{ name: 'schedule' }} />
+    <ButtonIcon variant="standard" type="button" iconProps={{ name: 'schedule' }} />
     <div>
       <Button variant="text" type="button" onclick={() => close()}>{cancelText}</Button>
       <Button

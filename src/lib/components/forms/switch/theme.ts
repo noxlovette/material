@@ -6,11 +6,11 @@ import { tv, type VariantProps } from 'tailwind-variants';
 // Hover  — 40dp state layer ring around thumb
 export const toggle = tv({
   slots: {
-    root: 'group relative inline-flex h-8 w-[3.25rem] shrink-0 [print-color-adjust:exact]',
+    root: 'group relative inline-flex h-spacing-400 w-[3.25rem] shrink-0 [print-color-adjust:exact]',
 
     // The input IS the track — styled as the pill background
     input: [
-      'absolute inset-0 m-0 h-full w-full appearance-none rounded-full',
+      'absolute inset-spacing-0 m-spacing-0 h-full w-full appearance-none rounded-full',
       'border-2 border-md-sys-color-outline bg-md-sys-color-surface-container-highest',
       'group-data-[state=checked]:border-md-sys-color-primary group-data-[state=checked]:bg-md-sys-color-primary',
       'group-data-[disabled]:cursor-not-allowed',
@@ -21,7 +21,7 @@ export const toggle = tv({
 
     // Thumb — absolute over track
     handle: [
-      'pointer-events-none absolute left-2 top-1/2 flex h-4 w-4 -translate-y-1/2',
+      'pointer-events-none absolute left-spacing-100 top-1/2 flex h-spacing-200 w-spacing-200 -translate-y-1/2',
       'items-center justify-center rounded-full relative',
       'bg-md-sys-color-outline',
       'transition-[left,transform,background-color] md-sys-motion-fast-spatial',
@@ -40,10 +40,10 @@ export const toggle = tv({
 
     // State layer ring around thumb
     hover: [
-      'pointer-events-none absolute left-4 top-1/2 h-12 w-12',
+      'pointer-events-none absolute left-spacing-200 top-1/2 h-spacing-600 w-spacing-600',
       '-translate-x-1/2 -translate-y-1/2 rounded-full',
       'transition-[left,background-color] md-sys-motion-fast-spatial',
-      'group-data-[state=checked]:left-9',
+      'group-data-[state=checked]:left-spacing-450',
       'group-data-[disabled]:hidden',
       'group-hover:bg-md-sys-color-on-surface/8',
       'group-data-[state=checked]:group-hover:bg-md-sys-color-primary/8'
@@ -51,7 +51,7 @@ export const toggle = tv({
 
     // Icon inside thumb - shared base (sized via size="xs" prop on Icon, not here)
     icon: [
-      'absolute inset-0 m-auto pointer-events-none flex items-center justify-center',
+      'absolute inset-spacing-0 m-auto pointer-events-none flex items-center justify-center',
       'opacity-0 transition-opacity md-sys-motion-fast-effects shrink-0'
     ].join(' '),
 

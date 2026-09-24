@@ -5,6 +5,7 @@
 
   const { Story } = defineMeta({
     title: 'Navigation/Breadcrumb',
+    tags: ['autodocs'],
     component: Breadcrumb,
     argTypes: {
       color: { control: 'select', options: ['primary', 'secondary', 'tertiary', 'surface'] }

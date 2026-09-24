@@ -55,7 +55,7 @@
   <div class="p-24">
     <Popover showClose={false}>
       {#snippet trigger(triggerProps)}
-        <ButtonIcon iconProps={{ name: 'info' }} variant="text" {...triggerProps} />
+        <ButtonIcon iconProps={{ name: 'info' }} variant="standard" {...triggerProps} />
       {/snippet}
       <Body class="text-md-sys-color-on-surface-variant">
         A minimal popover with no header — just an icon trigger and body text.

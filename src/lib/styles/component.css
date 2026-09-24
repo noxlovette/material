@@ -16,138 +16,100 @@
       var(--md-sys-motion-timing-function-effects-spring);
   }
 
-  /* Shape morphs run on the fast spatial spring in both directions (press and release). */
-  .md-btn-morph {
-    border-radius: var(--btn-shape-override, var(--btn-shape, 9999px));
-    transition: border-radius var(--md-sys-motion-duration-fast-spatial)
-      var(--md-sys-motion-timing-function-fast-spatial);
-
-    &::before {
-      border-radius: inherit;
-      transition: border-radius var(--md-sys-motion-duration-fast-spatial)
-        var(--md-sys-motion-timing-function-fast-spatial);
-    }
-
-    &:active:not(:disabled) {
-      border-radius: var(
-        --btn-pressed-shape,
-        var(--btn-shape-override, var(--btn-shape, 9999px))
-      ) !important;
-    }
-  }
-
   /*
-   * Standard button group (https://m3.material.io/components/button-groups/overview).
-   * A plain flex row/column of otherwise-untouched Button/ButtonIcon/Toggle children.
-   * `data-size` drives both the fixed gap between buttons and the padding-inline
-   * "squeeze" below — pressing one button grows its own padding and shrinks its
-   * immediate neighbors', which is the M3-specified adjacent-button interaction.
-   * `:has()` scopes the shrink to only the pressed button's direct neighbors.
+   * Every M3 button (Button, Toggle, ButtonIcon, SplitButton, ConnectedButtonGroup items, FAB).
+   * Colour, border and shadow settle on the effects spring. The ::after box is the 48dp minimum
+   * target that XS and S buttons need
+   * (https://m3.material.io/components/buttons/specs#target-areas); on larger buttons it is just
+   * the button.
    */
-  .md-btn-group-standard {
-    display: inline-flex;
-    align-items: center;
-    flex-wrap: nowrap;
-    width: max-content;
+  .md-btn {
+    transition:
+      background-color var(--md-sys-motion-duration-effects-spring)
+        var(--md-sys-motion-timing-function-effects-spring),
+      color var(--md-sys-motion-duration-effects-spring)
+        var(--md-sys-motion-timing-function-effects-spring),
+      border-color var(--md-sys-motion-duration-effects-spring)
+        var(--md-sys-motion-timing-function-effects-spring),
+      box-shadow var(--md-sys-motion-duration-effects-spring)
+        var(--md-sys-motion-timing-function-effects-spring);
 
-    &[data-orientation='vertical'] {
-      flex-direction: column;
-      align-items: stretch;
-      width: auto;
-    }
-
-    &[data-size='xs'] {
-      --btn-group-gap: 1.125rem;
-      --btn-group-base-px: 1rem;
-      --btn-group-squeeze: 0.375rem;
-    }
-    &[data-size='sm'] {
-      --btn-group-gap: 0.75rem;
-      --btn-group-base-px: 1rem;
-      --btn-group-squeeze: 0.375rem;
-    }
-    &[data-size='md'] {
-      --btn-group-gap: 0.5rem;
-      --btn-group-base-px: 1.5rem;
-      --btn-group-squeeze: 0.5rem;
-    }
-    &[data-size='lg'] {
-      --btn-group-gap: 0.5rem;
-      --btn-group-base-px: 3rem;
-      --btn-group-squeeze: 0.75rem;
-    }
-    &[data-size='xl'] {
-      --btn-group-gap: 0.5rem;
-      --btn-group-base-px: 4rem;
-      --btn-group-squeeze: 1rem;
-    }
-
-    gap: var(--btn-group-gap, 0.5rem);
-
-    > * {
-      padding-inline: var(--btn-group-base-px, 1rem);
-      transition:
-        padding-inline var(--md-sys-motion-duration-fast-spatial)
-          var(--md-sys-motion-timing-function-fast-spatial),
-        border-radius var(--md-sys-motion-duration-fast-spatial)
-          var(--md-sys-motion-timing-function-fast-spatial);
-    }
-
-    > *:active:not(:disabled) {
-      padding-inline: calc(var(--btn-group-base-px, 1rem) + var(--btn-group-squeeze, 0.5rem));
-    }
-
-    > *:has(+ *:active:not(:disabled)),
-    > *:active:not(:disabled) + * {
-      padding-inline: max(
-        0px,
-        calc(var(--btn-group-base-px, 1rem) - var(--btn-group-squeeze, 0.5rem))
-      );
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: max(100%, 48px);
+      height: max(100%, 48px);
+      translate: -50% -50%;
     }
   }
 
   /*
-   * Connected button group item — replaces the deprecated segmented button.
-   * `--cbg-inner` (per size) is the shared radius facing a neighbor; `--cbg-outer`
-   * defaults to fully round and is only overridden (to equal --cbg-inner) for the
-   * square shape, so the position rules below become no-ops in that case.
-   * Selecting/pressing an item collapses all four of its own corners to
-   * --cbg-inner ("round to square") without touching its neighbors' shape.
+   * Resting shape of Button, Toggle and ButtonIcon, for the first paint. Size classes set
+   * --btn-round (half the height), --btn-square and --btn-pressed; the shape variant points
+   * --btn-shape at round or square. Once mounted, buttons/shapeMorph.ts springs the corners
+   * between these on Motion (inline styles, which win over this rule).
+   */
+  .md-btn-shape {
+    border-radius: var(--btn-shape, var(--btn-round, 9999px));
+  }
+
+  /*
+   * Split button (https://m3.material.io/components/split-button/specs). Outer corners round;
+   * inner corners --split-inner at rest, --split-active while hovered, focused or pressed, and
+   * fully round on the trailing button while its menu is open. These rules give the first paint;
+   * once mounted, buttons/shapeMorph.ts springs the corners on Motion.
+   */
+  .md-btn-split-leading,
+  .md-btn-split-trailing {
+    --split-now: var(--split-inner);
+  }
+  .md-btn-split-trailing[data-state='open'] {
+    --split-now: var(--btn-round);
+  }
+  .md-btn-split-leading {
+    border-start-start-radius: var(--btn-round);
+    border-end-start-radius: var(--btn-round);
+    border-start-end-radius: var(--split-now);
+    border-end-end-radius: var(--split-now);
+  }
+  .md-btn-split-trailing {
+    border-start-start-radius: var(--split-now);
+    border-end-start-radius: var(--split-now);
+    border-start-end-radius: var(--btn-round);
+    border-end-end-radius: var(--btn-round);
+  }
+
+  /*
+   * Connected button group item (https://m3.material.io/components/button-groups/specs).
+   * Inner corners (facing a neighbour) are --cbg-inner, --cbg-pressed while pressed, and fully
+   * round while selected; outer corners are --cbg-outer. These rules give the first paint; once
+   * mounted, buttons/shapeMorph.ts springs the corners on Motion. Neighbours never change.
    */
   .md-btn-connected {
-    border-radius: var(--cbg-inner, 9999px);
-    transition:
-      border-radius var(--md-sys-motion-duration-fast-spatial)
-        var(--md-sys-motion-timing-function-fast-spatial),
-      background-color var(--md-sys-motion-duration-fast-effects-spring)
-        var(--md-sys-motion-timing-function-fast-effects-spring),
-      color var(--md-sys-motion-duration-fast-effects-spring)
-        var(--md-sys-motion-timing-function-fast-effects-spring);
+    --cbg-now: var(--cbg-inner);
+    border-radius: var(--cbg-now);
 
-    &:only-child {
-      border-radius: var(--cbg-outer, 9999px);
-    }
-
-    &[data-orientation='horizontal']:first-child:not(:only-child) {
-      border-top-left-radius: var(--cbg-outer, 9999px);
-      border-bottom-left-radius: var(--cbg-outer, 9999px);
-    }
-    &[data-orientation='horizontal']:last-child:not(:only-child) {
-      border-top-right-radius: var(--cbg-outer, 9999px);
-      border-bottom-right-radius: var(--cbg-outer, 9999px);
-    }
-    &[data-orientation='vertical']:first-child:not(:only-child) {
-      border-top-left-radius: var(--cbg-outer, 9999px);
-      border-top-right-radius: var(--cbg-outer, 9999px);
-    }
-    &[data-orientation='vertical']:last-child:not(:only-child) {
-      border-bottom-left-radius: var(--cbg-outer, 9999px);
-      border-bottom-right-radius: var(--cbg-outer, 9999px);
-    }
-
-    &:active:not(:disabled),
     &[data-state='on'] {
-      border-radius: var(--cbg-inner, 4px) !important;
+      --cbg-now: var(--btn-round);
+    }
+
+    &[data-orientation='horizontal']:first-child {
+      border-start-start-radius: var(--cbg-outer);
+      border-end-start-radius: var(--cbg-outer);
+    }
+    &[data-orientation='horizontal']:last-child {
+      border-start-end-radius: var(--cbg-outer);
+      border-end-end-radius: var(--cbg-outer);
+    }
+    &[data-orientation='vertical']:first-child {
+      border-start-start-radius: var(--cbg-outer);
+      border-start-end-radius: var(--cbg-outer);
+    }
+    &[data-orientation='vertical']:last-child {
+      border-end-start-radius: var(--cbg-outer);
+      border-end-end-radius: var(--cbg-outer);
     }
   }
 
@@ -163,65 +125,6 @@
 
   .md-component-button-filled-error {
     @apply bg-md-sys-color-error text-md-sys-color-on-error;
-  }
-
-  .md-component-button-tonal-primary {
-    @apply bg-md-sys-color-primary-container text-md-sys-color-on-primary-container;
-  }
-  .md-component-button-tonal-secondary {
-    @apply bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container;
-  }
-  .md-component-button-tonal-tertiary {
-    @apply bg-md-sys-color-tertiary-container text-md-sys-color-on-tertiary-container;
-  }
-  .md-component-button-tonal-error {
-    @apply bg-md-sys-color-error-container text-md-sys-color-on-error-container;
-  }
-
-  .md-component-button-outline-default {
-    @apply text-md-sys-color-on-surface-variant outline-md-sys-color-outline-variant outline-2;
-  }
-  .md-component-button-outline-primary {
-    @apply text-md-sys-color-primary outline-md-sys-color-primary outline;
-  }
-  .md-component-button-outline-secondary {
-    @apply text-md-sys-color-secondary outline-md-sys-color-secondary outline;
-  }
-  .md-component-button-outline-tertiary {
-    @apply text-md-sys-color-tertiary outline-md-sys-color-tertiary outline;
-  }
-  .md-component-button-outline-error {
-    @apply text-md-sys-color-error outline-md-sys-color-error outline;
-  }
-
-  .md-component-button-text-primary {
-    @apply text-md-sys-color-primary;
-  }
-  .md-component-button-text-secondary {
-    @apply text-md-sys-color-secondary;
-  }
-  .md-component-button-text-tertiary {
-    @apply text-md-sys-color-tertiary;
-  }
-  .md-component-button-text-error {
-    @apply text-md-sys-color-error;
-  }
-
-  .md-component-button-elevated-default {
-    @apply bg-md-sys-color-surface-container-low text-md-sys-color-primary shadow-elevation-1;
-  }
-
-  .md-component-button-elevated-primary {
-    @apply bg-md-sys-color-surface-container-low text-md-sys-color-primary shadow-elevation-1;
-  }
-  .md-component-button-elevated-secondary {
-    @apply bg-md-sys-color-surface-container-low text-md-sys-color-secondary shadow-elevation-1;
-  }
-  .md-component-button-elevated-tertiary {
-    @apply bg-md-sys-color-surface-container-low text-md-sys-color-tertiary shadow-elevation-1;
-  }
-  .md-component-button-elevated-error {
-    @apply bg-md-sys-color-surface-container-low text-md-sys-color-error shadow-elevation-1;
   }
 
   [class^='material-symbols-'],
@@ -267,7 +170,7 @@
 }
 
 @utility state-layer {
-  @apply before:pointer-events-none before:absolute before:inset-0 before:content-[''];
+  @apply before:inset-spacing-0 before:pointer-events-none before:absolute before:content-[''];
   &::before {
     transition: background-color var(--md-sys-motion-duration-fast-effects-spring)
       var(--md-sys-motion-timing-function-fast-effects-spring);

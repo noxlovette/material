@@ -66,6 +66,6 @@ and `ContextMenu`, which owns its own item list and is right-click triggered.
 {:else}
   <!-- Render as a gap -->
   <DropdownMenu.Item>
-    <hr class="h-1" />
+    <hr class="h-spacing-50" />
   </DropdownMenu.Item>
 {/if}

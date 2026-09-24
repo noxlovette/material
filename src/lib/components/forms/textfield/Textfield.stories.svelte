@@ -26,14 +26,14 @@
 
 <Story name="Playground">
   {#snippet template(args)}
-    <div class="max-w-sm p-6">
+    <div class="p-spacing-300 max-w-sm">
       <Textfield {...args} />
     </div>
   {/snippet}
 </Story>
 
 <Story name="With Supporting Text" asChild>
-  <div class="max-w-sm p-6">
+  <div class="p-spacing-300 max-w-sm">
     <Textfield label="Email">
       {#snippet supportingText()}
         We'll never share your email.
@@ -43,7 +43,7 @@
 </Story>
 
 <Story name="With Icons" asChild>
-  <div class="max-w-sm p-6">
+  <div class="p-spacing-300 max-w-sm">
     <Textfield
       label="Search"
       leadingIconProps={{ name: 'search' }}
@@ -53,7 +53,7 @@
 </Story>
 
 <Story name="Character Limit" asChild>
-  <div class="max-w-sm p-6">
+  <div class="p-spacing-300 max-w-sm">
     <Textfield label="Bio" characterLimit={80} value="">
       {#snippet supportingText()}
         Keep it short.
@@ -63,7 +63,7 @@
 </Story>
 
 <Story name="States" asChild>
-  <div class="flex max-w-sm flex-col gap-6 p-6">
+  <div class="gap-spacing-300 p-spacing-300 flex max-w-sm flex-col">
     <Textfield label="Default" />
     <Textfield label="Required" required />
     <Textfield label="Error" error value="Invalid value">
@@ -76,7 +76,7 @@
 </Story>
 
 <Story name="Outlined" asChild>
-  <div class="flex max-w-sm flex-col gap-6 p-6">
+  <div class="gap-spacing-300 p-spacing-300 flex max-w-sm flex-col">
     <Textfield variant="outlined" label="Default" />
     <Textfield variant="outlined" label="With value" value="Hello" />
     <Textfield variant="outlined" label="Required" required />

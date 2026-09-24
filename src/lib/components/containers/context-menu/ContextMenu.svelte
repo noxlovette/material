@@ -12,7 +12,7 @@ Context menus appear on right-click and provide actions related to the clicked e
   ]}
   onselect={(value) => console.log(value)}
 >
-  <div class="p-10 bg-surface">Right click me</div>
+  <div class="p-spacing-500 bg-surface">Right click me</div>
 </ContextMenu>
 ```
 
@@ -54,7 +54,7 @@ you need it (e.g. a table row):
 
 {#snippet MenuItem(item: ContextMenuDataItem)}
   {#if item.separator}
-    <Divider class="my-1" />
+    <Divider class="my-spacing-50" />
   {:else if item.items && item.items.length > 0}
     <BitsContextMenu.Sub>
       <BitsContextMenu.SubTrigger

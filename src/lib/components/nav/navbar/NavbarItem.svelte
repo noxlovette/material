@@ -48,15 +48,18 @@ A single destination within a navigation bar.
         <div class={content()}>
           <div class={iconContainer()}>
             <Layer />
-            <Icon
-              {...iconProps}
-              class={icon()}
-              wght={isActive ? 600 : 400}
-              fill={isActive ? 1 : 0}
-            />
-            {#if badge}
-              <Badge size={badge === -1 ? 'sm' : 'lg'} number={badge}></Badge>
-            {/if}
+            <!-- Badge offsets are measured from the icon's corner, not the indicator's. -->
+            <span class="relative inline-flex">
+              <Icon
+                {...iconProps}
+                class={icon()}
+                wght={isActive ? 600 : 400}
+                fill={isActive ? 1 : 0}
+              />
+              {#if badge}
+                <Badge size={badge === -1 ? 'sm' : 'lg'} number={badge} />
+              {/if}
+            </span>
           </div>
           <span class={labelClass()}>
             {label}

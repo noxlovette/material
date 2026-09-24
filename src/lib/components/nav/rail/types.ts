@@ -44,6 +44,9 @@ export type RailProps = RailVariants &
     anchor?: RailVariants['anchor'];
     /** Top offset in px for viewport/parent anchor (e.g. height of a top bar). Default 0. */
     railTop?: number;
-    /** Render a bottom navbar on mobile. */
+    /**
+     * @deprecated No effect: Rail no longer renders a navigation bar below `md`. Mount a `Navbar`
+     * next to it for small windows.
+     */
     withNavbar?: boolean;
   };

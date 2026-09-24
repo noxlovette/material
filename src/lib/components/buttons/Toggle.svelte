@@ -1,21 +1,23 @@
 <!--
 @component
-A toggle button that switches between pressed and unpressed states.
-Uses Material 3 selection button styling.
+A toggle button: a button with a selected state, exposed as `aria-pressed`. Selecting changes its
+colours and swaps its resting shape (round ↔ square).
 
-@see https://m3.material.io/components/all-buttons
+@see https://m3.material.io/components/buttons/specs
 -->
 <script lang="ts">
-  import type { ToggleMDProps } from './types.js';
+  import type { ToggleProps } from './types.js';
   import { Icon, LoadingIndicator, Layer } from '$lib/utils/index.js';
-  import { button } from './theme.js';
+  import { button, buttonColor } from './theme.js';
   import clsx from 'clsx';
+  import { buttonCorners, shapeMorph } from './shapeMorph.js';
   import { Toggle, type ToggleRootProps } from 'bits-ui';
 
   let {
     children,
     iconProps,
-    size = 'md',
+    variant = 'filled',
+    size = 'sm',
     shape = 'round',
     disabled,
     loading,
@@ -23,38 +25,39 @@ Uses Material 3 selection button styling.
     onPressedChange,
     class: className,
     ...restProps
-  }: ToggleMDProps = $props();
+  }: ToggleProps = $props();
 
-  const { base, icon } = $derived(
-    button({
-      usage: 'selection',
-      shape,
-      size,
-      selected: pressed
+  let ref = $state<HTMLElement | null>(null);
+  $effect(() => (ref ? shapeMorph(ref, buttonCorners) : undefined));
+
+  const cls = $derived(button({ variant, size, shape, selected: pressed }));
+  const btnCls = $derived(
+    cls.base({
+      class: clsx(buttonColor({ variant, state: pressed ? 'selected' : 'unselected' }), className)
     })
   );
-
-  const btnCls = $derived(base({ class: clsx(className) }));
 </script>
 
 <Toggle.Root
+  bind:ref
   bind:pressed
   {onPressedChange}
   {disabled}
   class={btnCls}
+  aria-busy={loading || undefined}
   data-cy="m3-toggle"
   {...restProps as ToggleRootProps}
 >
-  {#if iconProps}
-    {#if loading}
-      <LoadingIndicator container class={icon()} />
-    {:else}
-      <Icon class={icon()} {...iconProps} />
-      {@render children?.()}
-    {/if}
-  {:else if loading}
-    <LoadingIndicator container />
-  {:else}
+  {#if loading}
+    <LoadingIndicator center={false} class={cls.icon({ class: 'text-current' })} />
+  {:else if iconProps}
+    <Icon
+      fill={pressed ? 1 : 0}
+      {...iconProps}
+      class={cls.icon({ class: clsx(iconProps.class) })}
+    />
+  {/if}
+  {#if !loading || iconProps}
     {@render children?.()}
   {/if}
   <Layer />

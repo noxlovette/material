@@ -10,6 +10,7 @@
 
   const { Story } = defineMeta({
     title: 'Toolbar/Toolbar',
+    tags: ['autodocs'],
     component: Toolbar
   });
 </script>

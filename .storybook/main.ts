@@ -1,8 +1,17 @@
 import type { StorybookConfig } from '@storybook/svelte-vite';
+import remarkGfm from 'remark-gfm';
 
 const config: StorybookConfig = {
-  stories: ['../src/lib/**/*.stories.svelte'],
-  addons: ['@storybook/addon-svelte-csf', '@storybook/addon-a11y', '@storybook/addon-docs'],
+  stories: ['../src/lib/**/*.mdx', '../src/lib/**/*.stories.svelte'],
+  addons: [
+    '@storybook/addon-svelte-csf',
+    '@storybook/addon-a11y',
+    {
+      name: '@storybook/addon-docs',
+      // GitHub-flavoured Markdown, so tables in the .mdx docs render as tables.
+      options: { mdxPluginOptions: { mdxCompileOptions: { remarkPlugins: [remarkGfm] } } }
+    }
+  ],
   framework: {
     name: '@storybook/svelte-vite',
     options: {}

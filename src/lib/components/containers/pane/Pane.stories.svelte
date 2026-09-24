@@ -5,6 +5,7 @@
 
   const { Story } = defineMeta({
     title: 'Containers/Pane',
+    tags: ['autodocs'],
     component: Pane,
     argTypes: {
       padding: {
@@ -39,24 +40,24 @@
       full={args.full}
       rounded={args.rounded}
     >
-      <div class="bg-md-sys-color-surface-container-high rounded-lg p-6">Block one</div>
-      <div class="bg-md-sys-color-surface-container-high rounded-lg p-6">Block two</div>
-      <div class="bg-md-sys-color-surface-container-high rounded-lg p-6">Block three</div>
+      <div class="bg-md-sys-color-surface-container-high p-spacing-300 rounded-lg">Block one</div>
+      <div class="bg-md-sys-color-surface-container-high p-spacing-300 rounded-lg">Block two</div>
+      <div class="bg-md-sys-color-surface-container-high p-spacing-300 rounded-lg">Block three</div>
     </Pane>
   {/snippet}
 </Story>
 
 <!-- Pane has no built-in centered-width variant — center content by passing `contentClass`. -->
 <Story name="Centered Widths" asChild>
-  <div class="flex flex-col gap-6">
+  <div class="gap-spacing-300 flex flex-col">
     <Pane contentClass="max-w-2xl mx-auto" background={false}>
-      <div class="bg-md-sys-color-secondary-container rounded-lg p-4 text-sm">narrow</div>
+      <div class="bg-md-sys-color-secondary-container p-spacing-200 rounded-lg text-sm">narrow</div>
     </Pane>
     <Pane contentClass="max-w-5xl mx-auto" background={false}>
-      <div class="bg-md-sys-color-secondary-container rounded-lg p-4 text-sm">medium</div>
+      <div class="bg-md-sys-color-secondary-container p-spacing-200 rounded-lg text-sm">medium</div>
     </Pane>
     <Pane background={false}>
-      <div class="bg-md-sys-color-secondary-container rounded-lg p-4 text-sm">
+      <div class="bg-md-sys-color-secondary-container p-spacing-200 rounded-lg text-sm">
         none (full width)
       </div>
     </Pane>
@@ -77,7 +78,7 @@
 <Story name="With AppBar" asChild parameters={{ viewport: { defaultViewport: 'mobile1' } }}>
   <AppBar title="Inbox" ghost />
   <Pane>
-    <div class="bg-md-sys-color-secondary-container rounded-lg p-4 text-sm">
+    <div class="bg-md-sys-color-secondary-container p-spacing-200 rounded-lg text-sm">
       This pane's min-height is <code>100dvh</code> minus the AppBar's measured height above —
       automatic, via <code>appbarStore.svelte.ts</code>.
     </div>
@@ -90,12 +91,12 @@
   >
     <div class="flex h-full">
       <Pane width={200} background={false} padding="sm">
-        <div class="bg-md-sys-color-secondary-container h-full rounded-lg p-4 text-sm">
+        <div class="bg-md-sys-color-secondary-container p-spacing-200 h-full rounded-lg text-sm">
           width=200 (fixed)
         </div>
       </Pane>
       <Pane background={false} padding="sm">
-        <div class="bg-md-sys-color-surface-container-high h-full rounded-lg p-4 text-sm">
+        <div class="bg-md-sys-color-surface-container-high p-spacing-200 h-full rounded-lg text-sm">
           width unset (flexible, grows)
         </div>
       </Pane>

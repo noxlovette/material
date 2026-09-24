@@ -1,0 +1,43 @@
+import { Meta, Title, Subtitle, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as ConnectedStories from './ConnectedButtonGroup.stories.svelte';
+
+<Meta of={ConnectedStories} />
+
+<Title />
+
+<Subtitle>Connected button groups show related options, one or several selected.</Subtitle>
+
+[M3 spec](https://m3.material.io/components/button-groups/specs) ·
+`import { ConnectedButtonGroup, ConnectedButtonGroupItem } from '@noxlovette/material';`
+
+<Canvas of={ConnectedStories.Playground} />
+
+<Controls of={ConnectedStories.Playground} />
+
+## When to use
+
+For a small set of related options that change what the page shows, such as Walk, Bike, Drive.
+It replaces M3's segmented button. For separate actions, use `ButtonGroup`.
+`type="single"` keeps one item selected; `type="multiple"` allows several.
+
+## Colour and shape
+
+Items are toggle buttons in the group's `variant`: filled (default), tonal, outlined or
+elevated, with the same unselected and selected colours as `Toggle`. Selection shows through
+colour and shape, not a check mark:
+
+- Items sit 2dp apart. The outer corners are fully round, or the inner size with
+  `shape="square"`.
+- Inner corners are 8dp (16dp at L, 20dp at XL), tighten while pressed, and round out fully on
+  the selected item. Neighbours never change.
+
+<Canvas of={ConnectedStories.ColourStyles} />
+
+<Canvas of={ConnectedStories.SizesAndShapes} />
+
+## Accessibility
+
+Name the group with `aria-label`, and give icon-only items an `aria-label`. Arrow keys move
+between items; Space and Enter select. XS and S items are at least 48dp wide.
+
+<Canvas of={ConnectedStories.MultiSelectIcons} />

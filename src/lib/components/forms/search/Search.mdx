@@ -1,0 +1,38 @@
+import { Meta, Title, Subtitle, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as SearchStories from './Search.stories.svelte';
+
+<Meta of={SearchStories} />
+
+<Title />
+
+<Subtitle>The search bar lets users enter a query to find information in an app.</Subtitle>
+
+[M3 spec](https://m3.material.io/components/search/specs) ·
+`import { Search } from '@noxlovette/material';`
+
+<Canvas of={SearchStories.Playground} />
+
+<Controls of={SearchStories.Playground} />
+
+## Search bar, not search view
+
+This is M3's search bar: a 56dp, fully rounded `surface-container-high` field with a leading
+search icon. It's a different thing from the full-screen search view, and from a filled text
+field. Once there's a value, a clear button appears at the end. Other native `<input>` attributes
+pass straight through to the input.
+
+```svelte
+<Search placeholder="Search" bind:value={query} />
+```
+
+<Canvas of={SearchStories.WithActions} />
+
+For a search field inside a top app bar, use `AppBar`'s `search` prop instead.
+
+## Accessibility
+
+- **Label.** The `type="search"` input sits inside a `<label>` with its own id, so the whole bar
+  is a target and several bars can share a page.
+- **Clear button.** A 48dp `type="button"` labelled by `clearLabel` (default "Clear search"). It
+  never submits a form and returns focus to the input.
+- **Focus.** Keyboard focus draws the M3 focus indicator around the bar.

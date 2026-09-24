@@ -1,0 +1,39 @@
+import { Meta, Title, Subtitle, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as GroupStories from './ButtonGroup.stories.svelte';
+
+<Meta of={GroupStories} />
+
+<Title />
+
+<Subtitle>Standard button groups space buttons and make them react to each other.</Subtitle>
+
+[M3 spec](https://m3.material.io/components/button-groups/specs) ·
+`import { ButtonGroup } from '@noxlovette/material';`
+
+<Canvas of={GroupStories.Playground} />
+
+<Controls of={GroupStories.Playground} />
+
+## Standard or connected
+
+- **`ButtonGroup`** (standard) holds separate actions, such as Back, Play, Next. Pressing a
+  button widens it by 15% while the buttons beside it narrow to make room, then all settle back.
+- **`ConnectedButtonGroup`** holds related options, one or several selected, such as Walk, Bike,
+  Drive. It replaces the segmented button.
+
+## Contents
+
+Mix `Button`, `Toggle` and `ButtonIcon` freely, in the filled, tonal, outlined or elevated
+styles. Avoid text buttons and standard icon buttons, which have no container to change. A
+toggle inside swaps its shape as it's selected.
+
+<Canvas of={GroupStories.MixedButtons} />
+
+## Size
+
+Set `size` to the buttons' size. It sets the space between them so each keeps a 48dp target:
+18dp at XS, 12dp at S, 8dp from M up. The group takes its buttons' height.
+
+<Canvas of={GroupStories.Sizes} />
+
+The press interaction is horizontal only, and off under reduced motion.

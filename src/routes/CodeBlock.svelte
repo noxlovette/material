@@ -28,11 +28,11 @@
     {@html html}
   {:else}
     <pre
-      class="text-md-sys-color-on-surface overflow-x-auto p-5 pr-16 font-mono text-sm leading-relaxed">{code}</pre>
+      class="text-md-sys-color-on-surface p-spacing-250 pr-spacing-800 overflow-x-auto font-mono text-sm leading-relaxed">{code}</pre>
   {/if}
   <button
     onclick={copy}
-    class="text-md-sys-color-on-surface-variant hover:bg-md-sys-color-surface-container-high absolute top-3 right-3 rounded-md px-2 py-1 text-xs transition-colors"
+    class="text-md-sys-color-on-surface-variant hover:bg-md-sys-color-surface-container-high top-spacing-150 right-spacing-150 px-spacing-100 py-spacing-50 absolute rounded-md text-xs transition-colors"
   >
     {copied ? 'Copied' : 'Copy'}
   </button>

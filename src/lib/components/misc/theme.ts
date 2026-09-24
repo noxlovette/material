@@ -12,16 +12,16 @@ export const avatar = tv({
   variants: {
     size: {
       xxs: {
-        root: 'size-5'
+        root: 'size-spacing-250'
       },
       xs: {
-        root: 'size-8'
+        root: 'size-spacing-400'
       },
       sm: {
-        root: 'size-12'
+        root: 'size-spacing-600'
       },
       md: {
-        root: 'size-18'
+        root: 'size-spacing-900'
       },
       lg: {
         root: 'size-24'

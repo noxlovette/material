@@ -1,0 +1,52 @@
+import { Meta, Title, Subtitle, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as MenuStories from './Menu.stories.svelte';
+
+<Meta of={MenuStories} />
+
+<Title />
+
+<Subtitle>Menus show a list of choices on a temporary surface.</Subtitle>
+
+[M3 spec](https://m3.material.io/components/menus/specs) ·
+`import { Menu, MenuItem } from '@noxlovette/material';`
+
+<Canvas of={MenuStories.Playground} />
+
+<Controls of={MenuStories.Playground} />
+
+## Composition
+
+`Menu` handles only the open state and where the panel floats. Its children are the rows:
+
+- `MenuItem`: a single action, with optional icon, supporting text and `selected` check.
+- `MenuGroup`: a labelled set of items.
+- `MenuCheckboxItem`, `MenuRadioGroup`/`MenuRadioItem`: checkable items.
+- `MenuSub`: a nested submenu.
+- `Divider`: a separator.
+
+```svelte
+<Menu label="Options" align="end">
+  <MenuItem iconProps={{ name: 'edit' }} onclick={edit}>Edit</MenuItem>
+  <MenuItem iconProps={{ name: 'delete' }} onclick={remove}>Delete</MenuItem>
+</Menu>
+```
+
+<Canvas of={MenuStories.WithGroups} />
+
+<Canvas of={MenuStories.WithSubmenu} />
+
+## Trigger
+
+Without a `trigger` snippet, `Menu` renders a filled `Button` labelled `label`. Pass `trigger` to
+use your own element, such as an icon button, and spread the props it receives onto it.
+
+<Canvas of={MenuStories.WithCustomTrigger} />
+
+For a right-click menu, use `ContextMenu`.
+
+## Accessibility
+
+- **Keyboard.** Arrow keys move through items, Enter and Space activate, and Escape closes and
+  returns focus to the trigger.
+- **Selection** shows a check icon as well as a color, so it doesn't rely on color alone.
+- **Disabled items** are skipped by keyboard navigation.

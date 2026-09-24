@@ -51,7 +51,8 @@ This repo is a single, already-opinionated M3 component library, not a blank can
 ## Quick reference
 
 - Color tokens: `md-sys-color-{primary,secondary,tertiary,error}`, each with a `-container` tonal pair and `on-*` text/icon pair (guarantees AA contrast by construction).
-- Type: `md-sys-typescale-{display,headline,title,body,label}-{large,medium,small}`.
+- Type: `md-sys-typescale-{display,headline,title,body,label}-{large,medium,small}`, plus `md-sys-typescale-emphasized-*` for selected/active/unread states.
+- Spacing: `*-spacing-{0,25,50,75,100,…,900}` (M3 `md.sys.measurement.space*`, 8dp base: `p-spacing-200` = 16dp).
 - Elevation: `shadow-elevation-{0..5}`.
 - Shape: `radius-{none,xs,sm,md,lg,xl,full}` (buttons instead drive shape via the `--btn-shape`/`--btn-pressed-shape` CSS vars in `.md-btn-morph`).
 - Expressive shapes (circle, cookie, sunny, heart…): `animatableShapes`/`animatableShapesSmall` + `shapeMorph` for morphs. See motion-guide.md → "Shape morphing".

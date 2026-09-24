@@ -1,9 +1,9 @@
 <!--
 @component
-A connected button group — the M3 replacement for the deprecated segmented
-button. Items sit in a shared pill (or square) shape with a small gap between
-them; selecting or pressing an item changes only that item's own shape and
-color, never its neighbors'.
+A connected button group, M3's replacement for the segmented button: toggle buttons 2dp apart
+in one shared shape, for related options such as Walk, Bike, Drive. Selecting an item rounds it
+out and gives it the selected colours; pressing tightens its inner corners. Neighbours never
+change.
 
 @see https://m3.material.io/components/button-groups/overview
 -->
@@ -21,9 +21,11 @@ color, never its neighbors'.
     disabled = false,
     loop = true,
     orientation = 'horizontal',
+    variant = 'filled',
     shape = 'round',
     size = 'sm',
     children,
+    'aria-label': ariaLabel,
     class: className
   }: ConnectedButtonGroupProps = $props();
 
@@ -35,6 +37,15 @@ color, never its neighbors'.
     },
     get shape() {
       return shape;
+    },
+    get variant() {
+      return variant;
+    },
+    get type() {
+      return type;
+    },
+    get value() {
+      return value;
     }
   });
 </script>
@@ -46,6 +57,7 @@ color, never its neighbors'.
   {disabled}
   {loop}
   {orientation}
+  aria-label={ariaLabel}
   class={cls.root({ class: clsx(className) })}
 >
   {@render children?.()}

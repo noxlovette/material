@@ -6,14 +6,14 @@ export const select = tv({
   slots: {
     root: 'relative w-full',
     base: `
-      group w-full h-14 px-0 relative flex items-center
+      group w-full h-spacing-700 px-spacing-0 relative flex items-center
     `,
     trigger: `
       group peer w-full h-full flex items-center justify-between bg-transparent outline-none
       cursor-pointer
     `,
     inputWrapper: `
-      relative flex-1 h-full px-4 flex items-center
+      relative flex-1 h-full px-spacing-200 flex items-center
     `,
     value: `
       w-full bg-transparent outline-none
@@ -23,12 +23,12 @@ export const select = tv({
       truncate text-left
     `,
     leadingIcon: `
-      text-md-sys-color-on-surface-variant size-6
+      text-md-sys-color-on-surface-variant size-spacing-300
       group-has-[[data-state=open]]:text-md-sys-color-primary
-      group-data-[invalid]:text-md-sys-color-error ml-3 text-[24px]
+      group-data-[invalid]:text-md-sys-color-error ml-spacing-150 text-[24px]
     `,
     dropdownIcon: `
-      mr-3 text-md-sys-color-on-surface-variant size-6
+      mr-spacing-150 text-md-sys-color-on-surface-variant size-spacing-300
       group-data-[state=open]:text-md-sys-color-primary
       group-data-[invalid]:text-md-sys-color-error z-20 text-[24px]
       transition-transform md-sys-motion-fast-spatial
@@ -36,12 +36,12 @@ export const select = tv({
     `,
     content: `
       z-[100] min-w-[var(--bits-select-anchor-width)] max-h-96 overflow-y-auto
-      rounded-lg gap-1 bg-md-sys-color-surface-container-high
-      shadow-elevation-3 ring-md-sys-color-outline/10 px-2 py-1 outline-none
+      rounded-lg gap-spacing-50 bg-md-sys-color-surface-container-high
+      shadow-elevation-3 ring-md-sys-color-outline/10 px-spacing-100 py-spacing-50 outline-none
     `,
     item: `
       rounded-sm relative flex w-full cursor-pointer select-none items-center
-      px-3 py-2 outline-none
+      px-spacing-150 py-spacing-100 outline-none
       md-sys-typescale-body-large text-md-sys-color-on-surface
       hover:bg-md-sys-color-on-surface/8
       data-[highlighted]:bg-md-sys-color-on-surface/8
@@ -51,14 +51,14 @@ export const select = tv({
       transition-colors md-sys-motion-fast-effects
     `,
     groupLabel: `
-      px-3 pt-2 pb-1 md-sys-typescale-label-medium
+      px-spacing-150 pt-spacing-100 pb-spacing-50 md-sys-typescale-label-medium
       text-md-sys-color-primary
     `,
     separator: `
-      my-1 h-px bg-md-sys-color-outline-variant
+      my-spacing-50 h-px bg-md-sys-color-outline-variant
     `,
     supportingText: `
-      px-4 pt-1 flex justify-between
+      px-spacing-200 pt-spacing-50 flex justify-between
       md-sys-typescale-body-small
       text-md-sys-color-on-surface-variant
       group-data-[invalid]:text-md-sys-color-error
@@ -70,7 +70,7 @@ export const select = tv({
         base: `
           bg-md-sys-color-surface-container-highest
           rounded-t-xs state-layer before:rounded-xs hover:before:bg-md-sys-color-on-surface/8
-          after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-md-sys-color-on-surface-variant
+          after:absolute after:bottom-spacing-0 after:left-spacing-0 after:right-spacing-0 after:h-px after:bg-md-sys-color-on-surface-variant
           after:transition-[height,background-color] after:md-sys-motion-fast-spatial
           hover:after:bg-md-sys-color-on-surface
           has-[[data-state=open]]:after:bg-md-sys-color-primary

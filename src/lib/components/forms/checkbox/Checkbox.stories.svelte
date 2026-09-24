@@ -24,14 +24,14 @@
 
 <Story name="Playground">
   {#snippet template(args)}
-    <div class="p-6">
+    <div class="p-spacing-300">
       <Checkbox {...args} />
     </div>
   {/snippet}
 </Story>
 
 <Story name="States" asChild>
-  <div class="flex flex-col gap-4 p-6">
+  <div class="gap-spacing-200 p-spacing-300 flex flex-col">
     <Checkbox labelText="Unchecked" checked={false} />
     <Checkbox labelText="Checked" checked={true} />
     <Checkbox labelText="Indeterminate" indeterminate={true} />

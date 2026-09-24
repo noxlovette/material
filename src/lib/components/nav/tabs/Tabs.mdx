@@ -1,0 +1,62 @@
+import { Meta, Title, Subtitle, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as TabsStories from './Tabs.stories.svelte';
+
+<Meta of={TabsStories} />
+
+<Title />
+
+<Subtitle>Tabs organise related content across views at the same level.</Subtitle>
+
+[M3 spec](https://m3.material.io/components/tabs/specs) ·
+`import { TabHolder, TabContent } from '@noxlovette/material';`
+
+<Canvas of={TabsStories.Playground} />
+
+<Controls of={TabsStories.Playground} />
+
+## Anatomy
+
+- **`TabHolder`** renders the tab row from an `items` array, plus the sliding active indicator.
+- **`Tab`** is one trigger, rendered by `TabHolder` for each item: an `<a>` when the item has
+  `href`, a `<button>` otherwise.
+- **`TabContent`** is the panel matched to a tab by `value`, for content tabs only.
+
+## Content tabs
+
+Give each item a `value` and a matching `TabContent`:
+
+```svelte
+<TabHolder
+  bind:value
+  items={[
+    { value: 'flights', name: 'Flights', iconProps: { name: 'flight' } },
+    { value: 'trips', name: 'Trips', iconProps: { name: 'luggage' } }
+  ]}
+/>
+
+<TabContent value="flights">Flights panel</TabContent>
+<TabContent value="trips">Trips panel</TabContent>
+```
+
+## Navigation tabs
+
+Give each item an `href` instead of a `value`, and leave out `TabContent`. The tabs then route
+between pages.
+
+<Canvas of={TabsStories.NavigationTabsHref} />
+
+## Motion
+
+Tabs are peers, so switching panels runs the M3 lateral transition: the new panel pushes the old
+one out toward the selected tab's side. The indicator slides on the fast spatial spring. Nothing
+needs configuring.
+
+Navigation tabs have no panels inside `TabHolder`, so animate the route change yourself with
+`lateral()` from `@noxlovette/material`.
+
+## Accessibility
+
+- **Keyboard.** Arrow keys move between tabs. With `activationMode="automatic"`, focus selects;
+  with `manual`, Enter or Space does.
+- **Selection.** The active tab gets `aria-selected`; the indicator is decoration.
+- **Disabled tabs** are skipped by the arrow keys.

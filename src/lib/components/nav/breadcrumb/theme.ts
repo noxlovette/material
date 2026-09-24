@@ -5,11 +5,11 @@ export type BreadcrumbVariants = VariantProps<typeof breadcrumb>;
 export const breadcrumb = tv({
   slots: {
     base: 'flex',
-    list: 'flex flex-wrap items-center gap-1',
-    item: 'flex items-center gap-1',
-    link: 'md-sys-typescale-label-large text-md-sys-color-on-surface-variant md-sys-state-focus-indicator relative inline-flex min-h-12 items-center rounded-full px-3 transition-colors md-sys-motion-fast-effects',
-    text: 'md-sys-typescale-label-large text-md-sys-color-on-surface-variant px-1 py-0.5',
-    current: 'md-sys-typescale-label-large font-bold px-1 py-0.5',
+    list: 'flex flex-wrap items-center gap-spacing-50',
+    item: 'flex items-center gap-spacing-50',
+    link: 'md-sys-typescale-label-large text-md-sys-color-on-surface-variant md-sys-state-focus-indicator relative inline-flex min-h-spacing-600 items-center rounded-full px-spacing-150 transition-colors md-sys-motion-fast-effects',
+    text: 'md-sys-typescale-label-large text-md-sys-color-on-surface-variant px-spacing-50 py-spacing-25',
+    current: 'md-sys-typescale-emphasized-label-large px-spacing-50 py-spacing-25',
     separator: 'text-md-sys-color-on-surface-variant inline-flex shrink-0'
   },
   variants: {

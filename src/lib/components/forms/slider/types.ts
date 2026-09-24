@@ -38,12 +38,13 @@ export type SliderProps = Omit<SliderVariants, 'active'> &
     showValue?: boolean;
 
     /**
-     * Props for the leading icon.
+     * Props for the leading inset icon. M3 only defines inset icons for sizes `m`, `l` and `xl`
+     * (24dp, or 32dp on XL); it is ignored on `xs` and `s`.
      */
     leadingIconProps?: IconProps;
 
     /**
-     * Props for the trailing icon.
+     * Props for the trailing inset icon. Only rendered on sizes `m`, `l` and `xl`.
      */
     trailingIconProps?: IconProps;
 

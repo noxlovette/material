@@ -1,0 +1,52 @@
+import { Meta, Title, Subtitle, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as IconStories from './ButtonIcon.stories.svelte';
+
+<Meta of={IconStories} />
+
+<Title />
+
+<Subtitle>Icon buttons help people take minor actions with one tap.</Subtitle>
+
+[M3 spec](https://m3.material.io/components/icon-buttons/specs) ·
+`import { ButtonIcon } from '@noxlovette/material';`
+
+<Canvas of={IconStories.Playground} />
+
+<Controls of={IconStories.Playground} />
+
+## Colour styles
+
+`filled` (default), `tonal`, `outlined` and `standard`. `standard` has no container until it is
+hovered, focused or pressed; use it in app bars, text fields, sheets and other dense places.
+
+With `variation="toggle"`, the button has a selected state (`aria-pressed`, bindable `pressed`).
+Unselected, a filled toggle uses surface container; selected, each style takes its strong colour
+(primary, secondary, inverse surface, or a primary icon for standard). The icon fills while
+selected, and the resting shape swaps (round ↔ square).
+
+<Canvas of={IconStories.ColourStyles} />
+
+## Sizes and widths
+
+| `size` | Height | Icon | Narrow | Default | Wide  |
+| ------ | ------ | ---- | ------ | ------- | ----- |
+| `xs`   | 32dp   | 20dp | 28dp   | 32dp    | 40dp  |
+| `sm`   | 40dp   | 24dp | 32dp   | 40dp    | 52dp  |
+| `md`   | 56dp   | 24dp | 48dp   | 56dp    | 72dp  |
+| `lg`   | 96dp   | 32dp | 64dp   | 96dp    | 128dp |
+| `xl`   | 136dp  | 40dp | 104dp  | 136dp   | 184dp |
+
+`sm` is the default. XS and S keep a 48dp target area. Square corners are 12, 12, 16, 28 and
+28dp; pressed, both shapes tighten to 8, 8, 12, 16 and 16dp.
+
+<Canvas of={IconStories.SizesAndWidths} />
+
+## Accessibility
+
+An icon has no text, so give every icon button a name: `aria-label`, or `tooltipContent`, which
+shows on hover and focus and becomes the name when there is no `aria-label`.
+
+## Migrating
+
+`variant="text"` is now `variant="standard"`, the spec's name, and the default is now `filled`
+(it was `text`). `elevated`, `bare` and `color` are gone.

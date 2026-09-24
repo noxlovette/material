@@ -1,0 +1,29 @@
+/*
+ * M3 system spacing: https://m3.material.io/styles/spacing/tokens
+ * md.sys.measurement.space<N> = N/100 x the 8dp base (space100). Registered in Tailwind's
+ * spacing namespace, so every spacing utility takes them: mr-spacing-200 (16dp),
+ * gap-spacing-50 (4dp), p-spacing-300, size-spacing-600, -mt-spacing-100, and so on.
+ * The number is M3's token number, not Tailwind's 4px multiplier: spacing-200 is 16dp, the same
+ * as Tailwind's p-4. Tailwind's numeric scale stays available to consuming apps; the library's
+ * own spacing uses these tokens.
+ */
+@theme {
+  --spacing-spacing-0: 0; /* md.sys.measurement.space0, 0dp */
+  --spacing-spacing-25: 0.125rem; /* md.sys.measurement.space25, 2dp */
+  --spacing-spacing-50: 0.25rem; /* md.sys.measurement.space50, 4dp */
+  --spacing-spacing-75: 0.375rem; /* md.sys.measurement.space75, 6dp */
+  --spacing-spacing-100: 0.5rem; /* md.sys.measurement.space100, 8dp */
+  --spacing-spacing-125: 0.625rem; /* md.sys.measurement.space125, 10dp */
+  --spacing-spacing-150: 0.75rem; /* md.sys.measurement.space150, 12dp */
+  --spacing-spacing-175: 0.875rem; /* md.sys.measurement.space175, 14dp */
+  --spacing-spacing-200: 1rem; /* md.sys.measurement.space200, 16dp */
+  --spacing-spacing-250: 1.25rem; /* md.sys.measurement.space250, 20dp */
+  --spacing-spacing-300: 1.5rem; /* md.sys.measurement.space300, 24dp */
+  --spacing-spacing-400: 2rem; /* md.sys.measurement.space400, 32dp */
+  --spacing-spacing-450: 2.25rem; /* md.sys.measurement.space450, 36dp */
+  --spacing-spacing-500: 2.5rem; /* md.sys.measurement.space500, 40dp */
+  --spacing-spacing-600: 3rem; /* md.sys.measurement.space600, 48dp */
+  --spacing-spacing-700: 3.5rem; /* md.sys.measurement.space700, 56dp */
+  --spacing-spacing-800: 4rem; /* md.sys.measurement.space800, 64dp */
+  --spacing-spacing-900: 4.5rem; /* md.sys.measurement.space900, 72dp */
+}

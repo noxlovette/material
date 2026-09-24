@@ -1,0 +1,64 @@
+import { Meta, Title, Subtitle, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as SheetStories from './BottomSheet.stories.svelte';
+
+<Meta of={SheetStories} />
+
+<Title />
+
+<Subtitle>Bottom sheets show secondary content anchored to the bottom of the screen.</Subtitle>
+
+[M3 spec](https://m3.material.io/components/bottom-sheets/specs) ·
+`import { BottomSheet } from '@noxlovette/material';`
+
+<Canvas of={SheetStories.Modal} />
+
+<ArgTypes />
+
+## Modal or standard
+
+- **`modal`** (default) opens in front of the app above a scrim, and blocks everything else until
+  it's dismissed. Use it for actions or choices that need an answer, such as a share sheet. It is
+  a native `<dialog>` opened with `showModal()`, so the browser handles the focus trap, top-layer
+  stacking and making the page behind it inert.
+- **`standard`** leaves the rest of the screen usable, like an audio player over a list. There is
+  no scrim, and it never dismisses itself: the drag handle toggles `expanded` between its full
+  height and `peekHeight`. Hide it by setting `open` to false.
+
+<Canvas of={SheetStories.Standard} />
+
+## Opening and dismissing
+
+Bind `open`. The sheet slides up on the spatial spring, and when it closes it stays mounted until
+the slide out finishes. It slides without fading, as M3 asks of sheets.
+
+A modal sheet dismisses itself, sets `open` to false, and tells `close` why:
+
+| Reason   | When                                                         |
+| -------- | ------------------------------------------------------------ |
+| `esc`    | Escape                                                       |
+| `scrim`  | A tap on the scrim                                           |
+| `drag`   | A flick down, or a drag past half the sheet's height         |
+| `handle` | Activating the drag handle (Enter, Space, a click, or a tap) |
+
+A shorter drag springs back, carrying the finger's velocity.
+
+## Size
+
+The sheet spans the window up to 640dp. On windows over 640dp wide it keeps 56dp side margins.
+It stops 72dp below the top of the window (56dp over 640dp), and taller content scrolls inside
+it, under the drag handle.
+
+The sheet doesn't pad its content, so lists can run edge to edge. Pad other content yourself;
+M3 sheets usually keep text 16–24dp from the edges.
+
+<Canvas of={SheetStories.ScrollingContent} />
+
+## Accessibility
+
+- **Name the sheet.** Use `label`, or point `aria-labelledby` at a heading inside it.
+- **The drag handle is a button**, 48dp, with the 3dp focus ring. For keyboard and screen reader
+  users it does what dragging does: it reads "Close sheet" on a modal sheet, and "Expand sheet" or
+  "Collapse sheet" on a standard one. Only hide it (`hideHandle`) on a sheet that can't be dragged
+  anyway.
+- A modal sheet moves focus into itself when it opens (to the handle, the first focusable
+  element), and the browser returns focus to the opener when it closes.

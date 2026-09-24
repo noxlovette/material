@@ -6,11 +6,11 @@ export const hr = tv({
   base: 'bg-md-sys-color-outline-variant',
   variants: {
     orientation: {
-      horizontal: 'h-[1px] mt-1 mb-2 w-full',
+      horizontal: 'h-[1px] mt-spacing-50 mb-spacing-100 w-full',
       vertical: 'w-[1px] self-stretch min-h-[1em]'
     },
     variant: {
-      inset: 'mr-2 ml-4',
+      inset: 'mr-spacing-100 ml-spacing-200',
       full: '',
       wavy: ''
     }

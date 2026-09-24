@@ -1,7 +1,8 @@
 <script lang="ts">
-  import { Layer } from '$lib/utils/index.js';
+  import { Icon, Layer } from '$lib/utils/index.js';
   import clsx from 'clsx';
-  import { listiem } from './theme.js';
+  import { listItem } from './theme.js';
+  import { getListContext } from './context.js';
   import type { ListitemProps } from './types.js';
   import Badge from '../../badge/Badge.svelte';
 
@@ -11,19 +12,78 @@
     headline = '',
     supporting = '',
     trailing,
+    trailingText,
     badge,
     selected,
+    disabled = false,
+    children,
+    expanded = $bindable(false),
     class: className,
     asChild = false,
     lines = overline && supporting ? 3 : overline || supporting ? 2 : 1,
     ...restProps
   }: ListitemProps = $props();
 
-  const cls = $derived(listiem({ lines, selected }));
-  const baseCls = $derived(cls.base({ class: clsx(className) }));
+  const uid = $props.id();
+  const ctx = getListContext();
+
+  const rest = $derived(restProps as Record<string, unknown>);
+  const expandable = $derived(!!children);
+  // Expandable items are always a button; otherwise the props pick the element.
+  const tag = $derived(
+    expandable || 'onclick' in rest
+      ? 'button'
+      : 'label' in rest
+        ? 'label'
+        : rest.href != null && rest.href !== ''
+          ? 'a'
+          : 'div'
+  );
+  const isOption = $derived(rest.role === 'option');
+  const interactive = $derived(!disabled && (tag !== 'div' || isOption));
+
+  const cls = $derived(
+    listItem({
+      lines,
+      selected: !!selected,
+      disabled,
+      interactive,
+      variant: ctx?.variant ?? 'standard',
+      expanded: expandable ? expanded : undefined
+    })
+  );
+
+  const attrs = $derived.by(() => {
+    const { label: _, href, onclick, ...extra } = rest;
+    const a: Record<string, unknown> = { ...extra };
+    if (tag === 'button') {
+      a.type = 'button';
+      a.disabled = disabled;
+      a.onclick = (e: MouseEvent) => {
+        (onclick as ((e: MouseEvent) => void) | undefined)?.(e);
+        if (expandable && !e.defaultPrevented) expanded = !expanded;
+      };
+      if (expandable) {
+        a['aria-expanded'] = expanded;
+        a['aria-controls'] = `${uid}-nested`;
+      } else if (selected !== undefined && !isOption) a['aria-pressed'] = selected;
+    } else if (tag === 'a') {
+      // A disabled link has no href, so it's not focusable or followable.
+      if (disabled) {
+        a.role = 'link';
+        a['aria-disabled'] = true;
+      } else a.href = href;
+      if (selected) a['aria-current'] = 'page';
+    } else if (disabled) a['aria-disabled'] = true;
+    if (isOption) a['aria-selected'] = !!selected;
+    return a;
+  });
 </script>
 
 {#snippet content()}
+  {#if interactive}
+    <Layer />
+  {/if}
   {#if leading}
     <div class={cls.leading()}>
       {@render leading()}
@@ -38,54 +98,49 @@
       <p class={cls.supporting()}>{supporting}</p>
     {/if}
   </div>
-  {#if trailing || badge !== undefined}
-    <div class={clsx(cls.trailing(), 'relative overflow-visible')}>
-      {#if trailing}
-        {@render trailing()}
+  {#if trailing || trailingText || badge !== undefined || expandable}
+    <div class={cls.trailing()}>
+      {#if trailingText}
+        <span class={cls.trailingText()}>{trailingText}</span>
       {/if}
+      {@render trailing?.()}
       {#if badge !== undefined}
         <Badge
           size={badge === true ? 'sm' : 'lg'}
           number={badge === true ? undefined : (badge as number)}
+          standalone
         />
+      {/if}
+      {#if expandable}
+        <span class={cls.expandIcon()} aria-hidden="true">
+          <Icon name="keyboard_arrow_down" size="sm" />
+        </span>
       {/if}
     </div>
   {/if}
 {/snippet}
 
-{#snippet action()}
-  {#if 'label' in restProps}
-    {@const { label: _, ...extra } = restProps}
-    <label class={baseCls} {...extra}>
-      <Layer />
-      {@render content()}
-    </label>
-  {:else if 'onclick' in restProps}
-    <button type="button" class={baseCls} {...restProps}>
-      <Layer />
-      {@render content()}
-    </button>
-  {:else if 'href' in restProps && restProps.href != null && restProps.href !== ''}
-    {@const { href, ...extra } = restProps as typeof restProps & {
-      href?: string | null;
-    }}
-    <a class={baseCls} {href} {...extra}>
-      <Layer />
-      {@render content()}
-    </a>
-  {:else}
-    {@const { href: _, ...extra } = restProps as Record<string, unknown>}
-    <div class={baseCls} {...extra}>
-      <Layer />
-      {@render content()}
+{#snippet item()}
+  <svelte:element this={tag} class={cls.base({ class: clsx(className) })} {...attrs}>
+    {@render content()}
+  </svelte:element>
+  {#if children}
+    <div class={cls.region()} inert={!expanded}>
+      <div class={cls.regionInner()}>
+        <ul id="{uid}-nested" class={cls.nested()}>
+          {@render children()}
+        </ul>
+      </div>
     </div>
   {/if}
 {/snippet}
 
-{#if asChild}
-  {@render action()}
+{#if asChild && !expandable}
+  {@render item()}
+{:else if asChild}
+  <div class={cls.group()}>{@render item()}</div>
 {:else}
-  <li>
-    {@render action()}
+  <li class={expandable ? cls.group() : undefined}>
+    {@render item()}
   </li>
 {/if}

@@ -4,6 +4,7 @@
 
   const { Story } = defineMeta({
     title: 'Containers/DraggablePane',
+    tags: ['autodocs'],
     component: DraggablePane,
     argTypes: {
       title: { control: 'text' },
@@ -92,7 +93,7 @@
   <DraggablePane initialX={32} initialY={32}>
     {#snippet header()}
       <span
-        class="md-sys-typescale-label-large text-md-sys-color-on-surface flex-1 truncate px-1 py-1"
+        class="md-sys-typescale-label-large text-md-sys-color-on-surface px-spacing-50 py-spacing-50 flex-1 truncate"
       >
         ⠿ Custom drag handle
       </span>
@@ -157,7 +158,7 @@
 <Story name="Content Overflow (Unbounded)" asChild>
   <DraggablePane title="Long Form">
     <div
-      class="md-sys-typescale-body-medium text-md-sys-color-on-surface-variant flex w-56 flex-col gap-3"
+      class="md-sys-typescale-body-medium text-md-sys-color-on-surface-variant gap-spacing-150 flex w-56 flex-col"
     >
       {#each Array(30) as _, i (i)}
         <p>
@@ -171,7 +172,7 @@
 <!--
   A fixed `height` turns the content area into an internal scroll region
   instead of letting the panel grow past its bound — the `content` slot needs
-  `min-h-0` alongside `flex-1 overflow-auto`, otherwise a flex child's default
+  `min-h-spacing-0` alongside `flex-1 overflow-auto`, otherwise a flex child's default
   `min-height: auto` lets it grow past its flex-basis and overflow the fixed-
   height panel instead of scrolling internally.
 -->

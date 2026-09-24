@@ -11,6 +11,7 @@
 
   const { Story } = defineMeta({
     title: 'Table/Table',
+    tags: ['autodocs'],
     component: Table,
     argTypes: {
       rounded: { control: 'boolean' }

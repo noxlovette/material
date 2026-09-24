@@ -1,58 +1,62 @@
 <!--
 @component
-Buttons help people take actions, such as sending an email, sharing a document, or liking a comment.
+Buttons prompt most actions in a UI.
 
-- Filled: High emphasis
-- Tonal: Medium-high emphasis
-- Outlined: Medium emphasis
-- Text: Low emphasis
-- Elevated: High emphasis
+- Filled: final or unblocking actions (default)
+- Tonal: important actions a step below filled
+- Elevated: only to stand apart from a patterned background
+- Outlined: attention without being primary, or a way out of a flow
+- Text: optional actions
 
-@see https://m3.material.io/components/all-buttons
+For a two-state button use `Toggle`.
+
+@see https://m3.material.io/components/buttons/specs
 -->
 <script lang="ts">
-  import type { ButtonMDProps } from './types.js';
+  import type { ButtonProps } from './types.js';
   import { Icon, LoadingIndicator, Layer } from '$lib/utils/index.js';
-  import { button } from './theme.js';
+  import { button, buttonColor } from './theme.js';
   import clsx from 'clsx';
+  import { buttonCorners, shapeMorph } from './shapeMorph.js';
   import { Button, type ButtonRootProps } from 'bits-ui';
 
   let {
     children,
     iconProps,
     variant = 'filled',
-    color = 'default',
-    size = 'md',
+    size = 'sm',
     shape = 'round',
     disabled,
-    selected,
     formaction,
     loading,
     class: className,
     ...restProps
-  }: ButtonMDProps = $props();
+  }: ButtonProps = $props();
 
-  const { base, icon } = $derived(button({ variant, color, shape, size, selected }));
-  const btnCls = $derived(base({ class: clsx(className) }));
+  let ref = $state<HTMLElement | null>(null);
+  $effect(() => (ref ? shapeMorph(ref, buttonCorners) : undefined));
+
+  const cls = $derived(button({ variant, size, shape }));
+  const btnCls = $derived(
+    cls.base({ class: clsx(buttonColor({ variant, state: 'default' }), className) })
+  );
 </script>
 
 <Button.Root
+  bind:ref
   {disabled}
   {formaction}
   class={btnCls}
+  aria-busy={loading || undefined}
   data-cy="m3-button"
   {...restProps as ButtonRootProps}
 >
-  {#if iconProps}
-    {#if loading}
-      <LoadingIndicator container={variant === 'filled'} class={icon()} />
-    {:else}
-      <Icon class={icon()} {...iconProps} />
-      {@render children?.()}
-    {/if}
-  {:else if loading}
-    <LoadingIndicator container={variant === 'filled'} />
-  {:else}
+  {#if loading}
+    <LoadingIndicator center={false} class={cls.icon({ class: 'text-current' })} />
+  {:else if iconProps}
+    <Icon {...iconProps} class={cls.icon({ class: clsx(iconProps.class) })} />
+  {/if}
+  {#if !loading || iconProps}
     {@render children?.()}
   {/if}
   <Layer />

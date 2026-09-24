@@ -36,7 +36,17 @@ Other reusable utilities in this file:
 
 ## Typescale (`src/lib/styles/typescale.css`)
 
-`md-sys-typescale-{display,headline,title,body,label}-{large,medium,small}`, plus a one-off `md-sys-typescale-fab-label`. Each bakes in the correct font size, line height, tracking, and (for title/label) weight — don't set `text-*`/`leading-*`/`tracking-*` manually when one of these fits.
+The full M3 type scale (https://m3.material.io/styles/typography/type-scale-tokens), in rem:
+
+- `md-sys-typescale-{display,headline,title,body,label}-{large,medium,small}`: the 15 baseline styles. Each sets font family, weight, size, line height, and tracking. Don't set `text-*`/`leading-*`/`tracking-*`/`font-*` next to one; pick a different style instead.
+- `md-sys-typescale-emphasized-<style>`: the 15 emphasized styles. They have the same metrics and a heavier weight (400 → 500, 500 → 700). Components use baseline by default. Swap in the emphasized style for selected or active states, unread items, primary-action buttons, badges and the extended FAB. Don't add `font-bold` to a baseline style.
+- `md-sys-typescale-label-{large,medium}-prominent`: the `weight.prominent` (700) label tokens.
+- Typefaces: display, headline and title-large use `--md-ref-typeface-brand`; everything else uses `--md-ref-typeface-plain`. Both default to `--font-sans`; M3's own default is Roboto.
+- Line heights follow the language-height category of the element's `lang`: small (Latin, Cyrillic, Greek, Hebrew), medium (CJK, Arabic, Indic, Thai, Vietnamese…), large (Burmese, Telugu), extra-large (Urdu/Nastaliq). Force a category with `data-md-language-height="small|medium|large|extra-large"`.
+
+## Spacing (`src/lib/styles/spacing.css`)
+
+`md.sys.measurement.space<N>` (N/100 × the 8dp base) is registered in Tailwind's spacing namespace. Every spacing utility therefore takes it: `p-spacing-200` (16dp), `gap-spacing-50` (4dp), `mr-spacing-300` (24dp), `size-spacing-600` (48dp). The available numbers are 0, 25, 50, 75, 100, 125, 150, 175, 200, 250, 300, 400, 450, 500, 600, 700, 800 and 900. The number is M3's token number, not Tailwind's 4px multiplier.
 
 ## Elevation (`src/lib/styles/elevation.css`)
 

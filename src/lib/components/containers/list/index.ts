@@ -5,4 +5,5 @@ export * from './theme.js';
 export * from './types.js';
 
 // default exports for components in this folder
+export { default as List } from './List.svelte';
 export { default as ListItem } from './ListItem.svelte';

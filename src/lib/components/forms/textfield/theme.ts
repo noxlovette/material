@@ -5,13 +5,13 @@ export type TextFieldVariants = VariantProps<typeof textfield>;
 export const textfield = tv({
   slots: {
     base: `
-      group relative w-full h-14 flex items-center
+      group relative w-full h-spacing-700 flex items-center
     `,
 
     /* Stretches to the full field height so the label floats relative to the field's top edge,
        not the input's. */
     inputWrapper: `
-      relative flex-1 self-stretch flex items-center px-4
+      relative flex-1 self-stretch flex items-center px-spacing-200
     `,
 
     input: `
@@ -21,7 +21,7 @@ export const textfield = tv({
     `,
 
     label: `
-      absolute left-4 top-1/2 -translate-y-1/2
+      absolute left-spacing-200 top-1/2 -translate-y-1/2
       md-sys-typescale-body-large
       text-md-sys-color-on-surface-variant
       pointer-events-none
@@ -31,32 +31,32 @@ export const textfield = tv({
     `,
 
     requiredAsterisk: `
-      ml-0.5
+      ml-spacing-25
       text-md-sys-color-error
       group-focus-within:text-md-sys-color-primary
       transition-colors md-sys-motion-effects
     `,
 
     leadingIcon: `
-      text-md-sys-color-on-surface-variant size-6
+      text-md-sys-color-on-surface-variant size-spacing-300
       group-focus-within:text-md-sys-color-primary
-      ml-3 text-[24px]
+      ml-spacing-150 text-[24px]
     `,
 
     trailingIcon: `
-      mr-3 text-md-sys-color-on-surface-variant size-6
+      mr-spacing-150 text-md-sys-color-on-surface-variant size-spacing-300
       group-focus-within:text-md-sys-color-primary
       z-20 text-[24px]
     `,
 
     supportingText: `
-      px-4 pt-1 flex justify-between
+      px-spacing-200 pt-spacing-50 flex justify-between
       md-sys-typescale-body-small
       text-md-sys-color-on-surface-variant
     `,
 
     fieldset: `
-      absolute -top-2 left-0 right-0 bottom-0 m-0 px-3
+      absolute -top-spacing-100 left-spacing-0 right-spacing-0 bottom-spacing-0 m-spacing-0 px-spacing-150
       pointer-events-none rounded-xs border border-md-sys-color-outline
       transition-colors md-sys-motion-fast-effects
 
@@ -74,7 +74,7 @@ export const textfield = tv({
     `,
 
     legendLabel: `
-      px-1
+      px-spacing-50
     `
   },
 
@@ -82,9 +82,9 @@ export const textfield = tv({
     variant: {
       filled: {
         base: `
-          px-0 bg-md-sys-color-surface-container-highest
+          px-spacing-0 bg-md-sys-color-surface-container-highest
           rounded-t-xs state-layer before:rounded-xs hover:before:bg-md-sys-color-on-surface/8
-          after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-md-sys-color-on-surface-variant
+          after:absolute after:bottom-spacing-0 after:left-spacing-0 after:right-spacing-0 after:h-px after:bg-md-sys-color-on-surface-variant
           after:transition-[height,background-color] after:md-sys-motion-fast-spatial
           hover:after:bg-md-sys-color-on-surface
           focus-within:after:bg-md-sys-color-primary
@@ -94,16 +94,16 @@ export const textfield = tv({
         `,
         /* Room for the label floated inside the container. Outlined labels float into the border
            notch instead, so their input stays vertically centered. */
-        input: 'pt-4',
+        input: 'pt-spacing-200',
         label: `
-          peer-focus:top-2 peer-focus:md-sys-typescale-body-small peer-focus:translate-y-0
-          peer-not-placeholder-shown:top-2 peer-not-placeholder-shown:md-sys-typescale-body-small peer-not-placeholder-shown:translate-y-0
+          peer-focus:top-spacing-100 peer-focus:md-sys-typescale-body-small peer-focus:translate-y-spacing-0
+          peer-not-placeholder-shown:top-spacing-100 peer-not-placeholder-shown:md-sys-typescale-body-small peer-not-placeholder-shown:translate-y-spacing-0
         `
       },
       outlined: {
         label: `
-          peer-focus:top-0 peer-focus:md-sys-typescale-body-small peer-focus:-translate-y-1/2
-          peer-not-placeholder-shown:top-0 peer-not-placeholder-shown:md-sys-typescale-body-small peer-not-placeholder-shown:-translate-y-1/2
+          peer-focus:top-spacing-0 peer-focus:md-sys-typescale-body-small peer-focus:-translate-y-1/2
+          peer-not-placeholder-shown:top-spacing-0 peer-not-placeholder-shown:md-sys-typescale-body-small peer-not-placeholder-shown:-translate-y-1/2
         `
       }
     },
@@ -136,12 +136,12 @@ export const textfield = tv({
   compoundVariants: [
     {
       /* M3: an outlined label floats back to the field's start edge, over the leading icon, into
-         the notch. The wrapper starts after the icon (ml-3 + size-6 = 36px), so -20px puts the
+         the notch. The wrapper starts after the icon (ml-spacing-150 + size-spacing-300 = 36px), so -20px puts the
          label at 16px from the field's edge. */
       variant: 'outlined',
       leadingIcon: true,
       class: {
-        label: 'peer-focus:-left-5 peer-not-placeholder-shown:-left-5'
+        label: 'peer-focus:-left-spacing-250 peer-not-placeholder-shown:-left-spacing-250'
       }
     }
   ],

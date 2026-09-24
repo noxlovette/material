@@ -4,6 +4,7 @@
 
   const { Story } = defineMeta({
     title: 'Misc/Avatar',
+    tags: ['autodocs'],
     component: Avatar,
     argTypes: {
       size: { control: 'select', options: ['sm', 'md', 'lg'] },
@@ -24,7 +25,7 @@
 </Story>
 
 <Story name="Sizes" asChild>
-  <div class="flex items-end gap-4">
+  <div class="gap-spacing-200 flex items-end">
     <Avatar size="sm" seed="small" />
     <Avatar size="md" seed="medium" />
     <Avatar size="lg" seed="large" />
@@ -32,7 +33,7 @@
 </Story>
 
 <Story name="Generated Fallback" asChild>
-  <div class="flex items-end gap-4">
+  <div class="gap-spacing-200 flex items-end">
     <Avatar seed="alice" />
     <Avatar seed="bob" />
     <Avatar seed="carol" />
@@ -40,7 +41,7 @@
 </Story>
 
 <Story name="With Image" asChild>
-  <div class="flex items-end gap-4">
+  <div class="gap-spacing-200 flex items-end">
     <Avatar src="https://picsum.photos/seed/ogonek-1/200" alt="Sample user" />
     <Avatar
       src="https://this-url-does-not-resolve.example/broken.jpg"
@@ -55,7 +56,7 @@
 </Story>
 
 <Story name="Animated" asChild>
-  <div class="flex items-end gap-4">
+  <div class="gap-spacing-200 flex items-end">
     <Avatar seed="alice" dicebearStyle="gaze" tags={['animation']} />
     <Avatar seed="bob" dicebearStyle="shapes" tags={['animation']} />
     <Avatar seed="carol" dicebearStyle="blobs" tags={['animation']} />

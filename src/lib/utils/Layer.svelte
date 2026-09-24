@@ -202,7 +202,7 @@
       &:is(:global(input:focus-visible + label) > .tint),
       &:is(:global(:focus-visible) > .tint),
       &:is(:global(:active) > .tint) {
-        opacity: 0.12;
+        opacity: 0.1;
       }
     }
   }

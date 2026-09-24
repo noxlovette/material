@@ -1,0 +1,100 @@
+import { Meta, Title, Subtitle, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as ListStories from './ListItem.stories.svelte';
+import List from './List.svelte';
+
+<Meta of={ListStories} />
+
+<Title />
+
+<Subtitle>Lists are continuous, vertical indexes of text and images.</Subtitle>
+
+[M3 spec](https://m3.material.io/components/lists/specs) ·
+`import { List, ListItem, listMedia } from '@noxlovette/material';`
+
+<Canvas of={ListStories.Playground} />
+
+<Controls of={ListStories.Playground} />
+
+## `List` and `ListItem`
+
+Put `ListItem`s in a `List`. `List` renders the `<ul>` and chooses the look for every item in it:
+
+- **`standard`** (default): items sit on the page's `surface`.
+- **`segmented`**: each item is its own segment, 2dp apart, with 16dp outer corners on the first
+  and last. This is a visual choice only; behaviour is the same.
+
+A `ListItem` outside a `List` renders as a standard item.
+
+<ArgTypes of={List} />
+
+<Canvas of={ListStories.Segmented} />
+
+## What the item is
+
+The props decide the element, so each item has one action:
+
+| Props               | Element             | Use for                                                                |
+| ------------------- | ------------------- | ---------------------------------------------------------------------- |
+| `href`              | `<a>`               | Navigation. `selected` sets `aria-current="page"`.                     |
+| `onclick`           | `<button>`          | An action. `selected` sets `aria-pressed`.                             |
+| `label`             | `<label>`           | An item that toggles the checkbox, radio or switch in it.              |
+| `children` (nested) | `<button>` + region | An expandable item; see below.                                         |
+| none                | `<div>`             | Static content. With `role="option"`, `selected` sets `aria-selected`. |
+
+`disabled` removes a link's `href` and disables a button.
+
+## Line counts
+
+One, two or three lines give 56, 72 and 88dp minimum heights. `lines` is worked out from
+`overline` and `supporting` unless you set it. At three lines, leading and trailing content align
+to the top.
+
+<Canvas of={ListStories.LineCounts} />
+
+## Leading media
+
+The `leading` slot holds **one** element that is narrower than the text. Size it with the
+`listMedia` helper so it matches the spec:
+
+| Media             | Size                      | How                                         |
+| ----------------- | ------------------------- | ------------------------------------------- |
+| Icon              | 20dp                      | `<Icon size="sm">`                          |
+| Avatar            | 40dp circle               | `class={listMedia({ kind: 'avatar' })}`     |
+| Image             | 56×56dp, 8dp corners      | `class={listMedia({ kind: 'image' })}`      |
+| Video thumbnail   | 100×56dp, 8dp corners     | `class={listMedia({ kind: 'video' })}`      |
+| Large video       | 114×64dp, 8dp corners     | `class={listMedia({ kind: 'videoLarge' })}` |
+| Selection control | checkbox, radio or switch | with `label` on the item                    |
+
+Decorative media gets `alt=""`: the headline is the item's accessible name.
+
+<Canvas of={ListStories.LeadingMedia} />
+
+## Trailing content
+
+`trailing` takes an icon (20dp), an icon button, or a selection control. `trailingText` is for
+short text such as a count, a time or a shortcut. Don't put a selection control at both ends of
+the same item, and keep interactive trailing content at a 48dp target.
+
+<Canvas of={ListStories.MultiAction} />
+
+## Expand
+
+Giving a `ListItem` `children` makes it expandable. The item becomes a button with a trailing
+chevron, `aria-expanded` and `aria-controls`. The nested items are `inert` while collapsed. Bind
+`expanded` to control it.
+
+<Canvas of={ListStories.Expand} />
+
+## States
+
+`selected` fills the item with `secondary-container` and rounds it to 16dp. `disabled` drops the
+content to 38%. Hover, focus and press tints come from the shared state layer. The keyboard focus
+ring is drawn inside the item, so segments don't overlap.
+
+<Canvas of={ListStories.Disabled} />
+
+## Where this differs from the tokens
+
+- Segmented items use `surface-container`. The token says `surface`, but the spec's figures show
+  the segments on a tinted container.
+- A selected, disabled item keeps a 12% container. The token says 38%, which reads as enabled.

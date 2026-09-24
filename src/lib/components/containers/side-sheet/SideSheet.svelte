@@ -1,25 +1,59 @@
 <!--
 @component
-Side sheets are supplementary surfaces which are anchored to the edge of the screen.
+Side sheets show secondary content anchored to the side of the screen.
 
-Like BottomSheet, SideSheet owns its own overlay: it renders as a native `<dialog>` pinned to
-the right edge of the screen, dims the rest of the app behind a backdrop, and slides in/out.
-Visibility is controlled by `bind:open`; the sheet stays mounted until its exit animation
-finishes. Conditionally rendering it ({#if open}<SideSheet close={…} />{/if}) still works, but
-skips the exit animation.
+- **Modal** (default): a native `<dialog>` at the window's end edge above a scrim. It closes on
+  its close button, Esc, or a scrim tap, and stays mounted until its exit animation finishes.
+- **Standard**: part of the layout. Put it last in a full-height row; it opens by widening, so
+  the content beside it reflows, and nothing else is blocked.
 
-@see https://m3.material.io/components/side-sheets/guidelines
+Visibility is controlled with `bind:open`.
+
+@see https://m3.material.io/components/side-sheets/specs
 -->
 <script lang="ts">
-  import type { SideSheetProps } from './types.js';
+  import type { Attachment } from 'svelte/attachments';
+  import { untrack } from 'svelte';
+  import clsx from 'clsx';
   import ButtonIcon from '$lib/components/buttons/ButtonIcon.svelte';
+  import Divider from '../divider/Divider.svelte';
   import { enterExit, Presence } from '$lib/animation/index.js';
+  import { sideSheet } from './theme.js';
+  import type { SideSheetProps } from './types.js';
 
-  let { headline, children, open = $bindable(true), close }: SideSheetProps = $props();
+  const MAX_WIDTH = 400;
 
-  const sheet = new Presence(() => open);
+  let {
+    headline,
+    children,
+    actions,
+    variant = 'modal',
+    open = $bindable(true),
+    width = 256,
+    detached = false,
+    divider = true,
+    onback,
+    close,
+    class: className
+  }: SideSheetProps = $props();
 
-  const showModal = (node: HTMLDialogElement) => node.showModal();
+  const id = $props.id();
+  const sheet = new Presence(() => open && variant === 'modal');
+  const cls = $derived(sideSheet({ variant, detached, divider, back: !!onback }));
+  const sheetWidth = $derived(Math.min(width, MAX_WIDTH));
+  // A detached standard sheet takes its 16dp margins with it.
+  const slotWidth = $derived(open ? sheetWidth + (detached ? 32 : 0) : 0);
+
+  // untrack: re-running this attachment would call showModal() on an open dialog. The dialog
+  // unmounts after its exit instead of calling close(), so focus is returned to the opener here.
+  const showModal: Attachment<HTMLDialogElement> = (node) =>
+    untrack(() => {
+      const opener = document.activeElement;
+      node.showModal();
+      return () => {
+        if (opener instanceof HTMLElement && opener.isConnected) opener.focus();
+      };
+    });
 
   const dismiss = () => {
     open = false;
@@ -27,61 +61,74 @@ skips the exit animation.
   };
 </script>
 
-{#if sheet.mounted}
-  <dialog
-    class="bg-md-sys-color-surface-container-low text-md-sys-color-on-surface fixed inset-y-0 right-0 left-auto m-0 h-full w-full max-w-sm rounded-l-md"
-    data-state={open ? 'open' : 'closed'}
-    {@attach showModal}
-    {@attach sheet.attach(enterExit.sideSheet)}
-    oncancel={(e) => {
-      e.preventDefault();
-      dismiss();
-    }}
-    onmousedown={(e) => {
-      if (e.target != e.currentTarget) return;
-      dismiss();
-    }}
-  >
-    <div class="flex h-full flex-col">
-      <div class="flex items-center justify-between p-6">
-        <span class="md-sys-typescale-title-large text-md-sys-color-on-surface-variant"
-          >{headline}</span
-        >
-        <ButtonIcon type="button" variant="text" iconProps={{ name: 'close' }} onclick={dismiss} />
-      </div>
-      {@render children()}
+{#snippet surface()}
+  <div class={cls.header()}>
+    {#if onback}
+      <ButtonIcon
+        type="button"
+        variant="standard"
+        class={cls.iconButton()}
+        iconProps={{ name: 'arrow_back' }}
+        aria-label="Back"
+        onclick={onback}
+      />
+    {/if}
+    <h2 id="{id}-headline" class={cls.headline()}>{headline}</h2>
+    <ButtonIcon
+      type="button"
+      variant="standard"
+      class={cls.iconButton()}
+      iconProps={{ name: 'close' }}
+      aria-label="Close"
+      onclick={dismiss}
+    />
+  </div>
+  <div class={cls.body()}>
+    {@render children()}
+  </div>
+  {#if actions}
+    {#if divider}
+      <Divider />
+    {/if}
+    <div class={cls.actions()}>
+      {@render actions()}
     </div>
-  </dialog>
-{/if}
+  {/if}
+{/snippet}
 
-<style>
-  dialog::backdrop {
-    background-color: rgba(0, 0, 0, 0.5);
-    animation: backdrop var(--md-sys-motion-duration-effects-spring)
-      var(--md-sys-motion-timing-function-effects-spring);
-  }
-  dialog[data-state='closed'] {
-    pointer-events: none;
-  }
-  dialog[data-state='closed']::backdrop {
-    background-color: transparent;
-    animation: backdropReverse var(--md-sys-motion-duration-fast-effects-spring)
-      var(--md-sys-motion-timing-function-fast-effects-spring);
-  }
-  @keyframes backdrop {
-    from {
-      background-color: transparent;
-    }
-    to {
-      background-color: rgba(0, 0, 0, 0.5);
-    }
-  }
-  @keyframes backdropReverse {
-    from {
-      background-color: rgba(0, 0, 0, 0.5);
-    }
-    to {
-      background-color: transparent;
-    }
-  }
-</style>
+{#if variant === 'modal'}
+  {#if sheet.mounted}
+    <dialog
+      class={cls.base({ class: clsx(className) })}
+      style:width="{sheetWidth}px"
+      aria-labelledby="{id}-headline"
+      data-state={open ? 'open' : 'closed'}
+      {@attach showModal}
+      {@attach sheet.attach(enterExit.sideSheet)}
+      oncancel={(e) => {
+        e.preventDefault();
+        dismiss();
+      }}
+      onmousedown={(e) => {
+        // Only the ::backdrop targets the dialog itself.
+        if (e.target === e.currentTarget) dismiss();
+      }}
+    >
+      <div class={cls.container()}>
+        {@render surface()}
+      </div>
+    </dialog>
+  {/if}
+{:else}
+  <aside
+    class={cls.base({ class: clsx(className) })}
+    style:width="{slotWidth}px"
+    aria-labelledby="{id}-headline"
+    aria-hidden={!open}
+    inert={!open}
+  >
+    <div class={cls.container()} style:width="{sheetWidth}px">
+      {@render surface()}
+    </div>
+  </aside>
+{/if}

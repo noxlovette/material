@@ -1,0 +1,70 @@
+import { Meta, Title, Subtitle, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as BadgeStories from './Badge.stories.svelte';
+
+<Meta of={BadgeStories} />
+
+<Title />
+
+<Subtitle>
+  Badges show notifications, counts, or status information on navigation items and icons.
+</Subtitle>
+
+[M3 spec](https://m3.material.io/components/badges/specs) ·
+`import { Badge } from '@noxlovette/material';`
+
+<Canvas of={BadgeStories.Playground} />
+
+<Controls of={BadgeStories.Playground} />
+
+## Choosing a size
+
+| Size | Looks like                        | Use for                                     |
+| ---- | --------------------------------- | ------------------------------------------- |
+| `sm` | 6dp dot, no text                  | A general notification ("something is new") |
+| `lg` | 16dp-tall pill with a label-small | A specific count                            |
+
+A large badge holds at most four characters, "+" included, so counts above `max` (999 by
+default) show as `999+` in a 16×34dp container. A zero or missing `number` hides a large badge.
+
+<Canvas of={BadgeStories.DotSmall} />
+
+<Canvas of={BadgeStories.MaxCharacterCount} />
+
+## Placement
+
+`NavbarItem` and `RailItem` take a `badge` prop (a count, or `-1` for the dot) and place it for
+you. Use `Badge` directly only on icons those components don't cover, such as a custom icon
+button.
+
+By default the badge is absolutely positioned, with offsets measured from the **icon's**
+top-trailing corner:
+
+- **Small:** its bottom-leading corner sits 6dp down and 6dp in, so the dot fills the icon's
+  top-trailing corner.
+- **Large:** its bottom-leading corner sits 14dp down and 12dp in. The badge grows away from the
+  icon as the count gets wider.
+
+So wrap the icon itself in a `relative inline-flex` element. Don't anchor the badge to a larger
+indicator or button container, or the offsets will be measured from the wrong corner.
+
+```svelte
+<span class="relative inline-flex">
+  <Icon name="mail" />
+  <Badge number={5} />
+</span>
+```
+
+In normal flow, such as a list item's trailing slot, pass `standalone`. `ListItem`'s `badge`
+prop already does this.
+
+<Canvas of={BadgeStories.Standalone} />
+
+## Accessibility
+
+- **Not announced on its own.** `Badge` renders a plain `<span>` with no role or live region.
+  Put the count in the anchor's accessible name (e.g. `aria-label="Inbox, 5 new"`), or use an
+  `aria-live` region if changes must be announced.
+- **Contrast.** The badge uses the error/on-error pair in every theme, so its label keeps
+  contrast against its own container.
+- **Clipping.** An anchored badge overhangs the icon by 2dp at the top and past the trailing edge
+  as it widens. Make sure no ancestor with `overflow: hidden` clips it.

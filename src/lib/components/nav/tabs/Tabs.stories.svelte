@@ -32,7 +32,7 @@
 
 <Story name="Playground">
   {#snippet template(args)}
-    <div class="flex flex-col gap-4">
+    <div class="gap-spacing-200 flex flex-col">
       <TabHolder {...args} {items}>
         <TabContent value="flights"><Body>Flights panel content.</Body></TabContent>
         <TabContent value="trips"><Body>Trips panel content.</Body></TabContent>

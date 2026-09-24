@@ -1,0 +1,50 @@
+import { Meta, Title, Subtitle, Canvas } from '@storybook/addon-docs/blocks';
+import * as ProgressStories from './Progress.stories.svelte';
+
+<Meta of={ProgressStories} />
+
+<Title />
+
+<Subtitle>Progress indicators show the status of an ongoing process.</Subtitle>
+
+[M3 spec](https://m3.material.io/components/progress-indicators/specs) ·
+`import { CircularProgress, LinearProgress, WavyLinearProgress } from '@noxlovette/material';`
+
+## Three components
+
+There's no shared `variant` prop. Pick the component for the shape you need:
+
+- **`CircularProgress`** and **`LinearProgress`** are M3's circular and linear indicators.
+- **`WavyLinearProgress`** is this library's own sine-wave linear indicator, inspired by M3
+  Expressive but not a literal reproduction of the spec.
+
+All three take the same `percent`: a number from 0 to 100 for a determinate indicator, or
+omitted (or `null`) for an indeterminate one.
+
+```svelte
+<CircularProgress percent={uploadPercent} />
+<LinearProgress percent={uploadPercent} class="w-full" />
+
+<!-- Indeterminate: omit percent -->
+<CircularProgress />
+```
+
+<Canvas of={ProgressStories.CircularDeterminate} />
+
+<Canvas of={ProgressStories.CircularIndeterminate} />
+
+<Canvas of={ProgressStories.LinearDeterminate} />
+
+<Canvas of={ProgressStories.WavyDeterminate} />
+
+## Motion
+
+A determinate indicator springs to each new `percent` on a critically damped spring, so progress
+never visibly runs backwards. Indeterminate indicators animate continuously.
+
+## Accessibility
+
+- **Role.** Each renders `role="progressbar"`, with `aria-valuenow` set from `percent` and left
+  out when indeterminate.
+- **Label.** None of them says what is loading. Give each an `aria-label`, or put visible text
+  next to it.

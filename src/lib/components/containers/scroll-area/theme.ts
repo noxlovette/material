@@ -12,10 +12,10 @@ export const scrollArea = tv({
   variants: {
     orientation: {
       vertical: {
-        scrollbar: 'h-full w-2 border-l border-l-transparent p-px'
+        scrollbar: 'h-full w-spacing-100 border-l border-l-transparent p-px'
       },
       horizontal: {
-        scrollbar: 'h-2 w-full border-t border-t-transparent p-px'
+        scrollbar: 'h-spacing-100 w-full border-t border-t-transparent p-px'
       },
       both: {
         scrollbar: ''

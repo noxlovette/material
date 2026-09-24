@@ -4,7 +4,7 @@ export type ActionRailVariants = VariantProps<typeof actionRail>;
 
 export const actionRail = tv({
   slots: {
-    base: 'z-30 flex flex-col items-center justify-center right-0'
+    base: 'z-30 flex flex-col items-center justify-center right-spacing-0'
   },
   variants: {
     anchor: {

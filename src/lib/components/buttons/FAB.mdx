@@ -1,0 +1,84 @@
+import { Meta, Title, Subtitle, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as FABStories from './FAB.stories.svelte';
+
+<Meta of={FABStories} />
+
+<Title />
+
+<Subtitle>FABs help people take the primary action on a screen.</Subtitle>
+
+[FAB spec](https://m3.material.io/components/floating-action-button/specs) ·
+[Extended FAB spec](https://m3.material.io/components/extended-fab/specs) ·
+[FAB menu spec](https://m3.material.io/components/fab-menu/specs) ·
+`import { FAB, FABMenuItem } from '@noxlovette/material';`
+
+<Canvas of={FABStories.Playground} />
+
+<Controls of={FABStories.Playground} />
+
+## Sizes
+
+| `size`    | FAB  | Icon | Corners | Extended: label, padding, gap |
+| --------- | ---- | ---- | ------- | ----------------------------- |
+| `regular` | 56dp | 24dp | 16dp    | title medium, 16dp, 8dp       |
+| `medium`  | 80dp | 28dp | 20dp    | title large, 26dp, 12dp       |
+| `large`   | 96dp | 36dp | 28dp    | headline small, 28dp, 16dp    |
+| `small`   | 40dp | 24dp | 12dp    | none                          |
+
+`small` is the baseline small FAB, which M3 no longer recommends. FABs sit at elevation 3 and
+rise to 4 on hover. Keep 16dp from the window edges.
+
+<Canvas of={FABStories.Sizes} />
+
+## Colour
+
+`primary-container` (default), `secondary-container` and `tertiary-container`, or the stronger
+`primary`, `secondary` and `tertiary`. The state layer always takes the icon's colour.
+
+<Canvas of={FABStories.Colours} />
+
+## FAB and extended FAB
+
+Give the FAB a `label` and it becomes an extended FAB where there's room. The two transform
+into each other with the space available, so `expanded` is responsive:
+
+- **Default:** a FAB on compact windows, an extended FAB from medium windows up
+  (`{ small: false, medium: true }`).
+- **In a `Rail`:** a FAB while the rail is collapsed, an extended FAB while it's expanded.
+- **Your own:** pass `true`, `false`, or per-window values; toggle it to collapse the label
+  while the page scrolls.
+
+The label slides open and shut on the spatial spring. It also names the FAB for assistive
+technology when collapsed; a FAB without a label needs an `aria-label`.
+
+<Canvas of={FABStories.Extended} />
+
+<Canvas of={FABStories.Responsive} />
+
+## FAB menu
+
+`withMenu` opens up to six `FABMenuItem`s above the FAB, which springs into a 56dp round close
+button in the same top trailing corner. The close button is 56dp whatever the FAB's size, as
+M3 specifies, so a medium or large FAB shrinks into it. The items grow out of it one after
+another, nearest first. Items are 56dp pills 4dp apart, 8dp above the close
+button, in the FAB's colour set: a primary, secondary or tertiary close button with items in the
+matching container colour. The menu takes arrow keys, Escape and outside clicks.
+
+<Canvas of={FABStories.FabMenu} />
+
+## Container transform
+
+Pass a `surface` snippet and the FAB opens into it: the FAB's container grows from its corner
+into the surface and turns from the FAB's colour into the surface's, and the content fades in
+once it has room (M3's container transform, with a persistent container). It shrinks back on
+Escape, an outside click, or the snippet's `close()`, and focus returns to the FAB. Keep the
+FAB's icon in the surface, as on the "Compose new" row below, so the icon persists too.
+
+<Canvas of={FABStories.ContainerTransform} />
+
+## Migrating
+
+`config` is now `color`, with the Expressive names: the old `primary` is now `primary-container`
+(the default). `size` gains `medium`. `FABMenuItem` loses `variant`; items follow the FAB's
+colour. `expanded` now defaults to responsive instead of `false`, so a labelled FAB extends on
+wider windows; pass `expanded={false}` to keep the old behaviour.

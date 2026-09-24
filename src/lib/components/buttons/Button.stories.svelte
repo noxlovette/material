@@ -2,33 +2,22 @@
   import { defineMeta } from '@storybook/addon-svelte-csf';
   import Button from './Button.svelte';
 
+  const variants = ['elevated', 'filled', 'tonal', 'outlined', 'text'] as const;
+  const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
+
   const { Story } = defineMeta({
     title: 'Buttons/Button',
     component: Button,
     argTypes: {
-      variant: {
-        control: 'select',
-        options: ['elevated', 'filled', 'tonal', 'outlined', 'text', 'bare']
-      },
-      color: {
-        control: 'select',
-        options: ['default', 'primary', 'secondary', 'tertiary', 'error']
-      },
-      size: {
-        control: 'select',
-        options: ['xs', 'sm', 'md', 'lg', 'xl']
-      },
-      shape: {
-        control: 'select',
-        options: ['round', 'square']
-      },
+      variant: { control: 'select', options: variants },
+      size: { control: 'select', options: sizes },
+      shape: { control: 'inline-radio', options: ['round', 'square'] },
       disabled: { control: 'boolean' },
       loading: { control: 'boolean' }
     },
     args: {
       variant: 'filled',
-      color: 'primary',
-      size: 'md',
+      size: 'sm',
       shape: 'round',
       disabled: false,
       loading: false
@@ -36,15 +25,61 @@
   });
 </script>
 
-<Story name="Playground">Label</Story>
+<Story name="Playground">
+  {#snippet template(args)}
+    <Button {...args}>Label</Button>
+  {/snippet}
+</Story>
 
-<Story name="Variants" asChild>
-  <div class="flex flex-wrap items-center gap-4 p-6">
-    <Button variant="elevated" color="primary">Elevated</Button>
-    <Button variant="filled" color="primary">Filled</Button>
-    <Button variant="tonal" color="primary">Tonal</Button>
-    <Button variant="outlined" color="primary">Outlined</Button>
-    <Button variant="text" color="primary">Text</Button>
-    <Button variant="bare" color="primary">Bare</Button>
+<Story name="Colour styles" asChild>
+  <div class="gap-spacing-200 p-spacing-300 flex flex-wrap items-center">
+    {#each variants as variant (variant)}
+      <Button {variant}>{variant[0].toUpperCase() + variant.slice(1)}</Button>
+    {/each}
+  </div>
+</Story>
+
+<Story name="With icon" asChild>
+  <div class="gap-spacing-200 p-spacing-300 flex flex-wrap items-center">
+    {#each variants as variant (variant)}
+      <Button {variant} iconProps={{ name: 'add' }}>Create</Button>
+    {/each}
+  </div>
+</Story>
+
+<Story name="Sizes" asChild>
+  <div class="gap-spacing-200 p-spacing-300 flex flex-col items-start">
+    {#each sizes as size (size)}
+      <div class="gap-spacing-200 flex items-center">
+        <Button {size} iconProps={{ name: 'send' }}>Send</Button>
+        <Button {size} shape="square" variant="tonal" iconProps={{ name: 'send' }}>Send</Button>
+        <Button {size} variant="outlined">Cancel</Button>
+      </div>
+    {/each}
+  </div>
+</Story>
+
+<Story name="Round and square" asChild>
+  <div class="gap-spacing-200 p-spacing-300 flex flex-wrap items-center">
+    <Button size="md">Round</Button>
+    <Button size="md" shape="square">Square</Button>
+    <p class="md-sys-typescale-body-medium text-md-sys-color-on-surface-variant w-full">
+      Press and hold: both morph to the same smaller corner.
+    </p>
+  </div>
+</Story>
+
+<Story name="Disabled" asChild>
+  <div class="gap-spacing-200 p-spacing-300 flex flex-wrap items-center">
+    {#each variants as variant (variant)}
+      <Button {variant} disabled>{variant}</Button>
+    {/each}
+  </div>
+</Story>
+
+<Story name="Link" asChild>
+  <div class="gap-spacing-200 p-spacing-300 flex">
+    <Button href="#" variant="text">Learn more</Button>
+    <Button href="#" variant="outlined" disabled>Disabled link</Button>
   </div>
 </Story>

@@ -1,15 +1,21 @@
 import type { Snippet } from 'svelte';
-import type { ButtonGroupVariants } from './theme.js';
+import type { ButtonSize } from '../theme.js';
 
-export type ButtonGroupProps = ButtonGroupVariants & {
-  /** Layout direction of the buttons. */
+export type ButtonGroupProps = {
+  /** @default 'horizontal' */
   orientation?: 'horizontal' | 'vertical';
   /**
-   * Drives the gap between buttons and the press-squeeze amount applied to a
-   * pressed button's immediate neighbors. Match the size of the buttons inside.
+   * The size of the buttons inside. Sets the space between them: 18, 12, 8, 8 and 8dp for XS to
+   * XL, so each keeps a 48dp target.
+   * @default 'sm'
    */
-  size?: ButtonGroupVariants['size'];
-  /** The buttons in the group — `Button`, `ButtonIcon`, or `Toggle` components, mixed freely. */
+  size?: ButtonSize;
+  /**
+   * `Button`s, `Toggle`s and `ButtonIcon`s, mixed freely. Avoid `text` buttons and `standard`
+   * icon buttons, which have no container to change shape.
+   */
   children: Snippet;
+  /** Accessible name, when the group needs one (it gets `role="group"`). */
+  'aria-label'?: string;
   class?: string;
 };

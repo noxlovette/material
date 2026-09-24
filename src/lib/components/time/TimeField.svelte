@@ -77,7 +77,7 @@ It combines a Material 3 Textfield with a TimepickerInput for intuitive time sel
         <button
           {...props}
           title="time-overlay"
-          class="absolute inset-0 cursor-pointer disabled:cursor-not-allowed"
+          class="inset-spacing-0 absolute cursor-pointer disabled:cursor-not-allowed"
           type="button"
           data-cy="calendar-time-toggle"
         ></button>

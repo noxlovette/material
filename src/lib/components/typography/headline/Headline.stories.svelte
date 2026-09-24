@@ -4,6 +4,7 @@
 
   const { Story } = defineMeta({
     title: 'Typography/Headline',
+    tags: ['autodocs'],
     component: Headline,
     argTypes: {
       size: {
@@ -22,7 +23,7 @@
 <Story name="Playground">Headline text</Story>
 
 <Story name="Sizes" asChild>
-  <div class="flex flex-col gap-4 p-6">
+  <div class="gap-spacing-200 p-spacing-300 flex flex-col">
     <Headline size="small">Headline small</Headline>
     <Headline size="medium">Headline medium</Headline>
     <Headline size="large">Headline large</Headline>

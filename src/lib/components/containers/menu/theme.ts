@@ -11,23 +11,24 @@ export const menu = tv({
   slots: {
     content: `
       bg-md-sys-color-surface-container-high shadow-elevation-3
-      ring-md-sys-color-outline/10 max-w-sm min-w-48 gap-1
-      overflow-y-auto rounded-lg px-2 py-1
+      ring-md-sys-color-outline/10 max-w-sm min-w-48 gap-spacing-50
+      overflow-y-auto rounded-lg px-spacing-100 py-spacing-50
     `,
     item: `
-      rounded-sm h-11 relative flex w-full cursor-pointer items-center gap-2 px-3 py-2
+      rounded-sm h-11 relative flex w-full cursor-pointer items-center gap-spacing-100 px-spacing-150 py-spacing-100
       md-sys-typescale-body-medium whitespace-nowrap text-md-sys-color-on-surface
       hover:bg-md-sys-color-on-surface/8 data-[highlighted]:bg-md-sys-color-on-surface/8
       focus-visible:outline-2 focus-visible:outline-offset-2
       focus-visible:outline-md-sys-color-primary
       data-[disabled]:cursor-not-allowed data-[disabled]:opacity-38
     `,
-    icon: 'text-md-sys-color-on-surface-variant size-5 text-[20px] shrink-0',
-    indicator: 'size-5 text-[20px] shrink-0 text-md-sys-color-on-surface-variant',
-    itemContent: 'flex flex-1 flex-col gap-1 text-left min-w-0',
+    icon: 'text-md-sys-color-on-surface-variant size-spacing-250 text-[20px] shrink-0',
+    indicator: 'size-spacing-250 text-[20px] shrink-0 text-md-sys-color-on-surface-variant',
+    itemContent: 'flex flex-1 flex-col gap-spacing-50 text-left min-w-spacing-0',
     helper: 'md-sys-typescale-body-medium text-md-sys-color-on-surface-variant',
-    rightSlot: 'text-md-sys-color-on-surface-variant size-5 text-[20px] shrink-0',
-    groupHeading: 'px-3 pt-2 pb-1 md-sys-typescale-label-medium text-md-sys-color-primary'
+    rightSlot: 'text-md-sys-color-on-surface-variant size-spacing-250 text-[20px] shrink-0',
+    groupHeading:
+      'px-spacing-150 pt-spacing-100 pb-spacing-50 md-sys-typescale-label-medium text-md-sys-color-primary'
   },
   variants: {
     selected: {
