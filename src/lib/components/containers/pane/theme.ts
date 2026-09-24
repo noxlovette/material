@@ -1,4 +1,4 @@
-import { tv, type VariantProps } from 'tailwind-variants';
+import { tv, type VariantProps } from '$lib/utils/tv.js';
 
 export type PaneVariants = VariantProps<typeof pane>;
 export type PaneGridVariants = VariantProps<typeof paneGrid>;
@@ -249,7 +249,7 @@ export type MinimizedCorner = 'bottom-left' | 'bottom-right' | 'top-left' | 'top
 
 export const draggablePane = tv({
   slots: {
-    base: 'fixed z-[100] flex min-w-72 flex-col rounded-md bg-md-sys-color-surface-container-highest shadow-elevation-3 transition-shadow md-sys-motion-effects',
+    base: 'fixed z-layer-pane flex min-w-72 flex-col rounded-md bg-md-sys-color-surface-container-highest shadow-elevation-3 transition-shadow md-sys-motion-effects',
     headerBar:
       'relative flex shrink-0 items-center gap-spacing-100 rounded-t-2xl px-spacing-150 py-spacing-100 touch-none select-none md-sys-state-focus-indicator',
     grip: 'shrink-0 text-md-sys-color-on-surface-variant',
@@ -259,7 +259,7 @@ export const draggablePane = tv({
       'flex flex-1 flex-col min-h-spacing-0 min-w-spacing-0 overflow-auto p-spacing-200 pt-spacing-100',
     resizeHandle: 'absolute touch-none',
     miniBase:
-      'fixed z-[100] flex cursor-pointer items-center gap-spacing-100 rounded-full bg-md-sys-color-surface-container-high px-spacing-200 py-spacing-100 shadow-elevation-2 md-sys-state-focus-indicator hover:shadow-elevation-3',
+      'fixed z-layer-pane flex cursor-pointer items-center gap-spacing-100 rounded-full bg-md-sys-color-surface-container-high px-spacing-200 py-spacing-100 shadow-elevation-2 md-sys-state-focus-indicator hover:shadow-elevation-3',
     miniIcon: 'shrink-0 text-md-sys-color-on-surface-variant',
     miniLabel: 'md-sys-typescale-label-large max-w-48 truncate text-md-sys-color-on-surface'
   },

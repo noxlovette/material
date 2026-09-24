@@ -92,7 +92,7 @@ It combines a Material 3 Textfield with a TimepickerInput for intuitive time sel
       align="start"
       sideOffset={12}
       collisionPadding={8}
-      class="z-100"
+      class="z-layer-popup"
     >
       {#snippet child({ wrapperProps, props, open })}
         <div {...wrapperProps}>

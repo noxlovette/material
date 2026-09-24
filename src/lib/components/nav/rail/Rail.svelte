@@ -100,6 +100,6 @@ On mobile (< md) it automatically renders as a bottom navigation bar.
     opacity: 1;
     pointer-events: auto;
     background-color: rgb(0 0 0 / 0.4);
-    z-index: 30;
+    z-index: var(--z-layer-rail);
   }
 </style>

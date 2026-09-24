@@ -1,4 +1,4 @@
-import { tv, type VariantProps } from 'tailwind-variants';
+import { tv, type VariantProps } from '$lib/utils/tv.js';
 
 export type SelectVariants = VariantProps<typeof select>;
 
@@ -35,7 +35,7 @@ export const select = tv({
       group-data-[state=open]:rotate-180
     `,
     content: `
-      z-[100] min-w-[var(--bits-select-anchor-width)] max-h-96 overflow-y-auto
+      z-layer-popup min-w-[var(--bits-select-anchor-width)] max-h-96 overflow-y-auto
       rounded-lg gap-spacing-50 bg-md-sys-color-surface-container-high
       shadow-elevation-3 ring-md-sys-color-outline/10 px-spacing-100 py-spacing-50 outline-none
     `,

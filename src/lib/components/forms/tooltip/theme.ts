@@ -1,10 +1,10 @@
-import { tv, type VariantProps } from 'tailwind-variants';
+import { tv, type VariantProps } from '$lib/utils/tv.js';
 
 export type TooltipVariants = VariantProps<typeof tooltip>;
 
 export const tooltip = tv({
   slots: {
-    base: 'min-w-60 py-spacing-150 px-spacing-200  shadow-elevation-2 rounded-md relative z-[100] pointer-events-auto',
+    base: 'min-w-60 py-spacing-150 px-spacing-200  shadow-elevation-2 rounded-md relative z-layer-popup pointer-events-auto',
     subhead: '',
     supportingText: '',
     textContainer: '',

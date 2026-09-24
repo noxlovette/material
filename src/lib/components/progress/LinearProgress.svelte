@@ -11,7 +11,7 @@ The track always keeps a gap either side of the bar.
 -->
 <script lang="ts">
   import clsx from 'clsx';
-  import { tv } from 'tailwind-variants';
+  import { tv } from '$lib/utils/tv.js';
   import { Progress } from 'bits-ui';
   import { animate, type AnimationPlaybackControls } from 'motion';
   import { springTokens, springTransition } from '$lib/animation/spring.js';

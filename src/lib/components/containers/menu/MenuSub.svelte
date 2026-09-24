@@ -67,7 +67,7 @@ trigger row (`iconProps`/`helper`/`children` label) behaves like a
   </DropdownMenu.SubTrigger>
 
   <DropdownMenu.Portal>
-    <DropdownMenu.SubContent sideOffset={4} class="z-100">
+    <DropdownMenu.SubContent sideOffset={4} class="z-layer-popup">
       {#snippet child({ wrapperProps, props, open: isOpen })}
         <div {...wrapperProps} class={wrapperProps.class as any}>
           <div

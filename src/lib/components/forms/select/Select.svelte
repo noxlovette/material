@@ -65,13 +65,13 @@ Powered by bits-ui for accessibility and behavior.
 
         <Select.Portal disabled={portalDisabled}>
           <Select.Content
-            class={cls.content({ class: clsx('z-[100]', contentProps?.class) })}
+            class={cls.content({ class: clsx('z-layer-popup', contentProps?.class) })}
             sideOffset={4}
             align="start"
             {...contentProps}
           >
             {#snippet child({ wrapperProps, props, open })}
-              <div {...wrapperProps} class={clsx('z-[100]', wrapperProps.class as any)}>
+              <div {...wrapperProps} class={clsx('z-layer-popup', wrapperProps.class as any)}>
                 <div
                   {...props}
                   class={clsx('relative flex flex-col outline-none', props.class as any)}

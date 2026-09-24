@@ -1,11 +1,11 @@
-import { tv, type VariantProps } from 'tailwind-variants';
+import { tv, type VariantProps } from '$lib/utils/tv.js';
 
 export type ContextMenuVariants = VariantProps<typeof contextMenu>;
 
 export const contextMenu = tv({
   slots: {
     content: `
-      z-[100] min-w-48 max-w-sm gap-spacing-50 overflow-y-auto rounded-lg
+      z-layer-popup min-w-48 max-w-sm gap-spacing-50 overflow-y-auto rounded-lg
       bg-md-sys-color-surface-container-high px-spacing-100 py-spacing-50
       shadow-elevation-3 ring-md-sys-color-outline/10
     `,

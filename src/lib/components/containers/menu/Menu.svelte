@@ -44,7 +44,7 @@ Contrast with `MenuItem` (a single interactive row inside the panel) and
   </DropdownMenu.Trigger>
 
   <DropdownMenu.Portal>
-    <DropdownMenu.Content {align} sideOffset={4} class="z-100">
+    <DropdownMenu.Content {align} sideOffset={4} class="z-layer-popup">
       {#snippet child({ wrapperProps, props, open: isOpen })}
         <div {...wrapperProps} class={wrapperProps.class as any}>
           <div

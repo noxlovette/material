@@ -1,0 +1,33 @@
+/*
+ * Stacking layers for surfaces that float over the page. M3 defines no z-index tokens, so the
+ * library names its own: every fixed, sticky or portaled component takes one of these instead
+ * of a number, so their relative order is set here and nowhere else. Apply with
+ * `z-layer-<name>` (z-layer-modal); override the value on :root with `--z-layer-<name>`.
+ * Stacking inside one component (a slider thumb over its track) keeps plain z-10/z-20.
+ *
+ * Order, lowest first:
+ *   bar       Navbar, AppBar, ActionRail, docked Toolbar
+ *   rail      Rail and its tablet scrim (the expanded rail covers the bars)
+ *   sheet     standard (non-modal) BottomSheet
+ *   fab       fixed FABs such as ThemeSwitcher
+ *   pane      DraggablePane and its minimised pill, floating windows over app chrome
+ *   modal     Dialogue scrim and content, a FAB's container-transform surface
+ *   snackbar  stays readable while a dialog is open
+ *   popup     menus, selects, tooltips, popovers, date/time pickers, opened from any layer
+ *             beneath, including a dialog or a pane
+ * Modal sheets are native <dialog>s in the top layer and sit above all of these.
+ */
+@theme static {
+  --z-layer-bar: 30;
+  --z-layer-rail: 40;
+  --z-layer-sheet: 40;
+  --z-layer-fab: 50;
+  --z-layer-pane: 60;
+  --z-layer-modal: 70;
+  --z-layer-snackbar: 80;
+  --z-layer-popup: 90;
+}
+
+@utility z-layer-* {
+  z-index: --value(--z-layer-*);
+}
