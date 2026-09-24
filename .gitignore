@@ -3,7 +3,8 @@ node_modules/
 build/
 dist/
 claude-skill/
-.claude
+.claude/*
+!.claude/skills
 .output/
 .vercel/
 .next/
