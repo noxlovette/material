@@ -76,7 +76,7 @@ the document root yourself to get the same behavior.
 
   const style = $derived(
     clsx(
-      !flexible && `width: ${shown}px; flex-basis: ${shown}px;`,
+      !flexible && `width: ${shown}px; --pane-basis: ${shown}px;`,
       sticky && `--pane-sticky-top: ${stickyTop}px;`
     )
   );

@@ -34,3 +34,17 @@
     --md-rail-inset: var(--md-rail-width, 0px);
   }
 }
+
+/*
+ * A page built on App behaves as an app, not a document: scrolling stops at its edges instead of
+ * bouncing (macOS/iOS rubber-banding) or chaining into pull-to-refresh, which showed the blank
+ * canvas past App's shell. The canvas takes the window colour anyway, for the browsers that
+ * still overscroll and the safe areas around it. Scoped to pages with an App, and in the base
+ * layer, so a consumer can restore overscroll with one `html { overscroll-behavior: auto }`.
+ */
+@layer base {
+  :root:has(.md-app) {
+    overscroll-behavior: none;
+    background-color: var(--color-md-sys-color-surface-container);
+  }
+}

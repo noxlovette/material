@@ -108,11 +108,22 @@ const marginClasses: Record<Breakpoint, Record<SpaceSize, string>> = {
   }
 };
 
+/*
+  A pane's flex-basis is its size along the grid's axis, so it depends on the direction. Each
+  Pane publishes the basis it wants in a row as --pane-basis (0 for a flexible pane, so flexible
+  siblings share the free space; its px width for a fixed one), and each tier here applies it to
+  the children: that basis in a row, `auto` in a column, where panes stack at their content
+  height. A basis of 0 in a column made a flexible pane exactly as tall as its min-height, with
+  the rest of its content clipped. The `*:` classes beat the Pane's own `basis-*`.
+*/
 const directionClasses: Record<Breakpoint, Record<Direction, string>> = {
-  small: { row: 'flex-row', column: 'flex-col' },
-  medium: { row: 'md:flex-row', column: 'md:flex-col' },
-  large: { row: 'lg:flex-row', column: 'lg:flex-col' },
-  extraLarge: { row: 'xl:flex-row', column: 'xl:flex-col' }
+  small: { row: 'flex-row *:basis-(--pane-basis)', column: 'flex-col *:basis-auto' },
+  medium: { row: 'md:flex-row md:*:basis-(--pane-basis)', column: 'md:flex-col md:*:basis-auto' },
+  large: { row: 'lg:flex-row lg:*:basis-(--pane-basis)', column: 'lg:flex-col lg:*:basis-auto' },
+  extraLarge: {
+    row: 'xl:flex-row xl:*:basis-(--pane-basis)',
+    column: 'xl:flex-col xl:*:basis-auto'
+  }
 };
 
 const visibleFromClasses: Record<Breakpoint, string> = {
@@ -192,9 +203,10 @@ export const pane = tv({
       lg: { content: 'gap-spacing-200' },
       xl: { content: 'gap-spacing-300' }
     },
+    // The basis outside a PaneGrid; inside one, the grid's direction sets it from --pane-basis.
     flexible: {
-      true: { base: 'min-w-spacing-0 grow basis-spacing-0' },
-      false: { base: 'shrink-0' }
+      true: { base: 'min-w-spacing-0 grow basis-spacing-0 [--pane-basis:0px]' },
+      false: { base: 'shrink-0 basis-(--pane-basis)' }
     },
     sticky: {
       true: {
@@ -203,6 +215,20 @@ export const pane = tv({
       false: ''
     }
   },
+  compoundVariants: [
+    /*
+      A full pane is a page that scrolls with the window, so its content ends 72dp (a 56dp FAB
+      plus its 16dp margin) above the pane's bottom edge instead of on the preset's bottom
+      padding. The last line can then scroll clear of a FAB (M3: keep a FAB from covering
+      content at the end of a scroll) and doesn't finish flush against the window edge. Each
+      tier restates it, since the presets set `md:py-*`/`lg:py-*`.
+    */
+    {
+      full: true,
+      padding: ['sm', 'md', 'lg'],
+      class: { content: 'pb-spacing-900 md:pb-spacing-900 lg:pb-spacing-900' }
+    }
+  ],
   defaultVariants: {
     rounded: true,
     flexible: true
