@@ -2,7 +2,9 @@ import { tv, type VariantProps } from '$lib/utils/tv.js';
 
 export const table = tv({
   slots: {
-    root: 'w-full border-collapse text-left md-sys-typescale-body-medium text-md-sys-color-on-surface',
+    // `isolate` scopes the sticky head's z-10 to the table, so it only covers the rows
+    // scrolling beneath it and never app bars, menus or sheets outside the table.
+    root: 'isolate w-full border-collapse text-left md-sys-typescale-body-medium text-md-sys-color-on-surface',
     head: '',
     body: '[&_tr:last-child]:border-b-0',
     foot: 'border-t border-md-sys-color-outline-variant',
