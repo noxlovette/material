@@ -8,7 +8,8 @@ They’re used for branding, screen titles, navigation, and actions.
 Sizes: `small` (64dp, one line) and the Expressive `medium`/`large` flexible bars, whose
 headline block wraps and grows. `size` also takes one value per breakpoint
 (`{ small: 'small', large: 'large' }`), switched in CSS so server rendering needs no JS.
-`align="center"` centres the title. Setting `search` makes it a search app bar.
+`align="center"` centres the title. Setting `search` makes it a search app bar; add
+`searchResults` and selecting the field opens the search view, as with `Search`.
 
 The bar takes its on-scroll color once `scrollContainer` (default: the page) scrolls.
 
@@ -28,6 +29,7 @@ A `ButtonIcon` anywhere inside it defaults to `variant="standard"`, per M3; pass
   import clsx from 'clsx';
   import ButtonIcon from '../../buttons/ButtonIcon.svelte';
   import { setButtonIconVariant } from '../../buttons/context.js';
+  import SearchView from '../../forms/search/SearchView.svelte';
 
   let {
     children,
@@ -47,6 +49,9 @@ A `ButtonIcon` anywhere inside it defaults to `variant="standard"`, per M3; pass
     query = $bindable(''),
     searchProps,
     searchTrailing,
+    searchResults,
+    searchOpen = $bindable(false),
+    searchLayout,
     scrollContainer,
     ghost = false,
     ...rest
@@ -69,6 +74,33 @@ A `ButtonIcon` anywhere inside it defaults to `variant="standard"`, per M3; pass
   });
 
   const isSearch = $derived(search !== undefined);
+
+  let searchBar = $state<HTMLElement>();
+
+  // Same as Search: click, typing or ↓ opens the view; focus alone doesn't.
+  const opener = $derived(
+    searchResults
+      ? {
+          'aria-haspopup': 'dialog' as const,
+          'aria-expanded': searchOpen,
+          onclick: (e: MouseEvent & { currentTarget: HTMLInputElement }) => {
+            searchProps?.onclick?.(e);
+            if (!e.defaultPrevented) searchOpen = true;
+          },
+          oninput: (e: Event & { currentTarget: HTMLInputElement }) => {
+            searchProps?.oninput?.(e);
+            if (!e.defaultPrevented) searchOpen = true;
+          },
+          onkeydown: (e: KeyboardEvent & { currentTarget: HTMLInputElement }) => {
+            searchProps?.onkeydown?.(e);
+            if (!e.defaultPrevented && e.key === 'ArrowDown') {
+              e.preventDefault();
+              searchOpen = true;
+            }
+          }
+        }
+      : {}
+  );
   const noLeading = $derived(!leading && !showBack);
 
   const s = $derived(
@@ -118,10 +150,11 @@ A `ButtonIcon` anywhere inside it defaults to `variant="standard"`, per M3; pass
         {#if title}
           <h1 {...titleProps} class={clsx('sr-only', titleProps?.class)}>{title}</h1>
         {/if}
-        <label class={s.search()}>
+        <label class={s.search()} bind:this={searchBar}>
           <input
             type="search"
             {...searchProps}
+            {...opener}
             placeholder={search}
             aria-label={searchProps?.['aria-label'] ?? search}
             bind:value={query}
@@ -155,6 +188,18 @@ A `ButtonIcon` anywhere inside it defaults to `variant="standard"`, per M3; pass
     </div>
   {/if}
 </nav>
+
+{#if isSearch && searchResults}
+  <SearchView
+    bind:open={searchOpen}
+    bind:value={query}
+    anchor={searchBar}
+    results={searchResults}
+    layout={searchLayout}
+    placeholder={search}
+    trailing={searchTrailing}
+  />
+{/if}
 
 {#if ghost}
   <div class={s.ghost()} style="height: {barHeight}px" aria-hidden="true"></div>

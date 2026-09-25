@@ -160,7 +160,7 @@ export const appbar = tv({
     trailing:
       'text-md-sys-color-on-surface-variant col-start-3 row-start-1 flex shrink-0 items-center justify-self-end',
     search:
-      'state-layer relative flex h-spacing-700 w-full min-w-spacing-0 cursor-text items-center rounded-full ps-spacing-200 pe-spacing-200 transition-colors md-sys-motion-effects before:rounded-full hover:before:bg-md-sys-color-on-surface/8 focus-within:outline-3 focus-within:outline-offset-2 focus-within:outline-md-sys-color-secondary',
+      'state-layer relative flex h-spacing-700 w-full min-w-spacing-0 cursor-text items-center rounded-xl ps-spacing-200 pe-spacing-200 transition-colors md-sys-motion-effects before:rounded-xl hover:before:bg-md-sys-color-on-surface/8 focus-within:outline-3 focus-within:outline-offset-2 focus-within:outline-md-sys-color-secondary [:root:active-view-transition_&]:outline-0',
     searchInput:
       'md-sys-typescale-body-large text-md-sys-color-on-surface placeholder:text-md-sys-color-on-surface-variant w-full min-w-spacing-0 bg-transparent text-start outline-none placeholder-shown:text-center [&::-webkit-search-cancel-button]:hidden',
     searchTrailing: 'text-md-sys-color-on-surface-variant flex shrink-0 items-center'

@@ -24,11 +24,15 @@ The props form a union, so the bar is one of two kinds:
   `{ small: 'small', large: 'large' }` to grow the bar on wider windows. The switch happens in CSS,
   so server rendering needs no JS.
 - **Search bar.** Pass `search` (the hint text) instead. The bar is always 64dp. `title` then
-  becomes a screen-reader-only heading.
+  becomes a screen-reader-only heading. Per M3, selecting the field should open the search view:
+  pass `searchResults` (and optionally `bind:searchOpen`, `searchLayout`) and it opens the same
+  view as `Search`, with a container transform from the field. See Forms/Search for the view.
 
 <Canvas of={AppBarStories.MediumFlexible} />
 
 <Canvas of={AppBarStories.Search} />
+
+<Canvas of={AppBarStories.SearchView} />
 
 ## Placement
 

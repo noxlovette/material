@@ -331,3 +331,38 @@
   transition-duration: var(--md-sys-motion-duration-slow-effects-spring);
   transition-timing-function: var(--md-sys-motion-timing-function-slow-effects-spring);
 }
+
+/*
+  Container transform (animation/containerTransform.ts): both snapshots keep their own width and
+  sit at the container's top, clipped by it as it grows or shrinks. Motion's crop would otherwise
+  `object-fit: cover` them, which blows a short bar's snapshot up to the height of a full view.
+  Motion injects its per-name rule at runtime, after this sheet and at the same specificity, so
+  these need `!important` to win.
+*/
+::view-transition-old(.md-container-transform),
+::view-transition-new(.md-container-transform) {
+  top: 0 !important;
+  width: 100% !important;
+  height: auto !important;
+  object-fit: fill !important;
+}
+
+/*
+  Outgoing on top, fading off the incoming snapshot underneath, which stays opaque. Normal
+  blending: the browser runs `plus-lighter` on the pair as an animation, which only
+  `!important` outranks, and adding the outgoing bar onto the opaque view flashed it white.
+  The incoming snapshot also drops the browser's default fade-in.
+*/
+::view-transition-old(.md-container-transform) {
+  z-index: 1;
+  mix-blend-mode: normal !important;
+}
+::view-transition-new(.md-container-transform) {
+  mix-blend-mode: normal !important;
+  animation-name: none !important;
+}
+
+/* Filled with the destination's own background while it morphs (set by containerTransform). */
+::view-transition-group(.md-container-transform) {
+  background-color: var(--md-container-transform-color, transparent);
+}

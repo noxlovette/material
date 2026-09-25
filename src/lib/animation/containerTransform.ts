@@ -12,8 +12,9 @@ export interface ContainerTransformOptions {
 }
 
 /**
- * M3 container transform: one container morphs its bounds, shape and color into another while
- * the outgoing content fades out and the incoming content fades in on top.
+ * M3 container transform: one container morphs its bounds, shape and color into another. The
+ * incoming state is drawn underneath at full opacity from the start and the outgoing one fades
+ * out on top of it, so the morph ends exactly as the page looks and never shows through.
  * https://m3.material.io/styles/motion/transitions/transition-patterns#container-transform
  *
  * The most dramatic pattern (https://m3.material.io/styles/motion/transitions/applying-transitions).
@@ -26,10 +27,10 @@ export interface ContainerTransformOptions {
  * the DOM at the same time — `update` swaps one for the other. Browsers without the API just run
  * `update`. A second call while one is running is queued, not interrupted.
  *
- * Not built into any component. FAB → sheet is the FAB's own morph (a clip-path on Motion, in
- * `FAB.svelte`), because M3 keeps that container opaque and changes its colour, which a
- * snapshot cross-fade can't. Card → detail is the app's own navigation, and `Search` is a plain
- * field with no search view to expand into.
+ * Built into `SearchView`: the search bar (`Search`, or a search `AppBar`) grows into the search
+ * view and back. FAB → sheet is the FAB's own morph (a clip-path on Motion, in `FAB.svelte`),
+ * because M3 keeps that container opaque and changes its colour, which a snapshot cross-fade
+ * can't. Card → detail is the app's own navigation.
  *
  * ```ts
  * containerTransform(
@@ -38,14 +39,49 @@ export interface ContainerTransformOptions {
  * );
  * ```
  */
+const FILL = '--md-container-transform-color';
+
+const resolve = (target: ViewTransitionTargetDefinition) =>
+  typeof target === 'string'
+    ? document.querySelector(target)
+    : target instanceof Element
+      ? target
+      : null;
+
+const TRANSPARENT = new Set(['transparent', 'rgba(0, 0, 0, 0)']);
+
+/*
+  The destination's own background, if it has one. A container made of separate surfaces on a
+  transparent wrapper (the docked search view's bar and results) gets no fill: its opaque
+  incoming snapshot already covers what it should, and a flat fill would paper over the gaps
+  between its surfaces until the transition ends, then pop.
+*/
+const fillOf = (target: Element | null) => {
+  const colour = target ? getComputedStyle(target).backgroundColor : '';
+  return colour && !TRANSPARENT.has(colour) ? colour : 'transparent';
+};
+
 export const containerTransform = (
   update: () => void | Promise<void>,
   { from, to, spring = springTokens.spatial }: ContainerTransformOptions
 ) => {
-  const builder = animateView(update, springTransition(spring)).add(from, to);
+  // The incoming snapshot is opaque wherever the destination is, and the outgoing one fades off
+  // it (motion.css layers them), so nothing behind shows through. The fill (motion.css) covers
+  // the rest of a destination with its own background, e.g. a full-screen view's area below the
+  // incoming snapshot's top as the bar grows. Only the transition's group reads the property,
+  // and it's rewritten before each new snapshot, so it's left in place afterwards.
+  const root = document.documentElement;
+  const updateAndFill = async () => {
+    await update();
+    root.style.setProperty(FILL, fillOf(resolve(to)));
+  };
+  // The class lets motion.css keep both snapshots at their width, clipped by the container.
+  const builder = animateView(updateAndFill, springTransition(spring))
+    .add(from, to)
+    .class('md-container-transform');
   // Reduced motion: the container doesn't grow; its two states just crossfade in place.
   if (prefersReducedMotion()) builder.layout({ duration: 0 });
   return builder
-    .old({ opacity: [1, 0] }, springTransition(springTokens.fastEffects))
-    .new({ opacity: [0, 1] }, { ...springTransition(springTokens.effects), delay: 0.05 });
+    .old({ opacity: [1, 0] }, springTransition(springTokens.effects))
+    .new({ opacity: [1, 1] }, springTransition(springTokens.effects));
 };

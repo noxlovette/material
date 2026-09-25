@@ -68,6 +68,7 @@
     'format_underlined',
     'forward',
     'grid_view',
+    'history',
     'home',
     'house',
     'image',
