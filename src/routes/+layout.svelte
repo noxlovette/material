@@ -1,7 +1,9 @@
 <script lang="ts">
   import { base } from '$app/paths';
+  import { onNavigate } from '$app/navigation';
   import {
     App,
+    fadeThrough,
     type MaterialSymbolName,
     Navbar,
     NavbarItem,
@@ -15,6 +17,32 @@
   const { children } = $props();
 
   let collapsed = $state(true);
+
+  /*
+    Route changes are M3 top-level transitions (fade through): the rail and navbar destinations,
+    and the guides nav, which is a drawer, all lead to unrelated pages. The region that fades is
+    the one whose content changed: all of <main> between rail destinations, only the guide's
+    content pane between guides, so the guides nav stays put while its selection moves. A change
+    of hash alone (the "On this page" links) isn't a new page.
+  */
+  const inGuides = (url: URL) =>
+    url.pathname === `${base}/guides` || url.pathname.startsWith(`${base}/guides/`);
+
+  onNavigate((navigation) => {
+    const from = navigation.from?.url;
+    const to = navigation.to?.url;
+    if (!from || !to || from.pathname === to.pathname) return;
+    const target = inGuides(from) && inGuides(to) ? '[data-guide-content]' : 'main';
+    return new Promise((resolve) => {
+      fadeThrough(
+        async () => {
+          resolve();
+          await navigation.complete;
+        },
+        { target }
+      );
+    });
+  });
 
   const destinations = [
     { label: 'Overview', href: `${base}/`, iconProps: { name: 'architecture' } },
@@ -119,7 +147,9 @@
       <RailItem {...item} />
     {/each}
   </Rail>
-  {@render children()}
+  <main>
+    {@render children()}
+  </main>
   <Navbar ghost>
     {#each destinations as item (item.label)}
       <NavbarItem label={item.label} href={item.href} iconProps={item.iconProps} />

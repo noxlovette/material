@@ -39,7 +39,8 @@
 
   <!-- The content is a `surface` pane on the `surface-container` window, beside the rail and
        the nav, which belong to the window. -->
-  <Pane padding="none">
+  <!-- data-guide-content: the region the root layout fades through between guides. -->
+  <Pane padding="none" data-guide-content>
     {@render children()}
   </Pane>
 </PaneGrid>

@@ -61,6 +61,12 @@ See `/docs/pane` in the showcase site for the full prop reference and worked exa
 
 `App` paints the window `surface-container`; content lives in `surface` panes (`Pane`'s default `background`, rounded top corners). Navigation belongs to the window, not a pane: the `Rail` (on `surface-container`, the spec's optional role), a `Navbar`, a guides-style nav list on a `background={false}` pane. So keep the content `Pane` at its default background, and don't separate a nav column from the content with a border: the colour change does it.
 
+### Page ends and overscroll
+
+- **End space:** a `full` Pane (the default, a page that scrolls with the window) ends its content 72dp above its bottom edge, whatever its `padding` preset (not with `padding="none"`). That's a 56dp FAB plus its 16dp margin, so the last line scrolls clear of a FAB and doesn't finish flush against the window. Don't add bottom padding by hand on top of it.
+- **Overscroll:** a page with an `App` doesn't bounce or pull-to-refresh (`overscroll-behavior: none` on `:root:has(.md-app)`, base layer), and its canvas is `surface-container`. An app that wants pull-to-refresh sets `html { overscroll-behavior: auto }`.
+- **Pane basis follows the grid:** inside a `PaneGrid`, a Pane's `flex-basis` is its width in a row and `auto` in a column (each direction tier restates it), so stacked panes take their content height. Don't set `basis-*` on a Pane yourself.
+
 ### Clearing the rail
 
 A viewport-anchored `Rail` publishes `--md-rail-inset` on `<html>`: 0 below `md`, the collapsed 96dp on medium windows (the expanded rail is modal there and overlays), and its live width from `lg` (it pushes content, in step with its spring). `App`'s shell pads by it and `AppBar` starts at it. Never add `md:ml-24` or similar to a page, a `PaneGrid` or an app bar. A custom shell uses `ps-(--md-rail-inset)`; another fixed surface spanning the window uses `left-(--md-rail-inset)`. A rail with `anchor="parent"` renders a spacer beside itself instead, so it and its content go in a flex row.

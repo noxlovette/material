@@ -1,4 +1,5 @@
 import { animateView, type ViewTransitionTargetDefinition } from 'motion';
+import { prefersReducedMotion } from './reducedMotion.js';
 import { springTokens, springTransition, type SpringToken } from './spring.js';
 
 export interface ContainerTransformOptions {
@@ -40,8 +41,11 @@ export interface ContainerTransformOptions {
 export const containerTransform = (
   update: () => void | Promise<void>,
   { from, to, spring = springTokens.spatial }: ContainerTransformOptions
-) =>
-  animateView(update, springTransition(spring))
-    .add(from, to)
+) => {
+  const builder = animateView(update, springTransition(spring)).add(from, to);
+  // Reduced motion: the container doesn't grow; its two states just crossfade in place.
+  if (prefersReducedMotion()) builder.layout({ duration: 0 });
+  return builder
     .old({ opacity: [1, 0] }, springTransition(springTokens.fastEffects))
     .new({ opacity: [0, 1] }, { ...springTransition(springTokens.effects), delay: 0.05 });
+};
