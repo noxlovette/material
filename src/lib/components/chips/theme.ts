@@ -15,6 +15,10 @@ export type ChipVariants = VariantProps<typeof chip>;
 
   Chip doesn't use md-component-button-base: its disabled fill would paint flat chips, which M3
   leaves unfilled.
+
+  An input chip is a container holding two sibling buttons, the primary `action` and the remove
+  button, since one can't nest inside the other. The container keeps the look (and shows the focus
+  indicator while the action has focus); the action carries the padding, and its state layer covers the whole chip.
 */
 export const chip = tv({
   slots: {
@@ -22,6 +26,10 @@ export const chip = tv({
     // 18dp is the chip spec's own icon size, between the 16 and 20 Icon presets.
     icon: 'size-[18px] shrink-0 text-[18px]',
     avatar: 'size-spacing-300 shrink-0 overflow-hidden rounded-full',
+    // Static, so its Layer (state layer and hit area) spans the whole chip; the remove button is
+    // positioned and later in the DOM, so it stays on top.
+    action:
+      'static flex h-full min-w-spacing-0 cursor-pointer items-center gap-spacing-100 self-stretch rounded-sm px-spacing-200 outline-none disabled:cursor-not-allowed',
     label: '',
     // 18dp glyph with a 48dp touch target around it (::after).
     trailing:
@@ -50,11 +58,12 @@ export const chip = tv({
     },
     leading: {
       none: '',
-      icon: { base: 'pl-spacing-100' },
-      avatar: { base: 'pl-spacing-50' }
+      icon: { base: 'pl-spacing-100', action: 'pl-spacing-100' },
+      avatar: { base: 'pl-spacing-50', action: 'pl-spacing-50' }
     },
-    removable: {
-      true: { base: 'pr-spacing-100' },
+    /** A trailing icon: the filter chip's `trailingIconProps`, or the input chip's remove button. */
+    trailing: {
+      true: { base: 'pr-spacing-100', action: 'pr-spacing-100' },
       false: ''
     },
     disabled: {
@@ -94,8 +103,23 @@ export const chip = tv({
     { variant: 'filter', selected: false, class: { icon: 'text-md-sys-color-primary' } },
     // Input chips are the reverse: on-surface-variant, primary once selected.
     { variant: 'input', selected: true, class: { icon: 'text-md-sys-color-primary' } },
-    // The input chip is a div, which Layer's :disabled check doesn't cover.
-    { variant: 'input', disabled: true, class: { base: 'pointer-events-none' } },
+    // The input chip's container has no padding of its own before the action, and needs the
+    // focus indicator (and darker border) while the action is focused.
+    {
+      variant: 'input',
+      class: {
+        base: 'pl-spacing-0 has-[[data-chip-action]:focus-visible]:outline-3 has-[[data-chip-action]:focus-visible]:outline-offset-2 has-[[data-chip-action]:focus-visible]:outline-md-sys-color-secondary has-[[data-chip-action]:focus-visible]:outline-solid'
+      }
+    },
+    { variant: 'input', trailing: false, class: { base: 'pr-spacing-0' } },
+    {
+      variant: 'input',
+      elevated: false,
+      selected: false,
+      class: {
+        base: 'has-[[data-chip-action]:focus-visible]:border-md-sys-color-on-surface-variant'
+      }
+    },
     {
       disabled: true,
       elevated: false,
@@ -118,7 +142,7 @@ export const chip = tv({
     elevated: false,
     selected: false,
     leading: 'none',
-    removable: false,
+    trailing: false,
     disabled: false
   }
 });

@@ -20,12 +20,12 @@ import * as ChipStories from './Chip.stories.svelte';
 
 `variant` sets both the look and the element the chip renders:
 
-| Variant      | Use for                                                         | Renders                                                |
-| ------------ | --------------------------------------------------------------- | ------------------------------------------------------ |
-| `assist`     | A smart or automated action, like adding an event to a calendar | `<button>` (or `<a>` with `href`); icon tinted primary |
-| `filter`     | Filtering content by tags or descriptive words                  | A toggle; a checkmark replaces the icon when selected  |
-| `input`      | A piece of information the user entered (a contact, a value)    | A plain container; `onRemove` adds a remove button     |
-| `suggestion` | A generated suggestion that narrows intent                      | Like `assist`; its label is on-surface-variant         |
+| Variant      | Use for                                                         | Renders                                                            |
+| ------------ | --------------------------------------------------------------- | ------------------------------------------------------------------ |
+| `assist`     | A smart or automated action, like adding an event to a calendar | `<button>` (or `<a>` with `href`); icon tinted primary             |
+| `filter`     | Filtering content by tags or descriptive words                  | A toggle; a checkmark replaces the icon when selected              |
+| `input`      | A piece of information the user entered (a contact, a value)    | A container with a primary button; `onRemove` adds a remove button |
+| `suggestion` | A generated suggestion that narrows intent                      | Like `assist`; its label is on-surface-variant                     |
 
 `elevated` swaps the flat, outlined container for a shadowed one on every variant except `input`,
 which the spec keeps flat. For a static label with no interaction (a status or a count), use
@@ -51,6 +51,7 @@ Render one input chip per entry, and remove the entry from your own array in `on
   <Chip
     variant="input"
     iconProps={{ name: 'person' }}
+    removeLabel="Remove {name}"
     onRemove={() => (recipients = recipients.filter((r) => r !== name))}
   >
     {name}
@@ -63,10 +64,13 @@ Render one input chip per entry, and remove the entry from your own array in `on
 ## Accessibility
 
 - **Roles.** Assist and suggestion chips are real buttons or links. Filter chips are toggles
-  whose `aria-pressed` reflects `selected`. An input chip's remove button is its own focusable
-  `<button>`, never nested inside another interactive element.
-- **Disabled.** Assist, filter and suggestion chips use the native `disabled` attribute. An input
-  chip's container is a `<div>`, so it gets `aria-disabled`, and its remove button a real
-  `disabled`.
+  whose `aria-pressed` reflects `selected`; `trailingIconProps` adds a decorative trailing icon,
+  e.g. `arrow_drop_down` for a chip that opens a menu. An input chip holds two sibling buttons:
+  its primary action (leading content and label, taking `onclick` and the rest props) and the
+  remove button, so neither nests inside the other. Backspace or Delete on the primary action
+  calls `onRemove`; give the remove button a `removeLabel` that names the item, and move focus
+  to a neighbour after removing.
+- **Disabled.** Every chip uses the native `disabled` attribute; an input chip sets it on both
+  of its buttons.
 - **Target size.** The remove icon is 18dp with a 48dp touch target around it.
 - **Contrast.** Every state pairs a container with its `on-*` role, so text keeps AA contrast.

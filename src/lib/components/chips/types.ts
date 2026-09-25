@@ -29,15 +29,25 @@ export type ChipProps = ChipVariants &
     /** Configuration for the leading icon. */
     iconProps?: IconProps;
     /**
+     * Filter chips only: a trailing icon, e.g. `arrow_drop_down` on a chip that opens a menu.
+     */
+    trailingIconProps?: IconProps;
+    /**
      * Custom leading content (e.g. an avatar image) rendered instead of `iconProps`.
      * Typically used by 'input' chips to represent a contact or entity.
      */
     avatar?: Snippet;
     /**
-     * Called when the trailing remove icon is activated.
-     * Providing this renders the trailing remove affordance on 'input' chips.
+     * Called when the trailing remove icon is activated, or on Backspace/Delete while the chip
+     * has focus. Providing this renders the trailing remove affordance on 'input' chips. Move
+     * focus to a neighbouring chip (or the input) afterwards, or it falls back to the page.
      */
     onRemove?: () => void;
+    /**
+     * Accessible name of the input chip's remove button. Name the item, e.g. `Remove Ada`.
+     * @default 'Remove'
+     */
+    removeLabel?: string;
     /** The label content of the chip. */
     children: Snippet;
     /** The `formaction` attribute for the chip when used in a form. */

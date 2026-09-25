@@ -39,6 +39,7 @@
   <div class="gap-spacing-200 p-spacing-300 flex flex-wrap items-center">
     <Chip variant="filter" bind:selected={filterSelected}>Filter chip</Chip>
     <Chip variant="filter" iconProps={{ name: 'star' }}>Starred</Chip>
+    <Chip variant="filter" trailingIconProps={{ name: 'arrow_drop_down' }}>Sort by</Chip>
     <Chip variant="filter" elevated selected>Elevated selected</Chip>
     <Chip variant="filter" disabled>Disabled</Chip>
   </div>
