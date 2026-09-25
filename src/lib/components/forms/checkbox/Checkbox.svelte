@@ -28,7 +28,7 @@ Checkboxes let users select one or more items from a list, or turn an item on or
   const cls = $derived(checkbox({ state, error, disabled }));
 </script>
 
-<div class="space-x-spacing-150 flex cursor-pointer items-center">
+<div class="gap-spacing-50 flex cursor-pointer items-center">
   <Checkbox.Root
     bind:checked
     bind:indeterminate
