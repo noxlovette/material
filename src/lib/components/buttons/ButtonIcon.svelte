@@ -2,7 +2,7 @@
 @component
 Icon buttons help people take minor actions with one tap.
 
-- Filled: high emphasis (default)
+- Filled: high emphasis (default, except inside an `AppBar`, where it's standard)
 - Tonal: medium-high emphasis
 - Outlined: medium emphasis
 - Standard: low emphasis, no container at rest; for app bars, fields and dense layouts
@@ -17,12 +17,16 @@ Icon buttons help people take minor actions with one tap.
   import { buttonColor, buttonIcon } from './theme.js';
   import clsx from 'clsx';
   import { buttonCorners, shapeMorph } from './shapeMorph.js';
+  import { getButtonIconVariant } from './context.js';
   import Tooltip from '$lib/components/forms/tooltip/Tooltip.svelte';
   import { Button, Toggle, type ButtonRootProps, type ToggleRootProps } from 'bits-ui';
 
+  // A container like AppBar can lower the default emphasis; an explicit `variant` still wins.
+  const inheritedVariant = getButtonIconVariant();
+
   let {
     iconProps,
-    variant = 'filled',
+    variant = inheritedVariant ?? 'filled',
     size = 'sm',
     shape = 'round',
     width = 'default',

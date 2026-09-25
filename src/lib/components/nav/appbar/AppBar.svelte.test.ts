@@ -1,0 +1,25 @@
+// @vitest-environment jsdom
+import { flushSync, mount, unmount } from 'svelte';
+import { describe, expect, it } from 'vitest';
+import Fixture from './appbar.fixture.test.svelte';
+
+// jsdom has no matchMedia (Layer) or ResizeObserver (AppBar's height tracking).
+window.matchMedia = ((query: string) => ({ matches: true, media: query })) as never;
+window.ResizeObserver = class {
+  observe() {}
+  disconnect() {}
+} as never;
+
+const button = (label: string) => document.querySelector(`[aria-label="${label}"]`)!;
+
+describe('AppBar icon buttons', () => {
+  it('default to standard inside the bar, keep an explicit variant, and stay filled outside', () => {
+    const app = mount(Fixture, { target: document.body });
+    flushSync();
+    expect(button('Inherited').className).not.toContain('bg-md-sys-color-primary');
+    expect(button('Inherited').className).toContain('text-md-sys-color-on-surface-variant');
+    expect(button('Explicit').className).toContain('bg-md-sys-color-primary');
+    expect(button('Outside').className).toContain('bg-md-sys-color-primary');
+    unmount(app);
+  });
+});
