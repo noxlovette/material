@@ -1,6 +1,16 @@
 <script lang="ts">
   import { base } from '$app/paths';
-  import { App, Navbar, NavbarItem, Rail, RailItem, ThemeSwitcher } from '$lib/index.js';
+  import { onNavigate } from '$app/navigation';
+  import {
+    App,
+    fadeThrough,
+    type MaterialSymbolName,
+    Navbar,
+    NavbarItem,
+    Rail,
+    RailItem,
+    ThemeSwitcher
+  } from '$lib/index.js';
   import { storybookHref } from './storybook.js';
   import '../app.css';
 
@@ -8,11 +18,37 @@
 
   let collapsed = $state(true);
 
+  /*
+    Route changes are M3 top-level transitions (fade through): the rail and navbar destinations,
+    and the guides nav, which is a drawer, all lead to unrelated pages. The region that fades is
+    the one whose content changed: all of <main> between rail destinations, only the guide's
+    content pane between guides, so the guides nav stays put while its selection moves. A change
+    of hash alone (the "On this page" links) isn't a new page.
+  */
+  const inGuides = (url: URL) =>
+    url.pathname === `${base}/guides` || url.pathname.startsWith(`${base}/guides/`);
+
+  onNavigate((navigation) => {
+    const from = navigation.from?.url;
+    const to = navigation.to?.url;
+    if (!from || !to || from.pathname === to.pathname) return;
+    const target = inGuides(from) && inGuides(to) ? '[data-guide-content]' : 'main';
+    return new Promise((resolve) => {
+      fadeThrough(
+        async () => {
+          resolve();
+          await navigation.complete;
+        },
+        { target }
+      );
+    });
+  });
+
   const destinations = [
     { label: 'Overview', href: `${base}/`, iconProps: { name: 'architecture' } },
     { label: 'Guides', href: `${base}/guides`, iconProps: { name: 'menu_book' } },
     { label: 'Storybook', href: storybookHref(), external: true, iconProps: { name: 'widgets' } }
-  ];
+  ] as const;
 
   // These icons will be pre-loaded by the MaterialSymbolsProvider inside App
   const icons = [
@@ -99,27 +135,21 @@
     'token',
     'devices',
     'animation',
+    'interests',
     'smart_toy'
-  ];
+  ] satisfies MaterialSymbolName[];
 </script>
 
 <App iconProviderProps={{ extraIcons: icons }}>
-  <!--
-    flex row: Rail's ghost div is a flex item that pushes content.
-    Mobile (< md):  ghost hidden → content fills full width.
-    Tablet (md–lg): ghost w-24 → content offset 96 px; expanded rail overlays with scrim.
-    Desktop (lg+):  ghost transitions w-24 → w-60 on expand → content smoothly pushed right.
-  -->
-  <div class="flex min-h-dvh">
-    <Rail bind:collapsed>
-      {#each destinations as item (item.label)}
-        <RailItem {...item} />
-      {/each}
-    </Rail>
-    <div class="min-w-spacing-0 flex-1">
-      {@render children()}
-    </div>
-  </div>
+  <!-- The rail publishes --md-rail-inset and App's shell pads by it: no offset needed here. -->
+  <Rail bind:collapsed>
+    {#each destinations as item (item.label)}
+      <RailItem {...item} />
+    {/each}
+  </Rail>
+  <main>
+    {@render children()}
+  </main>
   <Navbar ghost>
     {#each destinations as item (item.label)}
       <NavbarItem label={item.label} href={item.href} iconProps={item.iconProps} />

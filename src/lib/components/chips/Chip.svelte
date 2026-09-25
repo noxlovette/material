@@ -4,7 +4,9 @@ Chips help people enter information, make selections, filter content, or trigger
 
 - Assist: Represents a smart or automated action, such as adding an event to a calendar
 - Filter: Uses tags or descriptive words to filter content; supports a selected state
-- Input: Represents a discrete piece of information entered by a user, and can be removed
+- Input: Represents a discrete piece of information entered by a user, and can be removed. Its
+  primary action is a button of its own (focusable, pressable, `onclick`); Backspace or Delete on
+  it calls `onRemove`
 - Suggestion: Helps narrow a user's intent by presenting dynamically generated suggestions
 
 @see https://m3.material.io/components/chips/overview
@@ -15,7 +17,6 @@ Chips help people enter information, make selections, filter content, or trigger
   import { chip } from './theme.js';
   import clsx from 'clsx';
   import { Button, Toggle, type ButtonRootProps, type ToggleRootProps } from 'bits-ui';
-  import type { HTMLAttributes } from 'svelte/elements';
 
   let {
     children,
@@ -25,8 +26,10 @@ Chips help people enter information, make selections, filter content, or trigger
     onPressedChange,
     disabled = false,
     iconProps,
+    trailingIconProps,
     avatar,
     onRemove,
+    removeLabel = 'Remove',
     formaction,
     class: className,
     ...restProps
@@ -37,10 +40,37 @@ Chips help people enter information, make selections, filter content, or trigger
   const isSelected = $derived(variant === 'filter' || variant === 'input' ? selected : false);
   const showCheck = $derived(isFilter && selected);
 
-  const { base, icon, label, trailing, checkIcon } = $derived(
-    chip({ variant, elevated: isElevated, selected: isSelected, disabled })
+  const leadingKind = $derived(
+    showCheck ? 'icon' : avatar ? 'avatar' : iconProps ? 'icon' : 'none'
+  );
+  const removable = $derived(variant === 'input' && Boolean(onRemove));
+  const hasTrailingIcon = $derived(isFilter && Boolean(trailingIconProps));
+
+  const {
+    base,
+    icon,
+    avatar: avatarCls,
+    action,
+    label,
+    trailing,
+    checkIcon
+  } = $derived(
+    chip({
+      variant,
+      elevated: isElevated,
+      selected: isSelected,
+      leading: leadingKind,
+      trailing: removable || hasTrailingIcon,
+      disabled
+    })
   );
   const chipCls = $derived(base({ class: clsx(className) }));
+
+  function removeOnKey(e: KeyboardEvent) {
+    if (!onRemove || disabled || (e.key !== 'Backspace' && e.key !== 'Delete')) return;
+    e.preventDefault();
+    onRemove();
+  }
 </script>
 
 {#snippet leading()}
@@ -49,14 +79,15 @@ Chips help people enter information, make selections, filter content, or trigger
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
       class={checkIcon()}
+      aria-hidden="true"
       fill="currentColor"
     >
       <path d="M9.55 18 3.85 12.3 5.275 10.875 9.55 15.15 18.725 5.975 20.15 7.4Z" />
     </svg>
   {:else if avatar}
-    {@render avatar()}
+    <span class={avatarCls()}>{@render avatar()}</span>
   {:else if iconProps}
-    <Icon size="xs" class={icon()} {...iconProps} />
+    <Icon size="sm" {...iconProps} class={icon({ class: clsx(iconProps.class) })} />
   {/if}
 {/snippet}
 
@@ -71,18 +102,28 @@ Chips help people enter information, make selections, filter content, or trigger
   >
     {@render leading()}
     <span class={label()}>{@render children()}</span>
+    {#if trailingIconProps}
+      <Icon
+        size="sm"
+        {...trailingIconProps}
+        class={icon({ class: ['text-current', clsx(trailingIconProps.class)] })}
+      />
+    {/if}
     <Layer />
   </Toggle.Root>
 {:else if variant === 'input'}
-  <div
-    class={chipCls}
-    data-cy="m3-chip"
-    aria-disabled={disabled}
-    data-disabled={disabled ? true : undefined}
-    {...restProps as HTMLAttributes<HTMLDivElement>}
-  >
-    {@render leading()}
-    <span class={label()}>{@render children()}</span>
+  <div class={chipCls} data-cy="m3-chip" data-disabled={disabled ? true : undefined}>
+    <Button.Root
+      {disabled}
+      class={action()}
+      data-chip-action
+      onkeydown={removeOnKey}
+      {...restProps as ButtonRootProps}
+    >
+      {@render leading()}
+      <span class={label()}>{@render children()}</span>
+      <Layer />
+    </Button.Root>
     {#if onRemove}
       <button
         type="button"
@@ -92,13 +133,12 @@ Chips help people enter information, make selections, filter content, or trigger
           e.stopPropagation();
           onRemove?.();
         }}
-        aria-label="Remove"
+        aria-label={removeLabel}
       >
-        <Icon size="xs" name="close" />
+        <Icon size="sm" name="close" class="size-[18px] text-[18px]" />
         <Layer />
       </button>
     {/if}
-    <Layer />
   </div>
 {:else}
   <Button.Root

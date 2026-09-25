@@ -1,6 +1,7 @@
 import { base } from '$app/paths';
+import type { MaterialSymbolName } from '$lib/index.js';
 
-export type Guide = { slug: string; title: string; icon: string; summary: string };
+export type Guide = { slug: string; title: string; icon: MaterialSymbolName; summary: string };
 
 export const guides: Guide[] = [
   {
@@ -32,6 +33,12 @@ export const guides: Guide[] = [
     title: 'Layout',
     icon: 'view_quilt',
     summary: 'Pane and PaneGrid: list-detail, supporting pane, resizable and sticky layouts.'
+  },
+  {
+    slug: 'icons',
+    title: 'Icons',
+    icon: 'interests',
+    summary: 'Material Symbols: a playground for every icon, and the four axes as props.'
   },
   {
     slug: 'motion',

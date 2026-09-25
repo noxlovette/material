@@ -3,6 +3,7 @@
   import TabHolder from './TabHolder.svelte';
   import TabContent from './TabContent.svelte';
   import Body from '../../typography/body/Body.svelte';
+  import type { TabProps } from './types.js';
 
   const { Story } = defineMeta({
     title: 'Navigation/Tabs',
@@ -27,7 +28,7 @@
     { value: 'flights', name: 'Flights', iconProps: { name: 'flight' } },
     { value: 'trips', name: 'Trips', iconProps: { name: 'luggage' } },
     { value: 'explore', name: 'Explore', iconProps: { name: 'explore' } }
-  ];
+  ] satisfies TabProps[];
 </script>
 
 <Story name="Playground">

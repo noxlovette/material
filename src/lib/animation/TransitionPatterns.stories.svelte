@@ -98,6 +98,24 @@
     );
   };
 
+  /* Lateral on the y axis — vertical tabs: the next peer pushes up from below. */
+  const steps = ['Shipping', 'Payment', 'Review'];
+  let step = $state(0);
+  const runLateralY = () => {
+    const next = (step + 1) % steps.length;
+    return lateral(
+      async () => {
+        step = next;
+        await tick();
+      },
+      {
+        target: '[data-demo="lateral-y"]',
+        axis: 'y',
+        direction: next > step ? 'forward' : 'backward'
+      }
+    );
+  };
+
   /* Top level — unrelated destinations, as from a navigation bar. */
   const destinations = [
     { label: 'Home', color: 'bg-md-sys-color-primary-container text-md-sys-color-primary' },
@@ -172,6 +190,14 @@
   } satisfies Record<string, Pattern>;
 
   const all = Object.values(patterns);
+  // A variant of lateral, not a seventh pattern: its own story, not in the overview grid.
+  const lateralY: Pattern = {
+    id: 'lateral-y',
+    title: 'Lateral, vertical',
+    summary: "Peers laid out top to bottom slide on the y axis: lateral with axis: 'y'.",
+    anchor: 'lateral',
+    run: runLateralY
+  };
 
   /** Loops `run` while `looping` is on; toggling the loop restarts the interval. */
   const loop =
@@ -257,6 +283,29 @@
         class="md-sys-typescale-display-small text-md-sys-color-on-primary absolute"
         aria-hidden="true">{tab + 1}</span
       >
+    </div>
+  {:else if pattern.id === 'lateral-y'}
+    <div class="inset-spacing-150 gap-spacing-200 absolute flex">
+      <div class="gap-spacing-200 flex flex-col justify-center">
+        {#each steps as name, i (name)}
+          <span
+            class={[
+              'md-sys-typescale-label-large',
+              i === step ? 'text-md-sys-color-primary' : 'text-md-sys-color-on-surface-variant'
+            ]}>{name}</span
+          >
+        {/each}
+      </div>
+      <div
+        data-demo="lateral-y"
+        class="bg-md-sys-color-surface-container relative flex flex-1 items-center justify-center rounded-lg"
+      >
+        {@render shape(pathFourLeafClover, 'size-24 text-md-sys-color-secondary')}
+        <span
+          class="md-sys-typescale-display-small text-md-sys-color-on-secondary absolute"
+          aria-hidden="true">{step + 1}</span
+        >
+      </div>
     </div>
   {:else if pattern.id === 'top'}
     <div
@@ -364,6 +413,7 @@
 <Story name="Container transform" asChild>{@render single(patterns.container)}</Story>
 <Story name="Forward and backward" asChild>{@render single(patterns.axis)}</Story>
 <Story name="Lateral" asChild>{@render single(patterns.lateral)}</Story>
+<Story name="Lateral vertical" asChild>{@render single(lateralY)}</Story>
 <Story name="Top level" asChild>{@render single(patterns.top)}</Story>
 <Story name="Enter and exit" asChild>{@render single(patterns.enterExit)}</Story>
 <Story name="Skeleton loaders" asChild>{@render single(patterns.skeleton)}</Story>

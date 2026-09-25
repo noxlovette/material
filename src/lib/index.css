@@ -4,5 +4,7 @@
 @import './styles/rounding.css';
 @import './styles/elevation.css';
 @import './styles/layers.css';
+@import './styles/components.css';
+@import './styles/icon.css';
 @import './styles/prose.css';
 @import './styles/component.css';

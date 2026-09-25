@@ -1,4 +1,5 @@
 import { animateView, type ViewTransitionTargetDefinition } from 'motion';
+import { prefersReducedMotion } from './reducedMotion.js';
 import { springTokens, springTransition, type SpringToken } from './spring.js';
 
 export type NavigationDirection = 'forward' | 'backward';
@@ -9,6 +10,16 @@ interface NavigationOptions {
   /** `forward` moves deeper / to the next item, `backward` returns. */
   direction?: NavigationDirection;
   spring?: SpringToken;
+}
+
+export interface LateralOptions extends NavigationOptions {
+  /**
+   * The axis the peers are laid out on: `x` for a row (tabs, a carousel), `y` for a column
+   * (vertical tabs, a vertical carousel, a stepper laid out top to bottom). `forward` moves to
+   * the next peer: right or down.
+   * @default 'x'
+   */
+  axis?: 'x' | 'y';
 }
 
 export interface SharedAxisOptions extends NavigationOptions {
@@ -32,6 +43,55 @@ const view = (
    and hidden in the fastest part of the motion. Don't lengthen these. */
 const fadeOut = springTransition(springTokens.fastEffects);
 const fadeIn = { ...springTransition(springTokens.effects), delay: 0.05 };
+/* For fades with nothing moving to hide the handover (fade through, reduced motion): the new
+   page waits until the old one is all but gone (fastEffects is under 0.5% at 120ms). Starting
+   earlier leaves a ghost of the old layout behind the new one, made brighter by the additive
+   blend the browser puts on a crossfade. M3's fade through starts the incoming screen about a
+   third of the way in, so this is on spec. */
+const fadeInAfterOut = { ...springTransition(springTokens.effects), delay: 0.12 };
+
+/*
+  A region that fades in place, for fade through and every reduced-motion fade:
+  - Its box swaps to the new page's at once: sliding or resizing it would be the spatial
+    connection these fades avoid.
+  - Neither snapshot is cropped. Motion crops a region whose aspect ratio changed, scaling both
+    snapshots to cover the new box, so a short page fading out over a tall one looked zoomed.
+  - The outgoing snapshot stays exactly where it was on screen. A navigation usually resets the
+    scroll, so the region's new box sits elsewhere than the old one (400px lower after scrolling
+    400px); drawn in the new box, the old page would jump to its top as it fades, and the two
+    layouts look like they collide. The offset is measured around `update` and written into the
+    old keyframes, which Motion reads only once the update has run.
+*/
+const fadeInPlace = (
+  update: () => void | Promise<void>,
+  target: ViewTransitionTargetDefinition | undefined,
+  spring: SpringToken,
+  incoming: Parameters<ReturnType<typeof view>['new']>
+) => {
+  const outgoing: { opacity: number[]; transform?: string[] } = { opacity: [1, 0] };
+  const region = () =>
+    typeof target === 'string' ? document.querySelector(target) : (target ?? null);
+  const before = target ? region()?.getBoundingClientRect() : undefined;
+  const run = async () => {
+    await update();
+    const after = region()?.getBoundingClientRect();
+    if (!before || !after) return;
+    const dx = before.left - after.left;
+    const dy = before.top - after.top;
+    if (dx || dy) outgoing.transform = Array(2).fill(`translate(${dx}px, ${dy}px)`);
+  };
+  const builder = view(run, target, spring);
+  if (target) builder.layout({ duration: 0 }).crop(false);
+  return builder.old(outgoing, fadeOut).new(...incoming);
+};
+
+/* Reduced motion: every navigation pattern becomes this fade, with no movement or scale. M3
+   swaps movement for a subtle fade rather than cutting. */
+const reducedFade = (
+  update: () => void | Promise<void>,
+  target: ViewTransitionTargetDefinition | undefined,
+  spring: SpringToken
+) => fadeInPlace(update, target, spring, [{ opacity: [0, 1] }, fadeInAfterOut]);
 
 /**
  * M3 forward and backward (shared axis): outgoing and incoming content travel together along one
@@ -57,6 +117,7 @@ export const sharedAxis = (
     spring = springTokens.spatial
   }: SharedAxisOptions = {}
 ) => {
+  if (prefersReducedMotion()) return reducedFade(update, target, spring);
   const forward = direction === 'forward';
   const [outgoing, incoming] =
     axis === 'z'
@@ -74,12 +135,15 @@ export const sharedAxis = (
 
 /**
  * M3 lateral: peer screens at the same level (tabs, carousels) slide past each other edge to edge,
- * without fading — the new screen pushes the old one out.
+ * without fading — the new screen pushes the old one out. Along the axis the peers are laid out
+ * on: `axis: 'y'` for a vertical set (vertical tabs, a vertical carousel, a top-to-bottom
+ * stepper), where the next peer pushes up from below.
  * https://m3.material.io/styles/motion/transitions/transition-patterns#lateral
  *
  * Only for peers in one set (https://m3.material.io/styles/motion/transitions/applying-transitions). Never use it for hierarchical screens
  * (use `sharedAxis`) or navbar/rail/drawer destinations (use `fadeThrough`, since the implied swipe
- * conflicts with carousels and swipeable list items). Don't add a fade: it hides the peer
+ * conflicts with carousels and swipeable list items). A vertical nav list is still a drawer: a
+ * vertical slide there reads as the page jumping its scroll. Don't add a fade: it hides the peer
  * relationship and makes the slide look like forward/backward.
  *
  * Built in: `TabHolder` (switching content panels) and `DateField`/`DateRangeField` (changing the
@@ -87,12 +151,14 @@ export const sharedAxis = (
  */
 export const lateral = (
   update: () => void | Promise<void>,
-  { target, direction = 'forward', spring = springTokens.spatial }: NavigationOptions = {}
+  { target, axis = 'x', direction = 'forward', spring = springTokens.spatial }: LateralOptions = {}
 ) => {
+  if (prefersReducedMotion()) return reducedFade(update, target, spring);
   const sign = direction === 'forward' ? 1 : -1;
+  const move = axis === 'y' ? 'translateY' : 'translateX';
   const builder = view(update, target, spring)
-    .old({ transform: ['translateX(0%)', `translateX(${-sign * 100}%)`] })
-    .new({ transform: [`translateX(${sign * 100}%)`, 'translateX(0%)'] });
+    .old({ transform: [`${move}(0%)`, `${move}(${-sign * 100}%)`] })
+    .new({ transform: [`${move}(${sign * 100}%)`, `${move}(0%)`] });
   return target ? builder.crop(true) : builder;
 };
 
@@ -107,14 +173,19 @@ export const lateral = (
  *
  * Not built into `Navbar`/`Rail`: they don't own the content region that changes, so the app wraps
  * its own route change in this.
+ *
+ * The `target` region swaps its box instantly instead of sliding or resizing to the new page's:
+ * that movement would be exactly the spatial connection this pattern avoids, and after a
+ * navigation that resets the scroll, the region would glide down by the distance scrolled.
+ * Its snapshots aren't cropped, and the old one stays where it was on screen (see `fadeInPlace`).
  */
 export const fadeThrough = (
   update: () => void | Promise<void>,
   { target, spring = springTokens.spatial }: Omit<NavigationOptions, 'direction'> = {}
-) =>
-  view(update, target, spring)
-    .old({ opacity: [1, 0] }, fadeOut)
-    .new(
-      { opacity: [0, 1], transform: ['scale(0.92)', 'scale(1)'] },
-      { opacity: { ...springTransition(springTokens.effects), delay: 0.09 } }
-    );
+) => {
+  if (prefersReducedMotion()) return reducedFade(update, target, spring);
+  return fadeInPlace(update, target, spring, [
+    { opacity: [0, 1], transform: ['scale(0.92)', 'scale(1)'] },
+    { opacity: fadeInAfterOut }
+  ]);
+};

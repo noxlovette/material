@@ -29,17 +29,52 @@ export type ChipProps = ChipVariants &
     /** Configuration for the leading icon. */
     iconProps?: IconProps;
     /**
+     * Filter chips only: a trailing icon, e.g. `arrow_drop_down` on a chip that opens a menu.
+     */
+    trailingIconProps?: IconProps;
+    /**
      * Custom leading content (e.g. an avatar image) rendered instead of `iconProps`.
      * Typically used by 'input' chips to represent a contact or entity.
      */
     avatar?: Snippet;
     /**
-     * Called when the trailing remove icon is activated.
-     * Providing this renders the trailing remove affordance on 'input' chips.
+     * Called when the trailing remove icon is activated, or on Backspace/Delete while the chip
+     * has focus. Providing this renders the trailing remove affordance on 'input' chips. Move
+     * focus to a neighbouring chip (or the input) afterwards, or it falls back to the page.
      */
     onRemove?: () => void;
+    /**
+     * Accessible name of the input chip's remove button. Name the item, e.g. `Remove Ada`.
+     * @default 'Remove'
+     */
+    removeLabel?: string;
     /** The label content of the chip. */
     children: Snippet;
     /** The `formaction` attribute for the chip when used in a form. */
     formaction?: string;
   };
+
+export type ChipGroupProps<T> = {
+  /** The items, one chip each. With `reorderable`, dragging rewrites their order. Bindable. */
+  items: T[];
+  /** A stable, unique key per item. */
+  key: (item: T) => string;
+  /** Renders one item's `Chip`. */
+  chip: Snippet<[item: T, index: number]>;
+  /**
+   * Lets people reorder the chips: drag one (on touch, press and hold first), or focus one and
+   * press Alt+Arrow. The dragged chip takes M3's dragged state and its neighbours make room.
+   * @default false
+   */
+  reorderable?: boolean;
+  /** Called with the new order after a drag or a keyboard move. */
+  onReorder?: (items: T[]) => void;
+  /**
+   * The item's name in the announcement after a move ("Ada, moved to 2 of 5"). Defaults to its
+   * `key`.
+   */
+  itemLabel?: (item: T) => string;
+  /** Accessible name of the group. */
+  'aria-label'?: string;
+  class?: string;
+};

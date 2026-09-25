@@ -11,9 +11,14 @@ Run through this before calling a component/UI change done.
 
 - Interactive elements should hit the M3 minimum 48dp target. The existing `size` scales already encode this (e.g. button `sm`/`md` = `h-spacing-500`/`h-spacing-700`); when adding a new interactive size below that, either pad the hit area (see `.text-link`'s `min-height: 44px` + padding trick) or confirm it's genuinely dense-UI/desktop-only and document why.
 
+- A target can be larger than what's drawn: a rail destination's link spans the rail's full width while its indicator hugs the icon; a chip's 18dp trailing icon gets a 48dp `::after` target. Draw state layers and focus rings on the visible element, triggered by the whole target (`group-hover:`, `group-focus-visible:`).
+
 ## Focus
 
 - Anything focusable needs a visible focus state — use `md-sys-state-focus-indicator`, don't rely on the browser default or remove `outline` without replacing it.
+- Every drag has a keyboard equivalent and an announcement: `ChipGroup` reorders on Alt+Arrow and reports "X, moved to N of M" in an `aria-live` region, with the instructions in an `aria-describedby` hint.
+- Toggles report their state (`aria-expanded` on the rail's menu button); a modal surface closes on Escape and a scrim click (the modal rail also closes when a destination is picked); removable items remove on Backspace/Delete (input chips).
+- Icons are decorative (`aria-hidden`) by default. Give `Icon` an `aria-label` only when it carries meaning with no visible text beside it; it then takes `role="img"`.
 - Verify keyboard operability, not just click handlers — Bits UI primitives (dialogs, menus, selects) handle this by default; if you're building something interactive from scratch, check it against Bits UI's docs (https://bits-ui.com/llms.txt) for the expected keyboard model first.
 
 ## Motion

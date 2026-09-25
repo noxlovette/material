@@ -39,6 +39,7 @@
   <div class="gap-spacing-200 p-spacing-300 flex flex-wrap items-center">
     <Chip variant="filter" bind:selected={filterSelected}>Filter chip</Chip>
     <Chip variant="filter" iconProps={{ name: 'star' }}>Starred</Chip>
+    <Chip variant="filter" trailingIconProps={{ name: 'arrow_drop_down' }}>Sort by</Chip>
     <Chip variant="filter" elevated selected>Elevated selected</Chip>
     <Chip variant="filter" disabled>Disabled</Chip>
   </div>
@@ -48,6 +49,15 @@
   <div class="gap-spacing-200 p-spacing-300 flex flex-wrap items-center">
     <Chip variant="input" iconProps={{ name: 'person' }} onRemove={() => {}}>Ada Lovelace</Chip>
     <Chip variant="input" onRemove={() => {}}>No avatar</Chip>
+    <Chip variant="input" onRemove={() => {}}>
+      {#snippet avatar()}
+        <span
+          class="bg-md-sys-color-primary text-md-sys-color-on-primary md-sys-typescale-label-small flex size-full items-center justify-center"
+          >GH</span
+        >
+      {/snippet}
+      Grace Hopper
+    </Chip>
     <Chip variant="input" selected iconProps={{ name: 'person' }} onRemove={() => {}}>Selected</Chip
     >
     <Chip variant="input" disabled iconProps={{ name: 'person' }} onRemove={() => {}}>Disabled</Chip

@@ -18,8 +18,9 @@ import * as RailStories from './Rail.stories.svelte';
 
 ## Anatomy
 
-- **`Rail`** is the container: the sidebar, a spacer that reserves its width in the page, and the
-  scrim shown while it's expanded on medium windows.
+- **`Rail`** is the container: the sidebar, the room it takes in the page (see Layout), and the
+  scrim shown while it's expanded on medium windows. An optional header holds the menu toggle and
+  a FAB.
 - **`RailItem`** is one destination. It detects the active route, shows an optional `badge` (a
   count, or `-1` for a dot), and lays itself out for the collapsed or expanded rail.
 - **`railStore`** exposes the collapsed state to components outside the rail.
@@ -29,40 +30,79 @@ import * as RailStories from './Rail.stories.svelte';
 The rail shows from `md` up and is hidden below it. For small windows, mount a `Navbar` with the
 same destinations; it hides itself from `md` up, so the two never show together.
 
-| Window         | Collapsed rail | Expanded rail                                       |
-| -------------- | -------------- | --------------------------------------------------- |
-| Small (< `md`) | Hidden         | Hidden                                              |
-| Medium (`md`)  | 96dp           | Overlays content over a scrim; outside click closes |
-| Large (`lg`+)  | 96dp           | Pushes content aside                                |
+| Window         | Collapsed rail | Expanded rail                                                            |
+| -------------- | -------------- | ------------------------------------------------------------------------ |
+| Small (< `md`) | Hidden         | Hidden                                                                   |
+| Medium (`md`)  | 96dp           | **Modal**: over a scrim; closes on scrim click, Escape, or a destination |
+| Large (`lg`+)  | 96dp           | **Standard**: pushes content aside, stays open until toggled             |
+
+## Spec
+
+Values follow the M3 Expressive
+[navigation rail tokens](https://m3.material.io/components/navigation-rail/specs). The container
+uses the spec's optional `surface-container` role rather than the default `surface`: that's the
+window colour `App` paints, so the rail belongs to the window and `surface` panes sit beside it. The off-grid
+ones are `--md-comp-nav-rail-*` properties in `styles/components.css`, so a theme can override
+them.
+
+|                  | Collapsed                                                                         | Expanded                                                         |
+| ---------------- | --------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| Container        | 96dp, `surface`                                                                   | Hugs content, 220–360dp. Modal adds elevation 3 and 16dp corners |
+| Top space        | 44dp, then at least 40dp below the header                                         | Same                                                             |
+| Destination      | 64dp tall, 4dp apart                                                              | 56dp tall, touching, 20dp side padding                           |
+| Active indicator | 56×32dp around the icon, label 4dp below                                          | 56dp pill around icon and label, 16dp padding, 8dp gap           |
+| Label            | Label medium; active `secondary`                                                  | Label large; active `on-secondary-container`                     |
+| States           | `on-secondary-container` layer: 8% hover, 10% focus and pressed, on the indicator | Same                                                             |
+
+The whole row is the target, however narrow the indicator. The active icon fills; its weight
+stays the same.
+
+## Expanding
+
+Expanding is one spatial spring, following Compose's `WideNavigationRail`. The width, the gap
+between destinations (4dp → 0), each destination's height (64 → 56dp), and its indicator
+(56×32 → the full pill) all move together. The indicator stays anchored and the icon keeps its x,
+so nothing moves sideways. The label fades out, switches from under the icon to beside it at the
+halfway point (label medium → label large), then slides in as it fades back. An interrupted
+spring reverses from where it is. Under reduced motion the rail jumps to the end state.
+
+Selecting a destination grows its active indicator from the centre out to its edges on
+`fastSpatial`, fading in as it grows, and the one losing the selection shrinks back the same way
+(after Compose's `NavigationRailItem`). The state layer stays on top of it. Under reduced motion
+the indicator just appears.
 
 ## Layout
 
-The rail renders a spacer next to itself that takes the rail's width. Put the rail and your
-content in a flex row and the content moves aside on its own, with no `margin-left`:
+Mount the rail anywhere inside `App`; the page makes room for it on its own. A
+viewport-anchored rail publishes `--md-rail-inset` on `<html>`: 0 below `md`, the collapsed
+width on medium windows (the expanded rail is modal there and overlays), and the rail's live
+width from `lg`, so the content moves aside in step with the spring. `App`'s shell pads by it and
+`AppBar` starts at it, so there's no `md:ml-24` anywhere. A custom shell or another fixed surface
+uses `ps-(--md-rail-inset)` / `left-(--md-rail-inset)`.
 
 ```svelte
-<div class="flex min-h-dvh">
+<App>
   <Rail bind:collapsed>
     <RailItem label="Home" href="/" iconProps={{ name: 'house' }} />
     <RailItem label="Messages" href="/messages" iconProps={{ name: 'mail' }} badge={5} />
   </Rail>
-  <div class="min-w-spacing-0 flex-1">
-    {@render children()}
-  </div>
-</div>
-
-<Navbar>
-  <NavbarItem label="Home" href="/" iconProps={{ name: 'house' }} />
-  <NavbarItem label="Messages" href="/messages" iconProps={{ name: 'mail' }} badge={5} />
-</Navbar>
+  <AppBar title="Home" />
+  {@render children()}
+  <Navbar>
+    <NavbarItem label="Home" href="/" iconProps={{ name: 'house' }} />
+    <NavbarItem label="Messages" href="/messages" iconProps={{ name: 'mail' }} badge={5} />
+  </Navbar>
+</App>
 ```
 
 - **Under an app bar:** pass the bar's height in px to `railTop` so the rail starts below it.
 - **Anchoring:** `anchor="viewport"` (the default) fixes the rail to the window's leading edge.
   `anchor="parent"` positions it inside the nearest positioned ancestor, for embedded layouts
-  and demos.
-- **Extras:** the `fab` snippet places a FAB above the destinations. `expandable={false}` removes
-  the menu toggle.
+  and demos. It doesn't touch `--md-rail-inset`; instead it renders a spacer beside itself, so
+  put it and the content in a flex row.
+- **Extras:** the `fab` snippet places a FAB above the destinations, in the same 56dp column as
+  the indicators. `expandable={false}` removes the menu toggle; with no FAB either, the header
+  and its 40dp gap go too.
 
 <Canvas of={RailStories.WithFAB} />
 
@@ -70,4 +110,6 @@ content in a flex row and the content moves aside on its own, with no `margin-le
 
 - **Active item.** The active item gets `aria-current="page"`.
 - **Disabled items** set `aria-disabled` and leave the tab order but stay visible.
-- **Keyboard.** Every item is a link reachable with Tab; the menu toggle is a real button.
+- **Keyboard.** Every item is a link reachable with Tab; the focus ring goes around the
+  indicator. The menu toggle is a real button with `aria-expanded`, and Escape closes the modal
+  rail.

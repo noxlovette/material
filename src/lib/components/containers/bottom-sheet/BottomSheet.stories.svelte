@@ -23,7 +23,7 @@
     { name: 'download', label: 'Download' },
     { name: 'edit', label: 'Rename' },
     { name: 'delete', label: 'Move to trash' }
-  ];
+  ] as const;
 </script>
 
 <script lang="ts">

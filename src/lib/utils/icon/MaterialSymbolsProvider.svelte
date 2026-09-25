@@ -7,7 +7,12 @@ Use the App.svelte component instead
   import { baseIcons } from './base-icons.js';
   import type { MaterialSymbolsProviderProps } from './types.js';
 
-  const { extraIcons = [], display = 'swap' }: MaterialSymbolsProviderProps = $props();
+  const {
+    extraIcons = [],
+    display = 'swap',
+    subset = true,
+    families = ['rounded', 'outlined', 'sharp']
+  }: MaterialSymbolsProviderProps = $props();
 
   const iconList = $derived.by(() => {
     const combined = [...baseIcons, ...extraIcons].filter(Boolean);
@@ -15,7 +20,7 @@ Use the App.svelte component instead
   });
 
   const iconNamesParam = $derived.by(() => {
-    if (!iconList.length) return '';
+    if (!subset || !iconList.length) return '';
     return `&icon_names=${encodeURIComponent(iconList.join(','))}`;
   });
 
@@ -25,9 +30,11 @@ Use the App.svelte component instead
   });
 
   const href = $derived.by(() => {
-    const families = ['Rounded', 'Outlined', 'Sharp'];
     const familyParams = families
-      .map((f) => `family=Material+Symbols+${f}:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200`)
+      .map(
+        (f) =>
+          `family=Material+Symbols+${f[0].toUpperCase()}${f.slice(1)}:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200`
+      )
       .join('&');
     return `https://fonts.googleapis.com/css2?${familyParams}${iconNamesParam}${displayParam}`;
   });

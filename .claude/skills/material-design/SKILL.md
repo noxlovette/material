@@ -52,11 +52,14 @@ This repo is a single, already-opinionated M3 component library, not a blank can
 
 - Color tokens: `md-sys-color-{primary,secondary,tertiary,error}`, each with a `-container` tonal pair and `on-*` text/icon pair (guarantees AA contrast by construction).
 - Type: `md-sys-typescale-{display,headline,title,body,label}-{large,medium,small}`, plus `md-sys-typescale-emphasized-*` for selected/active/unread states.
-- Spacing: `*-spacing-{0,25,50,75,100,…,900}` (M3 `md.sys.measurement.space*`, 8dp base: `p-spacing-200` = 16dp).
+- Spacing: `*-spacing-{0,25,50,75,100,…,900}` (M3 `md.sys.measurement.space*`, 8dp base: `p-spacing-200` = 16dp). Off-grid component dimensions: `--md-comp-*` in `styles/components.css`, used as `w-(--md-comp-…)`.
+- Surfaces: the window (`App`, rail, navbar, nav lists) is `surface-container`; content sits in `surface` panes (`Pane`'s default). A viewport `Rail` publishes `--md-rail-inset`, which `App` and `AppBar` already use; never offset a page by hand (`md:ml-24`).
+- `tv` and `twMerge` come from `$lib/utils/tv.js`, never `tailwind-variants`/`tailwind-merge` directly.
 - Elevation: `shadow-elevation-{0..5}`.
 - Shape: `radius-{none,xs,sm,md,lg,xl,full}` (buttons instead drive shape via the `--btn-shape`/`--btn-pressed-shape` CSS vars in `.md-btn-morph`).
+- Icons: `Icon.svelte` with a typed `name`. Selected state is `fill={1}`. A control whose icon swaps with its state passes `transition: 'rotate'` (toggles) or `'fade'`. See motion-guide.md → "Icon swaps".
 - Expressive shapes (circle, cookie, sunny, heart…): `animatableShapes`/`animatableShapesSmall` + `shapeMorph` for morphs. See motion-guide.md → "Shape morphing".
-- Motion: M3 Expressive springs only (`springTokens` in `animation/spring.ts`). JS: `presence`/`Presence` + `enterExit` presets, `containerTransform`, `sharedAxis`, `lateral`, `fadeThrough`, `skeleton` — all on Motion, never Svelte transitions. CSS: `transition-* md-sys-motion-{fast-spatial,spatial,slow-spatial,fast-effects,effects,slow-effects}` utilities, never `duration-*`/`ease-*`.
+- Motion: M3 Expressive springs only (`springTokens` in `animation/spring.ts`). Dragging: the `drag()` attachment + `resist()`. Several parts changing together: one progress spring in a CSS variable (the rail's `--rail-p`). JS: `presence`/`Presence` + `enterExit` presets, `containerTransform`, `sharedAxis`, `lateral`, `fadeThrough`, `skeleton` — all on Motion, never Svelte transitions. CSS: `transition-* md-sys-motion-{fast-spatial,spatial,slow-spatial,fast-effects,effects,slow-effects}` utilities, never `duration-*`/`ease-*`.
 - Transition pattern choice: appearing on this screen → enter/exit. Hero expands into its detail → container transform (only in shallow hierarchies). Parent/child or sequential steps → forward/backward (`sharedAxis`). Peers in one set → lateral, which never fades. Navbar/rail/drawer destinations → top level (`fadeThrough`), never lateral. Never use enter/exit or lateral for hierarchical navigation. Sheets slide without fading. Don't use bouncy (`fastSpatial`) springs for navigation transitions.
 - Shared primitives: wrap interactive surfaces with `Layer.svelte` (state layer + ripple, already skips itself under `prefers-reduced-motion`), render icons with `Icon.svelte`, use `Divider.svelte` instead of Bits UI's `Separator`.
 

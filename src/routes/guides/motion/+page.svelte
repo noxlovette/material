@@ -123,6 +123,8 @@
   import { fadeThrough } from '@noxlovette/material';
 
   onNavigate((navigation) => {
+    // A hash change on the same page isn't a new destination.
+    if (navigation.from?.url.pathname === navigation.to?.url.pathname) return;
     return new Promise((resolve) => {
       fadeThrough(async () => {
         resolve();
@@ -132,6 +134,12 @@
   });
 <\/script>`}
     />
+    <Body>
+      Fade only the region whose content changed. When a nested nav (a guides list, a settings
+      drawer) stays on screen, target that section's content pane between its own pages, and
+      <Code>main</Code> only when the destination in the rail or navbar changes. This site does exactly
+      that in its root layout.
+    </Body>
     <Body>
       For hierarchy (a list to its item), use <Code>sharedAxis</Code> with
       <Code>direction: 'forward'</Code> going in and <Code>'backward'</Code> coming out.

@@ -146,7 +146,8 @@ export function appbarSize(
 
 export const appbar = tv({
   slots: {
-    base: 'fixed top-spacing-0 left-spacing-0 w-full flex flex-col z-layer-bar transition-colors md-sys-motion-effects',
+    // Starts beside a viewport-anchored Rail (styles/components.css), which runs full height.
+    base: 'fixed top-spacing-0 left-(--md-rail-inset) right-spacing-0 flex flex-col z-layer-bar transition-colors md-sys-motion-effects',
     row: 'grid w-full items-center px-spacing-50',
     childrenRow: 'w-full px-spacing-100 pb-spacing-100',
     ghost: 'w-full shrink-0 pointer-events-none',

@@ -3,12 +3,40 @@ import { tv, type VariantProps } from '$lib/utils/tv.js';
 export type RailVariants = VariantProps<typeof rail>;
 export type RailItemVariants = VariantProps<typeof railElement>;
 
+/*
+  M3 Expressive navigation rail (https://m3.material.io/components/navigation-rail/specs):
+  - Container: `surface-container`, the spec's optional container role, which is this library's
+    window colour (App), so the rail reads as part of the window beside `surface` panes rather
+    than as a strip. The modal rail's token is `surface-container` too.
+  - Collapsed: 96dp wide, no elevation or shape. Destinations sit 4dp apart.
+  - Expanded: hugs its widest destination between 220 and 360dp, destinations touching. Standard
+    (lg+, pushes content) keeps the collapsed container; modal (md, over a scrim) adds
+    elevation 3 and 16dp trailing corners.
+  - 44dp above the first element; at least 40dp between the menu/FAB header and the destinations.
+  - Header elements sit in a 56dp column 20dp from the leading edge, the same column as the
+    destinations' active indicators, so nothing shifts sideways when the rail expands.
+  Expanding is one spatial spring on a progress value, 0 collapsed to 1 expanded, which
+  Rail.svelte writes to `--rail-p` (after Compose's WideNavigationRail). The width, the gap
+  between destinations, the modal corners and each destination's geometry all follow it, so
+  nothing here transitions spatially on its own.
+*/
 export const rail = tv({
   slots: {
-    base: 'py-spacing-600 hidden bg-md-sys-color-surface-container z-layer-rail flex-col md:flex gap-spacing-300 transition-[width,padding,background-color] md-sys-motion-spatial',
-    items: 'flex flex-col gap-spacing-150 pt-spacing-300 scrollbar-none w-full overflow-x-hidden',
-    ghost: 'hidden md:block shrink-0 transition-[width] md-sys-motion-spatial',
-    scrim: 'hidden md:block lg:hidden inset-spacing-0'
+    // Modal corners grow with the progress (0 → 16dp); the standard rail stays square.
+    base: 'rounded-r-[calc(var(--radius-lg)_*_var(--rail-p,0))] lg:rounded-r-none hidden md:flex flex-col z-layer-rail overflow-hidden pt-(--md-comp-nav-rail-collapsed-top-space) pb-spacing-250 bg-md-sys-color-surface-container transition-[box-shadow] md-sys-motion-effects',
+    // Always start-aligned: collapsed, the content box is exactly the 56dp column, so this is
+    // centred anyway. Centring it would fling the menu and FAB to the middle of the still-wide
+    // rail the moment a collapse starts.
+    header: 'flex flex-col items-start gap-spacing-300 px-spacing-250',
+    menu: 'flex w-spacing-700 justify-center',
+    nav: 'flex min-h-spacing-0 w-full flex-1 flex-col',
+    // 4dp between destinations collapsed, 0 expanded, following the progress.
+    items:
+      'flex w-full flex-col overflow-x-hidden overflow-y-auto [scrollbar-width:none] gap-[calc(var(--spacing-spacing-50)_*_(1_-_var(--rail-p,0)))]',
+    ghost:
+      'hidden md:block shrink-0 w-(--md-comp-nav-rail-collapsed-container-width) lg:w-(--rail-width)',
+    scrim:
+      'hidden md:block lg:hidden inset-spacing-0 z-layer-rail bg-md-sys-color-scrim/32 transition-opacity md-sys-motion-effects'
   },
   variants: {
     anchor: {
@@ -23,14 +51,18 @@ export const rail = tv({
     },
     expanded: {
       true: {
-        base: 'pl-spacing-450 w-60 items-start bg-md-sys-color-surface-container-highest lg:bg-md-sys-color-surface-container rounded-r-lg',
-        ghost: 'w-24 lg:w-60'
+        base: 'w-max min-w-(--md-comp-nav-rail-expanded-container-width-minimum) max-w-(--md-comp-nav-rail-expanded-container-width-maximum) pt-(--md-comp-nav-rail-expanded-top-space) shadow-elevation-3 lg:shadow-elevation-0',
+        scrim: 'opacity-100'
       },
       false: {
-        base: 'w-24 items-center',
-        items: 'items-center',
-        ghost: 'w-24'
+        base: 'w-(--md-comp-nav-rail-collapsed-container-width)',
+        scrim: 'pointer-events-none opacity-0'
       }
+    },
+    /* Header space: only when there is a header to keep the destinations away from. */
+    header: {
+      true: { nav: 'mt-spacing-500' },
+      false: {}
     },
     rounded: {
       true: {
@@ -40,85 +72,68 @@ export const rail = tv({
     }
   },
   defaultVariants: {
-    anchor: 'viewport'
+    anchor: 'viewport',
+    header: false
   }
 });
 
+/*
+  One destination. The link spans the rail's full width (M3: the target area always does); the
+  active indicator inside it hugs its contents. Collapsed, the indicator is 56×32 around the icon
+  with the label 4dp below; expanded, it's a 56dp pill around icon and label, 16dp padding, 8dp
+  between them. State layers are `on-secondary-container` at 8% hover and 10% focus/press, drawn
+  on the indicator but triggered anywhere on the link. Selecting a destination grows its fill
+  out from the centre (M3's active indicator, after Compose's NavigationRailItem).
+
+  Geometry isn't here: it interpolates on the rail's expand progress, in RailItem.svelte's
+  <style>. `layout` is which side of the halfway point that progress is on, and decides only
+  what may switch while the label is invisible: its typescale and colour.
+*/
 export const railElement = tv({
   slots: {
-    base: 'group relative z-30 flex w-full transition-all md-sys-motion-spatial',
-    content:
-      'flex items-center min-w-spacing-0 rounded-full gap-spacing-25 py-spacing-75 transition-all md-sys-motion-spatial',
-    iconContainer:
-      'relative rounded-full items-center justify-center inline-flex transition-all md-sys-motion-spatial',
-    icon: 'text-[24px] transition-all md-sys-motion-spatial',
-    label: 'transition-all md-sys-motion-spatial whitespace-nowrap'
+    base: 'group rail-item relative flex w-full px-spacing-250 outline-none',
+    // As wide as the expanded pill, so an expanded rail (w-max) hugs its widest destination.
+    sizer: 'relative h-full shrink-0 pl-spacing-600 pr-spacing-200',
+    measure: 'invisible md-sys-typescale-label-large whitespace-nowrap',
+    indicator:
+      'rail-indicator absolute left-spacing-0 isolate rounded-full state-layer before:rounded-full',
+    // The selected fill, under the state layer. It grows from the indicator's centre to its
+    // edges on select and shrinks back on deselect, on RailItem's --rail-sel spring.
+    fill: 'rail-fill absolute -z-10 rounded-full bg-md-sys-color-secondary-container',
+    icon: 'rail-icon absolute left-spacing-200 inline-flex',
+    label: 'rail-label absolute whitespace-nowrap transition-colors md-sys-motion-fast-effects'
   },
   variants: {
     active: {
       true: {
-        content: 'text-md-sys-color-on-secondary-container',
-        label: 'font-bold',
-        iconContainer:
-          'group-hover:text-md-sys-color-secondary  bg-md-sys-color-secondary-container'
+        icon: 'text-md-sys-color-on-secondary-container'
       },
       false: {
-        content: 'text-md-sys-color-on-surface-variant',
-        iconContainer: ''
+        icon: 'text-md-sys-color-on-surface-variant',
+        label: 'text-md-sys-color-on-surface-variant'
       }
     },
-    expanded: {
-      true: {
-        base: 'justify-start',
-        content: 'p-spacing-200 gap-spacing-150',
-        iconContainer: '',
-        label: 'md-sys-typescale-label-large'
-      },
-      false: {
-        base: 'text-center justify-center',
-        content: 'flex-col',
-        iconContainer: 'py-spacing-75 px-spacing-200',
-        label: 'md-sys-typescale-label-medium'
-      }
+    layout: {
+      top: { label: 'md-sys-typescale-label-medium' },
+      start: { label: 'md-sys-typescale-label-large' }
     },
     disabled: {
       true: {
         base: 'cursor-not-allowed opacity-38'
-      }
-    },
-    mobile: {
-      true: {
-        base: 'flex-1 flex-col items-center justify-center h-full min-w-spacing-0 max-w-[168px]',
-        content: 'py-spacing-0 gap-spacing-50 items-center justify-center w-full',
-        iconContainer: 'h-spacing-400 w-spacing-800 py-spacing-0 px-spacing-0',
-        icon: 'size-spacing-300',
-        label: 'truncate w-full text-center'
       },
-      false: {}
+      false: {
+        // State layer and focus ring on the indicator, triggered by the full-width link.
+        indicator:
+          'group-hover:before:bg-md-sys-color-on-secondary-container/8 group-focus-visible:before:bg-md-sys-color-on-secondary-container/10 group-active:before:bg-md-sys-color-on-secondary-container/10 group-focus-visible:outline-3 group-focus-visible:outline-offset-2 group-focus-visible:outline-md-sys-color-secondary'
+      }
     }
   },
   compoundVariants: [
-    {
-      expanded: true,
-      active: true,
-      class: {
-        iconContainer: 'bg-transparent',
-        content: 'bg-md-sys-color-secondary-container'
-      }
-    },
-    {
-      expanded: true,
-      active: false,
-      class: {
-        content: 'group-hover:bg-md-sys-color-surface-variant'
-      }
-    },
-    {
-      expanded: false,
-      active: false,
-      class: {
-        iconContainer: 'group-hover:bg-md-sys-color-surface-variant'
-      }
-    }
-  ]
+    { active: true, layout: 'top', class: { label: 'text-md-sys-color-secondary' } },
+    { active: true, layout: 'start', class: { label: 'text-md-sys-color-on-secondary-container' } }
+  ],
+  defaultVariants: {
+    layout: 'top',
+    disabled: false
+  }
 });

@@ -6,9 +6,13 @@
   let html = $state('');
 
   $effect(() => {
+    // Read the props before the await so the effect tracks them and re-highlights on change.
+    const source = code;
+    const language = lang;
     let cancelled = false;
     getHighlighter().then((highlighter) => {
-      if (!cancelled) html = highlighter.codeToHtml(code, { lang, theme: 'css-variables' });
+      if (!cancelled)
+        html = highlighter.codeToHtml(source, { lang: language, theme: 'css-variables' });
     });
     return () => {
       cancelled = true;

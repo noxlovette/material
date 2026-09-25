@@ -91,6 +91,12 @@ chevron, `aria-expanded` and `aria-controls`. The nested items are `inert` while
 content to 38%. Hover, focus and press tints come from the shared state layer. The keyboard focus
 ring is drawn inside the item, so segments don't overlap.
 
+When the selection moves inside one `List` (a nav list following the route, a single-select
+list), the fill travels: it springs from where the old one was drawn to the newly selected item,
+up or down, on the `spatial` spring. It passes over the items in between, and a selection that
+moves again mid-flight picks up from where the fill is. When several items change at once, or
+under reduced motion, the fill just appears on the selected item.
+
 <Canvas of={ListStories.Disabled} />
 
 ## Where this differs from the tokens

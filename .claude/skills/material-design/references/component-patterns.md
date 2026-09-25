@@ -2,7 +2,7 @@
 
 ## The `tv()` shape
 
-Every component's styles live in the category's `theme.ts`, built with `tv()` from `tailwind-variants`:
+Every component's styles live in the category's `theme.ts`, built with `tv()`. Import it from `$lib/utils/tv.js`, not `tailwind-variants`: that instance teaches tailwind-merge the library's own class groups, so a caller's `z-40` replaces a `z-layer-*` and `size-[18px]`/`p-4` replaces `size-spacing-250`/`p-spacing-200` instead of both shipping. For a class list built outside `tv()`, use the `twMerge` exported from the same file.
 
 - `slots` — one key per rendered element (`base`, `icon`, `label`, ...) so multi-element components can vary each part independently
 - `variants` — one axis per meaningful design decision (`variant`, `color`, `size`, `shape`, `selected`, ...); each value maps to either a class string (single-slot components) or an object keyed by slot (multi-slot components)
@@ -26,8 +26,15 @@ Only fall back to `bare` (no color/background at all) when the component supplie
 
 ## Reuse before you build
 
-- **State layer / ripple** — wrap the interactive element with `Layer.svelte` (`src/lib/utils/Layer.svelte`) rather than writing hover/press opacity by hand. It listens for `.m3-layer` on its parent, already respects `prefers-reduced-motion` for the ripple, and its tint intensity (hover 0.08 / pressed·focus 0.12) matches the M3 state-layer spec — don't retune those numbers per component.
-- **Icons** — always `Icon.svelte` (`name`, `fill`, `wght`, `size` props), never a raw `<span class="material-symbols-...">` or an inline SVG for a Material Symbol.
+- **State layer / ripple** — wrap the interactive element with `Layer.svelte` (`src/lib/utils/Layer.svelte`) rather than writing hover/press opacity by hand. It listens for `.m3-layer` on its parent, already respects `prefers-reduced-motion` for the ripple, and its tint (hover 0.08, focus and pressed 0.10) matches the M3 state-layer tokens — don't retune those numbers per component.
+- **Icons** — always `Icon.svelte`, never a raw `<span class="material-symbols-...">` or an inline SVG for a Material Symbol.
+  - `name` is typed (`MaterialSymbolName`), so a typo is a type error. A `string[]` of names needs `as const` or `satisfies MaterialSymbolName[]`.
+  - Show state with `fill` (0 → 1 on the selected item; it animates), not a weight change.
+  - `size="inline"` for a symbol set in running text. `grad` defaults to `'auto'` (-25 on dark schemes).
+  - When a control's icon swaps between two states (menu ↔ menu_open, add ↔ close, play ↔ pause), pass `transition: 'rotate'` (a toggle) or `'fade'`. Otherwise the glyph jumps. See motion-guide.md → "Icon swaps".
+- **Dragging** — the `drag()` attachment (`$lib/attachments`), never hand-rolled pointer events. It handles pointer capture (and recapture when the node moves in the DOM), a start `threshold`, a touch long-press `touchDelay` so swipes still scroll, the release velocity, and swallowing the click after a drag. Pair it with `resist()` for rubber-banding at the bounds and a Motion spring on release that takes the velocity. `DraggablePane` and `ChipGroup` are built on it.
+- **Sets of chips** — `ChipGroup` (8dp gaps, wrapping; `reorderable` adds drag and Alt+Arrow reordering with the M3 dragged state), not a flex row of `Chip`s. An input chip is two buttons (its action, and a remove button with a `removeLabel`) and removes on Backspace/Delete; a filter chip takes `trailingIconProps` (e.g. a dropdown arrow).
+- **Lists** — `List`'s `variant` depends on what's behind it. `standard` items are `surface` and assume a `surface` backdrop (a `surface` pane). On the `surface-container` window (a sidebar nav on a backgroundless pane), use `segmented`: its segments take the window's tone, so only the selected pill and hover tint show. A standard list there renders as notched white slabs. The selected fill is its own element (`selection` slot), not the item's background, so it can travel between items; keep it that way when restyling selection.
 - **Dividers** — `Divider.svelte`, not Bits UI's `Separator` (per project CLAUDE.md — it already implements the same primitive).
 - **Focus ring** — the `md-sys-state-focus-indicator` utility, not a custom `:focus` style.
 - **Disabled state** — `.md-component-button-base`'s disabled handling (via `disabled:`/`aria-disabled`/`data-disabled` selectors in `component.css`), not a manually-toggled opacity class.
@@ -49,6 +56,20 @@ in the library, not in a one-off route file:
 | Floating panel the user repositions (inspector, tool palette)   | `DraggablePane`                                                                      | Not a `PaneGrid` child — `position: fixed`, dragged by its header via `x`/`y` (bindable); `bounds`/`boundsPadding` clamp the drag, `persistKey` persists position         |
 
 See `/docs/pane` in the showcase site for the full prop reference and worked examples.
+
+### Surfaces: window vs panes
+
+`App` paints the window `surface-container`; content lives in `surface` panes (`Pane`'s default `background`, rounded top corners). Navigation belongs to the window, not a pane: the `Rail` (on `surface-container`, the spec's optional role), a `Navbar`, a guides-style nav list on a `background={false}` pane. So keep the content `Pane` at its default background, and don't separate a nav column from the content with a border: the colour change does it.
+
+### Page ends and overscroll
+
+- **End space:** a `full` Pane (the default, a page that scrolls with the window) ends its content 72dp above its bottom edge, whatever its `padding` preset (not with `padding="none"`). That's a 56dp FAB plus its 16dp margin, so the last line scrolls clear of a FAB and doesn't finish flush against the window. Don't add bottom padding by hand on top of it.
+- **Overscroll:** a page with an `App` doesn't bounce or pull-to-refresh (`overscroll-behavior: none` on `:root:has(.md-app)`, base layer), and its canvas is `surface-container`. An app that wants pull-to-refresh sets `html { overscroll-behavior: auto }`.
+- **Pane basis follows the grid:** inside a `PaneGrid`, a Pane's `flex-basis` is its width in a row and `auto` in a column (each direction tier restates it), so stacked panes take their content height. Don't set `basis-*` on a Pane yourself.
+
+### Clearing the rail
+
+A viewport-anchored `Rail` publishes `--md-rail-inset` on `<html>`: 0 below `md`, the collapsed 96dp on medium windows (the expanded rail is modal there and overlays), and its live width from `lg` (it pushes content, in step with its spring). `App`'s shell pads by it and `AppBar` starts at it. Never add `md:ml-24` or similar to a page, a `PaneGrid` or an app bar. A custom shell uses `ps-(--md-rail-inset)`; another fixed surface spanning the window uses `left-(--md-rail-inset)`. A rail with `anchor="parent"` renders a spacer beside itself instead, so it and its content go in a flex row.
 
 ## Before exporting a new component
 

@@ -11,6 +11,11 @@ export type ListMediaVariants = VariantProps<typeof listMedia>;
   `List` sets `--li-top`/`--li-bottom` to 16dp on its first/last child, so the list's outer
   corners stay 16dp while the inner ones morph. Custom properties inherit, so this reaches an item
   through its `<li>`; each `<ul>` resets both so nested lists start clean.
+
+  Selection: the selected fill is its own element rather than the item's background. When one
+  item loses the selection and another gains it in the same update (a nav list following the
+  route, a single-select list), the fill springs from where the old one was drawn to the new
+  item, like the tab indicator, instead of blinking out and in.
 */
 export const list = tv({
   base: 'flex w-full flex-col [--li-bottom:initial] [--li-top:initial]',
@@ -28,11 +33,15 @@ export const list = tv({
 export const listItem = tv({
   slots: {
     base: [
-      'relative flex w-full min-w-spacing-0 gap-spacing-150 ps-spacing-200 pe-spacing-200 pt-spacing-125 pb-spacing-125 text-start',
+      'relative isolate flex w-full min-w-spacing-0 gap-spacing-150 ps-spacing-200 pe-spacing-200 pt-spacing-125 pb-spacing-125 text-start',
       '[--li-shape:0.25rem] rounded-t-[var(--li-top,var(--li-shape))] rounded-b-[var(--li-bottom,var(--li-shape))]',
       'transition-[border-radius,background-color,color] md-sys-motion-fast-spatial',
       'text-md-sys-color-on-surface-variant'
     ],
+    /* The selected fill, under the item's content and state layer, in the item's shape. When the
+       selection moves within a List it springs over from the previous item (ListItem.svelte). */
+    selection:
+      'pointer-events-none absolute inset-spacing-0 -z-10 rounded-[inherit] bg-md-sys-color-secondary-container',
     leading: 'flex shrink-0 items-center text-md-sys-color-on-surface-variant',
     body: 'flex min-w-spacing-0 flex-1 flex-col justify-center',
     overline: 'md-sys-typescale-label-small line-clamp-1 text-md-sys-color-on-surface-variant',
@@ -79,7 +88,7 @@ export const listItem = tv({
     },
     selected: {
       true: {
-        base: 'bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container [--li-shape:1rem] hover:[--li-shape:1rem]',
+        base: 'text-md-sys-color-on-secondary-container [--li-shape:1rem] hover:[--li-shape:1rem]',
         leading: 'text-md-sys-color-on-secondary-container',
         overline: 'text-md-sys-color-on-secondary-container',
         headline: 'text-md-sys-color-on-secondary-container',

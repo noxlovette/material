@@ -9,7 +9,7 @@
       description:
         'Every component and variant, live, with its props and usage rules, in Storybook.',
       href: storybookHref(),
-      icon: 'widgets',
+      icon: 'widgets' as const,
       external: true
     },
     {
@@ -17,7 +17,7 @@
       description:
         'Install, import the CSS, wrap your app. Then theming, tokens, layout and motion.',
       href: guideHref('get-started'),
-      icon: 'rocket_launch',
+      icon: 'rocket_launch' as const,
       external: false
     }
   ];
@@ -27,7 +27,7 @@
   <title>Material for Svelte</title>
 </svelte:head>
 
-<Pane rounded={false} background={false} padding="lg" contentClass="mx-auto max-w-6xl">
+<Pane padding="lg" contentClass="mx-auto max-w-6xl">
   <div class="gap-spacing-600 py-spacing-600 flex flex-col">
     <header class="gap-spacing-200 flex flex-col">
       <Display size="large">Material for Svelte</Display>

@@ -29,7 +29,7 @@ src/lib/           # published library (@noxlovette/material)
 src/routes/        # showcase site only — not published. Landing page + cross-cutting guides.
                     # NOT a component reference: that is Storybook (autodocs + <Component>.mdx).
                     # No per-component route pages.
-  guides/          # Get started, Theming, Tokens, Responsive props, Layout, Motion, Claude skill.
+  guides/          # Get started, Theming, Tokens, Responsive props, Layout, Icons (playground), Motion, Claude skill.
                     # nav.ts lists them; +layout.svelte is a PaneGrid with a sticky List nav Pane;
                     # GuidePage.svelte is content + a sticky "On this page" Pane. See "Dogfooding
                     # rule" below — do not hand-roll this layout with raw flex/aside divs.
@@ -50,7 +50,7 @@ two surfaces, so the "Storybook" nav link resolves correctly in both dev and pro
 - **Utility types**: prefer types from `utils/types.ts` (`AnchorButtonAttributes`, `SizeType`, `DivAttrs`, etc.)
 - **Theme import**: consumers use `@noxlovette/material/styles` for base CSS and `@noxlovette/material/theme/light` etc.
 - **New components**: export from the category `index.ts` and re-export in `src/lib/components/index.ts`
-- **Spacing: M3 tokens only in library code.** `src/lib/styles/spacing.css` registers `md.sys.measurement.space<N>` as `*-spacing-<N>` (`p-spacing-200` = 16dp, `gap-spacing-50` = 4dp; N is M3's number, not Tailwind's multiplier). Library components, stories, MDX and guides use these, never Tailwind's numeric scale (`p-4`), which stays available only for consumers. Off-grid component dimensions are pending named component tokens (issue #30); don't add new numeric or arbitrary sizes, and don't "snap" existing spec dimensions to the nearest spacing token.
+- **Spacing: M3 tokens only in library code.** `src/lib/styles/spacing.css` registers `md.sys.measurement.space<N>` as `*-spacing-<N>` (`p-spacing-200` = 16dp, `gap-spacing-50` = 4dp; N is M3's number, not Tailwind's multiplier). Library components, stories, MDX and guides use these, never Tailwind's numeric scale (`p-4`), which stays available only for consumers. Off-grid component dimensions are moving to named component tokens (issue #30): `src/lib/styles/components.css` defines `--md-comp-<component>-…` properties named after the M3 token (the nav rail is done), used as `w-(--md-comp-…)`. Put a new off-grid value there, never a numeric or arbitrary class, and don't "snap" existing spec dimensions to the nearest spacing token.
 - **Type scale** (`src/lib/styles/typescale.css`) is generated from the M3 token DB: 15 baseline + 15 emphasized styles (`md-sys-typescale-emphasized-*`), rem units, line heights per language height (`lang`). Selected/active/unread states use the emphasized style, never `font-bold` on a baseline one.
 - **`tailwind-variants` (tv)**: every component's styles are defined with `tv()` from `tailwind-variants`, using named `slots` for multi-element components and `variants`/`compoundVariants` for state logic. Match this pattern for all new components — do not use plain `clsx` strings for component internals.
   Import `tv` from `$lib/utils/tv.js`, not `tailwind-variants`: the local instance teaches tailwind-merge the library's custom class groups (`z-layer-*`), so a consumer's `class="z-40"` replaces a layer instead of both classes shipping.
@@ -87,6 +87,7 @@ Found while auditing typescale usage across every component (see git history for
 - **`md-sys-typescale-*` and `md-sys-color-*` are different kinds of classes.** The typescale ones (`md-sys-typescale-display-large`, etc., defined in `src/lib/styles/typescale.css`) are bare `@utility` classes that already bundle `text-*`/`leading-*`/`tracking-*` — apply them directly (`class="md-sys-typescale-body-medium"`). Prefixing one with `text-` (`text-md-sys-typescale-body-medium`) is not a real Tailwind utility and silently generates zero CSS. The color ones (`md-sys-color-on-surface`, etc.) are plain color tokens and DO need a prefix — `text-md-sys-color-on-surface`, `bg-md-sys-color-...`, `border-md-sys-color-...`, `outline-md-sys-color-...`.
 - **A typo'd token class — a missing `md-`, `-sys-`, or `-color-` segment (`bg-sys-color-surface-variant`, `text-md-sys-on-primary-container`, `hover:text-sys-color-on-surface`) — compiles clean and generates zero CSS.** The element just silently falls back to inherited/browser-default styling. When auditing token usage, diff the suspicious class string against a sibling file already known to render correctly rather than trusting the name alone.
 - **New Material Symbols icon name → add it to `.storybook/StorybookProviders.svelte`'s `extraIcons` list**, or that icon renders as literal ligature text (e.g. `calendar_today`) instead of a glyph in Storybook. The file has a maintained grep recipe in a comment above the list to regenerate it from every `name="..."`/`iconProps={{ name: ... }}` in the codebase — re-run it whenever a story or component introduces a new icon name, and sanity-check the output (the naive grep also picks up unrelated quoted strings like `aria-hidden="true"` — drop obvious junk before pasting it in).
+- **Icon names are typed.** `IconProps['name']` is `MaterialSymbolName`, a generated union of every ligature the Material Symbols font renders (deprecated aliases like `smartphone` included), so a typo is a type error. A `string` array of names needs `as const` or `satisfies MaterialSymbolName[]`. `bun scripts/generate-icon-catalog.ts` regenerates both `utils/icon/icon-names.ts` (from the font's `.codepoints` file) and the Icons guide's playground list `src/routes/guides/icons/catalog.json` (from Google's metadata, canonical names only). Never edit either by hand.
 - **A `tv()` slot can be fully defined in `theme.ts` and never actually render anything.** Declaring a slot only inside `variants`/`compoundVariants` classes (not in the base `slots: {}` map) still typechecks fine — but the real trap is a slot that's correctly computed and then never applied to any element in the `.svelte` file. `forms/tooltip/theme.ts`'s `textContainer` slot (per-`style` on-color classes for rich tooltips) existed with nothing in `Tooltip.svelte` ever rendering it, so primary/secondary/tertiary tooltips had no guaranteed-contrast text color. When adding or touching a slot, grep the component file to confirm it's destructured _and_ applied to a class list, not just declared in the theme.
 - **`hidden md:X` needs an explicit display override at the breakpoint, not just a position/layout one.** `hidden` sets `display:none`; `md:absolute` only changes `position`, so the element stays `display:none` at any width unless something like `md:inline-flex`/`md:block` is added alongside it (see `typography/kbd/theme.ts`'s `position.absolute` variant).
 - **`scripts/generate-components-index.ts` currently also exports `.stories.svelte` files** from every folder's barrel `index.ts` (e.g. `export { default as BadgeStories } from './Badge.stories.svelte'`). Re-running it regenerates every barrel with this bug, which would leak dev-only Storybook code into the published npm package. Until the script itself is fixed, don't blindly commit its output — diff it first and hand-patch just the barrel(s) you actually needed to change.
@@ -196,32 +197,27 @@ See the Layout guide (`/guides/layout`) and Storybook → Containers/Pane Grid f
 
 # Verifying a Component Change in the Browser
 
+**Do not use Claude in Chrome (the `mcp__claude-in-chrome__*` tools) in this package unless the
+user explicitly asks for it in that conversation.** Visual and interaction checks are the
+human's job here. An agent's own green `bun run check` / `bun run test` is not the same as
+"verified", so say plainly what still needs a look.
+
 `bun run check` only catches type errors — it won't catch a handle rendering off-screen, a
 clipped overlay, or a variant class that never actually gets applied (see "Known Pitfalls"
-above). After changing anything with a visual or interactive surface, actually look at it in
-Storybook before calling the change done:
+above). After changing anything with a visual or interactive surface:
 
-1. Start Storybook in the background: `(bun run storybook > /tmp/storybook.log 2>&1 &)`, then
-   poll `/tmp/storybook.log` for `Storybook ready!` (or the `Local:` URL) before opening it —
-   the first boot takes a few seconds.
-2. Open the story directly at `http://localhost:6006/iframe.html?id=<story-id>&viewMode=story`
-   (kebab-case `<title>--<name>`, e.g. `containers-pane-grid--resizable-split`) rather than the
-   `?path=/story/...` manager URL — it skips the manager chrome/sidebar so a screenshot shows
-   only the story itself.
-3. Screenshot, and `zoom` into the specific region you changed — don't trust a full-page
-   screenshot alone to catch a few-pixel clipping or alignment issue.
-4. For anything gesture-driven (drag, hover, snap points, transitions) a single screenshot can't
-   catch the mid-gesture state. Use `javascript_tool` to either (a) read
-   `getBoundingClientRect()`/`getComputedStyle()` on the element to confirm computed values
-   ground-truth rather than eyeballing pixels, or (b) dispatch synthetic `PointerEvent`s
-   (`pointerdown`/`pointermove` without a matching `pointerup`) to freeze the interaction in a
-   specific state, then screenshot or inspect it.
-5. When done, close the tab and stop the dev server (`pkill -f "storybook dev"`) — don't leave
-   it running across turns.
+1. Cover what can be tested without a browser: `tv()` output, logic, and DOM structure in jsdom
+   (`// @vitest-environment jsdom`, see `chips/Chip.svelte.test.ts`; stub `window.matchMedia`,
+   which jsdom lacks and `Layer` calls).
+2. Hand the rest to the user as a short checklist: the story to open, as a direct
+   `http://localhost:6006/iframe.html?id=<story-id>&viewMode=story` link (kebab-case
+   `<title>--<name>`, e.g. `containers-pane-grid--resizable-split`), and exactly what to look
+   at or do (which state, which gesture, what the spec value is). Offer to start Storybook for
+   them: `(bun run storybook > /tmp/storybook.log 2>&1 &)`, then wait for `Local:` in the log.
+3. Stop any server you started when done (`pkill -f "storybook dev"`).
 
-This is also the fastest way to catch a demo/story bug that isn't the component's fault — e.g. a
-story wrapping `<PaneGrid full>` in a fixed-height `overflow-hidden` box, which clips anything
-that stretches to `min-h-dvh` inside it.
+Typical demo bugs worth pointing the user at: a story wrapping `<PaneGrid full>` in a
+fixed-height `overflow-hidden` box, which clips anything that stretches to `min-h-dvh` inside it.
 
 # Key Utils (`src/lib/utils/`)
 

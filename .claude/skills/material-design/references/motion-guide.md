@@ -54,16 +54,18 @@ Spatial springs overshoot by design (fast spatial most, at damping ratio 0.6); e
 
 ## JS: picking a primitive
 
-| M3 pattern                                                        | Primitive                                                    | Notes                                                                                                                                                                                                                                                                                              |
-| ----------------------------------------------------------------- | ------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Enter and exit** — a surface appears/leaves within the screen   | `presence(() => open, enterExit.<preset>)`                   | Attachment. Presets: `fade`, `scale` (menus/popovers/tooltips — sets `transform-origin` to bits-ui's anchor side, so never add an `origin-*` class), `slideUp` (snackbar), `dialog`, `sideSheet`, `bottomSheet`. Interruptible: reopening mid-exit retargets from the current value with velocity. |
-| Same, outside bits-ui (element must stay mounted during its exit) | `new Presence(() => open)`                                   | `{#if p.mounted}<div {@attach p.attach(enterExit.x)}>`. Construct during component init. Used by Snackbar, SideSheet, BottomSheet.                                                                                                                                                                 |
-| **Container transform** — card → detail, FAB → sheet              | `containerTransform(update, { from, to })`                   | Motion `animateView()` (View Transition API). `update` swaps the DOM (`async () => { open = true; await tick(); }`); `to` may be a selector for an element that only exists after the update.                                                                                                      |
-| **Forward and backward** — hierarchy levels, wizard steps         | `sharedAxis(update, { target, axis, direction })`            | `axis: 'x' \| 'y' \| 'z'`, `direction: 'forward' \| 'backward'`. `target` is the persistent region whose content changes; omit for the whole page.                                                                                                                                                 |
-| **Lateral** — peer screens (tabs, carousels)                      | `lateral(update, { target, direction })`                     | Edge-to-edge slide, no fade.                                                                                                                                                                                                                                                                       |
-| **Top level** — unrelated destinations (navigation bar)           | `fadeThrough(update, { target })`                            | Old fades out, new fades in scaling from 92%.                                                                                                                                                                                                                                                      |
-| **Skeleton loaders**                                              | `{@attach skeleton}` on the placeholder                      | Pulses until replaced; reveal the content with `presence(…, enterExit.fade)`.                                                                                                                                                                                                                      |
-| Anything custom                                                   | `animate(node, keyframes, springTransition(springTokens.x))` | `springTransition` converts a token to Motion's physics spring (`stiffness`/`damping`), which inherits velocity on interruption.                                                                                                                                                                   |
+| M3 pattern                                                        | Primitive                                                    | Notes                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| ----------------------------------------------------------------- | ------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Enter and exit** — a surface appears/leaves within the screen   | `presence(() => open, enterExit.<preset>)`                   | Attachment. Presets: `fade`, `scale` (menus/popovers/tooltips — sets `transform-origin` to bits-ui's anchor side, so never add an `origin-*` class), `slideUp` (snackbar), `dialog`, `sideSheet`, `bottomSheet`. Interruptible: reopening mid-exit retargets from the current value with velocity.                                                                                                                                              |
+| Same, outside bits-ui (element must stay mounted during its exit) | `new Presence(() => open)`                                   | `{#if p.mounted}<div {@attach p.attach(enterExit.x)}>`. Construct during component init. Used by Snackbar, SideSheet, BottomSheet.                                                                                                                                                                                                                                                                                                              |
+| **Container transform** — card → detail, FAB → sheet              | `containerTransform(update, { from, to })`                   | Motion `animateView()` (View Transition API). `update` swaps the DOM (`async () => { open = true; await tick(); }`); `to` may be a selector for an element that only exists after the update.                                                                                                                                                                                                                                                   |
+| **Forward and backward** — hierarchy levels, wizard steps         | `sharedAxis(update, { target, axis, direction })`            | `axis: 'x' \| 'y' \| 'z'`, `direction: 'forward' \| 'backward'`. `target` is the persistent region whose content changes; omit for the whole page.                                                                                                                                                                                                                                                                                              |
+| **Lateral** — peer screens (tabs, carousels)                      | `lateral(update, { target, direction, axis })`               | Edge-to-edge slide, no fade, along the axis the peers are laid out on: `axis: 'y'` for vertical tabs, a vertical carousel or a top-to-bottom stepper (`forward` = next, pushing up from below). Never on a vertical nav list: that's a drawer, so top level.                                                                                                                                                                                    |
+| **Top level** — unrelated destinations (navigation bar)           | `fadeThrough(update, { target })`                            | Old fades out, new fades in scaling from 92%. The `target` region swaps its box instantly (no slide or resize, so a scroll reset doesn't glide). In SvelteKit, call it from `onNavigate` in the root layout, skip hash-only changes, and fade only the region whose content changed: `main` between rail/navbar destinations, a section's content pane between pages of a nav that stays on screen (the showcase site's root layout does both). |
+| **Skeleton loaders**                                              | `{@attach skeleton}` on the placeholder                      | Pulses until replaced; reveal the content with `presence(…, enterExit.fade)`.                                                                                                                                                                                                                                                                                                                                                                   |
+| **Direct manipulation** — dragging a pane, reordering chips       | `drag()` attachment + `resist()` + a spring on release       | The attachment reports offsets and release velocity; the caller moves things. Release on `fastSpatial` with `velocity` so the throw carries (DraggablePane, ChipGroup). Neighbours making room play FLIP: measure, reorder, `flushSync()`, spring each from its old offset to 0.                                                                                                                                                                |
+| **Several parts moving as one state change** — rail expand        | One number spring written to a CSS variable                  | `animate(from, to, { ...spring, onUpdate })` writes the progress (`--rail-p`, 0–1) and every part interpolates on it in CSS `calc()`: widths, gaps, heights, positions. One spring keeps them in step and an interruption reverses them together. Things that must not be seen mid-change (the rail label's side and typescale) switch at the halfway point while faded out.                                                                    |
+| Anything custom                                                   | `animate(node, keyframes, springTransition(springTokens.x))` | `springTransition` converts a token to Motion's physics spring (`stiffness`/`damping`), which inherits velocity on interruption.                                                                                                                                                                                                                                                                                                                |
 
 ### Which components must use which pattern
 
@@ -115,7 +117,47 @@ Within a set, every path has the same point count, start point and winding, so M
 - **Morph with `shapeMorph(() => path)`** (attachment on a `<path>`) or `morphShape(pathEl, to)`. Both use `fastSpatial` by default, stop the previous morph and start from the shape on screen, and swap instantly under `prefers-reduced-motion`.
 - **Pick by name** with `animatableShapes[name]` / `animatableShapesSmall[name]` (`ShapeName`, `shapeNames`). A map pulls in its whole set, so import individual `pathAnimatable*` constants when bundle size matters.
 - `LoadingIndicator` morphs through seven of the small shapes (`LOADING_SHAPES`) on its own component spring.
+- `Avatar` takes any shape (`shape`, a clip path from the small set, morphing on change) and can turn it at a constant speed (`spin="clockwise" | "counterclockwise"`, one turn per 14s, off under reduced motion). Like the loading indicator's global rotation, a constant spin is linear, not a spring.
 - Live demo: Storybook → Motion/Shapes.
+
+## Icon swaps
+
+Material Symbols are font glyphs, so one icon can't morph its outline into another. When a
+control's icon changes with its state, `Icon`'s `transition` prop crossfades the two glyphs on
+springs instead of swapping them in one frame (presets in `utils/icon/swap.ts`, run through
+`presence`):
+
+- **`'rotate'`**: for a toggle between two states of one control: menu ↔ menu_open (the rail's
+  menu button), add ↔ close, expand ↔ collapse. The old glyph turns out the same way the new
+  one turns in, so the pair reads as one motion.
+- **`'fade'`**: scale and fade without turning, for swaps that aren't a toggle (play ↔ pause,
+  a status icon changing).
+- **`'none'`** (default): leave icons that change with data (list rows, table cells) on this,
+  or a whole list animates when its data reloads.
+
+```svelte
+<ButtonIcon iconProps={{ name: open ? 'menu_open' : 'menu', transition: 'rotate' }} … />
+```
+
+Movement is on `fastSpatial` (an icon is a small element), opacity on `fastEffects`, and a
+change back mid-flight retargets the leaving glyph instead of stacking a third. Under reduced
+motion both become a plain crossfade. Outlined ↔ filled for a selected state is `fill`, not a
+swap; it already animates through `font-variation-settings`. True path morphs between icons are
+issue #36.
+
+## Selection indicators
+
+A selection that moves between peers moves its indicator rather than blinking it out and in.
+
+- **Between items of one set** (a `List`'s selected fill, Tabs' bar): the indicator travels from
+  the old item to the new one. `ListItem` hands the outgoing fill's rect (relative to the `List`)
+  through the List context in `$effect.pre`, and the incoming item springs its own fill from
+  there in `$effect` on `spatial`, lifted above the items it crosses. Reuse that hand-off for
+  new selectable sets, not a list-level overlay: segment backgrounds would hide one.
+- **Appearing in place** (the rail's active indicator): it grows from its centre to its edges
+  and fades in on `fastSpatial`, and the deselected one shrinks back; the state layer stays on
+  top. RailItem drives a 0–1 spring into `--rail-sel`.
+- Under reduced motion both just appear at the end state.
 
 ## CSS: state-driven transitions
 
@@ -158,6 +200,6 @@ Not implemented yet — tracked in https://github.com/noxlovette/material/issues
 
 Target behavior, per [Applying transitions](https://m3.material.io/styles/motion/transitions/applying-transitions). When `prefers-reduced-motion: reduce` is set:
 
-- **Swap movement for subtle fades rather than removing the transition** (a jump cut would break the "no jarring jump cuts" rule). `enterExit.scale`/`dialog`/`slideUp`/`sideSheet`/`bottomSheet` fall back to `enterExit.fade`. `sharedAxis`, `lateral` and `containerTransform` fall back to a `fadeThrough`-style opacity-only fade, with no translate or scale.
+- **Swap movement for subtle fades rather than removing the transition** (a jump cut would break the "no jarring jump cuts" rule). `enterExit.scale`/`dialog`/`slideUp`/`sideSheet`/`bottomSheet` fall back to `enterExit.fade`. `sharedAxis`, `lateral` and `fadeThrough` fall back to an opacity-only fade with no translate or scale, their region's box swapping instantly; `containerTransform` crossfades its two states in place without growing (`animation/reducedMotion.ts`).
 - **Disable decorative effects**: shape morphing (button `--btn-shape` morphs; `morphShape`/`shapeMorph` already swap instantly), parallax, the ripple (already done).
 - Keep effects-spring color/opacity feedback (state layers, hover/press color), since that motion carries meaning and isn't intense.
