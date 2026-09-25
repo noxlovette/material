@@ -1,6 +1,7 @@
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
 import type { Responsive } from '../../containers/pane/theme.js';
+import type { SearchLayout, SearchResultsProps } from '../../forms/search/types.js';
 import type { AppBarSize, AppbarVariants } from './theme.js';
 
 type AppBarBaseProps = Pick<AppbarVariants, 'align'> &
@@ -46,6 +47,9 @@ export type TitleAppBarProps = AppBarBaseProps & {
   query?: never;
   searchProps?: never;
   searchTrailing?: never;
+  searchResults?: never;
+  searchOpen?: never;
+  searchLayout?: never;
 };
 
 /** A search app bar: a search field in place of the title, always 64dp. */
@@ -58,8 +62,21 @@ export type SearchAppBarProps = AppBarBaseProps & {
   title?: string;
   /** Props for the search `<input>`, e.g. `onfocus` to open a search view. */
   searchProps?: HTMLInputAttributes;
-  /** An action inside the search field, e.g. a mic icon button. */
+  /** An action inside the search field, e.g. a mic icon button. Also shown in the search view. */
   searchTrailing?: Snippet;
+  /**
+   * Suggestions and results. Setting it gives the bar a search view (`SearchView`), opened by
+   * clicking or typing in the field. Spread the snippet's argument onto a `List` of
+   * `role="option"` items.
+   */
+  searchResults?: Snippet<[SearchResultsProps]>;
+  /** Whether the search view is open. Only has an effect with `searchResults`. */
+  searchOpen?: boolean;
+  /**
+   * The search view's layout, one value or one per window tier.
+   * @default { small: 'fullScreen', medium: 'docked' }
+   */
+  searchLayout?: Responsive<SearchLayout>;
   size?: never;
 };
 

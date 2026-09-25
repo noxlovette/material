@@ -6,3 +6,4 @@ export * from './types.js';
 
 // default exports for components in this folder
 export { default as Search } from './Search.svelte';
+export { default as SearchView } from './SearchView.svelte';

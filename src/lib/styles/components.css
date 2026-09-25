@@ -11,6 +11,12 @@
   --md-comp-nav-rail-expanded-top-space: 2.75rem; /* 44dp */
   --md-comp-nav-rail-expanded-container-width-minimum: 13.75rem; /* 220dp */
   --md-comp-nav-rail-expanded-container-width-maximum: 22.5rem; /* 360dp */
+
+  /* Search view, contained style, docked layout: https://m3.material.io/components/search/specs */
+  --md-comp-search-view-contained-docked-container-width-minimum: 22.5rem; /* 360dp */
+  --md-comp-search-view-contained-docked-container-width-maximum: 45rem; /* 720dp */
+  --md-comp-search-view-contained-docked-container-height-minimum: 15rem; /* 240dp */
+  --md-comp-search-view-contained-docked-container-height-maximum: calc(100dvh * 2 / 3);
 }
 
 /*

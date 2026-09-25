@@ -9,7 +9,7 @@ vi.mock('motion', async (importOriginal) => ({
   animateView: () => {
     calls = [];
     const builder: Record<string, (...args: unknown[]) => unknown> = {};
-    for (const method of ['add', 'old', 'new', 'layout', 'crop']) {
+    for (const method of ['add', 'old', 'new', 'layout', 'crop', 'class']) {
       builder[method] = (...args: unknown[]) => {
         calls.push([method, ...args]);
         return builder;

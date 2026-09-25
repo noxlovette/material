@@ -5,21 +5,22 @@ import * as SearchStories from './Search.stories.svelte';
 
 <Title />
 
-<Subtitle>The search bar lets users enter a query to find information in an app.</Subtitle>
+<Subtitle>
+  Search lets users enter a query and pick from suggestions and results in a search view.
+</Subtitle>
 
 [M3 spec](https://m3.material.io/components/search/specs) ·
-`import { Search } from '@noxlovette/material';`
+`import { Search, SearchView } from '@noxlovette/material';`
 
 <Canvas of={SearchStories.Playground} />
 
 <Controls of={SearchStories.Playground} />
 
-## Search bar, not search view
+## Search bar
 
-This is M3's search bar: a 56dp, fully rounded `surface-container-high` field with a leading
-search icon. It's a different thing from the full-screen search view, and from a filled text
-field. Once there's a value, a clear button appears at the end. Other native `<input>` attributes
-pass straight through to the input.
+M3's search bar is a 56dp, fully rounded `surface-container-high` field with a leading search
+icon. It's a different thing from a filled text field. Once there's a value, a clear button
+appears at the end. Other native `<input>` attributes pass straight through to the input.
 
 ```svelte
 <Search placeholder="Search" bind:value={query} />
@@ -27,7 +28,65 @@ pass straight through to the input.
 
 <Canvas of={SearchStories.WithActions} />
 
-For a search field inside a top app bar, use `AppBar`'s `search` prop instead.
+For a search field inside a top app bar, use `AppBar`'s `search` prop instead. It opens the same
+search view when you give it `searchResults`.
+
+## Search view
+
+M3 treats search as a bar plus a view. Pass `results` and clicking or typing in the bar opens the
+search view, where the suggestions and results go. The view is empty until you fill it: spread the
+snippet's argument onto a `List`, and give each item `role="option"`.
+
+```svelte
+<Search placeholder="Search" bind:value={query} bind:open results={suggestions} />
+
+{#snippet suggestions(listbox)}
+  <List {...listbox}>
+    {#each matches as item (item)}
+      <ListItem role="option" asChild headline={item} onclick={() => pick(item)} />
+    {/each}
+  </List>
+{/snippet}
+```
+
+Picking a result is up to you: set the value and `open = false` in the item's `onclick`.
+
+<Canvas of={SearchStories.SearchView} />
+
+### Layouts
+
+`layout` takes `'fullScreen' | 'docked'`, one value or one per window tier. The default,
+`{ small: 'fullScreen', medium: 'docked' }`, follows M3: full-screen on compact windows, docked
+from medium up. The switch is made in CSS, so there's no flash on load.
+
+| Layout      | Container                                                        | Bar                                                               |
+| ----------- | ---------------------------------------------------------------- | ----------------------------------------------------------------- |
+| Full-screen | The whole window, `surface-container-low`, 0 radius              | 56dp, circular, `surface-container-high`, 12dp from the sides     |
+| Docked      | Results 2dp below the bar, 12dp radius, `surface-container-high` | The search bar widened in place: its margins go from 24dp to 12dp |
+
+The docked view is 360–720dp wide and 240dp to ⅔ of the window tall. In both layouts the bar's
+leading icon becomes a back button, a clear button appears once there's a query, and `trailing`
+actions (a mic, say) stay in the bar.
+
+<Canvas of={SearchStories.FullScreen} />
+
+<Canvas of={SearchStories.Docked} />
+
+### Motion
+
+Opening is an M3 [container transform](https://m3.material.io/styles/motion/transitions/transition-patterns#container-transform):
+the bar grows into the view on the `spatial` spring. Back, Esc and a click outside reverse it.
+Under reduced motion the two crossfade in place. Browsers without the View Transition API switch
+straight to the view.
+
+### Your own bar
+
+`SearchView` is exported for bars you build yourself. Pass the bar element as `anchor`, and open
+the view on click or typing, not on focus: closing hands focus back to the bar.
+
+```svelte
+<SearchView bind:open bind:value anchor={barEl} results={suggestions} />
+```
 
 ## Accessibility
 
@@ -36,3 +95,12 @@ For a search field inside a top app bar, use `AppBar`'s `search` prop instead.
 - **Clear button.** A 48dp `type="button"` labelled by `clearLabel` (default "Clear search"). It
   never submits a form and returns focus to the input.
 - **Focus.** Keyboard focus draws the M3 focus indicator around the bar.
+- **Opening.** With `results`, the bar's input has `aria-haspopup="dialog"` and `aria-expanded`.
+  Click, typing or ↓ opens the view; focus alone doesn't.
+- **Search view.** A bits-ui `Dialog`: focus moves into the view's field and stays in the view,
+  the page doesn't scroll, and Esc or the back button (`backLabel`, default "Back") closes it and
+  returns focus to the bar. The view is named by `resultsLabel` (default: the placeholder).
+- **Suggestions.** The view's field is a `combobox` over the `listbox` you render. ↑/↓ move
+  through the `role="option"` items (wrapping, skipping disabled ones) via
+  `aria-activedescendant`, so focus stays in the field while typing; Enter picks the highlighted
+  one. The highlighted item gets the M3 focus indicator.

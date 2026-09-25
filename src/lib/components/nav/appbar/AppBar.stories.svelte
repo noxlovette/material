@@ -2,6 +2,8 @@
   import { defineMeta } from '@storybook/addon-svelte-csf';
   import AppBar from './AppBar.svelte';
   import ButtonIcon from '../../buttons/ButtonIcon.svelte';
+  import List from '../../containers/list/List.svelte';
+  import ListItem from '../../containers/list/ListItem.svelte';
 
   const { Story } = defineMeta({
     title: 'Navigation/App Bar',
@@ -30,6 +32,11 @@
 
 <script lang="ts">
   let scroller = $state<HTMLElement | null>(null);
+
+  const products = ['Headphones', 'Keyboard', 'Laptop stand', 'Monitor', 'Mouse', 'Webcam'];
+  let query = $state('');
+  let searchOpen = $state(false);
+  const found = $derived(products.filter((p) => p.toLowerCase().includes(query.toLowerCase())));
 </script>
 
 <Story name="Playground">
@@ -121,6 +128,37 @@
     {/snippet}
     {#snippet trailing()}
       <ButtonIcon variant="standard" iconProps={{ name: 'account_circle' }} aria-label="Account" />
+    {/snippet}
+  </AppBar>
+</Story>
+
+<!-- Selecting the search field opens the search view: full-screen here, docked from medium up. -->
+<Story
+  name="Search view"
+  asChild
+  parameters={{ docs: { story: { inline: false, height: '560px' } } }}
+>
+  <AppBar search="Search products" title="Products" bind:query bind:searchOpen ghost>
+    {#snippet leading()}
+      <ButtonIcon variant="standard" iconProps={{ name: 'menu' }} aria-label="Menu" />
+    {/snippet}
+    {#snippet searchTrailing()}
+      <ButtonIcon variant="standard" iconProps={{ name: 'mic' }} aria-label="Voice search" />
+    {/snippet}
+    {#snippet searchResults(listbox)}
+      <List {...listbox}>
+        {#each found as product (product)}
+          <ListItem
+            role="option"
+            asChild
+            headline={product}
+            onclick={() => {
+              query = product;
+              searchOpen = false;
+            }}
+          />
+        {/each}
+      </List>
     {/snippet}
   </AppBar>
 </Story>
