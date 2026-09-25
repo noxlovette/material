@@ -17,6 +17,9 @@ Publishes its measured height as `--appbar-height` on the document root, so any
 that amount with no props or wiring on either side — see Pane.svelte's doc
 comment.
 
+A `ButtonIcon` anywhere inside it defaults to `variant="standard"`, per M3; pass
+`variant` to override.
+
 @see https://m3.material.io/components/app-bars/specs
 -->
 <script lang="ts">
@@ -24,6 +27,7 @@ comment.
   import type { AppBarProps } from './types.js';
   import clsx from 'clsx';
   import ButtonIcon from '../../buttons/ButtonIcon.svelte';
+  import { setButtonIconVariant } from '../../buttons/context.js';
 
   let {
     children,
@@ -47,6 +51,10 @@ comment.
     ghost = false,
     ...rest
   }: AppBarProps = $props();
+
+  // M3 app bar icon buttons are standard (no container); a filled one over-emphasizes a back or
+  // action button. Applies to buttons passed in `leading`/`trailing`/`children` too.
+  setButtonIconVariant('standard');
 
   let scrolled = $state(false);
   let barHeight = $state(64);

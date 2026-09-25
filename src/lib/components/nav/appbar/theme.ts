@@ -171,12 +171,23 @@ export const appbar = tv({
       // 1fr side columns centre a small bar's title on the bar, not between uneven button groups.
       center: { row: 'grid-cols-[1fr_auto_1fr]', textContainer: 'items-center text-center' }
     },
+    /*
+      From medium up, a Pane rounds its top corners (md:rounded-t-*) and sits as a surface card
+      on the App's surface-container, beside a surface-container Rail. The bar is part of that
+      chrome there, so it stays surface-container whether scrolled or not: a surface bar
+      would read as a strip glued over the card, with the App's colour showing through the
+      pane's corners beneath it. Below medium the pane is flat and full-bleed, so the bar keeps
+      M3's surface → surface-container on-scroll change.
+    */
     scrolled: {
       true: {
         base: 'bg-md-sys-color-surface-container',
         search: 'bg-md-sys-color-surface-container-highest'
       },
-      false: { base: 'bg-md-sys-color-surface', search: 'bg-md-sys-color-surface-container' }
+      false: {
+        base: 'bg-md-sys-color-surface md:bg-md-sys-color-surface-container',
+        search: 'bg-md-sys-color-surface-container md:bg-md-sys-color-surface-container-highest'
+      }
     },
     // Search app bar: the search container fills the text column, 8dp from the buttons.
     searchContainer: {
