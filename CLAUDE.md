@@ -197,32 +197,27 @@ See the Layout guide (`/guides/layout`) and Storybook → Containers/Pane Grid f
 
 # Verifying a Component Change in the Browser
 
+**Do not use Claude in Chrome (the `mcp__claude-in-chrome__*` tools) in this package unless the
+user explicitly asks for it in that conversation.** Visual and interaction checks are the
+human's job here. An agent's own green `bun run check` / `bun run test` is not the same as
+"verified", so say plainly what still needs a look.
+
 `bun run check` only catches type errors — it won't catch a handle rendering off-screen, a
 clipped overlay, or a variant class that never actually gets applied (see "Known Pitfalls"
-above). After changing anything with a visual or interactive surface, actually look at it in
-Storybook before calling the change done:
+above). After changing anything with a visual or interactive surface:
 
-1. Start Storybook in the background: `(bun run storybook > /tmp/storybook.log 2>&1 &)`, then
-   poll `/tmp/storybook.log` for `Storybook ready!` (or the `Local:` URL) before opening it —
-   the first boot takes a few seconds.
-2. Open the story directly at `http://localhost:6006/iframe.html?id=<story-id>&viewMode=story`
-   (kebab-case `<title>--<name>`, e.g. `containers-pane-grid--resizable-split`) rather than the
-   `?path=/story/...` manager URL — it skips the manager chrome/sidebar so a screenshot shows
-   only the story itself.
-3. Screenshot, and `zoom` into the specific region you changed — don't trust a full-page
-   screenshot alone to catch a few-pixel clipping or alignment issue.
-4. For anything gesture-driven (drag, hover, snap points, transitions) a single screenshot can't
-   catch the mid-gesture state. Use `javascript_tool` to either (a) read
-   `getBoundingClientRect()`/`getComputedStyle()` on the element to confirm computed values
-   ground-truth rather than eyeballing pixels, or (b) dispatch synthetic `PointerEvent`s
-   (`pointerdown`/`pointermove` without a matching `pointerup`) to freeze the interaction in a
-   specific state, then screenshot or inspect it.
-5. When done, close the tab and stop the dev server (`pkill -f "storybook dev"`) — don't leave
-   it running across turns.
+1. Cover what can be tested without a browser: `tv()` output, logic, and DOM structure in jsdom
+   (`// @vitest-environment jsdom`, see `chips/Chip.svelte.test.ts`; stub `window.matchMedia`,
+   which jsdom lacks and `Layer` calls).
+2. Hand the rest to the user as a short checklist: the story to open, as a direct
+   `http://localhost:6006/iframe.html?id=<story-id>&viewMode=story` link (kebab-case
+   `<title>--<name>`, e.g. `containers-pane-grid--resizable-split`), and exactly what to look
+   at or do (which state, which gesture, what the spec value is). Offer to start Storybook for
+   them: `(bun run storybook > /tmp/storybook.log 2>&1 &)`, then wait for `Local:` in the log.
+3. Stop any server you started when done (`pkill -f "storybook dev"`).
 
-This is also the fastest way to catch a demo/story bug that isn't the component's fault — e.g. a
-story wrapping `<PaneGrid full>` in a fixed-height `overflow-hidden` box, which clips anything
-that stretches to `min-h-dvh` inside it.
+Typical demo bugs worth pointing the user at: a story wrapping `<PaneGrid full>` in a
+fixed-height `overflow-hidden` box, which clips anything that stretches to `min-h-dvh` inside it.
 
 # Key Utils (`src/lib/utils/`)
 

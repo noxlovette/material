@@ -53,3 +53,28 @@ export type ChipProps = ChipVariants &
     /** The `formaction` attribute for the chip when used in a form. */
     formaction?: string;
   };
+
+export type ChipGroupProps<T> = {
+  /** The items, one chip each. With `reorderable`, dragging rewrites their order. Bindable. */
+  items: T[];
+  /** A stable, unique key per item. */
+  key: (item: T) => string;
+  /** Renders one item's `Chip`. */
+  chip: Snippet<[item: T, index: number]>;
+  /**
+   * Lets people reorder the chips: drag one (on touch, press and hold first), or focus one and
+   * press Alt+Arrow. The dragged chip takes M3's dragged state and its neighbours make room.
+   * @default false
+   */
+  reorderable?: boolean;
+  /** Called with the new order after a drag or a keyboard move. */
+  onReorder?: (items: T[]) => void;
+  /**
+   * The item's name in the announcement after a move ("Ada, moved to 2 of 5"). Defaults to its
+   * `key`.
+   */
+  itemLabel?: (item: T) => string;
+  /** Accessible name of the group. */
+  'aria-label'?: string;
+  class?: string;
+};

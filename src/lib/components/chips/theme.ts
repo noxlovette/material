@@ -22,7 +22,9 @@ export type ChipVariants = VariantProps<typeof chip>;
 */
 export const chip = tv({
   slots: {
-    base: 'state-layer md-sys-state-focus-indicator relative inline-flex h-spacing-400 max-w-max shrink-0 items-center justify-center gap-spacing-100 rounded-sm border border-transparent px-spacing-200 md-sys-typescale-label-large select-none before:rounded-sm transition-[background-color,border-color,box-shadow] md-sys-motion-effects',
+    // in-data-dragged: M3's dragged state, set by ChipGroup on the chip's slot: 8dp elevation and
+    // a 16% state layer.
+    base: 'in-data-dragged:shadow-elevation-4 in-data-dragged:before:bg-current/16 state-layer md-sys-state-focus-indicator relative inline-flex h-spacing-400 max-w-max shrink-0 items-center justify-center gap-spacing-100 rounded-sm border border-transparent px-spacing-200 md-sys-typescale-label-large select-none before:rounded-sm transition-[background-color,border-color,box-shadow] md-sys-motion-effects',
     // 18dp is the chip spec's own icon size, between the 16 and 20 Icon presets.
     icon: 'size-[18px] shrink-0 text-[18px]',
     avatar: 'size-spacing-300 shrink-0 overflow-hidden rounded-full',
@@ -82,8 +84,10 @@ export const chip = tv({
     {
       elevated: false,
       selected: false,
+      // The spec keeps a dragged flat chip unfilled, but one floating over its neighbours needs an
+      // opaque container, so it takes the elevated chip's.
       class: {
-        base: 'border-md-sys-color-outline-variant focus-visible:border-md-sys-color-on-surface-variant'
+        base: 'border-md-sys-color-outline-variant focus-visible:border-md-sys-color-on-surface-variant in-data-dragged:bg-md-sys-color-surface-container-low'
       }
     },
     {
@@ -144,5 +148,22 @@ export const chip = tv({
     leading: 'none',
     trailing: false,
     disabled: false
+  }
+});
+
+/** Layout of a set of chips: 8dp apart, wrapping onto new lines. */
+export const chipGroup = tv({
+  slots: {
+    base: 'relative flex flex-wrap gap-spacing-100',
+    // Its own stacking context only while dragged, so the chip floats over its neighbours.
+    item: 'relative flex touch-manipulation data-dragged:z-10 data-dragged:cursor-grabbing',
+    hint: 'sr-only',
+    live: 'sr-only'
+  },
+  variants: {
+    reorderable: {
+      true: { item: 'cursor-grab select-none [-webkit-touch-callout:none]' },
+      false: ''
+    }
   }
 });

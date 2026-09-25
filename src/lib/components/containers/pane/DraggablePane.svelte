@@ -31,7 +31,7 @@ the pane itself stays `position: fixed` and doesn't move with either.
   import { springTokens, springTransition } from '$lib/animation/spring.js';
   import { Icon, Layer } from '$lib/utils/index.js';
   import { ButtonIcon } from '$lib/components/buttons/index.js';
-  import { clickOutside } from '$lib/attachments/index.js';
+  import { clickOutside, drag, resist } from '$lib/attachments/index.js';
   import { draggablePane, type ResizeEdge } from './theme.js';
   import { dragPositions } from './dragStore.svelte.js';
   import type { DraggablePaneProps } from './types.js';
@@ -313,11 +313,6 @@ the pane itself stays `position: fixed` and doesn't move with either.
     the same spring. Grabbing the pane mid-spring stops it where it is.
   */
   const SETTLE_SPRING = springTransition(springTokens.fastSpatial);
-  /* Share of the overshoot still applied at the edge, shrinking the further it's pulled. The
-     UIScrollView rubber-band constant — M3 has no token for this; tune by eye. */
-  const RUBBER_BAND = 0.55;
-  /* Pointer samples older than this don't count towards the release velocity. */
-  const VELOCITY_WINDOW_MS = 100;
 
   let settleX: AnimationPlaybackControls | undefined;
   let settleY: AnimationPlaybackControls | undefined;
@@ -352,61 +347,31 @@ the pane itself stays `position: fixed` and doesn't move with either.
     if (persistKey) dragPositions.set(persistKey, { x: next.x, y: next.y, width, height });
   }
 
-  /** Resisted overshoot: the further past the edge, the less the pane follows. */
-  function rubberBand(overshoot: number, limit: number) {
-    return (1 - 1 / ((overshoot * RUBBER_BAND) / limit + 1)) * limit;
-  }
-
-  function resist(value: number, min: number, max: number, size: number) {
-    if (value < min) return min - rubberBand(min - value, size);
-    if (value > max) return max + rubberBand(value - max, size);
-    return value;
-  }
-
-  let dragStartX = 0;
-  let dragStartY = 0;
   let originX = 0;
   let originY = 0;
-  let samples: { x: number; y: number; t: number }[] = [];
 
-  function startDrag(event: PointerEvent) {
-    if (disableDrag) return;
-    stopSettle();
-    dragging = true;
-    dragStartX = event.clientX;
-    dragStartY = event.clientY;
-    originX = x ?? initialX;
-    originY = y ?? initialY;
-    samples = [{ x: event.clientX, y: event.clientY, t: event.timeStamp }];
-    (event.currentTarget as HTMLElement).setPointerCapture(event.pointerId);
-  }
-
-  function moveDrag(event: PointerEvent) {
-    if (!dragging) return;
-    const rawX = originX + (event.clientX - dragStartX);
-    const rawY = originY + (event.clientY - dragStartY);
-    const rect = boundsRect();
-    const { x: minX, y: minY } = clamp(-Infinity, -Infinity);
-    const { x: maxX, y: maxY } = clamp(Infinity, Infinity);
-    x = resist(rawX, minX, maxX, rect.right - rect.left);
-    y = resist(rawY, minY, maxY, rect.bottom - rect.top);
-    samples.push({ x: event.clientX, y: event.clientY, t: event.timeStamp });
-    samples = samples.filter((sample) => event.timeStamp - sample.t <= VELOCITY_WINDOW_MS);
-  }
-
-  function releaseVelocity() {
-    const first = samples[0];
-    const last = samples[samples.length - 1];
-    const seconds = first && last ? (last.t - first.t) / 1000 : 0;
-    if (!seconds) return { x: 0, y: 0 };
-    return { x: (last.x - first.x) / seconds, y: (last.y - first.y) / seconds };
-  }
-
-  function endDrag() {
-    if (!dragging) return;
-    dragging = false;
-    settleTo(x ?? initialX, y ?? initialY, releaseVelocity());
-  }
+  // Pointer plumbing (capture, release velocity) and the rubber-band come from the shared drag
+  // attachment; this only positions the pane.
+  const dragPane = drag(() => ({
+    disabled: disableDrag,
+    onStart: () => {
+      stopSettle();
+      dragging = true;
+      originX = x ?? initialX;
+      originY = y ?? initialY;
+    },
+    onMove: (offset) => {
+      const rect = boundsRect();
+      const { x: minX, y: minY } = clamp(-Infinity, -Infinity);
+      const { x: maxX, y: maxY } = clamp(Infinity, Infinity);
+      x = resist(originX + offset.x, minX, maxX, rect.right - rect.left);
+      y = resist(originY + offset.y, minY, maxY, rect.bottom - rect.top);
+    },
+    onEnd: (velocity) => {
+      dragging = false;
+      settleTo(x ?? initialX, y ?? initialY, velocity);
+    }
+  }));
 
   const NUDGE = 8;
 
@@ -453,7 +418,7 @@ the pane itself stays `position: fixed` and doesn't move with either.
   // every move rather than accumulated via `event.movementX`/`movementY` —
   // the latter isn't reliably populated across every input path (some
   // synthetic/automated drag sequences leave it 0), which would silently
-  // drop the resize. Matches `moveDrag`'s baseline-delta approach.
+  // drop the resize. The drag attachment works from a fixed baseline the same way.
   function moveResize(event: PointerEvent) {
     if (!resizeDir) return;
     applyResize(
@@ -534,10 +499,7 @@ the pane itself stays `position: fixed` and doesn't move with either.
       tabindex={disableDrag ? undefined : 0}
       aria-label={disableDrag ? undefined : title ? `Drag to move ${title}` : 'Drag to move'}
       aria-keyshortcuts={disableDrag ? undefined : 'ArrowUp ArrowDown ArrowLeft ArrowRight'}
-      onpointerdown={disableDrag ? undefined : startDrag}
-      onpointermove={disableDrag ? undefined : moveDrag}
-      onpointerup={disableDrag ? undefined : endDrag}
-      onpointercancel={disableDrag ? undefined : endDrag}
+      {@attach dragPane}
       onkeydown={disableDrag ? undefined : onKeydown}
     >
       {#if !disableDrag}
