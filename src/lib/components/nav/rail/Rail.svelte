@@ -199,7 +199,7 @@ closes on a scrim click, Escape, or picking a destination. Below `md` it's hidde
             variant="standard"
             type="button"
             tooltipContent={collapsed ? expandLabel : collapseLabel}
-            iconProps={{ name: collapsed ? 'menu' : 'menu_open' }}
+            iconProps={{ name: collapsed ? 'menu' : 'menu_open', transition: 'rotate' }}
             aria-expanded={expanded}
             class={toggleClass}
             onclick={() => (collapsed = !collapsed)}

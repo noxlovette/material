@@ -12,8 +12,9 @@ type Spring = { from: number; to: number; onUpdate: (v: number) => void; onCompl
 let spring: Spring | undefined;
 vi.mock('motion', async (importOriginal) => ({
   ...(await importOriginal<typeof import('motion')>()),
-  animate: (from: number, to: number, options: Omit<Spring, 'from' | 'to'>) => {
-    spring = { from, to, ...options };
+  // Only the rail's number spring is recorded; element animations (the menu icon's swap) no-op.
+  animate: (from: unknown, to: number, options: Omit<Spring, 'from' | 'to'>) => {
+    if (typeof from === 'number') spring = { from, to, ...options };
     return { stop: () => {}, then: (fn: () => void) => Promise.resolve().then(fn) };
   }
 }));

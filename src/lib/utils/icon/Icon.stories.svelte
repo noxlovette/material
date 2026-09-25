@@ -1,6 +1,7 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
   import Body from '$lib/components/typography/body/Body.svelte';
+  import ButtonIcon from '$lib/components/buttons/ButtonIcon.svelte';
   import Icon from './Icon.svelte';
 
   const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
@@ -16,13 +17,44 @@
       fill: { control: { type: 'range', min: 0, max: 1, step: 0.1 } },
       wght: { control: { type: 'range', min: 100, max: 700, step: 100 } },
       grad: { control: 'select', options: ['auto', -50, -25, 0, 100, 200] },
-      opsz: { control: { type: 'range', min: 20, max: 48, step: 1 } }
+      opsz: { control: { type: 'range', min: 20, max: 48, step: 1 } },
+      transition: { control: 'inline-radio', options: ['none', 'fade', 'rotate'] }
     },
     args: { name: 'favorite', size: 'xl', variant: 'rounded', fill: 0, wght: 400, grad: 'auto' }
   });
 </script>
 
+<script lang="ts">
+  let menuOpen = $state(false);
+  let adding = $state(false);
+  let playing = $state(false);
+</script>
+
 <Story name="Playground" />
+
+<!-- Toggle each button, and toggle again mid-flight: the spring reverses from where it is. -->
+<Story name="Transitions" asChild>
+  <div class="gap-spacing-300 flex items-center">
+    <ButtonIcon
+      variant="standard"
+      tooltipContent="rotate: menu ↔ menu_open"
+      iconProps={{ name: menuOpen ? 'menu_open' : 'menu', transition: 'rotate' }}
+      onclick={() => (menuOpen = !menuOpen)}
+    />
+    <ButtonIcon
+      variant="tonal"
+      tooltipContent="rotate: add ↔ close"
+      iconProps={{ name: adding ? 'close' : 'add', transition: 'rotate' }}
+      onclick={() => (adding = !adding)}
+    />
+    <ButtonIcon
+      variant="filled"
+      tooltipContent="fade: play_arrow ↔ pause"
+      iconProps={{ name: playing ? 'pause' : 'play_arrow', transition: 'fade' }}
+      onclick={() => (playing = !playing)}
+    />
+  </div>
+</Story>
 
 <Story name="Styles" asChild>
   <div class="gap-spacing-300 flex">

@@ -45,7 +45,18 @@ export type IconProps = Omit<HTMLAttributes<HTMLSpanElement>, 'children'> & {
   grad?: number | 'auto';
   /** Optical size, 20 to 48. Defaults to the one matching `size`. */
   opsz?: number;
+  /**
+   * How a change of `name` plays. `'none'` swaps the glyph at once. `'fade'` crossfades: the old
+   * glyph shrinks and fades out while the new one grows in on a spring. `'rotate'` adds a
+   * quarter turn, for a toggle between two states of one control (menu ↔ menu_open,
+   * add ↔ close). Under reduced motion both are a plain crossfade. Leave it off for icons that
+   * change with data, such as rows in a list.
+   * @default 'none'
+   */
+  transition?: IconTransition;
 };
+
+export type IconTransition = 'none' | 'fade' | 'rotate';
 export type LoadingIndicatorProps = HTMLAttributes<SVGAElement> &
   LoadingIndicatorVariants & {
     size?: number;
