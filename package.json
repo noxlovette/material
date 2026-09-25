@@ -1,6 +1,6 @@
 {
   "name": "@noxlovette/material",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "type": "module",
   "description": "A Material Design 3 component library for Svelte, built on Bits UI.",
   "keywords": [
@@ -24,6 +24,7 @@
   },
   "scripts": {
     "build": "bun run generate:springs && svelte-package && bun scripts/copy-skill.ts",
+    "generate:icons": "bun scripts/generate-icon-catalog.ts",
     "generate:springs": "bun scripts/generate-motion-springs.ts && prettier --write src/lib/styles/motion.css",
     "build:site": "vite build",
     "watch": "svelte-package --watch",

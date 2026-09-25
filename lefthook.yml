@@ -13,3 +13,14 @@ pre-commit:
     - name: format
       glob: '*.{js,ts,svelte,css,json,md}'
       run: bun prettier --write {staged_files} && git add {staged_files}
+
+pre-push:
+  jobs:
+    - name: icon-names
+      # MaterialSymbolName and the Icons guide's catalog are generated from Google's live icon
+      # data. A push can't add files to commits already made, so regenerate and fail if either
+      # file drifted: commit the regenerated files, then push again. Needs network access.
+      run: |
+        bun run generate:icons
+        git diff --exit-code --stat -- src/lib/utils/icon/icon-names.ts src/routes/guides/icons/catalog.json \
+          || { echo "Material Symbols changed upstream: commit the regenerated icon files and push again."; exit 1; }

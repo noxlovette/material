@@ -1,6 +1,14 @@
 <script lang="ts">
   import { base } from '$app/paths';
-  import { App, Navbar, NavbarItem, Rail, RailItem, ThemeSwitcher } from '$lib/index.js';
+  import {
+    App,
+    type MaterialSymbolName,
+    Navbar,
+    NavbarItem,
+    Rail,
+    RailItem,
+    ThemeSwitcher
+  } from '$lib/index.js';
   import { storybookHref } from './storybook.js';
   import '../app.css';
 
@@ -12,7 +20,7 @@
     { label: 'Overview', href: `${base}/`, iconProps: { name: 'architecture' } },
     { label: 'Guides', href: `${base}/guides`, iconProps: { name: 'menu_book' } },
     { label: 'Storybook', href: storybookHref(), external: true, iconProps: { name: 'widgets' } }
-  ];
+  ] as const;
 
   // These icons will be pre-loaded by the MaterialSymbolsProvider inside App
   const icons = [
@@ -99,8 +107,9 @@
     'token',
     'devices',
     'animation',
+    'interests',
     'smart_toy'
-  ];
+  ] satisfies MaterialSymbolName[];
 </script>
 
 <App iconProviderProps={{ extraIcons: icons }}>

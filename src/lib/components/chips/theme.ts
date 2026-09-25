@@ -4,7 +4,7 @@ export type ChipVariants = VariantProps<typeof chip>;
 
 export const chip = tv({
   slots: {
-    base: 'md-component-button-base group inline-flex h-spacing-400 max-w-max items-center justify-center gap-spacing-100 rounded-sm before:rounded-sm px-spacing-200 md-sys-typescale-label-large',
+    base: 'md-component-button-base relative group inline-flex h-spacing-400 max-w-max items-center justify-center gap-spacing-100 rounded-sm before:rounded-sm px-spacing-200 md-sys-typescale-label-large',
     icon: 'shrink-0',
     label: '',
     trailing:

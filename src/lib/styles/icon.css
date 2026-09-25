@@ -1,0 +1,13 @@
+/*
+  Default grade for Icon's `grad="auto"`. Light icons on a dark background look heavier than dark
+  ones on a light background (visual bleed), so M3 drops the grade to -25 on dark UI.
+  https://m3.material.io/styles/icons/applying-icons#grade
+*/
+:root {
+  --md-icon-grade: 0;
+}
+
+.dark,
+[data-theme^='dark'] {
+  --md-icon-grade: -25;
+}

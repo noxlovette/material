@@ -9,7 +9,7 @@
       description:
         'Every component and variant, live, with its props and usage rules, in Storybook.',
       href: storybookHref(),
-      icon: 'widgets',
+      icon: 'widgets' as const,
       external: true
     },
     {
@@ -17,7 +17,7 @@
       description:
         'Install, import the CSS, wrap your app. Then theming, tokens, layout and motion.',
       href: guideHref('get-started'),
-      icon: 'rocket_launch',
+      icon: 'rocket_launch' as const,
       external: false
     }
   ];

@@ -1,3 +1,5 @@
+import type { MaterialSymbolName } from './icon-names.js';
+
 export const baseIcons = [
   'arrow_drop_down',
   'check',
@@ -5,7 +7,7 @@ export const baseIcons = [
   'chevron_right',
   'close',
   'palette',
-  'file_upload',
+  'upload',
   'home',
   'info',
   'search',
@@ -26,4 +28,4 @@ export const baseIcons = [
   'help',
   'menu',
   'menu_open'
-] as const;
+] as const satisfies readonly MaterialSymbolName[];
