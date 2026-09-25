@@ -27,7 +27,7 @@
   <title>Material for Svelte</title>
 </svelte:head>
 
-<Pane rounded={false} background={false} padding="lg" contentClass="mx-auto max-w-6xl">
+<Pane padding="lg" contentClass="mx-auto max-w-6xl">
   <div class="gap-spacing-600 py-spacing-600 flex flex-col">
     <header class="gap-spacing-200 flex flex-col">
       <Display size="large">Material for Svelte</Display>

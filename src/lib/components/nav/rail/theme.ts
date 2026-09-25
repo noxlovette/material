@@ -5,10 +5,13 @@ export type RailItemVariants = VariantProps<typeof railElement>;
 
 /*
   M3 Expressive navigation rail (https://m3.material.io/components/navigation-rail/specs):
-  - Collapsed: 96dp wide, `surface`, no elevation or shape. Destinations sit 4dp apart.
+  - Container: `surface-container`, the spec's optional container role, which is this library's
+    window colour (App), so the rail reads as part of the window beside `surface` panes rather
+    than as a strip. The modal rail's token is `surface-container` too.
+  - Collapsed: 96dp wide, no elevation or shape. Destinations sit 4dp apart.
   - Expanded: hugs its widest destination between 220 and 360dp, destinations touching. Standard
-    (lg+, pushes content) keeps the collapsed container; modal (md, over a scrim) is
-    `surface-container`, elevation 3, 16dp trailing corners.
+    (lg+, pushes content) keeps the collapsed container; modal (md, over a scrim) adds
+    elevation 3 and 16dp trailing corners.
   - 44dp above the first element; at least 40dp between the menu/FAB header and the destinations.
   - Header elements sit in a 56dp column 20dp from the leading edge, the same column as the
     destinations' active indicators, so nothing shifts sideways when the rail expands.
@@ -20,8 +23,11 @@ export type RailItemVariants = VariantProps<typeof railElement>;
 export const rail = tv({
   slots: {
     // Modal corners grow with the progress (0 → 16dp); the standard rail stays square.
-    base: 'rounded-r-[calc(var(--radius-lg)_*_var(--rail-p,0))] lg:rounded-r-none hidden md:flex flex-col z-layer-rail overflow-hidden pt-(--md-comp-nav-rail-collapsed-top-space) pb-spacing-250 bg-md-sys-color-surface transition-[background-color,box-shadow] md-sys-motion-effects',
-    header: 'flex flex-col gap-spacing-300 px-spacing-250',
+    base: 'rounded-r-[calc(var(--radius-lg)_*_var(--rail-p,0))] lg:rounded-r-none hidden md:flex flex-col z-layer-rail overflow-hidden pt-(--md-comp-nav-rail-collapsed-top-space) pb-spacing-250 bg-md-sys-color-surface-container transition-[box-shadow] md-sys-motion-effects',
+    // Always start-aligned: collapsed, the content box is exactly the 56dp column, so this is
+    // centred anyway. Centring it would fling the menu and FAB to the middle of the still-wide
+    // rail the moment a collapse starts.
+    header: 'flex flex-col items-start gap-spacing-300 px-spacing-250',
     menu: 'flex w-spacing-700 justify-center',
     nav: 'flex min-h-spacing-0 w-full flex-1 flex-col',
     // 4dp between destinations collapsed, 0 expanded, following the progress.
@@ -45,13 +51,11 @@ export const rail = tv({
     },
     expanded: {
       true: {
-        base: 'w-max min-w-(--md-comp-nav-rail-expanded-container-width-minimum) max-w-(--md-comp-nav-rail-expanded-container-width-maximum) pt-(--md-comp-nav-rail-expanded-top-space) bg-md-sys-color-surface-container shadow-elevation-3 lg:bg-md-sys-color-surface lg:shadow-elevation-0',
-        header: 'items-start',
+        base: 'w-max min-w-(--md-comp-nav-rail-expanded-container-width-minimum) max-w-(--md-comp-nav-rail-expanded-container-width-maximum) pt-(--md-comp-nav-rail-expanded-top-space) shadow-elevation-3 lg:shadow-elevation-0',
         scrim: 'opacity-100'
       },
       false: {
         base: 'w-(--md-comp-nav-rail-collapsed-container-width)',
-        header: 'items-center',
         scrim: 'pointer-events-none opacity-0'
       }
     },

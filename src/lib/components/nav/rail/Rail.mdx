@@ -39,18 +39,20 @@ same destinations; it hides itself from `md` up, so the two never show together.
 ## Spec
 
 Values follow the M3 Expressive
-[navigation rail tokens](https://m3.material.io/components/navigation-rail/specs). The off-grid
+[navigation rail tokens](https://m3.material.io/components/navigation-rail/specs). The container
+uses the spec's optional `surface-container` role rather than the default `surface`: that's the
+window colour `App` paints, so the rail belongs to the window and `surface` panes sit beside it. The off-grid
 ones are `--md-comp-nav-rail-*` properties in `styles/components.css`, so a theme can override
 them.
 
-|                  | Collapsed                                                                         | Expanded                                                                                            |
-| ---------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| Container        | 96dp, `surface`                                                                   | Hugs content, 220–360dp. Standard: `surface`. Modal: `surface-container`, elevation 3, 16dp corners |
-| Top space        | 44dp, then at least 40dp below the header                                         | Same                                                                                                |
-| Destination      | 64dp tall, 4dp apart                                                              | 56dp tall, touching, 20dp side padding                                                              |
-| Active indicator | 56×32dp around the icon, label 4dp below                                          | 56dp pill around icon and label, 16dp padding, 8dp gap                                              |
-| Label            | Label medium; active `secondary`                                                  | Label large; active `on-secondary-container`                                                        |
-| States           | `on-secondary-container` layer: 8% hover, 10% focus and pressed, on the indicator | Same                                                                                                |
+|                  | Collapsed                                                                         | Expanded                                                         |
+| ---------------- | --------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| Container        | 96dp, `surface`                                                                   | Hugs content, 220–360dp. Modal adds elevation 3 and 16dp corners |
+| Top space        | 44dp, then at least 40dp below the header                                         | Same                                                             |
+| Destination      | 64dp tall, 4dp apart                                                              | 56dp tall, touching, 20dp side padding                           |
+| Active indicator | 56×32dp around the icon, label 4dp below                                          | 56dp pill around icon and label, 16dp padding, 8dp gap           |
+| Label            | Label medium; active `secondary`                                                  | Label large; active `on-secondary-container`                     |
+| States           | `on-secondary-container` layer: 8% hover, 10% focus and pressed, on the indicator | Same                                                             |
 
 The whole row is the target, however narrow the indicator. The active icon fills; its weight
 stays the same.
