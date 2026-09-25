@@ -117,6 +117,7 @@ Within a set, every path has the same point count, start point and winding, so M
 - **Morph with `shapeMorph(() => path)`** (attachment on a `<path>`) or `morphShape(pathEl, to)`. Both use `fastSpatial` by default, stop the previous morph and start from the shape on screen, and swap instantly under `prefers-reduced-motion`.
 - **Pick by name** with `animatableShapes[name]` / `animatableShapesSmall[name]` (`ShapeName`, `shapeNames`). A map pulls in its whole set, so import individual `pathAnimatable*` constants when bundle size matters.
 - `LoadingIndicator` morphs through seven of the small shapes (`LOADING_SHAPES`) on its own component spring.
+- `Avatar` takes any shape (`shape`, a clip path from the small set, morphing on change) and can turn it at a constant speed (`spin="clockwise" | "counterclockwise"`, one turn per 14s, off under reduced motion). Like the loading indicator's global rotation, a constant spin is linear, not a spring.
 - Live demo: Storybook → Motion/Shapes.
 
 ## Icon swaps

@@ -1,6 +1,7 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
   import Avatar from './Avatar.svelte';
+  import { shapeNames } from '$lib/animation/shapeMorph.svelte.js';
 
   const { Story } = defineMeta({
     title: 'Misc/Avatar',
@@ -9,18 +10,34 @@
     argTypes: {
       size: { control: 'select', options: ['sm', 'md', 'lg'] },
       seed: { control: 'text' },
-      dicebearStyle: { control: 'text' }
+      dicebearStyle: { control: 'text' },
+      shape: { control: 'select', options: shapeNames },
+      spin: { control: 'inline-radio', options: ['none', 'clockwise', 'counterclockwise'] }
     },
     args: {
       size: 'lg',
-      seed: 'ogonek'
+      seed: 'ogonek',
+      shape: 'circle',
+      spin: 'none'
     }
   });
 </script>
 
+<script lang="ts">
+  const morphShapes = ['circle', 'sunny', 'fourSidedCookie', 'pentagon', 'flower'] as const;
+  let morphIndex = $state(0);
+  const morphShape = $derived(morphShapes[morphIndex % morphShapes.length]);
+</script>
+
 <Story name="Playground">
   {#snippet template(args)}
-    <Avatar size={args.size} seed={args.seed} dicebearStyle={args.dicebearStyle} />
+    <Avatar
+      size={args.size}
+      seed={args.seed}
+      dicebearStyle={args.dicebearStyle}
+      shape={args.shape}
+      spin={args.spin}
+    />
   {/snippet}
 </Story>
 
@@ -55,10 +72,42 @@
   <Avatar seed="clickable" onclick={() => console.log('Avatar clicked')} />
 </Story>
 
-<Story name="Animated" asChild>
+<Story name="Styles" asChild>
+  <!-- gaze with the animation tag is the default; ['!animation'] forces the still variant. -->
   <div class="gap-spacing-200 flex items-end">
-    <Avatar seed="alice" dicebearStyle="gaze" tags={['animation']} />
-    <Avatar seed="bob" dicebearStyle="shapes" tags={['animation']} />
-    <Avatar seed="carol" dicebearStyle="blobs" tags={['animation']} />
+    <Avatar seed="alice" />
+    <Avatar seed="alice" tags={['!animation']} />
+    <Avatar seed="bob" dicebearStyle="shapes" />
+    <Avatar seed="carol" dicebearStyle="blobs" />
+  </div>
+</Story>
+
+<Story name="Shapes" asChild>
+  <div class="gap-spacing-200 grid grid-cols-5 sm:grid-cols-7">
+    {#each shapeNames as name (name)}
+      <Avatar size="md" seed={name} shape={name} title={name} />
+    {/each}
+  </div>
+</Story>
+
+<Story name="Shape morph" asChild>
+  <div class="gap-spacing-200 flex items-center">
+    <Avatar seed="morph" shape={morphShape} onclick={() => morphIndex++} />
+    <span class="md-sys-typescale-body-medium text-md-sys-color-on-surface-variant">
+      Click the avatar: {morphShape}
+    </span>
+  </div>
+</Story>
+
+<Story name="Spin" asChild>
+  <div class="gap-spacing-200 flex items-end">
+    <Avatar seed="clockwise" shape="sunny" spin="clockwise" />
+    <Avatar seed="counter" shape="eightLeafClover" spin="counterclockwise" />
+    <Avatar
+      seed="burst"
+      shape="softBurst"
+      spin="clockwise"
+      src="https://picsum.photos/seed/ogonek-2/200"
+    />
   </div>
 </Story>
