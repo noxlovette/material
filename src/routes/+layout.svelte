@@ -113,22 +113,13 @@
 </script>
 
 <App iconProviderProps={{ extraIcons: icons }}>
-  <!--
-    flex row: Rail's ghost div is a flex item that pushes content.
-    Mobile (< md):  ghost hidden → content fills full width.
-    Tablet (md–lg): ghost w-24 → content offset 96 px; expanded rail overlays with scrim.
-    Desktop (lg+):  ghost transitions w-24 → w-60 on expand → content smoothly pushed right.
-  -->
-  <div class="flex min-h-dvh">
-    <Rail bind:collapsed>
-      {#each destinations as item (item.label)}
-        <RailItem {...item} />
-      {/each}
-    </Rail>
-    <div class="min-w-spacing-0 flex-1">
-      {@render children()}
-    </div>
-  </div>
+  <!-- The rail publishes --md-rail-inset and App's shell pads by it: no offset needed here. -->
+  <Rail bind:collapsed>
+    {#each destinations as item (item.label)}
+      <RailItem {...item} />
+    {/each}
+  </Rail>
+  {@render children()}
   <Navbar ghost>
     {#each destinations as item (item.label)}
       <NavbarItem label={item.label} href={item.href} iconProps={item.iconProps} />

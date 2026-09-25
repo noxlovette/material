@@ -1,0 +1,36 @@
+/*
+ * M3 component dimensions that aren't on the spacing scale (issue #30). Each property is named
+ * after its token in the M3 token database, md.comp.<component>.<…> with dots as dashes, and
+ * used as `w-(--md-comp-…)`. A dimension that lands on the spacing grid uses the spacing token
+ * instead (the rail's 4dp item gap is `gap-spacing-50`, not a property here).
+ */
+:root {
+  /* Navigation rail: https://m3.material.io/components/navigation-rail/specs */
+  --md-comp-nav-rail-collapsed-container-width: 6rem; /* 96dp */
+  --md-comp-nav-rail-collapsed-top-space: 2.75rem; /* 44dp */
+  --md-comp-nav-rail-expanded-top-space: 2.75rem; /* 44dp */
+  --md-comp-nav-rail-expanded-container-width-minimum: 13.75rem; /* 220dp */
+  --md-comp-nav-rail-expanded-container-width-maximum: 22.5rem; /* 360dp */
+}
+
+/*
+ * How far the page's content starts from the leading edge to clear a viewport-anchored Rail.
+ * The Rail writes --md-rail-width (its drawn width, every frame while it springs) on <html>;
+ * with no Rail mounted it's unset and the inset is 0. On medium windows the expanded rail is
+ * modal and overlays the content, so the inset stays at the collapsed width; from lg the
+ * standard rail pushes the content, so the inset follows its width. App's shell pads by it;
+ * fixed surfaces that span the window (AppBar) start at it. Custom layouts: `ps-(--md-rail-inset)`.
+ */
+:root {
+  --md-rail-inset: 0px;
+}
+@media (width >= 48rem) {
+  :root {
+    --md-rail-inset: var(--md-rail-rest, 0px);
+  }
+}
+@media (width >= 64rem) {
+  :root {
+    --md-rail-inset: var(--md-rail-width, 0px);
+  }
+}
