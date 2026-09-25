@@ -37,8 +37,27 @@ Chips help people enter information, make selections, filter content, or trigger
   const isSelected = $derived(variant === 'filter' || variant === 'input' ? selected : false);
   const showCheck = $derived(isFilter && selected);
 
-  const { base, icon, label, trailing, checkIcon } = $derived(
-    chip({ variant, elevated: isElevated, selected: isSelected, disabled })
+  const leadingKind = $derived(
+    showCheck ? 'icon' : avatar ? 'avatar' : iconProps ? 'icon' : 'none'
+  );
+  const removable = $derived(variant === 'input' && Boolean(onRemove));
+
+  const {
+    base,
+    icon,
+    avatar: avatarCls,
+    label,
+    trailing,
+    checkIcon
+  } = $derived(
+    chip({
+      variant,
+      elevated: isElevated,
+      selected: isSelected,
+      leading: leadingKind,
+      removable,
+      disabled
+    })
   );
   const chipCls = $derived(base({ class: clsx(className) }));
 </script>
@@ -49,14 +68,15 @@ Chips help people enter information, make selections, filter content, or trigger
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
       class={checkIcon()}
+      aria-hidden="true"
       fill="currentColor"
     >
       <path d="M9.55 18 3.85 12.3 5.275 10.875 9.55 15.15 18.725 5.975 20.15 7.4Z" />
     </svg>
   {:else if avatar}
-    {@render avatar()}
+    <span class={avatarCls()}>{@render avatar()}</span>
   {:else if iconProps}
-    <Icon size="xs" class={icon()} {...iconProps} />
+    <Icon size="sm" {...iconProps} class={icon({ class: clsx(iconProps.class) })} />
   {/if}
 {/snippet}
 
@@ -94,7 +114,7 @@ Chips help people enter information, make selections, filter content, or trigger
         }}
         aria-label="Remove"
       >
-        <Icon size="xs" name="close" />
+        <Icon size="sm" name="close" class="size-[18px] text-[18px]" />
         <Layer />
       </button>
     {/if}

@@ -25,7 +25,7 @@ import * as ChipStories from './Chip.stories.svelte';
 | `assist`     | A smart or automated action, like adding an event to a calendar | `<button>` (or `<a>` with `href`); icon tinted primary |
 | `filter`     | Filtering content by tags or descriptive words                  | A toggle; a checkmark replaces the icon when selected  |
 | `input`      | A piece of information the user entered (a contact, a value)    | A plain container; `onRemove` adds a remove button     |
-| `suggestion` | A generated suggestion that narrows intent                      | Like `assist`, without the tinted icon                 |
+| `suggestion` | A generated suggestion that narrows intent                      | Like `assist`; its label is on-surface-variant         |
 
 `elevated` swaps the flat, outlined container for a shadowed one on every variant except `input`,
 which the spec keeps flat. For a static label with no interaction (a status or a count), use
@@ -40,6 +40,9 @@ which the spec keeps flat. For a static label with no interaction (a status or a
 ```
 
 <Canvas of={ChipStories.Input} />
+
+An `avatar` snippet replaces the leading icon and is clipped to a 24dp circle; it wins over
+`iconProps` when both are given.
 
 Render one input chip per entry, and remove the entry from your own array in `onRemove`:
 
@@ -65,4 +68,5 @@ Render one input chip per entry, and remove the entry from your own array in `on
 - **Disabled.** Assist, filter and suggestion chips use the native `disabled` attribute. An input
   chip's container is a `<div>`, so it gets `aria-disabled`, and its remove button a real
   `disabled`.
+- **Target size.** The remove icon is 18dp with a 48dp touch target around it.
 - **Contrast.** Every state pairs a container with its `on-*` role, so text keeps AA contrast.

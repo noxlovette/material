@@ -8,7 +8,7 @@ Pass `aria-label` when the icon carries meaning with no visible text next to it.
 -->
 <script lang="ts">
   import clsx from 'clsx';
-  import { twMerge } from 'tailwind-merge';
+  import { twMerge } from '$lib/utils/tv.js';
   import type { IconProps, IconSize } from './types.js';
 
   /*
