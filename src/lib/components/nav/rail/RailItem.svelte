@@ -8,13 +8,17 @@ springs. The active icon fills, per M3's icon guidance.
 -->
 <script lang="ts">
   import { page } from '$app/state';
-  import { getContext } from 'svelte';
+  import { base } from '$app/paths';
+  import { getContext, untrack } from 'svelte';
+  import { animate, type AnimationPlaybackControls } from 'motion';
+  import { springTokens, springTransition } from '$lib/animation/spring.js';
   import type { RailItemProps } from './types.js';
   import { railElement } from './theme.js';
   import { Icon } from '$lib/utils/index.js';
   import Badge from '../../badge/Badge.svelte';
   import { NavigationMenu } from 'bits-ui';
   import clsx from 'clsx';
+  import { isCurrentRoute } from '../currentRoute.js';
 
   let {
     href = '/',
@@ -42,25 +46,41 @@ springs. The active icon fills, per M3's icon guidance.
   const hrefValue = $derived(isDisabled ? undefined : href);
   const ariaDisabled = $derived(isDisabled ? true : undefined);
   const tabIndex = $derived(isDisabled ? -1 : undefined);
-  const hrefPathname = $derived.by(() => {
-    try {
-      return new URL(href).pathname;
-    } catch {
-      return href;
-    }
-  });
-  const isActive = $derived(
-    selected ||
-      page.url.pathname === hrefPathname ||
-      (hrefPathname !== '/' && page.url.pathname.startsWith(hrefPathname + '/'))
-  );
+  const isActive = $derived(selected || isCurrentRoute(href, page.url, base));
   const styles = $derived(railElement({ active: isActive, layout, disabled: isDisabled }));
 
-  function handleClick(event: MouseEvent) {
+  /*
+    The selected fill's size, 0 to 1, on fastSpatial: selecting grows it from the indicator's
+    centre out to its edges, deselecting shrinks it back (it may overshoot a little, as the
+    spring does). SSR and reduced motion render the end state.
+  */
+  let selection = $state(untrack(() => (isActive ? 1 : 0)));
+  let selectionSpring: AnimationPlaybackControls | undefined;
+  $effect(() => {
+    const target = isActive ? 1 : 0;
+    untrack(() => {
+      if (selection === target) return;
+      selectionSpring?.stop();
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        selection = target;
+        return;
+      }
+      selectionSpring = animate(selection, target, {
+        ...springTransition(springTokens.fastSpatial),
+        onUpdate: (v) => (selection = v)
+      });
+    });
+    return () => selectionSpring?.stop();
+  });
+
+  // Placed after {...rest}, so it forwards a consumer's onclick instead of replacing it.
+  function handleClick(event: MouseEvent & { currentTarget: HTMLAnchorElement }) {
     if (isDisabled) {
       event.preventDefault();
       event.stopPropagation();
+      return;
     }
+    rest.onclick?.(event);
   }
 </script>
 
@@ -79,10 +99,13 @@ springs. The active icon fills, per M3's icon guidance.
         class={styles.base({ class: clsx(className) })}
         data-layout={layout}
         style:--rail-p={collapsedProp !== undefined ? progress : undefined}
+        style:--rail-sel={selection}
       >
         <span class={styles.sizer()}>
           <span class={styles.measure()} aria-hidden="true">{label}</span>
-          <span class={styles.indicator()}></span>
+          <span class={styles.indicator()}>
+            <span class={styles.fill()}></span>
+          </span>
           <!-- Badge offsets are measured from the icon's corner, not the indicator's. -->
           <span class={styles.icon()}>
             <Icon {...iconProps} fill={isActive ? 1 : 0} />
@@ -116,6 +139,15 @@ springs. The active icon fills, per M3's icon guidance.
       var(--spacing-spacing-700) + (100% - var(--spacing-spacing-700)) * var(--rail-p, 0)
     );
     height: calc(var(--spacing-spacing-400) + var(--spacing-spacing-300) * var(--rail-p, 0));
+  }
+
+  /* Grows from the centre: full height, width and opacity on --rail-sel. */
+  .rail-fill {
+    inset-block: 0;
+    left: 50%;
+    width: calc(100% * var(--rail-sel, 0));
+    translate: -50% 0;
+    opacity: var(--rail-sel, 0);
   }
 
   .rail-icon {

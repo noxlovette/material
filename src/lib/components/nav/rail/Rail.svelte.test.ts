@@ -169,6 +169,27 @@ describe('Rail', () => {
     expect(fillOf(link('Inbox'))).toContain("'FILL' 0");
     unmount(app);
   });
+
+  it('grows the selected fill from the centre on a spring', () => {
+    reducedMotion = false;
+    const props = $state({ collapsed: true, inboxSelected: false });
+    const app = mount(Fixture, { target: document.body, props });
+    flushSync();
+    const sel = (name: string) => link(name).style.getPropertyValue('--rail-sel');
+    expect(sel('Home')).toBe('1');
+    expect(sel('Inbox')).toBe('0');
+    expect(spring).toBeUndefined();
+
+    props.inboxSelected = true;
+    flushSync();
+    expect(spring).toMatchObject({ from: 0, to: 1 });
+    spring!.onUpdate(0.4);
+    flushSync();
+    expect(sel('Inbox')).toBe('0.4');
+    // The fill sits inside the indicator, which keeps the state layer on top of it.
+    expect(link('Inbox').querySelector('.rail-indicator > .rail-fill')).not.toBeNull();
+    unmount(app);
+  });
 });
 
 describe('rail spec values', () => {
@@ -196,7 +217,7 @@ describe('rail spec values', () => {
     const top = railElement({ active: true, layout: 'top' });
     expect(top.label()).toContain('md-sys-typescale-label-medium');
     expect(top.label()).toContain('text-md-sys-color-secondary');
-    expect(top.indicator()).toContain('bg-md-sys-color-secondary-container');
+    expect(top.fill()).toContain('bg-md-sys-color-secondary-container');
 
     const start = railElement({ active: true, layout: 'start' });
     expect(start.label()).toContain('md-sys-typescale-label-large');

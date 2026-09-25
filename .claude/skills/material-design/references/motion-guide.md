@@ -144,6 +144,20 @@ motion both become a plain crossfade. Outlined ↔ filled for a selected state i
 swap; it already animates through `font-variation-settings`. True path morphs between icons are
 issue #36.
 
+## Selection indicators
+
+A selection that moves between peers moves its indicator rather than blinking it out and in.
+
+- **Between items of one set** (a `List`'s selected fill, Tabs' bar): the indicator travels from
+  the old item to the new one. `ListItem` hands the outgoing fill's rect (relative to the `List`)
+  through the List context in `$effect.pre`, and the incoming item springs its own fill from
+  there in `$effect` on `spatial`, lifted above the items it crosses. Reuse that hand-off for
+  new selectable sets, not a list-level overlay: segment backgrounds would hide one.
+- **Appearing in place** (the rail's active indicator): it grows from its centre to its edges
+  and fades in on `fastSpatial`, and the deselected one shrinks back; the state layer stays on
+  top. RailItem drives a 0–1 spring into `--rail-sel`.
+- Under reduced motion both just appear at the end state.
+
 ## CSS: state-driven transitions
 
 For hover/press/selected/focus motion driven by pseudo-classes or `data-*` state, use a Tailwind transition-property utility plus one spring utility from `motion.css`:

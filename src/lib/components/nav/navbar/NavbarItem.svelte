@@ -6,12 +6,14 @@ A single destination within a navigation bar.
 -->
 <script lang="ts">
   import { page } from '$app/state';
+  import { base as appBase } from '$app/paths';
   import type { NavItemProps } from './types.js';
   import { navitem } from './theme.js';
   import { Icon, Layer } from '$lib/utils/index.js';
   import Badge from '../../badge/Badge.svelte';
   import { NavigationMenu } from 'bits-ui';
   import clsx from 'clsx';
+  import { isCurrentRoute } from '../currentRoute.js';
 
   let {
     href = '/',
@@ -23,12 +25,7 @@ A single destination within a navigation bar.
     ...rest
   }: NavItemProps = $props();
 
-  const isActive = $derived(
-    selected ||
-      page.url.pathname === href ||
-      (href !== '/' && page.url.href.startsWith(href)) ||
-      page.url.href == href
-  );
+  const isActive = $derived(selected || isCurrentRoute(href, page.url, appBase));
 
   const {
     base,

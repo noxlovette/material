@@ -25,6 +25,17 @@
   });
 </script>
 
+<script lang="ts">
+  // Playground: clicking a destination selects it, to show the indicator growing from its centre.
+  const destinations = [
+    { label: 'Home', icon: 'house', badge: 0 },
+    { label: 'Inbox', icon: 'mail', badge: 4 },
+    { label: 'Chat', icon: 'chat', badge: -1 },
+    { label: 'Settings', icon: 'settings', badge: 0 }
+  ] as const;
+  let current = $state<string>('Home');
+</script>
+
 <Story name="Playground">
   {#snippet template(args)}
     <div class="bg-md-sys-color-surface-variant relative h-[420px] overflow-hidden rounded-2xl">
@@ -34,10 +45,19 @@
         expandable={args.expandable}
         rounded={args.rounded}
       >
-        <RailItem label="Home" href="/" iconProps={{ name: 'house' }} selected />
-        <RailItem label="Inbox" href="#" iconProps={{ name: 'mail' }} badge={4} />
-        <RailItem label="Chat" href="#" iconProps={{ name: 'chat' }} badge={-1} />
-        <RailItem label="Settings" href="#" iconProps={{ name: 'settings' }} />
+        {#each destinations as d (d.label)}
+          <RailItem
+            label={d.label}
+            href="#{d.label.toLowerCase()}"
+            iconProps={{ name: d.icon }}
+            badge={d.badge}
+            selected={current === d.label}
+            onclick={(e) => {
+              e.preventDefault();
+              current = d.label;
+            }}
+          />
+        {/each}
         <RailItem label="Disabled" href="#" iconProps={{ name: 'block' }} disabled />
       </Rail>
     </div>

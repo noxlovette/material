@@ -66,6 +66,11 @@ so nothing moves sideways. The label fades out, switches from under the icon to 
 halfway point (label medium → label large), then slides in as it fades back. An interrupted
 spring reverses from where it is. Under reduced motion the rail jumps to the end state.
 
+Selecting a destination grows its active indicator from the centre out to its edges on
+`fastSpatial`, fading in as it grows, and the one losing the selection shrinks back the same way
+(after Compose's `NavigationRailItem`). The state layer stays on top of it. Under reduced motion
+the indicator just appears.
+
 ## Layout
 
 Mount the rail anywhere inside `App`; the page makes room for it on its own. A

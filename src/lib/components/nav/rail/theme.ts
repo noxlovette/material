@@ -82,7 +82,8 @@ export const rail = tv({
   active indicator inside it hugs its contents. Collapsed, the indicator is 56×32 around the icon
   with the label 4dp below; expanded, it's a 56dp pill around icon and label, 16dp padding, 8dp
   between them. State layers are `on-secondary-container` at 8% hover and 10% focus/press, drawn
-  on the indicator but triggered anywhere on the link.
+  on the indicator but triggered anywhere on the link. Selecting a destination grows its fill
+  out from the centre (M3's active indicator, after Compose's NavigationRailItem).
 
   Geometry isn't here: it interpolates on the rail's expand progress, in RailItem.svelte's
   <style>. `layout` is which side of the halfway point that progress is on, and decides only
@@ -95,14 +96,16 @@ export const railElement = tv({
     sizer: 'relative h-full shrink-0 pl-spacing-600 pr-spacing-200',
     measure: 'invisible md-sys-typescale-label-large whitespace-nowrap',
     indicator:
-      'rail-indicator absolute left-spacing-0 rounded-full state-layer before:rounded-full transition-colors md-sys-motion-fast-effects',
+      'rail-indicator absolute left-spacing-0 isolate rounded-full state-layer before:rounded-full',
+    // The selected fill, under the state layer. It grows from the indicator's centre to its
+    // edges on select and shrinks back on deselect, on RailItem's --rail-sel spring.
+    fill: 'rail-fill absolute -z-10 rounded-full bg-md-sys-color-secondary-container',
     icon: 'rail-icon absolute left-spacing-200 inline-flex',
     label: 'rail-label absolute whitespace-nowrap transition-colors md-sys-motion-fast-effects'
   },
   variants: {
     active: {
       true: {
-        indicator: 'bg-md-sys-color-secondary-container',
         icon: 'text-md-sys-color-on-secondary-container'
       },
       false: {
