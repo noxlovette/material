@@ -48,6 +48,10 @@ The full M3 type scale (https://m3.material.io/styles/typography/type-scale-toke
 
 `md.sys.measurement.space<N>` (N/100 × the 8dp base) is registered in Tailwind's spacing namespace. Every spacing utility therefore takes it: `p-spacing-200` (16dp), `gap-spacing-50` (4dp), `mr-spacing-300` (24dp), `size-spacing-600` (48dp). The available numbers are 0, 25, 50, 75, 100, 125, 150, 175, 200, 250, 300, 400, 450, 500, 600, 700, 800 and 900. The number is M3's token number, not Tailwind's 4px multiplier.
 
+## Component dimensions (`src/lib/styles/components.css`)
+
+M3 component dimensions that aren't on the spacing grid are custom properties named after their token in the M3 token database, with dots as dashes: `--md-comp-nav-rail-collapsed-container-width` (96dp), `--md-comp-nav-rail-expanded-container-width-minimum` (220dp), and so on. Use them as `w-(--md-comp-…)`. A new off-grid spec value goes in this file under its token name, never as a Tailwind number (`w-24`) or an arbitrary value (`w-[96px]`). A dimension that is on the grid uses the spacing token instead. Migrating the remaining numeric/arbitrary sizes is issue #30.
+
 ## Elevation (`src/lib/styles/elevation.css`)
 
 `shadow-elevation-{0..5}`, each a two-layer (spot + ambient) shadow scaled to the M3 elevation spec, using `color-mix` against the `shadow` color role so it adapts per theme automatically. Elevation communicates depth/priority — reach for a higher level when a surface should read as "above" its neighbors (menus, FABs, dialogs), not as a decorative effect.
