@@ -98,10 +98,7 @@ It combines a Material 3 Textfield with a TimepickerInput for intuitive time sel
         <div {...wrapperProps}>
           <div
             {...props}
-            class={[
-              props.class,
-              'max-h-(--bits-floating-available-height) min-w-(--bits-floating-anchor-width) overflow-auto'
-            ]}
+            class={[props.class, 'min-w-(--bits-floating-anchor-width)']}
             {@attach presence(() => open, enterExit.scale)}
           >
             <TimepickerInput

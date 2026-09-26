@@ -85,6 +85,24 @@
       any other icon names your app uses, or they render as plain text:
     </Body>
     <CodeBlock code={`<App iconProviderProps={{ extraIcons: ['search', 'add', 'settings'] }}>`} />
+    <Body>
+      To serve the font yourself and make no request to Google Fonts, set <Code>selfHosted</Code>,
+      declare an <Code>@font-face</Code> for each family you use (variable, with the <Code
+        >opsz</Code
+      >,
+      <Code>wght</Code>, <Code>FILL</Code> and <Code>GRAD</Code> axes), and import the class stylesheet:
+    </Body>
+    <CodeBlock code={`<App iconProviderProps={{ selfHosted: true }}>`} />
+    <CodeBlock
+      code={`@import '@noxlovette/material/styles/icon-font.css';
+
+@font-face {
+  font-family: 'Material Symbols Rounded';
+  src: url('/fonts/material-symbols-rounded.woff2') format('woff2');
+  font-weight: 100 700;
+  font-display: block;
+}`}
+    />
   </Section>
 
   <Section id="use" title="Use components">
