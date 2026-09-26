@@ -6,6 +6,7 @@ export * from './types.js';
 
 // default exports for components in this folder
 export { default as Command } from './Command.svelte';
+export { default as CommandDialog } from './CommandDialog.svelte';
 export { default as CommandEmpty } from './CommandEmpty.svelte';
 export { default as CommandGroup } from './CommandGroup.svelte';
 export { default as CommandInput } from './CommandInput.svelte';

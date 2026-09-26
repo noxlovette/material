@@ -1,4 +1,5 @@
 export * from './icon/index.js';
+export * from './shortcut.js';
 export * from './theme.svelte.js';
 export * from './types.js';
 export * from './ui.js';

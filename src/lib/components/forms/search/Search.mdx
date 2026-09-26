@@ -104,3 +104,12 @@ the view on click or typing, not on focus: closing hands focus back to the bar.
   through the `role="option"` items (wrapping, skipping disabled ones) via
   `aria-activedescendant`, so focus stays in the field while typing; Enter picks the highlighted
   one. The highlighted item gets the M3 focus indicator.
+- **Submitting.** Enter with no suggestion highlighted, or Enter in the bar itself, calls
+  `onsearch(query)` with the query as typed (never for an empty one). The view stays open; close
+  it yourself (`open = false`) when you navigate to results. This is where search differs from the
+  command palette (`CommandDialog`): a palette always highlights its best match and runs it, a
+  search can always search for exactly what was typed.
+- **Shortcut.** `/` anywhere on the page, outside a text field, focuses the bar (or opens its view
+  when it has `results`), and the input advertises it with `aria-keyshortcuts`. `shortcut` changes
+  the key; `null` turns it off. With several bars on a page the first mounted takes it. It doesn't
+  fire while another modal dialog is open. ⌘K belongs to the command palette (`CommandDialog`).

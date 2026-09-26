@@ -80,7 +80,7 @@ export const listItem = tv({
           'cursor-pointer outline-none',
           'hover:[--li-shape:0.75rem]',
           'focus-visible:[--li-shape:1rem]',
-          'focus-visible:outline-3 focus-visible:-outline-offset-3 focus-visible:outline-md-sys-color-secondary',
+          'focus-visible:outline-solid focus-visible:outline-3 focus-visible:-outline-offset-3 focus-visible:outline-md-sys-color-secondary',
           'active:[--li-shape:1rem]'
         ]
       },

@@ -1,4 +1,5 @@
 import { tv, type VariantProps } from '$lib/utils/tv.js';
+import { listItem } from '../../containers/list/theme.js';
 
 export type CommandVariants = VariantProps<typeof command>;
 
@@ -16,7 +17,41 @@ export const command = tv({
     group:
       'overflow-hidden p-spacing-50 text-md-sys-color-on-surface-variant [&_[data-command-group-heading]]:px-spacing-150 [&_[data-command-group-heading]]:py-spacing-100 [&_[data-command-group-heading]]:md-sys-typescale-label-medium [&_[data-command-group-heading]]:text-md-sys-color-on-surface-variant',
     separator: '-mx-spacing-50 h-px bg-md-sys-color-outline-variant',
-    item: 'relative flex cursor-default select-none items-center rounded-lg px-spacing-150 py-spacing-150 md-sys-typescale-body-medium outline-none data-[selected=true]:bg-md-sys-color-secondary-container data-[selected=true]:text-md-sys-color-on-secondary-container data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-50 transition-colors md-sys-motion-fast-effects',
     itemIcon: 'mr-spacing-150 h-spacing-250 w-spacing-250 shrink-0'
+  }
+});
+
+/*
+  Palette items are M3 list items (ListItem's anatomy, shape and type), sitting on the palette's
+  container colour. Focus stays in the input, so the item the arrow keys or pointer are on
+  (bits-ui's `data-selected`, an empty attribute) takes the focused item's state: the 10% state
+  layer and the 12dp hover shape, the way menus show their highlighted item.
+*/
+export const commandItem = tv({
+  extend: listItem,
+  slots: {
+    base: [
+      'cursor-default select-none outline-none',
+      'data-selected:[--li-shape:0.75rem] [&[data-selected]>.tint]:opacity-10'
+    ]
+  },
+  // The list's own surface fill is a variant, so it's replaced here, not in the base.
+  variants: { variant: { standard: { base: 'bg-transparent' } } },
+  defaultVariants: { interactive: true, lines: 1 }
+});
+
+export type CommandItemVariants = VariantProps<typeof commandItem>;
+
+/*
+  The ⌘K palette. M3 has no command palette; it borrows the docked search view's width (360–720dp)
+  and a modal dialog's scrim, extra-large shape and motion, and sits in the top third of the
+  window so the list has room to grow downwards.
+*/
+export const commandDialog = tv({
+  slots: {
+    scrim: 'fixed inset-spacing-0 z-layer-modal bg-md-sys-color-scrim/32',
+    content:
+      'fixed inset-x-spacing-200 top-spacing-200 md:top-spacing-900 z-layer-modal mx-auto max-w-(--md-comp-search-view-contained-docked-container-width-maximum) outline-none',
+    command: 'h-auto rounded-xl'
   }
 });

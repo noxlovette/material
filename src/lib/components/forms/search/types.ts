@@ -1,4 +1,4 @@
-import type { IconProps } from '$lib/utils/index.js';
+import type { IconProps, Shortcut } from '$lib/utils/index.js';
 import type { Snippet } from 'svelte';
 import type { HTMLInputAttributes } from 'svelte/elements';
 import type { Responsive } from '../../containers/pane/theme.js';
@@ -48,6 +48,13 @@ export interface SearchViewOptions {
 
   /** Accessible name of the search view and its suggestion list. Defaults to the placeholder. */
   resultsLabel?: string;
+
+  /**
+   * Called with the query when it's submitted: Enter in the bar, or Enter in the search view
+   * with no suggestion highlighted. Not called for an empty query. The view stays open; set
+   * `open` to false to close it, e.g. when navigating to a results page.
+   */
+  onsearch?: (query: string) => void;
 }
 
 /**
@@ -135,4 +142,12 @@ export interface SearchProps
    * Accessible label for the clear button.
    */
   clearLabel?: string;
+
+  /**
+   * Page-wide key that focuses the bar, or opens its search view when it has `results`. A key
+   * without ⌘/Ctrl/Alt doesn't fire while typing in a field. With several bars on a page, the
+   * first one mounted takes it. `null` turns it off.
+   * @default '/'
+   */
+  shortcut?: Shortcut | null;
 }

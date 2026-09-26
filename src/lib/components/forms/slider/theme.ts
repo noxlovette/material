@@ -27,7 +27,7 @@ export const slider = tv({
     iconOnInactive: 'text-md-sys-color-on-secondary-container',
     handle: `
       absolute rounded-full bg-md-sys-color-primary outline-none
-      focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-md-sys-color-secondary
+      focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-md-sys-color-secondary
       group-data-[disabled]:bg-md-sys-color-on-surface/38
     `,
     value: `

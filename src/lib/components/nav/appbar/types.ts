@@ -1,3 +1,4 @@
+import type { Shortcut } from '$lib/utils/index.js';
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
 import type { Responsive } from '../../containers/pane/theme.js';
@@ -50,6 +51,8 @@ export type TitleAppBarProps = AppBarBaseProps & {
   searchResults?: never;
   searchOpen?: never;
   searchLayout?: never;
+  searchShortcut?: never;
+  onsearch?: never;
 };
 
 /** A search app bar: a search field in place of the title, always 64dp. */
@@ -77,6 +80,17 @@ export type SearchAppBarProps = AppBarBaseProps & {
    * @default { small: 'fullScreen', medium: 'docked' }
    */
   searchLayout?: Responsive<SearchLayout>;
+  /**
+   * Page-wide key that focuses the field, or opens the search view with `searchResults`. See
+   * `Search`'s `shortcut`. `null` turns it off.
+   * @default '/'
+   */
+  searchShortcut?: Shortcut | null;
+  /**
+   * Called with the query when it's submitted: Enter in the field, or Enter in the search view
+   * with no suggestion highlighted. See `Search`'s `onsearch`.
+   */
+  onsearch?: (query: string) => void;
   size?: never;
 };
 

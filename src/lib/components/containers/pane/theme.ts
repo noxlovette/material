@@ -244,7 +244,7 @@ export const pane = tv({
  */
 export const paneHandle = tv({
   slots: {
-    base: 'group relative flex shrink-0 w-spacing-150 self-stretch cursor-col-resize touch-none items-center justify-center rounded-full bg-transparent outline-none hover:bg-md-sys-color-outline/20 focus-visible:outline-2 focus-visible:outline-md-sys-color-secondary',
+    base: 'group relative flex shrink-0 w-spacing-150 self-stretch cursor-col-resize touch-none items-center justify-center rounded-full bg-transparent outline-none hover:bg-md-sys-color-outline/20 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-md-sys-color-secondary',
     // Size is sprung inline by PaneHandle.svelte; only color transitions here.
     grip: 'rounded-full transition-colors md-sys-motion-effects'
   },

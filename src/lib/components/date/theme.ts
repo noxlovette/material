@@ -298,7 +298,7 @@ export const dateCalendar = tv({
       cursor-pointer outline-none
       transition-colors md-sys-motion-fast-effects
 
-      focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-md-sys-color-secondary
+      focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-md-sys-color-secondary
 
       data-today:border data-today:border-md-sys-color-primary data-today:text-md-sys-color-primary
 

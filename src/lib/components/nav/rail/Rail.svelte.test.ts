@@ -128,6 +128,33 @@ describe('Rail', () => {
     unmount(app);
   });
 
+  it('goes to the Nth destination on Ctrl+N (⌘ on Apple), and labels the shortcut', () => {
+    const app = setup();
+    const clicked: string[] = [];
+    const onclick = (e: MouseEvent) => {
+      const a = (e.target as Element).closest('a');
+      if (a) {
+        e.preventDefault();
+        clicked.push(a.textContent!.trim());
+      }
+    };
+    document.addEventListener('click', onclick);
+    const press = (code: string, init: KeyboardEventInit = { ctrlKey: true }) => {
+      const e = new KeyboardEvent('keydown', { code, cancelable: true, ...init });
+      window.dispatchEvent(e);
+      return e.defaultPrevented;
+    };
+    expect(press('Digit2')).toBe(true);
+    expect(clicked.at(-1)).toContain('Inbox');
+    expect(press('Digit3')).toBe(false); // no third destination
+    expect(press('Digit1', {})).toBe(false); // no modifier
+    expect(press('Digit1', { ctrlKey: true, shiftKey: true })).toBe(false);
+    expect(clicked).toHaveLength(1);
+    expect(link('Home').getAttribute('aria-keyshortcuts')).toBe('Control+1');
+    document.removeEventListener('click', onclick);
+    unmount(app);
+  });
+
   it('leaves the rail alone on Escape while collapsed', () => {
     const app = setup();
     window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
