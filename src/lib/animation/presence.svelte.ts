@@ -40,6 +40,7 @@ export const presence =
   (node) => {
     let controls: AnimationPlaybackControlsWithThen | undefined;
     let started = false;
+    let settleTimer: ReturnType<typeof setTimeout> | undefined;
 
     if (transition.origin) node.style.transformOrigin = transition.origin;
 
@@ -47,6 +48,7 @@ export const presence =
       const open = isOpen();
       untrack(() => {
         const { hidden, shown, exited = hidden, enter, exit } = transition;
+        clearTimeout(settleTimer);
         if (open) {
           controls = animate(node, started ? shown : fromTo(hidden, shown), enter);
         } else {
@@ -54,13 +56,47 @@ export const presence =
           current.then(() => {
             if (controls === current) onExitComplete?.();
           });
+          settleTimer = setTimeout(() => {
+            if (controls === current) settle(node);
+          }, exitDeadline(current));
         }
         started = true;
       });
     });
 
-    return () => controls?.stop();
+    return () => {
+      clearTimeout(settleTimer);
+      controls?.stop();
+    };
   };
+
+/*
+  bits-ui unmounts its content only once every animation on it has settled, and `Presence` once
+  Motion's exit resolves. On touch devices a closed menu was reported staying mounted, one per
+  open, stacking up (#53): some animation on the node never settled. So once the exit has had its
+  time, whatever is still running or paused there is finished (or cancelled, if it can't be),
+  which settles bits-ui's wait and the exit's promise.
+*/
+const EXIT_DEADLINE_MARGIN_MS = 150;
+const EXIT_DEADLINE_FALLBACK_MS = 1000;
+
+const exitDeadline = (controls: AnimationPlaybackControlsWithThen) => {
+  const seconds = controls.duration;
+  return Number.isFinite(seconds) && seconds > 0
+    ? seconds * 1000 + EXIT_DEADLINE_MARGIN_MS
+    : EXIT_DEADLINE_FALLBACK_MS;
+};
+
+const settle = (node: HTMLElement) => {
+  for (const animation of node.getAnimations?.() ?? []) {
+    if (animation.playState === 'finished') continue;
+    try {
+      animation.finish();
+    } catch {
+      animation.cancel();
+    }
+  }
+};
 
 /**
  * Keeps an element mounted until its exit animation finishes — the Motion replacement for a

@@ -90,4 +90,39 @@ describe('Presence', () => {
     expect(calls[1].keyframes).toEqual({ opacity: 0 });
     unmount(app);
   });
+
+  it('finishes animations left on the node once the exit has had its time (#53)', () => {
+    vi.useFakeTimers();
+    try {
+      const props = $state({ open: true });
+      const app = mount(Fixture, { target: document.body, props });
+      flushSync();
+      // A WAAPI animation whose `finished` would never settle: bits-ui would keep it mounted.
+      const stuck = { playState: 'paused', finish: vi.fn(), cancel: vi.fn() };
+      const done = { playState: 'finished', finish: vi.fn(), cancel: vi.fn() };
+      (panel() as HTMLElement).getAnimations = () => [stuck, done] as unknown as Animation[];
+
+      props.open = false;
+      flushSync();
+      vi.advanceTimersByTime(999);
+      expect(stuck.finish).not.toHaveBeenCalled();
+      vi.advanceTimersByTime(1);
+      expect(stuck.finish).toHaveBeenCalledOnce();
+      expect(done.finish).not.toHaveBeenCalled();
+
+      // Reopened before the deadline: nothing is cut short.
+      stuck.finish.mockClear();
+      props.open = true;
+      flushSync();
+      props.open = false;
+      flushSync();
+      props.open = true;
+      flushSync();
+      vi.advanceTimersByTime(5000);
+      expect(stuck.finish).not.toHaveBeenCalled();
+      unmount(app);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
 });
