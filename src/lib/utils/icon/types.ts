@@ -65,6 +65,17 @@ export type LoadingIndicatorProps = HTMLAttributes<SVGAElement> &
   };
 
 export type MaterialSymbolsProviderProps = {
+  /**
+   * Skip the Google Fonts `<link>` so the page makes no request to `fonts.googleapis.com`, and
+   * supply the font yourself. Define an `@font-face` for each family in use (`"Material Symbols
+   * Rounded"`, `"Material Symbols Outlined"`, `"Material Symbols Sharp"`), variable, with the
+   * `opsz`, `wght`, `FILL` and `GRAD` axes that `Icon` sets through `font-variation-settings`, and
+   * import `@noxlovette/material/styles/icon-font.css` for the `font-family` of each
+   * `.material-symbols-*` class. The remaining class metrics ship with `@noxlovette/material/styles`.
+   * With this set, `icons`, `extraIcons`, `subset`, `families` and `display` have no effect.
+   * @default false
+   */
+  selfHosted?: boolean;
   icons?: MaterialSymbolName[];
   /** Icon names to load on top of `baseIcons`. Ignored when `subset` is false. */
   extraIcons?: MaterialSymbolName[];

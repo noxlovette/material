@@ -2,12 +2,16 @@
 @component
 A helper that handles google icons. Should not be used directly.
 Use the App.svelte component instead
+
+With `selfHosted` it renders nothing, so no request goes to fonts.googleapis.com. The consumer then
+supplies the `@font-face` rules; see `@noxlovette/material/styles/icon-font.css`.
 -->
 <script lang="ts">
   import { baseIcons } from './base-icons.js';
   import type { MaterialSymbolsProviderProps } from './types.js';
 
   const {
+    selfHosted = false,
     extraIcons = [],
     display = 'swap',
     subset = true,
@@ -41,5 +45,7 @@ Use the App.svelte component instead
 </script>
 
 <svelte:head>
-  <link rel="stylesheet" {href} />
+  {#if !selfHosted}
+    <link rel="stylesheet" {href} />
+  {/if}
 </svelte:head>

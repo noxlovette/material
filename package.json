@@ -1,6 +1,6 @@
 {
   "name": "@noxlovette/material",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "type": "module",
   "description": "A Material Design 3 component library for Svelte, built on Bits UI.",
   "keywords": [
@@ -57,6 +57,7 @@
       "svelte": "./dist/index.js"
     },
     "./styles": "./dist/index.css",
+    "./styles/icon-font.css": "./dist/styles/icon-font.css",
     "./theme/*": "./dist/styles/theme/*.css"
   },
   "peerDependencies": {

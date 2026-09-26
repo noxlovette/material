@@ -1,0 +1,17 @@
+/*
+  Optional, for `<App iconProviderProps={{ selfHosted: true }}>`. Google's stylesheet normally
+  binds each `.material-symbols-*` class to its font family; a self-hoster imports this instead and
+  writes only the `@font-face` rules (variable, with the opsz, wght, FILL and GRAD axes).
+  The rest of the class metrics (line-height, ligatures, smoothing…) ship in `./styles`.
+*/
+.material-symbols-rounded {
+  font-family: 'Material Symbols Rounded';
+}
+
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+}
+
+.material-symbols-sharp {
+  font-family: 'Material Symbols Sharp';
+}
