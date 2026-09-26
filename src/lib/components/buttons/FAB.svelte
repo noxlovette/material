@@ -343,7 +343,10 @@ Floating action buttons (FABs) help people take primary actions.
         surfaceOpen && 'invisible',
         // In its footprint, pinned to the top trailing corner the close button shares.
         withMenu &&
-          neverExpanded && ['col-start-1 row-start-1 self-start justify-self-end', footprint[size]],
+          neverExpanded && [
+            'col-start-1 row-start-1 self-start justify-self-end',
+            !open && footprint[size]
+          ],
         className
       )
     })}

@@ -20,6 +20,7 @@ Contrast with `MenuItem` (a single interactive row inside the panel) and
   import { DropdownMenu } from 'bits-ui';
   import clsx from 'clsx';
   import Button from '../../buttons/Button.svelte';
+  import { menu } from './theme.js';
   import type { MenuProps } from './types.js';
 
   let {
@@ -49,11 +50,7 @@ Contrast with `MenuItem` (a single interactive row inside the panel) and
         <div {...wrapperProps} class={wrapperProps.class as any}>
           <div
             {...props}
-            class={clsx(
-              'bg-md-sys-color-surface-container-high shadow-elevation-3 ring-md-sys-color-outline/10 gap-spacing-50 px-spacing-100 py-spacing-50 max-w-sm min-w-48 overflow-y-auto rounded-lg',
-              props.class as any,
-              contentClass
-            )}
+            class={clsx(menu().content(), props.class as any, contentClass)}
             {@attach presence(() => isOpen, enterExit.scale)}
           >
             {@render children()}

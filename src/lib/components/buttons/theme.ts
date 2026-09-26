@@ -321,11 +321,12 @@ export const fab = tv({
     },
     /**
      * The FAB menu's open state: the FAB becomes the round close button, label shut. Its size and
-     * corners spring to 56dp round in FAB.svelte.
+     * corners spring to 56dp round in FAB.svelte; the classes hold that box once the spring
+     * settles, so the button can't fall back to its content width (#49: a 24×56 pill).
      */
     menuOpen: {
       true: {
-        base: 'justify-center px-spacing-0',
+        base: 'justify-center px-spacing-0 size-spacing-700 rounded-[1.75rem]',
         icon: 'size-spacing-250 text-[20px]',
         labelTrack: 'grid-cols-[0fr]!'
       },

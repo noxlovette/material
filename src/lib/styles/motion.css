@@ -371,3 +371,29 @@
   background-color: var(--md-container-transform-color, transparent);
   box-shadow: var(--md-container-transform-shadow, none);
 }
+
+/*
+  App chrome stays put through navigation transitions (#50). Motion's `animateView` puts the
+  `target` region (or the root) in its own layer, and the whole `::view-transition` tree paints
+  over the live page, so a fixed bar outside `main` was covered by `main`'s snapshots and a fixed
+  toolbar or FAB inside it faded and scaled with the page. `md-vt-persist` lifts an element
+  into its own layer that is drawn above the page's and never animates: the old snapshot is
+  hidden and the new one is the live element.
+
+  Scoped to the navigation helpers (sharedAxis, lateral, fadeThrough), which set
+  `md-navigation-transition` on the root while they run, so a container transform (the search
+  view) still grows over the Navbar instead of under it. Built into Navbar, viewport-anchored
+  Rail, AppBar and docked Toolbar; add the class to an app-positioned floating Toolbar or FAB.
+  Browsers without `match-element` fall back to the old behaviour.
+*/
+:root.md-navigation-transition .md-vt-persist {
+  view-transition-name: match-element;
+  view-transition-class: md-persist;
+}
+::view-transition-group(*.md-persist),
+::view-transition-new(*.md-persist) {
+  animation: none !important;
+}
+::view-transition-old(*.md-persist) {
+  display: none;
+}
