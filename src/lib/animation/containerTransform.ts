@@ -40,6 +40,7 @@ export interface ContainerTransformOptions {
  * ```
  */
 const FILL = '--md-container-transform-color';
+const SHADOW = '--md-container-transform-shadow';
 
 const resolve = (target: ViewTransitionTargetDefinition) =>
   typeof target === 'string'
@@ -61,6 +62,19 @@ const fillOf = (target: Element | null) => {
   return colour && !TRANSPARENT.has(colour) ? colour : 'transparent';
 };
 
+/*
+  The container's elevation while it morphs. Motion clips the group (`overflow: clip`) whenever
+  the aspect ratio changes, which cuts the shadow out of both snapshots, so an elevated
+  destination (a floating pane) would only get its shadow when the live DOM takes over at the
+  end. The group's own `box-shadow` isn't clipped by its overflow, so it carries the shadow
+  instead: the destination's when it has one (opening into an elevated pane), otherwise the
+  source's (closing it back into a flat card), so the container stays elevated the whole way.
+*/
+const shadowOf = (target: Element | null) => {
+  const shadow = target ? getComputedStyle(target).boxShadow : '';
+  return shadow && shadow !== 'none' ? shadow : undefined;
+};
+
 export const containerTransform = (
   update: () => void | Promise<void>,
   { from, to, spring = springTokens.spatial }: ContainerTransformOptions
@@ -68,12 +82,17 @@ export const containerTransform = (
   // The incoming snapshot is opaque wherever the destination is, and the outgoing one fades off
   // it (motion.css layers them), so nothing behind shows through. The fill (motion.css) covers
   // the rest of a destination with its own background, e.g. a full-screen view's area below the
-  // incoming snapshot's top as the bar grows. Only the transition's group reads the property,
-  // and it's rewritten before each new snapshot, so it's left in place afterwards.
+  // incoming snapshot's top as the bar grows, and the shadow keeps its elevation (`shadowOf`).
+  // Only the transition's group reads the properties, and they're rewritten before each new
+  // snapshot, so they're left in place afterwards.
   const root = document.documentElement;
   const updateAndFill = async () => {
+    // Read before `update`, which may unmount it.
+    const fromShadow = shadowOf(resolve(from));
     await update();
-    root.style.setProperty(FILL, fillOf(resolve(to)));
+    const target = resolve(to);
+    root.style.setProperty(FILL, fillOf(target));
+    root.style.setProperty(SHADOW, shadowOf(target) ?? fromShadow ?? 'none');
   };
   // The class lets motion.css keep both snapshots at their width, clipped by the container.
   const builder = animateView(updateAndFill, springTransition(spring))
