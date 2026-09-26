@@ -66,6 +66,6 @@ This repo is a single, already-opinionated M3 component library, not a blank can
 ## References
 
 - [`references/tokens-and-styles.md`](references/tokens-and-styles.md) — full token/utility inventory
-- [`references/component-patterns.md`](references/component-patterns.md) — `tv()` slots/variants/compoundVariants pattern + variant decision tree
+- [`references/component-patterns.md`](references/component-patterns.md) — `tv()` slots/variants/compoundVariants pattern + variant decision tree; search vs command palette; page-wide keyboard shortcuts
 - [`references/motion-guide.md`](references/motion-guide.md) — applying transitions (qualities of a good transition, choosing a pattern), which animation primitive and spring to reach for, reduced-motion target behavior
 - [`references/accessibility-checklist.md`](references/accessibility-checklist.md) — pre-delivery checklist

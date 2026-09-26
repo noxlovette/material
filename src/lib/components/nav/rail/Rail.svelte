@@ -8,6 +8,9 @@ the content aside (standard); on medium windows it opens over it, above a scrim 
 closes on a scrim click, Escape, or picking a destination. Below `md` it's hidden: mount a
 `Navbar` for small windows.
 
+⌘1–⌘9 (Ctrl+1–9 off Apple platforms) go to the first nine destinations; `shortcutModifier`
+changes the modifier, `null` turns them off.
+
 @see https://m3.material.io/components/navigation-rail/specs
 -->
 <script lang="ts">
@@ -20,6 +23,12 @@ closes on a scrim click, Escape, or picking a destination. Below `md` it's hidde
   import { rail } from './theme';
   import { NavigationMenu } from 'bits-ui';
   import { railStore } from './railStore.svelte.js';
+  import {
+    ariaKeyShortcut,
+    isApplePlatform,
+    matchesShortcut,
+    triggersShortcut
+  } from '$lib/utils/index.js';
 
   let {
     children,
@@ -31,6 +40,7 @@ closes on a scrim click, Escape, or picking a destination. Below `md` it's hidde
     railTop = 0,
     expandLabel = 'Expand navigation',
     collapseLabel = 'Collapse navigation',
+    shortcutModifier = 'Mod',
     class: className,
     showHelp: _showHelp,
     withNavbar: _withNavbar,
@@ -155,8 +165,47 @@ closes on a scrim click, Escape, or picking a destination. Below `md` it's hidde
   function onKeydown(event: KeyboardEvent) {
     if (event.key === 'Escape' && expanded && isModal()) {
       collapsed = true;
+      return;
     }
+    goToDestination(event);
   }
+
+  /*
+    Destination shortcuts: modifier+N clicks the Nth link, so it navigates exactly as a click
+    does (SvelteKit's router, a consumer's onclick, closing the modal rail). A disabled
+    destination keeps its number and does nothing.
+  */
+  let navEl = $state<HTMLElement | null>(null);
+  const destinations = () => [...(navEl?.querySelectorAll<HTMLAnchorElement>('a') ?? [])];
+
+  function goToDestination(event: KeyboardEvent) {
+    if (!shortcutModifier || !/^Digit[1-9]$/.test(event.code)) return;
+    const n = Number(event.code.slice(-1));
+    const shortcut = `${shortcutModifier}+${n}`;
+    if (!matchesShortcut(event, shortcut) || !triggersShortcut(event, shortcut, railEl)) return;
+    const link = destinations()[n - 1];
+    if (!link) return;
+    event.preventDefault();
+    if (link.getAttribute('aria-disabled') !== 'true') link.click();
+  }
+
+  // Advertise each destination's shortcut; kept in step as destinations come and go.
+  $effect(() => {
+    const nav = navEl;
+    const modifier = shortcutModifier;
+    if (!nav) return;
+    const apple = isApplePlatform();
+    const label = () =>
+      destinations().forEach((a, i) => {
+        if (modifier && i < 9)
+          a.setAttribute('aria-keyshortcuts', ariaKeyShortcut(`${modifier}+${i + 1}`, apple));
+        else a.removeAttribute('aria-keyshortcuts');
+      });
+    label();
+    const observer = new MutationObserver(label);
+    observer.observe(nav, { childList: true, subtree: true });
+    return () => observer.disconnect();
+  });
 
   // Picking a destination closes the modal rail; the standard one stays as it is.
   function onNavClick(event: MouseEvent) {
@@ -212,7 +261,12 @@ closes on a scrim click, Escape, or picking a destination. Below `md` it's hidde
   {/if}
 
   <!-- The click is delegated from the links inside; Enter on a link fires it too. -->
-  <NavigationMenu.Root orientation="vertical" class={styles.nav()} onclick={onNavClick}>
+  <NavigationMenu.Root
+    bind:ref={navEl}
+    orientation="vertical"
+    class={styles.nav()}
+    onclick={onNavClick}
+  >
     <NavigationMenu.List class={styles.items()}>
       {@render children?.()}
     </NavigationMenu.List>

@@ -30,6 +30,7 @@ A `ButtonIcon` anywhere inside it defaults to `variant="standard"`, per M3; pass
   import ButtonIcon from '../../buttons/ButtonIcon.svelte';
   import { setButtonIconVariant } from '../../buttons/context.js';
   import SearchView from '../../forms/search/SearchView.svelte';
+  import { ariaKeyShortcut, isApplePlatform, triggersShortcut } from '$lib/utils/index.js';
 
   let {
     children,
@@ -52,6 +53,8 @@ A `ButtonIcon` anywhere inside it defaults to `variant="standard"`, per M3; pass
     searchResults,
     searchOpen = $bindable(false),
     searchLayout,
+    searchShortcut = '/',
+    onsearch,
     scrollContainer,
     ghost = false,
     ...rest
@@ -77,7 +80,25 @@ A `ButtonIcon` anywhere inside it defaults to `variant="standard"`, per M3; pass
 
   let searchBar = $state<HTMLElement>();
 
-  // Same as Search: click, typing or ↓ opens the view; focus alone doesn't.
+  // Same as Search: `/` jumps to the field, or opens the view.
+  let apple = $state(false);
+  $effect(() => {
+    apple = isApplePlatform();
+  });
+  const shortcut = $derived(isSearch ? searchShortcut : null);
+
+  function onShortcut(e: KeyboardEvent) {
+    if (!triggersShortcut(e, shortcut, searchBar)) return;
+    e.preventDefault();
+    if (searchResults) searchOpen = true;
+    else {
+      const field = searchBar?.querySelector('input');
+      field?.focus();
+      field?.select();
+    }
+  }
+
+  // Same as Search: click or typing opens the view; focus alone doesn't.
   const opener = $derived(
     searchResults
       ? {
@@ -90,17 +111,23 @@ A `ButtonIcon` anywhere inside it defaults to `variant="standard"`, per M3; pass
           oninput: (e: Event & { currentTarget: HTMLInputElement }) => {
             searchProps?.oninput?.(e);
             if (!e.defaultPrevented) searchOpen = true;
-          },
-          onkeydown: (e: KeyboardEvent & { currentTarget: HTMLInputElement }) => {
-            searchProps?.onkeydown?.(e);
-            if (!e.defaultPrevented && e.key === 'ArrowDown') {
-              e.preventDefault();
-              searchOpen = true;
-            }
           }
         }
       : {}
   );
+
+  // ↓ opens the view; Enter searches for the query as typed.
+  function onSearchKeydown(e: KeyboardEvent & { currentTarget: HTMLInputElement }) {
+    searchProps?.onkeydown?.(e);
+    if (e.defaultPrevented) return;
+    if (e.key === 'ArrowDown' && searchResults) {
+      e.preventDefault();
+      searchOpen = true;
+    } else if (e.key === 'Enter' && onsearch && query?.trim()) {
+      e.preventDefault();
+      onsearch(query);
+    }
+  }
   const noLeading = $derived(!leading && !showBack);
 
   const s = $derived(
@@ -131,6 +158,8 @@ A `ButtonIcon` anywhere inside it defaults to `variant="standard"`, per M3; pass
   });
 </script>
 
+<svelte:window onkeydown={onShortcut} />
+
 <nav {...rest} class={s.base({ class: clsx(className) })} {@attach trackHeight}>
   <div class={s.row({ class: clsx(sized.row, rowClass) })}>
     <div class={s.leading()}>
@@ -155,7 +184,9 @@ A `ButtonIcon` anywhere inside it defaults to `variant="standard"`, per M3; pass
             type="search"
             {...searchProps}
             {...opener}
+            onkeydown={onSearchKeydown}
             placeholder={search}
+            aria-keyshortcuts={shortcut ? ariaKeyShortcut(shortcut, apple) : undefined}
             aria-label={searchProps?.['aria-label'] ?? search}
             bind:value={query}
             class={s.searchInput({ class: clsx(searchProps?.class) })}
@@ -198,6 +229,7 @@ A `ButtonIcon` anywhere inside it defaults to `variant="standard"`, per M3; pass
     layout={searchLayout}
     placeholder={search}
     trailing={searchTrailing}
+    {onsearch}
   />
 {/if}
 

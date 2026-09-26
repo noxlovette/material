@@ -2,7 +2,7 @@
 import { flushSync, mount, tick, unmount } from 'svelte';
 import { afterEach, describe, expect, it } from 'vitest';
 import Fixture from './search.fixture.test.svelte';
-import { search, searchViewLayout } from './theme.js';
+import { search, searchView, searchViewLayout } from './theme.js';
 
 // jsdom has no matchMedia (Layer, reduced motion) and no View Transition API, so the container
 // transform runs its update directly — exactly the path browsers without the API take.
@@ -59,6 +59,19 @@ describe('Search view', () => {
     unmount(app);
   });
 
+  it('opens on / from the page, but / typed in a field is just a slash', async () => {
+    const app = mount(Fixture, { target: document.body });
+    expect(bar().getAttribute('aria-keyshortcuts')).toBe('/');
+    key(bar(), '/');
+    await settle();
+    expect(view()).toBeNull();
+    key(document.body, '/');
+    await settle();
+    expect(view()).not.toBeNull();
+    expect(document.activeElement).toBe(field());
+    unmount(app);
+  });
+
   it('moves through options with the arrow keys and picks one with Enter', async () => {
     const props = $state({ open: true, value: 'ap', picked: '' });
     const app = mount(Fixture, { target: document.body, props });
@@ -79,6 +92,44 @@ describe('Search view', () => {
     await settle();
     expect(props.picked).toBe('Apricot');
     expect(view()).toBeNull();
+    unmount(app);
+  });
+
+  it('searches for the query on Enter with nothing highlighted, keeping the view open', async () => {
+    const props = $state({ open: true, value: 'ap', picked: '', searched: '' });
+    const app = mount(Fixture, { target: document.body, props });
+    await settle();
+    key(field(), 'Enter');
+    await settle();
+    expect(props.searched).toBe('ap');
+    expect(props.picked).toBe('');
+    expect(view()).not.toBeNull();
+    unmount(app);
+  });
+
+  it('picks the highlighted option on Enter instead of searching', async () => {
+    const props = $state({ open: true, value: 'ap', picked: '', searched: '' });
+    const app = mount(Fixture, { target: document.body, props });
+    await settle();
+    key(field(), 'ArrowDown');
+    flushSync();
+    key(field(), 'Enter');
+    await settle();
+    expect(props.picked).toBe('Apple');
+    expect(props.searched).toBe('');
+    unmount(app);
+  });
+
+  it('searches from the bar on Enter, but not for an empty query', async () => {
+    const props = $state({ value: '', searched: '' });
+    const app = mount(Fixture, { target: document.body, props });
+    await settle();
+    key(bar(), 'Enter');
+    expect(props.searched).toBe('');
+    props.value = 'kiwi';
+    flushSync();
+    key(bar(), 'Enter');
+    expect(props.searched).toBe('kiwi');
     unmount(app);
   });
 
@@ -118,6 +169,13 @@ describe('searchViewLayout', () => {
 
   it('takes a single value for every tier', () => {
     expect(searchViewLayout('docked').base).not.toContain('h-dvh');
+  });
+});
+
+describe('searchView results', () => {
+  it('gives the highlighted option an outline style', () => {
+    // ListItem's `outline-none` zeroes --tw-outline-style, so `outline-3` alone draws nothing.
+    expect(searchView().results().split(' ')).toContain('[&_[data-highlighted]]:outline-solid');
   });
 });
 

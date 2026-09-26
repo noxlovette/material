@@ -47,6 +47,11 @@
     query ? topics.filter((t) => t.toLowerCase().includes(query.toLowerCase())) : recent
   );
 
+  const submit = (q: string) => {
+    picked = `search for “${q}”`;
+    open = false;
+  };
+
   const pick = (item: string) => {
     picked = item;
     query = item;
@@ -101,7 +106,8 @@
 
 <!--
   Click or type in the bar. The view is full-screen below the medium window class and docked from
-  it up: resize the viewport to see both. Arrow keys move through the suggestions; Enter picks one.
+  it up: resize the viewport to see both. Arrow keys move through the suggestions; Enter picks one,
+  or with nothing highlighted searches for what was typed (onsearch). / from anywhere opens it.
 -->
 <Story
   name="Search view"
@@ -112,7 +118,13 @@
   }}
 >
   <div class="gap-spacing-200 p-spacing-300 flex min-h-dvh flex-col items-center">
-    <Search placeholder="Search components" bind:value={query} bind:open results={suggestions}>
+    <Search
+      placeholder="Search components"
+      bind:value={query}
+      bind:open
+      results={suggestions}
+      onsearch={submit}
+    >
       {#snippet trailing()}
         <ButtonIcon variant="standard" iconProps={{ name: 'mic' }} aria-label="Voice search" />
       {/snippet}

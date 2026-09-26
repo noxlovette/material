@@ -26,7 +26,7 @@ Only fall back to `bare` (no color/background at all) when the component supplie
 
 ## Reuse before you build
 
-- **State layer / ripple** — wrap the interactive element with `Layer.svelte` (`src/lib/utils/Layer.svelte`) rather than writing hover/press opacity by hand. It listens for `.m3-layer` on its parent, already respects `prefers-reduced-motion` for the ripple, and its tint (hover 0.08, focus and pressed 0.10) matches the M3 state-layer tokens — don't retune those numbers per component.
+- **State layer / ripple** — wrap the interactive element with `Layer.svelte` (`src/lib/utils/Layer.svelte`) rather than writing hover/press opacity by hand. It listens for `.m3-layer` on its parent, already respects `prefers-reduced-motion` for the ripple, and its tint (hover 0.08, focus and pressed 0.10) matches the M3 state-layer tokens — don't retune those numbers per component. Its tint only reacts to real `:hover`/`:focus-visible`/`:active`, and no Tailwind class can drive it (its CSS is unlayered and beats `@layer utilities`). For a highlight that follows an attribute while focus stays elsewhere (a combobox's `data-selected`/`data-highlighted` option), fill the item: `data-selected:bg-md-sys-color-on-surface/10`, as menus and `commandItem` do.
 - **Icons** — always `Icon.svelte`, never a raw `<span class="material-symbols-...">` or an inline SVG for a Material Symbol.
   - `name` is typed (`MaterialSymbolName`), so a typo is a type error. A `string[]` of names needs `as const` or `satisfies MaterialSymbolName[]`.
   - Show state with `fill` (0 → 1 on the selected item; it animates), not a weight change.
@@ -70,6 +70,41 @@ See `/docs/pane` in the showcase site for the full prop reference and worked exa
 ### Clearing the rail
 
 A viewport-anchored `Rail` publishes `--md-rail-inset` on `<html>`: 0 below `md`, the collapsed 96dp on medium windows (the expanded rail is modal there and overlays), and its live width from `lg` (it pushes content, in step with its spring). `App`'s shell pads by it and `AppBar` starts at it. Never add `md:ml-24` or similar to a page, a `PaneGrid` or an app bar. A custom shell uses `ps-(--md-rail-inset)`; another fixed surface spanning the window uses `left-(--md-rail-inset)`. A rail with `anchor="parent"` renders a spacer beside itself instead, so it and its content go in a flex row.
+
+## Search, command palette and keyboard shortcuts
+
+Two components take a typed query over a list. Pick by what the user is looking for, not by
+looks:
+
+| The user wants to…                                            | Component                                    | Why                                                                                                                                                    |
+| ------------------------------------------------------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Find **content** (records, pages, products, people)           | `Search` with `results` (or search `AppBar`) | M3 search. The app filters (you render `results`), Enter with nothing highlighted calls `onsearch(query)`, the query stays in the bar                  |
+| **Do** something or **go** somewhere (commands, destinations) | `CommandDialog` + `CommandItem`s             | Not M3; built from M3 parts. bits-ui filters and ranks, the best match is always highlighted so Enter always runs one, the query is discarded on close |
+| A central search entry point in a page body, not the top bar  | `Search` placed in the page                  | The view docks where the bar sits (medium+) or goes full-screen (compact); it doesn't need an `AppBar`                                                 |
+
+Don't make the palette the app's search: it can't search for exactly what was typed, and it only
+filters items already rendered. Don't fill a search view with actions. Having both is normal; a
+palette may end with a "Search for “…”" item that hands the query to search.
+
+Page-wide keys, all built on `src/lib/utils/shortcut.ts` (`triggersShortcut`, `matchesShortcut`,
+`ariaKeyShortcut`, `shortcutLabel`), each on by default and off with `null`:
+
+| Key              | Component                 | Prop                          |
+| ---------------- | ------------------------- | ----------------------------- |
+| `/`              | `Search`, search `AppBar` | `shortcut` / `searchShortcut` |
+| ⌘K / Ctrl+K      | `CommandDialog`           | `shortcut`                    |
+| ⌘1–⌘9 / Ctrl+1–9 | `Rail` (Nth destination)  | `shortcutModifier`            |
+
+- Write shortcuts like `aria-keyshortcuts`, with `Mod` for ⌘ on Apple and Ctrl elsewhere
+  (`'Mod+K'`). Never bind the Windows/Super key: the OS owns it.
+- A new page-wide shortcut goes through `triggersShortcut(e, shortcut, ownerEl)` on
+  `<svelte:window onkeydown>`. It already skips bare keys while typing in a field, IME
+  composition, repeats, and any open modal the owner isn't inside. Set `aria-keyshortcuts` on the
+  control it activates, resolving `Mod` on the client (`isApplePlatform()` in an `$effect`) so SSR
+  and hydration agree.
+- One owner per key per page: with two `Search` bars, pass `shortcut={null}` to all but one.
+- Show a shortcut with `shortcutLabel()` (`⌘K` / `Ctrl+K`), e.g. in a `Kbd` or `CommandItem`'s
+  `shortcut`.
 
 ## Before exporting a new component
 

@@ -7,16 +7,25 @@
   import CommandGroup from './CommandGroup.svelte';
   import CommandItem from './CommandItem.svelte';
   import CommandSeparator from './CommandSeparator.svelte';
+  import CommandDialog from './CommandDialog.svelte';
+  import Kbd from '../../typography/kbd/Kbd.svelte';
+  import Button from '../../buttons/Button.svelte';
+  import { shortcutLabel } from '$lib/utils/shortcut.js';
   import Icon from '$lib/utils/icon/Icon.svelte';
-  import { command } from './theme.js';
-
-  const { itemIcon } = command();
 
   const { Story } = defineMeta({
     title: 'Forms/Command',
-    tags: ['autodocs'],
     component: Command
   });
+</script>
+
+<script lang="ts">
+  let paletteOpen = $state(false);
+  let ran = $state('');
+  const run = (name: string) => {
+    ran = name;
+    paletteOpen = false;
+  };
 </script>
 
 <Story name="Playground" asChild>
@@ -27,35 +36,85 @@
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandGroup heading="Suggestions">
           <CommandItem value="calendar">
-            <Icon name="calendar_today" class={itemIcon()} />
+            {#snippet leading()}<Icon name="calendar_today" />{/snippet}
             Calendar
           </CommandItem>
           <CommandItem value="search-emoji">
-            <Icon name="mood" class={itemIcon()} />
+            {#snippet leading()}<Icon name="mood" />{/snippet}
             Search Emoji
           </CommandItem>
           <CommandItem value="calculator">
-            <Icon name="calculate" class={itemIcon()} />
+            {#snippet leading()}<Icon name="calculate" />{/snippet}
             Calculator
           </CommandItem>
         </CommandGroup>
         <CommandSeparator />
         <CommandGroup heading="Settings">
           <CommandItem value="profile">
-            <Icon name="person" class={itemIcon()} />
+            {#snippet leading()}<Icon name="person" />{/snippet}
             Profile
           </CommandItem>
           <CommandItem value="billing">
-            <Icon name="credit_card" class={itemIcon()} />
+            {#snippet leading()}<Icon name="credit_card" />{/snippet}
             Billing
           </CommandItem>
           <CommandItem value="settings">
-            <Icon name="settings" class={itemIcon()} />
+            {#snippet leading()}<Icon name="settings" />{/snippet}
             Settings
           </CommandItem>
         </CommandGroup>
       </CommandList>
     </Command>
+  </div>
+</Story>
+
+<!--
+  Press ⌘K (Ctrl+K off Apple platforms) anywhere in the story, or the button. Arrow keys move the
+  highlight, Enter runs the command, Esc or ⌘K again closes it.
+-->
+<Story
+  name="Dialog"
+  asChild
+  parameters={{ layout: 'fullscreen', docs: { story: { inline: false, height: '520px' } } }}
+>
+  <div
+    class="gap-spacing-200 p-spacing-300 md-sys-typescale-body-medium text-md-sys-color-on-surface flex min-h-dvh flex-col items-start"
+  >
+    <Button variant="tonal" onclick={() => (paletteOpen = true)}>
+      Open the palette <Kbd position="relative">{shortcutLabel('Mod+K')}</Kbd>
+    </Button>
+    <p class="text-md-sys-color-on-surface-variant">{ran ? `Ran: ${ran}` : 'Nothing run yet'}</p>
+    <CommandDialog bind:open={paletteOpen}>
+      <CommandInput placeholder="Type a command or search..." />
+      <CommandList>
+        <CommandEmpty>No results found.</CommandEmpty>
+        <CommandGroup heading="Suggestions">
+          <CommandItem value="calendar" onSelect={() => run('Calendar')}>
+            {#snippet leading()}<Icon name="calendar_today" />{/snippet}
+            Calendar
+          </CommandItem>
+          <CommandItem value="calculator" onSelect={() => run('Calculator')}>
+            {#snippet leading()}<Icon name="calculate" />{/snippet}
+            Calculator
+          </CommandItem>
+        </CommandGroup>
+        <CommandSeparator />
+        <CommandGroup heading="Settings">
+          <CommandItem
+            value="profile"
+            supporting="Name, photo and email"
+            onSelect={() => run('Profile')}
+          >
+            {#snippet leading()}<Icon name="person" />{/snippet}
+            Profile
+          </CommandItem>
+          <CommandItem value="settings" shortcut="Mod+," onSelect={() => run('Settings')}>
+            {#snippet leading()}<Icon name="settings" />{/snippet}
+            Settings
+          </CommandItem>
+        </CommandGroup>
+      </CommandList>
+    </CommandDialog>
   </div>
 </Story>
 

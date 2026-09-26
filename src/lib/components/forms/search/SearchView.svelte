@@ -12,7 +12,8 @@ open a view from a bar of your own, passing that bar as `anchor`.
   the `spatial` spring; a crossfade under reduced motion.
 - **Behavior.** A bits-ui `Dialog`: focus stays in the view, the page doesn't scroll, and Esc, the
   back button or a click outside closes it. The field is a combobox over the `results` listbox:
-  arrow keys move through the `role="option"` items and Enter picks one.
+  arrow keys move through the `role="option"` items and Enter picks one. Enter with no item
+  highlighted searches for the query as typed (`onsearch`).
 
 @see https://m3.material.io/components/search/specs
 -->
@@ -39,7 +40,8 @@ open a view from a bar of your own, passing that bar as `anchor`.
     clearLabel = 'Clear search',
     trailing,
     inputProps,
-    inputRef = $bindable()
+    inputRef = $bindable(),
+    onsearch
   }: SearchViewProps = $props();
 
   const listboxId = `${uid}-listbox`;
@@ -167,6 +169,9 @@ open a view from a bar of your own, passing that bar as `anchor`.
     } else if (e.key === 'Enter' && active?.isConnected) {
       e.preventDefault();
       active.click();
+    } else if (e.key === 'Enter' && onsearch && value?.trim()) {
+      e.preventDefault();
+      onsearch(value);
     }
   }
 

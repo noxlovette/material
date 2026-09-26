@@ -49,6 +49,13 @@ export type RailProps = RailVariants &
     /** Tooltip and accessible name of the toggle while expanded. Default 'Collapse navigation'. */
     collapseLabel?: string;
     /**
+     * Modifier for the destination shortcuts: it plus 1–9 goes to the Nth destination. `Mod` is
+     * ⌘ on Apple platforms and Ctrl elsewhere; combine with `+`, e.g. `'Alt+Shift'`. The Windows
+     * and Super keys belong to the OS there, so they aren't used. `null` turns them off.
+     * @default 'Mod'
+     */
+    shortcutModifier?: string | null;
+    /**
      * @deprecated No effect: Rail no longer renders a navigation bar below `md`. Mount a `Navbar`
      * next to it for small windows.
      */

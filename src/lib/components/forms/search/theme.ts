@@ -45,9 +45,11 @@ export const searchView = tv({
       'md-sys-typescale-body-large text-md-sys-color-on-surface placeholder:text-md-sys-color-on-surface-variant ms-spacing-50 me-spacing-50 w-full min-w-spacing-0 bg-transparent outline-none [&::-webkit-search-cancel-button]:hidden',
     trailing: 'text-md-sys-color-on-surface-variant flex shrink-0 items-center',
     // Options sit on the view's container colour, not the list's own surface. The one the arrow
-    // keys are on gets the M3 focus indicator, drawn inside the item.
+    // keys are on gets the M3 focus indicator, drawn inside the item, and a focused item's shape.
+    // `outline-solid` is load-bearing: ListItem's `outline-none` sets --tw-outline-style to none,
+    // which `outline-3` reads, so without it the ring has a width and colour but no style.
     results:
-      'min-h-spacing-0 overflow-y-auto overscroll-contain [&_[role=option]:not([aria-disabled=true])]:bg-transparent [&_[data-highlighted]]:outline-3 [&_[data-highlighted]]:-outline-offset-3 [&_[data-highlighted]]:outline-md-sys-color-secondary'
+      'min-h-spacing-0 overflow-y-auto overscroll-contain [&_[role=option]:not([aria-disabled=true])]:bg-transparent [&_[data-highlighted]]:outline-solid [&_[data-highlighted]]:outline-3 [&_[data-highlighted]]:-outline-offset-3 [&_[data-highlighted]]:outline-md-sys-color-secondary [&_[data-highlighted]]:[--li-shape:1rem]'
   },
   variants: {
     hasTrailing: { true: '', false: { input: 'me-spacing-150' } }

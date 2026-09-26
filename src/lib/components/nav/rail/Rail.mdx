@@ -113,3 +113,9 @@ uses `ps-(--md-rail-inset)` / `left-(--md-rail-inset)`.
 - **Keyboard.** Every item is a link reachable with Tab; the focus ring goes around the
   indicator. The menu toggle is a real button with `aria-expanded`, and Escape closes the modal
   rail.
+- **Destination shortcuts.** ⌘1–⌘9 (Ctrl+1–9 off Apple platforms) go to the first nine
+  destinations, exactly as clicking them would; each link carries `aria-keyshortcuts`. A disabled
+  destination keeps its number and does nothing. `shortcutModifier` changes the modifier
+  (`'Alt'`, `'Alt+Shift'`…), `null` turns them off. The Windows/Super key isn't offered: the OS
+  owns Win+1–9. In a normal browser tab, ⌘/Ctrl+1–9 may also be the browser's own tab switch, which a page can't
+  always override; they're dependable in an installed PWA or a desktop shell (Tauri, Electron).

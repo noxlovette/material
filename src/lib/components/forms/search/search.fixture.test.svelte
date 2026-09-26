@@ -10,11 +10,13 @@
     open = $bindable(false),
     value = $bindable(''),
     picked = $bindable(''),
+    searched = $bindable(''),
     layout
   }: {
     open?: boolean;
     value?: string;
     picked?: string;
+    searched?: string;
     layout?: Responsive<SearchLayout>;
   } = $props();
 
@@ -22,7 +24,7 @@
 </script>
 
 <Tooltip.Provider>
-  <Search bind:open bind:value {layout} placeholder="Search fruit">
+  <Search bind:open bind:value {layout} placeholder="Search fruit" onsearch={(q) => (searched = q)}>
     {#snippet results(listbox)}
       <List {...listbox}>
         {#each fruits.filter((f) => f
