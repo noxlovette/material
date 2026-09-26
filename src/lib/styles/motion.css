@@ -362,7 +362,12 @@
   animation-name: none !important;
 }
 
-/* Filled with the destination's own background while it morphs (set by containerTransform). */
+/*
+  Filled with the destination's own background while it morphs, and elevated with its shadow
+  (or the source's), which Motion's crop clip would otherwise cut out of the snapshots. Both set
+  by containerTransform.
+*/
 ::view-transition-group(.md-container-transform) {
   background-color: var(--md-container-transform-color, transparent);
+  box-shadow: var(--md-container-transform-shadow, none);
 }
