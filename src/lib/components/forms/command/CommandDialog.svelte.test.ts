@@ -50,7 +50,7 @@ describe('CommandDialog', () => {
 describe('command item', () => {
   it('styles the attributes bits-ui actually sets (data-selected="", not "true")', () => {
     const item = commandItem().base().split(' ');
-    expect(item).toContain('[&[data-selected]>.tint]:opacity-10');
+    expect(item).toContain('data-selected:bg-md-sys-color-on-surface/10');
     expect(item.some((c) => c.includes('=true'))).toBe(false);
   });
 

@@ -1,0 +1,90 @@
+import { Meta, Title, Subtitle, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as CommandStories from './Command.stories.svelte';
+import CommandItem from './CommandItem.svelte';
+import CommandDialog from './CommandDialog.svelte';
+
+<Meta of={CommandStories} />
+
+<Title />
+
+<Subtitle>
+  A command palette: type to filter a known set of actions and destinations, then run one.
+</Subtitle>
+
+`import { Command, CommandDialog, CommandInput, CommandList, CommandGroup, CommandItem, CommandEmpty, CommandSeparator } from '@noxlovette/material';`
+
+Not an M3 component. M3 has no command palette, so this one is assembled from M3 parts: the
+items are M3 list items, and `CommandDialog` takes the docked search view's width (360–720dp), a
+modal dialog's scrim, extra-large shape and enter/exit motion. Filtering, ranking and keyboard
+navigation come from bits-ui's `Command`.
+
+<Canvas of={CommandStories.Playground} />
+
+<Controls of={CommandStories.Playground} />
+
+## Search or command palette?
+
+They look alike, a field over a list, but they answer different questions. Use both in one app
+if it has both kinds of need.
+
+|                       | `Search` (bar + search view)                                                    | `CommandDialog` (palette)                                         |
+| --------------------- | ------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| Answers               | "Where is the thing that matches this?"                                         | "What do I want to do, or where do I want to go?"                 |
+| Items                 | App content: open-ended, often fetched, rich rows                               | A finite, known set of actions and destinations                   |
+| Filtering             | Yours: you render the matches in `results`                                      | The component's: bits-ui scores and sorts the items               |
+| Enter, nothing picked | Searches for the query as typed (`onsearch`)                                    | Can't happen: the best match is always highlighted, Enter runs it |
+| The query             | Stays in the bar; it's part of the page's state                                 | Thrown away on close                                              |
+| Where it lives        | On the page or in the search `AppBar`, visible                                  | Nowhere until summoned; one per app                               |
+| Page-wide key         | `/`                                                                             | ⌘K (Ctrl+K off Apple platforms)                                   |
+| M3                    | [Search](https://m3.material.io/components/search/overview), spec'd with motion | None; built from M3 parts                                         |
+
+Rules of thumb:
+
+- **Content goes in search, commands go in the palette.** "Invoices from March" is a search.
+  "New invoice", "Go to settings", "Toggle dark theme" are commands.
+- **Don't use the palette as the app's search.** Its first match is always highlighted, so it
+  can't search for exactly what was typed, and its filter only sees items already rendered.
+- **Don't use search as a launcher.** A search view's suggestions are content, and a bar
+  on every page for actions is the wrong emphasis.
+- **Both at once is fine.** A palette can end with a "Search for “…”" item that hands the query
+  to search.
+
+## Items
+
+Each `CommandItem` is an M3 list item: its children are the headline, with an optional `leading`
+icon, `supporting` second line, and `trailingText`. `shortcut` shows a keyboard shortcut at the end,
+labelled for the platform (`⌘,` on a Mac, `Ctrl+,` elsewhere). It's only shown; bind the key
+yourself.
+
+```svelte
+<CommandItem value="settings" shortcut="Mod+," onSelect={openSettings}>
+  {#snippet leading()}<Icon name="settings" />{/snippet}
+  Settings
+</CommandItem>
+```
+
+The highlighted item, from the arrow keys or the pointer, takes a focused item's look: a 10%
+on-surface fill and the 12dp shape. Focus itself stays in the input.
+
+<ArgTypes of={CommandItem} />
+
+## Dialog
+
+`CommandDialog` wraps `Command` in a modal overlay opened with ⌘K from anywhere, including from
+inside a text field. ⌘K again, Esc or a click on the scrim closes it. Close it yourself from an
+item's `onSelect` (`bind:open`). `shortcut` changes the keys; `null` turns them off.
+
+<Canvas of={CommandStories.Dialog} />
+
+<ArgTypes of={CommandDialog} />
+
+## Accessibility
+
+- **Combobox.** The input is a `combobox` over the `listbox`, with `aria-activedescendant` on the
+  highlighted item, so screen readers follow the arrow keys while focus stays in the field.
+- **Dialog.** `CommandDialog` is a modal dialog named by `label` (default "Command palette") and
+  keeps focus inside while open.
+- **Shortcut.** ⌘K doesn't fire while another modal dialog is open, so it never opens on top of
+  a search view or a confirmation dialog.
+- **Keys.** ↑/↓ move through the items, Home/End jump to the first and last, Enter runs the
+  highlighted one.

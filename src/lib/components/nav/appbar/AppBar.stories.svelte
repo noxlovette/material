@@ -36,6 +36,7 @@
   const products = ['Headphones', 'Keyboard', 'Laptop stand', 'Monitor', 'Mouse', 'Webcam'];
   let query = $state('');
   let searchOpen = $state(false);
+  let searched = $state('');
   const found = $derived(products.filter((p) => p.toLowerCase().includes(query.toLowerCase())));
 </script>
 
@@ -132,13 +133,26 @@
   </AppBar>
 </Story>
 
-<!-- Selecting the search field opens the search view: full-screen here, docked from medium up. -->
+<!--
+  Selecting the search field (or / anywhere) opens the search view: full-screen here, docked from
+  medium up. Enter with no suggestion highlighted searches for what was typed (onsearch).
+-->
 <Story
   name="Search view"
   asChild
   parameters={{ docs: { story: { inline: false, height: '560px' } } }}
 >
-  <AppBar search="Search products" title="Products" bind:query bind:searchOpen ghost>
+  <AppBar
+    search="Search products"
+    title="Products"
+    bind:query
+    bind:searchOpen
+    ghost
+    onsearch={(q) => {
+      searched = q;
+      searchOpen = false;
+    }}
+  >
     {#snippet leading()}
       <ButtonIcon variant="standard" iconProps={{ name: 'menu' }} aria-label="Menu" />
     {/snippet}
@@ -146,6 +160,14 @@
       <ButtonIcon variant="standard" iconProps={{ name: 'mic' }} aria-label="Voice search" />
     {/snippet}
     {#snippet searchResults(listbox)}
+      {#if !found.length}
+        <p
+          class="md-sys-typescale-body-medium text-md-sys-color-on-surface-variant p-spacing-200"
+          role="status"
+        >
+          No products match “{query}”. Press Enter to search anyway.
+        </p>
+      {/if}
       <List {...listbox}>
         {#each found as product (product)}
           <ListItem
@@ -154,6 +176,7 @@
             headline={product}
             onclick={() => {
               query = product;
+              searched = product;
               searchOpen = false;
             }}
           />
@@ -161,6 +184,11 @@
       </List>
     {/snippet}
   </AppBar>
+  <p
+    class="md-sys-typescale-body-medium text-md-sys-color-on-surface-variant pt-spacing-900 ps-spacing-200"
+  >
+    {searched ? `Searched for “${searched}”` : 'Nothing searched yet'}
+  </p>
 </Story>
 
 <Story name="Scroll container" asChild>

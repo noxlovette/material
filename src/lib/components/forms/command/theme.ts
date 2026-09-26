@@ -24,15 +24,16 @@ export const command = tv({
 /*
   Palette items are M3 list items (ListItem's anatomy, shape and type), sitting on the palette's
   container colour. Focus stays in the input, so the item the arrow keys or pointer are on
-  (bits-ui's `data-selected`, an empty attribute) takes the focused item's state: the 10% state
-  layer and the 12dp hover shape, the way menus show their highlighted item.
+  (bits-ui's `data-selected`, an empty attribute) takes the focused item's state: a 10% on-surface
+  fill and the 12dp hover shape, the way menus show their highlighted item. A fill, not Layer's
+  tint: Layer's styles are unlayered component CSS, which beats any Tailwind utility.
 */
 export const commandItem = tv({
   extend: listItem,
   slots: {
     base: [
       'cursor-default select-none outline-none',
-      'data-selected:[--li-shape:0.75rem] [&[data-selected]>.tint]:opacity-10'
+      'data-selected:[--li-shape:0.75rem] data-selected:bg-md-sys-color-on-surface/10'
     ]
   },
   // The list's own surface fill is a variant, so it's replaced here, not in the base.

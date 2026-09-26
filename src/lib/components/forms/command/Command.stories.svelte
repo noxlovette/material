@@ -15,7 +15,6 @@
 
   const { Story } = defineMeta({
     title: 'Forms/Command',
-    tags: ['autodocs'],
     component: Command
   });
 </script>
