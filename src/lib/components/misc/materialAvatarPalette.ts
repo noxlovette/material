@@ -17,8 +17,25 @@ const CONTAINER_TOKENS = [
 /** Used server-side, or if a token hasn't been painted yet (styles not loaded). */
 const FALLBACK_PALETTE = ['e9ddff', 'e8def8', 'ffd9e3', 'ffdad6', 'e6e0e9'];
 
-/** Converts the `rgb(r g b)` (or `rgb(r, g, b)`) format these tokens are always defined in to hex. */
-function rgbStringToHex(value: string): string | undefined {
+/**
+ * Converts a token's resolved value to a 6-digit hex. Dev serves the tokens as written in the
+ * theme CSS, `rgb(r g b)` (or `rgb(r, g, b)`), but a production build's CSS minifier rewrites
+ * them to hex (`#d1e5f3`, or the short `#fff`): pulling the numbers out of a hex string reads
+ * its digit runs as channels and yields a near-black colour, so hex is handled on its own.
+ */
+function colorToHex(value: string): string | undefined {
+  const hex = value.match(/^#([0-9a-f]{3,8})$/i)?.[1];
+  if (hex) {
+    if (hex.length === 3 || hex.length === 4) {
+      return [...hex.slice(0, 3)]
+        .map((c) => c + c)
+        .join('')
+        .toLowerCase();
+    }
+    // 6 digits, or 8 with alpha (dropped: DiceBear takes opaque backgrounds).
+    return hex.length === 6 || hex.length === 8 ? hex.slice(0, 6).toLowerCase() : undefined;
+  }
+
   const channels = value.match(/\d+(?:\.\d+)?/g);
   if (!channels || channels.length < 3) return undefined;
   return channels
@@ -42,7 +59,7 @@ export function getMaterialAvatarPalette(): string[] {
   const styles = getComputedStyle(document.documentElement);
   const palette = CONTAINER_TOKENS.map((token) => {
     const raw = styles.getPropertyValue(token).trim();
-    return raw ? rgbStringToHex(raw) : undefined;
+    return raw ? colorToHex(raw) : undefined;
   }).filter((hex): hex is string => Boolean(hex));
 
   return palette.length > 0 ? palette : FALLBACK_PALETTE;
