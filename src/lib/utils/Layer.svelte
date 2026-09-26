@@ -194,7 +194,9 @@
       :global(input:disabled + .layer-container) > .tint,
       :global(:disabled) > .tint
     ) {
-      @media (hover: hover) {
+      /* pointer: fine too — some touch phones report hover: hover, and a
+         tapped element keeps :hover until the next tap elsewhere (#48). */
+      @media (hover: hover) and (pointer: fine) {
         &:is(:global(:hover) > .tint, :global(:active) > .tint) {
           opacity: 0.08;
         }

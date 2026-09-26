@@ -2,7 +2,7 @@ import { tv } from '$lib/utils/tv.js';
 
 export const navbar = tv({
   slots: {
-    base: 'shadow-elevation-2 bg-md-sys-color-surface-container z-layer-bar flex h-20 fixed bottom-spacing-0 w-full left-spacing-0 justify-around py-spacing-150 md:hidden',
+    base: 'md-vt-persist shadow-elevation-2 bg-md-sys-color-surface-container z-layer-bar flex h-20 fixed bottom-spacing-0 w-full left-spacing-0 justify-around py-spacing-150 md:hidden',
     items: 'flex justify-around w-full',
     fab: 'bottom-24 right-spacing-200 absolute',
     ghost: 'h-20 w-full shrink-0 md:hidden pointer-events-none'

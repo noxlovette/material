@@ -29,12 +29,34 @@ export interface SharedAxisOptions extends NavigationOptions {
 
 const SHARED_AXIS_OFFSET_PX = 30;
 
+/* While a navigation transition runs, `.md-vt-persist` chrome (Navbar, Rail, AppBar, …) gets
+   its own static layer above the page's (motion.css). Counted, since transitions queue. */
+const NAVIGATING = 'md-navigation-transition';
+let navigating = 0;
+// Motion types the builder's `then` as resolving to nothing, but it hands over the running
+// animation, whose `finished` is the end of the transition.
+type Started = { then?(resolve: () => void, reject?: () => void): unknown };
+const markNavigating = (builder: Started) => {
+  const root = document.documentElement;
+  navigating++;
+  root.classList.add(NAVIGATING);
+  new Promise<unknown>((resolve, reject) =>
+    builder.then ? builder.then(resolve as () => void, reject) : resolve(undefined)
+  )
+    .then((animation) => (animation as { finished?: Promise<unknown> } | undefined)?.finished)
+    .catch(() => {})
+    .finally(() => {
+      if (--navigating === 0) root.classList.remove(NAVIGATING);
+    });
+};
+
 const view = (
   update: () => void | Promise<void>,
   target: ViewTransitionTargetDefinition | undefined,
   spring: SpringToken
 ) => {
   const builder = animateView(update, springTransition(spring));
+  markNavigating(builder);
   return target ? builder.add(target) : builder;
 };
 
@@ -172,7 +194,8 @@ export const lateral = (
  * instead of `lateral` there.
  *
  * Not built into `Navbar`/`Rail`: they don't own the content region that changes, so the app wraps
- * its own route change in this.
+ * its own route change in this. They, the AppBar and a docked Toolbar stay still and on top while
+ * it runs; give a fixed floating Toolbar or FAB the `md-vt-persist` class for the same (motion.css).
  *
  * The `target` region swaps its box instantly instead of sliding or resizing to the new page's:
  * that movement would be exactly the spatial connection this pattern avoids, and after a

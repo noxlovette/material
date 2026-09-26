@@ -9,7 +9,8 @@ open a view from a bar of your own, passing that bar as `anchor`.
   from 24dp to 12dp) with results in a container 2dp below. `layout` takes one per window tier and
   defaults to full-screen on compact windows, docked from medium up. Switched in CSS.
 - **Motion.** Opening and closing are an M3 container transform between the bar and the view, on
-  the `spatial` spring; a crossfade under reduced motion.
+  the `spatial` spring; a crossfade under reduced motion. Following a result link closes it at
+  once, leaving the route change to the app's own transition.
 - **Behavior.** A bits-ui `Dialog`: focus stays in the view, the page doesn't scroll, and Esc, the
   back button or a click outside closes it. The field is a combobox over the `results` listbox:
   arrow keys move through the `role="option"` items and Enter picks one. Enter with no item
@@ -58,11 +59,19 @@ open a view from a bar of your own, passing that bar as `anchor`.
   let shown = $state(untrack(() => open));
   let view = $state<HTMLElement>();
   let busy = false;
+  // Closing because a result link was followed: no transform, and focus doesn't go back to the bar.
+  let leaving = false;
+
+  const detached = (target: HTMLElement | string | undefined) =>
+    !target || (typeof target !== 'string' && !target.isConnected);
 
   const sync = () => {
     if (busy || open === shown) return;
     const opening = open;
-    if (opening) measure();
+    if (opening) {
+      leaving = false;
+      measure();
+    }
     const update = async () => {
       // The view takes the bar's place: hidden, the bar isn't left behind in the page's snapshot
       // (a second, static bar under the morph). Shown again first on close, so focus can return.
@@ -77,8 +86,18 @@ open a view from a bar of your own, passing that bar as `anchor`.
       busy = false;
       sync();
     };
-    if (!from || !to) update().then(settle, settle);
-    else containerTransform(update, { from, to }).then(settle, settle);
+    // Without both ends on the page (the bar unmounted by a navigation) there is nothing to morph
+    // between; a transform that can't start must still close the view, or the Dialog keeps the
+    // page locked (#51).
+    if ((leaving && !opening) || detached(from) || detached(to)) {
+      update().then(settle, settle);
+      return;
+    }
+    try {
+      containerTransform(update, { from: from!, to: to! }).then(settle, settle);
+    } catch {
+      update().then(settle, settle);
+    }
   };
 
   $effect(() => {
@@ -185,9 +204,36 @@ open a view from a bar of your own, passing that bar as `anchor`.
   // Back to the bar's field. The bar opens on click or typing, never on focus, so this is safe.
   function focusBar(e: Event) {
     e.preventDefault();
+    // Following a result: the page is changing, and focusing a field would raise the keyboard.
+    if (leaving) {
+      leaving = false;
+      return;
+    }
     const field = anchor instanceof HTMLInputElement ? anchor : anchor?.querySelector('input');
     field?.focus();
   }
+
+  /*
+    Picking a result that is a link navigates away, so the view closes at once instead of morphing
+    back into a bar that's about to leave. A morph there would run alongside the route's own view
+    transition and, if the bar's page unmounts, never finish (#51). The click still reaches the
+    link, since the view unmounts only after this event. New-tab and download clicks keep it open.
+  */
+  $effect(() => {
+    const el = resultsEl;
+    if (!el) return;
+    const onclick = (e: MouseEvent) => {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey)
+        return;
+      const link = (e.target as Element | null)?.closest?.('a[href]');
+      if (!(link instanceof HTMLAnchorElement) || !el.contains(link)) return;
+      if ((link.target && link.target !== '_self') || link.hasAttribute('download')) return;
+      leaving = true;
+      open = false;
+    };
+    el.addEventListener('click', onclick);
+    return () => el.removeEventListener('click', onclick);
+  });
 
   function clear() {
     value = '';

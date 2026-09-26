@@ -12,12 +12,14 @@ export const menu = tv({
     content: `
       bg-md-sys-color-surface-container-high shadow-elevation-3
       ring-md-sys-color-outline/10 max-w-sm min-w-48 gap-spacing-50
-      overflow-y-auto rounded-lg px-spacing-100 py-spacing-50
+      overflow-y-auto rounded-lg px-spacing-100 py-spacing-50 outline-none
     `,
+    // No `hover:` fill: bits-ui sets `data-highlighted` on mouse hover already,
+    // and a `:hover` tint sticks to the last-tapped row on touch screens (#48).
     item: `
       rounded-sm h-11 relative flex w-full cursor-pointer items-center gap-spacing-100 px-spacing-150 py-spacing-100
       md-sys-typescale-body-medium whitespace-nowrap text-md-sys-color-on-surface
-      hover:bg-md-sys-color-on-surface/8 data-[highlighted]:bg-md-sys-color-on-surface/8
+      data-[highlighted]:bg-md-sys-color-on-surface/8
       focus-visible:outline-2 focus-visible:outline-offset-2
       focus-visible:outline-md-sys-color-primary
       data-[disabled]:cursor-not-allowed data-[disabled]:opacity-38

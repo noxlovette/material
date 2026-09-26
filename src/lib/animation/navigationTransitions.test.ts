@@ -81,4 +81,14 @@ describe('navigation transitions', () => {
     expect(calls).toContainEqual(['add', '.card', '.detail']);
     expect(calls).toContainEqual(['layout', { duration: 0 }]);
   });
+
+  it('marks the root while a navigation runs, so app chrome gets a static layer', async () => {
+    const root = document.documentElement;
+    fadeThrough(update, { target: 'main' });
+    expect(root.classList.contains('md-navigation-transition')).toBe(true);
+    await new Promise((r) => setTimeout(r));
+    expect(root.classList.contains('md-navigation-transition')).toBe(false);
+    containerTransform(update, { from: '.card', to: '.detail' });
+    expect(root.classList.contains('md-navigation-transition')).toBe(false);
+  });
 });

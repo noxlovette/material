@@ -41,7 +41,7 @@ export const rail = tv({
   variants: {
     anchor: {
       viewport: {
-        base: 'fixed top-[var(--rail-top,0px)] bottom-spacing-0 left-spacing-0',
+        base: 'md-vt-persist fixed top-[var(--rail-top,0px)] bottom-spacing-0 left-spacing-0',
         scrim: 'fixed'
       },
       parent: {
