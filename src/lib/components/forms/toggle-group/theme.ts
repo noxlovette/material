@@ -19,7 +19,7 @@ export const toggleGroup = tv({
 export const toggleGroupItem = tv({
   slots: {
     base: 'layer-container state-layer relative inline-flex min-w-spacing-600 flex-1 items-center justify-center gap-spacing-100 px-spacing-200 md-sys-typescale-label-large text-md-sys-color-on-surface outline-none transition-colors md-sys-motion-fast-effects disabled:cursor-not-allowed disabled:opacity-38 [&:not(:last-child)]:border-r [&:not(:last-child)]:border-md-sys-color-outline data-[state=on]:bg-md-sys-color-secondary-container data-[state=on]:text-md-sys-color-on-secondary-container',
-    checkIcon: 'size-[18px] text-[18px]',
-    icon: 'size-[18px] text-[18px]'
+    checkIcon: 'size-(--text-icon-18) text-icon-18',
+    icon: 'size-(--text-icon-18) text-icon-18'
   }
 });

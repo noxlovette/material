@@ -112,24 +112,24 @@ export const buttonBase =
 /** Button measurements per size: height, padding, icon-label gap, label type, shape and outline. */
 export const buttonSizes = {
   xs: {
-    base: 'md-sys-typescale-label-large h-spacing-400 gap-spacing-50 px-spacing-150 [--btn-outline:1px] [--btn-pressed:0.5rem] [--btn-round:1rem] [--btn-square:0.75rem]',
-    icon: 'size-spacing-250 text-[20px]'
+    base: 'md-sys-typescale-label-large h-spacing-400 gap-spacing-50 px-spacing-150 [--btn-outline:1px] [--btn-pressed:var(--radius-sm)] [--btn-round:var(--radius-lg)] [--btn-square:var(--radius-md)]',
+    icon: 'size-(--text-icon-20) text-icon-20'
   },
   sm: {
-    base: 'md-sys-typescale-label-large h-spacing-500 gap-spacing-100 px-spacing-200 [--btn-outline:1px] [--btn-pressed:0.5rem] [--btn-round:1.25rem] [--btn-square:0.75rem]',
-    icon: 'size-spacing-250 text-[20px]'
+    base: 'md-sys-typescale-label-large h-spacing-500 gap-spacing-100 px-spacing-200 [--btn-outline:1px] [--btn-pressed:var(--radius-sm)] [--btn-round:var(--radius-lg-increased)] [--btn-square:var(--radius-md)]',
+    icon: 'size-(--text-icon-20) text-icon-20'
   },
   md: {
-    base: 'md-sys-typescale-title-medium h-spacing-700 gap-spacing-100 px-spacing-300 [--btn-outline:1px] [--btn-pressed:0.75rem] [--btn-round:1.75rem] [--btn-square:1rem]',
-    icon: 'size-spacing-300 text-[24px]'
+    base: 'md-sys-typescale-title-medium h-spacing-700 gap-spacing-100 px-spacing-300 [--btn-outline:1px] [--btn-pressed:var(--radius-md)] [--btn-round:var(--radius-xl)] [--btn-square:var(--radius-lg)]',
+    icon: 'size-(--text-icon-24) text-icon-24'
   },
   lg: {
-    base: 'md-sys-typescale-headline-small h-24 gap-spacing-150 px-spacing-600 [--btn-outline:2px] [--btn-pressed:1rem] [--btn-round:3rem] [--btn-square:1.75rem]',
-    icon: 'size-spacing-400 text-[32px]'
+    base: 'md-sys-typescale-headline-small h-24 gap-spacing-150 px-spacing-600 [--btn-outline:2px] [--btn-pressed:var(--radius-lg)] [--btn-round:var(--radius-xxl)] [--btn-square:var(--radius-xl)]',
+    icon: 'size-(--text-icon-32) text-icon-32'
   },
   xl: {
-    base: 'md-sys-typescale-headline-large h-34 gap-spacing-200 px-spacing-800 [--btn-outline:3px] [--btn-pressed:1rem] [--btn-round:4.25rem] [--btn-square:1.75rem]',
-    icon: 'size-spacing-500 text-[40px]'
+    base: 'md-sys-typescale-headline-large h-34 gap-spacing-200 px-spacing-800 [--btn-outline:3px] [--btn-pressed:var(--radius-lg)] [--btn-round:var(--md-comp-button-xl-round-corner)] [--btn-square:var(--radius-xl)]',
+    icon: 'size-(--text-icon-40) text-icon-40'
   }
 } as const;
 
@@ -191,24 +191,24 @@ export const buttonIcon = tv({
     },
     size: {
       xs: {
-        base: 'h-spacing-400 [--btn-outline:1px] [--btn-pressed:0.5rem] [--btn-round:1rem] [--btn-square:0.75rem]',
-        icon: 'size-spacing-250 text-[20px]'
+        base: 'h-spacing-400 [--btn-outline:1px] [--btn-pressed:var(--radius-sm)] [--btn-round:var(--radius-lg)] [--btn-square:var(--radius-md)]',
+        icon: 'size-(--text-icon-20) text-icon-20'
       },
       sm: {
-        base: 'h-spacing-500 [--btn-outline:1px] [--btn-pressed:0.5rem] [--btn-round:1.25rem] [--btn-square:0.75rem]',
-        icon: 'size-spacing-300 text-[24px]'
+        base: 'h-spacing-500 [--btn-outline:1px] [--btn-pressed:var(--radius-sm)] [--btn-round:var(--radius-lg-increased)] [--btn-square:var(--radius-md)]',
+        icon: 'size-(--text-icon-24) text-icon-24'
       },
       md: {
-        base: 'h-spacing-700 [--btn-outline:1px] [--btn-pressed:0.75rem] [--btn-round:1.75rem] [--btn-square:1rem]',
-        icon: 'size-spacing-300 text-[24px]'
+        base: 'h-spacing-700 [--btn-outline:1px] [--btn-pressed:var(--radius-md)] [--btn-round:var(--radius-xl)] [--btn-square:var(--radius-lg)]',
+        icon: 'size-(--text-icon-24) text-icon-24'
       },
       lg: {
-        base: 'h-24 [--btn-outline:2px] [--btn-pressed:1rem] [--btn-round:3rem] [--btn-square:1.75rem]',
-        icon: 'size-spacing-400 text-[32px]'
+        base: 'h-24 [--btn-outline:2px] [--btn-pressed:var(--radius-lg)] [--btn-round:var(--radius-xxl)] [--btn-square:var(--radius-xl)]',
+        icon: 'size-(--text-icon-32) text-icon-32'
       },
       xl: {
-        base: 'h-34 [--btn-outline:3px] [--btn-pressed:1rem] [--btn-round:4.25rem] [--btn-square:1.75rem]',
-        icon: 'size-spacing-500 text-[40px]'
+        base: 'h-34 [--btn-outline:3px] [--btn-pressed:var(--radius-lg)] [--btn-round:var(--md-comp-button-xl-round-corner)] [--btn-square:var(--radius-xl)]',
+        icon: 'size-(--text-icon-40) text-icon-40'
       }
     },
     /** Container width: the icon plus the size's narrow, default or wide leading/trailing space. */
@@ -301,21 +301,21 @@ export const fab = tv({
       /** Baseline small FAB. No longer recommended by M3; kept for dense layouts. */
       small: {
         base: 'h-spacing-500 rounded-xl px-spacing-100',
-        icon: 'size-spacing-300 text-[24px]'
+        icon: 'size-(--text-icon-24) text-icon-24'
       },
       regular: {
         base: 'md-sys-typescale-title-medium h-spacing-700 rounded-2xl px-spacing-200',
-        icon: 'size-spacing-300 text-[24px]',
+        icon: 'size-(--text-icon-24) text-icon-24',
         label: 'ps-spacing-100'
       },
       medium: {
-        base: 'md-sys-typescale-title-large h-20 rounded-[1.25rem] px-[1.625rem]',
-        icon: 'size-7 text-[28px]',
+        base: 'md-sys-typescale-title-large h-20 rounded-lg-increased px-[1.625rem]',
+        icon: 'size-(--text-icon-28) text-icon-28',
         label: 'ps-spacing-150'
       },
       large: {
-        base: 'md-sys-typescale-headline-small h-24 rounded-[1.75rem] px-[1.875rem]',
-        icon: 'size-spacing-450 text-[36px]',
+        base: 'md-sys-typescale-headline-small h-24 rounded-xl px-[1.875rem]',
+        icon: 'size-(--text-icon-36) text-icon-36',
         label: 'ps-spacing-200'
       }
     },
@@ -326,8 +326,8 @@ export const fab = tv({
      */
     menuOpen: {
       true: {
-        base: 'justify-center px-spacing-0 size-spacing-700 rounded-[1.75rem]',
-        icon: 'size-spacing-250 text-[20px]',
+        base: 'justify-center px-spacing-0 size-spacing-700 rounded-xl',
+        icon: 'size-(--text-icon-20) text-icon-20',
         labelTrack: 'grid-cols-[0fr]!'
       },
       false: {}
@@ -418,7 +418,7 @@ export const fabMenu = tv({
 export const fabMenuItem = tv({
   slots: {
     base: 'md-btn md-sys-state-focus-indicator md-sys-typescale-title-medium relative inline-flex h-spacing-700 shrink-0 cursor-pointer items-center gap-spacing-100 rounded-full px-spacing-300 whitespace-nowrap select-none data-disabled:cursor-not-allowed data-disabled:bg-md-sys-color-on-surface/10 data-disabled:text-md-sys-color-on-surface/38',
-    icon: 'size-spacing-300 shrink-0 text-[24px]'
+    icon: 'size-(--text-icon-24) shrink-0 text-icon-24'
   },
   variants: {
     set: {

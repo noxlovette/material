@@ -26,7 +26,7 @@ export const chip = tv({
     // a 16% state layer.
     base: 'in-data-dragged:shadow-elevation-4 in-data-dragged:before:bg-current/16 state-layer md-sys-state-focus-indicator relative inline-flex h-spacing-400 max-w-max shrink-0 items-center justify-center gap-spacing-100 rounded-sm border border-transparent px-spacing-200 md-sys-typescale-label-large select-none before:rounded-sm transition-[background-color,border-color,box-shadow] md-sys-motion-effects',
     // 18dp is the chip spec's own icon size, between the 16 and 20 Icon presets.
-    icon: 'size-[18px] shrink-0 text-[18px]',
+    icon: 'size-(--text-icon-18) shrink-0 text-icon-18',
     avatar: 'size-spacing-300 shrink-0 overflow-hidden rounded-full',
     // Static, so its Layer (state layer and hit area) spans the whole chip; the remove button is
     // positioned and later in the DOM, so it stays on top.

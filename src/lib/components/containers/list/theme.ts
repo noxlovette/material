@@ -24,7 +24,7 @@ export const list = tv({
       standard: '',
       // 2dp between segments; outer corners 16dp (md.comp.list.container.shape).
       segmented:
-        'gap-spacing-25 [&>:first-child]:[--li-top:1rem] [&>:last-child]:[--li-bottom:1rem]'
+        'gap-spacing-25 [&>:first-child]:[--li-top:var(--radius-lg)] [&>:last-child]:[--li-bottom:var(--radius-lg)]'
     }
   },
   defaultVariants: { variant: 'standard' }
@@ -34,7 +34,7 @@ export const listItem = tv({
   slots: {
     base: [
       'relative isolate flex w-full min-w-spacing-0 gap-spacing-150 ps-spacing-200 pe-spacing-200 pt-spacing-125 pb-spacing-125 text-start',
-      '[--li-shape:0.25rem] rounded-t-[var(--li-top,var(--li-shape))] rounded-b-[var(--li-bottom,var(--li-shape))]',
+      '[--li-shape:var(--radius-xs)] rounded-t-[var(--li-top,var(--li-shape))] rounded-b-[var(--li-bottom,var(--li-shape))]',
       'transition-[border-radius,background-color,color] md-sys-motion-fast-spatial',
       'text-md-sys-color-on-surface-variant'
     ],
@@ -78,17 +78,17 @@ export const listItem = tv({
       true: {
         base: [
           'cursor-pointer outline-none',
-          'hover:[--li-shape:0.75rem]',
-          'focus-visible:[--li-shape:1rem]',
+          'hover:[--li-shape:var(--radius-md)]',
+          'focus-visible:[--li-shape:var(--radius-lg)]',
           'focus-visible:outline-solid focus-visible:outline-3 focus-visible:-outline-offset-3 focus-visible:outline-md-sys-color-secondary',
-          'active:[--li-shape:1rem]'
+          'active:[--li-shape:var(--radius-lg)]'
         ]
       },
       false: ''
     },
     selected: {
       true: {
-        base: 'text-md-sys-color-on-secondary-container [--li-shape:1rem] hover:[--li-shape:1rem]',
+        base: 'text-md-sys-color-on-secondary-container [--li-shape:var(--radius-lg)] hover:[--li-shape:var(--radius-lg)]',
         leading: 'text-md-sys-color-on-secondary-container',
         overline: 'text-md-sys-color-on-secondary-container',
         headline: 'text-md-sys-color-on-secondary-container',
@@ -113,10 +113,10 @@ export const listItem = tv({
     expanded: {
       true: {
         // The expanded group is one 16dp container: header on top, nested items below.
-        base: '[--li-top:1rem] [--li-bottom:var(--li-shape)]',
+        base: '[--li-top:var(--radius-lg)] [--li-bottom:var(--li-shape)]',
         expandIcon: 'rotate-180 bg-md-sys-color-surface-container',
         region: 'grid-rows-[1fr]',
-        nested: '[&>:last-child]:[--li-bottom:1rem]'
+        nested: '[&>:last-child]:[--li-bottom:var(--radius-lg)]'
       },
       false: {
         expandIcon: 'bg-md-sys-color-surface',

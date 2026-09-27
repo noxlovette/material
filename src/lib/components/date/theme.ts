@@ -19,7 +19,7 @@ export const dateRangeField = tv({
     leadingIcon: `
       text-md-sys-color-on-surface-variant size-spacing-300
       group-focus-within:text-md-sys-color-primary
-      group-data-[invalid]:text-md-sys-color-error ml-spacing-150 text-[24px]
+      group-data-[invalid]:text-md-sys-color-error ml-spacing-150 text-icon-24
     `,
     trailingIcon: `
       mr-spacing-50 shrink-0 text-md-sys-color-on-surface-variant
@@ -132,7 +132,7 @@ export const dateField = tv({
     leadingIcon: `
       text-md-sys-color-on-surface-variant size-spacing-300
       group-focus-within:text-md-sys-color-primary
-      group-data-[invalid]:text-md-sys-color-error ml-spacing-150 text-[24px]
+      group-data-[invalid]:text-md-sys-color-error ml-spacing-150 text-icon-24
     `,
     trailingIcon: `
       mr-spacing-50 shrink-0 text-md-sys-color-on-surface-variant

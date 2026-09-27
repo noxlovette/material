@@ -6,7 +6,7 @@ export const checkbox = tv({
     container: 'relative inline-flex size-[18px] shrink-0',
     control:
       'layer-container absolute -inset-[11px] rounded-full text-md-sys-color-on-surface-variant state-layer before:rounded-full group-focus-visible:outline group-focus-visible:outline-3 group-focus-visible:outline-offset-2 group-focus-visible:outline-md-sys-color-secondary transition-colors md-sys-motion-fast-effects',
-    box: 'absolute inset-[11px] rounded-[4px] border-2 border-current bg-md-sys-color-surface transition-colors md-sys-motion-fast-effects',
+    box: 'absolute inset-[11px] rounded-xs border-2 border-current bg-md-sys-color-surface transition-colors md-sys-motion-fast-effects',
     checkIcon:
       'pointer-events-none absolute inset-spacing-0 m-auto size-spacing-175 text-md-sys-color-on-primary opacity-0 scale-75',
     indeterminateIcon:

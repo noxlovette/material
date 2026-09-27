@@ -24,11 +24,11 @@ With `transition`, a change of `name` crossfades on a spring instead of swapping
   */
   const sizeMap: Record<IconSize, { cls: string; opsz: number }> = {
     inline: { cls: 'size-[1em] align-[-0.115em]', opsz: 20 },
-    xs: { cls: 'size-spacing-200 text-[16px]', opsz: 20 },
-    sm: { cls: 'size-spacing-250 text-[20px]', opsz: 20 },
-    md: { cls: 'size-spacing-300 text-[24px]', opsz: 24 },
-    lg: { cls: 'size-spacing-500 text-[40px]', opsz: 40 },
-    xl: { cls: 'size-spacing-600 text-[48px]', opsz: 48 }
+    xs: { cls: 'size-(--text-icon-16) text-icon-16', opsz: 20 },
+    sm: { cls: 'size-(--text-icon-20) text-icon-20', opsz: 20 },
+    md: { cls: 'size-(--text-icon-24) text-icon-24', opsz: 24 },
+    lg: { cls: 'size-(--text-icon-40) text-icon-40', opsz: 40 },
+    xl: { cls: 'size-(--text-icon-48) text-icon-48', opsz: 48 }
   };
 
   const {

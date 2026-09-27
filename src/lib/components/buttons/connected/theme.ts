@@ -34,23 +34,38 @@ export const connectedButtonGroupItem = tv({
   variants: {
     size: {
       xs: {
-        base: [buttonSizes.xs.base, '[--cbg-inner:0.5rem] [--cbg-pressed:0.25rem]'],
+        base: [
+          buttonSizes.xs.base,
+          '[--cbg-inner:var(--radius-sm)] [--cbg-pressed:var(--radius-xs)]'
+        ],
         icon: buttonSizes.xs.icon
       },
       sm: {
-        base: [buttonSizes.sm.base, '[--cbg-inner:0.5rem] [--cbg-pressed:0.25rem]'],
+        base: [
+          buttonSizes.sm.base,
+          '[--cbg-inner:var(--radius-sm)] [--cbg-pressed:var(--radius-xs)]'
+        ],
         icon: buttonSizes.sm.icon
       },
       md: {
-        base: [buttonSizes.md.base, '[--cbg-inner:0.5rem] [--cbg-pressed:0.25rem]'],
+        base: [
+          buttonSizes.md.base,
+          '[--cbg-inner:var(--radius-sm)] [--cbg-pressed:var(--radius-xs)]'
+        ],
         icon: buttonSizes.md.icon
       },
       lg: {
-        base: [buttonSizes.lg.base, '[--cbg-inner:1rem] [--cbg-pressed:0.75rem]'],
+        base: [
+          buttonSizes.lg.base,
+          '[--cbg-inner:var(--radius-lg)] [--cbg-pressed:var(--radius-md)]'
+        ],
         icon: buttonSizes.lg.icon
       },
       xl: {
-        base: [buttonSizes.xl.base, '[--cbg-inner:1.25rem] [--cbg-pressed:1rem]'],
+        base: [
+          buttonSizes.xl.base,
+          '[--cbg-inner:var(--radius-lg-increased)] [--cbg-pressed:var(--radius-lg)]'
+        ],
         icon: buttonSizes.xl.icon
       }
     },

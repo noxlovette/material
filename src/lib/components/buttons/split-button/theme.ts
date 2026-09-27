@@ -26,56 +26,62 @@ export const splitButton = tv({
       xs: {
         leading: [
           buttonSizes.xs.base,
-          'ps-spacing-150 pe-spacing-125 [--split-active:0.5rem] [--split-inner:0.25rem]'
+          'ps-spacing-150 pe-spacing-125 [--split-active:var(--radius-sm)] [--split-inner:var(--radius-xs)]'
         ],
         leadingIcon: buttonSizes.xs.icon,
         trailing: [
           buttonSizes.xs.base,
-          'w-spacing-600 [--split-active:0.5rem] [--split-inner:0.25rem]'
+          'w-spacing-600 [--split-active:var(--radius-sm)] [--split-inner:var(--radius-xs)]'
         ],
-        chevron: 'size-[22px] -translate-x-px text-[22px]'
+        chevron: 'size-(--text-icon-22) -translate-x-px text-icon-22'
       },
       sm: {
         leading: [
           buttonSizes.sm.base,
-          'ps-spacing-200 pe-spacing-150 [--split-active:0.75rem] [--split-inner:0.25rem]'
+          'ps-spacing-200 pe-spacing-150 [--split-active:var(--radius-md)] [--split-inner:var(--radius-xs)]'
         ],
         leadingIcon: buttonSizes.sm.icon,
         trailing: [
           buttonSizes.sm.base,
-          'w-spacing-600 [--split-active:0.75rem] [--split-inner:0.25rem]'
+          'w-spacing-600 [--split-active:var(--radius-md)] [--split-inner:var(--radius-xs)]'
         ],
-        chevron: 'size-[22px] -translate-x-px text-[22px]'
+        chevron: 'size-(--text-icon-22) -translate-x-px text-icon-22'
       },
       md: {
         leading: [
           buttonSizes.md.base,
-          'px-spacing-300 [--split-active:0.75rem] [--split-inner:0.25rem]'
+          'px-spacing-300 [--split-active:var(--radius-md)] [--split-inner:var(--radius-xs)]'
         ],
         leadingIcon: buttonSizes.md.icon,
         trailing: [
           buttonSizes.md.base,
-          'w-spacing-700 [--split-active:0.75rem] [--split-inner:0.25rem]'
+          'w-spacing-700 [--split-active:var(--radius-md)] [--split-inner:var(--radius-xs)]'
         ],
-        chevron: 'size-[26px] -translate-x-spacing-25 text-[26px]'
+        chevron: 'size-(--text-icon-26) -translate-x-spacing-25 text-icon-26'
       },
       lg: {
         leading: [
           buttonSizes.lg.base,
-          'px-spacing-600 [--split-active:1.25rem] [--split-inner:0.5rem]'
+          'px-spacing-600 [--split-active:var(--radius-lg-increased)] [--split-inner:var(--radius-sm)]'
         ],
         leadingIcon: buttonSizes.lg.icon,
-        trailing: [buttonSizes.lg.base, 'w-24 [--split-active:1.25rem] [--split-inner:0.5rem]'],
-        chevron: 'size-[38px] -translate-x-[3px] text-[38px]'
+        trailing: [
+          buttonSizes.lg.base,
+          'w-24 [--split-active:var(--radius-lg-increased)] [--split-inner:var(--radius-sm)]'
+        ],
+        chevron: 'size-(--text-icon-38) -translate-x-[3px] text-icon-38'
       },
       xl: {
         leading: [
           buttonSizes.xl.base,
-          'px-spacing-800 [--split-active:1.25rem] [--split-inner:0.75rem]'
+          'px-spacing-800 [--split-active:var(--radius-lg-increased)] [--split-inner:var(--radius-md)]'
         ],
         leadingIcon: buttonSizes.xl.icon,
-        trailing: [buttonSizes.xl.base, 'w-34 [--split-active:1.25rem] [--split-inner:0.75rem]'],
-        chevron: 'size-[50px] -translate-x-spacing-75 text-[50px]'
+        trailing: [
+          buttonSizes.xl.base,
+          'w-34 [--split-active:var(--radius-lg-increased)] [--split-inner:var(--radius-md)]'
+        ],
+        chevron: 'size-(--text-icon-50) -translate-x-spacing-75 text-icon-50'
       }
     }
   },

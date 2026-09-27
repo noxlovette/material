@@ -38,15 +38,15 @@ export const textfield = tv({
     `,
 
     leadingIcon: `
-      text-md-sys-color-on-surface-variant size-spacing-300
+      text-md-sys-color-on-surface-variant size-(--text-icon-24)
       group-focus-within:text-md-sys-color-primary
-      ml-spacing-150 text-[24px]
+      ml-spacing-150 text-icon-24
     `,
 
     trailingIcon: `
-      mr-spacing-150 text-md-sys-color-on-surface-variant size-spacing-300
+      mr-spacing-150 text-md-sys-color-on-surface-variant size-(--text-icon-24)
       group-focus-within:text-md-sys-color-primary
-      z-20 text-[24px]
+      z-20 text-icon-24
     `,
 
     supportingText: `

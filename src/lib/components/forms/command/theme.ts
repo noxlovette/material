@@ -33,7 +33,7 @@ export const commandItem = tv({
   slots: {
     base: [
       'cursor-default select-none outline-none',
-      'data-selected:[--li-shape:0.75rem] data-selected:bg-md-sys-color-on-surface/10'
+      'data-selected:[--li-shape:var(--radius-md)] data-selected:bg-md-sys-color-on-surface/10'
     ]
   },
   // The list's own surface fill is a variant, so it's replaced here, not in the base.
