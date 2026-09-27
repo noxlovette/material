@@ -49,7 +49,7 @@ export const searchView = tv({
     // `outline-solid` is load-bearing: ListItem's `outline-none` sets --tw-outline-style to none,
     // which `outline-3` reads, so without it the ring has a width and colour but no style.
     results:
-      'min-h-spacing-0 overflow-y-auto overscroll-contain [&_[role=option]:not([aria-disabled=true])]:bg-transparent [&_[data-highlighted]]:outline-solid [&_[data-highlighted]]:outline-3 [&_[data-highlighted]]:-outline-offset-3 [&_[data-highlighted]]:outline-md-sys-color-secondary [&_[data-highlighted]]:[--li-shape:1rem]'
+      'min-h-spacing-0 overflow-y-auto overscroll-contain [&_[role=option]:not([aria-disabled=true])]:bg-transparent [&_[data-highlighted]]:outline-solid [&_[data-highlighted]]:outline-3 [&_[data-highlighted]]:-outline-offset-3 [&_[data-highlighted]]:outline-md-sys-color-secondary [&_[data-highlighted]]:[--li-shape:var(--radius-lg)]'
   },
   variants: {
     hasTrailing: { true: '', false: { input: 'me-spacing-150' } }

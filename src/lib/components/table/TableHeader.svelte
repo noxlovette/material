@@ -36,7 +36,7 @@ and `sortDirection` props. Defaults to `scope="col"`.
         ].join(' ')}
         aria-hidden="true"
       >
-        <Icon name="arrow_upward" class="size-[18px] text-[18px]" />
+        <Icon name="arrow_upward" class="text-icon-18 size-(--text-icon-18)" />
       </span>
     {/if}
   </span>

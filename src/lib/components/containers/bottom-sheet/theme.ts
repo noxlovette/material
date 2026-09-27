@@ -21,7 +21,7 @@ export const bottomSheet = tv({
     ],
     container: [
       'bg-md-sys-color-surface-container-low text-md-sys-color-on-surface shadow-elevation-1',
-      'flex max-h-[inherit] flex-col rounded-t-[28px] will-change-transform'
+      'flex max-h-[inherit] flex-col rounded-t-xl will-change-transform'
     ],
     handleArea:
       'flex h-spacing-600 shrink-0 cursor-grab touch-none justify-center active:cursor-grabbing',

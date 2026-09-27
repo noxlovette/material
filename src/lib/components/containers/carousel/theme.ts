@@ -17,7 +17,7 @@ export const carousel = tv({
     snapPoint: 'pointer-events-none absolute top-spacing-0 h-px w-px snap-start',
     viewport: 'sticky left-spacing-0 h-full overflow-clip',
     item: [
-      'text-md-sys-color-on-surface bg-md-sys-color-surface relative block shrink-0 overflow-hidden rounded-[28px] text-start',
+      'text-md-sys-color-on-surface bg-md-sys-color-surface relative block shrink-0 overflow-hidden rounded-xl text-start',
       'md-sys-state-focus-indicator transition-shadow md-sys-motion-effects'
     ],
     content: 'h-full'

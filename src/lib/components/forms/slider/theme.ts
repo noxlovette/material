@@ -44,23 +44,24 @@ export const slider = tv({
       s: { root: '[--track:1.5rem] [--handle:2.75rem] [--outer:var(--radius-sm)]' },
       m: {
         root: '[--track:2.5rem] [--handle:3.25rem] [--outer:var(--radius-md)]',
-        iconGlyph: 'size-spacing-300 text-[24px]'
+        iconGlyph: 'size-(--text-icon-24) text-icon-24'
       },
       l: {
         root: '[--track:3.5rem] [--handle:4.25rem] [--outer:var(--radius-lg)]',
-        iconGlyph: 'size-spacing-300 text-[24px]'
+        iconGlyph: 'size-(--text-icon-24) text-icon-24'
       },
       xl: {
         root: '[--track:6rem] [--handle:6.75rem] [--outer:var(--radius-xl)]',
-        iconGlyph: 'size-spacing-400 text-[32px]'
+        iconGlyph: 'size-(--text-icon-32) text-icon-32'
       }
     },
     vertical: {
       false: {
         root: 'h-[var(--handle)] w-full min-w-40',
         track: 'top-1/2 h-[var(--track)] -translate-y-1/2',
-        activeTrack: 'left-spacing-0 rounded-l-[var(--outer)] rounded-r-[2px]',
-        inactiveTrack: 'right-spacing-0 rounded-l-[2px] rounded-r-[var(--outer)]',
+        activeTrack: 'left-spacing-0 rounded-l-(--outer) rounded-r-(--md-comp-slider-inner-corner)',
+        inactiveTrack:
+          'right-spacing-0 rounded-l-(--md-comp-slider-inner-corner) rounded-r-(--outer)',
         stop: 'top-1/2 -translate-x-1/2 -translate-y-1/2',
         icon: 'top-1/2 -translate-y-1/2',
         handle: 'top-spacing-0 h-full -translate-x-1/2',
@@ -69,8 +70,10 @@ export const slider = tv({
       true: {
         root: 'h-full min-h-40 w-[var(--handle)]',
         track: 'left-1/2 w-[var(--track)] -translate-x-1/2',
-        activeTrack: 'bottom-spacing-0 rounded-t-[2px] rounded-b-[var(--outer)]',
-        inactiveTrack: 'top-spacing-0 rounded-t-[var(--outer)] rounded-b-[2px]',
+        activeTrack:
+          'bottom-spacing-0 rounded-t-(--md-comp-slider-inner-corner) rounded-b-(--outer)',
+        inactiveTrack:
+          'top-spacing-0 rounded-t-(--outer) rounded-b-(--md-comp-slider-inner-corner)',
         stop: 'left-1/2 -translate-x-1/2 translate-y-1/2',
         icon: 'left-1/2 -translate-x-1/2',
         handle: 'left-spacing-0 w-full translate-y-1/2',

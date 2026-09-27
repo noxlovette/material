@@ -1,10 +1,15 @@
 /*
- * M3 component dimensions that aren't on the spacing scale (issue #30). Each property is named
- * after its token in the M3 token database, md.comp.<component>.<…> with dots as dashes, and
+ * M3 component dimensions that aren't on the spacing scale (issue #30). Database-backed properties
+ * are named after md.comp.<component>.<…> with dots as dashes; local component-specific dimensions
+ * are named for their use. Both are
  * used as `w-(--md-comp-…)`. A dimension that lands on the spacing grid uses the spacing token
  * instead (the rail's 4dp item gap is `gap-spacing-50`, not a property here).
  */
 :root {
+  /* XL button pill: half its 136dp height, beyond the system shape scale. */
+  --md-comp-button-xl-round-corner: 4.25rem;
+  --md-comp-slider-inner-corner: 0.125rem; /* 2dp, smaller than system shape XS */
+
   /* Navigation rail: https://m3.material.io/components/navigation-rail/specs */
   --md-comp-nav-rail-collapsed-container-width: 6rem; /* 96dp */
   --md-comp-nav-rail-collapsed-top-space: 2.75rem; /* 44dp */

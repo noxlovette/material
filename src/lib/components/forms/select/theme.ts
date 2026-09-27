@@ -25,12 +25,12 @@ export const select = tv({
     leadingIcon: `
       text-md-sys-color-on-surface-variant size-spacing-300
       group-has-[[data-state=open]]:text-md-sys-color-primary
-      group-data-[invalid]:text-md-sys-color-error ml-spacing-150 text-[24px]
+      group-data-[invalid]:text-md-sys-color-error ml-spacing-150 text-icon-24
     `,
     dropdownIcon: `
       mr-spacing-150 text-md-sys-color-on-surface-variant size-spacing-300
       group-data-[state=open]:text-md-sys-color-primary
-      group-data-[invalid]:text-md-sys-color-error z-20 text-[24px]
+      group-data-[invalid]:text-md-sys-color-error z-20 text-icon-24
       transition-transform md-sys-motion-fast-spatial
       group-data-[state=open]:rotate-180
     `,

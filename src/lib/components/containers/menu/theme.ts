@@ -24,11 +24,11 @@ export const menu = tv({
       focus-visible:outline-md-sys-color-primary
       data-[disabled]:cursor-not-allowed data-[disabled]:opacity-38
     `,
-    icon: 'text-md-sys-color-on-surface-variant size-spacing-250 text-[20px] shrink-0',
-    indicator: 'size-spacing-250 text-[20px] shrink-0 text-md-sys-color-on-surface-variant',
+    icon: 'text-md-sys-color-on-surface-variant size-(--text-icon-20) text-icon-20 shrink-0',
+    indicator: 'size-(--text-icon-20) text-icon-20 shrink-0 text-md-sys-color-on-surface-variant',
     itemContent: 'flex flex-1 flex-col gap-spacing-50 text-left min-w-spacing-0',
     helper: 'md-sys-typescale-body-medium text-md-sys-color-on-surface-variant',
-    rightSlot: 'text-md-sys-color-on-surface-variant size-spacing-250 text-[20px] shrink-0',
+    rightSlot: 'text-md-sys-color-on-surface-variant size-(--text-icon-20) text-icon-20 shrink-0',
     groupHeading:
       'px-spacing-150 pt-spacing-100 pb-spacing-50 md-sys-typescale-label-medium text-md-sys-color-primary'
   },

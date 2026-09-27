@@ -24,7 +24,7 @@ export const tab = tv({
       'data-[state=inactive]:text-md-sys-color-on-surface-variant'
     ].join(' '),
     label: 'md-sys-typescale-title-small',
-    icon: 'size-spacing-300 text-[24px]'
+    icon: 'size-(--text-icon-24) text-icon-24'
   },
   variants: {
     variant: {

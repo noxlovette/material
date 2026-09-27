@@ -39,6 +39,16 @@ describe('Icon transitions', () => {
     reducedMotion = false;
   });
 
+  it('uses one size token for the box and glyph, including caller overrides', () => {
+    const { app } = setup({ size: 'sm', class: 'size-(--text-icon-18) text-icon-18' });
+    const wrapper = document.body.querySelector('span')!;
+    expect(wrapper.className).toContain('size-(--text-icon-18)');
+    expect(wrapper.className).toContain('text-icon-18');
+    expect(wrapper.className).not.toContain('size-(--text-icon-20)');
+    expect(wrapper.className).not.toContain('text-icon-20');
+    unmount(app);
+  });
+
   it('swaps the glyph at once without a transition', () => {
     const { props, app } = setup();
     props.name = 'menu_open';

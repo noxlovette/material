@@ -135,7 +135,7 @@ Chips help people enter information, make selections, filter content, or trigger
         }}
         aria-label={removeLabel}
       >
-        <Icon size="sm" name="close" class="size-[18px] text-[18px]" />
+        <Icon size="sm" name="close" class="text-icon-18 size-(--text-icon-18)" />
         <Layer />
       </button>
     {/if}

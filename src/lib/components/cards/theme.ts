@@ -3,7 +3,7 @@ import { tv } from '$lib/utils/tv.js';
 export const card = tv({
   slots: {
     base: 'relative flex flex-col rounded-lg disabled:opacity-[0.38] disabled:bg-md-sys-color-surface-variant state-layer before:rounded-lg transition-shadow md-sys-motion-effects',
-    icon: 'size-spacing-300 text-[24px] text-md-sys-color-primary'
+    icon: 'size-(--text-icon-24) text-icon-24 text-md-sys-color-primary'
   },
   variants: {
     type: {

@@ -152,7 +152,7 @@ export const appbar = tv({
     childrenRow: 'w-full px-spacing-100 pb-spacing-100',
     ghost: 'w-full shrink-0 pointer-events-none',
     textContainer:
-      'flex min-w-spacing-0 flex-col gap-spacing-25 [--lead:0.25rem] [--trail:0.25rem]',
+      'flex min-w-spacing-0 flex-col gap-spacing-25 [--lead:var(--spacing-spacing-50)] [--trail:var(--spacing-spacing-50)]',
     title: 'text-md-sys-color-on-surface',
     subtitle: 'text-md-sys-color-on-surface-variant',
     leading:
@@ -193,7 +193,7 @@ export const appbar = tv({
     searchContainer: {
       true: {
         row: 'grid-cols-[auto_1fr_auto]',
-        textContainer: '[--lead:0.5rem] [--trail:0.5rem]'
+        textContainer: '[--lead:var(--spacing-spacing-100)] [--trail:var(--spacing-spacing-100)]'
       },
       false: ''
     },
@@ -203,10 +203,26 @@ export const appbar = tv({
   },
   compoundVariants: [
     // A title with no button beside it sits at the 16dp inset.
-    { align: 'start', noLeading: true, class: { textContainer: '[--lead:1rem]' } },
-    { align: 'start', noTrailing: true, class: { textContainer: '[--trail:1rem]' } },
-    { searchContainer: true, noLeading: true, class: { textContainer: '[--lead:0.75rem]' } },
-    { searchContainer: true, noTrailing: true, class: { textContainer: '[--trail:0.75rem]' } }
+    {
+      align: 'start',
+      noLeading: true,
+      class: { textContainer: '[--lead:var(--spacing-spacing-200)]' }
+    },
+    {
+      align: 'start',
+      noTrailing: true,
+      class: { textContainer: '[--trail:var(--spacing-spacing-200)]' }
+    },
+    {
+      searchContainer: true,
+      noLeading: true,
+      class: { textContainer: '[--lead:var(--spacing-spacing-150)]' }
+    },
+    {
+      searchContainer: true,
+      noTrailing: true,
+      class: { textContainer: '[--trail:var(--spacing-spacing-150)]' }
+    }
   ],
   defaultVariants: {
     align: 'start',
