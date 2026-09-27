@@ -1,6 +1,13 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
+  import { tick } from 'svelte';
   import DraggablePane from './DraggablePane.svelte';
+  import { containerTransform } from '$lib/animation/containerTransform.js';
+  import { Button } from '$lib/components/buttons/index.js';
+  import { Card } from '$lib/components/cards/index.js';
+  import { DateField } from '$lib/components/date/index.js';
+  import { TimeField } from '$lib/components/time/index.js';
+  import { Body, Title } from '$lib/components/typography/index.js';
 
   const { Story } = defineMeta({
     title: 'Containers/DraggablePane',
@@ -18,6 +25,48 @@
 </script>
 
 <script lang="ts">
+  // "Opened From A Card": which event's pane is open, if any.
+  const days = [
+    { day: 21, events: [] },
+    { day: 22, events: [{ id: 'math', time: '16:00', title: 'Math' }] },
+    { day: 23, events: [] },
+    { day: 24, events: [{ id: 'physics', time: '17:00', title: 'Physics' }] },
+    { day: 25, events: [] }
+  ];
+  const eventsById = Object.fromEntries(days.flatMap((d) => d.events.map((e) => [e.id, e])));
+  let openEvent: string | undefined = $state();
+
+  const eventCard = (id: string) => `[data-story-event="${id}"]`;
+  const EVENT_PANE = '[data-story-event-pane]';
+
+  // As the calendar does it: the clicked card grows into the pane, and closing
+  // shrinks the pane back into the card it came from.
+  function openFrom(id: string) {
+    if (openEvent) {
+      openEvent = id;
+      return;
+    }
+    containerTransform(
+      async () => {
+        openEvent = id;
+        await tick();
+      },
+      { from: eventCard(id), to: EVENT_PANE }
+    );
+  }
+
+  function closePane() {
+    const id = openEvent;
+    if (!id) return;
+    containerTransform(
+      async () => {
+        openEvent = undefined;
+        await tick();
+      },
+      { from: EVENT_PANE, to: eventCard(id) }
+    );
+  }
+
   let boundedEl: HTMLDivElement | undefined = $state();
   let boundedX: number | undefined = $state();
   let boundedY: number | undefined = $state();
@@ -197,4 +246,54 @@
       Click the minimize icon in the header to collapse this into a pill in the bottom-left corner.
     </p>
   </DraggablePane>
+</Story>
+
+<!--
+  The calendar's case: an event card grows into the edit pane (container
+  transform) and the pane's close button shrinks it back into that card. The
+  date field sits near the pane's right edge, so its picker spills out over
+  the page — it must stack above the pane (`z-layer-popup` over
+  `z-layer-pane`), never under it.
+-->
+<Story
+  name="Opened From A Card"
+  asChild
+  parameters={{ docs: { story: { inline: false, height: '720px' } } }}
+>
+  <div class="gap-spacing-100 p-spacing-300 grid grid-cols-5">
+    {#each days as { day, events } (day)}
+      <Card type="outlined" padding="sm" class="gap-spacing-100 flex min-h-40 flex-col">
+        <Title size="small">{day}</Title>
+        {#each events as event (event.id)}
+          <Card
+            type="filled"
+            padding="sm"
+            data-story-event={event.id}
+            selected={openEvent === event.id}
+            onselect={() => openFrom(event.id)}
+          >
+            <Body size="small">{event.time}</Body>
+            <Title size="small">{event.title}</Title>
+          </Card>
+        {/each}
+      </Card>
+    {/each}
+  </div>
+
+  {#if openEvent}
+    <DraggablePane
+      data-story-event-pane
+      title={`Edit ${eventsById[openEvent].title}`}
+      initialX={32}
+      initialY={96}
+      resizable
+      onClose={closePane}
+    >
+      <div class="gap-spacing-200 flex w-80 flex-col">
+        <DateField label="Date" variant="outlined" />
+        <TimeField label="Start" value={eventsById[openEvent].time} />
+        <Button onclick={closePane}>Save</Button>
+      </div>
+    </DraggablePane>
+  {/if}
 </Story>
