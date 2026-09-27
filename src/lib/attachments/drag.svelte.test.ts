@@ -7,21 +7,29 @@ import { project, resist, resistSlope, type DragOptions } from './drag.js';
 const box = () => document.querySelector<HTMLElement>('[data-testid="box"]')!;
 const button = () => document.querySelector<HTMLElement>('[data-testid="button"]')!;
 
-const pointer = (target: EventTarget, type: string, x: number, y = 0, pointerType = 'mouse') =>
-  target.dispatchEvent(
-    new PointerEvent(type, {
-      bubbles: true,
-      cancelable: true,
-      pointerId: 1,
-      isPrimary: true,
-      button: 0,
-      // Held while pressed and moving, as a real mouse reports it; released on pointerup.
-      buttons: type === 'pointerup' ? 0 : 1,
-      pointerType,
-      clientX: x,
-      clientY: y
-    })
-  );
+const pointer = (
+  target: EventTarget,
+  type: string,
+  x: number,
+  y = 0,
+  pointerType = 'mouse',
+  timeStamp?: number
+) => {
+  const event = new PointerEvent(type, {
+    bubbles: true,
+    cancelable: true,
+    pointerId: 1,
+    isPrimary: true,
+    button: 0,
+    // Held while pressed and moving, as a real mouse reports it; released on pointerup.
+    buttons: type === 'pointerup' ? 0 : 1,
+    pointerType,
+    clientX: x,
+    clientY: y
+  });
+  if (timeStamp !== undefined) Object.defineProperty(event, 'timeStamp', { value: timeStamp });
+  return target.dispatchEvent(event);
+};
 
 const click = () => button().dispatchEvent(new MouseEvent('click', { bubbles: true }));
 
@@ -101,6 +109,15 @@ describe('drag', () => {
     // Over: later moves don't drag.
     pointer(document.body, 'pointermove', 400);
     expect(s.onMove).toHaveBeenCalledTimes(1);
+  });
+
+  it('drops stale release velocity after the pointer rests', () => {
+    const s = setup();
+    app = s.app;
+    pointer(button(), 'pointerdown', 0, 0, 'mouse', 0);
+    pointer(box(), 'pointermove', 100, 0, 'mouse', 10);
+    pointer(box(), 'pointerup', 100, 0, 'mouse', 200);
+    expect(s.onEnd).toHaveBeenCalledWith({ x: 0, y: 0 });
   });
 
   it('ends a mouse drag whose release it missed', () => {

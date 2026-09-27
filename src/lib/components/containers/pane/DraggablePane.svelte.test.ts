@@ -10,20 +10,21 @@ window.matchMedia = ((query: string) => ({ matches: true, media: query })) as ne
 const panel = () => document.querySelector<HTMLElement>('[data-draggable-pane]')!;
 const header = () => document.querySelector<HTMLElement>('[aria-label="Drag to move Tools"]')!;
 
-const pointer = (target: EventTarget, type: string, x: number, y: number) =>
-  target.dispatchEvent(
-    new PointerEvent(type, {
-      bubbles: true,
-      cancelable: true,
-      pointerId: 1,
-      isPrimary: true,
-      button: 0,
-      buttons: type === 'pointerup' ? 0 : 1,
-      pointerType: 'mouse',
-      clientX: x,
-      clientY: y
-    })
-  );
+const pointer = (target: EventTarget, type: string, x: number, y: number, timeStamp?: number) => {
+  const event = new PointerEvent(type, {
+    bubbles: true,
+    cancelable: true,
+    pointerId: 1,
+    isPrimary: true,
+    button: 0,
+    buttons: type === 'pointerup' ? 0 : 1,
+    pointerType: 'mouse',
+    clientX: x,
+    clientY: y
+  });
+  if (timeStamp !== undefined) Object.defineProperty(event, 'timeStamp', { value: timeStamp });
+  return target.dispatchEvent(event);
+};
 
 describe('DraggablePane', () => {
   let app: ReturnType<typeof mount> | undefined;
@@ -58,9 +59,9 @@ describe('DraggablePane', () => {
   });
 
   it('commits the new resting position on release and clears the offset', () => {
-    pointer(header(), 'pointerdown', 50, 50);
-    pointer(window, 'pointermove', 150, 100);
-    pointer(window, 'pointerup', 150, 100);
+    pointer(header(), 'pointerdown', 50, 50, 0);
+    pointer(window, 'pointermove', 150, 100, 10);
+    pointer(window, 'pointerup', 150, 100, 200);
     flushSync();
     expect(panel().style.left).toBe('124px');
     expect(panel().style.top).toBe('74px');
