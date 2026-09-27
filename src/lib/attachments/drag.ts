@@ -252,3 +252,29 @@ export function resist(value: number, min: number, max: number, size: number) {
   if (value > max) return max + rubberBand(value - max, size);
   return value;
 }
+
+/**
+ * How fast a `resist`ed value moves per unit of `value` at that point: `1` inside the range,
+ * less and less past an edge. Scales a pointer's release velocity down to the speed the
+ * rubber-banded thing was actually moving at, so the spring it hands over to doesn't fling it.
+ */
+export function resistSlope(value: number, min: number, max: number, size: number) {
+  const overshoot = value < min ? min - value : value > max ? value - max : 0;
+  if (!overshoot) return 1;
+  return RUBBER_BAND / ((overshoot * RUBBER_BAND) / size + 1) ** 2;
+}
+
+/*
+  Per-millisecond speed retained by a thrown object coasting to a stop. UIScrollView's `fast`
+  deceleration rate; M3 has no token for this, tune by eye.
+*/
+const THROW_DECELERATION = 0.99;
+
+/**
+ * Where something released at `velocity` (px/s) would coast to — add it to the release position
+ * to aim a spring at, so a throw carries on in its direction instead of springing back to where
+ * it was let go.
+ */
+export function project(velocity: number) {
+  return ((velocity / 1000) * THROW_DECELERATION) / (1 - THROW_DECELERATION);
+}

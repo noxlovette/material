@@ -2,7 +2,7 @@
 import { flushSync, mount, unmount } from 'svelte';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import Fixture from './drag.fixture.test.svelte';
-import { resist, type DragOptions } from './drag.js';
+import { project, resist, resistSlope, type DragOptions } from './drag.js';
 
 const box = () => document.querySelector<HTMLElement>('[data-testid="box"]')!;
 const button = () => document.querySelector<HTMLElement>('[data-testid="button"]')!;
@@ -197,5 +197,28 @@ describe('resist', () => {
     expect(a).toBeGreaterThan(100);
     expect(a).toBeLessThan(110);
     expect(b - 100).toBeLessThan((a - 100) * 10);
+  });
+});
+
+describe('resistSlope', () => {
+  it('is 1 inside the range', () => {
+    expect(resistSlope(50, 0, 100, 200)).toBe(1);
+  });
+
+  it('matches how fast the resisted value moves past an edge, and shrinks with distance', () => {
+    const at = 150;
+    const numeric = (resist(at + 0.001, 0, 100, 200) - resist(at - 0.001, 0, 100, 200)) / 0.002;
+    expect(resistSlope(at, 0, 100, 200)).toBeCloseTo(numeric, 5);
+    expect(resistSlope(-50, 0, 100, 200)).toBeCloseTo(resistSlope(150, 0, 100, 200));
+    expect(resistSlope(300, 0, 100, 200)).toBeLessThan(resistSlope(150, 0, 100, 200));
+  });
+});
+
+describe('project', () => {
+  it('carries a throw on in its direction, further the faster it goes', () => {
+    expect(project(0)).toBe(0);
+    expect(project(1000)).toBeGreaterThan(0);
+    expect(project(-1000)).toBe(-project(1000));
+    expect(project(2000)).toBeCloseTo(project(1000) * 2);
   });
 });

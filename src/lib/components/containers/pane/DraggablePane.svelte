@@ -26,12 +26,14 @@ the pane itself stays `position: fixed` and doesn't move with either.
 -->
 <script lang="ts">
   import clsx from 'clsx';
-  import { onMount } from 'svelte';
-  import { animate, type AnimationPlaybackControls } from 'motion';
+  import { onMount, tick } from 'svelte';
+  import { animate, motionValue } from 'motion';
   import { springTokens, springTransition } from '$lib/animation/spring.js';
+  import { containerTransform } from '$lib/animation/containerTransform.js';
+  import { prefersReducedMotion } from '$lib/animation/reducedMotion.js';
   import { Icon, Layer } from '$lib/utils/index.js';
   import { ButtonIcon } from '$lib/components/buttons/index.js';
-  import { clickOutside, drag, resist } from '$lib/attachments/index.js';
+  import { clickOutside, drag, project, resist, resistSlope } from '$lib/attachments/index.js';
   import { draggablePane, type ResizeEdge } from './theme.js';
   import { dragPositions } from './dragStore.svelte.js';
   import type { DraggablePaneProps } from './types.js';
@@ -96,22 +98,26 @@ the pane itself stays `position: fixed` and doesn't move with either.
   // regardless of what those props say, silently overriding the safety-net
   // floor a consumer configured. A non-resizable pane keeps the plain
   // `min-w-72` class fallback (unaffected by minWidth/minHeight).
-  const style = $derived(
-    clsx(
-      x !== undefined && `left: ${x}px;`,
-      y !== undefined && `top: ${y}px;`,
-      width !== undefined && `width: ${width}px;`,
-      height !== undefined && `height: ${height}px;`,
-      resizable && `min-width: ${minWidth}px;`,
-      resizable && `min-height: ${minHeight}px;`,
-      capWidth !== undefined && `max-width: ${capWidth}px;`,
-      capHeight !== undefined && `max-height: ${capHeight}px;`
-    )
-  );
+  //
+  // These are `style:` directives, not a `style` string: Svelte sets directives one property at a
+  // time, whereas a changed `style` string replaces the whole inline style and would wipe the
+  // `translate` that `renderOffset` writes outside Svelte.
+  const px = (value: number | undefined, when = true) =>
+    when && value !== undefined ? `${value}px` : undefined;
 
   function persist() {
     if (!persistKey) return;
-    dragPositions.set(persistKey, { x: x ?? initialX, y: y ?? initialY, width, height });
+    const next = { x: x ?? initialX, y: y ?? initialY, width, height };
+    const stored = dragPositions.get(persistKey);
+    // Bounds re-clamps run on every scroll/resize event; only real changes reach localStorage.
+    if (
+      stored?.x === next.x &&
+      stored.y === next.y &&
+      stored.width === next.width &&
+      stored.height === next.height
+    )
+      return;
+    dragPositions.set(persistKey, next);
   }
 
   function boundsRect() {
@@ -250,7 +256,11 @@ the pane itself stays `position: fixed` and doesn't move with either.
   /** Re-clamps the current position/size, and the standing size cap, against `bounds`'s current rect — call whenever that rect may have changed. */
   function recomputeBounds() {
     updateCaps();
-    moveTo(x ?? initialX, y ?? initialY);
+    // A drag settles against the fresh bounds on release; a running spring is retargeted
+    // rather than having its resting position yanked out from under it.
+    if (dragging) return;
+    if (settling()) settleTo(x ?? initialX, y ?? initialY);
+    else moveTo(x ?? initialX, y ?? initialY);
     if (width !== undefined || height !== undefined) nudgeResize('se', 0, 0);
   }
 
@@ -273,7 +283,10 @@ the pane itself stays `position: fixed` and doesn't move with either.
     window.addEventListener('resize', recomputeBounds);
     return () => {
       window.removeEventListener('resize', recomputeBounds);
-      stopSettle();
+      offRenderX();
+      offRenderY();
+      offsetX.destroy();
+      offsetY.destroy();
     };
   });
 
@@ -308,47 +321,85 @@ the pane itself stays `position: fixed` and doesn't move with either.
 
   /*
     Expressive drag: the pane tracks the pointer 1:1 (direct manipulation never lags behind a
-    spring), rubber-bands past `bounds` instead of hitting a wall, and on release springs back
-    inside on the fast spatial spring, carrying the pointer's velocity. Keyboard nudges glide on
-    the same spring. Grabbing the pane mid-spring stops it where it is.
+    spring), rubber-bands past `bounds` instead of hitting a wall, and on release is thrown: it
+    springs, on the fast spatial spring and at the speed it was really moving, to where the throw
+    would coast to, clamped inside `bounds`. Keyboard nudges glide on the same spring. Grabbing the
+    pane mid-spring stops it where it is.
+
+    `x`/`y` (left/top) are where the pane rests, and change only when it comes to rest somewhere
+    new. The motion in between is a translate offset from there, written straight to the element
+    (`renderOffset`), so a frame of drag or spring never lays the page out, re-renders the
+    component, or hands a parent bound to `x`/`y` a new value.
   */
   const SETTLE_SPRING = springTransition(springTokens.fastSpatial);
 
-  let settleX: AnimationPlaybackControls | undefined;
-  let settleY: AnimationPlaybackControls | undefined;
-  /** Where the running spring is headed; undefined once it's done or stopped. */
-  let settleTarget: { x: number; y: number } | undefined;
+  const offsetX = motionValue(0);
+  const offsetY = motionValue(0);
+
+  function renderOffset() {
+    if (!panelEl) return;
+    const ox = offsetX.get();
+    const oy = offsetY.get();
+    panelEl.style.translate = ox || oy ? `${ox}px ${oy}px` : '';
+  }
+  const offRenderX = offsetX.on('change', renderOffset);
+  const offRenderY = offsetY.on('change', renderOffset);
+
+  const settling = () => offsetX.isAnimating() || offsetY.isAnimating();
 
   function stopSettle() {
-    settleX?.stop();
-    settleY?.stop();
-    settleTarget = undefined;
+    offsetX.stop();
+    offsetY.stop();
   }
 
-  /** Springs the pane to `target` (clamped), starting with `velocity` px/s. */
-  function settleTo(targetX: number, targetY: number, velocity = { x: 0, y: 0 }) {
+  /** Makes where the pane is on screen right now its resting position, with no offset. */
+  function settleInPlace() {
     stopSettle();
-    const next = clamp(targetX, targetY);
-    const fromX = x ?? initialX;
-    const fromY = y ?? initialY;
-    settleTarget = next;
-    settleX = animate(fromX, next.x, {
-      ...SETTLE_SPRING,
-      velocity: velocity.x,
-      onUpdate: (value) => (x = value),
-      onComplete: () => (settleTarget = undefined)
-    });
-    settleY = animate(fromY, next.y, {
-      ...SETTLE_SPRING,
-      velocity: velocity.y,
-      onUpdate: (value) => (y = value)
-    });
-    // Persist the resting position up front — the spring only animates towards it.
-    if (persistKey) dragPositions.set(persistKey, { x: next.x, y: next.y, width, height });
+    const ox = offsetX.get();
+    const oy = offsetY.get();
+    if (!ox && !oy) return;
+    offsetX.jump(0);
+    offsetY.jump(0);
+    moveTo((x ?? initialX) + ox, (y ?? initialY) + oy);
   }
 
+  /**
+   * Springs the pane to `target` (clamped) from wherever it is on screen, starting at `velocity`
+   * px/s — by default the velocity it's already moving at, so a retarget mid-flight is seamless.
+   */
+  function settleTo(
+    targetX: number,
+    targetY: number,
+    velocity = { x: offsetX.getVelocity(), y: offsetY.getVelocity() }
+  ) {
+    const fromX = (x ?? initialX) + offsetX.get();
+    const fromY = (y ?? initialY) + offsetY.get();
+    const next = clamp(targetX, targetY);
+    // The target becomes the resting position straight away and the offset takes up the
+    // difference, so the pane doesn't move this frame; the spring then runs the offset to 0.
+    x = next.x;
+    y = next.y;
+    persist();
+    offsetX.jump(fromX - next.x);
+    offsetY.jump(fromY - next.y);
+    // Under reduced motion there is no spatial travel: the pane is simply where it lands.
+    if (prefersReducedMotion()) {
+      offsetX.jump(0);
+      offsetY.jump(0);
+      return;
+    }
+    animate(offsetX, 0, { ...SETTLE_SPRING, velocity: velocity.x });
+    animate(offsetY, 0, { ...SETTLE_SPRING, velocity: velocity.y });
+  }
+
+  // Captured once per drag, so a pointer move reads no layout.
+  let restX = 0;
+  let restY = 0;
   let originX = 0;
   let originY = 0;
+  let pointerX = 0;
+  let pointerY = 0;
+  let range = { minX: 0, maxX: 0, minY: 0, maxY: 0, width: 0, height: 0 };
 
   // Pointer plumbing (capture, release velocity) and the rubber-band come from the shared drag
   // attachment; this only positions the pane.
@@ -357,21 +408,77 @@ the pane itself stays `position: fixed` and doesn't move with either.
     onStart: () => {
       stopSettle();
       dragging = true;
-      originX = x ?? initialX;
-      originY = y ?? initialY;
+      restX = x ?? initialX;
+      restY = y ?? initialY;
+      originX = pointerX = restX + offsetX.get();
+      originY = pointerY = restY + offsetY.get();
+      const rect = boundsRect();
+      const min = clamp(-Infinity, -Infinity);
+      const max = clamp(Infinity, Infinity);
+      range = {
+        minX: min.x,
+        maxX: max.x,
+        minY: min.y,
+        maxY: max.y,
+        width: rect.right - rect.left,
+        height: rect.bottom - rect.top
+      };
     },
     onMove: (offset) => {
-      const rect = boundsRect();
-      const { x: minX, y: minY } = clamp(-Infinity, -Infinity);
-      const { x: maxX, y: maxY } = clamp(Infinity, Infinity);
-      x = resist(originX + offset.x, minX, maxX, rect.right - rect.left);
-      y = resist(originY + offset.y, minY, maxY, rect.bottom - rect.top);
+      pointerX = originX + offset.x;
+      pointerY = originY + offset.y;
+      offsetX.set(resist(pointerX, range.minX, range.maxX, range.width) - restX);
+      offsetY.set(resist(pointerY, range.minY, range.maxY, range.height) - restY);
     },
     onEnd: (velocity) => {
       dragging = false;
-      settleTo(x ?? initialX, y ?? initialY, velocity);
+      // Past an edge the pane only moved at the rubber-banded share of the pointer's speed.
+      const vx = velocity.x * resistSlope(pointerX, range.minX, range.maxX, range.width);
+      const vy = velocity.y * resistSlope(pointerY, range.minY, range.maxY, range.height);
+      const atX = restX + offsetX.get();
+      const atY = restY + offsetY.get();
+      settleTo(atX + project(vx), atY + project(vy), { x: vx, y: vy });
     }
   }));
+
+  /*
+    Minimising and restoring are an M3 container transform: the pane's surface morphs into the
+    pill and back. Only the pane's own buttons animate it; a consumer driving the bound
+    `collapsed` directly swaps the two instantly, since the transition has to snapshot the old
+    state before the change.
+  */
+  const uid = $props.id();
+  let pillEl: HTMLButtonElement | undefined = $state();
+
+  function setCollapsed(next: boolean) {
+    settleInPlace();
+    const from = next ? panelEl : pillEl;
+    if (!from || typeof document === 'undefined') {
+      collapsed = next;
+      return;
+    }
+    containerTransform(
+      async () => {
+        collapsed = next;
+        await tick();
+      },
+      {
+        from,
+        to: next ? `[data-draggable-pane-pill="${uid}"]` : `[data-draggable-pane="${uid}"]`
+      }
+    ).then(
+      () => {},
+      () => (collapsed = next)
+    );
+  }
+
+  // The pane unmounts while collapsed; it comes back at its resting position, with no offset.
+  $effect(() => {
+    if (!collapsed) return;
+    stopSettle();
+    offsetX.jump(0);
+    offsetY.jump(0);
+  });
 
   const NUDGE = 8;
 
@@ -387,9 +494,9 @@ the pane itself stays `position: fixed` and doesn't move with either.
     const delta = deltas[event.key];
     if (!delta) return;
     event.preventDefault();
-    // Retargets a running nudge, so holding an arrow key glides instead of stepping.
-    const from = settleTarget ?? clamp(x ?? initialX, y ?? initialY);
-    settleTo(from.x + delta[0], from.y + delta[1]);
+    // Steps from the resting position, which a running spring is already headed for, so a held
+    // arrow key retargets it and glides instead of stepping.
+    settleTo((x ?? initialX) + delta[0], (y ?? initialY) + delta[1]);
   }
 
   let resizeStartClientX = 0;
@@ -403,6 +510,7 @@ the pane itself stays `position: fixed` and doesn't move with either.
     return (event: PointerEvent) => {
       if (!resizable) return;
       event.stopPropagation();
+      settleInPlace();
       resizeDir = dir;
       resizeStartClientX = event.clientX;
       resizeStartClientY = event.clientY;
@@ -465,6 +573,7 @@ the pane itself stays `position: fixed` and doesn't move with either.
       const delta = deltas[event.key];
       if (!delta) return;
       event.preventDefault();
+      settleInPlace();
       nudgeResize(dir, delta[0], delta[1]);
     };
   }
@@ -475,9 +584,11 @@ the pane itself stays `position: fixed` and doesn't move with either.
 
 {#if collapsed}
   <button
+    bind:this={pillEl}
     type="button"
     class={miniBase({ class: minimizedClass })}
-    onclick={() => (collapsed = false)}
+    data-draggable-pane-pill={uid}
+    onclick={() => setCollapsed(false)}
     aria-label={`Expand ${minimizedTitle ?? title ?? 'panel'}`}
   >
     <Icon name="open_in_full" size="sm" class={miniIcon()} />
@@ -487,7 +598,15 @@ the pane itself stays `position: fixed` and doesn't move with either.
   <div
     bind:this={panelEl}
     class={base({ class: className })}
-    {style}
+    data-draggable-pane={uid}
+    style:left={px(x)}
+    style:top={px(y)}
+    style:width={px(width)}
+    style:height={px(height)}
+    style:min-width={px(minWidth, resizable)}
+    style:min-height={px(minHeight, resizable)}
+    style:max-width={px(capWidth)}
+    style:max-height={px(capHeight)}
     role="group"
     aria-label={title}
     {@attach onClickOutside && clickOutside(onClickOutside)}
@@ -526,7 +645,7 @@ the pane itself stays `position: fixed` and doesn't move with either.
                 size="sm"
                 iconProps={{ name: 'collapse_all' }}
                 aria-label="Minimize"
-                onclick={() => (collapsed = true)}
+                onclick={() => setCollapsed(true)}
               />
             {/if}
             {#if onClose}

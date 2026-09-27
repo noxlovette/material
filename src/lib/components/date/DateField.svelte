@@ -114,7 +114,7 @@ Changing the visible month slides the grid with the M3 lateral transition (see c
     <DatePicker.Content sideOffset={4} align="start">
       {#snippet child({ wrapperProps, props, open })}
         <div {...wrapperProps}>
-          <div {...props} {@attach presence(() => open, enterExit.scale)}>
+          <div {...props} class="z-layer-popup" {@attach presence(() => open, enterExit.scale)}>
             <DatePicker.Calendar class={calendar.surface()}>
               {#snippet children({ months, weekdays })}
                 <DatePicker.Header class={calendar.header()}>
