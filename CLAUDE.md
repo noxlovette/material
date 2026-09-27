@@ -6,6 +6,8 @@ Base your docs and stylistic decisions on this https://m3.material.io/
 
 # Commands
 
+**Agent tooling rule:** Use `bun` and `bunx` exclusively for local JavaScript commands. `npm`, `npx`, and `node` commands are banned; do not invoke them. References to the npm registry and the existing release workflow are not local command recommendations.
+
 ```bash
 bun run dev              # showcase site: landing page + guides (SvelteKit, static adapter → GitHub Pages)
 bun run storybook        # component workbench: live preview, Controls, a11y — the canonical way to view/QA components

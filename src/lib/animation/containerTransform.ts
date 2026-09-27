@@ -95,11 +95,15 @@ export const containerTransform = (
     root.style.setProperty(SHADOW, shadowOf(target) ?? fromShadow ?? 'none');
   };
   // The class lets motion.css keep both snapshots at their width, clipped by the container.
-  const builder = animateView(updateAndFill, springTransition(spring))
+  const reduced = prefersReducedMotion();
+  const builder = animateView(
+    updateAndFill,
+    springTransition(reduced ? springTokens.effects : spring)
+  )
     .add(from, to)
     .class('md-container-transform');
   // Reduced motion: the container doesn't grow; its two states just crossfade in place.
-  if (prefersReducedMotion()) builder.layout({ duration: 0 });
+  if (reduced) builder.layout({ duration: 0 });
   return builder
     .old({ opacity: [1, 0] }, springTransition(springTokens.effects))
     .new({ opacity: [1, 1] }, springTransition(springTokens.effects));

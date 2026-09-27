@@ -103,7 +103,9 @@ const fadeInPlace = (
     if (dx || dy) outgoing.transform = Array(2).fill(`translate(${dx}px, ${dy}px)`);
   };
   const builder = view(run, target, spring);
-  if (target) builder.layout({ duration: 0 }).crop(false);
+  // The whole-page group also has a layout animation when no target was supplied.
+  builder.layout({ duration: 0 });
+  if (target) builder.crop(false);
   return builder.old(outgoing, fadeOut).new(...incoming);
 };
 
@@ -111,9 +113,8 @@ const fadeInPlace = (
    swaps movement for a subtle fade rather than cutting. */
 const reducedFade = (
   update: () => void | Promise<void>,
-  target: ViewTransitionTargetDefinition | undefined,
-  spring: SpringToken
-) => fadeInPlace(update, target, spring, [{ opacity: [0, 1] }, fadeInAfterOut]);
+  target: ViewTransitionTargetDefinition | undefined
+) => fadeInPlace(update, target, springTokens.effects, [{ opacity: [0, 1] }, fadeInAfterOut]);
 
 /**
  * M3 forward and backward (shared axis): outgoing and incoming content travel together along one
@@ -139,7 +140,7 @@ export const sharedAxis = (
     spring = springTokens.spatial
   }: SharedAxisOptions = {}
 ) => {
-  if (prefersReducedMotion()) return reducedFade(update, target, spring);
+  if (prefersReducedMotion()) return reducedFade(update, target);
   const forward = direction === 'forward';
   const [outgoing, incoming] =
     axis === 'z'
@@ -175,7 +176,7 @@ export const lateral = (
   update: () => void | Promise<void>,
   { target, axis = 'x', direction = 'forward', spring = springTokens.spatial }: LateralOptions = {}
 ) => {
-  if (prefersReducedMotion()) return reducedFade(update, target, spring);
+  if (prefersReducedMotion()) return reducedFade(update, target);
   const sign = direction === 'forward' ? 1 : -1;
   const move = axis === 'y' ? 'translateY' : 'translateX';
   const builder = view(update, target, spring)
@@ -206,7 +207,7 @@ export const fadeThrough = (
   update: () => void | Promise<void>,
   { target, spring = springTokens.spatial }: Omit<NavigationOptions, 'direction'> = {}
 ) => {
-  if (prefersReducedMotion()) return reducedFade(update, target, spring);
+  if (prefersReducedMotion()) return reducedFade(update, target);
   return fadeInPlace(update, target, spring, [
     { opacity: [0, 1], transform: ['scale(0.92)', 'scale(1)'] },
     { opacity: fadeInAfterOut }

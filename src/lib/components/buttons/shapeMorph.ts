@@ -10,8 +10,8 @@ import { animate, motionValue, type AnimationPlaybackControls, type MotionValue 
  * reverses early in its curve on a shortened, near-linear timing.
  *
  * Targets are read from CSS custom properties the size and shape classes set, so the classes stay
- * the single source of the measurements. M3: under reduced motion, shapes change without
- * morphing.
+ * the single source of the measurements. Under reduced motion, direct press feedback uses a
+ * critically damped spring so corners still respond without overshooting.
  */
 
 export type ButtonState = {
@@ -56,6 +56,7 @@ const isDisabled = (el: HTMLElement) =>
 export function shapeMorph(el: HTMLElement, corners: CornerResolver): () => void {
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const spring = springTransition(springTokens.fastSpatial);
+  const reducedSpring = springTransition(springTokens.fastEffects);
   const state: ButtonState = { pressed: false, hovered: false, focusVisible: false };
 
   const resolve = () => {
@@ -78,8 +79,7 @@ export function shapeMorph(el: HTMLElement, corners: CornerResolver): () => void
       if (to === targets[i]) return;
       targets[i] = to;
       controls[i]?.stop();
-      if (reduced.matches) values[i].jump(to);
-      else controls[i] = animate(values[i], to, spring);
+      controls[i] = animate(values[i], to, reduced.matches ? reducedSpring : spring);
     });
   };
 
@@ -113,6 +113,14 @@ export function shapeMorph(el: HTMLElement, corners: CornerResolver): () => void
     attributes: true,
     attributeFilter: ['class', 'data-state', 'aria-pressed', 'aria-expanded']
   });
+  const onReducedChange = () => {
+    if (!reduced.matches) return;
+    controls.forEach((control, i) => {
+      control?.stop();
+      values[i].jump(targets[i]);
+    });
+  };
+  reduced.addEventListener?.('change', onReducedChange);
 
   el.addEventListener('pointerdown', onPointerDown);
   el.addEventListener('pointerenter', onEnter);
@@ -126,6 +134,7 @@ export function shapeMorph(el: HTMLElement, corners: CornerResolver): () => void
 
   return () => {
     observer.disconnect();
+    reduced.removeEventListener?.('change', onReducedChange);
     controls.forEach((c) => c?.stop());
     unsubscribe.forEach((u) => u());
     el.removeEventListener('pointerdown', onPointerDown);
