@@ -29,6 +29,7 @@ For a set of related options where one or more is selected, use `ConnectedButton
 
   const GROW = 0.15;
   const spring = springTransition(springTokens.fastSpatial);
+  const reducedSpring = springTransition(springTokens.fastEffects);
   const reducedMotion = () =>
     typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -57,7 +58,7 @@ For a set of related options where one or more is selected, use `ConnectedButton
     };
 
     const start = (el: HTMLElement) => {
-      if (orientation !== 'horizontal' || press || reducedMotion()) return;
+      if (orientation !== 'horizontal' || press) return;
       const width = widthOf(el);
       const neighbours = [el.previousElementSibling, el.nextElementSibling].filter(isEnabled);
       const share = (width * GROW) / Math.max(neighbours.length, 1);
@@ -70,7 +71,8 @@ For a set of related options where one or more is selected, use `ConnectedButton
           })
         ]
       };
-      for (const { el: item, to } of press.items) animate(item, { width: `${to}px` }, spring);
+      for (const { el: item, to } of press.items)
+        animate(item, { width: `${to}px` }, reducedMotion() ? reducedSpring : spring);
     };
 
     const end = () => {
@@ -78,7 +80,7 @@ For a set of related options where one or more is selected, use `ConnectedButton
       const { items } = press;
       press = null;
       for (const { el, width } of items) {
-        animate(el, { width: `${width}px` }, spring).then(() => {
+        animate(el, { width: `${width}px` }, reducedMotion() ? reducedSpring : spring).then(() => {
           // Hand the width back to the layout, unless a new press picked this button up.
           if (press?.items.some((i) => i.el === el)) return;
           el.style.width = '';

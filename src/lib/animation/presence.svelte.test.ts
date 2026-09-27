@@ -21,10 +21,18 @@ const { enterExit } = await import('./enterExit.js');
 
 const panel = () => document.querySelector('[data-testid="panel"]');
 const settle = () => new Promise((resolve) => setTimeout(resolve));
+let reduced = false;
+globalThis.matchMedia = ((query: string) => ({
+  matches: query.includes('reduced-motion') && reduced,
+  media: query
+})) as never;
 
 describe('Presence', () => {
   beforeEach(() => (calls.length = 0));
-  afterEach(() => (document.body.innerHTML = ''));
+  afterEach(() => {
+    reduced = false;
+    document.body.innerHTML = '';
+  });
 
   it('does not mount or animate while initially closed', () => {
     const app = mount(Fixture, { target: document.body, props: { open: false } });
@@ -84,6 +92,20 @@ describe('Presence', () => {
       opacity: [0, 1],
       transform: ['scale(0.8)', 'scale(1)']
     });
+
+    props.open = false;
+    flushSync();
+    expect(calls[1].keyframes).toEqual({ opacity: 0 });
+    unmount(app);
+  });
+
+  it('uses opacity only for a sheet under reduced motion', () => {
+    reduced = true;
+    const props = $state({ open: true, transition: enterExit.sideSheet });
+    const app = mount(Fixture, { target: document.body, props });
+    flushSync();
+    expect(calls[0].keyframes).toEqual({ opacity: [0, 1] });
+    expect((panel() as HTMLElement).style.transform).toBe('translateX(0%)');
 
     props.open = false;
     flushSync();

@@ -2,6 +2,8 @@ import { animate, type AnimationPlaybackControlsWithThen } from 'motion';
 import { untrack } from 'svelte';
 import type { Attachment } from 'svelte/attachments';
 import type { PresenceTransition } from './enterExit.js';
+import { enterExit } from './enterExit.js';
+import { prefersReducedMotion } from './reducedMotion.js';
 
 const fromTo = (from: object, to: object) =>
   Object.fromEntries(
@@ -47,7 +49,15 @@ export const presence =
     $effect(() => {
       const open = isOpen();
       untrack(() => {
-        const { hidden, shown, exited = hidden, enter, exit } = transition;
+        // Reduced motion keeps the mount/unmount cue, but never animates the preset's
+        // scale or translation (including the sheet presets that normally have no fade).
+        const active = prefersReducedMotion() ? enterExit.fade : transition;
+        const { hidden, shown, exited = hidden, enter, exit } = active;
+        if (active !== transition) {
+          const shownTransform = transition.shown.transform;
+          const settled = Array.isArray(shownTransform) ? shownTransform.at(-1) : shownTransform;
+          if (typeof settled === 'string') node.style.transform = settled;
+        }
         clearTimeout(settleTimer);
         if (open) {
           controls = animate(node, started ? shown : fromTo(hidden, shown), enter);

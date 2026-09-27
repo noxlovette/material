@@ -183,7 +183,8 @@
     skeleton: {
       id: 'skeleton',
       title: 'Skeleton loaders',
-      summary: 'A placeholder pulses until real content fades in.',
+      summary:
+        'A placeholder pulses until real content fades in; it stays still with reduced motion.',
       anchor: 'skeleton-loaders',
       run: runSkeleton
     }

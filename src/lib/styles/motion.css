@@ -284,6 +284,23 @@
   /* @generated:springs:end */
 }
 
+/* Spatial CSS transitions settle immediately under the OS motion preference. Effects tokens
+   remain available for short opacity and color fades. Keep this outside the generated block. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --md-sys-motion-duration-fast-spatial: 0ms;
+    --md-sys-motion-duration-spatial: 0ms;
+    --md-sys-motion-duration-slow-spatial: 0ms;
+    --md-sys-motion-timing-function-fast-spatial: var(
+      --md-sys-motion-timing-function-fast-effects-spring
+    );
+    --md-sys-motion-timing-function-spatial: var(--md-sys-motion-timing-function-effects-spring);
+    --md-sys-motion-timing-function-slow-spatial: var(
+      --md-sys-motion-timing-function-slow-effects-spring
+    );
+  }
+}
+
 /*
   One utility per Expressive spring, setting duration + timing function together. Pair with a
   Tailwind transition-property utility: `transition-colors md-sys-motion-fast-effects`.

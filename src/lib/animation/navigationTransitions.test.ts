@@ -56,9 +56,9 @@ describe('navigation transitions', () => {
     expect(keyframes('new').transform).toEqual(['translateY(-100%)', 'translateY(0%)']);
   });
 
-  it('fadeThrough of the whole page has no region to hold still', () => {
+  it('fadeThrough holds the whole-page group still while fading', () => {
     fadeThrough(update);
-    expect(calls.some(([m]) => m === 'layout')).toBe(false);
+    expect(calls).toContainEqual(['layout', { duration: 0 }]);
   });
 
   it.each([
