@@ -145,8 +145,11 @@ export function drag(getOptions: () => DragOptions): Attachment<HTMLElement> {
       };
       const onUp = (event: PointerEvent) => {
         if (event.pointerId !== pointerId) return;
-        if (phase === 'dragging') finish(velocity());
-        else reset();
+        if (phase === 'dragging') {
+          // Include the release so a pause after the last move does not reuse stale momentum.
+          record(event);
+          finish(velocity());
+        } else reset();
       };
       const onCancel = (event: PointerEvent) => {
         if (event.pointerId !== pointerId) return;
