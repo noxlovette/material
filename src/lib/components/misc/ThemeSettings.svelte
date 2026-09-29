@@ -1,6 +1,6 @@
 <script lang="ts">
   import { RadioGroup } from '../forms/radio-group/index.js';
-  import { themeState, extractColorFromImage } from '$lib/utils/theme.svelte.js';
+  import { themeState, extractColorFromImage } from '$lib/utils/themeState.svelte.js';
   import { Title } from '../typography/title/index.js';
   import { Body } from '../typography/body/index.js';
 

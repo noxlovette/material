@@ -1,0 +1,63 @@
+import { Meta, Title, Subtitle, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as TextareaStories from './Textarea.stories.svelte';
+
+<Meta of={TextareaStories} />
+
+<Title />
+
+<Subtitle>A text field for longer, multi-line input.</Subtitle>
+
+[M3 text field guidelines](https://m3.material.io/components/text-fields/guidelines) ·
+`import { Textarea } from '@noxlovette/material';`
+
+<Canvas of={TextareaStories.Playground} />
+
+<Controls of={TextareaStories.Playground} />
+
+## Not an M3 component
+
+M3 has no textarea. It has a _multi-line text field_, and that is what this is: the
+[`Textfield`](?path=/docs/forms-textfield--docs) with a `<textarea>` inside. Everything a text
+field does carries over (filled and outlined containers, the floating label and notch, icons,
+supporting text, required, error, disabled). Only these change:
+
+| Part          | Textfield                 | Textarea                                                |
+| ------------- | ------------------------- | ------------------------------------------------------- |
+| Height        | Fixed 56dp                | 56dp minimum, then grows with the content               |
+| Resting label | Centered vertically       | On the first line of text                               |
+| Icons         | Centered vertically       | Beside the first line of text                           |
+| Filled input  | Centered, 16dp top offset | 24dp above the first line, 8dp below the last           |
+| Counter       | Only with supporting text | Whenever `characterLimit` is set; over the limit errors |
+
+Use `Textfield` for anything that fits on one line (names, emails, search). Use `Textarea` for
+free text: messages, descriptions, notes, feedback.
+
+<Canvas of={TextareaStories.FilledAndOutlined} />
+
+## Height
+
+`rows` is the minimum height in lines (default 3). The field grows as the user types, up to
+`maxRows`, and scrolls after that. Leave `maxRows` out to grow without limit, or set it equal to
+`rows` for a fixed-height field. There's no resize handle: the field sizes itself.
+
+Growing uses CSS `field-sizing: content`, with a script fallback for browsers without it.
+
+<Canvas of={TextareaStories.Growing} />
+
+## Character limit
+
+`characterLimit` shows a `12 / 160` counter below the field. Going over the limit puts the field
+in its error state but doesn't block typing, so pasted text isn't silently cut. Pass the native
+`maxlength` too if the limit is hard.
+
+<Canvas of={TextareaStories.CharacterLimit} />
+
+## Accessibility
+
+- **Label.** The floating label is a real `<label for>` tied to the textarea's id.
+- **Descriptions.** The supporting text and the counter are linked with `aria-describedby`, added
+  to any `aria-describedby` you pass.
+- **Errors.** `error`, or going over `characterLimit`, sets `aria-invalid`. Say what's wrong in
+  `supportingText`, not just with color.
+- **Required.** `required` sets `required` and `aria-required`, and shows an asterisk that screen
+  readers skip.

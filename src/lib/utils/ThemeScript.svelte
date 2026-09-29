@@ -9,7 +9,7 @@ Add this to your root +layout.svelte (or any layout that wraps the whole app):
 <App>...</App>
 -->
 <script lang="ts">
-  import { THEME_INIT_SCRIPT } from './theme.svelte.js';
+  import { THEME_INIT_SCRIPT } from './themeState.svelte.js';
 </script>
 
 <svelte:head>

@@ -36,6 +36,9 @@ the track, a new `value` from outside) springs to it on the fast spatial spring.
     class: className,
     dir,
     id,
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledby,
+    'aria-describedby': ariaDescribedby,
     ...extra
   }: SliderProps = $props();
 
@@ -216,8 +219,13 @@ the track, a new `value` from outside) springs to it on the fast spatial spring.
 
       <Slider.Thumb index={0}>
         {#snippet child({ props: thumbProps, active })}
+          <!-- The thumb is the focusable role="slider" element, so it carries the accessible name. -->
           <div
             {...thumbProps}
+            aria-label={ariaLabel}
+            aria-labelledby={ariaLabelledby}
+            aria-describedby={ariaDescribedby}
+            aria-valuetext={format(value)}
             class={cls.handle()}
             data-active={active || undefined}
             style="{start}: {center(pos)}; {extent}: {handlePx}px"

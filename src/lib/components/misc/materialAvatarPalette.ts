@@ -1,7 +1,7 @@
 /**
  * Container-tier M3 color roles (see `styles/theme/*.css`) used as a generated avatar's
  * background. Deliberately NOT a fixed hex list: every consuming app picks its own source
- * color (`ThemeConfig.sourceColor` in `theme.svelte.ts`), which the M3 dynamic color
+ * color (`ThemeConfig.sourceColor` in `themeState.svelte.ts`), which the M3 dynamic color
  * algorithm expands into these tokens as real `--color-md-sys-color-*` custom properties on
  * `:root` — reading them live is what makes the avatar match that app's actual palette
  * instead of this library's own hardcoded pastel.

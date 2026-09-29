@@ -16,12 +16,14 @@ The track always keeps a gap either side of the bar.
   import { animate, type AnimationPlaybackControls } from 'motion';
   import { springTokens, springTransition } from '$lib/animation/spring.js';
   import { SpringValue } from '$lib/animation/springValue.svelte.js';
+  import type { ProgressA11yProps } from './types.js';
 
   let {
     percent,
     height = 4,
-    class: className
-  }: {
+    class: className,
+    ...a11y
+  }: ProgressA11yProps & {
     /** The current progress percentage (0–100). Omit or pass null for indeterminate. */
     percent?: number | null;
     /** Height of the bar in pixels. Defaults to 4. */
@@ -84,6 +86,7 @@ The track always keeps a gap either side of the bar.
 </script>
 
 <Progress.Root
+  {...a11y}
   value={percent ?? null}
   max={100}
   class={container({ class: clsx(className) })}

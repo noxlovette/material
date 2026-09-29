@@ -1,6 +1,6 @@
 <script lang="ts">
   import { MediaQuery } from 'svelte/reactivity';
-  import { generateThemeCSS, themeState, STORAGE_KEY } from './theme.svelte.js';
+  import { generateThemeCSS, themeState, STORAGE_KEY } from './themeState.svelte.js';
 
   /**
    * Whether to generate and inject the M3 dynamic-color CSS custom properties
