@@ -56,6 +56,7 @@
     'drag_indicator',
     'draw',
     'edit',
+    'edit_note',
     'explore',
     'favorite',
     'flight',

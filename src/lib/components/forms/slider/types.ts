@@ -67,4 +67,20 @@ export type SliderProps = Omit<SliderVariants, 'active'> &
      * Orientation of the slider.
      */
     vertical?: boolean;
+
+    /**
+     * Accessible name for the slider. Applied to the focusable thumb (`role="slider"`), not the
+     * root, so screen readers announce it. Required unless `aria-labelledby` is set.
+     */
+    'aria-label'?: string | null;
+
+    /**
+     * Id of the element that labels the slider. Applied to the thumb, like `aria-label`.
+     */
+    'aria-labelledby'?: string | null;
+
+    /**
+     * Id of the element that describes the slider. Applied to the thumb.
+     */
+    'aria-describedby'?: string | null;
   };

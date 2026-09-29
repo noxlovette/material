@@ -26,7 +26,7 @@ src/lib/           # published library (@noxlovette/material)
     **/*.stories.svelte  # Storybook stories (Svelte-CSF), colocated with each component
   styles/          # CSS: elevation, motion, typescale, rounding; theme/ has light/dark/hc/mc variants
   animation/       # Material Design transitions (containerTransform, sharedAxis, enterExit, etc.)
-  utils/           # Icon, Layer, Theme, ThemeScript, types, theme.svelte.ts
+  utils/           # Icon, Layer, Theme, ThemeScript, types, themeState.svelte.ts
   actions/         # Svelte actions (clickOutside, keyboard, floating, positionFloating)
 src/routes/        # showcase site only — not published. Landing page + cross-cutting guides.
                     # NOT a component reference: that is Storybook (autodocs + <Component>.mdx).
@@ -229,7 +229,7 @@ fixed-height `overflow-hidden` box, which clips anything that stretches to `min-
 - **`Icon.svelte`** — renders Material Symbols icons; accepts `name`, `fill`, `wght`, `size`
 - **`Layer.svelte`** — renders the M3 state-layer overlay (hover/pressed ripple container); wrap interactive elements with it
 - **`Theme.svelte`** / **`ThemeScript.svelte`** — dynamic theming via `@ktibow/material-color-utilities-nightly`; `ThemeScript` goes in `<svelte:head>` to prevent FOUC
-- **`theme.svelte.ts`** — exports `ThemeConfig`, `DEFAULT_CONFIG`, `STORAGE_KEY`, `ColorScheme`, `ContrastMode`, `ThemeVariant`, and `isDarkScheme()`
+- **`themeState.svelte.ts`** — exports `ThemeConfig`, `DEFAULT_CONFIG`, `STORAGE_KEY`, `ColorScheme`, `ContrastMode`, `ThemeVariant`, and `isDarkScheme()`
 - **`MaterialSymbolsProvider`** — lazily loads icon font variants; used inside `App.svelte`
 
 # CSS Import Order (load-bearing)

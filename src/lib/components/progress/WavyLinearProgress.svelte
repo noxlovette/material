@@ -13,14 +13,16 @@ effects spring (critically damped, so progress never visibly runs backwards).
   import { springTokens } from '$lib/animation/spring.js';
   import { SpringValue } from '$lib/animation/springValue.svelte.js';
   import { linear, trackOpacity, WAVE_PERIOD_MS } from './_wavy.js';
+  import type { ProgressA11yProps } from './types.js';
 
   let {
     width = 600,
     height = 10,
     thickness = 4,
     percent,
-    class: className
-  }: {
+    class: className,
+    ...a11y
+  }: ProgressA11yProps & {
     /** Width of the SVG viewBox. */
     width?: number;
     /** Height of the SVG viewBox. */
@@ -56,7 +58,7 @@ effects spring (critically damped, so progress never visibly runs backwards).
   let wavePath = $derived(linear(height / 2 - thickness / 2, height / 2, left, percentX, time));
 </script>
 
-<Progress.Root value={percent ?? null} max={100}>
+<Progress.Root {...a11y} value={percent ?? null} max={100}>
   {#snippet child({ props })}
     <svg {...props} viewBox="0 0 {width} {height}" class={className}>
       <path
