@@ -79,7 +79,7 @@ export type ButtonIconProps = AnchorButtonAttributes & {
   /**
    * Colour style. `standard` has no container until hovered, focused or pressed; use it for
    * icon buttons in app bars, fields and other dense places.
-   * @default 'filled'
+   * @default 'standard'
    */
   variant?: 'filled' | 'tonal' | 'outlined' | 'standard';
   /**

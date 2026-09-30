@@ -2,10 +2,10 @@
 @component
 Icon buttons help people take minor actions with one tap.
 
-- Filled: high emphasis (default, except inside an `AppBar`, where it's standard)
+- Filled: high emphasis
 - Tonal: medium-high emphasis
 - Outlined: medium emphasis
-- Standard: low emphasis, no container at rest; for app bars, fields and dense layouts
+- Standard: low emphasis (default), no container at rest; for app bars, fields and dense layouts
 
 `variation="toggle"` makes a two-state icon button.
 
@@ -21,12 +21,12 @@ Icon buttons help people take minor actions with one tap.
   import Tooltip from '$lib/components/forms/tooltip/Tooltip.svelte';
   import { Button, Toggle, type ButtonRootProps, type ToggleRootProps } from 'bits-ui';
 
-  // A container like AppBar can lower the default emphasis; an explicit `variant` still wins.
+  // Containers can supply a default variant; an explicit `variant` still wins.
   const inheritedVariant = getButtonIconVariant();
 
   let {
     iconProps,
-    variant = inheritedVariant ?? 'filled',
+    variant = inheritedVariant ?? 'standard',
     size = 'sm',
     shape = 'round',
     width = 'default',

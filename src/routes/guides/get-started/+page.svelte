@@ -26,7 +26,7 @@
     <Body>
       The package expects <Code>svelte</Code> 5, <Code>@sveltejs/kit</Code> 2 and
       <Code>tailwindcss</Code> 4 in your project, plus the peer dependencies
-      <Code>@tailwindcss/typography</Code>, <Code>tailwind-scrollbar</Code> and
+      <Code>tailwind-scrollbar</Code> and
       <Code>@internationalized/date</Code>.
     </Body>
   </Section>

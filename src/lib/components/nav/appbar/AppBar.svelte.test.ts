@@ -14,13 +14,14 @@ window.ResizeObserver = class {
 const button = (label: string) => document.querySelector(`[aria-label="${label}"]`)!;
 
 describe('AppBar icon buttons', () => {
-  it('default to standard inside the bar, keep an explicit variant, and stay filled outside', () => {
+  it('default to standard inside and outside the bar while preserving an explicit variant', () => {
     const app = mount(Fixture, { target: document.body });
     flushSync();
     expect(button('Inherited').className).not.toContain('bg-md-sys-color-primary');
     expect(button('Inherited').className).toContain('text-md-sys-color-on-surface-variant');
     expect(button('Explicit').className).toContain('bg-md-sys-color-primary');
-    expect(button('Outside').className).toContain('bg-md-sys-color-primary');
+    expect(button('Outside').className).not.toContain('bg-md-sys-color-primary');
+    expect(button('Outside').className).toContain('text-md-sys-color-on-surface-variant');
     unmount(app);
   });
 });

@@ -19,7 +19,7 @@
       loading: { control: 'boolean' }
     },
     args: {
-      variant: 'filled',
+      variant: 'standard',
       size: 'sm',
       width: 'default',
       shape: 'round',
