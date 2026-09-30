@@ -12,37 +12,339 @@
   }
 }
 
-@utility prose-theme {
-  --tw-prose-body: var(--color-md-sys-color-on-surface);
-  --tw-prose-headings: var(--color-md-sys-color-on-surface);
-  --tw-prose-lead: var(--color-md-sys-color-on-surface-variant);
-  --tw-prose-links: var(--color-md-sys-color-primary);
-  --tw-prose-bold: var(--color-md-sys-color-on-surface);
-  --tw-prose-counters: var(--color-md-sys-color-on-surface-variant);
-  --tw-prose-bullets: var(--color-md-sys-color-outline);
-  --tw-prose-hr: var(--color-md-sys-color-outline-variant);
-  --tw-prose-quotes: var(--color-md-sys-color-on-surface);
-  --tw-prose-quote-borders: var(--color-md-sys-color-outline);
-  --tw-prose-captions: var(--color-md-sys-color-on-surface-variant);
-  --tw-prose-code: var(--color-md-sys-color-primary);
-  --tw-prose-pre-code: var(--color-md-sys-color-on-surface);
-  --tw-prose-pre-bg: var(--color-md-sys-color-surface-container-high);
-  --tw-prose-th-borders: var(--color-md-sys-color-outline-variant);
-  --tw-prose-td-borders: var(--color-md-sys-color-outline-variant);
-  --tw-prose-invert-body: var(--color-md-sys-color-on-surface);
-  --tw-prose-invert-headings: var(--color-md-sys-color-on-surface);
-  --tw-prose-invert-lead: var(--color-md-sys-color-on-surface-variant);
-  --tw-prose-invert-links: var(--color-md-sys-color-primary);
-  --tw-prose-invert-bold: var(--color-md-sys-color-on-surface);
-  --tw-prose-invert-counters: var(--color-md-sys-color-on-surface-variant);
-  --tw-prose-invert-bullets: var(--color-md-sys-color-outline);
-  --tw-prose-invert-hr: var(--color-md-sys-color-outline-variant);
-  --tw-prose-invert-quotes: var(--color-md-sys-color-on-surface);
-  --tw-prose-invert-quote-borders: var(--color-md-sys-color-outline);
-  --tw-prose-invert-captions: var(--color-md-sys-color-on-surface-variant);
-  --tw-prose-invert-code: var(--color-md-sys-color-primary);
-  --tw-prose-invert-pre-code: var(--color-md-sys-color-on-surface);
-  --tw-prose-invert-pre-bg: var(--color-md-sys-color-surface-container-highest);
-  --tw-prose-invert-th-borders: var(--color-md-sys-color-outline-variant);
-  --tw-prose-invert-td-borders: var(--color-md-sys-color-outline-variant);
+/* Owned HTML typography. Tailwind Typography 0.5.20's selectors are the coverage
+ * baseline, not the design: M3 type, logical spacing, and active theme roles.
+ * Size utilities change density/type roles, not an unrelated editorial scale.
+ * Descendant rules live below utilities so ordinary classes remain overrides.
+ */
+@utility prose {
+  @apply md-sys-typescale-body-large;
+  line-height: 1.6;
+  letter-spacing: normal;
+  font-optical-sizing: auto;
+  --prose-flow: var(--spacing-spacing-200);
+  --prose-section: var(--spacing-spacing-400);
+  --prose-heading-gap: var(--spacing-spacing-100);
+  --prose-h1-size: var(--md-sys-typescale-headline-large-size);
+  --prose-h2-size: var(--md-sys-typescale-headline-small-size);
+  --prose-h3-size: var(--md-sys-typescale-title-large-size);
+  --prose-measure: 65ch;
+  color: var(--color-md-sys-color-on-surface);
+  max-width: var(--prose-measure);
+  min-inline-size: 0;
+  overflow-wrap: break-word;
+}
+
+@utility prose-base {
+  @apply md-sys-typescale-body-large;
+  line-height: 1.6;
+  letter-spacing: normal;
+  --prose-flow: var(--spacing-spacing-200);
+  --prose-section: var(--spacing-spacing-400);
+  --prose-heading-gap: var(--spacing-spacing-100);
+  --prose-h1-size: var(--md-sys-typescale-headline-large-size);
+  --prose-h2-size: var(--md-sys-typescale-headline-small-size);
+  --prose-h3-size: var(--md-sys-typescale-title-large-size);
+}
+
+@utility prose-sm {
+  @apply md-sys-typescale-body-medium;
+  line-height: 1.6;
+  letter-spacing: normal;
+  --prose-flow: var(--spacing-spacing-150);
+  --prose-section: var(--spacing-spacing-300);
+  --prose-heading-gap: var(--spacing-spacing-75);
+  --prose-h1-size: var(--md-sys-typescale-headline-large-size);
+  --prose-h2-size: var(--md-sys-typescale-headline-small-size);
+  --prose-h3-size: var(--md-sys-typescale-title-large-size);
+}
+
+@utility prose-lg {
+  @apply md-sys-typescale-body-large;
+  line-height: 1.6;
+  letter-spacing: normal;
+  --prose-flow: var(--spacing-spacing-250);
+  --prose-section: var(--spacing-spacing-500);
+  --prose-heading-gap: var(--spacing-spacing-150);
+  --prose-h1-size: var(--md-sys-typescale-display-small-size);
+  --prose-h2-size: var(--md-sys-typescale-headline-medium-size);
+  --prose-h3-size: var(--md-sys-typescale-headline-small-size);
+}
+
+@utility prose-xl {
+  @apply prose-lg md-sys-typescale-title-large;
+  line-height: 1.6;
+  letter-spacing: normal;
+  --prose-flow: var(--spacing-spacing-300);
+  --prose-section: var(--spacing-spacing-600);
+  --prose-heading-gap: var(--spacing-spacing-200);
+}
+
+@utility prose-2xl {
+  @apply prose-lg md-sys-typescale-headline-small;
+  line-height: 1.6;
+  letter-spacing: normal;
+  --prose-flow: var(--spacing-spacing-400);
+  --prose-section: var(--spacing-spacing-700);
+  --prose-heading-gap: var(--spacing-spacing-200);
+  --prose-h1-size: var(--md-sys-typescale-display-medium-size);
+  --prose-h2-size: var(--md-sys-typescale-display-small-size);
+  --prose-h3-size: var(--md-sys-typescale-headline-medium-size);
+}
+
+@layer components {
+  /* Every target, including contextual ones, excludes embedded UI islands. */
+  :where(.prose)
+    :where(p, ul, ol, dl, blockquote, pre, table, figure, img, picture, video, details):not(
+      :where(.not-prose, .not-prose *)
+    ) {
+    margin-block: var(--prose-flow);
+  }
+
+  :where(.prose) :where(h1, h2, h3, h4, h5, h6):not(:where(.not-prose, .not-prose *)) {
+    margin-block: var(--prose-section) var(--prose-heading-gap);
+    color: var(--color-md-sys-color-on-surface);
+    text-wrap: balance;
+  }
+
+  :where(.prose) :where(h1):not(:where(.not-prose, .not-prose *)) {
+    @apply md-sys-typescale-headline-large;
+    font-size: var(--prose-h1-size);
+    line-height: max(1.4em, var(--md-ref-typeface-headline-large-line-height));
+  }
+  :where(.prose) :where(h2):not(:where(.not-prose, .not-prose *)) {
+    @apply md-sys-typescale-headline-small;
+    font-size: var(--prose-h2-size);
+    line-height: max(1.4em, var(--md-ref-typeface-headline-small-line-height));
+  }
+  :where(.prose) :where(h3):not(:where(.not-prose, .not-prose *)) {
+    @apply md-sys-typescale-title-large;
+    font-size: var(--prose-h3-size);
+    line-height: max(1.4em, var(--md-ref-typeface-title-large-line-height));
+  }
+  :where(.prose) :where(h4, h5, h6):not(:where(.not-prose, .not-prose *)) {
+    /* Lower levels never shrink below the surrounding copy. */
+    font: inherit;
+    font-weight: var(--md-ref-typeface-weight-medium);
+  }
+  :where(.prose) :where(h5):not(:where(.not-prose, .not-prose *)) {
+    color: var(--color-md-sys-color-on-surface-variant);
+  }
+  :where(.prose) :where(h6):not(:where(.not-prose, .not-prose *)) {
+    color: var(--color-md-sys-color-on-surface-variant);
+    font-style: italic;
+  }
+  :where(.prose) :where(.lead):not(:where(.not-prose, .not-prose *)) {
+    font-size: inherit;
+    color: var(--color-md-sys-color-on-surface-variant);
+  }
+
+  :where(.prose) :where(a):not(:where(.not-prose, .not-prose *)) {
+    @apply md-sys-state-focus-indicator;
+    color: var(--color-md-sys-color-primary);
+    text-decoration: underline;
+    text-decoration-thickness: from-font;
+    text-underline-position: from-font;
+    text-underline-offset: 0.2em;
+    text-decoration-skip-ink: auto;
+  }
+  :where(.prose) :where(a:hover):not(:where(.not-prose, .not-prose *)) {
+    text-decoration-thickness: 0.12em;
+  }
+  :where(.prose) :where(strong, b, dt, th):not(:where(.not-prose, .not-prose *)) {
+    font-weight: var(--md-ref-typeface-weight-bold);
+    /* Inherit context: emphasis inside a link/quote must not change its color. */
+  }
+  :where(.prose) :where(em, i, cite):not(:where(.not-prose, .not-prose *)) {
+    font-style: italic;
+  }
+  :where(.prose) :where(small):not(:where(.not-prose, .not-prose *)) {
+    @apply md-sys-typescale-body-small;
+  }
+  :where(.prose) :where(mark):not(:where(.not-prose, .not-prose *)) {
+    background: var(--color-md-sys-color-tertiary-container);
+    color: var(--color-md-sys-color-on-tertiary-container);
+  }
+  :where(.prose) :where(abbr[title]):not(:where(.not-prose, .not-prose *)) {
+    text-decoration: underline dotted;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: auto;
+  }
+
+  :where(.prose) :where(ul, ol):not(:where(.not-prose, .not-prose *)) {
+    padding-inline-start: var(--spacing-spacing-300);
+    list-style-position: outside;
+  }
+  :where(.prose) :where(ul):not(:where(.not-prose, .not-prose *)) {
+    list-style-type: disc;
+  }
+  :where(.prose) :where(ol):not(:where(.not-prose, .not-prose *)) {
+    list-style-type: decimal;
+  }
+  :where(.prose) :where(ol[type='A' s]):not(:where(.not-prose, .not-prose *)) {
+    list-style-type: upper-alpha;
+  }
+  :where(.prose) :where(ol[type='a' s]):not(:where(.not-prose, .not-prose *)) {
+    list-style-type: lower-alpha;
+  }
+  :where(.prose) :where(ol[type='I' s]):not(:where(.not-prose, .not-prose *)) {
+    list-style-type: upper-roman;
+  }
+  :where(.prose) :where(ol[type='i' s]):not(:where(.not-prose, .not-prose *)) {
+    list-style-type: lower-roman;
+  }
+  :where(.prose) :where(li):not(:where(.not-prose, .not-prose *)) {
+    margin-block: var(--spacing-spacing-50);
+    padding-inline-start: var(--spacing-spacing-50);
+  }
+  :where(.prose) :where(li):not(:where(.not-prose, .not-prose *))::marker {
+    color: var(--color-md-sys-color-on-surface-variant);
+    font-weight: var(--md-ref-typeface-weight-regular);
+  }
+  :where(.prose) :where(li > p, li > ul, li > ol):not(:where(.not-prose, .not-prose *)) {
+    margin-block: var(--spacing-spacing-100);
+  }
+  :where(.prose) :where(dt):not(:where(.not-prose, .not-prose *)) {
+    margin-block-start: var(--prose-flow);
+  }
+  :where(.prose) :where(dd):not(:where(.not-prose, .not-prose *)) {
+    margin-block-start: var(--spacing-spacing-50);
+    padding-inline-start: var(--spacing-spacing-300);
+  }
+
+  :where(.prose) :where(blockquote):not(:where(.not-prose, .not-prose *)) {
+    padding-inline-start: var(--spacing-spacing-200);
+    border-inline-start: var(--spacing-spacing-50) solid var(--color-md-sys-color-secondary);
+    color: var(--color-md-sys-color-secondary);
+    /* No invented quotation marks or forced italics. Authored content wins. */
+  }
+  :where(.prose) :where(blockquote cite):not(:where(.not-prose, .not-prose *)) {
+    @apply md-sys-typescale-body-medium;
+    color: var(--color-md-sys-color-on-surface-variant);
+  }
+
+  :where(.prose) :where(code, kbd, samp):not(:where(.not-prose, .not-prose *)) {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    padding-inline: var(--spacing-spacing-50);
+    border-radius: var(--radius-xs);
+    background: var(--color-md-sys-color-surface-container);
+    color: var(--color-md-sys-color-on-surface);
+    box-decoration-break: clone;
+  }
+  :where(.prose) :where(kbd):not(:where(.not-prose, .not-prose *)) {
+    white-space: nowrap;
+    padding-block: var(--spacing-spacing-25);
+    border: 1px solid var(--color-md-sys-color-outline-variant);
+    border-block-end-width: var(--spacing-spacing-25);
+  }
+  :where(.prose)
+    :where(
+      a code,
+      h1 code,
+      h2 code,
+      h3 code,
+      h4 code,
+      h5 code,
+      h6 code,
+      blockquote code,
+      th code
+    ):not(:where(.not-prose, .not-prose *)) {
+    color: inherit;
+  }
+  :where(.prose) :where(pre):not(:where(.not-prose, .not-prose *)) {
+    @apply md-sys-typescale-body-medium md-sys-state-focus-indicator;
+    font-family: var(--font-mono);
+    padding: var(--spacing-spacing-200);
+    border-radius: var(--radius-md);
+    background: var(--color-md-sys-color-surface-container-high);
+    color: var(--color-md-sys-color-on-surface);
+    overflow-x: auto;
+    overflow-wrap: normal;
+  }
+  :where(.prose) :where(pre code, pre samp):not(:where(.not-prose, .not-prose *)) {
+    font: inherit;
+    color: inherit;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  :where(.prose) :where(table):not(:where(.not-prose, .not-prose *)) {
+    @apply md-sys-typescale-body-medium;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    /* break-word protects text; anywhere also contributes to intrinsic sizing. */
+    overflow-wrap: anywhere;
+  }
+  :where(.prose) :where(th, td):not(:where(.not-prose, .not-prose *)) {
+    padding: var(--spacing-spacing-100) var(--spacing-spacing-150);
+    text-align: start;
+    vertical-align: top;
+  }
+  :where(.prose) :where(th:first-child, td:first-child):not(:where(.not-prose, .not-prose *)) {
+    padding-inline-start: 0;
+  }
+  :where(.prose) :where(th:last-child, td:last-child):not(:where(.not-prose, .not-prose *)) {
+    padding-inline-end: 0;
+  }
+  :where(.prose) :where(thead, tbody tr):not(:where(.not-prose, .not-prose *)) {
+    border-block-end: 1px solid var(--color-md-sys-color-outline-variant);
+  }
+  :where(.prose) :where(tbody tr:last-child):not(:where(.not-prose, .not-prose *)) {
+    border-block-end: 0;
+  }
+  :where(.prose) :where(tfoot):not(:where(.not-prose, .not-prose *)) {
+    border-block-start: 1px solid var(--color-md-sys-color-outline-variant);
+  }
+  :where(.prose) :where(caption, figcaption):not(:where(.not-prose, .not-prose *)) {
+    @apply md-sys-typescale-body-medium;
+    color: var(--color-md-sys-color-on-surface-variant);
+    text-align: start;
+  }
+  :where(.prose) :where(caption):not(:where(.not-prose, .not-prose *)) {
+    padding-block-end: var(--spacing-spacing-100);
+  }
+  :where(.prose) :where(figcaption):not(:where(.not-prose, .not-prose *)) {
+    margin-block-start: var(--spacing-spacing-100);
+  }
+  :where(.prose) :where(img, picture, video):not(:where(.not-prose, .not-prose *)) {
+    display: block;
+    max-inline-size: 100%;
+    block-size: auto;
+    border-radius: var(--radius-md);
+  }
+  :where(.prose) :where(hr):not(:where(.not-prose, .not-prose *)) {
+    margin-block: var(--prose-section);
+    border: 0;
+    border-block-start: 1px solid var(--color-md-sys-color-outline-variant);
+  }
+  :where(.prose) :where(summary):not(:where(.not-prose, .not-prose *)) {
+    @apply md-sys-state-focus-indicator;
+    cursor: pointer;
+    font-weight: var(--md-ref-typeface-weight-medium);
+  }
+
+  /* Flow is owned by the block before a heading's content, not doubled margins.
+   * Compact containers trim their edges without collapsing the article rhythm. */
+  :where(.prose)
+    :where(h1 + *, h2 + *, h3 + *, h4 + *, h5 + *, h6 + *, hr + *):not(
+      :where(.not-prose, .not-prose *)
+    ) {
+    margin-block-start: 0;
+  }
+  :where(.prose)
+    :where(figure > :not(figcaption), picture > img):not(:where(.not-prose, .not-prose *)) {
+    margin-block: 0;
+  }
+  :where(.prose, .prose li, .prose dd, .prose blockquote)
+    > :where(:first-child):not(:where(.not-prose, .not-prose *)) {
+    margin-block-start: 0;
+  }
+  :where(.prose, .prose li, .prose dd, .prose blockquote)
+    > :where(:last-child):not(:where(.not-prose, .not-prose *)) {
+    margin-block-end: 0;
+  }
 }

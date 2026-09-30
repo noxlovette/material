@@ -10,7 +10,8 @@ const config: StorybookConfig = {
       name: '@storybook/addon-docs',
       // GitHub-flavoured Markdown, so tables in the .mdx docs render as tables.
       options: { mdxPluginOptions: { mdxCompileOptions: { remarkPlugins: [remarkGfm] } } }
-    }
+    },
+    '@storybook/addon-mcp'
   ],
   framework: {
     name: '@storybook/svelte-vite',

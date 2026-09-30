@@ -246,7 +246,7 @@ export const buttonIcon = tv({
     { selected: true, shape: 'square', class: { base: '[--btn-shape:var(--btn-round)]' } }
   ],
   defaultVariants: {
-    variant: 'filled',
+    variant: 'standard',
     size: 'sm',
     width: 'default',
     shape: 'round'

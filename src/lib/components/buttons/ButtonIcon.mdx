@@ -16,7 +16,7 @@ import * as IconStories from './ButtonIcon.stories.svelte';
 
 ## Colour styles
 
-`filled` (default), `tonal`, `outlined` and `standard`. `standard` has no container until it is
+`filled`, `tonal`, `outlined` and `standard` (default). `standard` has no container until it is
 hovered, focused or pressed; use it in app bars, text fields, sheets and other dense places.
 
 With `variation="toggle"`, the button has a selected state (`aria-pressed`, bindable `pressed`).
@@ -48,5 +48,5 @@ shows on hover and focus and becomes the name when there is no `aria-label`.
 
 ## Migrating
 
-`variant="text"` is now `variant="standard"`, the spec's name, and the default is now `filled`
-(it was `text`). `elevated`, `bare` and `color` are gone.
+`variant="text"` is now `variant="standard"`, the spec's name and the default.
+`elevated`, `bare` and `color` are gone. Pass `variant="filled"` for a high-emphasis container.

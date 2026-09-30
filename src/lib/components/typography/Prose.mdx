@@ -1,0 +1,75 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as Stories from './Prose.stories.svelte';
+
+<Meta of={Stories} />
+
+# Prose
+
+```html
+<article class="prose">
+  <h1>A connected reading experience</h1>
+  <p class="lead">A quiet introduction.</p>
+  <h2>The next section</h2>
+  <p>Content stays close to the heading that introduces it.</p>
+</article>
+```
+
+## Reading rhythm
+
+M3 type sizes and weights connect content to the surrounding interface. Paragraphs use
+unitless `1.6` leading and normal tracking rather than UI-label spacing. Headings are
+balanced, sections get more space before than after their heading, and nested blocks trim
+their edges. Quotes keep the secondary role, without synthetic quotation marks or forced
+italics. Inline code uses a quiet surface without generated backticks.
+
+The default measure is `65ch`. Use `max-w-none` deliberately for full-width content; long
+articles should keep the cap. `--prose-measure`, `--prose-flow`, `--prose-section`, and
+`--prose-heading-gap` are the customization points. Normal utilities override descendant
+defaults; the old plugin's `prose-p:*` / `prose-headings:*` variants are not provided.
+
+## Sizes
+
+| Utility      | Body role             | Purpose                                                  |
+| ------------ | --------------------- | -------------------------------------------------------- |
+| `prose-sm`   | Body medium (14px)    | Compact, short-form content—not the default for articles |
+| `prose-base` | Body large (16px)     | Default long-form reading                                |
+| `prose-lg`   | Body large (16px)     | Roomier spacing and larger section headings              |
+| `prose-xl`   | Title large (22px)    | Large reading presentation                               |
+| `prose-2xl`  | Headline small (24px) | Extra-large reading presentation                         |
+
+Sizes stay on the M3 scale instead of reproducing the plugin's 18px/20px steps. Every size
+keeps readable paragraph leading. Responsive modifiers work:
+`class="prose prose-sm md:prose-base lg:prose-lg"`.
+
+## Coverage
+
+The element and contextual selector coverage of Tailwind Typography **0.5.20** is the
+baseline: paragraphs/lead, links and nested strong/code, h1–h4 and their strong/code,
+all five ordered marker types, unordered and ordered nesting in all four combinations,
+multi-paragraph list items, definitions, quotes, keyboard keys, inline/preformatted code,
+tables with headers/body/footer, images, pictures, videos, figures/captions, dividers,
+heading adjacency, and first/last block boundaries. We additionally cover h5/h6, table
+captions and row headers, common inline semantics, details, responsive sizes, RTL, and
+embedded UI. The suite covers these finite structural cases—not every arbitrary HTML tree.
+
+Media fixtures are self-contained; videos are poster-only layout examples, not playback
+tests. Focusable code blocks expose horizontal scrolling to keyboard users.
+
+<Canvas of={Stories.Playground} />
+
+## Embedded components
+
+Wrap interactive UI in `not-prose`. Descendant typography rules stop at that boundary;
+inherited article font/color still follow normal CSS inheritance, so embedded UI should
+set its own type roles. Nesting a new prose region inside `not-prose` is intentionally
+unsupported, matching the original exclusion contract.
+
+```html
+<article class="prose">
+  <p>Article content.</p>
+  <div class="not-prose"><!-- Components with their own styling --></div>
+  <p>The article resumes.</p>
+</article>
+```
+
+<Canvas of={Stories.EmbeddedUI} />
