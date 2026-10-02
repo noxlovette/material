@@ -260,7 +260,19 @@
   asChild
   parameters={{ docs: { story: { inline: false, height: '720px' } } }}
 >
-  <div class="gap-spacing-100 p-spacing-300 grid grid-cols-5">
+  <!-- Both lower and higher layers overlap the pane's flight path. During the morph the
+       rail must remain below it, and the popup above it, just as in the live layout. -->
+  <div
+    class="md-vt-persist z-layer-rail bg-md-sys-color-surface-container p-spacing-200 inset-y-spacing-0 left-spacing-0 w-spacing-900 fixed"
+  >
+    <Body size="small">Rail — below pane</Body>
+  </div>
+  <div
+    class="md-vt-persist z-layer-popup bg-md-sys-color-inverse-surface text-md-sys-color-inverse-on-surface p-spacing-150 top-spacing-500 left-spacing-900 fixed rounded-md"
+  >
+    Popup layer — always above pane
+  </div>
+  <div class="gap-spacing-100 p-spacing-300 ml-spacing-900 grid grid-cols-5">
     {#each days as { day, events } (day)}
       <Card type="outlined" padding="sm" class="gap-spacing-100 flex min-h-40 flex-col">
         <Title size="small">{day}</Title>
