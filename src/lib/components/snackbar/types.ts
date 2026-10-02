@@ -8,9 +8,9 @@ import type { SnackBarVariants } from './theme.js';
 export interface Toast {
   /** The message to display. */
   message?: string;
-  /** Whether to show a close button. */
+  /** Whether to show a close button when no action label is supplied. Ignored when `label` is set. */
   showClose?: boolean;
-  /** The label for the action button. */
+  /** The label for the action button. An action replaces the close button. */
   label?: string;
   /** Whether the snackbar should remain until manually dismissed. */
   static?: boolean;
@@ -27,9 +27,9 @@ export type SnackBarProps = SnackBarVariants &
     fixed?: boolean;
     /** Callback for the action button. */
     callback?: () => void;
-    /** The label for the action button. */
+    /** The label for the action button. An action replaces the close button. */
     label?: string;
-    /** Whether to show a close button. */
+    /** Whether to show a close button when no action label is supplied. Ignored when `label` is set. */
     showClose?: boolean;
     /** Whether the snackbar should remain until manually dismissed. */
     static?: boolean;
