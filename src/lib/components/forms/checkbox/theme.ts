@@ -2,7 +2,8 @@ import { tv, type VariantProps } from '$lib/utils/tv.js';
 
 export const checkbox = tv({
   slots: {
-    root: 'group inline-flex size-spacing-500 shrink-0 select-none items-center justify-center cursor-pointer',
+    // The control draws the M3 focus ring; suppress the native button outline.
+    root: 'group inline-flex size-spacing-500 shrink-0 select-none items-center justify-center cursor-pointer outline-none',
     container: 'relative inline-flex size-[18px] shrink-0',
     control:
       'layer-container absolute -inset-[11px] rounded-full text-md-sys-color-on-surface-variant state-layer before:rounded-full group-focus-visible:outline group-focus-visible:outline-3 group-focus-visible:outline-offset-2 group-focus-visible:outline-md-sys-color-secondary transition-colors md-sys-motion-fast-effects',
