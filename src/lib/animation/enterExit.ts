@@ -10,7 +10,7 @@ import { springTokens, springTransition, type SpringToken } from './spring.js';
  *
  * Introduces a component in the context of the current screen, modal or not
  * (https://m3.material.io/styles/motion/transitions/applying-transitions). Never use it to navigate between hierarchical screens.
- * Clean fades: opacity always runs on `fastEffects` so it never lingers over the content behind.
+ * Clean fades: opacity uses `fastEffects`, except snackbar exits use `effects` to preserve the slide.
  * Edge-anchored sheets slide without fading, as M3 asks.
  *
  * Required for every component that mounts a surface within the current screen: dialogs, sheets,
@@ -74,12 +74,18 @@ export const enterExit: Record<EnterExitPreset, PresenceTransition> = {
     enter: enterWith(springTokens.fastSpatial),
     exit
   },
-  /** Snackbars — slide in from below by their own height (MDC slide mode). */
+  /** Snackbars — spring in from below and back down by their own height (MDC slide mode). */
   slideUp: {
     hidden: { opacity: 0, transform: 'translateY(100%)' },
     shown: { opacity: 1, transform: 'translateY(0%)' },
     enter: enterWith(springTokens.fastSpatial),
-    exit
+    // Keep the return spatial, and let the fade follow it instead of hiding it immediately.
+    // Opacity must settle to zero: inline snackbars and inset fixed ones remain on-screen
+    // after translating by their height, so a slide alone would stop and then pop out.
+    exit: {
+      ...springTransition(springTokens.fastSpatial),
+      opacity: springTransition(springTokens.effects)
+    }
   },
   /** Modal dialogs — MaterialFade from the center. */
   dialog: {

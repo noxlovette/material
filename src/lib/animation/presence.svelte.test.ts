@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 import { flushSync, mount, unmount } from 'svelte';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { springTokens, springTransition } from './spring.js';
 
 type Call = { keyframes: Record<string, unknown>; finish: () => void; stopped: boolean };
 const calls: Call[] = [];
@@ -99,17 +100,45 @@ describe('Presence', () => {
     unmount(app);
   });
 
-  it('uses opacity only for a sheet under reduced motion', () => {
+  it.each([
+    ['sheet', enterExit.sideSheet, 'translateX(0%)'],
+    ['snackbar', enterExit.slideUp, 'translateY(0%)']
+  ] as const)('uses opacity only for a %s under reduced motion', (_name, transition, transform) => {
     reduced = true;
-    const props = $state({ open: true, transition: enterExit.sideSheet });
+    const props = $state({ open: true, transition });
     const app = mount(Fixture, { target: document.body, props });
     flushSync();
     expect(calls[0].keyframes).toEqual({ opacity: [0, 1] });
-    expect((panel() as HTMLElement).style.transform).toBe('translateX(0%)');
+    expect((panel() as HTMLElement).style.transform).toBe(transform);
 
     props.open = false;
     flushSync();
     expect(calls[1].keyframes).toEqual({ opacity: 0 });
+    unmount(app);
+  });
+
+  it('springs a snackbar back down and fades it before unmounting', async () => {
+    const props = $state({ open: true, transition: enterExit.slideUp });
+    const app = mount(Fixture, { target: document.body, props });
+    flushSync();
+    expect(calls[0].keyframes).toEqual({
+      opacity: [0, 1],
+      transform: ['translateY(100%)', 'translateY(0%)']
+    });
+
+    props.open = false;
+    flushSync();
+    expect(calls[1].keyframes).toEqual({ opacity: 0, transform: 'translateY(100%)' });
+    expect(enterExit.slideUp.exit).toEqual({
+      ...springTransition(springTokens.fastSpatial),
+      opacity: springTransition(springTokens.effects)
+    });
+    expect(panel()).not.toBeNull();
+
+    calls[1].finish();
+    await settle();
+    flushSync();
+    expect(panel()).toBeNull();
     unmount(app);
   });
 

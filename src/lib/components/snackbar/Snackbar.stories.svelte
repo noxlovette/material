@@ -59,7 +59,7 @@
     >
       Show Snackbar
     </Button>
-    <Snackbar bind:message={triggeredMessage} label="Undo" fixed={false} />
+    <Snackbar bind:message={triggeredMessage} fixed={false} />
   </div>
 </Story>
 

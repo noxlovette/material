@@ -84,9 +84,7 @@ Snackbars provide brief messages about app processes at the bottom of the screen
           {label}
           <Layer />
         </button>
-      {/if}
-
-      {#if showClose}
+      {:else if showClose}
         <button
           class="p-spacing-50 relative rounded-full"
           onclick={() => {
