@@ -228,7 +228,7 @@ fixed-height `overflow-hidden` box, which clips anything that stretches to `min-
 
 - **`Icon.svelte`** — renders Material Symbols icons; accepts `name`, `fill`, `wght`, `size`
 - **`Layer.svelte`** — renders the M3 state-layer overlay (hover/pressed ripple container); wrap interactive elements with it
-- **`Theme.svelte`** / **`ThemeScript.svelte`** — dynamic theming via `@ktibow/material-color-utilities-nightly`; `ThemeScript` goes in `<svelte:head>` to prevent FOUC
+- **`Theme.svelte`** / **`ThemeScript.svelte`** — dynamic theming via the vendored Material Color Utilities in `utils/mcu/` (see its README; don't edit the algorithms); `ThemeScript` goes in `<svelte:head>` to prevent FOUC
 - **`themeState.svelte.ts`** — exports `ThemeConfig`, `DEFAULT_CONFIG`, `STORAGE_KEY`, `ColorScheme`, `ContrastMode`, `ThemeVariant`, and `isDarkScheme()`
 - **`MaterialSymbolsProvider`** — lazily loads icon font variants; used inside `App.svelte`
 
