@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { Icon, Layer } from '$lib/utils/index.js';
+  import { Icon, Layer } from '#lib/utils/index.js';
   import clsx from 'clsx';
   import { listItem } from './theme.js';
   import { getListContext, type SelectionRect } from './context.js';
   import { untrack } from 'svelte';
   import { animate, type AnimationPlaybackControlsWithThen } from 'motion';
-  import { springTokens, springTransition } from '$lib/animation/spring.js';
+  import { springTokens, springTransition } from '#lib/animation/spring.js';
   import type { ListitemProps } from './types.js';
   import Badge from '../../badge/Badge.svelte';
 

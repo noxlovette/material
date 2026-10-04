@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Body, Card, Display, Icon, Pane, Title } from '$lib/index.js';
+  import { Body, Card, Display, Icon, Pane, Title } from '#lib/index.js';
   import { storybookHref } from './storybook.js';
   import { guides, guideHref } from './guides/nav.js';
 

@@ -8,11 +8,11 @@ Text fields allow users to enter and edit text.
 -->
 <script lang="ts">
   import clsx from 'clsx';
-  import { Icon } from '$lib/utils/index.js';
+  import { Icon } from '#lib/utils/index.js';
   import { textfield } from './theme.js';
   import type { TextfieldProps } from './types.js';
   import { useId } from 'bits-ui';
-  import { ButtonIcon } from '$lib/components/buttons/index.js';
+  import { ButtonIcon } from '#lib/components/buttons/index.js';
 
   let {
     value = $bindable(),

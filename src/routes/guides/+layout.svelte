@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from '$app/state';
-  import { base } from '$app/paths';
-  import { Icon, List, ListItem, Pane, PaneGrid } from '$lib/index.js';
+  import { resolve } from '$app/paths';
+  import { Icon, List, ListItem, Pane, PaneGrid } from '#lib/index.js';
   import { guides, guideHref } from './nav.js';
 
   const { children } = $props();
@@ -19,8 +19,8 @@
       <List variant="segmented">
         <ListItem
           headline="All guides"
-          href="{base}/guides"
-          selected={page.url.pathname === `${base}/guides`}
+          href="{resolve('')}/guides"
+          selected={page.url.pathname === resolve(`guides`)}
         >
           {#snippet leading()}<Icon name="menu_book" size="sm" />{/snippet}
         </ListItem>

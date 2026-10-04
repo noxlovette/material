@@ -1,4 +1,4 @@
-import { springTokens, springTransition } from '$lib/animation/spring.js';
+import { springTokens, springTransition } from '#lib/animation/spring.js';
 import { animate, motionValue, type AnimationPlaybackControls, type MotionValue } from 'motion';
 
 /*

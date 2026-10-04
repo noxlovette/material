@@ -8,7 +8,7 @@ Checkboxes let users select one or more items from a list, or turn an item on or
   import clsx from 'clsx';
   import { checkbox } from './theme.js';
   import type { CheckboxProps } from './types.js';
-  import { Layer } from '$lib/utils/index.js';
+  import { Layer } from '#lib/utils/index.js';
   import { Checkbox, Label, useId } from 'bits-ui';
 
   let {

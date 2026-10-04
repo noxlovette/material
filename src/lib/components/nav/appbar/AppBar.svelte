@@ -30,7 +30,7 @@ A `ButtonIcon` anywhere inside it defaults to `variant="standard"`, per M3; pass
   import ButtonIcon from '../../buttons/ButtonIcon.svelte';
   import { setButtonIconVariant } from '../../buttons/context.js';
   import SearchView from '../../forms/search/SearchView.svelte';
-  import { ariaKeyShortcut, isApplePlatform, triggersShortcut } from '$lib/utils/index.js';
+  import { ariaKeyShortcut, isApplePlatform, triggersShortcut } from '#lib/utils/index.js';
 
   let {
     children,

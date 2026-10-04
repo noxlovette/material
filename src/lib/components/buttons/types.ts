@@ -1,4 +1,4 @@
-import type { AnchorButtonAttributes, IconProps } from '$lib/utils/index.js';
+import type { AnchorButtonAttributes, IconProps } from '#lib/utils/index.js';
 import type { Snippet } from 'svelte';
 import type { HTMLAnchorAttributes, HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
 import type { Responsive } from '../containers/pane/theme.js';

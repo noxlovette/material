@@ -3,7 +3,7 @@
   import ListItem from './ListItem.svelte';
   import List from './List.svelte';
   import { listMedia } from './theme.js';
-  import Icon from '$lib/utils/icon/Icon.svelte';
+  import Icon from '#lib/utils/icon/Icon.svelte';
   import Avatar from '../../misc/Avatar.svelte';
   import ButtonIcon from '../../buttons/ButtonIcon.svelte';
 

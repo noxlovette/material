@@ -19,13 +19,13 @@ Floating action buttons (FABs) help people take primary actions.
   import { getContext, setContext, tick, untrack } from 'svelte';
   import type { Attachment } from 'svelte/attachments';
   import { animate, type AnimationPlaybackControls } from 'motion';
-  import { springTokens, springTransition } from '$lib/animation/spring.js';
-  import { clickOutside } from '$lib/attachments/index.js';
+  import { springTokens, springTransition } from '#lib/animation/spring.js';
+  import { clickOutside } from '#lib/attachments/index.js';
   import { fab, fabExpandedClasses, fabMenuSet, fabSurface } from './theme.js';
   import type { Breakpoint } from '../containers/pane/theme.js';
   import type { FABProps } from './types.js';
   import FABMenu from './FABMenu.svelte';
-  import { Layer, Icon, LoadingIndicator } from '$lib/utils/index.js';
+  import { Layer, Icon, LoadingIndicator } from '#lib/utils/index.js';
   import { Button, DropdownMenu, type ButtonRootProps } from 'bits-ui';
 
   let {

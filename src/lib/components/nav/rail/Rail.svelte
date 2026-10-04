@@ -18,8 +18,8 @@ changes the modifier, `null` turns them off.
   import { setContext, untrack } from 'svelte';
   import { animate, type AnimationPlaybackControls } from 'motion';
   import type { RailProps } from './types';
-  import ButtonIcon from '$lib/components/buttons/ButtonIcon.svelte';
-  import { springTokens, springTransition } from '$lib/animation/spring.js';
+  import ButtonIcon from '#lib/components/buttons/ButtonIcon.svelte';
+  import { springTokens, springTransition } from '#lib/animation/spring.js';
   import { rail } from './theme';
   import { NavigationMenu } from 'bits-ui';
   import { railStore } from './railStore.svelte.js';
@@ -28,7 +28,7 @@ changes the modifier, `null` turns them off.
     isApplePlatform,
     matchesShortcut,
     triggersShortcut
-  } from '$lib/utils/index.js';
+  } from '#lib/utils/index.js';
 
   let {
     children,

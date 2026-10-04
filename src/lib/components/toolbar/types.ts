@@ -1,4 +1,4 @@
-import type { DivAttrs, IconProps } from '$lib/utils/index.js';
+import type { DivAttrs, IconProps } from '#lib/utils/index.js';
 import type {
   ToolbarButtonProps as BitsToolbarButtonProps,
   ToolbarGroupItemProps as BitsToolbarGroupItemProps,

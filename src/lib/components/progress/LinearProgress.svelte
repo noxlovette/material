@@ -11,11 +11,11 @@ The track always keeps a gap either side of the bar.
 -->
 <script lang="ts">
   import clsx from 'clsx';
-  import { tv } from '$lib/utils/tv.js';
+  import { tv } from '#lib/utils/tv.js';
   import { Progress } from 'bits-ui';
   import { animate, type AnimationPlaybackControls } from 'motion';
-  import { springTokens, springTransition } from '$lib/animation/spring.js';
-  import { SpringValue } from '$lib/animation/springValue.svelte.js';
+  import { springTokens, springTransition } from '#lib/animation/spring.js';
+  import { SpringValue } from '#lib/animation/springValue.svelte.js';
   import type { ProgressA11yProps } from './types.js';
 
   let {

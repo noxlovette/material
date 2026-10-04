@@ -8,7 +8,7 @@ Switches toggle the state of a single setting on or off.
 -->
 <script lang="ts">
   import clsx from 'clsx';
-  import { Icon } from '$lib/utils/index.js';
+  import { Icon } from '#lib/utils/index.js';
   import { toggle } from './theme.js';
   import type { SwitchProps } from './types.js';
   import { Switch } from 'bits-ui';

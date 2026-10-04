@@ -13,7 +13,7 @@
 </script>
 
 <script lang="ts">
-  import Body from '$lib/components/typography/body/Body.svelte';
+  import Body from '#lib/components/typography/body/Body.svelte';
   import {
     animatableShapes,
     animatableShapesSmall,

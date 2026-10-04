@@ -1,4 +1,4 @@
-import type { IconProps } from '$lib/utils/index.js';
+import type { IconProps } from '#lib/utils/index.js';
 import type { DateValue } from '@internationalized/date';
 import type { Snippet } from 'svelte';
 import type { HTMLInputAttributes } from 'svelte/elements';

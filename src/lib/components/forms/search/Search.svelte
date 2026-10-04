@@ -16,8 +16,8 @@ changes the key, `null` turns it off.
   import { search } from './theme.js';
   import clsx from 'clsx';
   import type { SearchProps } from './types.js';
-  import { Icon, ariaKeyShortcut, isApplePlatform, triggersShortcut } from '$lib/utils/index.js';
-  import ButtonIcon from '$lib/components/buttons/ButtonIcon.svelte';
+  import { Icon, ariaKeyShortcut, isApplePlatform, triggersShortcut } from '#lib/utils/index.js';
+  import ButtonIcon from '#lib/components/buttons/ButtonIcon.svelte';
   import SearchView from './SearchView.svelte';
 
   const uid = $props.id();

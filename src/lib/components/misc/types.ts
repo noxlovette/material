@@ -1,4 +1,4 @@
-import type { ShapeName } from '$lib/animation/shapeMorph.svelte.js';
+import type { ShapeName } from '#lib/animation/shapeMorph.svelte.js';
 import type { Avatar as AvatarPrimitive } from 'bits-ui';
 import type { VariantProps } from 'tailwind-variants';
 import type { DicebearStyleName } from './dicebearStyles.js';

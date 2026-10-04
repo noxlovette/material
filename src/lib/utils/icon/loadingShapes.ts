@@ -6,7 +6,7 @@ import {
   pathAnimatableSmallPill,
   pathAnimatableSmallSoftBurst,
   pathAnimatableSmallSunny
-} from '$lib/animation/shapesAnimatableSmall.js';
+} from '#lib/animation/shapesAnimatableSmall.js';
 
 /*
   The seven shapes the M3 loading indicator morphs through, in a 48 × 48 viewBox. They come from the

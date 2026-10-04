@@ -12,7 +12,7 @@ and serve as an entry point to more detailed information.
   import type { CardProps } from './types.js';
   import { card } from './theme.js';
   import clsx from 'clsx';
-  import { Layer } from '$lib/utils/index.js';
+  import { Layer } from '#lib/utils/index.js';
 
   let {
     children,

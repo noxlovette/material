@@ -14,7 +14,7 @@ For a two-state button use `Toggle`.
 -->
 <script lang="ts">
   import type { ButtonProps } from './types.js';
-  import { Icon, LoadingIndicator, Layer } from '$lib/utils/index.js';
+  import { Icon, LoadingIndicator, Layer } from '#lib/utils/index.js';
   import { button, buttonColor } from './theme.js';
   import clsx from 'clsx';
   import { buttonCorners, shapeMorph } from './shapeMorph.js';

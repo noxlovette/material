@@ -1,5 +1,5 @@
-import { base } from '$app/paths';
-import type { MaterialSymbolName } from '$lib/index.js';
+import type { MaterialSymbolName } from '#lib/index.js';
+import { resolve } from '$app/paths';
 
 export type Guide = { slug: string; title: string; icon: MaterialSymbolName; summary: string };
 
@@ -54,4 +54,4 @@ export const guides: Guide[] = [
   }
 ];
 
-export const guideHref = (slug: string) => `${base}/guides/${slug}`;
+export const guideHref = (slug: string) => resolve(`guides/${slug}`);

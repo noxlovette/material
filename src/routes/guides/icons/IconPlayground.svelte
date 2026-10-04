@@ -23,7 +23,7 @@
     type IconSize,
     type IconVariant,
     type MaterialSymbolName
-  } from '$lib/index.js';
+  } from '#lib/index.js';
   import CodeBlock from '../../CodeBlock.svelte';
 
   const PAGE = 96;

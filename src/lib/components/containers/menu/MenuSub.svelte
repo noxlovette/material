@@ -25,11 +25,11 @@ trigger row (`iconProps`/`helper`/`children` label) behaves like a
 @see https://m3.material.io/components/menus/guidelines
 -->
 <script lang="ts">
-  import { enterExit, presence } from '$lib/animation/index.js';
+  import { enterExit, presence } from '#lib/animation/index.js';
   import { DropdownMenu } from 'bits-ui';
   import clsx from 'clsx';
-  import Icon from '$lib/utils/icon/Icon.svelte';
-  import Layer from '$lib/utils/Layer.svelte';
+  import Icon from '#lib/utils/icon/Icon.svelte';
+  import Layer from '#lib/utils/Layer.svelte';
   import { menu as menuCls } from './theme.js';
   import type { MenuSubProps } from './types.js';
 

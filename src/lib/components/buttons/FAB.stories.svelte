@@ -4,7 +4,7 @@
   import FABMenuItem from './FABMenuItem.svelte';
   import ListItem from '../containers/list/ListItem.svelte';
   import List from '../containers/list/List.svelte';
-  import Icon from '$lib/utils/icon/Icon.svelte';
+  import Icon from '#lib/utils/icon/Icon.svelte';
 
   const colors = [
     'primary-container',

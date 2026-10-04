@@ -1,4 +1,4 @@
-import { tv, type VariantProps } from '$lib/utils/tv.js';
+import { tv, type VariantProps } from '#lib/utils/tv.js';
 
 export type RailVariants = VariantProps<typeof rail>;
 export type RailItemVariants = VariantProps<typeof railElement>;

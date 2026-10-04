@@ -7,11 +7,11 @@ Color is inherited from the parent Toolbar via context.
   import { Toolbar } from 'bits-ui';
   import clsx from 'clsx';
   import { getContext } from 'svelte';
-  import { Icon, Layer } from '$lib/utils/index.js';
+  import { Icon, Layer } from '#lib/utils/index.js';
   import { toolbarButton } from './theme.js';
   import type { ToolbarButtonProps } from './types.js';
   import type { ToolbarColor } from './types.js';
-  import Tooltip from '$lib/components/forms/tooltip/Tooltip.svelte';
+  import Tooltip from '#lib/components/forms/tooltip/Tooltip.svelte';
 
   let {
     iconProps,

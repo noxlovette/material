@@ -1,4 +1,4 @@
-import { tv } from '$lib/utils/tv.js';
+import { tv } from '#lib/utils/tv.js';
 
 export const card = tv({
   slots: {

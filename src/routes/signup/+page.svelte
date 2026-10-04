@@ -10,7 +10,7 @@
     Dialogue,
     Snackbar,
     Pane
-  } from '$lib/index.js';
+  } from '#lib/index.js';
 
   let { data } = $props();
 

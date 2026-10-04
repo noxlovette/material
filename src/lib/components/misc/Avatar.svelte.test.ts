@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { animatableShapesSmall } from '$lib/animation/shapeMorph.svelte.js';
+import { animatableShapesSmall } from '#lib/animation/shapeMorph.svelte.js';
 import { flushSync, mount, unmount } from 'svelte';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import Avatar from './Avatar.svelte';

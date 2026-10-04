@@ -1,4 +1,4 @@
-import type { IconProps } from '$lib/utils/index.js';
+import type { IconProps } from '#lib/utils/index.js';
 import type { HTMLAttributes } from 'svelte/elements';
 import type { SliderVariants } from './theme.js';
 

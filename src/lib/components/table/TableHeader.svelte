@@ -6,7 +6,7 @@ and `sortDirection` props. Defaults to `scope="col"`.
 <script lang="ts">
   import type { TableHeaderProps } from './types.js';
   import { table } from './theme.js';
-  import { Icon } from '$lib/utils/index.js';
+  import { Icon } from '#lib/utils/index.js';
   import clsx from 'clsx';
 
   let {

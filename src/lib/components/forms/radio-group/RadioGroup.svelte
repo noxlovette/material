@@ -7,7 +7,7 @@ Radio buttons let users select one option from a set.
 <script lang="ts">
   import clsx from 'clsx';
   import { RadioGroup } from 'bits-ui';
-  import { Layer } from '$lib/utils/index.js';
+  import { Layer } from '#lib/utils/index.js';
   import { radioGroup } from './theme.js';
   import type { RadioGroupProps } from './types.js';
 

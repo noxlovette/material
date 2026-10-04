@@ -14,7 +14,7 @@
   import MenuCheckboxItem from './MenuCheckboxItem.svelte';
   import MenuSub from './MenuSub.svelte';
   import ButtonIcon from '../../buttons/ButtonIcon.svelte';
-  import { Divider } from '$lib/index.js';
+  import { Divider } from '#lib/index.js';
 
   const { Story } = defineMeta({
     title: 'Containers/Menu',

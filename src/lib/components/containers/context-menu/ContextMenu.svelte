@@ -30,11 +30,11 @@ you need it (e.g. a table row):
 @see https://m3.material.io/components/menus/guidelines
 -->
 <script lang="ts">
-  import { enterExit, presence } from '$lib/animation/index.js';
+  import { enterExit, presence } from '#lib/animation/index.js';
   import { ContextMenu as BitsContextMenu } from 'bits-ui';
   import { contextMenu } from './theme.js';
   import type { ContextMenuProps, ContextMenuDataItem } from './types.js';
-  import Icon from '$lib/utils/icon/Icon.svelte';
+  import Icon from '#lib/utils/icon/Icon.svelte';
   import Divider from '../divider/Divider.svelte';
 
   let {

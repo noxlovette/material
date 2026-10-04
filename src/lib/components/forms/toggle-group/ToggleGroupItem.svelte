@@ -5,7 +5,7 @@
 <script lang="ts">
   import { ToggleGroup } from 'bits-ui';
   import clsx from 'clsx';
-  import { Icon, Layer } from '$lib/utils/index.js';
+  import { Icon, Layer } from '#lib/utils/index.js';
   import { toggleGroupItem } from './theme.js';
   import type { ToggleGroupItemProps } from './types.js';
 

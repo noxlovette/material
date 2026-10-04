@@ -14,8 +14,8 @@ Home/End to `min`/`max`).
 <script lang="ts">
   import clsx from 'clsx';
   import { onMount } from 'svelte';
-  import { springTokens } from '$lib/animation/spring.js';
-  import { SpringValue } from '$lib/animation/springValue.svelte.js';
+  import { springTokens } from '#lib/animation/spring.js';
+  import { SpringValue } from '#lib/animation/springValue.svelte.js';
   import { paneHandle } from './theme.js';
   import { paneWidths } from './resizeStore.svelte.js';
   import type { PaneHandleProps } from './types.js';

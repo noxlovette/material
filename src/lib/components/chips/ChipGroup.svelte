@@ -13,8 +13,8 @@ springs into its slot on release, carrying the pointer's speed.
   import { animate, type AnimationPlaybackControls } from 'motion';
   import { nanoid } from 'nanoid';
   import clsx from 'clsx';
-  import { springTokens, springTransition } from '$lib/animation/spring.js';
-  import { drag, resist, type DragPoint } from '$lib/attachments/index.js';
+  import { springTokens, springTransition } from '#lib/animation/spring.js';
+  import { drag, resist, type DragPoint } from '#lib/attachments/index.js';
   import { chipGroup } from './theme.js';
   import type { ChipGroupProps } from './types.js';
 

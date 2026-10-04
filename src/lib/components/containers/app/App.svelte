@@ -7,11 +7,11 @@ to opt out and rely on static theme CSS instead. Either way, App always keeps th
 theme CSS still responds to dark mode.
 -->
 <script lang="ts">
-  import { MaterialSymbolsProvider, Theme } from '$lib/utils/index.js';
+  import { MaterialSymbolsProvider, Theme } from '#lib/utils/index.js';
   import { Tooltip } from 'bits-ui';
   import { app } from './theme';
   import type { AppProps } from './types';
-  import ThemeScript from '$lib/utils/ThemeScript.svelte';
+  import ThemeScript from '#lib/utils/ThemeScript.svelte';
 
   let {
     children,

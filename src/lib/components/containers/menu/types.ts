@@ -1,4 +1,4 @@
-import type { IconProps } from '$lib/utils/icon/types.js';
+import type { IconProps } from '#lib/utils/icon/types.js';
 import type { Snippet } from 'svelte';
 
 /**

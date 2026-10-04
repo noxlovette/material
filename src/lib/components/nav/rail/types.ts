@@ -1,4 +1,4 @@
-import type { IconProps } from '$lib/utils/index.js';
+import type { IconProps } from '#lib/utils/index.js';
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
 import type { RailItemVariants, RailVariants } from './theme.js';

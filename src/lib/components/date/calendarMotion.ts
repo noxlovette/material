@@ -1,4 +1,4 @@
-import { lateral } from '$lib/animation/index.js';
+import { lateral } from '#lib/animation/index.js';
 import type { DateValue } from '@internationalized/date';
 import { tick } from 'svelte';
 

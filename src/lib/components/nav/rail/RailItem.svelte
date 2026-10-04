@@ -11,10 +11,10 @@ springs. The active icon fills, per M3's icon guidance.
   import { resolve } from '$app/paths';
   import { getContext, untrack } from 'svelte';
   import { animate, type AnimationPlaybackControls } from 'motion';
-  import { springTokens, springTransition } from '$lib/animation/spring.js';
+  import { springTokens, springTransition } from '#lib/animation/spring.js';
   import type { RailItemProps } from './types.js';
   import { railElement } from './theme.js';
-  import { Icon } from '$lib/utils/index.js';
+  import { Icon } from '#lib/utils/index.js';
   import Badge from '../../badge/Badge.svelte';
   import { NavigationMenu } from 'bits-ui';
   import clsx from 'clsx';

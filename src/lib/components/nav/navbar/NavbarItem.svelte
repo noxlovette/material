@@ -9,7 +9,7 @@ A single destination within a navigation bar.
   import { resolve } from '$app/paths';
   import type { NavItemProps } from './types.js';
   import { navitem } from './theme.js';
-  import { Icon, Layer } from '$lib/utils/index.js';
+  import { Icon, Layer } from '#lib/utils/index.js';
   import Badge from '../../badge/Badge.svelte';
   import { NavigationMenu } from 'bits-ui';
   import clsx from 'clsx';

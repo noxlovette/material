@@ -14,8 +14,8 @@ sibling item.
 -->
 <script lang="ts">
   import { DropdownMenu } from 'bits-ui';
-  import Icon from '$lib/utils/icon/Icon.svelte';
-  import Layer from '$lib/utils/Layer.svelte';
+  import Icon from '#lib/utils/icon/Icon.svelte';
+  import Layer from '#lib/utils/Layer.svelte';
   import { menu as menuCls } from './theme.js';
   import type { MenuRadioItemProps } from './types.js';
 

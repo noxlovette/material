@@ -11,7 +11,7 @@ counterclockwise, while the picture inside stays upright.
 -->
 <script module lang="ts">
   import { animate } from 'motion';
-  import { prefersReducedMotion } from '$lib/animation/reducedMotion.js';
+  import { prefersReducedMotion } from '#lib/animation/reducedMotion.js';
 
   /*
     One full turn of a spinning shape. A constant, linear spin has no spring to take from the
@@ -47,8 +47,8 @@ counterclockwise, while the picture inside stays upright.
 <script lang="ts">
   import { untrack } from 'svelte';
   import { Avatar as AvatarPrimitive } from 'bits-ui';
-  import { Layer } from '$lib/utils/index.js';
-  import { animatableShapesSmall, shapeMorph } from '$lib/animation/shapeMorph.svelte.js';
+  import { Layer } from '#lib/utils/index.js';
+  import { animatableShapesSmall, shapeMorph } from '#lib/animation/shapeMorph.svelte.js';
   import { avatar } from './theme.js';
   import { DicebearAvatarBuilder } from './DicebearAvatarBuilder.js';
   import { getMaterialAvatarPalette } from './materialAvatarPalette.js';
