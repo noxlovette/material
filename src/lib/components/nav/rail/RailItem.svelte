@@ -8,7 +8,7 @@ springs. The active icon fills, per M3's icon guidance.
 -->
 <script lang="ts">
   import { page } from '$app/state';
-  import { base } from '$app/paths';
+  import { resolve } from '$app/paths';
   import { getContext, untrack } from 'svelte';
   import { animate, type AnimationPlaybackControls } from 'motion';
   import { springTokens, springTransition } from '$lib/animation/spring.js';
@@ -46,7 +46,7 @@ springs. The active icon fills, per M3's icon guidance.
   const hrefValue = $derived(isDisabled ? undefined : href);
   const ariaDisabled = $derived(isDisabled ? true : undefined);
   const tabIndex = $derived(isDisabled ? -1 : undefined);
-  const isActive = $derived(selected || isCurrentRoute(href, page.url, base));
+  const isActive = $derived(selected || isCurrentRoute(href, page.url, resolve('/', {})));
   const styles = $derived(railElement({ active: isActive, layout, disabled: isDisabled }));
 
   /*
