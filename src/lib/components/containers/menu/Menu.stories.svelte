@@ -6,15 +6,17 @@
 -->
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
-  import Menu from './Menu.svelte';
+
+  import { Divider } from '#lib/index.js';
+
+  import ButtonIcon from '../../buttons/ButtonIcon.svelte';
   import MenuItem from './menu-item/MenuItem.svelte';
+  import Menu from './Menu.svelte';
+  import MenuCheckboxItem from './MenuCheckboxItem.svelte';
   import MenuGroup from './MenuGroup.svelte';
   import MenuRadioGroup from './MenuRadioGroup.svelte';
   import MenuRadioItem from './MenuRadioItem.svelte';
-  import MenuCheckboxItem from './MenuCheckboxItem.svelte';
   import MenuSub from './MenuSub.svelte';
-  import ButtonIcon from '../../buttons/ButtonIcon.svelte';
-  import { Divider } from '#lib/index.js';
 
   const { Story } = defineMeta({
     title: 'Containers/Menu',

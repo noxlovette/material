@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+
 import { formatFileSize, getFileExtension, shuffleArray } from './ui.js';
 
 describe('formatFileSize', () => {

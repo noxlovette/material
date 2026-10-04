@@ -1,7 +1,8 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
-  import PaneGrid from './PaneGrid.svelte';
+
   import Pane from './Pane.svelte';
+  import PaneGrid from './PaneGrid.svelte';
   import PaneHandle from './PaneHandle.svelte';
 
   const { Story } = defineMeta({

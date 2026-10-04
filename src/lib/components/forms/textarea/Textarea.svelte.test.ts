@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 import { flushSync, mount, unmount } from 'svelte';
 import { afterEach, describe, expect, it } from 'vitest';
+
 import Textarea from './Textarea.svelte';
 
 window.matchMedia = ((query: string) => ({ matches: true, media: query })) as never;

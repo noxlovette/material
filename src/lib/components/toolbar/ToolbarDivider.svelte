@@ -1,5 +1,6 @@
 <script lang="ts">
   import { getContext } from 'svelte';
+
   import { toolbar, type ToolbarVariants } from './theme.js';
 
   const toolbarCtx = getContext<

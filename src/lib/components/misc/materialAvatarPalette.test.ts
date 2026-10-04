@@ -1,5 +1,6 @@
 // @vitest-environment jsdom
 import { afterEach, describe, expect, it, vi } from 'vitest';
+
 import { getMaterialAvatarPalette } from './materialAvatarPalette.js';
 
 /** Stubs the resolved custom properties `getMaterialAvatarPalette` reads off `:root`. */

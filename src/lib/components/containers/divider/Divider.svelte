@@ -11,9 +11,10 @@ Powered by bits-ui for accessibility.
 <script lang="ts">
   import { Separator, type SeparatorRootProps } from 'bits-ui';
   import clsx from 'clsx';
+
+  import { linear } from '../../progress/_wavy.js';
   import { hr } from './theme.js';
   import type { HrProps } from './types.js';
-  import { linear } from '../../progress/_wavy.js';
 
   let {
     class: className,

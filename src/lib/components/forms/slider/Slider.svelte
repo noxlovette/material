@@ -13,9 +13,11 @@ the track, a new `value` from outside) springs to it on the fast spatial spring.
   import { Slider } from 'bits-ui';
   import clsx from 'clsx';
   import type { Attachment } from 'svelte/attachments';
+
   import { springTokens } from '#lib/animation/spring.js';
   import { SpringValue } from '#lib/animation/springValue.svelte.js';
   import { Icon } from '#lib/utils/index.js';
+
   import { slider } from './theme.js';
   import type { SliderProps } from './types.js';
 

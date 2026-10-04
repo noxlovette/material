@@ -15,11 +15,13 @@ the document root yourself to get the same behavior.
 -->
 <script lang="ts">
   import clsx from 'clsx';
-  import { onMount, untrack } from 'svelte';
   import { animate, motionValue } from 'motion';
+  import { onMount, untrack } from 'svelte';
+
   import { springTokens, springTransition } from '#lib/animation/spring.js';
-  import { pane, responsiveTables } from './theme.js';
+
   import { paneWidths } from './resizeStore.svelte.js';
+  import { pane, responsiveTables } from './theme.js';
   import type { PaneProps } from './types.js';
 
   let {

@@ -13,12 +13,14 @@ changes the key, `null` turns it off.
 @see https://m3.material.io/components/search/specs
 -->
 <script lang="ts">
-  import { search } from './theme.js';
   import clsx from 'clsx';
-  import type { SearchProps } from './types.js';
-  import { Icon, ariaKeyShortcut, isApplePlatform, triggersShortcut } from '#lib/utils/index.js';
+
   import ButtonIcon from '#lib/components/buttons/ButtonIcon.svelte';
+  import { Icon, ariaKeyShortcut, isApplePlatform, triggersShortcut } from '#lib/utils/index.js';
+
   import SearchView from './SearchView.svelte';
+  import { search } from './theme.js';
+  import type { SearchProps } from './types.js';
 
   const uid = $props.id();
 

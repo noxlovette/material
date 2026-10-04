@@ -7,8 +7,9 @@
 -->
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
-  import Badge from './Badge.svelte';
+
   import Icon from '../../utils/icon/Icon.svelte';
+  import Badge from './Badge.svelte';
 
   const { Story } = defineMeta({
     title: 'Feedback/Badge',

@@ -1,13 +1,14 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
-  import Table from './Table.svelte';
-  import TableHead from './TableHead.svelte';
-  import TableBody from './TableBody.svelte';
-  import TableFoot from './TableFoot.svelte';
-  import TableRow from './TableRow.svelte';
-  import TableHeader from './TableHeader.svelte';
-  import TableCell from './TableCell.svelte';
+
   import Pill from '../pill/Pill.svelte';
+  import Table from './Table.svelte';
+  import TableBody from './TableBody.svelte';
+  import TableCell from './TableCell.svelte';
+  import TableFoot from './TableFoot.svelte';
+  import TableHead from './TableHead.svelte';
+  import TableHeader from './TableHeader.svelte';
+  import TableRow from './TableRow.svelte';
 
   const { Story } = defineMeta({
     title: 'Table/Table',

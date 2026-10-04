@@ -1,6 +1,7 @@
 <script lang="ts">
-  import { resolve } from '$app/paths';
   import { onNavigate } from '$app/navigation';
+  import { resolve } from '$app/paths';
+
   import {
     App,
     fadeThrough,
@@ -11,7 +12,9 @@
     RailItem,
     ThemeSwitcher
   } from '#lib/index.js';
+
   import { storybookHref } from './storybook.js';
+
   import '../app.css';
 
   const { children } = $props();

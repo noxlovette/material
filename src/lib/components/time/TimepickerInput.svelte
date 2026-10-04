@@ -6,13 +6,14 @@ It follows the Material 3 design for time input pickers.
 @see https://m3.material.io/components/time-pickers/specs#66113b8d-698d-4ef3-9993-97992797666e
 -->
 <script lang="ts">
-  import { TimeField } from 'bits-ui';
   import { parseTime } from '@internationalized/date';
   import type { Time } from '@internationalized/date';
-  import { timepicker } from './theme.js';
+  import { TimeField } from 'bits-ui';
+
   import Button from '../buttons/Button.svelte';
-  import type { TimepickerProps } from './types.js';
   import { ButtonIcon } from '../buttons/index.js';
+  import { timepicker } from './theme.js';
+  import type { TimepickerProps } from './types.js';
 
   const {
     label = 'Enter time',

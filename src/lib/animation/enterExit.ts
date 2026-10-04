@@ -1,4 +1,5 @@
 import type { AnimationOptions, DOMKeyframesDefinition } from 'motion';
+
 import { springTokens, springTransition, type SpringToken } from './spring.js';
 
 /**

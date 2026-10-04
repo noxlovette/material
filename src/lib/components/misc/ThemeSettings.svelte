@@ -1,8 +1,9 @@
 <script lang="ts">
-  import { RadioGroup } from '../forms/radio-group/index.js';
   import { themeState, extractColorFromImage } from '#lib/utils/themeState.svelte.js';
-  import { Title } from '../typography/title/index.js';
+
+  import { RadioGroup } from '../forms/radio-group/index.js';
   import { Body } from '../typography/body/index.js';
+  import { Title } from '../typography/title/index.js';
 
   const schemeItems = [
     { label: 'System', value: 'system' },

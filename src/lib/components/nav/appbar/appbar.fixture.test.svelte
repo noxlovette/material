@@ -1,7 +1,8 @@
 <script lang="ts">
-  import AppBar from './AppBar.svelte';
-  import ButtonIcon from '../../buttons/ButtonIcon.svelte';
   import { Tooltip } from 'bits-ui';
+
+  import ButtonIcon from '../../buttons/ButtonIcon.svelte';
+  import AppBar from './AppBar.svelte';
 </script>
 
 <Tooltip.Provider>

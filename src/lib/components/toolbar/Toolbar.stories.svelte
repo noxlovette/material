@@ -1,5 +1,6 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
+
   import Toolbar from './Toolbar.svelte';
   import ToolbarButton from './ToolbarButton.svelte';
   import ToolbarDivider from './ToolbarDivider.svelte';

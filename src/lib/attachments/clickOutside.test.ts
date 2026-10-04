@@ -1,5 +1,6 @@
 // @vitest-environment jsdom
 import { afterEach, describe, expect, it, vi } from 'vitest';
+
 import { clickOutside } from './clickOutside.js';
 
 function setup() {

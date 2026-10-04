@@ -10,8 +10,9 @@ This component takes NavbarItems as its children
 @see https://m3.material.io/components/navigation-bar/overview
 -->
 <script lang="ts">
-  import clsx from 'clsx';
   import { NavigationMenu } from 'bits-ui';
+  import clsx from 'clsx';
+
   import { navbar } from './theme.js';
   import type { NavBarProps } from './types.js';
 

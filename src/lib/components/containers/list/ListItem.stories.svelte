@@ -1,11 +1,13 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
-  import ListItem from './ListItem.svelte';
-  import List from './List.svelte';
-  import { listMedia } from './theme.js';
+
   import Icon from '#lib/utils/icon/Icon.svelte';
-  import Avatar from '../../misc/Avatar.svelte';
+
   import ButtonIcon from '../../buttons/ButtonIcon.svelte';
+  import Avatar from '../../misc/Avatar.svelte';
+  import List from './List.svelte';
+  import ListItem from './ListItem.svelte';
+  import { listMedia } from './theme.js';
 
   const { Story } = defineMeta({
     title: 'Containers/List',

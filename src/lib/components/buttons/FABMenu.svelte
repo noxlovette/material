@@ -9,14 +9,16 @@ Motion: the items grow out of the close button one after another, nearest first,
 spatial spring; the stack fades out on close.
 -->
 <script lang="ts">
-  import clsx from 'clsx';
   import { DropdownMenu } from 'bits-ui';
+  import clsx from 'clsx';
   import { animate, stagger } from 'motion';
   import type { Attachment } from 'svelte/attachments';
-  import { fabMenu } from './theme.js';
-  import type { FABMenuProps } from './types.js';
+
   import { enterExit, presence } from '#lib/animation/index.js';
   import { springTokens, springTransition } from '#lib/animation/spring.js';
+
+  import { fabMenu } from './theme.js';
+  import type { FABMenuProps } from './types.js';
 
   let { children, class: className, ...restProps }: FABMenuProps = $props();
 

@@ -1,5 +1,6 @@
 import { animate, type AnimationPlaybackControls } from 'motion';
 import { untrack } from 'svelte';
+
 import { springTransition, type SpringToken } from './spring.js';
 
 /**

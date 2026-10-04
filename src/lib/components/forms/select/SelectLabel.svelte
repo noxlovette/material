@@ -1,7 +1,8 @@
 <script lang="ts">
   import { Select } from 'bits-ui';
-  import { select as selectCls } from './theme.js';
   import type { Snippet } from 'svelte';
+
+  import { select as selectCls } from './theme.js';
 
   let {
     children,

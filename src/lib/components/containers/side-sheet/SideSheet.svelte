@@ -12,12 +12,14 @@ Visibility is controlled with `bind:open`.
 @see https://m3.material.io/components/side-sheets/specs
 -->
 <script lang="ts">
-  import type { Attachment } from 'svelte/attachments';
-  import { untrack } from 'svelte';
   import clsx from 'clsx';
-  import ButtonIcon from '#lib/components/buttons/ButtonIcon.svelte';
-  import Divider from '../divider/Divider.svelte';
+  import { untrack } from 'svelte';
+  import type { Attachment } from 'svelte/attachments';
+
   import { enterExit, Presence } from '#lib/animation/index.js';
+  import ButtonIcon from '#lib/components/buttons/ButtonIcon.svelte';
+
+  import Divider from '../divider/Divider.svelte';
   import { sideSheet } from './theme.js';
   import type { SideSheetProps } from './types.js';
 

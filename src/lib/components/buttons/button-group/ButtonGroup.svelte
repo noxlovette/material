@@ -13,7 +13,9 @@ For a set of related options where one or more is selected, use `ConnectedButton
   import clsx from 'clsx';
   import { animate } from 'motion';
   import type { Attachment } from 'svelte/attachments';
+
   import { springTokens, springTransition } from '#lib/animation/spring.js';
+
   import { buttonGroup } from './theme.js';
   import type { ButtonGroupProps } from './types.js';
 

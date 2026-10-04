@@ -1,5 +1,6 @@
 import type { LinkPreview } from 'bits-ui';
 import type { Snippet } from 'svelte';
+
 import type { LinkPreviewVariants } from './theme.js';
 
 export interface LinkPreviewProps extends LinkPreviewVariants {

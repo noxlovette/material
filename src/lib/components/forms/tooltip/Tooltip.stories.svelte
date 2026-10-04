@@ -5,8 +5,9 @@
 -->
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
-  import Tooltip from './Tooltip.svelte';
+
   import Button from '../../buttons/Button.svelte';
+  import Tooltip from './Tooltip.svelte';
 
   const { Story } = defineMeta({
     title: 'Forms/Tooltip',

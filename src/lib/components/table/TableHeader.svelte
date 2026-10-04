@@ -4,10 +4,12 @@ A header cell (`<th>`). Supports sort indicators via `sortable`, `sorted`,
 and `sortDirection` props. Defaults to `scope="col"`.
 -->
 <script lang="ts">
-  import type { TableHeaderProps } from './types.js';
-  import { table } from './theme.js';
-  import { Icon } from '#lib/utils/index.js';
   import clsx from 'clsx';
+
+  import { Icon } from '#lib/utils/index.js';
+
+  import { table } from './theme.js';
+  import type { TableHeaderProps } from './types.js';
 
   let {
     children,

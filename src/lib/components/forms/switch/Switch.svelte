@@ -7,11 +7,13 @@ Switches toggle the state of a single setting on or off.
 @see https://m3.material.io/components/switch/overview
 -->
 <script lang="ts">
+  import { Switch } from 'bits-ui';
   import clsx from 'clsx';
+
   import { Icon } from '#lib/utils/index.js';
+
   import { toggle } from './theme.js';
   import type { SwitchProps } from './types.js';
-  import { Switch } from 'bits-ui';
 
   let {
     checked = $bindable(false),

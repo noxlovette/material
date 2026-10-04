@@ -1,6 +1,8 @@
-import type { IconProps, Shortcut } from '#lib/utils/index.js';
 import type { Snippet } from 'svelte';
 import type { HTMLInputAttributes } from 'svelte/elements';
+
+import type { IconProps, Shortcut } from '#lib/utils/index.js';
+
 import type { Responsive } from '../../containers/pane/theme.js';
 
 /**

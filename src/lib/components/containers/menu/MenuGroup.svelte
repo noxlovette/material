@@ -25,6 +25,7 @@ set. Purely organizational — it renders no interactive behavior of its own.
 -->
 <script lang="ts">
   import { DropdownMenu } from 'bits-ui';
+
   import { menu as menuCls } from './theme.js';
   import type { MenuGroupProps } from './types.js';
 

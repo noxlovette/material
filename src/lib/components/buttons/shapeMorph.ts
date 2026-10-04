@@ -1,5 +1,6 @@
-import { springTokens, springTransition } from '#lib/animation/spring.js';
 import { animate, motionValue, type AnimationPlaybackControls, type MotionValue } from 'motion';
+
+import { springTokens, springTransition } from '#lib/animation/spring.js';
 
 /*
  * Corner morphs for every button shape, on Motion springs: Button, Toggle and ButtonIcon (press

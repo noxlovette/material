@@ -11,6 +11,7 @@ connected toggle items for filtering or mode selection.
 <script lang="ts">
   import { ToggleGroup } from 'bits-ui';
   import clsx from 'clsx';
+
   import { toggleGroup } from './theme.js';
   import type { ToggleGroupProps } from './types.js';
 

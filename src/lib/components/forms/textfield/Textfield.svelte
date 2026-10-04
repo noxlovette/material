@@ -7,12 +7,14 @@ Text fields allow users to enter and edit text.
 @see https://m3.material.io/components/text-fields/overview
 -->
 <script lang="ts">
+  import { useId } from 'bits-ui';
   import clsx from 'clsx';
+
+  import { ButtonIcon } from '#lib/components/buttons/index.js';
   import { Icon } from '#lib/utils/index.js';
+
   import { textfield } from './theme.js';
   import type { TextfieldProps } from './types.js';
-  import { useId } from 'bits-ui';
-  import { ButtonIcon } from '#lib/components/buttons/index.js';
 
   let {
     value = $bindable(),

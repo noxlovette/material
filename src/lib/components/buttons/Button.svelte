@@ -13,12 +13,14 @@ For a two-state button use `Toggle`.
 @see https://m3.material.io/components/buttons/specs
 -->
 <script lang="ts">
-  import type { ButtonProps } from './types.js';
-  import { Icon, LoadingIndicator, Layer } from '#lib/utils/index.js';
-  import { button, buttonColor } from './theme.js';
-  import clsx from 'clsx';
-  import { buttonCorners, shapeMorph } from './shapeMorph.js';
   import { Button, type ButtonRootProps } from 'bits-ui';
+  import clsx from 'clsx';
+
+  import { Icon, LoadingIndicator, Layer } from '#lib/utils/index.js';
+
+  import { buttonCorners, shapeMorph } from './shapeMorph.js';
+  import { button, buttonColor } from './theme.js';
+  import type { ButtonProps } from './types.js';
 
   let {
     children,

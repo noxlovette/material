@@ -1,6 +1,8 @@
-import type { IconProps } from '#lib/utils/index.js';
 import type { Snippet } from 'svelte';
 import type { HTMLTextareaAttributes } from 'svelte/elements';
+
+import type { IconProps } from '#lib/utils/index.js';
+
 import type { TextareaVariants } from './theme.js';
 
 /**

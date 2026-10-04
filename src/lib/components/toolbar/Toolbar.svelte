@@ -22,6 +22,7 @@ Toolbar provides a horizontal (or vertical) container for grouped actions.
   import { Toolbar } from 'bits-ui';
   import clsx from 'clsx';
   import { setContext } from 'svelte';
+
   import { toolbar } from './theme.js';
   import type { ToolbarProps } from './types.js';
 

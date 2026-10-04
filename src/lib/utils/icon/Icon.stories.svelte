@@ -1,7 +1,9 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
-  import Body from '#lib/components/typography/body/Body.svelte';
+
   import ButtonIcon from '#lib/components/buttons/ButtonIcon.svelte';
+  import Body from '#lib/components/typography/body/Body.svelte';
+
   import Icon from './Icon.svelte';
 
   const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;

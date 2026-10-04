@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 import { flushSync, mount, unmount } from 'svelte';
 import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
+
 import { listItem } from './theme.js';
 
 type Ride = { el: Element; keyframes: Record<string, string[]>; stop: () => void };

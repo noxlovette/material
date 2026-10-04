@@ -1,5 +1,6 @@
 <script lang="ts">
   import { MediaQuery } from 'svelte/reactivity';
+
   import { generateThemeCSS, themeState, STORAGE_KEY } from './themeState.svelte.js';
 
   /**

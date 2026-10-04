@@ -5,6 +5,7 @@ import type {
   HTMLTdAttributes,
   HTMLThAttributes
 } from 'svelte/elements';
+
 import type { TableVariants } from './theme.js';
 
 export type TableProps = HTMLTableAttributes & {

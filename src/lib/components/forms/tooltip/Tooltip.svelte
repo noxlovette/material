@@ -6,14 +6,16 @@ Plain tooltips are used for simple labels, while rich tooltips can contain forma
 @see https://m3.material.io/components/tooltips/overview
 -->
 <script lang="ts">
+  import { Tooltip } from 'bits-ui';
   import clsx from 'clsx';
+
+  import { enterExit, presence } from '#lib/animation/index.js';
+  import { Layer } from '#lib/utils/index.js';
+
   import Body from '../../typography/body/Body.svelte';
   import Title from '../../typography/title/Title.svelte';
-  import { Layer } from '#lib/utils/index.js';
   import { tooltip } from './theme.js';
   import type { TooltipProps } from './types.js';
-  import { Tooltip } from 'bits-ui';
-  import { enterExit, presence } from '#lib/animation/index.js';
 
   let {
     subhead,

@@ -7,6 +7,7 @@ one toolbar into two or more visually separate surfaces.
 <script lang="ts">
   import clsx from 'clsx';
   import { getContext } from 'svelte';
+
   import { toolbar, type ToolbarVariants } from './theme.js';
   import type { ToolbarSectionProps } from './types.js';
 

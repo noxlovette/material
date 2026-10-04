@@ -6,12 +6,14 @@ colours and swaps its resting shape (round ↔ square).
 @see https://m3.material.io/components/buttons/specs
 -->
 <script lang="ts">
-  import type { ToggleProps } from './types.js';
-  import { Icon, LoadingIndicator, Layer } from '#lib/utils/index.js';
-  import { button, buttonColor } from './theme.js';
-  import clsx from 'clsx';
-  import { buttonCorners, shapeMorph } from './shapeMorph.js';
   import { Toggle, type ToggleRootProps } from 'bits-ui';
+  import clsx from 'clsx';
+
+  import { Icon, LoadingIndicator, Layer } from '#lib/utils/index.js';
+
+  import { buttonCorners, shapeMorph } from './shapeMorph.js';
+  import { button, buttonColor } from './theme.js';
+  import type { ToggleProps } from './types.js';
 
   let {
     children,

@@ -4,9 +4,10 @@ Primitive root element for building MD3-styled data tables.
 Compose with TableHead, TableBody, TableFoot, TableRow, TableCell, and TableHeader.
 -->
 <script lang="ts">
-  import type { TableProps } from './types.js';
-  import { table } from './theme.js';
   import clsx from 'clsx';
+
+  import { table } from './theme.js';
+  import type { TableProps } from './types.js';
 
   let { children, rounded = false, class: className, ...restProps }: TableProps = $props();
 

@@ -1,6 +1,7 @@
+import { fileURLToPath } from 'node:url';
+
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import tailwindcss from '@tailwindcss/vite';
-import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
 
 // Storybook needs a Vite config that has the Svelte compiler plugin (so .svelte files parse
@@ -14,7 +15,7 @@ export default defineConfig({
   resolve: {
     alias: {
       $lib: fileURLToPath(new URL('../src/lib', import.meta.url)),
-      // Components read `page` from $app/state and `base` from $app/paths for active-route
+      // Components read `page` from $app/state and `resolve` from $app/paths for active-route
       // detection (RailItem, NavbarItem). That module only exists inside a real SvelteKit app, so it's aliased
       // to a static stand-in — see mocks/app-state.ts.
       '$app/state': fileURLToPath(new URL('./mocks/app-state.ts', import.meta.url)),

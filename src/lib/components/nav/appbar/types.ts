@@ -1,6 +1,8 @@
-import type { Shortcut } from '#lib/utils/index.js';
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
+
+import type { Shortcut } from '#lib/utils/index.js';
+
 import type { Responsive } from '../../containers/pane/theme.js';
 import type { SearchLayout, SearchResultsProps } from '../../forms/search/types.js';
 import type { AppBarSize, AppbarVariants } from './theme.js';

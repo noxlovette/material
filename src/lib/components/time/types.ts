@@ -1,4 +1,5 @@
 import type { HTMLAttributes } from 'svelte/elements';
+
 import type { TimepickerVariants } from './theme.js';
 
 /**

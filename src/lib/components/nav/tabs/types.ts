@@ -1,4 +1,5 @@
 import type { IconProps } from '#lib/utils/index.js';
+
 import type { TabHolderVariants, TabVariants } from './theme.js';
 
 export type TabProps = {

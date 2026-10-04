@@ -11,14 +11,19 @@ import {
   SchemeTonalSpot,
   SchemeVibrant,
   Score
-} from '@ktibow/material-color-utilities-nightly';
+} from './mcu/index.js';
 
 // --- Types & Config ---
 
 export type ColorScheme = 'light' | 'dark' | 'system';
 export type ContrastMode = 'standard' | 'medium' | 'high';
 export type ThemeVariant =
-  'tonal-spot' | 'fidelity' | 'content' | 'vibrant' | 'fruit-salad' | 'rainbow';
+  | 'tonal-spot'
+  | 'fidelity'
+  | 'content'
+  | 'vibrant'
+  | 'fruit-salad'
+  | 'rainbow';
 
 export interface ThemeConfig {
   sourceColor: string;

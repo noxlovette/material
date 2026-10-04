@@ -24,9 +24,19 @@
 <script lang="ts">
   import { tick } from 'svelte';
   import type { Attachment } from 'svelte/attachments';
+
   import Button from '#lib/components/buttons/Button.svelte';
-  import Title from '#lib/components/typography/title/Title.svelte';
   import Body from '#lib/components/typography/body/Body.svelte';
+  import Title from '#lib/components/typography/title/Title.svelte';
+
+  import {
+    pathFourLeafClover,
+    pathFourSidedCookie,
+    pathGem,
+    pathPentagon,
+    pathSoftBurst,
+    pathSunny
+  } from './shapes.js';
   import {
     containerTransform,
     enterExit,
@@ -37,14 +47,6 @@
     skeleton,
     type NavigationDirection
   } from './transition.js';
-  import {
-    pathFourLeafClover,
-    pathFourSidedCookie,
-    pathGem,
-    pathPentagon,
-    pathSoftBurst,
-    pathSunny
-  } from './shapes.js';
 
   const LOOP_MS = 2200;
   const OVERVIEW_STEP_MS = 1400;

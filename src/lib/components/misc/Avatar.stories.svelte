@@ -1,7 +1,9 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
-  import Avatar from './Avatar.svelte';
+
   import { shapeNames } from '#lib/animation/shapeMorph.svelte.js';
+
+  import Avatar from './Avatar.svelte';
 
   const { Story } = defineMeta({
     title: 'Misc/Avatar',

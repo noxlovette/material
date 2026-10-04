@@ -1,7 +1,9 @@
-// @vitest-environment jsdom
-import { animatableShapesSmall } from '#lib/animation/shapeMorph.svelte.js';
 import { flushSync, mount, unmount } from 'svelte';
 import { afterEach, describe, expect, it, vi } from 'vitest';
+
+// @vitest-environment jsdom
+import { animatableShapesSmall } from '#lib/animation/shapeMorph.svelte.js';
+
 import Avatar from './Avatar.svelte';
 
 /* The last number animation started (the spin), so a test can step it by hand. */

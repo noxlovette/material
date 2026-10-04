@@ -24,13 +24,15 @@ A `ButtonIcon` anywhere inside it defaults to `variant="standard"`, per M3; pass
 @see https://m3.material.io/components/app-bars/specs
 -->
 <script lang="ts">
-  import { appbar, appbarSize } from './theme.js';
-  import type { AppBarProps } from './types.js';
   import clsx from 'clsx';
+
+  import { ariaKeyShortcut, isApplePlatform, triggersShortcut } from '#lib/utils/index.js';
+
   import ButtonIcon from '../../buttons/ButtonIcon.svelte';
   import { setButtonIconVariant } from '../../buttons/context.js';
   import SearchView from '../../forms/search/SearchView.svelte';
-  import { ariaKeyShortcut, isApplePlatform, triggersShortcut } from '#lib/utils/index.js';
+  import { appbar, appbarSize } from './theme.js';
+  import type { AppBarProps } from './types.js';
 
   let {
     children,

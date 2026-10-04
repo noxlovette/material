@@ -1,4 +1,3 @@
-import type { DivAttrs, IconProps } from '#lib/utils/index.js';
 import type {
   ToolbarButtonProps as BitsToolbarButtonProps,
   ToolbarGroupItemProps as BitsToolbarGroupItemProps,
@@ -6,6 +5,9 @@ import type {
   ToolbarRootProps
 } from 'bits-ui';
 import type { Snippet } from 'svelte';
+
+import type { DivAttrs, IconProps } from '#lib/utils/index.js';
+
 import type { ToolbarVariants } from './theme.js';
 
 export type ToolbarColor = 'standard' | 'vibrant';

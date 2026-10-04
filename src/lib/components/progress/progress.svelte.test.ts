@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 import { flushSync, mount, unmount, type Component } from 'svelte';
 import { afterEach, describe, expect, it } from 'vitest';
+
 import CircularProgress from './CircularProgress.svelte';
 import LinearProgress from './LinearProgress.svelte';
 import WavyLinearProgress from './WavyLinearProgress.svelte';

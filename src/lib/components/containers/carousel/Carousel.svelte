@@ -1,8 +1,10 @@
 <script lang="ts" generics="T">
-  import { Layer } from '#lib/utils/index.js';
   import clsx from 'clsx';
-  import { carousel } from './theme.js';
+
+  import { Layer } from '#lib/utils/index.js';
+
   import { keylines, maxSteps, place, type KeylineLayout } from './keylines.js';
+  import { carousel } from './theme.js';
   import type { CarouselProps } from './types.js';
 
   let {

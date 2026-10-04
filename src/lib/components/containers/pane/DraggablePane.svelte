@@ -26,16 +26,18 @@ the pane itself stays `position: fixed` and doesn't move with either.
 -->
 <script lang="ts">
   import clsx from 'clsx';
-  import { onMount, tick } from 'svelte';
   import { animate, motionValue } from 'motion';
-  import { springTokens, springTransition } from '#lib/animation/spring.js';
+  import { onMount, tick } from 'svelte';
+
   import { containerTransform } from '#lib/animation/containerTransform.js';
   import { prefersReducedMotion } from '#lib/animation/reducedMotion.js';
-  import { Icon, Layer } from '#lib/utils/index.js';
-  import { ButtonIcon } from '#lib/components/buttons/index.js';
+  import { springTokens, springTransition } from '#lib/animation/spring.js';
   import { clickOutside, drag, project, resist, resistSlope } from '#lib/attachments/index.js';
-  import { draggablePane, type ResizeEdge } from './theme.js';
+  import { ButtonIcon } from '#lib/components/buttons/index.js';
+  import { Icon, Layer } from '#lib/utils/index.js';
+
   import { dragPositions } from './dragStore.svelte.js';
+  import { draggablePane, type ResizeEdge } from './theme.js';
   import type { DraggablePaneProps } from './types.js';
 
   let {

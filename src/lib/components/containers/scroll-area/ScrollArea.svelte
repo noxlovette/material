@@ -4,9 +4,10 @@ ScrollArea is a custom scrollbar component based on Bits UI.
 -->
 <script lang="ts">
   import { ScrollArea as BitsScrollArea } from 'bits-ui';
+  import { clsx } from 'clsx';
+
   import { scrollArea } from './theme.js';
   import type { ScrollAreaProps } from './types.js';
-  import { clsx } from 'clsx';
 
   let {
     children,

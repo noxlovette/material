@@ -1,5 +1,6 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
+
   import Toggle from './Toggle.svelte';
 
   const variants = ['elevated', 'filled', 'tonal', 'outlined'] as const;

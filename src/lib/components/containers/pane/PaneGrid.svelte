@@ -11,6 +11,7 @@ doc comment for how that CSS custom property gets set.
 -->
 <script lang="ts">
   import clsx from 'clsx';
+
   import { paneGrid, resolveResponsive, responsiveTables } from './theme.js';
   import type { PaneGridProps } from './types.js';
 

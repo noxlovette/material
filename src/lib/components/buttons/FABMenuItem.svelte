@@ -5,12 +5,14 @@ container). Wraps bits-ui's `DropdownMenu.Item`, so it gets the `menuitem` role,
 navigation, and closes the menu when chosen. Render it inside a `FAB` with `withMenu`.
 -->
 <script lang="ts">
+  import { Button, DropdownMenu, type DropdownMenuItemProps } from 'bits-ui';
   import clsx from 'clsx';
   import { getContext } from 'svelte';
+
+  import { Icon, LoadingIndicator, Layer } from '#lib/utils/index.js';
+
   import { fabMenuItem } from './theme.js';
   import type { FABMenuItemProps } from './types.js';
-  import { Icon, LoadingIndicator, Layer } from '#lib/utils/index.js';
-  import { Button, DropdownMenu, type DropdownMenuItemProps } from 'bits-ui';
 
   let {
     class: className,

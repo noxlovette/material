@@ -1,5 +1,7 @@
-import type { DivAttrs } from '#lib/utils/index.js';
 import type { Snippet } from 'svelte';
+
+import type { DivAttrs } from '#lib/utils/index.js';
+
 import type {
   Breakpoint,
   DraggablePaneVariants,

@@ -1,8 +1,9 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
-  import TabHolder from './TabHolder.svelte';
-  import TabContent from './TabContent.svelte';
+
   import Body from '../../typography/body/Body.svelte';
+  import TabContent from './TabContent.svelte';
+  import TabHolder from './TabHolder.svelte';
   import type { TabProps } from './types.js';
 
   const { Story } = defineMeta({

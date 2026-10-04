@@ -3,6 +3,7 @@ import type { Preview } from '@storybook/svelte-vite';
 import { createElement, useEffect, useState, type PropsWithChildren } from 'react';
 import { GLOBALS_UPDATED } from 'storybook/internal/core-events';
 import { themes } from 'storybook/theming';
+
 import '../src/app.css';
 import './preview.css';
 import StorybookProviders from './StorybookProviders.svelte';

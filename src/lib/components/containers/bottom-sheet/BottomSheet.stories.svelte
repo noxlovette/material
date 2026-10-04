@@ -5,12 +5,14 @@
 -->
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
-  import BottomSheet from './BottomSheet.svelte';
+
+  import Icon from '#lib/utils/icon/Icon.svelte';
+
   import Button from '../../buttons/Button.svelte';
   import ButtonIcon from '../../buttons/ButtonIcon.svelte';
   import List from '../list/List.svelte';
   import ListItem from '../list/ListItem.svelte';
-  import Icon from '#lib/utils/icon/Icon.svelte';
+  import BottomSheet from './BottomSheet.svelte';
 
   const { Story } = defineMeta({
     title: 'Containers/Bottom Sheet',

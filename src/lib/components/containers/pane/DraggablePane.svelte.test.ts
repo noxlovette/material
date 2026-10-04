@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 import { flushSync, mount, unmount } from 'svelte';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+
 import Fixture from './draggablePane.fixture.test.svelte';
 
 // jsdom has no matchMedia. Reporting reduced motion also makes the settle spring land instantly,

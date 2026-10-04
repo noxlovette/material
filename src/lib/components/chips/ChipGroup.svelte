@@ -8,13 +8,15 @@ springs into its slot on release, carrying the pointer's speed.
 @see https://m3.material.io/components/chips/specs
 -->
 <script lang="ts" generics="T">
-  import { flushSync } from 'svelte';
-  import type { Attachment } from 'svelte/attachments';
+  import clsx from 'clsx';
   import { animate, type AnimationPlaybackControls } from 'motion';
   import { nanoid } from 'nanoid';
-  import clsx from 'clsx';
+  import { flushSync } from 'svelte';
+  import type { Attachment } from 'svelte/attachments';
+
   import { springTokens, springTransition } from '#lib/animation/spring.js';
   import { drag, resist, type DragPoint } from '#lib/attachments/index.js';
+
   import { chipGroup } from './theme.js';
   import type { ChipGroupProps } from './types.js';
 

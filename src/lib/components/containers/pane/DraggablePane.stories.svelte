@@ -1,13 +1,15 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
   import { tick } from 'svelte';
-  import DraggablePane from './DraggablePane.svelte';
+
   import { containerTransform } from '#lib/animation/containerTransform.js';
   import { Button } from '#lib/components/buttons/index.js';
   import { Card } from '#lib/components/cards/index.js';
   import { DateField } from '#lib/components/date/index.js';
   import { TimeField } from '#lib/components/time/index.js';
   import { Body, Title } from '#lib/components/typography/index.js';
+
+  import DraggablePane from './DraggablePane.svelte';
 
   const { Story } = defineMeta({
     title: 'Containers/DraggablePane',

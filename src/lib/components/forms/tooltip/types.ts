@@ -1,5 +1,6 @@
 import type { TooltipContentProps, TooltipRootProps, TooltipTriggerProps } from 'bits-ui';
 import type { Snippet } from 'svelte';
+
 import type { TooltipVariants } from './theme.js';
 
 export type TooltipProps = TooltipVariants &

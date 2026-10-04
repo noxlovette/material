@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+
 import { fab } from './theme.js';
 
 describe('fab menu close button', () => {

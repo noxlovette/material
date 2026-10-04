@@ -1,9 +1,10 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
-  import AppBar from './AppBar.svelte';
+
   import ButtonIcon from '../../buttons/ButtonIcon.svelte';
   import List from '../../containers/list/List.svelte';
   import ListItem from '../../containers/list/ListItem.svelte';
+  import AppBar from './AppBar.svelte';
 
   const { Story } = defineMeta({
     title: 'Navigation/App Bar',

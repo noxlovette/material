@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+
 import { GAP, keylines, maxSteps, place } from './keylines.js';
 
 const fill = (k: ReturnType<typeof keylines>, count: number, f: number) => {

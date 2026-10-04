@@ -1,5 +1,7 @@
-import type { IconProps } from '#lib/utils/index.js';
 import type { Snippet } from 'svelte';
+
+import type { IconProps } from '#lib/utils/index.js';
+
 import type { ToggleGroupItemVariants, ToggleGroupVariants } from './theme.js';
 
 /** @deprecated Use `ConnectedButtonGroupProps` from `ConnectedButtonGroup` instead. */

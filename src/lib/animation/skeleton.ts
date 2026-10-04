@@ -1,5 +1,6 @@
 import { animate } from 'motion';
 import type { Attachment } from 'svelte/attachments';
+
 import { prefersReducedMotion } from './reducedMotion.js';
 import { springTokens, springTransition } from './spring.js';
 

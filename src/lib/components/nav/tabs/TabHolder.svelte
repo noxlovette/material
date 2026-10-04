@@ -10,12 +10,14 @@ direction of the selected tab.
 @see https://m3.material.io/components/tabs/overview
 -->
 <script lang="ts">
-  import { lateral } from '#lib/animation/index.js';
-  import { tabHolder } from './theme.js';
-  import type { TabHolderProps } from './types.js';
-  import Tab from './Tab.svelte';
   import { Tabs } from 'bits-ui';
   import { tick, type Snippet } from 'svelte';
+
+  import { lateral } from '#lib/animation/index.js';
+
+  import Tab from './Tab.svelte';
+  import { tabHolder } from './theme.js';
+  import type { TabHolderProps } from './types.js';
 
   let {
     items,

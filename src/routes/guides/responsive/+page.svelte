@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Body } from '#lib/index.js';
+
   import CodeBlock from '../../CodeBlock.svelte';
   import Code from '../Code.svelte';
   import GuidePage from '../GuidePage.svelte';

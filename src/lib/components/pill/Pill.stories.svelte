@@ -1,5 +1,6 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
+
   import Pill from './Pill.svelte';
 
   const { Story } = defineMeta({

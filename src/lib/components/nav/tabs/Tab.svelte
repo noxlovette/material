@@ -5,11 +5,13 @@ Renders as <a> when href is provided (navigation tabs),
 otherwise as <button> (content-panel tabs).
 -->
 <script lang="ts">
-  import { Icon, Layer } from '#lib/utils/index.js';
-  import { tab } from './theme.js';
-  import type { TabProps } from './types.js';
   import { Tabs } from 'bits-ui';
   import clsx from 'clsx';
+
+  import { Icon, Layer } from '#lib/utils/index.js';
+
+  import { tab } from './theme.js';
+  import type { TabProps } from './types.js';
 
   const {
     iconProps,
