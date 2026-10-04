@@ -1,7 +1,9 @@
 <script module lang="ts">
   import { animate, mix, type AnimationPlaybackControls } from 'motion';
   import type { Attachment } from 'svelte/attachments';
+
   import { springTransition } from '#lib/animation/spring.js';
+
   import { LOADING_SHAPES } from './loadingShapes.js';
 
   /*
@@ -57,9 +59,10 @@
 </script>
 
 <script lang="ts">
-  import type { LoadingIndicatorProps } from './types.js';
-  import { loadingIndicator } from './theme.js';
   import clsx from 'clsx';
+
+  import { loadingIndicator } from './theme.js';
+  import type { LoadingIndicatorProps } from './types.js';
 
   let {
     size = 48,

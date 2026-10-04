@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 import { flushSync, mount, unmount } from 'svelte';
 import { afterEach, describe, expect, it, vi } from 'vitest';
+
 import Fixture from './chip.fixture.test.svelte';
 
 // jsdom has no matchMedia; Layer's keyboard ripple asks it about reduced motion.

@@ -15,7 +15,7 @@ bun run build-storybook  # storybook static build → storybook-static/
 bun run build            # svelte-package → dist/ (what gets published to npm)
 bun run check             # svelte-check + tsc
 bun run test              # vitest run
-bun run format             # prettier
+bun run format             # oxfmt (oxc)
 ```
 
 # Architecture

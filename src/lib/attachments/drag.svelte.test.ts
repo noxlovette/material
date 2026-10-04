@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 import { flushSync, mount, unmount } from 'svelte';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+
 import Fixture from './drag.fixture.test.svelte';
 import { project, resist, resistSlope, type DragOptions } from './drag.js';
 

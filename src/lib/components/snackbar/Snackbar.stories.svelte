@@ -8,6 +8,7 @@
 -->
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
+
   import Snackbar from './Snackbar.svelte';
 
   const { Story } = defineMeta({

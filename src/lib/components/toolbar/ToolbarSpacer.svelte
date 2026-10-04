@@ -7,6 +7,7 @@ single segment, use `fabSlot`/the `fab` prop instead — that's a flex-`ml-auto`
 -->
 <script lang="ts">
   import clsx from 'clsx';
+
   import { toolbar } from './theme.js';
   import type { ToolbarSpacerProps } from './types.js';
 

@@ -1,7 +1,8 @@
 <script lang="ts">
   import clsx from 'clsx';
-  import { list } from './theme.js';
+
   import { setListContext } from './context.js';
+  import { list } from './theme.js';
   import type { ListProps } from './types.js';
 
   let { variant = 'standard', class: className, children, ...restProps }: ListProps = $props();

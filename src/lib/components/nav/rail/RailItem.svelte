@@ -7,18 +7,20 @@ expanded, beside it inside the active indicator, and it moves between the two as
 springs. The active icon fills, per M3's icon guidance.
 -->
 <script lang="ts">
-  import { page } from '$app/state';
   import { resolve } from '$app/paths';
-  import { getContext, untrack } from 'svelte';
-  import { animate, type AnimationPlaybackControls } from 'motion';
-  import { springTokens, springTransition } from '#lib/animation/spring.js';
-  import type { RailItemProps } from './types.js';
-  import { railElement } from './theme.js';
-  import { Icon } from '#lib/utils/index.js';
-  import Badge from '../../badge/Badge.svelte';
+  import { page } from '$app/state';
   import { NavigationMenu } from 'bits-ui';
   import clsx from 'clsx';
+  import { animate, type AnimationPlaybackControls } from 'motion';
+  import { getContext, untrack } from 'svelte';
+
+  import { springTokens, springTransition } from '#lib/animation/spring.js';
+  import { Icon } from '#lib/utils/index.js';
+
+  import Badge from '../../badge/Badge.svelte';
   import { isCurrentRoute } from '../currentRoute.js';
+  import { railElement } from './theme.js';
+  import type { RailItemProps } from './types.js';
 
   let {
     href = '/',

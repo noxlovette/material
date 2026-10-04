@@ -1,5 +1,6 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
+
   import ButtonIcon from './ButtonIcon.svelte';
 
   const variants = ['filled', 'tonal', 'outlined', 'standard'] as const;

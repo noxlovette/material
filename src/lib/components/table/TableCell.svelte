@@ -4,9 +4,10 @@ A data cell (`<td>`). Use `numeric` for right-aligned tabular numbers,
 or `align` for explicit alignment control.
 -->
 <script lang="ts">
-  import type { TableCellProps } from './types.js';
-  import { table } from './theme.js';
   import clsx from 'clsx';
+
+  import { table } from './theme.js';
+  import type { TableCellProps } from './types.js';
 
   let {
     children,

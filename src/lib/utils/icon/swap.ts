@@ -1,5 +1,6 @@
 import type { PresenceTransition } from '#lib/animation/enterExit.js';
 import { springTokens, springTransition } from '#lib/animation/spring.js';
+
 import type { IconTransition } from './types.js';
 
 /*

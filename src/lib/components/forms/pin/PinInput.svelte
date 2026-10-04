@@ -6,6 +6,7 @@ Pin inputs allow users to enter a multi-digit code, such as an OTP or a security
 -->
 <script lang="ts">
   import { PinInput } from 'bits-ui';
+
   import { pinInput } from './theme.js';
   import type { PinInputProps } from './types.js';
 

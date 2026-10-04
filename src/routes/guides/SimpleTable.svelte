@@ -1,6 +1,7 @@
 <!-- A guide table from plain strings; `backticked` spans render as inline code. -->
 <script lang="ts">
   import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '#lib/index.js';
+
   import Code from './Code.svelte';
 
   let { headers, rows }: { headers: string[]; rows: string[][] } = $props();

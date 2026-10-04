@@ -1,6 +1,7 @@
-import { lateral } from '#lib/animation/index.js';
 import type { DateValue } from '@internationalized/date';
 import { tick } from 'svelte';
+
+import { lateral } from '#lib/animation/index.js';
 
 const monthIndex = (date: DateValue) => date.year * 12 + date.month;
 

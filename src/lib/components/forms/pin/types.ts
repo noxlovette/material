@@ -1,4 +1,5 @@
 import type { PinInput as PinInputPrimitive } from 'bits-ui';
+
 import type { PinInputVariants } from './theme.js';
 
 export type PinInputProps = Omit<PinInputPrimitive.RootProps, 'maxlength'> &

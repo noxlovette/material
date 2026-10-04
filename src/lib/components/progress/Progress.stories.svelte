@@ -6,6 +6,7 @@
 -->
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
+
   import CircularProgress from './CircularProgress.svelte';
   import LinearProgress from './LinearProgress.svelte';
   import WavyLinearProgress from './WavyLinearProgress.svelte';

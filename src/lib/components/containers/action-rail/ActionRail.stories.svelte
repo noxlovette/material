@@ -1,9 +1,10 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
-  import ActionRail from './ActionRail.svelte';
+
   import Toolbar from '../../toolbar/Toolbar.svelte';
   import ToolbarButton from '../../toolbar/ToolbarButton.svelte';
   import ToolbarDivider from '../../toolbar/ToolbarDivider.svelte';
+  import ActionRail from './ActionRail.svelte';
 
   const { Story } = defineMeta({
     title: 'Containers/Action Rail',

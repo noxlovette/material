@@ -1,10 +1,11 @@
 <script lang="ts">
   import { Tooltip } from 'bits-ui';
-  import Search from './Search.svelte';
+
   import List from '../../containers/list/List.svelte';
   import ListItem from '../../containers/list/ListItem.svelte';
-  import type { SearchLayout } from './types.js';
   import type { Responsive } from '../../containers/pane/theme.js';
+  import Search from './Search.svelte';
+  import type { SearchLayout } from './types.js';
 
   let {
     open = $bindable(false),

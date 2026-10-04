@@ -1,5 +1,7 @@
-import type { AnchorButtonAttributes, IconProps } from '#lib/utils/index.js';
 import type { Snippet } from 'svelte';
+
+import type { AnchorButtonAttributes, IconProps } from '#lib/utils/index.js';
+
 import type { ChipVariants } from './theme.js';
 
 export type ChipProps = ChipVariants &

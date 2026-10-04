@@ -1,8 +1,9 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
+
+  import FAB from '../../buttons/FAB.svelte';
   import Rail from './Rail.svelte';
   import RailItem from './RailItem.svelte';
-  import FAB from '../../buttons/FAB.svelte';
 
   const { Story } = defineMeta({
     title: 'Navigation/Rail',

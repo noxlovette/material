@@ -5,11 +5,12 @@ Snackbars provide brief messages about app processes at the bottom of the screen
 @see https://m3.material.io/components/snackbars/overview
 -->
 <script lang="ts">
+  import { enterExit, Presence } from '#lib/animation/index.js';
+  import { Layer } from '#lib/utils/index.js';
+
+  import Icon from '../../utils/icon/Icon.svelte';
   import { snackbar } from './theme.js';
   import type { SnackBarProps } from './types.js';
-  import Icon from '../../utils/icon/Icon.svelte';
-  import { Layer } from '#lib/utils/index.js';
-  import { enterExit, Presence } from '#lib/animation/index.js';
 
   let {
     message = $bindable(''),

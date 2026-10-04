@@ -1,8 +1,8 @@
 <script lang="ts">
   import CommandDialog from './CommandDialog.svelte';
   import CommandInput from './CommandInput.svelte';
-  import CommandList from './CommandList.svelte';
   import CommandItem from './CommandItem.svelte';
+  import CommandList from './CommandList.svelte';
 
   let { open = $bindable(false), picked = $bindable('') }: { open?: boolean; picked?: string } =
     $props();

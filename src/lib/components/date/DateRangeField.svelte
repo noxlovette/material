@@ -8,15 +8,17 @@ Changing the visible month slides the grid with the M3 lateral transition (see c
 @see https://m3.material.io/components/date-pickers/guidelines
 -->
 <script lang="ts">
-  import { DateRangePicker, Portal, useId } from 'bits-ui';
   import type { DateValue } from '@internationalized/date';
+  import { DateRangePicker, Portal, useId } from 'bits-ui';
+
   import { enterExit, presence } from '#lib/animation/index.js';
-  import ButtonIcon from '../buttons/ButtonIcon.svelte';
   import Icon from '#lib/utils/icon/Icon.svelte';
   import Layer from '#lib/utils/Layer.svelte';
-  import type { DateRangeFieldProps } from './types';
+
+  import ButtonIcon from '../buttons/ButtonIcon.svelte';
   import { slideMonth } from './calendarMotion.js';
   import { dateCalendar, dateRangeField, dateSegment } from './theme';
+  import type { DateRangeFieldProps } from './types';
 
   let {
     value = $bindable(),

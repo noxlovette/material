@@ -11,6 +11,7 @@ counterclockwise, while the picture inside stays upright.
 -->
 <script module lang="ts">
   import { animate } from 'motion';
+
   import { prefersReducedMotion } from '#lib/animation/reducedMotion.js';
 
   /*
@@ -45,13 +46,15 @@ counterclockwise, while the picture inside stays upright.
 </script>
 
 <script lang="ts">
-  import { untrack } from 'svelte';
   import { Avatar as AvatarPrimitive } from 'bits-ui';
-  import { Layer } from '#lib/utils/index.js';
+  import { untrack } from 'svelte';
+
   import { animatableShapesSmall, shapeMorph } from '#lib/animation/shapeMorph.svelte.js';
-  import { avatar } from './theme.js';
+  import { Layer } from '#lib/utils/index.js';
+
   import { DicebearAvatarBuilder } from './DicebearAvatarBuilder.js';
   import { getMaterialAvatarPalette } from './materialAvatarPalette.js';
+  import { avatar } from './theme.js';
   import type { AvatarProps } from './types.js';
 
   let {

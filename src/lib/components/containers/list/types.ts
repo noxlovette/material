@@ -1,6 +1,7 @@
-import type { ButtonAttrs, DivAttrs, NotButton } from '#lib/utils/index.js';
 import type { Snippet } from 'svelte';
 import type { HTMLAnchorAttributes, HTMLAttributes, HTMLLabelAttributes } from 'svelte/elements';
+
+import type { ButtonAttrs, DivAttrs, NotButton } from '#lib/utils/index.js';
 
 export type ActionProps =
   | DivAttrs

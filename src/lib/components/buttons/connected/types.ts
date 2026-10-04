@@ -1,5 +1,7 @@
-import type { IconProps } from '#lib/utils/index.js';
 import type { Snippet } from 'svelte';
+
+import type { IconProps } from '#lib/utils/index.js';
+
 import type { ButtonSize } from '../theme.js';
 import type { ConnectedButtonGroupVariants } from './theme.js';
 

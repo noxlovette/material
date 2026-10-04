@@ -1,5 +1,6 @@
-import type { MaterialSymbolName } from '#lib/index.js';
 import { resolve } from '$app/paths';
+
+import type { MaterialSymbolName } from '#lib/index.js';
 
 export type Guide = { slug: string; title: string; icon: MaterialSymbolName; summary: string };
 

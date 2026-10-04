@@ -6,7 +6,9 @@ A command in a `Command` or `CommandDialog`: an M3 list item. The children are i
 <script lang="ts">
   import { Command } from 'bits-ui';
   import clsx from 'clsx';
+
   import { Layer, isApplePlatform, shortcutLabel } from '#lib/utils/index.js';
+
   import { commandItem } from './theme.js';
   import type { CommandItemProps } from './types.js';
 

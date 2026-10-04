@@ -14,21 +14,23 @@ changes the modifier, `null` turns them off.
 @see https://m3.material.io/components/navigation-rail/specs
 -->
 <script lang="ts">
-  import clsx from 'clsx';
-  import { setContext, untrack } from 'svelte';
-  import { animate, type AnimationPlaybackControls } from 'motion';
-  import type { RailProps } from './types';
-  import ButtonIcon from '#lib/components/buttons/ButtonIcon.svelte';
-  import { springTokens, springTransition } from '#lib/animation/spring.js';
-  import { rail } from './theme';
   import { NavigationMenu } from 'bits-ui';
-  import { railStore } from './railStore.svelte.js';
+  import clsx from 'clsx';
+  import { animate, type AnimationPlaybackControls } from 'motion';
+  import { setContext, untrack } from 'svelte';
+
+  import { springTokens, springTransition } from '#lib/animation/spring.js';
+  import ButtonIcon from '#lib/components/buttons/ButtonIcon.svelte';
   import {
     ariaKeyShortcut,
     isApplePlatform,
     matchesShortcut,
     triggersShortcut
   } from '#lib/utils/index.js';
+
+  import { railStore } from './railStore.svelte.js';
+  import { rail } from './theme';
+  import type { RailProps } from './types';
 
   let {
     children,

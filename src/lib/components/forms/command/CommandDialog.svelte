@@ -9,8 +9,10 @@ item's `onSelect` (`bind:open`).
 <script lang="ts">
   import { Dialog } from 'bits-ui';
   import clsx from 'clsx';
+
   import { enterExit, presence } from '#lib/animation/index.js';
   import { triggersShortcut } from '#lib/utils/index.js';
+
   import Command from './Command.svelte';
   import { commandDialog } from './theme.js';
   import type { CommandDialogProps } from './types.js';

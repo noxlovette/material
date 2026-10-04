@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Body } from '#lib/index.js';
+
   import CodeBlock from '../../CodeBlock.svelte';
   import { storybookHref } from '../../storybook.js';
   import Code from '../Code.svelte';

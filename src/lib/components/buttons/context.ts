@@ -1,4 +1,5 @@
 import { getContext, setContext } from 'svelte';
+
 import type { ButtonIconProps } from './types.js';
 
 type ButtonIconVariant = NonNullable<ButtonIconProps['variant']>;

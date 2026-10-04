@@ -11,6 +11,7 @@ change.
   import { ToggleGroup } from 'bits-ui';
   import clsx from 'clsx';
   import { setContext } from 'svelte';
+
   import { connectedButtonGroup } from './theme.js';
   import type { ConnectedButtonGroupCtx, ConnectedButtonGroupProps } from './types.js';
 

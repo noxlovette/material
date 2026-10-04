@@ -1,17 +1,19 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
+
+  import Icon from '#lib/utils/icon/Icon.svelte';
+  import { shortcutLabel } from '#lib/utils/shortcut.js';
+
+  import Button from '../../buttons/Button.svelte';
+  import Kbd from '../../typography/kbd/Kbd.svelte';
   import Command from './Command.svelte';
-  import CommandInput from './CommandInput.svelte';
-  import CommandList from './CommandList.svelte';
+  import CommandDialog from './CommandDialog.svelte';
   import CommandEmpty from './CommandEmpty.svelte';
   import CommandGroup from './CommandGroup.svelte';
+  import CommandInput from './CommandInput.svelte';
   import CommandItem from './CommandItem.svelte';
+  import CommandList from './CommandList.svelte';
   import CommandSeparator from './CommandSeparator.svelte';
-  import CommandDialog from './CommandDialog.svelte';
-  import Kbd from '../../typography/kbd/Kbd.svelte';
-  import Button from '../../buttons/Button.svelte';
-  import { shortcutLabel } from '#lib/utils/shortcut.js';
-  import Icon from '#lib/utils/icon/Icon.svelte';
 
   const { Story } = defineMeta({
     title: 'Forms/Command',

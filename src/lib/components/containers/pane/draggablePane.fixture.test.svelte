@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Tooltip } from 'bits-ui';
+
   import DraggablePane from './DraggablePane.svelte';
 
   let { x = $bindable(), y = $bindable(), collapsed = $bindable(false), ...rest } = $props();

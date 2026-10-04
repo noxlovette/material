@@ -1,0 +1,14 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "singleQuote": true,
+  "trailingComma": "none",
+  "sortImports": {},
+  "sortTailwindcss": {},
+  "svelte": {},
+  "ignorePatterns": [
+    "src/routes/guides/icons/catalog.json",
+    "src/lib/utils/icon/icon-names.ts",
+    "src/lib/utils/mcu/",
+    ".claude/"
+  ]
+}

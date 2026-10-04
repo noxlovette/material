@@ -8,6 +8,7 @@
 -->
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
+
   import Select from './Select.svelte';
   import type { SelectOption } from './types.js';
 

@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 import { flushSync, mount, tick, unmount } from 'svelte';
 import { afterEach, describe, expect, it } from 'vitest';
+
 import Fixture from './commandDialog.fixture.test.svelte';
 import { commandItem } from './theme.js';
 

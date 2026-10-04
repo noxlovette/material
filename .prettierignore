@@ -1,5 +1,0 @@
-src/routes/guides/icons/catalog.json
-src/lib/utils/icon/icon-names.ts
-
-# Vendored upstream code; keep diffs against material-color-utilities minimal
-src/lib/utils/mcu/

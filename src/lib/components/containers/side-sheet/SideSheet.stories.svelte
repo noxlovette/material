@@ -5,11 +5,12 @@
 -->
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
-  import SideSheet from './SideSheet.svelte';
+
   import Button from '../../buttons/Button.svelte';
   import Checkbox from '../../forms/checkbox/Checkbox.svelte';
   import List from '../list/List.svelte';
   import ListItem from '../list/ListItem.svelte';
+  import SideSheet from './SideSheet.svelte';
 
   const { Story } = defineMeta({
     title: 'Containers/Side Sheet',

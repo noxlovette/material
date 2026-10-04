@@ -1,42 +1,28 @@
 {
   "name": "@noxlovette/material",
   "version": "0.10.5",
-  "type": "module",
   "description": "A Material Design 3 component library for Svelte, built on Bits UI.",
   "keywords": [
-    "svelte",
-    "sveltekit",
+    "bits-ui",
+    "component-library",
     "material-design",
     "material-you",
     "md3",
-    "component-library",
-    "bits-ui",
+    "svelte",
+    "sveltekit",
     "ui"
   ],
-  "license": "MIT",
   "homepage": "https://material.noxlovette.com",
+  "bugs": {
+    "url": "https://github.com/noxlovette/material/issues"
+  },
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/noxlovette/material.git"
   },
-  "bugs": {
-    "url": "https://github.com/noxlovette/material/issues"
-  },
-  "scripts": {
-    "build": "bun run generate:springs && svelte-package && bun scripts/copy-skill.ts",
-    "generate:icons": "bun scripts/generate-icon-catalog.ts",
-    "generate:springs": "bun scripts/generate-motion-springs.ts && prettier --write src/lib/styles/motion.css",
-    "build:site": "vite build",
-    "watch": "svelte-package --watch",
-    "prepublishOnly": "bun run build",
-    "check": "svelte-kit sync && svelte-check",
-    "test": "vitest run",
-    "format": "prettier --write .",
-    "dev": "vite dev",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
-    "publint": "publint",
-    "index": "bun run scripts/generate-components-index.ts"
+  "bin": {
+    "material-claude-skill": "./bin/material-claude-skill.js"
   },
   "files": [
     "dist",
@@ -45,12 +31,14 @@
     "claude-skill",
     "bin"
   ],
-  "bin": {
-    "material-claude-skill": "./bin/material-claude-skill.js"
-  },
+  "type": "module",
   "sideEffects": false,
-  "svelte": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "svelte": "./dist/index.js",
+  "imports": {
+    "#lib": "./src/lib/index.js",
+    "#lib/*": "./src/lib/*"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -60,12 +48,34 @@
     "./styles/icon-font.css": "./dist/styles/icon-font.css",
     "./theme/*": "./dist/styles/theme/*.css"
   },
-  "peerDependencies": {
-    "@sveltejs/kit": "^2.58.0 || ^3.0.0",
-    "svelte": "^5",
-    "tailwind-scrollbar": "^4.0.2",
-    "tailwindcss": "^4.2.2",
-    "@internationalized/date": "^3.12.1"
+  "scripts": {
+    "build": "bun run generate:springs && svelte-package && bun scripts/copy-skill.ts",
+    "generate:icons": "bun scripts/generate-icon-catalog.ts",
+    "generate:springs": "bun scripts/generate-motion-springs.ts && oxfmt src/lib/styles/motion.css",
+    "build:site": "vite build",
+    "watch": "svelte-package --watch",
+    "prepublishOnly": "bun run build",
+    "check": "svelte-kit sync && svelte-check",
+    "test": "vitest run",
+    "format": "oxfmt",
+    "dev": "vite dev",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "publint": "publint",
+    "index": "bun run scripts/generate-components-index.ts"
+  },
+  "dependencies": {
+    "@dicebear/core": "^10.7.0",
+    "@dicebear/styles": "^10.6.0",
+    "@floating-ui/dom": "^1.8.0",
+    "@internationalized/date": "^3.12.4",
+    "bits-ui": "^2.19.5",
+    "clsx": "^2.1.1",
+    "mode-watcher": "^1.1.0",
+    "motion": "^14",
+    "nanoid": "^6.0.1",
+    "tailwind-merge": "^3.7.0",
+    "tailwind-variants": "^3.3.1"
   },
   "devDependencies": {
     "@eslint/compat": "^2.1.1",
@@ -83,15 +93,11 @@
     "@tailwindcss/vite": "^4.3.3",
     "@types/node": "^26.6.4",
     "eslint": "^10.12.0",
-    "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-svelte": "^3.23.0",
     "globals": "^17.13.0",
     "jsdom": "^30.1.2",
     "lefthook": "^2.1.16",
-    "prettier": "^3.9.9",
-    "prettier-plugin-organize-imports": "^4.3.0",
-    "prettier-plugin-svelte": "^4.1.1",
-    "prettier-plugin-tailwindcss": "^0.8.1",
+    "oxfmt": "^0.71.0",
     "publint": "^0.3.25",
     "remark-gfm": "^4.0.1",
     "shiki": "^4.5.0",
@@ -108,21 +114,11 @@
     "vitest": "^5.0.3",
     "zod": "^4.6.5"
   },
-  "dependencies": {
-    "@dicebear/core": "^10.7.0",
-    "@dicebear/styles": "^10.6.0",
-    "@floating-ui/dom": "^1.8.0",
-    "@internationalized/date": "^3.12.4",
-    "bits-ui": "^2.19.5",
-    "clsx": "^2.1.1",
-    "mode-watcher": "^1.1.0",
-    "motion": "^14",
-    "nanoid": "^6.0.1",
-    "tailwind-merge": "^3.7.0",
-    "tailwind-variants": "^3.3.1"
-  },
-  "imports": {
-    "#lib": "./src/lib/index.js",
-    "#lib/*": "./src/lib/*"
+  "peerDependencies": {
+    "@internationalized/date": "^3.12.1",
+    "@sveltejs/kit": "^2.58.0 || ^3.0.0",
+    "svelte": "^5",
+    "tailwind-scrollbar": "^4.0.2",
+    "tailwindcss": "^4.2.2"
   }
 }

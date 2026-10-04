@@ -6,6 +6,7 @@ A toggle group within a Toolbar. Manages single or multiple selection.
   import { Toolbar } from 'bits-ui';
   import clsx from 'clsx';
   import { getContext } from 'svelte';
+
   import { toolbar, type ToolbarVariants } from './theme.js';
   import type { ToolbarGroupProps } from './types.js';
 

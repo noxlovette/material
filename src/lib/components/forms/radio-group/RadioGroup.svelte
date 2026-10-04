@@ -5,9 +5,11 @@ Radio buttons let users select one option from a set.
 @see https://m3.material.io/components/radio-button/overview
 -->
 <script lang="ts">
-  import clsx from 'clsx';
   import { RadioGroup } from 'bits-ui';
+  import clsx from 'clsx';
+
   import { Layer } from '#lib/utils/index.js';
+
   import { radioGroup } from './theme.js';
   import type { RadioGroupProps } from './types.js';
 

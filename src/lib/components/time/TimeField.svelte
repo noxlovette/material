@@ -6,12 +6,14 @@ It combines a Material 3 Textfield with a TimepickerInput for intuitive time sel
 @see https://m3.material.io/components/time-pickers/overview
 -->
 <script lang="ts">
-  import { enterExit, presence } from '#lib/animation/index.js';
-  import type { HTMLInputAttributes } from 'svelte/elements';
-  import Textfield from '#lib/components/forms/textfield/Textfield.svelte';
-  import TimepickerInput from './TimepickerInput.svelte';
   import { Popover } from 'bits-ui';
   import type { Snippet } from 'svelte';
+  import type { HTMLInputAttributes } from 'svelte/elements';
+
+  import { enterExit, presence } from '#lib/animation/index.js';
+  import Textfield from '#lib/components/forms/textfield/Textfield.svelte';
+
+  import TimepickerInput from './TimepickerInput.svelte';
   import type { TimepickerLabels } from './types.js';
 
   let {

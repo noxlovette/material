@@ -1,6 +1,8 @@
-import type { IconProps } from '#lib/utils/index.js';
 import type { Select, WithoutChildren } from 'bits-ui';
 import type { Snippet } from 'svelte';
+
+import type { IconProps } from '#lib/utils/index.js';
+
 import type { SelectVariants } from './theme.js';
 
 /**

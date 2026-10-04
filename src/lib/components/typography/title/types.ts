@@ -1,5 +1,6 @@
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
+
 import type { TitleVariants } from './theme.js';
 
 /**

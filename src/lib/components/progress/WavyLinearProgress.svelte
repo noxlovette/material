@@ -10,8 +10,10 @@ effects spring (critically damped, so progress never visibly runs backwards).
 <script lang="ts">
   import { Progress } from 'bits-ui';
   import { animate } from 'motion';
+
   import { springTokens } from '#lib/animation/spring.js';
   import { SpringValue } from '#lib/animation/springValue.svelte.js';
+
   import { linear, trackOpacity, WAVE_PERIOD_MS } from './_wavy.js';
   import type { ProgressA11yProps } from './types.js';
 

@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 import { flushSync, mount, unmount } from 'svelte';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+
 import { springTokens, springTransition } from './spring.js';
 
 type Call = { keyframes: Record<string, unknown>; finish: () => void; stopped: boolean };

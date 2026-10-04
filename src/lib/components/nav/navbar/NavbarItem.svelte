@@ -5,15 +5,17 @@ Material 3 Navigation Bar Item.
 A single destination within a navigation bar.
 -->
 <script lang="ts">
-  import { page } from '$app/state';
   import { resolve } from '$app/paths';
-  import type { NavItemProps } from './types.js';
-  import { navitem } from './theme.js';
-  import { Icon, Layer } from '#lib/utils/index.js';
-  import Badge from '../../badge/Badge.svelte';
+  import { page } from '$app/state';
   import { NavigationMenu } from 'bits-ui';
   import clsx from 'clsx';
+
+  import { Icon, Layer } from '#lib/utils/index.js';
+
+  import Badge from '../../badge/Badge.svelte';
   import { isCurrentRoute } from '../currentRoute.js';
+  import { navitem } from './theme.js';
+  import type { NavItemProps } from './types.js';
 
   let {
     href = '/',

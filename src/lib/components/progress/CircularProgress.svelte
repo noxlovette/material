@@ -12,8 +12,10 @@ travels around the circle.
 <script lang="ts">
   import { Progress } from 'bits-ui';
   import { animate, type AnimationPlaybackControls } from 'motion';
+
   import { springTokens, springTransition } from '#lib/animation/spring.js';
   import { SpringValue } from '#lib/animation/springValue.svelte.js';
+
   import type { ProgressA11yProps } from './types.js';
 
   let {

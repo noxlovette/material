@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 import { flushSync, mount, unmount } from 'svelte';
 import { describe, expect, it } from 'vitest';
+
 import Fixture from './appbar.fixture.test.svelte';
 import AppBar from './AppBar.svelte';
 

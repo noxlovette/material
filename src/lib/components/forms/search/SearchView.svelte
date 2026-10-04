@@ -19,11 +19,13 @@ open a view from a bar of your own, passing that bar as `anchor`.
 @see https://m3.material.io/components/search/specs
 -->
 <script lang="ts">
-  import { tick, untrack } from 'svelte';
   import { Dialog } from 'bits-ui';
   import clsx from 'clsx';
+  import { tick, untrack } from 'svelte';
+
   import { containerTransform } from '#lib/animation/index.js';
   import ButtonIcon from '#lib/components/buttons/ButtonIcon.svelte';
+
   import { defaultSearchLayout, searchView, searchViewLayout } from './theme.js';
   import type { SearchViewProps } from './types.js';
 

@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { Popover } from '../containers/popover/index.js';
   import { FAB } from '../buttons/index.js';
+  import { Popover } from '../containers/popover/index.js';
   import ThemeSettings from './ThemeSettings.svelte';
 
   let open = $state(false);

@@ -3,9 +3,9 @@
 Kbd component is used to display keyboard shortcuts or hints.
 -->
 <script lang="ts">
-  import { kbd } from './theme.js';
-
   import clsx from 'clsx';
+
+  import { kbd } from './theme.js';
   import type { KbdProps } from './types.js';
 
   let { children, position = 'absolute', class: className, ...restProps }: KbdProps = $props();

@@ -1,7 +1,8 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
-  import Breadcrumb from './Breadcrumb.svelte';
+
   import AppBar from '../appbar/AppBar.svelte';
+  import Breadcrumb from './Breadcrumb.svelte';
 
   const { Story } = defineMeta({
     title: 'Navigation/Breadcrumb',

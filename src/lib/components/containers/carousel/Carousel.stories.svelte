@@ -1,5 +1,6 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
+
   import Carousel from './Carousel.svelte';
 
   const { Story } = defineMeta({

@@ -1,6 +1,8 @@
-import type { Shortcut } from '#lib/utils/index.js';
 import type { Command } from 'bits-ui';
 import type { Snippet } from 'svelte';
+
+import type { Shortcut } from '#lib/utils/index.js';
+
 import type { CommandVariants } from './theme.js';
 
 export interface CommandProps extends Command.RootProps, CommandVariants {

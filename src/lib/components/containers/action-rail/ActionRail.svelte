@@ -14,6 +14,7 @@ for whatever is placed inside.
 -->
 <script lang="ts">
   import clsx from 'clsx';
+
   import { actionRail } from './theme.js';
   import type { ActionRailProps } from './types.js';
 

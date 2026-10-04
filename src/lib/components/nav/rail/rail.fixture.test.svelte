@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Tooltip } from 'bits-ui';
+
   import Rail from './Rail.svelte';
   import RailItem from './RailItem.svelte';
 

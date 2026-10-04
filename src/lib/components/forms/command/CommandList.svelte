@@ -1,6 +1,7 @@
 <script lang="ts">
   import { Command } from 'bits-ui';
   import clsx from 'clsx';
+
   import { command } from './theme.js';
   import type { CommandListProps } from './types.js';
 

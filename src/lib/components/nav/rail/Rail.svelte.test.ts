@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 import { flushSync, mount, unmount } from 'svelte';
 import { afterEach, describe, expect, it, vi } from 'vitest';
+
 import Fixture from './rail.fixture.test.svelte';
 import Viewport from './railViewport.fixture.test.svelte';
 import { rail, railElement } from './theme.js';

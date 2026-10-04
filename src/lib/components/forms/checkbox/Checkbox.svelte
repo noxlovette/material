@@ -5,11 +5,13 @@ Checkboxes let users select one or more items from a list, or turn an item on or
 @see https://m3.material.io/components/checkbox/overview
 -->
 <script lang="ts">
+  import { Checkbox, Label, useId } from 'bits-ui';
   import clsx from 'clsx';
+
+  import { Layer } from '#lib/utils/index.js';
+
   import { checkbox } from './theme.js';
   import type { CheckboxProps } from './types.js';
-  import { Layer } from '#lib/utils/index.js';
-  import { Checkbox, Label, useId } from 'bits-ui';
 
   let {
     labelText,

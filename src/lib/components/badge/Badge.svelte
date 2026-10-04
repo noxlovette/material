@@ -9,6 +9,7 @@ Large badges are used for specific counts.
 -->
 <script lang="ts">
   import clsx from 'clsx';
+
   import { badge } from './theme.js';
   import type { BadgeProps } from './types.js';
 

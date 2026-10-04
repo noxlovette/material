@@ -1,6 +1,8 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
+
   import MenuItem from '#lib/components/containers/menu/menu-item/MenuItem.svelte';
+
   import SplitButton from './SplitButton.svelte';
 
   const { Story } = defineMeta({

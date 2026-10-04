@@ -12,14 +12,16 @@ Icon buttons help people take minor actions with one tap.
 @see https://m3.material.io/components/icon-buttons/specs
 -->
 <script lang="ts">
-  import type { ButtonIconProps } from './types.js';
-  import { Icon, LoadingIndicator, Layer } from '#lib/utils/index.js';
-  import { buttonColor, buttonIcon } from './theme.js';
-  import clsx from 'clsx';
-  import { buttonCorners, shapeMorph } from './shapeMorph.js';
-  import { getButtonIconVariant } from './context.js';
-  import Tooltip from '#lib/components/forms/tooltip/Tooltip.svelte';
   import { Button, Toggle, type ButtonRootProps, type ToggleRootProps } from 'bits-ui';
+  import clsx from 'clsx';
+
+  import Tooltip from '#lib/components/forms/tooltip/Tooltip.svelte';
+  import { Icon, LoadingIndicator, Layer } from '#lib/utils/index.js';
+
+  import { getButtonIconVariant } from './context.js';
+  import { buttonCorners, shapeMorph } from './shapeMorph.js';
+  import { buttonColor, buttonIcon } from './theme.js';
+  import type { ButtonIconProps } from './types.js';
 
   // Containers can supply a default variant; an explicit `variant` still wins.
   const inheritedVariant = getButtonIconVariant();

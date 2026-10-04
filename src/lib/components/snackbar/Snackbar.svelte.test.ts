@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 import { flushSync, mount, unmount } from 'svelte';
 import { afterEach, describe, expect, it, vi } from 'vitest';
+
 import Snackbar from './Snackbar.svelte';
 
 vi.mock('motion', async (importOriginal) => ({

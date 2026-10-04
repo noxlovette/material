@@ -1,5 +1,6 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
+
   import Navbar from './Navbar.svelte';
   import NavbarItem from './NavbarItem.svelte';
 

@@ -1,5 +1,6 @@
 import type { Popover } from 'bits-ui';
 import type { Snippet } from 'svelte';
+
 import type { PopoverVariants } from './theme.js';
 
 export interface PopoverProps extends PopoverVariants {

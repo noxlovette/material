@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 import { flushSync, mount, unmount } from 'svelte';
 import { afterEach, describe, expect, it } from 'vitest';
+
 import MaterialSymbolsProvider from './MaterialSymbolsProvider.svelte';
 import type { MaterialSymbolsProviderProps } from './types.js';
 

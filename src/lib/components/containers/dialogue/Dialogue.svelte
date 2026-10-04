@@ -10,11 +10,13 @@ on screen until confirmed, dismissed, or a required action has been taken.
 @see https://m3.material.io/components/dialogs/overview
 -->
 <script lang="ts">
-  import { dialogue } from './theme.js';
-  import type { DialogueProps } from './types.js';
   import { Dialog } from 'bits-ui';
+
   import { enterExit, presence } from '#lib/animation/index.js';
   import { Button } from '#lib/components/buttons/index.js';
+
+  import { dialogue } from './theme.js';
+  import type { DialogueProps } from './types.js';
 
   let {
     open = $bindable(false),

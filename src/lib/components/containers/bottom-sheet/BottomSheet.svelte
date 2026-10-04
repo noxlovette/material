@@ -13,11 +13,13 @@ finishes. The content scrolls inside the sheet once it reaches its maximum heigh
 @see https://m3.material.io/components/bottom-sheets/specs
 -->
 <script lang="ts">
-  import { animate, type AnimationPlaybackControls } from 'motion';
-  import type { Attachment } from 'svelte/attachments';
-  import { untrack } from 'svelte';
   import clsx from 'clsx';
+  import { animate, type AnimationPlaybackControls } from 'motion';
+  import { untrack } from 'svelte';
+  import type { Attachment } from 'svelte/attachments';
+
   import { enterExit, Presence, springTokens, springTransition } from '#lib/animation/index.js';
+
   import { bottomSheet } from './theme.js';
   import type { BottomSheetCloseReason, BottomSheetProps } from './types.js';
 

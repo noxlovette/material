@@ -1,8 +1,10 @@
 <script lang="ts">
   import { Select } from 'bits-ui';
-  import { select as selectCls } from './theme.js';
-  import { Icon } from '#lib/utils/index.js';
   import type { Snippet } from 'svelte';
+
+  import { Icon } from '#lib/utils/index.js';
+
+  import { select as selectCls } from './theme.js';
 
   let {
     value,

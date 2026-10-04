@@ -1,5 +1,7 @@
-import type { IconProps } from '#lib/utils/index.js';
 import type { SwitchRootProps } from 'bits-ui';
+
+import type { IconProps } from '#lib/utils/index.js';
+
 import type { SwitchVariants } from './theme.js';
 
 /**

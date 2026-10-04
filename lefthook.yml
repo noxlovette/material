@@ -12,7 +12,7 @@ pre-commit:
 
     - name: format
       glob: '*.{js,ts,svelte,css,json,md}'
-      run: bun prettier --write {staged_files} && git add {staged_files}
+      run: bun oxfmt --no-error-on-unmatched-pattern {staged_files} && git add {staged_files}
 
 pre-push:
   jobs:

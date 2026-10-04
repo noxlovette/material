@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 import { flushSync, mount, unmount } from 'svelte';
 import { afterEach, describe, expect, it } from 'vitest';
+
 import Slider from './Slider.svelte';
 
 window.matchMedia = ((query: string) => ({ matches: true, media: query })) as never;

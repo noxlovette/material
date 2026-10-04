@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+
 import { twMerge } from './tv.js';
 
 describe('twMerge', () => {

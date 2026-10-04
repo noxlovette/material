@@ -9,8 +9,9 @@
   background on every story, which fights Storybook's canvas sizing.
 -->
 <script lang="ts">
-  import { MaterialSymbolsProvider } from '../src/lib/utils/index.js';
   import { Tooltip } from 'bits-ui';
+
+  import { MaterialSymbolsProvider } from '../src/lib/utils/index.js';
 
   // Every icon name referenced anywhere in src/lib or src/routes (components + stories), so no
   // story falls back to unstyled ligature text for an icon outside MaterialSymbolsProvider's

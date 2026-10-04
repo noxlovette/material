@@ -8,12 +8,14 @@ Powered by bits-ui for accessibility and behavior.
 @see https://m3.material.io/components/menus/overview
 -->
 <script lang="ts">
-  import { enterExit, presence } from '#lib/animation/index.js';
   import { Select } from 'bits-ui';
-  import { select as selectCls } from './theme.js';
-  import { Icon } from '#lib/utils/index.js';
-  import type { SelectProps } from './types.js';
   import clsx from 'clsx';
+
+  import { enterExit, presence } from '#lib/animation/index.js';
+  import { Icon } from '#lib/utils/index.js';
+
+  import { select as selectCls } from './theme.js';
+  import type { SelectProps } from './types.js';
 
   let {
     value = $bindable(),

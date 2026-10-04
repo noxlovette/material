@@ -1,5 +1,7 @@
-import type { DivAttrs } from '#lib/utils/types.js';
 import type { Snippet } from 'svelte';
+
+import type { DivAttrs } from '#lib/utils/types.js';
+
 import type { HrVariants } from './theme.js';
 
 /**

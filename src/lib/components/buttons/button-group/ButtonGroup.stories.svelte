@@ -1,5 +1,6 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
+
   import Button from '../Button.svelte';
   import ButtonIcon from '../ButtonIcon.svelte';
   import Toggle from '../Toggle.svelte';

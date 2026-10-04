@@ -1,6 +1,7 @@
 import { animate, type AnimationPlaybackControlsWithThen } from 'motion';
 import { untrack } from 'svelte';
 import type { Attachment } from 'svelte/attachments';
+
 import type { PresenceTransition } from './enterExit.js';
 import { enterExit } from './enterExit.js';
 import { prefersReducedMotion } from './reducedMotion.js';

@@ -24,6 +24,7 @@ selection externally, or leave it uncontrolled and read `onValueChange`.
 -->
 <script lang="ts">
   import { DropdownMenu } from 'bits-ui';
+
   import type { MenuRadioGroupProps } from './types.js';
 
   let {

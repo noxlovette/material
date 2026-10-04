@@ -1,6 +1,7 @@
 import type { HTMLAttributes } from 'svelte/elements';
-import Icon from './Icon.svelte';
+
 import type { MaterialSymbolName } from './icon-names.js';
+import Icon from './Icon.svelte';
 import type { LoadingIndicatorVariants } from './theme.js';
 export type { MaterialSymbolName };
 export type IconMD = typeof Icon;

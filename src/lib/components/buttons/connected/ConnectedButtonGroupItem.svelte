@@ -7,9 +7,11 @@ shape (it rounds out), not a check mark.
   import { ToggleGroup } from 'bits-ui';
   import clsx from 'clsx';
   import { getContext } from 'svelte';
+
   import { Icon, Layer } from '#lib/utils/index.js';
-  import { buttonColor, buttonElevation } from '../theme.js';
+
   import { connectedCorners, shapeMorph } from '../shapeMorph.js';
+  import { buttonColor, buttonElevation } from '../theme.js';
   import { connectedButtonGroupItem } from './theme.js';
   import type { ConnectedButtonGroupCtx, ConnectedButtonGroupItemProps } from './types.js';
 

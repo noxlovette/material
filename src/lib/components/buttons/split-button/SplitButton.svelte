@@ -10,16 +10,18 @@ only opens a menu, use `Menu`; for selectable options, `ConnectedButtonGroup`.
 @see https://m3.material.io/components/split-button/specs
 -->
 <script lang="ts">
-  import { enterExit, presence } from '#lib/animation/index.js';
-  import { Icon, Layer } from '#lib/utils/index.js';
   import { Button, DropdownMenu } from 'bits-ui';
   import clsx from 'clsx';
-  import { buttonColor, buttonElevation } from '../theme.js';
-  import { menu } from '../../containers/menu/theme.js';
-  import { SPLIT_CHEVRON_OFFSET, splitButton } from './theme.js';
   import { animate } from 'motion';
+
+  import { enterExit, presence } from '#lib/animation/index.js';
   import { springTokens, springTransition } from '#lib/animation/spring.js';
+  import { Icon, Layer } from '#lib/utils/index.js';
+
+  import { menu } from '../../containers/menu/theme.js';
   import { shapeMorph, splitCorners } from '../shapeMorph.js';
+  import { buttonColor, buttonElevation } from '../theme.js';
+  import { SPLIT_CHEVRON_OFFSET, splitButton } from './theme.js';
   import type { SplitButtonProps } from './types.js';
 
   let {

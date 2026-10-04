@@ -1,4 +1,5 @@
 import type { Snippet } from 'svelte';
+
 import type { ButtonSize } from '../theme.js';
 
 export type ButtonGroupProps = {

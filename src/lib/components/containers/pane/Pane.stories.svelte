@@ -1,7 +1,8 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
-  import Pane from './Pane.svelte';
+
   import AppBar from '../../nav/appbar/AppBar.svelte';
+  import Pane from './Pane.svelte';
 
   const { Story } = defineMeta({
     title: 'Containers/Pane',

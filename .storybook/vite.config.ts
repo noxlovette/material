@@ -1,6 +1,7 @@
+import { fileURLToPath } from 'node:url';
+
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import tailwindcss from '@tailwindcss/vite';
-import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
 
 // Storybook needs a Vite config that has the Svelte compiler plugin (so .svelte files parse

@@ -12,11 +12,13 @@ Chips help people enter information, make selections, filter content, or trigger
 @see https://m3.material.io/components/chips/overview
 -->
 <script lang="ts">
-  import type { ChipProps } from './types.js';
-  import { Icon, Layer } from '#lib/utils/index.js';
-  import { chip } from './theme.js';
-  import clsx from 'clsx';
   import { Button, Toggle, type ButtonRootProps, type ToggleRootProps } from 'bits-ui';
+  import clsx from 'clsx';
+
+  import { Icon, Layer } from '#lib/utils/index.js';
+
+  import { chip } from './theme.js';
+  import type { ChipProps } from './types.js';
 
   let {
     children,

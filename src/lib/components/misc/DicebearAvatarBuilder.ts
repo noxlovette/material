@@ -1,4 +1,5 @@
 import { Avatar as DicebearAvatar } from '@dicebear/core';
+
 import type { DicebearStyleName } from './dicebearStyles.js';
 import { loadDicebearStyle } from './dicebearStyles.js';
 

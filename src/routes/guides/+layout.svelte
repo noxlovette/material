@@ -1,7 +1,9 @@
 <script lang="ts">
-  import { page } from '$app/state';
   import { resolve } from '$app/paths';
+  import { page } from '$app/state';
+
   import { Icon, List, ListItem, Pane, PaneGrid } from '#lib/index.js';
+
   import { guides, guideHref } from './nav.js';
 
   const { children } = $props();

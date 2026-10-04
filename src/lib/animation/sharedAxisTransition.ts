@@ -1,4 +1,5 @@
 import { animateView, type ViewTransitionTargetDefinition } from 'motion';
+
 import { prefersReducedMotion } from './reducedMotion.js';
 import { springTokens, springTransition, type SpringToken } from './spring.js';
 

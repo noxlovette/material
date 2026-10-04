@@ -5,12 +5,14 @@ Link Previews display a preview of a link's content when hovered.
 @see https://bits-ui.com/docs/components/link-preview
 -->
 <script lang="ts">
-  import { enterExit, presence } from '#lib/animation/index.js';
   import { LinkPreview } from 'bits-ui';
   import clsx from 'clsx';
+
+  import { enterExit, presence } from '#lib/animation/index.js';
+  import { Layer } from '#lib/utils/index.js';
+
   import { linkPreview } from './theme.js';
   import type { LinkPreviewProps } from './types.js';
-  import { Layer } from '#lib/utils/index.js';
 
   let {
     trigger,

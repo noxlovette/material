@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
+
   import { Title } from '#lib/index.js';
 
   let { id, title, children }: { id: string; title: string; children: Snippet } = $props();
