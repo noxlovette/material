@@ -8,11 +8,15 @@
  * sub-pages too (`/guides` for `/guides/icons`), except the app's root (`/`, or SvelteKit's `base`
  * path when the app is served from a sub-path), which would match everything.
  */
-export function isCurrentRoute(href: string, url: URL, root = '/'): boolean {
+export function isCurrentRoute(
+  href: string,
+  url: Pick<URL, 'href' | 'origin' | 'pathname'>,
+  root = '/'
+): boolean {
   if (!href || href.startsWith('#')) return false;
   let target: URL;
   try {
-    target = new URL(href, url);
+    target = new URL(href, url.href);
   } catch {
     return false;
   }

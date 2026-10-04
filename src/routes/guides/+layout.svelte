@@ -19,8 +19,8 @@
       <List variant="segmented">
         <ListItem
           headline="All guides"
-          href="{resolve('')}/guides"
-          selected={page.url.pathname === resolve(`guides`)}
+          href={resolve('/guides')}
+          selected={page.url.pathname === resolve('/guides')}
         >
           {#snippet leading()}<Icon name="menu_book" size="sm" />{/snippet}
         </ListItem>

@@ -46,7 +46,7 @@ springs. The active icon fills, per M3's icon guidance.
   const hrefValue = $derived(isDisabled ? undefined : href);
   const ariaDisabled = $derived(isDisabled ? true : undefined);
   const tabIndex = $derived(isDisabled ? -1 : undefined);
-  const isActive = $derived(selected || isCurrentRoute(href, page.url, resolve('/', {})));
+  const isActive = $derived(selected || isCurrentRoute(href, page.url, resolve('/')));
   const styles = $derived(railElement({ active: isActive, layout, disabled: isDisabled }));
 
   /*

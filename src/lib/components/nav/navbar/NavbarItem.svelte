@@ -25,7 +25,7 @@ A single destination within a navigation bar.
     ...rest
   }: NavItemProps = $props();
 
-  const isActive = $derived(selected || isCurrentRoute(href, page.url, resolve('/', {})));
+  const isActive = $derived(selected || isCurrentRoute(href, page.url, resolve('/')));
 
   const {
     base,

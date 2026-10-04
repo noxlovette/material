@@ -26,7 +26,7 @@
     of hash alone (the "On this page" links) isn't a new page.
   */
   const inGuides = (url: URL) =>
-    url.pathname === resolve(`guides`) || url.pathname.startsWith(resolve(`guides/`));
+    url.pathname === resolve('/guides') || url.pathname.startsWith(`${resolve('/guides')}/`);
 
   onNavigate((navigation) => {
     if (navigation.shallow) return;
@@ -49,13 +49,13 @@
   const destinations = [
     {
       label: 'Overview',
-      href: resolve(`/`.slice(1)),
+      href: resolve('/'),
       iconProps: { name: 'architecture' }
     },
 
     {
       label: 'Guides',
-      href: resolve(`guides`),
+      href: resolve('/guides'),
       iconProps: { name: 'menu_book' }
     },
 

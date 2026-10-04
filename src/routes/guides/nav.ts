@@ -54,4 +54,4 @@ export const guides: Guide[] = [
   }
 ];
 
-export const guideHref = (slug: string) => resolve(`guides/${slug}`);
+export const guideHref = (slug: string) => `${resolve('/guides')}/${slug}`;
