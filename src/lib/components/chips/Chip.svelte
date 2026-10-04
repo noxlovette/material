@@ -13,7 +13,7 @@ Chips help people enter information, make selections, filter content, or trigger
 -->
 <script lang="ts">
   import type { ChipProps } from './types.js';
-  import { Icon, Layer } from '$lib/utils/index.js';
+  import { Icon, Layer } from '#lib/utils/index.js';
   import { chip } from './theme.js';
   import clsx from 'clsx';
   import { Button, Toggle, type ButtonRootProps, type ToggleRootProps } from 'bits-ui';

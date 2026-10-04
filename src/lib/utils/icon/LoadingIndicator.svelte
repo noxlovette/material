@@ -1,7 +1,7 @@
 <script module lang="ts">
   import { animate, mix, type AnimationPlaybackControls } from 'motion';
   import type { Attachment } from 'svelte/attachments';
-  import { springTransition } from '$lib/animation/spring.js';
+  import { springTransition } from '#lib/animation/spring.js';
   import { LOADING_SHAPES } from './loadingShapes.js';
 
   /*

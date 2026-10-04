@@ -1,4 +1,4 @@
-import type { AnchorButtonAttributes, IconProps } from '$lib/utils/index.js';
+import type { AnchorButtonAttributes, IconProps } from '#lib/utils/index.js';
 import type { Snippet } from 'svelte';
 import type { ChipVariants } from './theme.js';
 

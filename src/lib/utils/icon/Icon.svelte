@@ -11,8 +11,8 @@ With `transition`, a change of `name` crossfades on a spring instead of swapping
 <script lang="ts">
   import clsx from 'clsx';
   import { untrack } from 'svelte';
-  import { presence } from '$lib/animation/presence.svelte.js';
-  import { twMerge } from '$lib/utils/tv.js';
+  import { presence } from '#lib/animation/presence.svelte.js';
+  import { twMerge } from '#lib/utils/tv.js';
   import { atRest, iconSwap, iconSwapReduced } from './swap.js';
   import type { IconProps, IconSize, MaterialSymbolName } from './types.js';
 

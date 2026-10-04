@@ -9,7 +9,7 @@ conventions instead of a spec page. The last item is always rendered as static t
 `aria-current="page"`, regardless of whether it has an `href`.
 -->
 <script lang="ts">
-  import { Icon, Layer } from '$lib/utils/index.js';
+  import { Icon, Layer } from '#lib/utils/index.js';
   import clsx from 'clsx';
   import { breadcrumb } from './theme.js';
   import type { BreadcrumbProps } from './types.js';

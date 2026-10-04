@@ -10,7 +10,7 @@
   import ButtonIcon from '../../buttons/ButtonIcon.svelte';
   import List from '../list/List.svelte';
   import ListItem from '../list/ListItem.svelte';
-  import Icon from '$lib/utils/icon/Icon.svelte';
+  import Icon from '#lib/utils/icon/Icon.svelte';
 
   const { Story } = defineMeta({
     title: 'Containers/Bottom Sheet',

@@ -16,7 +16,7 @@ Contrast with `MenuItem` (a single interactive row inside the panel) and
 @see https://m3.material.io/components/menus/guidelines
 -->
 <script lang="ts">
-  import { enterExit, presence } from '$lib/animation/index.js';
+  import { enterExit, presence } from '#lib/animation/index.js';
   import { DropdownMenu } from 'bits-ui';
   import clsx from 'clsx';
   import Button from '../../buttons/Button.svelte';

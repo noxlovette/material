@@ -1,4 +1,4 @@
-import { tv, type VariantProps } from '$lib/utils/tv.js';
+import { tv, type VariantProps } from '#lib/utils/tv.js';
 
 export type PaneVariants = VariantProps<typeof pane>;
 export type PaneGridVariants = VariantProps<typeof paneGrid>;

@@ -13,12 +13,12 @@ Icon buttons help people take minor actions with one tap.
 -->
 <script lang="ts">
   import type { ButtonIconProps } from './types.js';
-  import { Icon, LoadingIndicator, Layer } from '$lib/utils/index.js';
+  import { Icon, LoadingIndicator, Layer } from '#lib/utils/index.js';
   import { buttonColor, buttonIcon } from './theme.js';
   import clsx from 'clsx';
   import { buttonCorners, shapeMorph } from './shapeMorph.js';
   import { getButtonIconVariant } from './context.js';
-  import Tooltip from '$lib/components/forms/tooltip/Tooltip.svelte';
+  import Tooltip from '#lib/components/forms/tooltip/Tooltip.svelte';
   import { Button, Toggle, type ButtonRootProps, type ToggleRootProps } from 'bits-ui';
 
   // Containers can supply a default variant; an explicit `variant` still wins.

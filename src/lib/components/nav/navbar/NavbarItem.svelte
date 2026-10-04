@@ -6,10 +6,10 @@ A single destination within a navigation bar.
 -->
 <script lang="ts">
   import { page } from '$app/state';
-  import { base as appBase } from '$app/paths';
+  import { resolve } from '$app/paths';
   import type { NavItemProps } from './types.js';
   import { navitem } from './theme.js';
-  import { Icon, Layer } from '$lib/utils/index.js';
+  import { Icon, Layer } from '#lib/utils/index.js';
   import Badge from '../../badge/Badge.svelte';
   import { NavigationMenu } from 'bits-ui';
   import clsx from 'clsx';
@@ -25,7 +25,7 @@ A single destination within a navigation bar.
     ...rest
   }: NavItemProps = $props();
 
-  const isActive = $derived(selected || isCurrentRoute(href, page.url, appBase));
+  const isActive = $derived(selected || isCurrentRoute(href, page.url, resolve('/')));
 
   const {
     base,

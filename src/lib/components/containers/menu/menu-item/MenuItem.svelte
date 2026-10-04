@@ -17,8 +17,8 @@ and `ContextMenu`, which owns its own item list and is right-click triggered.
 <script lang="ts">
   import type { MenuItemProps } from './types.js';
   import type { DropdownMenuItemProps } from 'bits-ui';
-  import Icon from '$lib/utils/icon/Icon.svelte';
-  import Layer from '$lib/utils/Layer.svelte';
+  import Icon from '#lib/utils/icon/Icon.svelte';
+  import Layer from '#lib/utils/Layer.svelte';
   import { DropdownMenu } from 'bits-ui';
   import { menu as menuCls } from '../theme.js';
 

@@ -1,7 +1,7 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
   import Divider from './Divider.svelte';
-  import { Body } from '$lib/index.js';
+  import { Body } from '#lib/index.js';
 
   const { Story } = defineMeta({
     title: 'Containers/Divider',

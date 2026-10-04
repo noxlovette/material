@@ -5,7 +5,7 @@ Popovers display rich content in a non-modal overlay anchored to a trigger eleme
 @see https://m3.material.io/components/dialogs/overview (non-modal surface variant)
 -->
 <script lang="ts">
-  import { enterExit, presence } from '$lib/animation/index.js';
+  import { enterExit, presence } from '#lib/animation/index.js';
   import { Popover } from 'bits-ui';
   import clsx from 'clsx';
   import { popover } from './theme.js';

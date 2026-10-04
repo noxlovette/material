@@ -10,8 +10,8 @@
   import CommandDialog from './CommandDialog.svelte';
   import Kbd from '../../typography/kbd/Kbd.svelte';
   import Button from '../../buttons/Button.svelte';
-  import { shortcutLabel } from '$lib/utils/shortcut.js';
-  import Icon from '$lib/utils/icon/Icon.svelte';
+  import { shortcutLabel } from '#lib/utils/shortcut.js';
+  import Icon from '#lib/utils/icon/Icon.svelte';
 
   const { Story } = defineMeta({
     title: 'Forms/Command',

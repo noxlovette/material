@@ -4,7 +4,7 @@
 -->
 <script lang="ts">
   import type { Snippet } from 'svelte';
-  import { Body, Divider, Headline, Pane, PaneGrid } from '$lib/index.js';
+  import { Body, Divider, Headline, Pane, PaneGrid } from '#lib/index.js';
   import TableOfContents from '../TableOfContents.svelte';
 
   let {

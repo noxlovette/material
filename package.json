@@ -1,6 +1,6 @@
 {
   "name": "@noxlovette/material",
-  "version": "0.10.4",
+  "version": "0.10.5",
   "type": "module",
   "description": "A Material Design 3 component library for Svelte, built on Bits UI.",
   "keywords": [
@@ -61,7 +61,7 @@
     "./theme/*": "./dist/styles/theme/*.css"
   },
   "peerDependencies": {
-    "@sveltejs/kit": "^2.58.0",
+    "@sveltejs/kit": "^2.58.0 || ^3.0.0",
     "svelte": "^5.45.6",
     "tailwind-scrollbar": "^4.0.2",
     "tailwindcss": "^4.2.2",
@@ -75,8 +75,8 @@
     "@storybook/addon-mcp": "^10.6.1",
     "@storybook/addon-svelte-csf": "5.1.5",
     "@storybook/svelte-vite": "10.6.1",
-    "@sveltejs/adapter-static": "^3.0.10",
-    "@sveltejs/kit": "^2.70.3",
+    "@sveltejs/adapter-static": "^4.0.0",
+    "@sveltejs/kit": "^3.0.0",
     "@sveltejs/package": "^2.5.8",
     "@sveltejs/vite-plugin-svelte": "7.3.1",
     "@tailwindcss/cli": "^4.3.3",
@@ -121,5 +121,9 @@
     "nanoid": "^6.0.1",
     "tailwind-merge": "^3.7.0",
     "tailwind-variants": "^3.3.1"
+  },
+  "imports": {
+    "#lib": "./src/lib/index.js",
+    "#lib/*": "./src/lib/*"
   }
 }

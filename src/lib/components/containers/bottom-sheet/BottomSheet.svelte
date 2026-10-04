@@ -17,7 +17,7 @@ finishes. The content scrolls inside the sheet once it reaches its maximum heigh
   import type { Attachment } from 'svelte/attachments';
   import { untrack } from 'svelte';
   import clsx from 'clsx';
-  import { enterExit, Presence, springTokens, springTransition } from '$lib/animation/index.js';
+  import { enterExit, Presence, springTokens, springTransition } from '#lib/animation/index.js';
   import { bottomSheet } from './theme.js';
   import type { BottomSheetCloseReason, BottomSheetProps } from './types.js';
 

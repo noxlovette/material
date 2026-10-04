@@ -4,7 +4,7 @@
   import ButtonIcon from '../../buttons/ButtonIcon.svelte';
   import List from '../../containers/list/List.svelte';
   import ListItem from '../../containers/list/ListItem.svelte';
-  import { Icon } from '$lib/utils/index.js';
+  import { Icon } from '#lib/utils/index.js';
   import type { SearchResultsProps } from './types.js';
 
   const { Story } = defineMeta({

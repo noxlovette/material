@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { base } from '$app/paths';
+  import { resolve } from '$app/paths';
   import { onNavigate } from '$app/navigation';
   import {
     App,
@@ -10,7 +10,7 @@
     Rail,
     RailItem,
     ThemeSwitcher
-  } from '$lib/index.js';
+  } from '#lib/index.js';
   import { storybookHref } from './storybook.js';
   import '../app.css';
 
@@ -26,9 +26,11 @@
     of hash alone (the "On this page" links) isn't a new page.
   */
   const inGuides = (url: URL) =>
-    url.pathname === `${base}/guides` || url.pathname.startsWith(`${base}/guides/`);
+    url.pathname === resolve('/guides') || url.pathname.startsWith(`${resolve('/guides')}/`);
 
   onNavigate((navigation) => {
+    if (navigation.shallow) return;
+
     const from = navigation.from?.url;
     const to = navigation.to?.url;
     if (!from || !to || from.pathname === to.pathname) return;
@@ -45,9 +47,24 @@
   });
 
   const destinations = [
-    { label: 'Overview', href: `${base}/`, iconProps: { name: 'architecture' } },
-    { label: 'Guides', href: `${base}/guides`, iconProps: { name: 'menu_book' } },
-    { label: 'Storybook', href: storybookHref(), external: true, iconProps: { name: 'widgets' } }
+    {
+      label: 'Overview',
+      href: resolve('/'),
+      iconProps: { name: 'architecture' }
+    },
+
+    {
+      label: 'Guides',
+      href: resolve('/guides'),
+      iconProps: { name: 'menu_book' }
+    },
+
+    {
+      label: 'Storybook',
+      href: storybookHref(),
+      external: true,
+      iconProps: { name: 'widgets' }
+    }
   ] as const;
 
   // These icons will be pre-loaded by the MaterialSymbolsProvider inside App

@@ -1,4 +1,4 @@
-import type { DivAttrs } from '$lib/utils/index.js';
+import type { DivAttrs } from '#lib/utils/index.js';
 import type { Snippet } from 'svelte';
 import type {
   Breakpoint,

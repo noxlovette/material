@@ -9,7 +9,7 @@ navigation, and closes the menu when chosen. Render it inside a `FAB` with `with
   import { getContext } from 'svelte';
   import { fabMenuItem } from './theme.js';
   import type { FABMenuItemProps } from './types.js';
-  import { Icon, LoadingIndicator, Layer } from '$lib/utils/index.js';
+  import { Icon, LoadingIndicator, Layer } from '#lib/utils/index.js';
   import { Button, DropdownMenu, type DropdownMenuItemProps } from 'bits-ui';
 
   let {

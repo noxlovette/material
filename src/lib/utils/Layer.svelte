@@ -1,6 +1,6 @@
 <script module lang="ts">
   import { animate } from 'motion';
-  import { springTokens, springTransition } from '$lib/animation/spring.js';
+  import { springTokens, springTransition } from '#lib/animation/spring.js';
 
   let initialized = false;
 

@@ -15,9 +15,9 @@ Visibility is controlled with `bind:open`.
   import type { Attachment } from 'svelte/attachments';
   import { untrack } from 'svelte';
   import clsx from 'clsx';
-  import ButtonIcon from '$lib/components/buttons/ButtonIcon.svelte';
+  import ButtonIcon from '#lib/components/buttons/ButtonIcon.svelte';
   import Divider from '../divider/Divider.svelte';
-  import { enterExit, Presence } from '$lib/animation/index.js';
+  import { enterExit, Presence } from '#lib/animation/index.js';
   import { sideSheet } from './theme.js';
   import type { SideSheetProps } from './types.js';
 

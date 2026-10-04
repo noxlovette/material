@@ -12,8 +12,8 @@ text. It grows with its content from `rows` to `maxRows` lines, then scrolls.
   import clsx from 'clsx';
   import type { Attachment } from 'svelte/attachments';
   import { useId } from 'bits-ui';
-  import { Icon } from '$lib/utils/index.js';
-  import { ButtonIcon } from '$lib/components/buttons/index.js';
+  import { Icon } from '#lib/utils/index.js';
+  import { ButtonIcon } from '#lib/components/buttons/index.js';
   import { textarea } from './theme.js';
   import type { TextareaProps } from './types.js';
 

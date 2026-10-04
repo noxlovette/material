@@ -15,8 +15,8 @@ spatial spring; the stack fades out on close.
   import type { Attachment } from 'svelte/attachments';
   import { fabMenu } from './theme.js';
   import type { FABMenuProps } from './types.js';
-  import { enterExit, presence } from '$lib/animation/index.js';
-  import { springTokens, springTransition } from '$lib/animation/spring.js';
+  import { enterExit, presence } from '#lib/animation/index.js';
+  import { springTokens, springTransition } from '#lib/animation/spring.js';
 
   let { children, class: className, ...restProps }: FABMenuProps = $props();
 

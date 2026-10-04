@@ -1,4 +1,4 @@
-import { tv, type VariantProps } from '$lib/utils/tv.js';
+import { tv, type VariantProps } from '#lib/utils/tv.js';
 import type { Breakpoint, Responsive } from '../../containers/pane/theme.js';
 import type { SearchLayout } from './types.js';
 

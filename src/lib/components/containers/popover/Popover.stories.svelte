@@ -8,7 +8,7 @@
   import Popover from './Popover.svelte';
   import Button from '../../buttons/Button.svelte';
   import ButtonIcon from '../../buttons/ButtonIcon.svelte';
-  import { Body } from '$lib/index.js';
+  import { Body } from '#lib/index.js';
 
   const { Story } = defineMeta({
     title: 'Containers/Popover',

@@ -1,4 +1,4 @@
-import { tv, type VariantProps } from '$lib/utils/tv.js';
+import { tv, type VariantProps } from '#lib/utils/tv.js';
 
 // M3 Switch:
 // Track  — 52×32dp, 2dp border

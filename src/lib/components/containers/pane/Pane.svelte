@@ -17,7 +17,7 @@ the document root yourself to get the same behavior.
   import clsx from 'clsx';
   import { onMount, untrack } from 'svelte';
   import { animate, motionValue } from 'motion';
-  import { springTokens, springTransition } from '$lib/animation/spring.js';
+  import { springTokens, springTransition } from '#lib/animation/spring.js';
   import { pane, responsiveTables } from './theme.js';
   import { paneWidths } from './resizeStore.svelte.js';
   import type { PaneProps } from './types.js';

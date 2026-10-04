@@ -1,4 +1,4 @@
-import type { Shortcut } from '$lib/utils/index.js';
+import type { Shortcut } from '#lib/utils/index.js';
 import type { Command } from 'bits-ui';
 import type { Snippet } from 'svelte';
 import type { CommandVariants } from './theme.js';

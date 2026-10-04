@@ -1,4 +1,4 @@
-import type { DivAttrs } from '$lib/utils/types.js';
+import type { DivAttrs } from '#lib/utils/types.js';
 import type { Snippet } from 'svelte';
 import type { HrVariants } from './theme.js';
 

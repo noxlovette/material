@@ -1,5 +1,5 @@
 <script>
-  import { Pane, PaneGrid, PaneHandle } from '$lib/index.js';
+  import { Pane, PaneGrid, PaneHandle } from '#lib/index.js';
 </script>
 
 <PaneGrid direction="row" full>
