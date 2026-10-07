@@ -22,24 +22,24 @@ const sizeClasses: Record<Breakpoint, Record<AppBarSize, Record<SizeSlot, string
       rowSubtitle: '',
       textContainer:
         'col-start-2 col-span-1 row-start-1 self-center ps-(--lead) pe-(--trail) pt-spacing-0 pb-spacing-0',
-      title: 'md-sys-typescale-title-large',
-      subtitle: 'md-sys-typescale-label-medium'
+      title: '[:where(&)]:md-sys-typescale-title-large',
+      subtitle: '[:where(&)]:md-sys-typescale-label-medium'
     },
     medium: {
       row: 'grid-rows-[3rem_1fr] pt-spacing-100 min-h-28',
       rowSubtitle: 'min-h-34',
       textContainer:
         'col-start-1 col-span-3 row-start-2 self-end ps-spacing-200 pe-spacing-200 pt-spacing-50 pb-spacing-150',
-      title: 'md-sys-typescale-headline-medium',
-      subtitle: 'md-sys-typescale-title-small'
+      title: '[:where(&)]:md-sys-typescale-headline-medium',
+      subtitle: '[:where(&)]:md-sys-typescale-title-small'
     },
     large: {
       row: 'grid-rows-[3rem_1fr] pt-spacing-100 min-h-30',
       rowSubtitle: 'min-h-38',
       textContainer:
         'col-start-1 col-span-3 row-start-2 self-end ps-spacing-200 pe-spacing-200 pt-spacing-50 pb-spacing-150',
-      title: 'md-sys-typescale-display-small',
-      subtitle: 'md-sys-typescale-title-medium'
+      title: '[:where(&)]:md-sys-typescale-display-small',
+      subtitle: '[:where(&)]:md-sys-typescale-title-medium'
     }
   },
   medium: {
@@ -48,24 +48,24 @@ const sizeClasses: Record<Breakpoint, Record<AppBarSize, Record<SizeSlot, string
       rowSubtitle: '',
       textContainer:
         'md:col-start-2 md:col-span-1 md:row-start-1 md:self-center md:ps-(--lead) md:pe-(--trail) md:pt-spacing-0 md:pb-spacing-0',
-      title: 'md:md-sys-typescale-title-large',
-      subtitle: 'md:md-sys-typescale-label-medium'
+      title: 'md:[:where(&)]:md-sys-typescale-title-large',
+      subtitle: 'md:[:where(&)]:md-sys-typescale-label-medium'
     },
     medium: {
       row: 'md:grid-rows-[3rem_1fr] md:pt-spacing-100 md:min-h-28',
       rowSubtitle: 'md:min-h-34',
       textContainer:
         'md:col-start-1 md:col-span-3 md:row-start-2 md:self-end md:ps-spacing-200 md:pe-spacing-200 md:pt-spacing-50 md:pb-spacing-150',
-      title: 'md:md-sys-typescale-headline-medium',
-      subtitle: 'md:md-sys-typescale-title-small'
+      title: 'md:[:where(&)]:md-sys-typescale-headline-medium',
+      subtitle: 'md:[:where(&)]:md-sys-typescale-title-small'
     },
     large: {
       row: 'md:grid-rows-[3rem_1fr] md:pt-spacing-100 md:min-h-30',
       rowSubtitle: 'md:min-h-38',
       textContainer:
         'md:col-start-1 md:col-span-3 md:row-start-2 md:self-end md:ps-spacing-200 md:pe-spacing-200 md:pt-spacing-50 md:pb-spacing-150',
-      title: 'md:md-sys-typescale-display-small',
-      subtitle: 'md:md-sys-typescale-title-medium'
+      title: 'md:[:where(&)]:md-sys-typescale-display-small',
+      subtitle: 'md:[:where(&)]:md-sys-typescale-title-medium'
     }
   },
   large: {
@@ -74,24 +74,24 @@ const sizeClasses: Record<Breakpoint, Record<AppBarSize, Record<SizeSlot, string
       rowSubtitle: '',
       textContainer:
         'lg:col-start-2 lg:col-span-1 lg:row-start-1 lg:self-center lg:ps-(--lead) lg:pe-(--trail) lg:pt-spacing-0 lg:pb-spacing-0',
-      title: 'lg:md-sys-typescale-title-large',
-      subtitle: 'lg:md-sys-typescale-label-medium'
+      title: 'lg:[:where(&)]:md-sys-typescale-title-large',
+      subtitle: 'lg:[:where(&)]:md-sys-typescale-label-medium'
     },
     medium: {
       row: 'lg:grid-rows-[3rem_1fr] lg:pt-spacing-100 lg:min-h-28',
       rowSubtitle: 'lg:min-h-34',
       textContainer:
         'lg:col-start-1 lg:col-span-3 lg:row-start-2 lg:self-end lg:ps-spacing-200 lg:pe-spacing-200 lg:pt-spacing-50 lg:pb-spacing-150',
-      title: 'lg:md-sys-typescale-headline-medium',
-      subtitle: 'lg:md-sys-typescale-title-small'
+      title: 'lg:[:where(&)]:md-sys-typescale-headline-medium',
+      subtitle: 'lg:[:where(&)]:md-sys-typescale-title-small'
     },
     large: {
       row: 'lg:grid-rows-[3rem_1fr] lg:pt-spacing-100 lg:min-h-30',
       rowSubtitle: 'lg:min-h-38',
       textContainer:
         'lg:col-start-1 lg:col-span-3 lg:row-start-2 lg:self-end lg:ps-spacing-200 lg:pe-spacing-200 lg:pt-spacing-50 lg:pb-spacing-150',
-      title: 'lg:md-sys-typescale-display-small',
-      subtitle: 'lg:md-sys-typescale-title-medium'
+      title: 'lg:[:where(&)]:md-sys-typescale-display-small',
+      subtitle: 'lg:[:where(&)]:md-sys-typescale-title-medium'
     }
   },
   extraLarge: {
@@ -100,24 +100,24 @@ const sizeClasses: Record<Breakpoint, Record<AppBarSize, Record<SizeSlot, string
       rowSubtitle: '',
       textContainer:
         'xl:col-start-2 xl:col-span-1 xl:row-start-1 xl:self-center xl:ps-(--lead) xl:pe-(--trail) xl:pt-spacing-0 xl:pb-spacing-0',
-      title: 'xl:md-sys-typescale-title-large',
-      subtitle: 'xl:md-sys-typescale-label-medium'
+      title: 'xl:[:where(&)]:md-sys-typescale-title-large',
+      subtitle: 'xl:[:where(&)]:md-sys-typescale-label-medium'
     },
     medium: {
       row: 'xl:grid-rows-[3rem_1fr] xl:pt-spacing-100 xl:min-h-28',
       rowSubtitle: 'xl:min-h-34',
       textContainer:
         'xl:col-start-1 xl:col-span-3 xl:row-start-2 xl:self-end xl:ps-spacing-200 xl:pe-spacing-200 xl:pt-spacing-50 xl:pb-spacing-150',
-      title: 'xl:md-sys-typescale-headline-medium',
-      subtitle: 'xl:md-sys-typescale-title-small'
+      title: 'xl:[:where(&)]:md-sys-typescale-headline-medium',
+      subtitle: 'xl:[:where(&)]:md-sys-typescale-title-small'
     },
     large: {
       row: 'xl:grid-rows-[3rem_1fr] xl:pt-spacing-100 xl:min-h-30',
       rowSubtitle: 'xl:min-h-38',
       textContainer:
         'xl:col-start-1 xl:col-span-3 xl:row-start-2 xl:self-end xl:ps-spacing-200 xl:pe-spacing-200 xl:pt-spacing-50 xl:pb-spacing-150',
-      title: 'xl:md-sys-typescale-display-small',
-      subtitle: 'xl:md-sys-typescale-title-medium'
+      title: 'xl:[:where(&)]:md-sys-typescale-display-small',
+      subtitle: 'xl:[:where(&)]:md-sys-typescale-title-medium'
     }
   }
 };
@@ -126,20 +126,20 @@ type SizeSlot = 'row' | 'rowSubtitle' | 'textContainer' | 'title' | 'subtitle';
 
 const textOverflowClasses: Record<Breakpoint, { clip: string; wrap: string }> = {
   small: {
-    clip: 'overflow-hidden text-clip whitespace-nowrap',
-    wrap: 'overflow-visible whitespace-normal'
+    clip: '[:where(&)]:overflow-hidden [:where(&)]:text-clip [:where(&)]:whitespace-nowrap',
+    wrap: '[:where(&)]:overflow-visible [:where(&)]:whitespace-normal'
   },
   medium: {
-    clip: 'md:overflow-hidden md:text-clip md:whitespace-nowrap',
-    wrap: 'md:overflow-visible md:whitespace-normal'
+    clip: 'md:[:where(&)]:overflow-hidden md:[:where(&)]:text-clip md:[:where(&)]:whitespace-nowrap',
+    wrap: 'md:[:where(&)]:overflow-visible md:[:where(&)]:whitespace-normal'
   },
   large: {
-    clip: 'lg:overflow-hidden lg:text-clip lg:whitespace-nowrap',
-    wrap: 'lg:overflow-visible lg:whitespace-normal'
+    clip: 'lg:[:where(&)]:overflow-hidden lg:[:where(&)]:text-clip lg:[:where(&)]:whitespace-nowrap',
+    wrap: 'lg:[:where(&)]:overflow-visible lg:[:where(&)]:whitespace-normal'
   },
   extraLarge: {
-    clip: 'xl:overflow-hidden xl:text-clip xl:whitespace-nowrap',
-    wrap: 'xl:overflow-visible xl:whitespace-normal'
+    clip: 'xl:[:where(&)]:overflow-hidden xl:[:where(&)]:text-clip xl:[:where(&)]:whitespace-nowrap',
+    wrap: 'xl:[:where(&)]:overflow-visible xl:[:where(&)]:whitespace-normal'
   }
 };
 
@@ -181,8 +181,8 @@ export const appbar = tv({
     textContainer:
       'flex min-w-spacing-0 flex-col gap-spacing-25 [--lead:var(--spacing-spacing-50)] [--trail:var(--spacing-spacing-50)]',
     // max-w-full: a flex-column child is as wide as its text, so clipped text needs the cap.
-    title: 'max-w-full text-md-sys-color-on-surface',
-    subtitle: 'max-w-full text-md-sys-color-on-surface-variant',
+    title: '[:where(&)]:max-w-full [:where(&)]:text-md-sys-color-on-surface',
+    subtitle: '[:where(&)]:max-w-full [:where(&)]:text-md-sys-color-on-surface-variant',
     leading:
       'text-md-sys-color-on-surface col-start-1 row-start-1 flex shrink-0 items-center justify-self-start',
     trailing:
