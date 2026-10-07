@@ -17,6 +17,11 @@ export type NavItemProps = NavItemVariants &
   HTMLAttributes<HTMLAnchorElement> & {
     /** The text label for the item. */
     label: string;
+    /**
+     * Allows the label to wrap instead of clipping to one line.
+     * @default false
+     */
+    disableClipping?: boolean;
     /** An optional numeric badge to display on the icon. Use -1 for a small dot. */
     badge?: number;
     /** The URL this item points to. */

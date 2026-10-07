@@ -279,7 +279,7 @@ export const draggablePane = tv({
     headerBar:
       'relative flex shrink-0 items-center gap-spacing-100 rounded-t-2xl px-spacing-150 py-spacing-100 touch-none select-none md-sys-state-focus-indicator',
     grip: 'shrink-0 text-md-sys-color-on-surface-variant',
-    headline: 'flex-1 truncate md-sys-typescale-title-small text-md-sys-color-on-surface',
+    headline: 'flex-1 md-sys-typescale-title-small text-md-sys-color-on-surface',
     actions: 'flex shrink-0 items-center gap-spacing-50',
     content:
       'flex flex-1 flex-col min-h-spacing-0 min-w-spacing-0 overflow-auto p-spacing-200 pt-spacing-100',
@@ -287,9 +287,19 @@ export const draggablePane = tv({
     miniBase:
       'fixed z-layer-pane flex cursor-pointer items-center gap-spacing-100 rounded-full bg-md-sys-color-surface-container-high px-spacing-200 py-spacing-100 shadow-elevation-2 md-sys-state-focus-indicator hover:shadow-elevation-3',
     miniIcon: 'shrink-0 text-md-sys-color-on-surface-variant',
-    miniLabel: 'md-sys-typescale-label-large max-w-48 truncate text-md-sys-color-on-surface'
+    miniLabel: 'md-sys-typescale-label-large max-w-48 text-md-sys-color-on-surface'
   },
   variants: {
+    disableClipping: {
+      true: {
+        headline: 'min-w-spacing-0 overflow-visible whitespace-normal',
+        miniLabel: 'overflow-visible whitespace-normal wrap-anywhere'
+      },
+      false: {
+        headline: 'overflow-hidden text-clip whitespace-nowrap',
+        miniLabel: 'overflow-hidden text-clip whitespace-nowrap'
+      }
+    },
     dragging: {
       true: { base: 'shadow-elevation-4 cursor-grabbing', headerBar: 'cursor-grabbing' },
       false: { headerBar: 'cursor-grab' }
@@ -342,6 +352,7 @@ export const draggablePane = tv({
   defaultVariants: {
     dragging: false,
     disableDrag: false,
+    disableClipping: false,
     corner: 'bottom-left'
   }
 });

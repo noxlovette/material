@@ -87,6 +87,12 @@ export type MenuRadioItemProps = {
    * @default false
    */
   disabled?: boolean;
+  /**
+   * Shows the full label and helper text with wrapping instead of hard clipping.
+   * Allows the row to grow beyond its minimum height.
+   * @default false
+   */
+  disableClipping?: boolean;
   /** Optional supporting text shown below the label. */
   helper?: string;
   /** The item's label. */
@@ -118,6 +124,12 @@ export type MenuCheckboxItemProps = {
    * @default false
    */
   disabled?: boolean;
+  /**
+   * Shows the full label and helper text with wrapping instead of hard clipping.
+   * Allows the row to grow beyond its minimum height.
+   * @default false
+   */
+  disableClipping?: boolean;
   /** Optional supporting text shown below the label. */
   helper?: string;
   /** The item's label. */
@@ -143,6 +155,12 @@ export type MenuSubProps = {
    * @default false
    */
   disabled?: boolean;
+  /**
+   * Shows the full label and helper text with wrapping instead of hard clipping.
+   * Allows the row to grow beyond its minimum height.
+   * @default false
+   */
+  disableClipping?: boolean;
   /** Optional supporting text shown below the trigger's label. */
   helper?: string;
   /** The trigger row's label. */

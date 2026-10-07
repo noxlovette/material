@@ -27,6 +27,7 @@ and `ContextMenu`, which owns its own item list and is right-click triggered.
   let {
     iconProps,
     disabled = false,
+    disableClipping = false,
     onclick,
     onSelect,
     isGap,
@@ -41,7 +42,7 @@ and `ContextMenu`, which owns its own item list and is right-click triggered.
   // native button as well or it would fire twice on every click.
   const handleSelect = $derived(onSelect ?? (onclick ? () => onclick() : undefined));
 
-  const cls = $derived(menuCls({ selected }));
+  const cls = $derived(menuCls({ selected, disableClipping }));
 </script>
 
 {#if !isGap}

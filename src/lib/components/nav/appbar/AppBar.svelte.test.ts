@@ -9,6 +9,7 @@ import AppBar from './AppBar.svelte';
 window.matchMedia = ((query: string) => ({ matches: true, media: query })) as never;
 window.ResizeObserver = class {
   observe() {}
+  unobserve() {}
   disconnect() {}
 } as never;
 

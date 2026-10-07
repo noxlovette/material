@@ -17,8 +17,8 @@ export const menu = tv({
     // No `hover:` fill: bits-ui sets `data-highlighted` on mouse hover already,
     // and a `:hover` tint sticks to the last-tapped row on touch screens (#48).
     item: `
-      rounded-sm h-11 relative flex w-full cursor-pointer items-center gap-spacing-100 px-spacing-150 py-spacing-100
-      md-sys-typescale-body-medium whitespace-nowrap text-md-sys-color-on-surface
+      rounded-sm relative flex w-full cursor-pointer items-center gap-spacing-100 px-spacing-150 py-spacing-100
+      md-sys-typescale-body-medium text-md-sys-color-on-surface
       data-[highlighted]:bg-md-sys-color-on-surface/8
       focus-visible:outline-2 focus-visible:outline-offset-2
       focus-visible:outline-md-sys-color-primary
@@ -33,6 +33,16 @@ export const menu = tv({
       'px-spacing-150 pt-spacing-100 pb-spacing-50 md-sys-typescale-label-medium text-md-sys-color-primary'
   },
   variants: {
+    disableClipping: {
+      false: {
+        item: 'h-11 whitespace-nowrap',
+        itemContent: 'overflow-hidden text-clip'
+      },
+      true: {
+        item: 'h-auto min-h-11 whitespace-normal',
+        itemContent: 'overflow-visible wrap-anywhere'
+      }
+    },
     selected: {
       true: {
         item: 'bg-md-sys-color-secondary-container rounded-lg text-md-sys-color-on-secondary-container'
@@ -43,5 +53,6 @@ export const menu = tv({
         indicator: 'text-md-sys-color-primary'
       }
     }
-  }
+  },
+  defaultVariants: { disableClipping: false }
 });

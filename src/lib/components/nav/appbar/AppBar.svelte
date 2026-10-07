@@ -47,6 +47,7 @@ A `ButtonIcon` anywhere inside it defaults to `variant="standard"`, per M3; pass
     showBack = false,
     onback = () => history.back(),
     size = 'small',
+    disableClipping = false,
     align = 'start',
     search,
     query = $bindable(''),
@@ -66,13 +67,17 @@ A `ButtonIcon` anywhere inside it defaults to `variant="standard"`, per M3; pass
   // action button. Applies to buttons passed in `leading`/`trailing`/`children` too.
   setButtonIconVariant('standard');
 
-  let scrolled = $state(false);
-  let barHeight = $state(64);
+  let scrollY = $state(0);
+  let containerScrollTop = $state(0);
+  const scrolled = $derived((scrollContainer ? containerScrollTop : scrollY) > 10);
+  let barRect = $state<DOMRectReadOnly>();
+  const barHeight = $derived(barRect?.height ?? 64);
 
+  // Window scrolling is bound below; a custom container still owns its scroll events.
   $effect(() => {
-    const target = scrollContainer ?? window;
-    const read = () =>
-      (scrolled = (scrollContainer ? scrollContainer.scrollTop : window.scrollY) > 10);
+    const target = scrollContainer;
+    if (!target) return;
+    const read = () => (containerScrollTop = target.scrollTop);
     read();
     target.addEventListener('scroll', read, { passive: true });
     return () => target.removeEventListener('scroll', read);
@@ -143,16 +148,7 @@ A `ButtonIcon` anywhere inside it defaults to `variant="standard"`, per M3; pass
     })
   );
   // Search app bars are always the small, 64dp bar.
-  const sized = $derived(appbarSize(isSearch ? 'small' : size, !!subtitle));
-
-  function trackHeight(node: HTMLElement) {
-    const observer = new ResizeObserver((entries) => {
-      const entry = entries[0];
-      barHeight = entry?.contentRect.height ?? barHeight;
-    });
-    observer.observe(node);
-    return () => observer.disconnect();
-  }
+  const sized = $derived(appbarSize(isSearch ? 'small' : size, !!subtitle, disableClipping));
 
   $effect(() => {
     document.documentElement.style.setProperty('--appbar-height', `${barHeight}px`);
@@ -160,9 +156,9 @@ A `ButtonIcon` anywhere inside it defaults to `variant="standard"`, per M3; pass
   });
 </script>
 
-<svelte:window onkeydown={onShortcut} />
+<svelte:window bind:scrollY onkeydown={onShortcut} />
 
-<nav {...rest} class={s.base({ class: clsx(className) })} {@attach trackHeight}>
+<nav {...rest} class={s.base({ class: clsx(className) })} bind:contentRect={barRect}>
   <div class={s.row({ class: clsx(sized.row, rowClass) })}>
     <div class={s.leading()}>
       {#if leading}

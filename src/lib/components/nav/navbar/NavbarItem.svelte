@@ -20,6 +20,7 @@ A single destination within a navigation bar.
   let {
     href = '/',
     label,
+    disableClipping = false,
     badge = 0,
     class: className,
     selected,
@@ -35,7 +36,7 @@ A single destination within a navigation bar.
     icon,
     iconContainer,
     label: labelClass
-  } = $derived(navitem({ active: isActive }));
+  } = $derived(navitem({ active: isActive, disableClipping }));
 
   const rootClass = $derived(base({ class: clsx(className) }));
 </script>

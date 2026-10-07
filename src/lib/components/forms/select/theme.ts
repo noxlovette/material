@@ -20,7 +20,7 @@ export const select = tv({
       md-sys-typescale-body-large text-md-sys-color-on-surface
       disabled:text-md-sys-color-on-surface/38
       disabled:cursor-not-allowed
-      truncate text-left
+      overflow-hidden text-clip whitespace-nowrap text-left
     `,
     leadingIcon: `
       text-md-sys-color-on-surface-variant size-spacing-300
@@ -50,6 +50,7 @@ export const select = tv({
       data-[disabled]:cursor-not-allowed data-[disabled]:opacity-38
       transition-colors md-sys-motion-fast-effects
     `,
+    itemLabel: 'flex-1 overflow-hidden text-clip whitespace-nowrap',
     groupLabel: `
       px-spacing-150 pt-spacing-100 pb-spacing-50 md-sys-typescale-label-medium
       text-md-sys-color-primary
@@ -65,6 +66,16 @@ export const select = tv({
     `
   },
   variants: {
+    disableClipping: {
+      true: {
+        // The field grows with wrapped text instead of spilling out of its 56dp box.
+        base: 'h-auto min-h-spacing-700',
+        inputWrapper: 'py-spacing-100',
+        value: 'min-w-spacing-0 overflow-visible whitespace-normal wrap-anywhere',
+        itemLabel: 'min-w-spacing-0 overflow-visible whitespace-normal wrap-anywhere'
+      },
+      false: ''
+    },
     variant: {
       filled: {
         base: `
@@ -122,6 +133,7 @@ export const select = tv({
   ],
 
   defaultVariants: {
+    disableClipping: false,
     variant: 'outlined'
   }
 });

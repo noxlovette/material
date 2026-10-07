@@ -13,6 +13,12 @@ type AppBarBaseProps = Pick<AppbarVariants, 'align'> &
     children?: Snippet;
     /** An optional subtitle displayed below the title. */
     subtitle?: string;
+    /**
+     * Allows the small bar's title and subtitle to wrap instead of clipping to one line.
+     * Medium and large bars always wrap.
+     * @default false
+     */
+    disableClipping?: boolean;
     /** Additional props for the title `<h1>` element (e.g. `data-cy`). */
     titleProps?: HTMLAttributes<HTMLHeadingElement>;
     /** Additional props for the subtitle `<p>` element (e.g. `data-cy`). */

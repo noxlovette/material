@@ -44,9 +44,9 @@ export const listItem = tv({
       'pointer-events-none absolute inset-spacing-0 -z-10 rounded-[inherit] bg-md-sys-color-secondary-container',
     leading: 'flex shrink-0 items-center text-md-sys-color-on-surface-variant',
     body: 'flex min-w-spacing-0 flex-1 flex-col justify-center',
-    overline: 'md-sys-typescale-label-small line-clamp-1 text-md-sys-color-on-surface-variant',
-    headline: 'md-sys-typescale-body-large line-clamp-1 text-md-sys-color-on-surface',
-    supporting: 'md-sys-typescale-body-medium line-clamp-2 text-md-sys-color-on-surface-variant',
+    overline: 'md-sys-typescale-label-small text-md-sys-color-on-surface-variant',
+    headline: 'md-sys-typescale-body-large text-md-sys-color-on-surface',
+    supporting: 'md-sys-typescale-body-medium text-md-sys-color-on-surface-variant',
     trailing:
       'relative flex shrink-0 items-center gap-spacing-150 overflow-visible text-md-sys-color-on-surface-variant',
     trailingText: 'md-sys-typescale-label-small text-md-sys-color-on-surface-variant',
@@ -58,6 +58,18 @@ export const listItem = tv({
     nested: 'flex flex-col [--li-top:initial] [--li-bottom:initial]'
   },
   variants: {
+    disableClipping: {
+      false: {
+        overline: 'overflow-hidden text-clip whitespace-nowrap',
+        headline: 'overflow-hidden text-clip whitespace-nowrap',
+        supporting: 'max-h-[2lh] overflow-hidden text-clip'
+      },
+      true: {
+        overline: 'overflow-visible whitespace-normal wrap-anywhere',
+        headline: 'overflow-visible whitespace-normal wrap-anywhere',
+        supporting: 'overflow-visible whitespace-normal wrap-anywhere'
+      }
+    },
     // md.comp.list.list-item.{one,two,three}-line.container.height: minimums, so larger text grows
     // the item instead of clipping. From 88dp up, leading/text/trailing align to the top.
     lines: {
@@ -133,6 +145,7 @@ export const listItem = tv({
   ],
   defaultVariants: {
     lines: 1,
+    disableClipping: false,
     variant: 'standard',
     interactive: false,
     selected: false,

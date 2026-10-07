@@ -21,6 +21,7 @@ Powered by bits-ui for accessibility and behavior.
     value = $bindable(),
     open = $bindable(false),
     disabled = false,
+    disableClipping = false,
     options = [],
     placeholder,
     error = false,
@@ -34,7 +35,7 @@ Powered by bits-ui for accessibility and behavior.
     ...rootProps
   }: SelectProps = $props();
 
-  const cls = $derived(selectCls({ disabled, error, variant }));
+  const cls = $derived(selectCls({ disabled, disableClipping, error, variant }));
 
   const selectedLabel = $derived.by(() => {
     for (const option of options as any[]) {
@@ -94,7 +95,9 @@ Powered by bits-ui for accessibility and behavior.
                             {#if innerItem.type !== 'group'}
                               <Select.Item {...innerItem} class={cls.item()}>
                                 {#snippet children({ selected })}
-                                  <span class="flex-1 truncate">{innerItem.label}</span>
+                                  <span class={cls.itemLabel()}>
+                                    {innerItem.label}
+                                  </span>
                                   {#if selected}
                                     <Icon
                                       aria-hidden="true"
@@ -110,7 +113,9 @@ Powered by bits-ui for accessibility and behavior.
                       {:else}
                         <Select.Item {...item} class={cls.item()}>
                           {#snippet children({ selected })}
-                            <span class="flex-1 truncate">{item.label}</span>
+                            <span class={cls.itemLabel()}>
+                              {item.label}
+                            </span>
                             {#if selected}
                               <Icon
                                 aria-hidden="true"
