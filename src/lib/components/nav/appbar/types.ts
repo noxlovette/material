@@ -38,6 +38,12 @@ type AppBarBaseProps = Pick<AppbarVariants, 'align'> &
     scrollContainer?: HTMLElement | null;
     /** Renders an invisible same-height spacer after the fixed bar so page content isn't obscured. */
     ghost?: boolean;
+    /**
+     * Snaps the bar to the small bar (subtitle hidden) once scrolled down, at every breakpoint,
+     * and back when scrolled to the top. Follows `scrollContainer`. Has no effect on search bars.
+     * @default false
+     */
+    collapse?: boolean;
     /** Additional classes passed onto the row element */
     rowClass?: string;
   };

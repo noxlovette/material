@@ -13,6 +13,10 @@ headline block wraps and grows. `size` also takes one value per breakpoint
 
 The bar takes its on-scroll color once `scrollContainer` (default: the page) scrolls.
 
+With `collapse`, a medium/large bar snaps to the small bar (at every breakpoint, subtitle
+hidden) once scrolled past 48px, and expands again only below 8px. The gap keeps the
+height change from flipping the state back and forth.
+
 Publishes its measured height as `--appbar-height` on the document root, so any
 `Pane`/`PaneGrid` on the page (`full`, the default) shrinks its `min-height` by
 that amount with no props or wiring on either side — see Pane.svelte's doc
@@ -60,6 +64,7 @@ A `ButtonIcon` anywhere inside it defaults to `variant="standard"`, per M3; pass
     onsearch,
     scrollContainer,
     ghost = false,
+    collapse = false,
     ...rest
   }: AppBarProps = $props();
 
@@ -70,6 +75,16 @@ A `ButtonIcon` anywhere inside it defaults to `variant="standard"`, per M3; pass
   let scrollY = $state(0);
   let containerScrollTop = $state(0);
   const scrolled = $derived((scrollContainer ? containerScrollTop : scrollY) > 10);
+
+  // Hysteresis: shrinking the bar shortens the page, which can pull scroll back under a single
+  // threshold and re-expand it.
+  let compact = $state(false);
+  $effect(() => {
+    const y = scrollContainer ? containerScrollTop : scrollY;
+    if (!collapse) compact = false;
+    else if (y > 48) compact = true;
+    else if (y < 8) compact = false;
+  });
   let barRect = $state<DOMRectReadOnly>();
   const barHeight = $derived(barRect?.height ?? 64);
 
@@ -148,7 +163,10 @@ A `ButtonIcon` anywhere inside it defaults to `variant="standard"`, per M3; pass
     })
   );
   // Search app bars are always the small, 64dp bar.
-  const sized = $derived(appbarSize(isSearch ? 'small' : size, !!subtitle, disableClipping));
+  const showSubtitle = $derived(!!subtitle && !compact);
+  const sized = $derived(
+    appbarSize(isSearch || compact ? 'small' : size, showSubtitle, disableClipping)
+  );
 
   $effect(() => {
     document.documentElement.style.setProperty('--appbar-height', `${barHeight}px`);
@@ -197,7 +215,7 @@ A `ButtonIcon` anywhere inside it defaults to `variant="standard"`, per M3; pass
         <h1 {...titleProps} class={s.title({ class: clsx(sized.title, titleProps?.class) })}>
           {title}
         </h1>
-        {#if subtitle}
+        {#if showSubtitle}
           <p
             {...subtitleProps}
             class={s.subtitle({ class: clsx(sized.subtitle, subtitleProps?.class) })}

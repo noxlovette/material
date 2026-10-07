@@ -50,3 +50,43 @@ describe('search AppBar', () => {
     unmount(app);
   });
 });
+
+describe('AppBar collapse', () => {
+  const scrollTo = (y: number) => {
+    Object.defineProperty(window, 'scrollY', { value: y, configurable: true });
+    window.dispatchEvent(new Event('scroll'));
+    flushSync();
+  };
+  const title = () => document.querySelector('nav h1')!;
+
+  it('snaps to small past 48px, and back only below 8px', () => {
+    scrollTo(0);
+    const app = mount(AppBar, {
+      target: document.body,
+      props: { title: 'Inbox', subtitle: 'Sub', size: 'large', collapse: true }
+    });
+    flushSync();
+    expect(title().className).toContain('display-small');
+    expect(document.querySelector('nav p')).not.toBeNull();
+    scrollTo(60);
+    expect(title().className).toContain('title-large');
+    expect(title().className).not.toContain('display-small');
+    expect(document.querySelector('nav p')).toBeNull();
+    scrollTo(20);
+    expect(title().className).toContain('title-large');
+    scrollTo(0);
+    expect(title().className).toContain('display-small');
+    unmount(app);
+  });
+
+  it('does nothing without collapse', () => {
+    const app = mount(AppBar, {
+      target: document.body,
+      props: { title: 'Inbox', size: 'large' }
+    });
+    flushSync();
+    scrollTo(100);
+    expect(title().className).toContain('display-small');
+    unmount(app);
+  });
+});
