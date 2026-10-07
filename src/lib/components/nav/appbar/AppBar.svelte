@@ -34,6 +34,7 @@ A `ButtonIcon` anywhere inside it defaults to `variant="standard"`, per M3; pass
   import { animate } from 'motion';
   import { tick, untrack } from 'svelte';
 
+  import { enterExit } from '#lib/animation/enterExit.js';
   import { prefersReducedMotion } from '#lib/animation/reducedMotion.js';
   import { springTokens, springTransition } from '#lib/animation/spring.js';
   import { ariaKeyShortcut, isApplePlatform, triggersShortcut } from '#lib/utils/index.js';
@@ -92,43 +93,137 @@ A `ButtonIcon` anywhere inside it defaults to `variant="standard"`, per M3; pass
     else if (y < 8) compact = false;
   });
   let barRect = $state<DOMRectReadOnly>();
-  let navEl = $state<HTMLElement>();
 
-  // `compact` is where the bar is going; `layoutCompact` is what's rendered. They differ only
-  // while the title block fades out (old layout), swaps, and fades back in (new layout), so the
-  // layout change happens while the text is invisible (M3 fade through).
+  /*
+    `compact` is where the bar is going; `layoutCompact` is what's rendered. Like Rail, the change
+    is one spring on a progress p (0 old, 1 new) with both ends measured: the layout swaps at
+    once, then each frame the bar's height, the title's type size and the text block's position
+    are interpolated between where they were drawn and where the new layout puts them. Blocks that
+    only exist on one side (subtitle, the children row) fade: the old ones as an inert clone left
+    where they were, the new ones in place. An interrupted run picks up from where it is drawn.
+  */
   let layoutCompact = $state(false);
+  let navEl = $state<HTMLElement>();
   let textEl = $state<HTMLElement>();
-  let childrenEl = $state<HTMLElement>();
-  let fading = false;
-  const fade = springTransition(springTokens.fastEffects);
-  const fadeTargets = () => [textEl, childrenEl].filter((el): el is HTMLElement => !!el);
+  let running: { stop: () => void } | undefined;
+  let clones: HTMLElement[] = [];
+  const MORPH = springTransition(springTokens.spatial);
+  const TYPE = ['fontSize', 'lineHeight', 'letterSpacing'] as const;
+
+  const blocks = () =>
+    [...(navEl?.querySelectorAll<HTMLElement>('[data-appbar-block]') ?? [])].filter(
+      (el) => !el.classList.contains('sr-only')
+    );
+  const readType = (el: HTMLElement) => {
+    const css = getComputedStyle(el);
+    return TYPE.map((key) => parseFloat(css[key]));
+  };
+
+  // An inert copy of a block, pinned where it is drawn, to play its exit on after the swap.
+  function cloneAt(el: HTMLElement, bar: DOMRect) {
+    const copy = el.cloneNode(true) as HTMLElement;
+    copy.querySelectorAll('[id]').forEach((n) => n.removeAttribute('id'));
+    copy.removeAttribute('id');
+    copy.removeAttribute('data-appbar-block');
+    copy.inert = true;
+    copy.setAttribute('aria-hidden', 'true');
+    const box = el.getBoundingClientRect();
+    Object.assign(copy.style, {
+      position: 'absolute',
+      margin: '0',
+      pointerEvents: 'none',
+      left: `${box.left - bar.left}px`,
+      top: `${box.top - bar.top}px`,
+      width: `${box.width}px`,
+      height: `${box.height}px`
+    });
+    navEl!.append(copy);
+    return copy;
+  }
+
+  function reset(bar: HTMLElement, text: HTMLElement) {
+    running?.stop();
+    running = undefined;
+    clones.forEach((c) => c.remove());
+    clones = [];
+    bar.style.height = bar.style.overflow = '';
+    text.style.transform = '';
+    text.querySelectorAll<HTMLElement>('h1').forEach((h) => {
+      for (const key of TYPE) h.style[key] = '';
+    });
+  }
 
   $effect(() => {
     const target = compact;
-    return untrack(() => {
-      if (target === layoutCompact) {
-        // Reversed mid-fade before the swap: bring the old layout back.
-        if (fading) animate(fadeTargets(), { opacity: 1 }, fade);
-        fading = false;
-        return;
-      }
-      const els = fadeTargets();
-      if (prefersReducedMotion() || !els.length) {
+    untrack(() => {
+      if (target === layoutCompact) return;
+      const bar = navEl;
+      const text = textEl;
+      if (!bar || !text || prefersReducedMotion()) {
         layoutCompact = target;
         return;
       }
-      let cancelled = false;
-      fading = true;
-      animate(els, { opacity: 0 }, fade).then(async () => {
-        if (cancelled) return;
-        layoutCompact = target;
-        await tick();
-        if (cancelled) return;
-        animate(fadeTargets(), { opacity: [0, 1] }, fade).then(() => (fading = false));
+
+      // Where everything is drawn now (mid-run included).
+      const from = bar.offsetHeight;
+      const textFrom = text.getBoundingClientRect();
+      const barBox = bar.getBoundingClientRect();
+      const title = text.querySelector<HTMLElement>('h1');
+      const typeFrom = title ? readType(title) : [];
+      const copies = new Map(blocks().map((el) => [el, cloneAt(el, barBox)]));
+      reset(bar, text);
+      clones = [...copies.values()];
+
+      layoutCompact = target;
+      tick().then(() => {
+        const to = bar.offsetHeight;
+        const textTo = text.getBoundingClientRect();
+        const visible = new Set(blocks());
+        const morphs = !!title && visible.has(title) && copies.has(title);
+        const typeTo = morphs ? readType(title) : [];
+
+        for (const [el, copy] of copies) {
+          if (visible.has(el)) copy.remove();
+          else animate(copy, { opacity: 0 }, enterExit.fade.exit).then(() => copy.remove());
+        }
+        clones = clones.filter((c) => c.isConnected);
+        for (const el of visible) {
+          if (!copies.has(el)) animate(el, { opacity: [0, 1] }, enterExit.fade.enter);
+        }
+
+        const frame = (p: number) => {
+          bar.style.height = `${from + (to - from) * p}px`;
+          if (morphs) {
+            TYPE.forEach((key, i) => {
+              if (Number.isFinite(typeFrom[i]) && Number.isFinite(typeTo[i]))
+                title.style[key] = `${typeFrom[i] + (typeTo[i] - typeFrom[i]) * p}px`;
+            });
+          }
+          // Where the new layout draws the block at this size, versus where it should be.
+          text.style.transform = '';
+          const now = text.getBoundingClientRect();
+          const x = textFrom.left + (textTo.left - textFrom.left) * p - now.left;
+          const y = textFrom.top + (textTo.top - textFrom.top) * p - now.top;
+          text.style.transform = `translate(${x}px, ${y}px)`;
+        };
+
+        bar.style.overflow = 'clip';
+        frame(0);
+        const controls = animate(0, 1, {
+          ...MORPH,
+          onUpdate: frame,
+          onComplete: () => {
+            if (running === controls) reset(bar, text);
+          }
+        });
+        running = controls;
       });
-      return () => (cancelled = true);
     });
+  });
+
+  $effect(() => () => {
+    running?.stop();
+    clones.forEach((c) => c.remove());
   });
 
   // Before the first measurement, read the bar directly rather than guessing 64dp, so a tall bar
@@ -278,6 +373,7 @@ A `ButtonIcon` anywhere inside it defaults to `variant="standard"`, per M3; pass
       {:else}
         <h1
           {...titleProps}
+          data-appbar-block
           class={childrenInTitle
             ? clsx('sr-only', titleProps?.class)
             : s.title({ class: clsx(sized.title, titleProps?.class) })}
@@ -285,13 +381,14 @@ A `ButtonIcon` anywhere inside it defaults to `variant="standard"`, per M3; pass
           {@render titleContent()}
         </h1>
         {#if childrenInTitle}
-          <div class="min-w-spacing-0 w-full">
+          <div class="min-w-spacing-0 w-full" data-appbar-block>
             {@render children?.()}
           </div>
         {/if}
         {#if showSubtitle}
           <p
             {...subtitleProps}
+            data-appbar-block
             class={s.subtitle({ class: clsx(sized.subtitle, subtitleProps?.class) })}
           >
             {subtitle}
@@ -304,7 +401,7 @@ A `ButtonIcon` anywhere inside it defaults to `variant="standard"`, per M3; pass
     </div>
   </div>
   {#if children && !childrenInTitle}
-    <div class={s.childrenRow()} bind:this={childrenEl}>
+    <div class={s.childrenRow()} data-appbar-block>
       {@render children()}
     </div>
   {/if}
