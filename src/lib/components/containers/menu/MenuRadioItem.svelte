@@ -24,6 +24,7 @@ sibling item.
   let {
     value,
     disabled = false,
+    disableClipping = false,
     closeOnSelect = true,
     helper,
     children,
@@ -33,7 +34,7 @@ sibling item.
 
 <DropdownMenu.RadioItem {value} {disabled} {closeOnSelect}>
   {#snippet child({ props, checked })}
-    {@const cls = menuCls({ checked })}
+    {@const cls = menuCls({ checked, disableClipping })}
     <div {...props} class={cls.item({ class: className })}>
       <Icon
         name={checked ? 'radio_button_checked' : 'radio_button_unchecked'}

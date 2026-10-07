@@ -16,9 +16,13 @@ export const navitem = tv({
     iconContainer:
       'relative flex items-center justify-center h-spacing-400 w-spacing-800 rounded-full transition-colors md-sys-motion-effects',
     icon: 'text-icon-24 size-(--text-icon-24)',
-    label: 'md-sys-typescale-label-medium truncate w-full text-center'
+    label: 'md-sys-typescale-label-medium w-full text-center'
   },
   variants: {
+    disableClipping: {
+      true: { label: 'overflow-visible whitespace-normal wrap-anywhere' },
+      false: { label: 'overflow-hidden text-clip whitespace-nowrap' }
+    },
     active: {
       true: {
         content: 'text-md-sys-color-on-secondary-container',
@@ -31,5 +35,8 @@ export const navitem = tv({
         iconContainer: 'group-hover:bg-md-sys-color-surface-variant/10'
       }
     }
+  },
+  defaultVariants: {
+    disableClipping: false
   }
 });

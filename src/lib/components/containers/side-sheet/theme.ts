@@ -33,21 +33,23 @@ export const sideSheet = tv({
     variant: {
       modal: {
         base: [
-          'fixed inset-y-spacing-0 start-auto end-spacing-0 m-spacing-0 h-dvh max-h-none w-full overflow-visible bg-transparent outline-none',
+          'fixed inset-y-spacing-0 m-spacing-0 h-dvh max-h-none w-full overflow-visible bg-transparent outline-none',
           'backdrop:bg-md-sys-color-scrim/32 backdrop:transition-[background-color] backdrop:md-sys-motion-effects',
           'starting:backdrop:bg-transparent data-[state=closed]:pointer-events-none data-[state=closed]:backdrop:bg-transparent'
         ],
         container:
-          'bg-md-sys-color-surface-container-low text-md-sys-color-on-surface shadow-elevation-1 rounded-s-2xl'
+          'bg-md-sys-color-surface-container-low text-md-sys-color-on-surface shadow-elevation-1'
       },
       standard: {
         // The wrapper animates its width, so the content beside it reflows; the sheet itself
-        // keeps its width and stays pinned to the wrapper's end edge, so it appears to slide in.
+        // keeps its width and stays pinned to the wrapper's outer edge, so it appears to slide in.
         base: 'md-sys-motion-spatial relative h-full shrink-0 overflow-clip transition-[width]',
-        container:
-          'bg-md-sys-color-surface text-md-sys-color-on-surface absolute inset-y-spacing-0 end-spacing-0'
+        container: 'bg-md-sys-color-surface text-md-sys-color-on-surface absolute inset-y-spacing-0'
       }
     },
+    // Which window edge the sheet sits on. Physical, like the slide animation, so it doesn't
+    // flip with text direction.
+    side: { right: {}, left: {} },
     detached: {
       true: { container: 'rounded-2xl' },
       false: {}
@@ -58,23 +60,46 @@ export const sideSheet = tv({
   compoundVariants: [
     {
       variant: 'modal',
-      detached: true,
-      class: {
-        base: 'inset-y-spacing-200 end-spacing-200 h-[calc(100dvh-2rem)] max-w-[calc(100%-2rem)]'
-      }
+      side: 'right',
+      class: { base: 'left-auto right-spacing-0', container: 'rounded-l-2xl' }
     },
+    {
+      variant: 'modal',
+      side: 'left',
+      class: { base: 'left-spacing-0 right-auto', container: 'rounded-r-2xl' }
+    },
+    {
+      variant: 'modal',
+      detached: true,
+      class: { base: 'inset-y-spacing-200 h-[calc(100dvh-2rem)] max-w-[calc(100%-2rem)]' }
+    },
+    { variant: 'modal', detached: true, side: 'right', class: { base: 'right-spacing-200' } },
+    { variant: 'modal', detached: true, side: 'left', class: { base: 'left-spacing-200' } },
     { variant: 'modal', detached: false, class: { base: 'max-w-full' } },
+    { variant: 'standard', side: 'right', class: { container: 'right-spacing-0' } },
+    { variant: 'standard', side: 'left', class: { container: 'left-spacing-0' } },
+    { variant: 'standard', detached: true, class: { container: 'inset-y-spacing-200' } },
     {
       variant: 'standard',
       detached: true,
-      class: { container: 'inset-y-spacing-200 end-spacing-200' }
+      side: 'right',
+      class: { container: 'right-spacing-200' }
+    },
+    { variant: 'standard', detached: true, side: 'left', class: { container: 'left-spacing-200' } },
+    {
+      variant: 'standard',
+      detached: false,
+      divider: true,
+      side: 'right',
+      class: { container: 'border-md-sys-color-outline-variant border-l' }
     },
     {
       variant: 'standard',
       detached: false,
       divider: true,
-      class: { container: 'border-md-sys-color-outline-variant border-s' }
+      side: 'left',
+      class: { container: 'border-md-sys-color-outline-variant border-r' }
     }
   ],
-  defaultVariants: { variant: 'modal', detached: false, divider: true, back: false }
+  defaultVariants: { variant: 'modal', side: 'right', detached: false, divider: true, back: false }
 });

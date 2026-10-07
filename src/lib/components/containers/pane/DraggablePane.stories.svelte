@@ -144,7 +144,7 @@
   <DraggablePane initialX={32} initialY={32}>
     {#snippet header()}
       <span
-        class="md-sys-typescale-label-large text-md-sys-color-on-surface px-spacing-50 py-spacing-50 flex-1 truncate"
+        class="md-sys-typescale-label-large text-md-sys-color-on-surface px-spacing-50 py-spacing-50 flex-1 overflow-hidden text-clip whitespace-nowrap"
       >
         ⠿ Custom drag handle
       </span>

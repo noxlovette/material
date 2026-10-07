@@ -16,11 +16,11 @@ import * as SheetStories from './SideSheet.stories.svelte';
 
 ## Modal or standard
 
-- **`modal`** (default) opens at the window's end edge above a scrim, and blocks the app until
+- **`modal`** (default) opens at the window's right edge (`side="left"` for the left) above a scrim, and blocks the app until
   it's closed with its close button, Escape, or a scrim tap. Use it on compact and medium windows,
   or when the content needs full attention. It is a native `<dialog>` opened with `showModal()`,
   so the browser handles the focus trap, top-layer stacking and making the page behind it inert.
-- **`standard`** is part of the layout. Make it the last child of a full-height row. It opens by
+- **`standard`** is part of the layout. Make it the last child of a full-height row (the first, with `side="left"`). It opens by
   widening, so the content beside it reflows instead of being covered, and everything stays
   usable. Use it on expanded windows, for filters or details that people use alongside the main
   content.
@@ -68,4 +68,4 @@ beside it reflows as it slides.
 
 ## Not yet supported
 
-Right-to-left layouts: the modal sheet sits at the end edge, but always slides in from the right.
+Right-to-left layouts: `side` is physical (`left`/`right`) and doesn't flip with text direction.

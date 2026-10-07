@@ -2,9 +2,9 @@
 @component
 Side sheets show secondary content anchored to the side of the screen.
 
-- **Modal** (default): a native `<dialog>` at the window's end edge above a scrim. It closes on
+- **Modal** (default): a native `<dialog>` at the window's right edge (`side`) above a scrim. It closes on
   its close button, Esc, or a scrim tap, and stays mounted until its exit animation finishes.
-- **Standard**: part of the layout. Put it last in a full-height row; it opens by widening, so
+- **Standard**: part of the layout. Put it last in a full-height row (first, for `side="left"`); it opens by widening, so
   the content beside it reflows, and nothing else is blocked.
 
 Visibility is controlled with `bind:open`.
@@ -30,6 +30,7 @@ Visibility is controlled with `bind:open`.
     children,
     actions,
     variant = 'modal',
+    side = 'right',
     open = $bindable(true),
     width = 256,
     detached = false,
@@ -41,7 +42,7 @@ Visibility is controlled with `bind:open`.
 
   const id = $props.id();
   const sheet = new Presence(() => open && variant === 'modal');
-  const cls = $derived(sideSheet({ variant, detached, divider, back: !!onback }));
+  const cls = $derived(sideSheet({ variant, side, detached, divider, back: !!onback }));
   const sheetWidth = $derived(Math.min(width, MAX_WIDTH));
   // A detached standard sheet takes its 16dp margins with it.
   const slotWidth = $derived(open ? sheetWidth + (detached ? 32 : 0) : 0);
@@ -106,7 +107,7 @@ Visibility is controlled with `bind:open`.
       aria-labelledby="{id}-headline"
       data-state={open ? 'open' : 'closed'}
       {@attach showModal}
-      {@attach sheet.attach(enterExit.sideSheet)}
+      {@attach sheet.attach(side === 'left' ? enterExit.sideSheetLeft : enterExit.sideSheet)}
       oncancel={(e) => {
         e.preventDefault();
         dismiss();

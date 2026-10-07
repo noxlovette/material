@@ -38,6 +38,7 @@ trigger row (`iconProps`/`helper`/`children` label) behaves like a
   let {
     iconProps,
     disabled = false,
+    disableClipping = false,
     helper,
     children,
     submenu,
@@ -46,7 +47,7 @@ trigger row (`iconProps`/`helper`/`children` label) behaves like a
     submenuClass
   }: MenuSubProps = $props();
 
-  const cls = $derived(menuCls());
+  const cls = $derived(menuCls({ disableClipping }));
 </script>
 
 <DropdownMenu.Sub bind:open>

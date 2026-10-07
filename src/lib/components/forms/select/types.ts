@@ -28,6 +28,11 @@ export type SelectOption =
 export type SelectProps = SelectVariants &
   WithoutChildren<Select.RootProps> & {
     /**
+     * Allows the selected value and option labels to wrap instead of clipping.
+     * @default false
+     */
+    disableClipping?: boolean;
+    /**
      * Whether the select is open
      */
     open?: boolean;

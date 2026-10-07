@@ -19,14 +19,16 @@
       size: { control: 'inline-radio', options: ['small', 'medium', 'large'] },
       align: { control: 'inline-radio', options: ['start', 'center'] },
       showBack: { control: 'boolean' },
-      ghost: { control: 'boolean' }
+      ghost: { control: 'boolean' },
+      collapse: { control: 'boolean' }
     },
     args: {
       title: 'Inbox',
       size: 'small',
       align: 'start',
       showBack: false,
-      ghost: true
+      ghost: true,
+      collapse: false
     }
   });
 </script>
@@ -40,6 +42,13 @@
   let searched = $state('');
   const found = $derived(products.filter((p) => p.toLowerCase().includes(query.toLowerCase())));
 </script>
+
+<Story name="Collapse on scroll" args={{ size: 'large', subtitle: 'Scroll down' }}>
+  {#snippet template(args)}
+    <AppBar {...args} collapse />
+    <div style="height: 200vh"></div>
+  {/snippet}
+</Story>
 
 <Story name="Playground">
   {#snippet template(args)}

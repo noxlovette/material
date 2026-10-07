@@ -149,6 +149,11 @@ export type DraggablePaneProps = DraggablePaneVariants &
     header?: Snippet;
     /** Title shown in the default header. Ignored when `header` is given. */
     title?: string;
+    /**
+     * Allows the header title and minimized label to wrap instead of clipping to one line.
+     * @default false
+     */
+    disableClipping?: boolean;
     /** Shows a close button in the default header when given; called on click. */
     onClose?: () => void;
     /**

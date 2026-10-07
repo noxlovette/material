@@ -33,6 +33,7 @@ indicator that fills in when checked.
     checked = $bindable(false),
     onCheckedChange,
     disabled = false,
+    disableClipping = false,
     closeOnSelect = true,
     helper,
     children,
@@ -42,7 +43,7 @@ indicator that fills in when checked.
 
 <DropdownMenu.CheckboxItem bind:checked {onCheckedChange} {disabled} {closeOnSelect}>
   {#snippet child({ props, checked })}
-    {@const cls = menuCls({ checked })}
+    {@const cls = menuCls({ checked, disableClipping })}
     <div {...props} class={cls.item({ class: className })}>
       <Icon name={checked ? 'check_box' : 'check_box_outline_blank'} class={cls.indicator()} />
       <div class={cls.itemContent()}>

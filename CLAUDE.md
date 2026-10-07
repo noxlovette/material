@@ -77,8 +77,9 @@ Any prop whose right value depends on the window size takes `Responsive<T>`
   changes structure, use one markup and move elements with grid/flex classes per breakpoint
   (`AppBar` puts its title in a grid cell or a full-width row), not `{#if}` branches.
 - **Each tier restates every property it changes.** `md:` classes only override what they name.
-  So if the small tier sets `pt-0 line-clamp-1`, the medium tier must set its own `md:pt-*`
-  and `md:line-clamp-*`. Otherwise small's values leak upward.
+  So if the small tier sets `pt-0 overflow-hidden whitespace-nowrap`, the medium tier must set
+  its own `md:pt-*`, `md:overflow-visible` and `md:whitespace-normal` when text should wrap.
+  Otherwise small's values leak upward.
 - **Missing tiers inherit upward.** A value given at a lower tier carries to the larger tiers
   until another tier overrides it, as with Tailwind prefixes.
 

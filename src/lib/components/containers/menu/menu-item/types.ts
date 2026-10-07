@@ -16,6 +16,12 @@ export interface MenuItemProps {
    */
   disabled?: boolean;
   /**
+   * Shows the full label and helper text with wrapping instead of hard clipping.
+   * Allows the row to grow beyond its minimum height.
+   * @default false
+   */
+  disableClipping?: boolean;
+  /**
    * Callback function for the click event.
    */
   onclick?: () => void;

@@ -61,6 +61,7 @@ the pane itself stays `position: fixed` and doesn't move with either.
     maxWidth,
     maxHeight,
     disableDrag = false,
+    disableClipping = false,
     collapsible = false,
     collapsed = $bindable(false),
     minimizedTitle,
@@ -92,7 +93,9 @@ the pane itself stays `position: fixed` and doesn't move with either.
   const active = $derived(dragging || resizeDir !== null);
 
   const { base, headerBar, grip, headline, actions, content, miniBase, miniIcon, miniLabel } =
-    $derived(draggablePane({ dragging: active, disableDrag, corner: minimizedCorner }));
+    $derived(
+      draggablePane({ dragging: active, disableDrag, disableClipping, corner: minimizedCorner })
+    );
 
   // Once resizable, min-width/min-height move from the base slot's static
   // `min-w-72` class to inline styles driven by the minWidth/minHeight props

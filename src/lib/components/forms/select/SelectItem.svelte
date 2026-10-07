@@ -10,17 +10,23 @@
     value,
     label,
     disabled = false,
+    disableClipping = false,
     class: className,
     children
   }: {
     value: string;
     label?: string;
     disabled?: boolean;
+    /**
+     * Allows the default option label to wrap instead of clipping.
+     * @default false
+     */
+    disableClipping?: boolean;
     class?: string;
     children?: Snippet<[{ selected: boolean; highlighted: boolean }]>;
   } = $props();
 
-  const cls = selectCls();
+  const cls = $derived(selectCls({ disableClipping }));
 </script>
 
 <Select.Item {value} label={label ?? value} {disabled} class={cls.item({ class: className })}>
@@ -28,7 +34,7 @@
     {#if children}
       {@render children({ selected, highlighted })}
     {:else}
-      <span class="flex-1 truncate">{label ?? value}</span>
+      <span class={cls.itemLabel()}>{label ?? value}</span>
       {#if selected}
         <Icon name="check" class="size-spacing-250 shrink-0" />
       {/if}

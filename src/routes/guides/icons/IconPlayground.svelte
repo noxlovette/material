@@ -189,7 +189,11 @@
         class="gap-spacing-100 flex flex-col items-center text-center"
       >
         <Icon name={n} {...props} />
-        <Label size="small" class="text-md-sys-color-on-surface-variant w-full truncate">{n}</Label>
+        <Label
+          size="small"
+          class="text-md-sys-color-on-surface-variant w-full overflow-hidden text-clip whitespace-nowrap"
+          >{n}</Label
+        >
       </Card>
     {/each}
   </div>

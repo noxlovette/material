@@ -8,11 +8,17 @@ import type { SearchLayout, SearchResultsProps } from '../../forms/search/types.
 import type { AppBarSize, AppbarVariants } from './theme.js';
 
 type AppBarBaseProps = Pick<AppbarVariants, 'align'> &
-  HTMLAttributes<HTMLElementTagNameMap['nav']> & {
+  Omit<HTMLAttributes<HTMLElementTagNameMap['nav']>, 'title'> & {
     /** Extra content rendered in a full-width row below the title, e.g. a Breadcrumb trail. */
     children?: Snippet;
     /** An optional subtitle displayed below the title. */
     subtitle?: string;
+    /**
+     * Allows the small bar's title and subtitle to wrap instead of clipping to one line.
+     * Medium and large bars always wrap.
+     * @default false
+     */
+    disableClipping?: boolean;
     /** Additional props for the title `<h1>` element (e.g. `data-cy`). */
     titleProps?: HTMLAttributes<HTMLHeadingElement>;
     /** Additional props for the subtitle `<p>` element (e.g. `data-cy`). */
@@ -32,14 +38,20 @@ type AppBarBaseProps = Pick<AppbarVariants, 'align'> &
     scrollContainer?: HTMLElement | null;
     /** Renders an invisible same-height spacer after the fixed bar so page content isn't obscured. */
     ghost?: boolean;
+    /**
+     * Snaps the bar to the small bar (subtitle hidden) once scrolled down, at every breakpoint,
+     * and back when scrolled to the top. Follows `scrollContainer`. Has no effect on search bars.
+     * @default false
+     */
+    collapse?: boolean;
     /** Additional classes passed onto the row element */
     rowClass?: string;
   };
 
 /** A titled app bar: small, or the Expressive medium/large flexible bars. */
 export type TitleAppBarProps = AppBarBaseProps & {
-  /** The main title of the app bar. */
-  title: string;
+  /** The main title of the app bar: text, or a snippet for rich content. Rendered inside the `<h1>`. */
+  title: string | Snippet;
   /**
    * `small` (64dp, one line), `medium` or `large` (flexible, wrapping headline). Pass one per
    * breakpoint to adapt to the window, e.g. `{ small: 'small', large: 'large' }`; tiers you
@@ -63,8 +75,8 @@ export type SearchAppBarProps = AppBarBaseProps & {
   search: string;
   /** The search query. */
   query?: string;
-  /** Screen title; rendered for assistive tech only. */
-  title?: string;
+  /** Screen title (text or snippet); rendered for assistive tech only. */
+  title?: string | Snippet;
   /** Props for the search `<input>`, e.g. `onfocus` to open a search view. */
   searchProps?: HTMLInputAttributes;
   /** An action inside the search field, e.g. a mic icon button. Also shown in the search view. */

@@ -18,10 +18,11 @@
     argTypes: {
       headline: { control: 'text' },
       width: { control: { type: 'range', min: 256, max: 400, step: 8 } },
+      side: { control: 'inline-radio', options: ['right', 'left'] },
       detached: { control: 'boolean' },
       divider: { control: 'boolean' }
     },
-    args: { headline: 'Filters', width: 256, detached: false, divider: true }
+    args: { headline: 'Filters', width: 256, side: 'right', detached: false, divider: true }
   });
 
   const filters = ['In stock', 'Free delivery', 'On sale', 'Recycled materials', 'Local sellers'];
@@ -55,6 +56,7 @@
       <SideSheet
         headline={args.headline}
         width={args.width}
+        side={args.side}
         detached={args.detached}
         divider={args.divider}
         bind:open={playgroundOpen}

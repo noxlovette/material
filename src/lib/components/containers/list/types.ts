@@ -47,6 +47,12 @@ export type ListitemProps = {
   /** Disables the item: 38% content, no interaction. */
   disabled?: boolean;
   /**
+   * Shows all overline, headline and supporting text with wrapping instead of hard clipping.
+   * Removes the supporting text's two-line height limit.
+   * @default false
+   */
+  disableClipping?: boolean;
+  /**
    * Optional overline text displayed above the headline.
    */
   overline?: string | null;

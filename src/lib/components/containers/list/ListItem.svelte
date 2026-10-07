@@ -21,6 +21,7 @@
     badge,
     selected,
     disabled = false,
+    disableClipping = false,
     children,
     expanded = $bindable(false),
     class: className,
@@ -52,6 +53,7 @@
       lines,
       selected: !!selected,
       disabled,
+      disableClipping,
       interactive,
       variant: ctx?.variant ?? 'standard',
       expanded: expandable ? expanded : undefined

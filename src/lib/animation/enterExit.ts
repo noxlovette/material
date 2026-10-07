@@ -56,7 +56,14 @@ const exit: AnimationOptions = {
 /* bits-ui sets this on every floating wrapper: the side of the content facing its anchor. */
 const ANCHOR_ORIGIN = 'var(--bits-floating-transform-origin, center)';
 
-export type EnterExitPreset = 'fade' | 'scale' | 'slideUp' | 'dialog' | 'sideSheet' | 'bottomSheet';
+export type EnterExitPreset =
+  | 'fade'
+  | 'scale'
+  | 'slideUp'
+  | 'dialog'
+  | 'sideSheet'
+  | 'sideSheetLeft'
+  | 'bottomSheet';
 
 export const enterExit: Record<EnterExitPreset, PresenceTransition> = {
   /** Opacity only — scrims, overlays, content swapped in place. */
@@ -97,11 +104,18 @@ export const enterExit: Record<EnterExitPreset, PresenceTransition> = {
     exit
   },
   /**
-   * Side sheet anchored to the inline-end edge. Slides only: no opacity (M3: don't fade sheets).
+   * Side sheet anchored to the right edge. Slides only: no opacity (M3: don't fade sheets).
    * The extra 1rem clears a detached sheet's 16dp margin, so no sliver is left at the edge.
    */
   sideSheet: {
     hidden: { transform: 'translateX(calc(100% + 1rem))' },
+    shown: { transform: 'translateX(0%)' },
+    enter: springTransition(springTokens.spatial),
+    exit: springTransition(springTokens.effects)
+  },
+  /** Side sheet anchored to the left edge: `sideSheet` mirrored. */
+  sideSheetLeft: {
+    hidden: { transform: 'translateX(calc(-100% - 1rem))' },
     shown: { transform: 'translateX(0%)' },
     enter: springTransition(springTokens.spatial),
     exit: springTransition(springTokens.effects)
