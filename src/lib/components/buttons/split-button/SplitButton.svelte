@@ -103,7 +103,7 @@ only opens a menu, use `Menu`; for selectable options, `ConnectedButtonGroup`.
             <!-- Menu's own panel, so MenuItem rows look the same here. -->
             <div
               {...props}
-              class={menu().content()}
+              class={menu().content({ class: props.class as string | undefined })}
               {@attach presence(() => isOpen, enterExit.scale)}
             >
               {@render menuChildren()}
