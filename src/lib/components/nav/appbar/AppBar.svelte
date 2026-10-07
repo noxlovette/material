@@ -8,6 +8,7 @@ They’re used for branding, screen titles, navigation, and actions.
 Sizes: `small` (64dp, one line) and the Expressive `medium`/`large` flexible bars, whose
 headline block wraps and grows. `size` also takes one value per breakpoint
 (`{ small: 'small', large: 'large' }`), switched in CSS so server rendering needs no JS.
+`title` is a string, or a snippet for rich content (rendered inside the `<h1>`).
 `align="center"` centres the title. Setting `search` makes it a search app bar; add
 `searchResults` and selecting the field opens the search view, as with `Search`.
 
@@ -15,7 +16,8 @@ The bar takes its on-scroll color once `scrollContainer` (default: the page) scr
 
 With `collapse`, a medium/large bar snaps to the small bar (at every breakpoint, subtitle
 hidden) once scrolled past 48px, and expands again only below 8px. The gap keeps the
-height change from flipping the state back and forth.
+height change from flipping the state back and forth. If the bar has `children`, the collapsed
+bar shows them in place of the title (the title stays for assistive tech only).
 
 Publishes its measured height as `--appbar-height` on the document root, so any
 `Pane`/`PaneGrid` on the page (`full`, the default) shrinks its `min-height` by
@@ -164,6 +166,8 @@ A `ButtonIcon` anywhere inside it defaults to `variant="standard"`, per M3; pass
   );
   // Search app bars are always the small, 64dp bar.
   const showSubtitle = $derived(!!subtitle && !compact);
+  // Collapsed with a children row: the row takes the title's place. Without one, the title stays.
+  const childrenInTitle = $derived(compact && !!children && !isSearch);
   const sized = $derived(
     appbarSize(isSearch || compact ? 'small' : size, showSubtitle, disableClipping)
   );
@@ -175,6 +179,14 @@ A `ButtonIcon` anywhere inside it defaults to `variant="standard"`, per M3; pass
 </script>
 
 <svelte:window bind:scrollY onkeydown={onShortcut} />
+
+{#snippet titleContent()}
+  {#if typeof title === 'function'}
+    {@render title()}
+  {:else}
+    {title}
+  {/if}
+{/snippet}
 
 <nav {...rest} class={s.base({ class: clsx(className) })} bind:contentRect={barRect}>
   <div class={s.row({ class: clsx(sized.row, rowClass) })}>
@@ -193,7 +205,9 @@ A `ButtonIcon` anywhere inside it defaults to `variant="standard"`, per M3; pass
     <div class={s.textContainer({ class: sized.textContainer })}>
       {#if isSearch}
         {#if title}
-          <h1 {...titleProps} class={clsx('sr-only', titleProps?.class)}>{title}</h1>
+          <h1 {...titleProps} class={clsx('sr-only', titleProps?.class)}>
+            {@render titleContent()}
+          </h1>
         {/if}
         <label class={s.search()} bind:this={searchBar}>
           <input
@@ -212,9 +226,19 @@ A `ButtonIcon` anywhere inside it defaults to `variant="standard"`, per M3; pass
           {/if}
         </label>
       {:else}
-        <h1 {...titleProps} class={s.title({ class: clsx(sized.title, titleProps?.class) })}>
-          {title}
+        <h1
+          {...titleProps}
+          class={childrenInTitle
+            ? clsx('sr-only', titleProps?.class)
+            : s.title({ class: clsx(sized.title, titleProps?.class) })}
+        >
+          {@render titleContent()}
         </h1>
+        {#if childrenInTitle}
+          <div class="min-w-spacing-0 w-full">
+            {@render children?.()}
+          </div>
+        {/if}
         {#if showSubtitle}
           <p
             {...subtitleProps}
@@ -229,7 +253,7 @@ A `ButtonIcon` anywhere inside it defaults to `variant="standard"`, per M3; pass
       {@render trailing?.()}
     </div>
   </div>
-  {#if children}
+  {#if children && !childrenInTitle}
     <div class={s.childrenRow()}>
       {@render children()}
     </div>

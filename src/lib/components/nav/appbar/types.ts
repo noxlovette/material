@@ -8,7 +8,7 @@ import type { SearchLayout, SearchResultsProps } from '../../forms/search/types.
 import type { AppBarSize, AppbarVariants } from './theme.js';
 
 type AppBarBaseProps = Pick<AppbarVariants, 'align'> &
-  HTMLAttributes<HTMLElementTagNameMap['nav']> & {
+  Omit<HTMLAttributes<HTMLElementTagNameMap['nav']>, 'title'> & {
     /** Extra content rendered in a full-width row below the title, e.g. a Breadcrumb trail. */
     children?: Snippet;
     /** An optional subtitle displayed below the title. */
@@ -50,8 +50,8 @@ type AppBarBaseProps = Pick<AppbarVariants, 'align'> &
 
 /** A titled app bar: small, or the Expressive medium/large flexible bars. */
 export type TitleAppBarProps = AppBarBaseProps & {
-  /** The main title of the app bar. */
-  title: string;
+  /** The main title of the app bar: text, or a snippet for rich content. Rendered inside the `<h1>`. */
+  title: string | Snippet;
   /**
    * `small` (64dp, one line), `medium` or `large` (flexible, wrapping headline). Pass one per
    * breakpoint to adapt to the window, e.g. `{ small: 'small', large: 'large' }`; tiers you
@@ -75,8 +75,8 @@ export type SearchAppBarProps = AppBarBaseProps & {
   search: string;
   /** The search query. */
   query?: string;
-  /** Screen title; rendered for assistive tech only. */
-  title?: string;
+  /** Screen title (text or snippet); rendered for assistive tech only. */
+  title?: string | Snippet;
   /** Props for the search `<input>`, e.g. `onfocus` to open a search view. */
   searchProps?: HTMLInputAttributes;
   /** An action inside the search field, e.g. a mic icon button. Also shown in the search view. */

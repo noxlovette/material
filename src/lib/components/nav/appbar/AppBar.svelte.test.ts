@@ -1,7 +1,8 @@
 // @vitest-environment jsdom
-import { flushSync, mount, unmount } from 'svelte';
+import { createRawSnippet, flushSync, mount, unmount } from 'svelte';
 import { describe, expect, it } from 'vitest';
 
+import CollapseFixture from './appbar.collapse.fixture.test.svelte';
 import Fixture from './appbar.fixture.test.svelte';
 import AppBar from './AppBar.svelte';
 
@@ -88,5 +89,40 @@ describe('AppBar collapse', () => {
     scrollTo(100);
     expect(title().className).toContain('display-small');
     unmount(app);
+  });
+});
+
+describe('AppBar collapse with a children row', () => {
+  it('shows the children in place of the title only while collapsed', () => {
+    Object.defineProperty(window, 'scrollY', { value: 0, configurable: true });
+    const app = mount(CollapseFixture, { target: document.body });
+    flushSync();
+    const crumbs = () => document.querySelector('[data-testid="crumbs"]')!;
+    const title = () => document.querySelector('nav h1')!;
+    expect(title().className).not.toContain('sr-only');
+    expect(crumbs().parentElement!.className).toContain('pb-spacing-100'); // the row below
+
+    Object.defineProperty(window, 'scrollY', { value: 60, configurable: true });
+    window.dispatchEvent(new Event('scroll'));
+    flushSync();
+    expect(title().className).toContain('sr-only');
+    expect(document.querySelectorAll('[data-testid="crumbs"]')).toHaveLength(1);
+    expect(crumbs().parentElement!.className).not.toContain('pb-spacing-100');
+    unmount(app);
+    Object.defineProperty(window, 'scrollY', { value: 0, configurable: true });
+  });
+});
+
+describe('AppBar title', () => {
+  it('renders a string or a snippet inside the h1', () => {
+    const rich = createRawSnippet(() => ({ render: () => '<em data-testid="rich">Rich</em>' }));
+    const app = mount(AppBar, { target: document.body, props: { title: rich } });
+    flushSync();
+    expect(document.querySelector('nav h1 [data-testid="rich"]')).not.toBeNull();
+    unmount(app);
+    const plain = mount(AppBar, { target: document.body, props: { title: 'Plain' } });
+    flushSync();
+    expect(document.querySelector('nav h1')!.textContent!.trim()).toBe('Plain');
+    unmount(plain);
   });
 });
