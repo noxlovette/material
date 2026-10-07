@@ -11,10 +11,14 @@ const LAYERS = ['bar', 'rail', 'sheet', 'fab', 'pane', 'modal', 'snackbar', 'pop
  * - `z-layer-*` sets z-index, so a consumer's `class="z-40"` replaces a component's layer.
  * - `*-spacing-<N>` (styles/spacing.css) is a spacing value, so `size-[18px]` or `p-4` replaces
  *   `size-spacing-250` or `p-spacing-200` instead of both classes shipping and CSS order deciding.
+ * - `text-icon-<N>` (styles/icon.css) is a font size, not a text color.
  */
 const twMergeConfig = {
   extend: {
-    theme: { spacing: [(value: string) => /^spacing-\d+$/.test(value)] },
+    theme: {
+      spacing: [(value: string) => /^spacing-\d+$/.test(value)],
+      text: [(value: string) => /^icon-\d+$/.test(value)]
+    },
     classGroups: { z: [{ 'z-layer': LAYERS }] }
   }
 };

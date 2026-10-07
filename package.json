@@ -1,6 +1,6 @@
 {
   "name": "@noxlovette/material",
-  "version": "0.10.5",
+  "version": "0.10.6",
   "description": "A Material Design 3 component library for Svelte, built on Bits UI.",
   "keywords": [
     "bits-ui",
