@@ -23,6 +23,12 @@ export interface SideSheetProps {
    */
   variant?: 'modal' | 'standard';
   /**
+   * The window edge the sheet sits on. For a `standard` sheet, put it last in the row on the
+   * right, and first on the left.
+   * @default 'right'
+   */
+  side?: 'left' | 'right';
+  /**
    * Whether the sheet is shown. Bind it (`bind:open`) so the sheet can close itself and play
    * its exit animation.
    * @default true
