@@ -14,7 +14,7 @@ headline block wraps and grows. `size` also takes one value per breakpoint
 
 The bar takes its on-scroll color once `scrollContainer` (default: the page) scrolls.
 
-With `collapse`, a medium/large bar snaps to the small bar (at every breakpoint, subtitle
+With `collapse`, a medium/large bar fades through to the small bar (at every breakpoint, subtitle
 hidden) once scrolled past 48px, and expands again only below 8px. The gap keeps the
 height change from flipping the state back and forth. If the bar has `children`, the collapsed
 bar shows them in place of the title (the title stays for assistive tech only).
@@ -31,7 +31,11 @@ A `ButtonIcon` anywhere inside it defaults to `variant="standard"`, per M3; pass
 -->
 <script lang="ts">
   import clsx from 'clsx';
+  import { animate } from 'motion';
+  import { tick, untrack } from 'svelte';
 
+  import { prefersReducedMotion } from '#lib/animation/reducedMotion.js';
+  import { springTokens, springTransition } from '#lib/animation/spring.js';
   import { ariaKeyShortcut, isApplePlatform, triggersShortcut } from '#lib/utils/index.js';
 
   import ButtonIcon from '../../buttons/ButtonIcon.svelte';
@@ -88,7 +92,48 @@ A `ButtonIcon` anywhere inside it defaults to `variant="standard"`, per M3; pass
     else if (y < 8) compact = false;
   });
   let barRect = $state<DOMRectReadOnly>();
-  const barHeight = $derived(barRect?.height ?? 64);
+  let navEl = $state<HTMLElement>();
+
+  // `compact` is where the bar is going; `layoutCompact` is what's rendered. They differ only
+  // while the title block fades out (old layout), swaps, and fades back in (new layout), so the
+  // layout change happens while the text is invisible (M3 fade through).
+  let layoutCompact = $state(false);
+  let textEl = $state<HTMLElement>();
+  let childrenEl = $state<HTMLElement>();
+  let fading = false;
+  const fade = springTransition(springTokens.fastEffects);
+  const fadeTargets = () => [textEl, childrenEl].filter((el): el is HTMLElement => !!el);
+
+  $effect(() => {
+    const target = compact;
+    return untrack(() => {
+      if (target === layoutCompact) {
+        // Reversed mid-fade before the swap: bring the old layout back.
+        if (fading) animate(fadeTargets(), { opacity: 1 }, fade);
+        fading = false;
+        return;
+      }
+      const els = fadeTargets();
+      if (prefersReducedMotion() || !els.length) {
+        layoutCompact = target;
+        return;
+      }
+      let cancelled = false;
+      fading = true;
+      animate(els, { opacity: 0 }, fade).then(async () => {
+        if (cancelled) return;
+        layoutCompact = target;
+        await tick();
+        if (cancelled) return;
+        animate(fadeTargets(), { opacity: [0, 1] }, fade).then(() => (fading = false));
+      });
+      return () => (cancelled = true);
+    });
+  });
+
+  // Before the first measurement, read the bar directly rather than guessing 64dp, so a tall bar
+  // doesn't publish a short height for a frame.
+  const barHeight = $derived(barRect?.height ?? navEl?.offsetHeight ?? 0);
 
   // Window scrolling is bound below; a custom container still owns its scroll events.
   $effect(() => {
@@ -165,11 +210,11 @@ A `ButtonIcon` anywhere inside it defaults to `variant="standard"`, per M3; pass
     })
   );
   // Search app bars are always the small, 64dp bar.
-  const showSubtitle = $derived(!!subtitle && !compact);
+  const showSubtitle = $derived(!!subtitle && !layoutCompact);
   // Collapsed with a children row: the row takes the title's place. Without one, the title stays.
-  const childrenInTitle = $derived(compact && !!children && !isSearch);
+  const childrenInTitle = $derived(layoutCompact && !!children && !isSearch);
   const sized = $derived(
-    appbarSize(isSearch || compact ? 'small' : size, showSubtitle, disableClipping)
+    appbarSize(isSearch || layoutCompact ? 'small' : size, showSubtitle, disableClipping)
   );
 
   $effect(() => {
@@ -188,7 +233,12 @@ A `ButtonIcon` anywhere inside it defaults to `variant="standard"`, per M3; pass
   {/if}
 {/snippet}
 
-<nav {...rest} class={s.base({ class: clsx(className) })} bind:contentRect={barRect}>
+<nav
+  {...rest}
+  class={s.base({ class: clsx(className) })}
+  bind:this={navEl}
+  bind:contentRect={barRect}
+>
   <div class={s.row({ class: clsx(sized.row, rowClass) })}>
     <div class={s.leading()}>
       {#if leading}
@@ -202,7 +252,7 @@ A `ButtonIcon` anywhere inside it defaults to `variant="standard"`, per M3; pass
         />
       {/if}
     </div>
-    <div class={s.textContainer({ class: sized.textContainer })}>
+    <div class={s.textContainer({ class: sized.textContainer })} bind:this={textEl}>
       {#if isSearch}
         {#if title}
           <h1 {...titleProps} class={clsx('sr-only', titleProps?.class)}>
@@ -254,7 +304,7 @@ A `ButtonIcon` anywhere inside it defaults to `variant="standard"`, per M3; pass
     </div>
   </div>
   {#if children && !childrenInTitle}
-    <div class={s.childrenRow()}>
+    <div class={s.childrenRow()} bind:this={childrenEl}>
       {@render children()}
     </div>
   {/if}
@@ -274,5 +324,11 @@ A `ButtonIcon` anywhere inside it defaults to `variant="standard"`, per M3; pass
 {/if}
 
 {#if ghost}
-  <div class={s.ghost()} style="height: {barHeight}px" aria-hidden="true"></div>
+  <!-- Same size classes as the bar's row, so the reserved space is right from the first
+       server-rendered frame; the measured height takes over once known. -->
+  <div
+    class={s.ghost({ class: sized.row })}
+    style:height={barRect ? `${barRect.height}px` : undefined}
+    aria-hidden="true"
+  ></div>
 {/if}
